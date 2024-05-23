@@ -14,7 +14,7 @@ const formConfig: FormConfig<CreateContactsBody> = {
   surname: {
     key: 'surname',
     label: 'Surname',
-    Input: props => <Input {...props} />
+    input: props => <Input {...props} />
   }
 }
 

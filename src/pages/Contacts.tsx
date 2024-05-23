@@ -1,38 +1,67 @@
 import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, RuntimeConfigMap } from '@/components/ModelRuntimeConfig'
+import {
+  ColumnsList,
+  ModelConfig,
+  DisplayConfig
+} from '@/components/ModelRuntimeConfig'
 import Box from '@mui/joy/Box'
 import Typography from '@mui/joy/Typography'
 import Button from '@mui/joy/Button'
 import { Link as RouterLink, Outlet } from 'react-router-dom'
-import { ContactsBody, getContactsColumn, useContactsTable } from '@/tables/contacts'
+import {
+  ContactsBody,
+  getContactsColumn,
+  useContactsTable
+} from '@/tables/contacts'
 import { createRuntimeConfig } from '@/components/ModelRuntimeConfig'
 import Link from '@mui/joy/Link'
 
-const projectsTableConfig: RuntimeConfigMap<ContactsBody> = {
-  '@skmtc/tanstack-table': {
-    id: {
-      label: 'Id',
-      format: (value) => (
-        <Link component={RouterLink} to={`/deployments/${value}`}>
-          {value}
-        </Link>
-      )
-    },
-    surname: {
-      label: 'Surname',
-      format: (value) => value
-    }
+export const projectConfig: ModelConfig<ContactsBody> = {
+  id: {
+    key: 'id',
+    label: 'Id',
+    format: value => (
+      <Link component={RouterLink} to={`/deployments/${value}`}>
+        {value}
+      </Link>
+    ),
+    input: () => <Box>Not implemented</Box>
   }
 }
 
-const formatting = createRuntimeConfig(projectsTableConfig, '@skmtc/tanstack-table')
+const projectsConfig: DisplayConfig<ContactsBody> = {
+  id: {
+    key: 'id',
+    label: 'Id',
+    format: value => (
+      <Link component={RouterLink} to={`/deployments/${value}`}>
+        {value}
+      </Link>
+    )
+  },
+  surname: {
+    key: 'surname',
+    label: 'Surname',
+    format: value => value
+  }
+}
+
+const formatting = createRuntimeConfig(
+  {
+    type: 'display',
+    config: projectsConfig
+  },
+  projectConfig
+)
 
 export const Contacts = () => {
   const cols: (keyof ContactsBody)[] = ['id', 'surname']
 
-  const columns: ColumnsList<ContactsBody> = cols.map(col => getContactsColumn(col, formatting))
+  const columns: ColumnsList<ContactsBody> = cols.map(col =>
+    getContactsColumn(col, formatting)
+  )
 
-  const { table, dataQuery } = useContactsTable({columns})
+  const { table, dataQuery } = useContactsTable({ columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
