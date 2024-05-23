@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiResthooks, usePutApiResthooksId } from '@/services/resthooks.ts'
+import { useCreateResthook, useUpdateResthook } from '@/services/resthooks.ts'
 
 export const createResthooksBody = z.object({
   url: z.string(),
@@ -47,7 +47,7 @@ export const CreateResthooks = (props: CreateResthooksProps) => {
     resolver: zodResolver(createResthooksBody),
   })
 
-  const mutator = usePostApiResthooks()
+  const mutator = useCreateResthook()
 
   return (
     <Box
@@ -189,7 +189,7 @@ export const UpdateResthooksId = (props: UpdateResthooksIdProps) => {
     resolver: zodResolver(updateResthooksIdBody),
   })
 
-  const mutator = usePutApiResthooksId()
+  const mutator = useUpdateResthook()
 
   return (
     <Box

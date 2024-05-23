@@ -10,13 +10,13 @@ import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import {
-  usePostApiTenancies,
-  usePostApiTenanciesIdChecks,
-  usePostApiTenanciesIdBreakClauses,
-  usePostApiTenanciesIdAllowances,
-  usePostApiTenanciesIdResponsibilities,
-  usePostApiTenanciesIdRenewalNegotiations,
-  usePostApiTenanciesIdRenewalNegotiationsRenewalIdChecks,
+  useCreateTenancy,
+  useCreateTenancyCheck,
+  useCreateTenancyBreakClause,
+  useCreateTenancyAllowance,
+  useCreateTenancyResponsibility,
+  useCreateTenancyRenewalNegotiation,
+  useCreateTenancyRenewalNegotiationCheck,
 } from '@/services/tenancies.ts'
 
 export const createTenanciesBody = z.object({
@@ -264,7 +264,7 @@ export const CreateTenancies = (props: CreateTenanciesProps) => {
     resolver: zodResolver(createTenanciesBody),
   })
 
-  const mutator = usePostApiTenancies()
+  const mutator = useCreateTenancy()
 
   return (
     <Box
@@ -784,7 +784,7 @@ export const CreateTenanciesIdChecks = (props: CreateTenanciesIdChecksProps) => 
     resolver: zodResolver(createTenanciesIdChecksBody),
   })
 
-  const mutator = usePostApiTenanciesIdChecks()
+  const mutator = useCreateTenancyCheck()
 
   return (
     <Box
@@ -926,7 +926,7 @@ export const CreateTenanciesIdBreakClauses = (props: CreateTenanciesIdBreakClaus
     resolver: zodResolver(createTenanciesIdBreakClausesBody),
   })
 
-  const mutator = usePostApiTenanciesIdBreakClauses()
+  const mutator = useCreateTenancyBreakClause()
 
   return (
     <Box
@@ -1086,7 +1086,7 @@ export const CreateTenanciesIdAllowances = (props: CreateTenanciesIdAllowancesPr
     resolver: zodResolver(createTenanciesIdAllowancesBody),
   })
 
-  const mutator = usePostApiTenanciesIdAllowances()
+  const mutator = useCreateTenancyAllowance()
 
   return (
     <Box
@@ -1192,7 +1192,7 @@ export const CreateTenanciesIdResponsibilities = (props: CreateTenanciesIdRespon
     resolver: zodResolver(createTenanciesIdResponsibilitiesBody),
   })
 
-  const mutator = usePostApiTenanciesIdResponsibilities()
+  const mutator = useCreateTenancyResponsibility()
 
   return (
     <Box
@@ -1298,7 +1298,7 @@ export const CreateTenanciesIdRenewalNegotiations = (props: CreateTenanciesIdRen
     resolver: zodResolver(createTenanciesIdRenewalNegotiationsBody),
   })
 
-  const mutator = usePostApiTenanciesIdRenewalNegotiations()
+  const mutator = useCreateTenancyRenewalNegotiation()
 
   return (
     <Box
@@ -1478,7 +1478,7 @@ export const CreateTenanciesIdRenewalNegotiationsRenewalIdChecks = (
     resolver: zodResolver(createTenanciesIdRenewalNegotiationsRenewalIdChecksBody),
   })
 
-  const mutator = usePostApiTenanciesIdRenewalNegotiationsRenewalIdChecks()
+  const mutator = useCreateTenancyRenewalNegotiationCheck()
 
   return (
     <Box

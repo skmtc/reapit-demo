@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiTasks } from '@/services/tasks.ts'
+import { useCreateTask } from '@/services/tasks.ts'
 
 export const createTasksBody = z.object({
   activates: z.string().nullable().optional(),
@@ -48,7 +48,7 @@ export const CreateTasks = (props: CreateTasksProps) => {
     resolver: zodResolver(createTasksBody),
   })
 
-  const mutator = usePostApiTasks()
+  const mutator = useCreateTask()
 
   return (
     <Box

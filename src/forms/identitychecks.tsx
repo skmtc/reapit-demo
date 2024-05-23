@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiIdentityChecks, usePostApiIdentityChecksSignedUrl } from '@/services/identitychecks.ts'
+import { useCreateIdentityCheck, useCreateIdentityCheckSignedUrl } from '@/services/identitychecks.ts'
 
 export const createIdentityChecksBody = z.object({
   contactId: z.string(),
@@ -81,7 +81,7 @@ export const CreateIdentityChecks = (props: CreateIdentityChecksProps) => {
     resolver: zodResolver(createIdentityChecksBody),
   })
 
-  const mutator = usePostApiIdentityChecks()
+  const mutator = useCreateIdentityCheck()
 
   return (
     <Box
@@ -259,7 +259,7 @@ export const CreateIdentityChecksSignedUrl = (props: CreateIdentityChecksSignedU
     resolver: zodResolver(createIdentityChecksSignedUrlBody),
   })
 
-  const mutator = usePostApiIdentityChecksSignedUrl()
+  const mutator = useCreateIdentityCheckSignedUrl()
 
   return (
     <Box

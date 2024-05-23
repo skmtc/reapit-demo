@@ -10,9 +10,9 @@ import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import {
-  usePostApiPropertyImages,
-  usePostApiPropertyImagesSignedUrl,
-  usePostApiPropertyImagesReindex,
+  useCreatePropertyImage,
+  useCreatePropertyImageSignedUrl,
+  useReindexPropertyImages,
 } from '@/services/propertyimages.ts'
 
 export const createPropertyImagesBody = z.object({
@@ -52,7 +52,7 @@ export const CreatePropertyImages = (props: CreatePropertyImagesProps) => {
     resolver: zodResolver(createPropertyImagesBody),
   })
 
-  const mutator = usePostApiPropertyImages()
+  const mutator = useCreatePropertyImage()
 
   return (
     <Box
@@ -194,7 +194,7 @@ export const CreatePropertyImagesSignedUrl = (props: CreatePropertyImagesSignedU
     resolver: zodResolver(createPropertyImagesSignedUrlBody),
   })
 
-  const mutator = usePostApiPropertyImagesSignedUrl()
+  const mutator = useCreatePropertyImageSignedUrl()
 
   return (
     <Box
@@ -264,7 +264,7 @@ export const CreatePropertyImagesReindex = (props: CreatePropertyImagesReindexPr
     resolver: zodResolver(createPropertyImagesReindexBody),
   })
 
-  const mutator = usePostApiPropertyImagesReindex()
+  const mutator = useReindexPropertyImages()
 
   return (
     <Box

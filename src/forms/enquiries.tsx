@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiEnquiries } from '@/services/enquiries.ts'
+import { useCreateEnquiry } from '@/services/enquiries.ts'
 
 export const createEnquiriesBody = z.object({
   title: z.string(),
@@ -99,7 +99,7 @@ export const CreateEnquiries = (props: CreateEnquiriesProps) => {
     resolver: zodResolver(createEnquiriesBody),
   })
 
-  const mutator = usePostApiEnquiries()
+  const mutator = useCreateEnquiry()
 
   return (
     <Box

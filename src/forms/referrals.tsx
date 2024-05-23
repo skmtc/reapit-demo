@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiReferrals } from '@/services/referrals.ts'
+import { useCreateReferral } from '@/services/referrals.ts'
 
 export const createReferralsBody = z.object({
   referralTypeId: z.string(),
@@ -34,7 +34,7 @@ export const CreateReferrals = (props: CreateReferralsProps) => {
     resolver: zodResolver(createReferralsBody),
   })
 
-  const mutator = usePostApiReferrals()
+  const mutator = useCreateReferral()
 
   return (
     <Box

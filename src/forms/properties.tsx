@@ -10,13 +10,13 @@ import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import {
-  usePostApiProperties,
-  usePostApiPropertiesIdCertificates,
-  usePostApiPropertiesIdKeys,
-  usePostApiPropertiesIdKeysKeyIdMovements,
-  usePutApiPropertiesIdKeysKeyIdMovementsMovementId,
-  usePostApiPropertiesIdChecks,
-  usePostApiPropertiesIdAppraisals,
+  useCreateProperty,
+  useCreatePropertyCertificate,
+  useCreatePropertyKey,
+  useCreatePropertyKeyMovement,
+  useUpdatePropertyKeyMovement,
+  useCreatePropertyCheck,
+  useCreatePropertyAppraisal,
 } from '@/services/properties.ts'
 
 export const createPropertiesBody = z.object({
@@ -517,7 +517,7 @@ export const CreateProperties = (props: CreatePropertiesProps) => {
     resolver: zodResolver(createPropertiesBody),
   })
 
-  const mutator = usePostApiProperties()
+  const mutator = useCreateProperty()
 
   return (
     <Box
@@ -1667,7 +1667,7 @@ export const CreatePropertiesIdCertificates = (props: CreatePropertiesIdCertific
     resolver: zodResolver(createPropertiesIdCertificatesBody),
   })
 
-  const mutator = usePostApiPropertiesIdCertificates()
+  const mutator = useCreatePropertyCertificate()
 
   return (
     <Box
@@ -1845,7 +1845,7 @@ export const CreatePropertiesIdKeys = (props: CreatePropertiesIdKeysProps) => {
     resolver: zodResolver(createPropertiesIdKeysBody),
   })
 
-  const mutator = usePostApiPropertiesIdKeys()
+  const mutator = useCreatePropertyKey()
 
   return (
     <Box
@@ -1969,7 +1969,7 @@ export const CreatePropertiesIdKeysKeyIdMovements = (props: CreatePropertiesIdKe
     resolver: zodResolver(createPropertiesIdKeysKeyIdMovementsBody),
   })
 
-  const mutator = usePostApiPropertiesIdKeysKeyIdMovements()
+  const mutator = useCreatePropertyKeyMovement()
 
   return (
     <Box
@@ -2095,7 +2095,7 @@ export const UpdatePropertiesIdKeysKeyIdMovementsMovementId = (
     resolver: zodResolver(updatePropertiesIdKeysKeyIdMovementsMovementIdBody),
   })
 
-  const mutator = usePutApiPropertiesIdKeysKeyIdMovementsMovementId()
+  const mutator = useUpdatePropertyKeyMovement()
 
   return (
     <Box
@@ -2165,7 +2165,7 @@ export const CreatePropertiesIdChecks = (props: CreatePropertiesIdChecksProps) =
     resolver: zodResolver(createPropertiesIdChecksBody),
   })
 
-  const mutator = usePostApiPropertiesIdChecks()
+  const mutator = useCreatePropertyCheck()
 
   return (
     <Box
@@ -2271,7 +2271,7 @@ export const CreatePropertiesIdAppraisals = (props: CreatePropertiesIdAppraisals
     resolver: zodResolver(createPropertiesIdAppraisalsBody),
   })
 
-  const mutator = usePostApiPropertiesIdAppraisals()
+  const mutator = useCreatePropertyAppraisal()
 
   return (
     <Box

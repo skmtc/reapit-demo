@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiConveyancingIdDownward, usePostApiConveyancingIdUpward } from '@/services/conveyancing.ts'
+import { useCreateDownwardChain, useCreateUpwardChain } from '@/services/conveyancing.ts'
 
 export const createConveyancingIdDownwardBody = z.object({
   offerId: z.string().nullable().optional(),
@@ -53,7 +53,7 @@ export const CreateConveyancingIdDownward = (props: CreateConveyancingIdDownward
     resolver: zodResolver(createConveyancingIdDownwardBody),
   })
 
-  const mutator = usePostApiConveyancingIdDownward()
+  const mutator = useCreateDownwardChain()
 
   return (
     <Box
@@ -195,7 +195,7 @@ export const CreateConveyancingIdUpward = (props: CreateConveyancingIdUpwardProp
     resolver: zodResolver(createConveyancingIdUpwardBody),
   })
 
-  const mutator = usePostApiConveyancingIdUpward()
+  const mutator = useCreateUpwardChain()
 
   return (
     <Box

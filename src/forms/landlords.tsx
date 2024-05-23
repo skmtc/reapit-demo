@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiLandlords, usePostApiLandlordsIdRelationships } from '@/services/landlords.ts'
+import { useCreateLandlord, useCreateLandlordRelationship } from '@/services/landlords.ts'
 
 export const createLandlordsBody = z.object({
   active: z.boolean().nullable().optional(),
@@ -49,7 +49,7 @@ export const CreateLandlords = (props: CreateLandlordsProps) => {
     resolver: zodResolver(createLandlordsBody),
   })
 
-  const mutator = usePostApiLandlords()
+  const mutator = useCreateLandlord()
 
   return (
     <Box
@@ -209,7 +209,7 @@ export const CreateLandlordsIdRelationships = (props: CreateLandlordsIdRelations
     resolver: zodResolver(createLandlordsIdRelationshipsBody),
   })
 
-  const mutator = usePostApiLandlordsIdRelationships()
+  const mutator = useCreateLandlordRelationship()
 
   return (
     <Box

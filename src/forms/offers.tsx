@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiOffers } from '@/services/offers.ts'
+import { useCreateOffer } from '@/services/offers.ts'
 
 export const createOffersBody = z.object({
   applicantId: z.string(),
@@ -42,7 +42,7 @@ export const CreateOffers = (props: CreateOffersProps) => {
     resolver: zodResolver(createOffersBody),
   })
 
-  const mutator = usePostApiOffers()
+  const mutator = useCreateOffer()
 
   return (
     <Box

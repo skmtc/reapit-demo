@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiApplicants, usePostApiApplicantsIdRelationships } from '@/services/applicants.ts'
+import { useCreateApplicant, useCreateApplicantRelationship } from '@/services/applicants.ts'
 
 export const createApplicantsBody = z.object({
   marketingMode: z.string(),
@@ -187,7 +187,7 @@ export const CreateApplicants = (props: CreateApplicantsProps) => {
     resolver: zodResolver(createApplicantsBody),
   })
 
-  const mutator = usePostApiApplicants()
+  const mutator = useCreateApplicant()
 
   return (
     <Box
@@ -941,7 +941,7 @@ export const CreateApplicantsIdRelationships = (props: CreateApplicantsIdRelatio
     resolver: zodResolver(createApplicantsIdRelationshipsBody),
   })
 
-  const mutator = usePostApiApplicantsIdRelationships()
+  const mutator = useCreateApplicantRelationship()
 
   return (
     <Box

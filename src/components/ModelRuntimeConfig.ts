@@ -60,18 +60,34 @@ export const createRuntimeConfig = <Model extends Record<string, unknown>>(
   }
 })
 
-type StringOnly<T> = T extends string ? T : never
-
-type StringKeys<T> = StringOnly<keyof T>
-
-type TopKeys<T extends FieldValues> = Extract<FieldPath<T>, StringKeys<T>>
-
 export type KeysOf<T> = (keyof T)[]
 
-export type FormConfig<Model extends FieldValues> = {
-  [FormPath in TopKeys<Model>]: {
-    key: FormPath
-    label: string
-    Input: (props: ControllerRenderProps<Model, FormPath>) => ReactNode
-  }
+type OptionalKeys<T> = keyof {
+  [P in keyof T as T[P] extends Required<T>[P] ? never : P]: T[P]
 }
+
+type RequiredKeys<T> = keyof {
+  [P in keyof T as T[P] extends Required<T>[P] ? P : never]: T[P]
+}
+
+type ConfigValue<Model extends FieldValues, FormPath extends KeyPath<Model>> = {
+  key: FormPath
+  label: string
+  Input: (props: ControllerRenderProps<Model, FormPath>) => ReactNode
+}
+
+export type RestoreOptional<T, KeySource> = Partial<
+  Pick<T, OptionalKeys<KeySource>>
+> &
+  Pick<T, RequiredKeys<KeySource>>
+
+export type BasicConfig<Model extends FieldValues> = {
+  [FormPath in KeyPath<Model>]: ConfigValue<Model, FormPath>
+}
+
+export type FormConfig<Model extends FieldValues> = RestoreOptional<
+  BasicConfig<Model>,
+  Model
+>
+
+type KeyPath<T extends FieldValues> = Extract<FieldPath<T>, keyof T>

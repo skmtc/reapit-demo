@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiNegotiators } from '@/services/negotiators.ts'
+import { useCreateNegotiator } from '@/services/negotiators.ts'
 
 export const createNegotiatorsBody = z.object({
   name: z.string(),
@@ -42,7 +42,7 @@ export const CreateNegotiators = (props: CreateNegotiatorsProps) => {
     resolver: zodResolver(createNegotiatorsBody),
   })
 
-  const mutator = usePostApiNegotiators()
+  const mutator = useCreateNegotiator()
 
   return (
     <Box

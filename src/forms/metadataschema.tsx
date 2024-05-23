@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePutApiMetadataMetadataSchemaId, usePostApiMetadataMetadataSchema } from '@/services/metadataschema.ts'
+import { useUpdateMetadataSchema, useCreateMetadataSchema } from '@/services/metadataschema.ts'
 
 export const updateMetadataMetadataSchemaIdBody = z.object({ schema: z.string() })
 export type UpdateMetadataMetadataSchemaIdBody = { schema: string }
@@ -28,7 +28,7 @@ export const UpdateMetadataMetadataSchemaId = (props: UpdateMetadataMetadataSche
     resolver: zodResolver(updateMetadataMetadataSchemaIdBody),
   })
 
-  const mutator = usePutApiMetadataMetadataSchemaId()
+  const mutator = useUpdateMetadataSchema()
 
   return (
     <Box
@@ -98,7 +98,7 @@ export const CreateMetadataMetadataSchema = (props: CreateMetadataMetadataSchema
     resolver: zodResolver(createMetadataMetadataSchemaBody),
   })
 
-  const mutator = usePostApiMetadataMetadataSchema()
+  const mutator = useCreateMetadataSchema()
 
   return (
     <Box

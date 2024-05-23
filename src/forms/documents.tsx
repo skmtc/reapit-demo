@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiDocuments, usePostApiDocumentsSignedUrl } from '@/services/documents.ts'
+import { useCreateDocument, useCreateSignedUrl } from '@/services/documents.ts'
 
 export const createDocumentsBody = z.object({
   associatedType: z.string(),
@@ -41,7 +41,7 @@ export const CreateDocuments = (props: CreateDocumentsProps) => {
     resolver: zodResolver(createDocumentsBody),
   })
 
-  const mutator = usePostApiDocuments()
+  const mutator = useCreateDocument()
 
   return (
     <Box
@@ -237,7 +237,7 @@ export const CreateDocumentsSignedUrl = (props: CreateDocumentsSignedUrlProps) =
     resolver: zodResolver(createDocumentsSignedUrlBody),
   })
 
-  const mutator = usePostApiDocumentsSignedUrl()
+  const mutator = useCreateSignedUrl()
 
   return (
     <Box

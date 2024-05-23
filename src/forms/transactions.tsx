@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiTransactionsSupplierInvoices } from '@/services/transactions.ts'
+import { useCreateSupplierInvoice } from '@/services/transactions.ts'
 
 export const createTransactionsSupplierInvoicesBody = z.object({
   worksOrderId: z.string().nullable().optional(),
@@ -48,7 +48,7 @@ export const CreateTransactionsSupplierInvoices = (props: CreateTransactionsSupp
     resolver: zodResolver(createTransactionsSupplierInvoicesBody),
   })
 
-  const mutator = usePostApiTransactionsSupplierInvoices()
+  const mutator = useCreateSupplierInvoice()
 
   return (
     <Box

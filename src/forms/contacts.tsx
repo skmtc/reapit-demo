@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiContacts, usePutApiContactsIdSubscriptionsSubscriptionId } from '@/services/contacts.ts'
+import { useCreateContact, useUpdateContactSubscription } from '@/services/contacts.ts'
 
 export const createContactsBody = z.object({
   title: z.string().nullable().optional(),
@@ -154,7 +154,7 @@ export const CreateContacts = (props: CreateContactsProps) => {
     resolver: zodResolver(createContactsBody),
   })
 
-  const mutator = usePostApiContacts()
+  const mutator = useCreateContact()
 
   return (
     <Box
@@ -604,7 +604,7 @@ export const UpdateContactsIdSubscriptionsSubscriptionId = (
     resolver: zodResolver(updateContactsIdSubscriptionsSubscriptionIdBody),
   })
 
-  const mutator = usePutApiContactsIdSubscriptionsSubscriptionId()
+  const mutator = useUpdateContactSubscription()
 
   return (
     <Box

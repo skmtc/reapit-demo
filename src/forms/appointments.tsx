@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiAppointments, usePostApiAppointmentsIdOpenHouseAttendees } from '@/services/appointments.ts'
+import { useCreateAppointment, useCreateOpenHouseAttendee } from '@/services/appointments.ts'
 
 export const createAppointmentsBody = z.object({
   start: z.string(),
@@ -106,7 +106,7 @@ export const CreateAppointments = (props: CreateAppointmentsProps) => {
     resolver: zodResolver(createAppointmentsBody),
   })
 
-  const mutator = usePostApiAppointments()
+  const mutator = useCreateAppointment()
 
   return (
     <Box
@@ -536,7 +536,7 @@ export const CreateAppointmentsIdOpenHouseAttendees = (props: CreateAppointments
     resolver: zodResolver(createAppointmentsIdOpenHouseAttendeesBody),
   })
 
-  const mutator = usePostApiAppointmentsIdOpenHouseAttendees()
+  const mutator = useCreateOpenHouseAttendee()
 
   return (
     <Box

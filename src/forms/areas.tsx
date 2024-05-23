@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiAreas } from '@/services/areas.ts'
+import { useCreateArea } from '@/services/areas.ts'
 
 export const createAreasBody = z.object({
   name: z.string(),
@@ -34,7 +34,7 @@ export const CreateAreas = (props: CreateAreasProps) => {
     resolver: zodResolver(createAreasBody),
   })
 
-  const mutator = usePostApiAreas()
+  const mutator = useCreateArea()
 
   return (
     <Box

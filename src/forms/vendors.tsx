@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiVendorsIdRelationships } from '@/services/vendors.ts'
+import { useCreateVendorRelationship } from '@/services/vendors.ts'
 
 export const createVendorsIdRelationshipsBody = z.object({
   associatedId: z.string(),
@@ -27,7 +27,7 @@ export const CreateVendorsIdRelationships = (props: CreateVendorsIdRelationships
     resolver: zodResolver(createVendorsIdRelationshipsBody),
   })
 
-  const mutator = usePostApiVendorsIdRelationships()
+  const mutator = useCreateVendorRelationship()
 
   return (
     <Box

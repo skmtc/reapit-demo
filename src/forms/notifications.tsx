@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiNotifications } from '@/services/notifications.ts'
+import { useCreateNotification } from '@/services/notifications.ts'
 
 export const createNotificationsBody = z.object({
   type: z.string().nullable().optional(),
@@ -35,7 +35,7 @@ export const CreateNotifications = (props: CreateNotificationsProps) => {
     resolver: zodResolver(createNotificationsBody),
   })
 
-  const mutator = usePostApiNotifications()
+  const mutator = useCreateNotification()
 
   return (
     <Box

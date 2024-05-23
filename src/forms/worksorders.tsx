@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiWorksOrders, usePostApiWorksOrdersIdItems } from '@/services/worksorders.ts'
+import { useCreateWorksOrder, useCreateWorksOrderItem } from '@/services/worksorders.ts'
 
 export const createWorksOrdersBody = z.object({
   companyId: z.string().nullable().optional(),
@@ -90,7 +90,7 @@ export const CreateWorksOrders = (props: CreateWorksOrdersProps) => {
     resolver: zodResolver(createWorksOrdersBody),
   })
 
-  const mutator = usePostApiWorksOrders()
+  const mutator = useCreateWorksOrder()
 
   return (
     <Box
@@ -394,7 +394,7 @@ export const CreateWorksOrdersIdItems = (props: CreateWorksOrdersIdItemsProps) =
     resolver: zodResolver(createWorksOrdersIdItemsBody),
   })
 
-  const mutator = usePostApiWorksOrdersIdItems()
+  const mutator = useCreateWorksOrderItem()
 
   return (
     <Box

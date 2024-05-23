@@ -1,11 +1,5 @@
 import { z } from 'zod'
-import {
-  Controller,
-  FieldPath,
-  useForm,
-  Control,
-  FieldValues
-} from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -15,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiCompanies } from '@/services/companies.ts'
+import { useCreateCompany } from '@/services/companies.ts'
 
 export const createCompaniesBody = z.object({
   name: z.string(),
@@ -39,7 +33,7 @@ export const createCompaniesBody = z.object({
       line3: z.string().nullable().optional(),
       line4: z.string().nullable().optional(),
       postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional()
+      countryId: z.string().nullable().optional(),
     })
     .nullable()
     .optional(),
@@ -47,7 +41,7 @@ export const createCompaniesBody = z.object({
   communicationPreferenceEmail: z.boolean().nullable().optional(),
   communicationPreferencePhone: z.boolean().nullable().optional(),
   communicationPreferenceSms: z.boolean().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional()
+  metadata: z.record(z.string(), z.object({})).nullable().optional(),
 })
 export type CreateCompaniesBody = {
   name: string
@@ -81,16 +75,14 @@ export type CreateCompaniesBody = {
   communicationPreferenceSms?: boolean | undefined | null
   metadata?: Record<string, Record<string, never>> | undefined | null
 }
-export type CreateCompaniesProps = {
-  children: (control: Control<CreateCompaniesBody>) => ReactNode
-}
+export type CreateCompaniesProps = { children: (control: Control<CreateCompaniesBody>) => ReactNode }
 
 export const CreateCompanies = (props: CreateCompaniesProps) => {
   const { control, handleSubmit } = useForm<CreateCompaniesBody>({
-    resolver: zodResolver(createCompaniesBody)
+    resolver: zodResolver(createCompaniesBody),
   })
 
-  const mutator = usePostApiCompanies()
+  const mutator = useCreateCompany()
 
   return (
     <Box
@@ -99,7 +91,7 @@ export const CreateCompanies = (props: CreateCompaniesProps) => {
       flexDirection="column"
       flex={1}
       gap="16px"
-      onSubmit={handleSubmit(body => {
+      onSubmit={handleSubmit((body) => {
         mutator.mutate({ ...props, body })
       })}
     >
@@ -111,7 +103,7 @@ export const CreateCompanies = (props: CreateCompaniesProps) => {
           pt: '16px',
           position: 'sticky',
           bottom: 0,
-          bgColor: 'white'
+          bgColor: 'white',
         }}
       >
         <Button type="submit">Submit</Button>
@@ -123,13 +115,13 @@ export const CreateCompanies = (props: CreateCompaniesProps) => {
 type GetCreateCompaniesFieldArgs<Model extends FieldValues> = {
   fieldName: FieldPath<Model>
   control: Control<Model>
-  formConfig: FormConfig<CreateCompaniesBody>
+  formConfig: FormConfig<Model>
 }
 
 export const getCreateCompaniesField = ({
   fieldName,
   control,
-  formConfig
+  formConfig,
 }: GetCreateCompaniesFieldArgs<CreateCompaniesBody>) => {
   return match(fieldName)
     .with('name', () => {
@@ -144,9 +136,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -164,9 +154,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -184,9 +172,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -204,9 +190,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -224,9 +208,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -244,9 +226,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -264,9 +244,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -284,9 +262,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -304,9 +280,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -324,9 +298,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -344,9 +316,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -364,9 +334,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -384,9 +352,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -404,9 +370,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -424,9 +388,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -444,9 +406,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />
@@ -464,9 +424,7 @@ export const getCreateCompaniesField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? (
-                <FormHelperText>{fieldState.error?.message}</FormHelperText>
-              ) : null}
+              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
             </FormControl>
           )}
         />

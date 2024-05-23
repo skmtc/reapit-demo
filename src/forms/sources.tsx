@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiSources } from '@/services/sources.ts'
+import { useCreateSource } from '@/services/sources.ts'
 
 export const createSourcesBody = z.object({
   name: z.string(),
@@ -30,7 +30,7 @@ export const CreateSources = (props: CreateSourcesProps) => {
     resolver: zodResolver(createSourcesBody),
   })
 
-  const mutator = usePostApiSources()
+  const mutator = useCreateSource()
 
   return (
     <Box

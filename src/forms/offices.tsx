@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiOffices } from '@/services/offices.ts'
+import { useCreateOffice } from '@/services/offices.ts'
 
 export const createOfficesBody = z.object({
   name: z.string(),
@@ -59,7 +59,7 @@ export const CreateOffices = (props: CreateOfficesProps) => {
     resolver: zodResolver(createOfficesBody),
   })
 
-  const mutator = usePostApiOffices()
+  const mutator = useCreateOffice()
 
   return (
     <Box

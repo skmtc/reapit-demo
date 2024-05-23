@@ -9,7 +9,7 @@ import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { usePostApiJournalEntries, usePostApiJournalEntriesBulk } from '@/services/journalentries.ts'
+import { useCreateJournalEntry, useCreateBulkJournalEntry } from '@/services/journalentries.ts'
 
 export const createJournalEntriesBody = z.object({
   typeId: z.string().nullable().optional(),
@@ -63,7 +63,7 @@ export const CreateJournalEntries = (props: CreateJournalEntriesProps) => {
     resolver: zodResolver(createJournalEntriesBody),
   })
 
-  const mutator = usePostApiJournalEntries()
+  const mutator = useCreateJournalEntry()
 
   return (
     <Box
@@ -223,7 +223,7 @@ export const CreateJournalEntriesBulk = (props: CreateJournalEntriesBulkProps) =
     resolver: zodResolver(createJournalEntriesBulkBody),
   })
 
-  const mutator = usePostApiJournalEntriesBulk()
+  const mutator = useCreateBulkJournalEntry()
 
   return (
     <Box
