@@ -82,84 +82,84 @@ export const getDocumentsColumn = (property: string, { label, format }: ConfigIt
       return documentsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return documentsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return documentsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return documentsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return documentsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('associatedType', () => {
       return documentsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header: label('associatedType'),
-        cell: (info) => format(info.getValue(), 'associatedType'),
+        cell: (info) => format('associatedType', info.getValue()),
       })
     })
     .with('isPrivate', () => {
       return documentsColumnHelper.accessor((row) => row.isPrivate, {
         id: 'isPrivate',
         header: label('isPrivate'),
-        cell: (info) => format(info.getValue(), 'isPrivate'),
+        cell: (info) => format('isPrivate', info.getValue()),
       })
     })
     .with('associatedId', () => {
       return documentsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header: label('associatedId'),
-        cell: (info) => format(info.getValue(), 'associatedId'),
+        cell: (info) => format('associatedId', info.getValue()),
       })
     })
     .with('typeId', () => {
       return documentsColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header: label('typeId'),
-        cell: (info) => format(info.getValue(), 'typeId'),
+        cell: (info) => format('typeId', info.getValue()),
       })
     })
     .with('name', () => {
       return documentsColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header: label('name'),
-        cell: (info) => format(info.getValue(), 'name'),
+        cell: (info) => format('name', info.getValue()),
       })
     })
     .with('metadata', () => {
       return documentsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return documentsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {

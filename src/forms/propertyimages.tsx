@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -82,17 +82,13 @@ export const CreatePropertyImages = (props: CreatePropertyImagesProps) => {
   )
 }
 
-type GetCreatePropertyImagesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreatePropertyImagesFieldArgs = {
+  fieldName: FieldPath<CreatePropertyImagesBody>
+  control: Control<CreatePropertyImagesBody>
+  formConfig: FormConfig<CreatePropertyImagesBody>
 }
 
-export const getCreatePropertyImagesField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreatePropertyImagesFieldArgs<CreatePropertyImagesBody>) => {
+export const getCreatePropertyImagesField = ({ fieldName, control, formConfig }: GetCreatePropertyImagesFieldArgs) => {
   return match(fieldName)
     .with('data', () => {
       const { label, Input } = formConfig['data']
@@ -224,17 +220,17 @@ export const CreatePropertyImagesSignedUrl = (props: CreatePropertyImagesSignedU
   )
 }
 
-type GetCreatePropertyImagesSignedUrlFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreatePropertyImagesSignedUrlFieldArgs = {
+  fieldName: FieldPath<CreatePropertyImagesSignedUrlBody>
+  control: Control<CreatePropertyImagesSignedUrlBody>
+  formConfig: FormConfig<CreatePropertyImagesSignedUrlBody>
 }
 
 export const getCreatePropertyImagesSignedUrlField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreatePropertyImagesSignedUrlFieldArgs<CreatePropertyImagesSignedUrlBody>) => {
+}: GetCreatePropertyImagesSignedUrlFieldArgs) => {
   return match(fieldName)
     .with('amount', () => {
       const { label, Input } = formConfig['amount']
@@ -294,17 +290,17 @@ export const CreatePropertyImagesReindex = (props: CreatePropertyImagesReindexPr
   )
 }
 
-type GetCreatePropertyImagesReindexFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreatePropertyImagesReindexFieldArgs = {
+  fieldName: FieldPath<CreatePropertyImagesReindexBody>
+  control: Control<CreatePropertyImagesReindexBody>
+  formConfig: FormConfig<CreatePropertyImagesReindexBody>
 }
 
 export const getCreatePropertyImagesReindexField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreatePropertyImagesReindexFieldArgs<CreatePropertyImagesReindexBody>) => {
+}: GetCreatePropertyImagesReindexFieldArgs) => {
   return match(fieldName)
     .with('propertyId', () => {
       const { label, Input } = formConfig['propertyId']

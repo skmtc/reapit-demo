@@ -404,343 +404,343 @@ export const getApplicantsColumn = (property: string, { label, format }: ConfigI
       return applicantsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return applicantsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return applicantsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return applicantsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return applicantsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('marketingMode', () => {
       return applicantsColumnHelper.accessor((row) => row.marketingMode, {
         id: 'marketingMode',
         header: label('marketingMode'),
-        cell: (info) => format(info.getValue(), 'marketingMode'),
+        cell: (info) => format('marketingMode', info.getValue()),
       })
     })
     .with('currency', () => {
       return applicantsColumnHelper.accessor((row) => row.currency, {
         id: 'currency',
         header: label('currency'),
-        cell: (info) => format(info.getValue(), 'currency'),
+        cell: (info) => format('currency', info.getValue()),
       })
     })
     .with('active', () => {
       return applicantsColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header: label('active'),
-        cell: (info) => format(info.getValue(), 'active'),
+        cell: (info) => format('active', info.getValue()),
       })
     })
     .with('notes', () => {
       return applicantsColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
         header: label('notes'),
-        cell: (info) => format(info.getValue(), 'notes'),
+        cell: (info) => format('notes', info.getValue()),
       })
     })
     .with('sellingStatus', () => {
       return applicantsColumnHelper.accessor((row) => row.sellingStatus, {
         id: 'sellingStatus',
         header: label('sellingStatus'),
-        cell: (info) => format(info.getValue(), 'sellingStatus'),
+        cell: (info) => format('sellingStatus', info.getValue()),
       })
     })
     .with('sellingPosition', () => {
       return applicantsColumnHelper.accessor((row) => row.sellingPosition, {
         id: 'sellingPosition',
         header: label('sellingPosition'),
-        cell: (info) => format(info.getValue(), 'sellingPosition'),
+        cell: (info) => format('sellingPosition', info.getValue()),
       })
     })
     .with('statusId', () => {
       return applicantsColumnHelper.accessor((row) => row.statusId, {
         id: 'statusId',
         header: label('statusId'),
-        cell: (info) => format(info.getValue(), 'statusId'),
+        cell: (info) => format('statusId', info.getValue()),
       })
     })
     .with('lastCall', () => {
       return applicantsColumnHelper.accessor((row) => row.lastCall, {
         id: 'lastCall',
         header: label('lastCall'),
-        cell: (info) => format(info.getValue(), 'lastCall'),
+        cell: (info) => format('lastCall', info.getValue()),
       })
     })
     .with('nextCall', () => {
       return applicantsColumnHelper.accessor((row) => row.nextCall, {
         id: 'nextCall',
         header: label('nextCall'),
-        cell: (info) => format(info.getValue(), 'nextCall'),
+        cell: (info) => format('nextCall', info.getValue()),
       })
     })
     .with('departmentId', () => {
       return applicantsColumnHelper.accessor((row) => row.departmentId, {
         id: 'departmentId',
         header: label('departmentId'),
-        cell: (info) => format(info.getValue(), 'departmentId'),
+        cell: (info) => format('departmentId', info.getValue()),
       })
     })
     .with('solicitorId', () => {
       return applicantsColumnHelper.accessor((row) => row.solicitorId, {
         id: 'solicitorId',
         header: label('solicitorId'),
-        cell: (info) => format(info.getValue(), 'solicitorId'),
+        cell: (info) => format('solicitorId', info.getValue()),
       })
     })
     .with('potentialClient', () => {
       return applicantsColumnHelper.accessor((row) => row.potentialClient, {
         id: 'potentialClient',
         header: label('potentialClient'),
-        cell: (info) => format(info.getValue(), 'potentialClient'),
+        cell: (info) => format('potentialClient', info.getValue()),
       })
     })
     .with('type', () => {
       return applicantsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('style', () => {
       return applicantsColumnHelper.accessor((row) => row.style, {
         id: 'style',
         header: label('style'),
-        cell: (info) => format(info.getValue(), 'style'),
+        cell: (info) => format('style', info.getValue()),
       })
     })
     .with('situation', () => {
       return applicantsColumnHelper.accessor((row) => row.situation, {
         id: 'situation',
         header: label('situation'),
-        cell: (info) => format(info.getValue(), 'situation'),
+        cell: (info) => format('situation', info.getValue()),
       })
     })
     .with('parking', () => {
       return applicantsColumnHelper.accessor((row) => row.parking, {
         id: 'parking',
         header: label('parking'),
-        cell: (info) => format(info.getValue(), 'parking'),
+        cell: (info) => format('parking', info.getValue()),
       })
     })
     .with('age', () => {
       return applicantsColumnHelper.accessor((row) => row.age, {
         id: 'age',
         header: label('age'),
-        cell: (info) => format(info.getValue(), 'age'),
+        cell: (info) => format('age', info.getValue()),
       })
     })
     .with('locality', () => {
       return applicantsColumnHelper.accessor((row) => row.locality, {
         id: 'locality',
         header: label('locality'),
-        cell: (info) => format(info.getValue(), 'locality'),
+        cell: (info) => format('locality', info.getValue()),
       })
     })
     .with('specialFeatures', () => {
       return applicantsColumnHelper.accessor((row) => row.specialFeatures, {
         id: 'specialFeatures',
         header: label('specialFeatures'),
-        cell: (info) => format(info.getValue(), 'specialFeatures'),
+        cell: (info) => format('specialFeatures', info.getValue()),
       })
     })
     .with('unmappedRequirements', () => {
       return applicantsColumnHelper.accessor((row) => row.unmappedRequirements, {
         id: 'unmappedRequirements',
         header: label('unmappedRequirements'),
-        cell: (info) => format(info.getValue(), 'unmappedRequirements'),
+        cell: (info) => format('unmappedRequirements', info.getValue()),
       })
     })
     .with('bedroomsMin', () => {
       return applicantsColumnHelper.accessor((row) => row.bedroomsMin, {
         id: 'bedroomsMin',
         header: label('bedroomsMin'),
-        cell: (info) => format(info.getValue(), 'bedroomsMin'),
+        cell: (info) => format('bedroomsMin', info.getValue()),
       })
     })
     .with('bedroomsMax', () => {
       return applicantsColumnHelper.accessor((row) => row.bedroomsMax, {
         id: 'bedroomsMax',
         header: label('bedroomsMax'),
-        cell: (info) => format(info.getValue(), 'bedroomsMax'),
+        cell: (info) => format('bedroomsMax', info.getValue()),
       })
     })
     .with('receptionsMin', () => {
       return applicantsColumnHelper.accessor((row) => row.receptionsMin, {
         id: 'receptionsMin',
         header: label('receptionsMin'),
-        cell: (info) => format(info.getValue(), 'receptionsMin'),
+        cell: (info) => format('receptionsMin', info.getValue()),
       })
     })
     .with('receptionsMax', () => {
       return applicantsColumnHelper.accessor((row) => row.receptionsMax, {
         id: 'receptionsMax',
         header: label('receptionsMax'),
-        cell: (info) => format(info.getValue(), 'receptionsMax'),
+        cell: (info) => format('receptionsMax', info.getValue()),
       })
     })
     .with('bathroomsMin', () => {
       return applicantsColumnHelper.accessor((row) => row.bathroomsMin, {
         id: 'bathroomsMin',
         header: label('bathroomsMin'),
-        cell: (info) => format(info.getValue(), 'bathroomsMin'),
+        cell: (info) => format('bathroomsMin', info.getValue()),
       })
     })
     .with('bathroomsMax', () => {
       return applicantsColumnHelper.accessor((row) => row.bathroomsMax, {
         id: 'bathroomsMax',
         header: label('bathroomsMax'),
-        cell: (info) => format(info.getValue(), 'bathroomsMax'),
+        cell: (info) => format('bathroomsMax', info.getValue()),
       })
     })
     .with('parkingSpacesMin', () => {
       return applicantsColumnHelper.accessor((row) => row.parkingSpacesMin, {
         id: 'parkingSpacesMin',
         header: label('parkingSpacesMin'),
-        cell: (info) => format(info.getValue(), 'parkingSpacesMin'),
+        cell: (info) => format('parkingSpacesMin', info.getValue()),
       })
     })
     .with('parkingSpacesMax', () => {
       return applicantsColumnHelper.accessor((row) => row.parkingSpacesMax, {
         id: 'parkingSpacesMax',
         header: label('parkingSpacesMax'),
-        cell: (info) => format(info.getValue(), 'parkingSpacesMax'),
+        cell: (info) => format('parkingSpacesMax', info.getValue()),
       })
     })
     .with('locationType', () => {
       return applicantsColumnHelper.accessor((row) => row.locationType, {
         id: 'locationType',
         header: label('locationType'),
-        cell: (info) => format(info.getValue(), 'locationType'),
+        cell: (info) => format('locationType', info.getValue()),
       })
     })
     .with('locationOptions', () => {
       return applicantsColumnHelper.accessor((row) => row.locationOptions, {
         id: 'locationOptions',
         header: label('locationOptions'),
-        cell: (info) => format(info.getValue(), 'locationOptions'),
+        cell: (info) => format('locationOptions', info.getValue()),
       })
     })
     .with('archivedOn', () => {
       return applicantsColumnHelper.accessor((row) => row.archivedOn, {
         id: 'archivedOn',
         header: label('archivedOn'),
-        cell: (info) => format(info.getValue(), 'archivedOn'),
+        cell: (info) => format('archivedOn', info.getValue()),
       })
     })
     .with('fromArchive', () => {
       return applicantsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header: label('fromArchive'),
-        cell: (info) => format(info.getValue(), 'fromArchive'),
+        cell: (info) => format('fromArchive', info.getValue()),
       })
     })
     .with('buying', () => {
       return applicantsColumnHelper.accessor((row) => row.buying, {
         id: 'buying',
         header: label('buying'),
-        cell: (info) => format(info.getValue(), 'buying'),
+        cell: (info) => format('buying', info.getValue()),
       })
     })
     .with('renting', () => {
       return applicantsColumnHelper.accessor((row) => row.renting, {
         id: 'renting',
         header: label('renting'),
-        cell: (info) => format(info.getValue(), 'renting'),
+        cell: (info) => format('renting', info.getValue()),
       })
     })
     .with('externalArea', () => {
       return applicantsColumnHelper.accessor((row) => row.externalArea, {
         id: 'externalArea',
         header: label('externalArea'),
-        cell: (info) => format(info.getValue(), 'externalArea'),
+        cell: (info) => format('externalArea', info.getValue()),
       })
     })
     .with('internalArea', () => {
       return applicantsColumnHelper.accessor((row) => row.internalArea, {
         id: 'internalArea',
         header: label('internalArea'),
-        cell: (info) => format(info.getValue(), 'internalArea'),
+        cell: (info) => format('internalArea', info.getValue()),
       })
     })
     .with('source', () => {
       return applicantsColumnHelper.accessor((row) => row.source, {
         id: 'source',
         header: label('source'),
-        cell: (info) => format(info.getValue(), 'source'),
+        cell: (info) => format('source', info.getValue()),
       })
     })
     .with('commercial', () => {
       return applicantsColumnHelper.accessor((row) => row.commercial, {
         id: 'commercial',
         header: label('commercial'),
-        cell: (info) => format(info.getValue(), 'commercial'),
+        cell: (info) => format('commercial', info.getValue()),
       })
     })
     .with('regional', () => {
       return applicantsColumnHelper.accessor((row) => row.regional, {
         id: 'regional',
         header: label('regional'),
-        cell: (info) => format(info.getValue(), 'regional'),
+        cell: (info) => format('regional', info.getValue()),
       })
     })
     .with('officeIds', () => {
       return applicantsColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header: label('officeIds'),
-        cell: (info) => format(info.getValue(), 'officeIds'),
+        cell: (info) => format('officeIds', info.getValue()),
       })
     })
     .with('negotiatorIds', () => {
       return applicantsColumnHelper.accessor((row) => row.negotiatorIds, {
         id: 'negotiatorIds',
         header: label('negotiatorIds'),
-        cell: (info) => format(info.getValue(), 'negotiatorIds'),
+        cell: (info) => format('negotiatorIds', info.getValue()),
       })
     })
     .with('related', () => {
       return applicantsColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header: label('related'),
-        cell: (info) => format(info.getValue(), 'related'),
+        cell: (info) => format('related', info.getValue()),
       })
     })
     .with('metadata', () => {
       return applicantsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return applicantsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -792,70 +792,70 @@ export const getApplicantsIdRelationshipsColumn = (
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('applicantId', () => {
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header: label('applicantId'),
-        cell: (info) => format(info.getValue(), 'applicantId'),
+        cell: (info) => format('applicantId', info.getValue()),
       })
     })
     .with('associatedType', () => {
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header: label('associatedType'),
-        cell: (info) => format(info.getValue(), 'associatedType'),
+        cell: (info) => format('associatedType', info.getValue()),
       })
     })
     .with('associatedId', () => {
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header: label('associatedId'),
-        cell: (info) => format(info.getValue(), 'associatedId'),
+        cell: (info) => format('associatedId', info.getValue()),
       })
     })
     .with('isMain', () => {
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.isMain, {
         id: 'isMain',
         header: label('isMain'),
-        cell: (info) => format(info.getValue(), 'isMain'),
+        cell: (info) => format('isMain', info.getValue()),
       })
     })
     .with('fromArchive', () => {
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header: label('fromArchive'),
-        cell: (info) => format(info.getValue(), 'fromArchive'),
+        cell: (info) => format('fromArchive', info.getValue()),
       })
     })
     .otherwise(() => {

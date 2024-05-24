@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -111,17 +111,13 @@ export const CreateIdentityChecks = (props: CreateIdentityChecksProps) => {
   )
 }
 
-type GetCreateIdentityChecksFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateIdentityChecksFieldArgs = {
+  fieldName: FieldPath<CreateIdentityChecksBody>
+  control: Control<CreateIdentityChecksBody>
+  formConfig: FormConfig<CreateIdentityChecksBody>
 }
 
-export const getCreateIdentityChecksField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateIdentityChecksFieldArgs<CreateIdentityChecksBody>) => {
+export const getCreateIdentityChecksField = ({ fieldName, control, formConfig }: GetCreateIdentityChecksFieldArgs) => {
   return match(fieldName)
     .with('contactId', () => {
       const { label, Input } = formConfig['contactId']
@@ -289,17 +285,17 @@ export const CreateIdentityChecksSignedUrl = (props: CreateIdentityChecksSignedU
   )
 }
 
-type GetCreateIdentityChecksSignedUrlFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateIdentityChecksSignedUrlFieldArgs = {
+  fieldName: FieldPath<CreateIdentityChecksSignedUrlBody>
+  control: Control<CreateIdentityChecksSignedUrlBody>
+  formConfig: FormConfig<CreateIdentityChecksSignedUrlBody>
 }
 
 export const getCreateIdentityChecksSignedUrlField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateIdentityChecksSignedUrlFieldArgs<CreateIdentityChecksSignedUrlBody>) => {
+}: GetCreateIdentityChecksSignedUrlFieldArgs) => {
   return match(fieldName)
     .with('amount', () => {
       const { label, Input } = formConfig['amount']

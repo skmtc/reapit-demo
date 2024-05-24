@@ -270,336 +270,336 @@ export const getConveyancingColumn = (property: string, { label, format }: Confi
       return conveyancingColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return conveyancingColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return conveyancingColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return conveyancingColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return conveyancingColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('isExternal', () => {
       return conveyancingColumnHelper.accessor((row) => row.isExternal, {
         id: 'isExternal',
         header: label('isExternal'),
-        cell: (info) => format(info.getValue(), 'isExternal'),
+        cell: (info) => format('isExternal', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return conveyancingColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('propertyAddress', () => {
       return conveyancingColumnHelper.accessor((row) => row.propertyAddress, {
         id: 'propertyAddress',
         header: label('propertyAddress'),
-        cell: (info) => format(info.getValue(), 'propertyAddress'),
+        cell: (info) => format('propertyAddress', info.getValue()),
       })
     })
     .with('vendor', () => {
       return conveyancingColumnHelper.accessor((row) => row.vendor, {
         id: 'vendor',
         header: label('vendor'),
-        cell: (info) => format(info.getValue(), 'vendor'),
+        cell: (info) => format('vendor', info.getValue()),
       })
     })
     .with('vendorId', () => {
       return conveyancingColumnHelper.accessor((row) => row.vendorId, {
         id: 'vendorId',
         header: label('vendorId'),
-        cell: (info) => format(info.getValue(), 'vendorId'),
+        cell: (info) => format('vendorId', info.getValue()),
       })
     })
     .with('vendorSolicitorId', () => {
       return conveyancingColumnHelper.accessor((row) => row.vendorSolicitorId, {
         id: 'vendorSolicitorId',
         header: label('vendorSolicitorId'),
-        cell: (info) => format(info.getValue(), 'vendorSolicitorId'),
+        cell: (info) => format('vendorSolicitorId', info.getValue()),
       })
     })
     .with('buyer', () => {
       return conveyancingColumnHelper.accessor((row) => row.buyer, {
         id: 'buyer',
         header: label('buyer'),
-        cell: (info) => format(info.getValue(), 'buyer'),
+        cell: (info) => format('buyer', info.getValue()),
       })
     })
     .with('buyerId', () => {
       return conveyancingColumnHelper.accessor((row) => row.buyerId, {
         id: 'buyerId',
         header: label('buyerId'),
-        cell: (info) => format(info.getValue(), 'buyerId'),
+        cell: (info) => format('buyerId', info.getValue()),
       })
     })
     .with('buyerSolicitorId', () => {
       return conveyancingColumnHelper.accessor((row) => row.buyerSolicitorId, {
         id: 'buyerSolicitorId',
         header: label('buyerSolicitorId'),
-        cell: (info) => format(info.getValue(), 'buyerSolicitorId'),
+        cell: (info) => format('buyerSolicitorId', info.getValue()),
       })
     })
     .with('externalAgent', () => {
       return conveyancingColumnHelper.accessor((row) => row.externalAgent, {
         id: 'externalAgent',
         header: label('externalAgent'),
-        cell: (info) => format(info.getValue(), 'externalAgent'),
+        cell: (info) => format('externalAgent', info.getValue()),
       })
     })
     .with('externalAgentId', () => {
       return conveyancingColumnHelper.accessor((row) => row.externalAgentId, {
         id: 'externalAgentId',
         header: label('externalAgentId'),
-        cell: (info) => format(info.getValue(), 'externalAgentId'),
+        cell: (info) => format('externalAgentId', info.getValue()),
       })
     })
     .with('upwardChainId', () => {
       return conveyancingColumnHelper.accessor((row) => row.upwardChainId, {
         id: 'upwardChainId',
         header: label('upwardChainId'),
-        cell: (info) => format(info.getValue(), 'upwardChainId'),
+        cell: (info) => format('upwardChainId', info.getValue()),
       })
     })
     .with('downwardChainId', () => {
       return conveyancingColumnHelper.accessor((row) => row.downwardChainId, {
         id: 'downwardChainId',
         header: label('downwardChainId'),
-        cell: (info) => format(info.getValue(), 'downwardChainId'),
+        cell: (info) => format('downwardChainId', info.getValue()),
       })
     })
     .with('fixturesAndFittingsCompleted', () => {
       return conveyancingColumnHelper.accessor((row) => row.fixturesAndFittingsCompleted, {
         id: 'fixturesAndFittingsCompleted',
         header: label('fixturesAndFittingsCompleted'),
-        cell: (info) => format(info.getValue(), 'fixturesAndFittingsCompleted'),
+        cell: (info) => format('fixturesAndFittingsCompleted', info.getValue()),
       })
     })
     .with('deedsRequested', () => {
       return conveyancingColumnHelper.accessor((row) => row.deedsRequested, {
         id: 'deedsRequested',
         header: label('deedsRequested'),
-        cell: (info) => format(info.getValue(), 'deedsRequested'),
+        cell: (info) => format('deedsRequested', info.getValue()),
       })
     })
     .with('deedsReceived', () => {
       return conveyancingColumnHelper.accessor((row) => row.deedsReceived, {
         id: 'deedsReceived',
         header: label('deedsReceived'),
-        cell: (info) => format(info.getValue(), 'deedsReceived'),
+        cell: (info) => format('deedsReceived', info.getValue()),
       })
     })
     .with('enquiriesSent', () => {
       return conveyancingColumnHelper.accessor((row) => row.enquiriesSent, {
         id: 'enquiriesSent',
         header: label('enquiriesSent'),
-        cell: (info) => format(info.getValue(), 'enquiriesSent'),
+        cell: (info) => format('enquiriesSent', info.getValue()),
       })
     })
     .with('enquiriesAnswered', () => {
       return conveyancingColumnHelper.accessor((row) => row.enquiriesAnswered, {
         id: 'enquiriesAnswered',
         header: label('enquiriesAnswered'),
-        cell: (info) => format(info.getValue(), 'enquiriesAnswered'),
+        cell: (info) => format('enquiriesAnswered', info.getValue()),
       })
     })
     .with('searchesPaid', () => {
       return conveyancingColumnHelper.accessor((row) => row.searchesPaid, {
         id: 'searchesPaid',
         header: label('searchesPaid'),
-        cell: (info) => format(info.getValue(), 'searchesPaid'),
+        cell: (info) => format('searchesPaid', info.getValue()),
       })
     })
     .with('searchesApplied', () => {
       return conveyancingColumnHelper.accessor((row) => row.searchesApplied, {
         id: 'searchesApplied',
         header: label('searchesApplied'),
-        cell: (info) => format(info.getValue(), 'searchesApplied'),
+        cell: (info) => format('searchesApplied', info.getValue()),
       })
     })
     .with('searchesReceived', () => {
       return conveyancingColumnHelper.accessor((row) => row.searchesReceived, {
         id: 'searchesReceived',
         header: label('searchesReceived'),
-        cell: (info) => format(info.getValue(), 'searchesReceived'),
+        cell: (info) => format('searchesReceived', info.getValue()),
       })
     })
     .with('contractSent', () => {
       return conveyancingColumnHelper.accessor((row) => row.contractSent, {
         id: 'contractSent',
         header: label('contractSent'),
-        cell: (info) => format(info.getValue(), 'contractSent'),
+        cell: (info) => format('contractSent', info.getValue()),
       })
     })
     .with('contractReceived', () => {
       return conveyancingColumnHelper.accessor((row) => row.contractReceived, {
         id: 'contractReceived',
         header: label('contractReceived'),
-        cell: (info) => format(info.getValue(), 'contractReceived'),
+        cell: (info) => format('contractReceived', info.getValue()),
       })
     })
     .with('contractApproved', () => {
       return conveyancingColumnHelper.accessor((row) => row.contractApproved, {
         id: 'contractApproved',
         header: label('contractApproved'),
-        cell: (info) => format(info.getValue(), 'contractApproved'),
+        cell: (info) => format('contractApproved', info.getValue()),
       })
     })
     .with('contractVendorSigned', () => {
       return conveyancingColumnHelper.accessor((row) => row.contractVendorSigned, {
         id: 'contractVendorSigned',
         header: label('contractVendorSigned'),
-        cell: (info) => format(info.getValue(), 'contractVendorSigned'),
+        cell: (info) => format('contractVendorSigned', info.getValue()),
       })
     })
     .with('contractBuyerSigned', () => {
       return conveyancingColumnHelper.accessor((row) => row.contractBuyerSigned, {
         id: 'contractBuyerSigned',
         header: label('contractBuyerSigned'),
-        cell: (info) => format(info.getValue(), 'contractBuyerSigned'),
+        cell: (info) => format('contractBuyerSigned', info.getValue()),
       })
     })
     .with('mortgageRequired', () => {
       return conveyancingColumnHelper.accessor((row) => row.mortgageRequired, {
         id: 'mortgageRequired',
         header: label('mortgageRequired'),
-        cell: (info) => format(info.getValue(), 'mortgageRequired'),
+        cell: (info) => format('mortgageRequired', info.getValue()),
       })
     })
     .with('mortgageLoanPercentage', () => {
       return conveyancingColumnHelper.accessor((row) => row.mortgageLoanPercentage, {
         id: 'mortgageLoanPercentage',
         header: label('mortgageLoanPercentage'),
-        cell: (info) => format(info.getValue(), 'mortgageLoanPercentage'),
+        cell: (info) => format('mortgageLoanPercentage', info.getValue()),
       })
     })
     .with('mortgageSubmitted', () => {
       return conveyancingColumnHelper.accessor((row) => row.mortgageSubmitted, {
         id: 'mortgageSubmitted',
         header: label('mortgageSubmitted'),
-        cell: (info) => format(info.getValue(), 'mortgageSubmitted'),
+        cell: (info) => format('mortgageSubmitted', info.getValue()),
       })
     })
     .with('mortgageOfferReceived', () => {
       return conveyancingColumnHelper.accessor((row) => row.mortgageOfferReceived, {
         id: 'mortgageOfferReceived',
         header: label('mortgageOfferReceived'),
-        cell: (info) => format(info.getValue(), 'mortgageOfferReceived'),
+        cell: (info) => format('mortgageOfferReceived', info.getValue()),
       })
     })
     .with('mortgageLenderId', () => {
       return conveyancingColumnHelper.accessor((row) => row.mortgageLenderId, {
         id: 'mortgageLenderId',
         header: label('mortgageLenderId'),
-        cell: (info) => format(info.getValue(), 'mortgageLenderId'),
+        cell: (info) => format('mortgageLenderId', info.getValue()),
       })
     })
     .with('mortgageBrokerId', () => {
       return conveyancingColumnHelper.accessor((row) => row.mortgageBrokerId, {
         id: 'mortgageBrokerId',
         header: label('mortgageBrokerId'),
-        cell: (info) => format(info.getValue(), 'mortgageBrokerId'),
+        cell: (info) => format('mortgageBrokerId', info.getValue()),
       })
     })
     .with('mortgageSurveyDate', () => {
       return conveyancingColumnHelper.accessor((row) => row.mortgageSurveyDate, {
         id: 'mortgageSurveyDate',
         header: label('mortgageSurveyDate'),
-        cell: (info) => format(info.getValue(), 'mortgageSurveyDate'),
+        cell: (info) => format('mortgageSurveyDate', info.getValue()),
       })
     })
     .with('mortgageSurveyorId', () => {
       return conveyancingColumnHelper.accessor((row) => row.mortgageSurveyorId, {
         id: 'mortgageSurveyorId',
         header: label('mortgageSurveyorId'),
-        cell: (info) => format(info.getValue(), 'mortgageSurveyorId'),
+        cell: (info) => format('mortgageSurveyorId', info.getValue()),
       })
     })
     .with('additionalSurveyRequired', () => {
       return conveyancingColumnHelper.accessor((row) => row.additionalSurveyRequired, {
         id: 'additionalSurveyRequired',
         header: label('additionalSurveyRequired'),
-        cell: (info) => format(info.getValue(), 'additionalSurveyRequired'),
+        cell: (info) => format('additionalSurveyRequired', info.getValue()),
       })
     })
     .with('additionalSurveyDate', () => {
       return conveyancingColumnHelper.accessor((row) => row.additionalSurveyDate, {
         id: 'additionalSurveyDate',
         header: label('additionalSurveyDate'),
-        cell: (info) => format(info.getValue(), 'additionalSurveyDate'),
+        cell: (info) => format('additionalSurveyDate', info.getValue()),
       })
     })
     .with('additionalSurveyorId', () => {
       return conveyancingColumnHelper.accessor((row) => row.additionalSurveyorId, {
         id: 'additionalSurveyorId',
         header: label('additionalSurveyorId'),
-        cell: (info) => format(info.getValue(), 'additionalSurveyorId'),
+        cell: (info) => format('additionalSurveyorId', info.getValue()),
       })
     })
     .with('exchangedVendor', () => {
       return conveyancingColumnHelper.accessor((row) => row.exchangedVendor, {
         id: 'exchangedVendor',
         header: label('exchangedVendor'),
-        cell: (info) => format(info.getValue(), 'exchangedVendor'),
+        cell: (info) => format('exchangedVendor', info.getValue()),
       })
     })
     .with('exchangedBuyer', () => {
       return conveyancingColumnHelper.accessor((row) => row.exchangedBuyer, {
         id: 'exchangedBuyer',
         header: label('exchangedBuyer'),
-        cell: (info) => format(info.getValue(), 'exchangedBuyer'),
+        cell: (info) => format('exchangedBuyer', info.getValue()),
       })
     })
     .with('completion', () => {
       return conveyancingColumnHelper.accessor((row) => row.completion, {
         id: 'completion',
         header: label('completion'),
-        cell: (info) => format(info.getValue(), 'completion'),
+        cell: (info) => format('completion', info.getValue()),
       })
     })
     .with('checkListItems', () => {
       return conveyancingColumnHelper.accessor((row) => row.checkListItems, {
         id: 'checkListItems',
         header: label('checkListItems'),
-        cell: (info) => format(info.getValue(), 'checkListItems'),
+        cell: (info) => format('checkListItems', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return conveyancingColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .with('metadata', () => {
       return conveyancingColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -651,336 +651,336 @@ export const getConveyancingIdChainColumn = (
       return conveyancingIdChainColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('isExternal', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.isExternal, {
         id: 'isExternal',
         header: label('isExternal'),
-        cell: (info) => format(info.getValue(), 'isExternal'),
+        cell: (info) => format('isExternal', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('propertyAddress', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.propertyAddress, {
         id: 'propertyAddress',
         header: label('propertyAddress'),
-        cell: (info) => format(info.getValue(), 'propertyAddress'),
+        cell: (info) => format('propertyAddress', info.getValue()),
       })
     })
     .with('vendor', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.vendor, {
         id: 'vendor',
         header: label('vendor'),
-        cell: (info) => format(info.getValue(), 'vendor'),
+        cell: (info) => format('vendor', info.getValue()),
       })
     })
     .with('vendorId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.vendorId, {
         id: 'vendorId',
         header: label('vendorId'),
-        cell: (info) => format(info.getValue(), 'vendorId'),
+        cell: (info) => format('vendorId', info.getValue()),
       })
     })
     .with('vendorSolicitorId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.vendorSolicitorId, {
         id: 'vendorSolicitorId',
         header: label('vendorSolicitorId'),
-        cell: (info) => format(info.getValue(), 'vendorSolicitorId'),
+        cell: (info) => format('vendorSolicitorId', info.getValue()),
       })
     })
     .with('buyer', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.buyer, {
         id: 'buyer',
         header: label('buyer'),
-        cell: (info) => format(info.getValue(), 'buyer'),
+        cell: (info) => format('buyer', info.getValue()),
       })
     })
     .with('buyerId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.buyerId, {
         id: 'buyerId',
         header: label('buyerId'),
-        cell: (info) => format(info.getValue(), 'buyerId'),
+        cell: (info) => format('buyerId', info.getValue()),
       })
     })
     .with('buyerSolicitorId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.buyerSolicitorId, {
         id: 'buyerSolicitorId',
         header: label('buyerSolicitorId'),
-        cell: (info) => format(info.getValue(), 'buyerSolicitorId'),
+        cell: (info) => format('buyerSolicitorId', info.getValue()),
       })
     })
     .with('externalAgent', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.externalAgent, {
         id: 'externalAgent',
         header: label('externalAgent'),
-        cell: (info) => format(info.getValue(), 'externalAgent'),
+        cell: (info) => format('externalAgent', info.getValue()),
       })
     })
     .with('externalAgentId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.externalAgentId, {
         id: 'externalAgentId',
         header: label('externalAgentId'),
-        cell: (info) => format(info.getValue(), 'externalAgentId'),
+        cell: (info) => format('externalAgentId', info.getValue()),
       })
     })
     .with('upwardChainId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.upwardChainId, {
         id: 'upwardChainId',
         header: label('upwardChainId'),
-        cell: (info) => format(info.getValue(), 'upwardChainId'),
+        cell: (info) => format('upwardChainId', info.getValue()),
       })
     })
     .with('downwardChainId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.downwardChainId, {
         id: 'downwardChainId',
         header: label('downwardChainId'),
-        cell: (info) => format(info.getValue(), 'downwardChainId'),
+        cell: (info) => format('downwardChainId', info.getValue()),
       })
     })
     .with('fixturesAndFittingsCompleted', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.fixturesAndFittingsCompleted, {
         id: 'fixturesAndFittingsCompleted',
         header: label('fixturesAndFittingsCompleted'),
-        cell: (info) => format(info.getValue(), 'fixturesAndFittingsCompleted'),
+        cell: (info) => format('fixturesAndFittingsCompleted', info.getValue()),
       })
     })
     .with('deedsRequested', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.deedsRequested, {
         id: 'deedsRequested',
         header: label('deedsRequested'),
-        cell: (info) => format(info.getValue(), 'deedsRequested'),
+        cell: (info) => format('deedsRequested', info.getValue()),
       })
     })
     .with('deedsReceived', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.deedsReceived, {
         id: 'deedsReceived',
         header: label('deedsReceived'),
-        cell: (info) => format(info.getValue(), 'deedsReceived'),
+        cell: (info) => format('deedsReceived', info.getValue()),
       })
     })
     .with('enquiriesSent', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.enquiriesSent, {
         id: 'enquiriesSent',
         header: label('enquiriesSent'),
-        cell: (info) => format(info.getValue(), 'enquiriesSent'),
+        cell: (info) => format('enquiriesSent', info.getValue()),
       })
     })
     .with('enquiriesAnswered', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.enquiriesAnswered, {
         id: 'enquiriesAnswered',
         header: label('enquiriesAnswered'),
-        cell: (info) => format(info.getValue(), 'enquiriesAnswered'),
+        cell: (info) => format('enquiriesAnswered', info.getValue()),
       })
     })
     .with('searchesPaid', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.searchesPaid, {
         id: 'searchesPaid',
         header: label('searchesPaid'),
-        cell: (info) => format(info.getValue(), 'searchesPaid'),
+        cell: (info) => format('searchesPaid', info.getValue()),
       })
     })
     .with('searchesApplied', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.searchesApplied, {
         id: 'searchesApplied',
         header: label('searchesApplied'),
-        cell: (info) => format(info.getValue(), 'searchesApplied'),
+        cell: (info) => format('searchesApplied', info.getValue()),
       })
     })
     .with('searchesReceived', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.searchesReceived, {
         id: 'searchesReceived',
         header: label('searchesReceived'),
-        cell: (info) => format(info.getValue(), 'searchesReceived'),
+        cell: (info) => format('searchesReceived', info.getValue()),
       })
     })
     .with('contractSent', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.contractSent, {
         id: 'contractSent',
         header: label('contractSent'),
-        cell: (info) => format(info.getValue(), 'contractSent'),
+        cell: (info) => format('contractSent', info.getValue()),
       })
     })
     .with('contractReceived', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.contractReceived, {
         id: 'contractReceived',
         header: label('contractReceived'),
-        cell: (info) => format(info.getValue(), 'contractReceived'),
+        cell: (info) => format('contractReceived', info.getValue()),
       })
     })
     .with('contractApproved', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.contractApproved, {
         id: 'contractApproved',
         header: label('contractApproved'),
-        cell: (info) => format(info.getValue(), 'contractApproved'),
+        cell: (info) => format('contractApproved', info.getValue()),
       })
     })
     .with('contractVendorSigned', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.contractVendorSigned, {
         id: 'contractVendorSigned',
         header: label('contractVendorSigned'),
-        cell: (info) => format(info.getValue(), 'contractVendorSigned'),
+        cell: (info) => format('contractVendorSigned', info.getValue()),
       })
     })
     .with('contractBuyerSigned', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.contractBuyerSigned, {
         id: 'contractBuyerSigned',
         header: label('contractBuyerSigned'),
-        cell: (info) => format(info.getValue(), 'contractBuyerSigned'),
+        cell: (info) => format('contractBuyerSigned', info.getValue()),
       })
     })
     .with('mortgageRequired', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageRequired, {
         id: 'mortgageRequired',
         header: label('mortgageRequired'),
-        cell: (info) => format(info.getValue(), 'mortgageRequired'),
+        cell: (info) => format('mortgageRequired', info.getValue()),
       })
     })
     .with('mortgageLoanPercentage', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageLoanPercentage, {
         id: 'mortgageLoanPercentage',
         header: label('mortgageLoanPercentage'),
-        cell: (info) => format(info.getValue(), 'mortgageLoanPercentage'),
+        cell: (info) => format('mortgageLoanPercentage', info.getValue()),
       })
     })
     .with('mortgageSubmitted', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageSubmitted, {
         id: 'mortgageSubmitted',
         header: label('mortgageSubmitted'),
-        cell: (info) => format(info.getValue(), 'mortgageSubmitted'),
+        cell: (info) => format('mortgageSubmitted', info.getValue()),
       })
     })
     .with('mortgageOfferReceived', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageOfferReceived, {
         id: 'mortgageOfferReceived',
         header: label('mortgageOfferReceived'),
-        cell: (info) => format(info.getValue(), 'mortgageOfferReceived'),
+        cell: (info) => format('mortgageOfferReceived', info.getValue()),
       })
     })
     .with('mortgageLenderId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageLenderId, {
         id: 'mortgageLenderId',
         header: label('mortgageLenderId'),
-        cell: (info) => format(info.getValue(), 'mortgageLenderId'),
+        cell: (info) => format('mortgageLenderId', info.getValue()),
       })
     })
     .with('mortgageBrokerId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageBrokerId, {
         id: 'mortgageBrokerId',
         header: label('mortgageBrokerId'),
-        cell: (info) => format(info.getValue(), 'mortgageBrokerId'),
+        cell: (info) => format('mortgageBrokerId', info.getValue()),
       })
     })
     .with('mortgageSurveyDate', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageSurveyDate, {
         id: 'mortgageSurveyDate',
         header: label('mortgageSurveyDate'),
-        cell: (info) => format(info.getValue(), 'mortgageSurveyDate'),
+        cell: (info) => format('mortgageSurveyDate', info.getValue()),
       })
     })
     .with('mortgageSurveyorId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageSurveyorId, {
         id: 'mortgageSurveyorId',
         header: label('mortgageSurveyorId'),
-        cell: (info) => format(info.getValue(), 'mortgageSurveyorId'),
+        cell: (info) => format('mortgageSurveyorId', info.getValue()),
       })
     })
     .with('additionalSurveyRequired', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.additionalSurveyRequired, {
         id: 'additionalSurveyRequired',
         header: label('additionalSurveyRequired'),
-        cell: (info) => format(info.getValue(), 'additionalSurveyRequired'),
+        cell: (info) => format('additionalSurveyRequired', info.getValue()),
       })
     })
     .with('additionalSurveyDate', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.additionalSurveyDate, {
         id: 'additionalSurveyDate',
         header: label('additionalSurveyDate'),
-        cell: (info) => format(info.getValue(), 'additionalSurveyDate'),
+        cell: (info) => format('additionalSurveyDate', info.getValue()),
       })
     })
     .with('additionalSurveyorId', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.additionalSurveyorId, {
         id: 'additionalSurveyorId',
         header: label('additionalSurveyorId'),
-        cell: (info) => format(info.getValue(), 'additionalSurveyorId'),
+        cell: (info) => format('additionalSurveyorId', info.getValue()),
       })
     })
     .with('exchangedVendor', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.exchangedVendor, {
         id: 'exchangedVendor',
         header: label('exchangedVendor'),
-        cell: (info) => format(info.getValue(), 'exchangedVendor'),
+        cell: (info) => format('exchangedVendor', info.getValue()),
       })
     })
     .with('exchangedBuyer', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.exchangedBuyer, {
         id: 'exchangedBuyer',
         header: label('exchangedBuyer'),
-        cell: (info) => format(info.getValue(), 'exchangedBuyer'),
+        cell: (info) => format('exchangedBuyer', info.getValue()),
       })
     })
     .with('completion', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.completion, {
         id: 'completion',
         header: label('completion'),
-        cell: (info) => format(info.getValue(), 'completion'),
+        cell: (info) => format('completion', info.getValue()),
       })
     })
     .with('checkListItems', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.checkListItems, {
         id: 'checkListItems',
         header: label('checkListItems'),
-        cell: (info) => format(info.getValue(), 'checkListItems'),
+        cell: (info) => format('checkListItems', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .with('metadata', () => {
       return conveyancingIdChainColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .otherwise(() => {

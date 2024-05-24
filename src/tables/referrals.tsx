@@ -113,126 +113,126 @@ export const getReferralsColumn = (property: string, { label, format }: ConfigIt
       return referralsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return referralsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return referralsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return referralsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return referralsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('referralTypeId', () => {
       return referralsColumnHelper.accessor((row) => row.referralTypeId, {
         id: 'referralTypeId',
         header: label('referralTypeId'),
-        cell: (info) => format(info.getValue(), 'referralTypeId'),
+        cell: (info) => format('referralTypeId', info.getValue()),
       })
     })
     .with('type', () => {
       return referralsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return referralsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return referralsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('applicantId', () => {
       return referralsColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header: label('applicantId'),
-        cell: (info) => format(info.getValue(), 'applicantId'),
+        cell: (info) => format('applicantId', info.getValue()),
       })
     })
     .with('contactId', () => {
       return referralsColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header: label('contactId'),
-        cell: (info) => format(info.getValue(), 'contactId'),
+        cell: (info) => format('contactId', info.getValue()),
       })
     })
     .with('status', () => {
       return referralsColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('amount', () => {
       return referralsColumnHelper.accessor((row) => row.amount, {
         id: 'amount',
         header: label('amount'),
-        cell: (info) => format(info.getValue(), 'amount'),
+        cell: (info) => format('amount', info.getValue()),
       })
     })
     .with('paid', () => {
       return referralsColumnHelper.accessor((row) => row.paid, {
         id: 'paid',
         header: label('paid'),
-        cell: (info) => format(info.getValue(), 'paid'),
+        cell: (info) => format('paid', info.getValue()),
       })
     })
     .with('accepted', () => {
       return referralsColumnHelper.accessor((row) => row.accepted, {
         id: 'accepted',
         header: label('accepted'),
-        cell: (info) => format(info.getValue(), 'accepted'),
+        cell: (info) => format('accepted', info.getValue()),
       })
     })
     .with('related', () => {
       return referralsColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header: label('related'),
-        cell: (info) => format(info.getValue(), 'related'),
+        cell: (info) => format('related', info.getValue()),
       })
     })
     .with('metadata', () => {
       return referralsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return referralsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -281,28 +281,28 @@ export const getReferralsTypesColumn = (property: string, { label, format }: Con
       return referralsTypesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return referralsTypesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return referralsTypesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('name', () => {
       return referralsTypesColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header: label('name'),
-        cell: (info) => format(info.getValue(), 'name'),
+        cell: (info) => format('name', info.getValue()),
       })
     })
     .otherwise(() => {

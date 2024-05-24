@@ -39,56 +39,56 @@ export const getResthooksColumn = (property: string, { label, format }: ConfigIt
       return resthooksColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return resthooksColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return resthooksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('url', () => {
       return resthooksColumnHelper.accessor((row) => row.url, {
         id: 'url',
         header: label('url'),
-        cell: (info) => format(info.getValue(), 'url'),
+        cell: (info) => format('url', info.getValue()),
       })
     })
     .with('description', () => {
       return resthooksColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('topicIds', () => {
       return resthooksColumnHelper.accessor((row) => row.topicIds, {
         id: 'topicIds',
         header: label('topicIds'),
-        cell: (info) => format(info.getValue(), 'topicIds'),
+        cell: (info) => format('topicIds', info.getValue()),
       })
     })
     .with('active', () => {
       return resthooksColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header: label('active'),
-        cell: (info) => format(info.getValue(), 'active'),
+        cell: (info) => format('active', info.getValue()),
       })
     })
     .with('ignoreEtagOnlyChanges', () => {
       return resthooksColumnHelper.accessor((row) => row.ignoreEtagOnlyChanges, {
         id: 'ignoreEtagOnlyChanges',
         header: label('ignoreEtagOnlyChanges'),
-        cell: (info) => format(info.getValue(), 'ignoreEtagOnlyChanges'),
+        cell: (info) => format('ignoreEtagOnlyChanges', info.getValue()),
       })
     })
     .otherwise(() => {

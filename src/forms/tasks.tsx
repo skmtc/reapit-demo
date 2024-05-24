@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -78,13 +78,13 @@ export const CreateTasks = (props: CreateTasksProps) => {
   )
 }
 
-type GetCreateTasksFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateTasksFieldArgs = {
+  fieldName: FieldPath<CreateTasksBody>
+  control: Control<CreateTasksBody>
+  formConfig: FormConfig<CreateTasksBody>
 }
 
-export const getCreateTasksField = ({ fieldName, control, formConfig }: GetCreateTasksFieldArgs<CreateTasksBody>) => {
+export const getCreateTasksField = ({ fieldName, control, formConfig }: GetCreateTasksFieldArgs) => {
   return match(fieldName)
     .with('activates', () => {
       const { label, Input } = formConfig['activates']

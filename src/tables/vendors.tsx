@@ -184,140 +184,140 @@ export const getVendorsColumn = (property: string, { label, format }: ConfigItem
       return vendorsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return vendorsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return vendorsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return vendorsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return vendorsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('lastCall', () => {
       return vendorsColumnHelper.accessor((row) => row.lastCall, {
         id: 'lastCall',
         header: label('lastCall'),
-        cell: (info) => format(info.getValue(), 'lastCall'),
+        cell: (info) => format('lastCall', info.getValue()),
       })
     })
     .with('nextCall', () => {
       return vendorsColumnHelper.accessor((row) => row.nextCall, {
         id: 'nextCall',
         header: label('nextCall'),
-        cell: (info) => format(info.getValue(), 'nextCall'),
+        cell: (info) => format('nextCall', info.getValue()),
       })
     })
     .with('typeId', () => {
       return vendorsColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header: label('typeId'),
-        cell: (info) => format(info.getValue(), 'typeId'),
+        cell: (info) => format('typeId', info.getValue()),
       })
     })
     .with('sellingReasonId', () => {
       return vendorsColumnHelper.accessor((row) => row.sellingReasonId, {
         id: 'sellingReasonId',
         header: label('sellingReasonId'),
-        cell: (info) => format(info.getValue(), 'sellingReasonId'),
+        cell: (info) => format('sellingReasonId', info.getValue()),
       })
     })
     .with('solicitorId', () => {
       return vendorsColumnHelper.accessor((row) => row.solicitorId, {
         id: 'solicitorId',
         header: label('solicitorId'),
-        cell: (info) => format(info.getValue(), 'solicitorId'),
+        cell: (info) => format('solicitorId', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return vendorsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('source', () => {
       return vendorsColumnHelper.accessor((row) => row.source, {
         id: 'source',
         header: label('source'),
-        cell: (info) => format(info.getValue(), 'source'),
+        cell: (info) => format('source', info.getValue()),
       })
     })
     .with('related', () => {
       return vendorsColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header: label('related'),
-        cell: (info) => format(info.getValue(), 'related'),
+        cell: (info) => format('related', info.getValue()),
       })
     })
     .with('correspondenceAddressType', () => {
       return vendorsColumnHelper.accessor((row) => row.correspondenceAddressType, {
         id: 'correspondenceAddressType',
         header: label('correspondenceAddressType'),
-        cell: (info) => format(info.getValue(), 'correspondenceAddressType'),
+        cell: (info) => format('correspondenceAddressType', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return vendorsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('officeIds', () => {
       return vendorsColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header: label('officeIds'),
-        cell: (info) => format(info.getValue(), 'officeIds'),
+        cell: (info) => format('officeIds', info.getValue()),
       })
     })
     .with('archivedOn', () => {
       return vendorsColumnHelper.accessor((row) => row.archivedOn, {
         id: 'archivedOn',
         header: label('archivedOn'),
-        cell: (info) => format(info.getValue(), 'archivedOn'),
+        cell: (info) => format('archivedOn', info.getValue()),
       })
     })
     .with('fromArchive', () => {
       return vendorsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header: label('fromArchive'),
-        cell: (info) => format(info.getValue(), 'fromArchive'),
+        cell: (info) => format('fromArchive', info.getValue()),
       })
     })
     .with('metadata', () => {
       return vendorsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return vendorsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -369,63 +369,63 @@ export const getVendorsIdRelationshipsColumn = (
       return vendorsIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return vendorsIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return vendorsIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('vendorId', () => {
       return vendorsIdRelationshipsColumnHelper.accessor((row) => row.vendorId, {
         id: 'vendorId',
         header: label('vendorId'),
-        cell: (info) => format(info.getValue(), 'vendorId'),
+        cell: (info) => format('vendorId', info.getValue()),
       })
     })
     .with('created', () => {
       return vendorsIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return vendorsIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('associatedType', () => {
       return vendorsIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header: label('associatedType'),
-        cell: (info) => format(info.getValue(), 'associatedType'),
+        cell: (info) => format('associatedType', info.getValue()),
       })
     })
     .with('associatedId', () => {
       return vendorsIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header: label('associatedId'),
-        cell: (info) => format(info.getValue(), 'associatedId'),
+        cell: (info) => format('associatedId', info.getValue()),
       })
     })
     .with('isMain', () => {
       return vendorsIdRelationshipsColumnHelper.accessor((row) => row.isMain, {
         id: 'isMain',
         header: label('isMain'),
-        cell: (info) => format(info.getValue(), 'isMain'),
+        cell: (info) => format('isMain', info.getValue()),
       })
     })
     .otherwise(() => {

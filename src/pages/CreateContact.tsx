@@ -1,5 +1,8 @@
 import { Drawer } from '@/components/Drawer'
-import { FormConfig } from '@/components/ModelRuntimeConfig'
+import {
+  ModelConfig,
+  createRuntimeConfig
+} from '@/components/ModelRuntimeConfig'
 import {
   CreateContacts,
   CreateContactsBody,
@@ -9,14 +12,21 @@ import DialogContent from '@mui/joy/DialogContent'
 import { Control, FieldPath } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import Input from '@mui/joy/Input'
+import { contactConfig } from '@/pages/Contacts'
 
-const formConfig: FormConfig<CreateContactsBody> = {
-  surname: {
-    key: 'surname',
-    label: 'Surname',
-    input: props => <Input {...props} />
-  }
-}
+const formConfig = createRuntimeConfig<CreateContactsBody>(
+  {
+    type: 'form',
+    config: {
+      surname: {
+        key: 'surname',
+        label: 'Surname',
+        Input: props => <Input {...props} />
+      }
+    }
+  },
+  contactConfig as ModelConfig<CreateContactsBody>
+)
 
 export const CreateContact = () => {
   const navigate = useNavigate()

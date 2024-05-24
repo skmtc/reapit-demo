@@ -59,84 +59,84 @@ export const getPropertyImagesColumn = (property: string, { label, format }: Con
       return propertyImagesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return propertyImagesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return propertyImagesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return propertyImagesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return propertyImagesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return propertyImagesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('url', () => {
       return propertyImagesColumnHelper.accessor((row) => row.url, {
         id: 'url',
         header: label('url'),
-        cell: (info) => format(info.getValue(), 'url'),
+        cell: (info) => format('url', info.getValue()),
       })
     })
     .with('caption', () => {
       return propertyImagesColumnHelper.accessor((row) => row.caption, {
         id: 'caption',
         header: label('caption'),
-        cell: (info) => format(info.getValue(), 'caption'),
+        cell: (info) => format('caption', info.getValue()),
       })
     })
     .with('type', () => {
       return propertyImagesColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('order', () => {
       return propertyImagesColumnHelper.accessor((row) => row.order, {
         id: 'order',
         header: label('order'),
-        cell: (info) => format(info.getValue(), 'order'),
+        cell: (info) => format('order', info.getValue()),
       })
     })
     .with('fromArchive', () => {
       return propertyImagesColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header: label('fromArchive'),
-        cell: (info) => format(info.getValue(), 'fromArchive'),
+        cell: (info) => format('fromArchive', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return propertyImagesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {

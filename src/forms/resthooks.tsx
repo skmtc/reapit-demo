@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -77,17 +77,13 @@ export const CreateResthooks = (props: CreateResthooksProps) => {
   )
 }
 
-type GetCreateResthooksFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateResthooksFieldArgs = {
+  fieldName: FieldPath<CreateResthooksBody>
+  control: Control<CreateResthooksBody>
+  formConfig: FormConfig<CreateResthooksBody>
 }
 
-export const getCreateResthooksField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateResthooksFieldArgs<CreateResthooksBody>) => {
+export const getCreateResthooksField = ({ fieldName, control, formConfig }: GetCreateResthooksFieldArgs) => {
   return match(fieldName)
     .with('url', () => {
       const { label, Input } = formConfig['url']
@@ -219,17 +215,13 @@ export const UpdateResthooksId = (props: UpdateResthooksIdProps) => {
   )
 }
 
-type GetUpdateResthooksIdFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetUpdateResthooksIdFieldArgs = {
+  fieldName: FieldPath<UpdateResthooksIdBody>
+  control: Control<UpdateResthooksIdBody>
+  formConfig: FormConfig<UpdateResthooksIdBody>
 }
 
-export const getUpdateResthooksIdField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetUpdateResthooksIdFieldArgs<UpdateResthooksIdBody>) => {
+export const getUpdateResthooksIdField = ({ fieldName, control, formConfig }: GetUpdateResthooksIdFieldArgs) => {
   return match(fieldName)
     .with('url', () => {
       const { label, Input } = formConfig['url']

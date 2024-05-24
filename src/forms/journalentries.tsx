@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -93,17 +93,13 @@ export const CreateJournalEntries = (props: CreateJournalEntriesProps) => {
   )
 }
 
-type GetCreateJournalEntriesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateJournalEntriesFieldArgs = {
+  fieldName: FieldPath<CreateJournalEntriesBody>
+  control: Control<CreateJournalEntriesBody>
+  formConfig: FormConfig<CreateJournalEntriesBody>
 }
 
-export const getCreateJournalEntriesField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateJournalEntriesFieldArgs<CreateJournalEntriesBody>) => {
+export const getCreateJournalEntriesField = ({ fieldName, control, formConfig }: GetCreateJournalEntriesFieldArgs) => {
   return match(fieldName)
     .with('typeId', () => {
       const { label, Input } = formConfig['typeId']
@@ -253,17 +249,17 @@ export const CreateJournalEntriesBulk = (props: CreateJournalEntriesBulkProps) =
   )
 }
 
-type GetCreateJournalEntriesBulkFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateJournalEntriesBulkFieldArgs = {
+  fieldName: FieldPath<CreateJournalEntriesBulkBody>
+  control: Control<CreateJournalEntriesBulkBody>
+  formConfig: FormConfig<CreateJournalEntriesBulkBody>
 }
 
 export const getCreateJournalEntriesBulkField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateJournalEntriesBulkFieldArgs<CreateJournalEntriesBulkBody>) => {
+}: GetCreateJournalEntriesBulkFieldArgs) => {
   return match(fieldName)
     .with('createJournalEntry', () => {
       const { label, Input } = formConfig['createJournalEntry']

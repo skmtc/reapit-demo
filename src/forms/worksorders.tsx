@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -120,17 +120,13 @@ export const CreateWorksOrders = (props: CreateWorksOrdersProps) => {
   )
 }
 
-type GetCreateWorksOrdersFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateWorksOrdersFieldArgs = {
+  fieldName: FieldPath<CreateWorksOrdersBody>
+  control: Control<CreateWorksOrdersBody>
+  formConfig: FormConfig<CreateWorksOrdersBody>
 }
 
-export const getCreateWorksOrdersField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateWorksOrdersFieldArgs<CreateWorksOrdersBody>) => {
+export const getCreateWorksOrdersField = ({ fieldName, control, formConfig }: GetCreateWorksOrdersFieldArgs) => {
   return match(fieldName)
     .with('companyId', () => {
       const { label, Input } = formConfig['companyId']
@@ -424,17 +420,17 @@ export const CreateWorksOrdersIdItems = (props: CreateWorksOrdersIdItemsProps) =
   )
 }
 
-type GetCreateWorksOrdersIdItemsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateWorksOrdersIdItemsFieldArgs = {
+  fieldName: FieldPath<CreateWorksOrdersIdItemsBody>
+  control: Control<CreateWorksOrdersIdItemsBody>
+  formConfig: FormConfig<CreateWorksOrdersIdItemsBody>
 }
 
 export const getCreateWorksOrdersIdItemsField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateWorksOrdersIdItemsFieldArgs<CreateWorksOrdersIdItemsBody>) => {
+}: GetCreateWorksOrdersIdItemsFieldArgs) => {
   return match(fieldName)
     .with('notes', () => {
       const { label, Input } = formConfig['notes']

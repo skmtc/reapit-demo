@@ -35,7 +35,7 @@ type ConfigArg<Model extends FieldValues> =
     }
   | {
       type: 'form'
-      config: FormConfig<Model>
+      config: Partial<FormConfig<Model>>
     }
 
 export const createRuntimeConfig = <Model extends FieldValues>(
@@ -45,35 +45,28 @@ export const createRuntimeConfig = <Model extends FieldValues>(
   label: key => {
     return configArg.config?.[key]?.label ?? modelConfig?.[key]?.label
   },
-  format: (key, value) => {
+  format: <Key extends KeyPath<Model>>(key: Key, value: Model[Key]) => {
     return match(configArg)
-      .with(
-        {
-          type: 'display'
-        },
-        ({ config }) => {
-          return (
-            config?.[key]?.format?.(value) ??
-            modelConfig?.[key]?.format?.(value)
-          )
-        }
-      )
+      .with({ type: 'display' }, ({ config }) => {
+        return (
+          config?.[key]?.format?.(value) ?? modelConfig?.[key]?.format(value)
+        )
+      })
       .otherwise(() => {
         throw new Error('Unexpected type')
       })
   },
-  input: (key, props) => {
+  Input: <Key extends KeyPath<Model>>(
+    key: Key,
+    props: ControllerRenderProps<Model, Key>
+  ) => {
     return match(configArg)
-      .with(
-        {
-          type: 'form'
-        },
-        ({ config }) => {
-          return (
-            config?.[key]?.input?.(props) ?? modelConfig?.[key]?.input?.(props)
-          )
-        }
-      )
+      .with({ type: 'form' }, ({ config }) => {
+        const FormInput = config?.[key]?.Input
+        const ModelInput = modelConfig?.[key]?.Input
+
+        return FormInput ? <FormInput {...props} /> : <ModelInput {...props} />
+      })
       .otherwise(() => {
         throw new Error('Unexpected type')
       })
@@ -93,7 +86,7 @@ type RequiredKeys<T> = keyof {
 export type ConfigItemLookup<Model extends FieldValues> = {
   label: <Key extends KeyPath<Model>>(key: Key) => string
   format: <Key extends KeyPath<Model>>(key: Key, value: Model[Key]) => ReactNode
-  input: <Key extends KeyPath<Model>>(
+  Input: <Key extends KeyPath<Model>>(
     key: Key,
     props: ControllerRenderProps<Model, Key>
   ) => ReactNode
@@ -102,8 +95,10 @@ export type ConfigItemLookup<Model extends FieldValues> = {
 type ConfigValue<Model extends FieldValues, FormPath extends KeyPath<Model>> = {
   key: FormPath
   label: string
-  input: (props: ControllerRenderProps<Model, FormPath>) => ReactNode
-  format: (value: Model[FormPath]) => ReactNode
+  Input: <Key extends FormPath>(
+    props: ControllerRenderProps<Model, Key>
+  ) => ReactNode
+  format: <Key extends FormPath>(value: Model[Key]) => ReactNode
 }
 
 export type RestoreOptional<T, KeySource> = Partial<
@@ -114,13 +109,10 @@ export type RestoreOptional<T, KeySource> = Partial<
 export type BasicConfig<Model extends FieldValues> = {
   [FormPath in KeyPath<Model>]: Pick<
     ConfigValue<Model, FormPath>,
-    'key' | 'label' | 'input'
+    'key' | 'label' | 'Input'
   >
 }
 
-export type FormConfig<Model extends FieldValues> = RestoreOptional<
-  BasicConfig<Model>,
-  Model
->
+export type FormConfig<Model extends FieldValues> = BasicConfig<Model>
 
 type KeyPath<T extends FieldValues> = Extract<FieldPath<T>, keyof T>

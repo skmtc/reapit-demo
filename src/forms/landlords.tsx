@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -79,17 +79,13 @@ export const CreateLandlords = (props: CreateLandlordsProps) => {
   )
 }
 
-type GetCreateLandlordsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateLandlordsFieldArgs = {
+  fieldName: FieldPath<CreateLandlordsBody>
+  control: Control<CreateLandlordsBody>
+  formConfig: FormConfig<CreateLandlordsBody>
 }
 
-export const getCreateLandlordsField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateLandlordsFieldArgs<CreateLandlordsBody>) => {
+export const getCreateLandlordsField = ({ fieldName, control, formConfig }: GetCreateLandlordsFieldArgs) => {
   return match(fieldName)
     .with('active', () => {
       const { label, Input } = formConfig['active']
@@ -239,17 +235,17 @@ export const CreateLandlordsIdRelationships = (props: CreateLandlordsIdRelations
   )
 }
 
-type GetCreateLandlordsIdRelationshipsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateLandlordsIdRelationshipsFieldArgs = {
+  fieldName: FieldPath<CreateLandlordsIdRelationshipsBody>
+  control: Control<CreateLandlordsIdRelationshipsBody>
+  formConfig: FormConfig<CreateLandlordsIdRelationshipsBody>
 }
 
 export const getCreateLandlordsIdRelationshipsField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateLandlordsIdRelationshipsFieldArgs<CreateLandlordsIdRelationshipsBody>) => {
+}: GetCreateLandlordsIdRelationshipsFieldArgs) => {
   return match(fieldName)
     .with('associatedId', () => {
       const { label, Input } = formConfig['associatedId']

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -58,17 +58,17 @@ export const UpdateMetadataMetadataSchemaId = (props: UpdateMetadataMetadataSche
   )
 }
 
-type GetUpdateMetadataMetadataSchemaIdFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetUpdateMetadataMetadataSchemaIdFieldArgs = {
+  fieldName: FieldPath<UpdateMetadataMetadataSchemaIdBody>
+  control: Control<UpdateMetadataMetadataSchemaIdBody>
+  formConfig: FormConfig<UpdateMetadataMetadataSchemaIdBody>
 }
 
 export const getUpdateMetadataMetadataSchemaIdField = ({
   fieldName,
   control,
   formConfig,
-}: GetUpdateMetadataMetadataSchemaIdFieldArgs<UpdateMetadataMetadataSchemaIdBody>) => {
+}: GetUpdateMetadataMetadataSchemaIdFieldArgs) => {
   return match(fieldName)
     .with('schema', () => {
       const { label, Input } = formConfig['schema']
@@ -128,17 +128,17 @@ export const CreateMetadataMetadataSchema = (props: CreateMetadataMetadataSchema
   )
 }
 
-type GetCreateMetadataMetadataSchemaFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateMetadataMetadataSchemaFieldArgs = {
+  fieldName: FieldPath<CreateMetadataMetadataSchemaBody>
+  control: Control<CreateMetadataMetadataSchemaBody>
+  formConfig: FormConfig<CreateMetadataMetadataSchemaBody>
 }
 
 export const getCreateMetadataMetadataSchemaField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateMetadataMetadataSchemaFieldArgs<CreateMetadataMetadataSchemaBody>) => {
+}: GetCreateMetadataMetadataSchemaFieldArgs) => {
   return match(fieldName)
     .with('entityType', () => {
       const { label, Input } = formConfig['entityType']

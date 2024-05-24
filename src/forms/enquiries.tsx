@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -129,17 +129,13 @@ export const CreateEnquiries = (props: CreateEnquiriesProps) => {
   )
 }
 
-type GetCreateEnquiriesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateEnquiriesFieldArgs = {
+  fieldName: FieldPath<CreateEnquiriesBody>
+  control: Control<CreateEnquiriesBody>
+  formConfig: FormConfig<CreateEnquiriesBody>
 }
 
-export const getCreateEnquiriesField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateEnquiriesFieldArgs<CreateEnquiriesBody>) => {
+export const getCreateEnquiriesField = ({ fieldName, control, formConfig }: GetCreateEnquiriesFieldArgs) => {
   return match(fieldName)
     .with('title', () => {
       const { label, Input } = formConfig['title']

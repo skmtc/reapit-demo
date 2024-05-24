@@ -188,168 +188,168 @@ export const getWorksOrdersColumn = (property: string, { label, format }: Config
       return worksOrdersColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return worksOrdersColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return worksOrdersColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return worksOrdersColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return worksOrdersColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('companyId', () => {
       return worksOrdersColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
         header: label('companyId'),
-        cell: (info) => format(info.getValue(), 'companyId'),
+        cell: (info) => format('companyId', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return worksOrdersColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('tenancyId', () => {
       return worksOrdersColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header: label('tenancyId'),
-        cell: (info) => format(info.getValue(), 'tenancyId'),
+        cell: (info) => format('tenancyId', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return worksOrdersColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('typeId', () => {
       return worksOrdersColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header: label('typeId'),
-        cell: (info) => format(info.getValue(), 'typeId'),
+        cell: (info) => format('typeId', info.getValue()),
       })
     })
     .with('status', () => {
       return worksOrdersColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('description', () => {
       return worksOrdersColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('reporter', () => {
       return worksOrdersColumnHelper.accessor((row) => row.reporter, {
         id: 'reporter',
         header: label('reporter'),
-        cell: (info) => format(info.getValue(), 'reporter'),
+        cell: (info) => format('reporter', info.getValue()),
       })
     })
     .with('priority', () => {
       return worksOrdersColumnHelper.accessor((row) => row.priority, {
         id: 'priority',
         header: label('priority'),
-        cell: (info) => format(info.getValue(), 'priority'),
+        cell: (info) => format('priority', info.getValue()),
       })
     })
     .with('booked', () => {
       return worksOrdersColumnHelper.accessor((row) => row.booked, {
         id: 'booked',
         header: label('booked'),
-        cell: (info) => format(info.getValue(), 'booked'),
+        cell: (info) => format('booked', info.getValue()),
       })
     })
     .with('required', () => {
       return worksOrdersColumnHelper.accessor((row) => row.required, {
         id: 'required',
         header: label('required'),
-        cell: (info) => format(info.getValue(), 'required'),
+        cell: (info) => format('required', info.getValue()),
       })
     })
     .with('completed', () => {
       return worksOrdersColumnHelper.accessor((row) => row.completed, {
         id: 'completed',
         header: label('completed'),
-        cell: (info) => format(info.getValue(), 'completed'),
+        cell: (info) => format('completed', info.getValue()),
       })
     })
     .with('totalNetAmount', () => {
       return worksOrdersColumnHelper.accessor((row) => row.totalNetAmount, {
         id: 'totalNetAmount',
         header: label('totalNetAmount'),
-        cell: (info) => format(info.getValue(), 'totalNetAmount'),
+        cell: (info) => format('totalNetAmount', info.getValue()),
       })
     })
     .with('totalVatAmount', () => {
       return worksOrdersColumnHelper.accessor((row) => row.totalVatAmount, {
         id: 'totalVatAmount',
         header: label('totalVatAmount'),
-        cell: (info) => format(info.getValue(), 'totalVatAmount'),
+        cell: (info) => format('totalVatAmount', info.getValue()),
       })
     })
     .with('totalGrossAmount', () => {
       return worksOrdersColumnHelper.accessor((row) => row.totalGrossAmount, {
         id: 'totalGrossAmount',
         header: label('totalGrossAmount'),
-        cell: (info) => format(info.getValue(), 'totalGrossAmount'),
+        cell: (info) => format('totalGrossAmount', info.getValue()),
       })
     })
     .with('items', () => {
       return worksOrdersColumnHelper.accessor((row) => row.items, {
         id: 'items',
         header: label('items'),
-        cell: (info) => format(info.getValue(), 'items'),
+        cell: (info) => format('items', info.getValue()),
       })
     })
     .with('metadata', () => {
       return worksOrdersColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('extrasField', () => {
       return worksOrdersColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
         header: label('extrasField'),
-        cell: (info) => format(info.getValue(), 'extrasField'),
+        cell: (info) => format('extrasField', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return worksOrdersColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -401,112 +401,112 @@ export const getWorksOrdersIdItemsColumn = (
       return worksOrdersIdItemsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('worksOrderId', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.worksOrderId, {
         id: 'worksOrderId',
         header: label('worksOrderId'),
-        cell: (info) => format(info.getValue(), 'worksOrderId'),
+        cell: (info) => format('worksOrderId', info.getValue()),
       })
     })
     .with('created', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('notes', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
         header: label('notes'),
-        cell: (info) => format(info.getValue(), 'notes'),
+        cell: (info) => format('notes', info.getValue()),
       })
     })
     .with('chargeTo', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.chargeTo, {
         id: 'chargeTo',
         header: label('chargeTo'),
-        cell: (info) => format(info.getValue(), 'chargeTo'),
+        cell: (info) => format('chargeTo', info.getValue()),
       })
     })
     .with('estimate', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.estimate, {
         id: 'estimate',
         header: label('estimate'),
-        cell: (info) => format(info.getValue(), 'estimate'),
+        cell: (info) => format('estimate', info.getValue()),
       })
     })
     .with('estimateType', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.estimateType, {
         id: 'estimateType',
         header: label('estimateType'),
-        cell: (info) => format(info.getValue(), 'estimateType'),
+        cell: (info) => format('estimateType', info.getValue()),
       })
     })
     .with('netAmount', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header: label('netAmount'),
-        cell: (info) => format(info.getValue(), 'netAmount'),
+        cell: (info) => format('netAmount', info.getValue()),
       })
     })
     .with('vatAmount', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header: label('vatAmount'),
-        cell: (info) => format(info.getValue(), 'vatAmount'),
+        cell: (info) => format('vatAmount', info.getValue()),
       })
     })
     .with('grossAmount', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.grossAmount, {
         id: 'grossAmount',
         header: label('grossAmount'),
-        cell: (info) => format(info.getValue(), 'grossAmount'),
+        cell: (info) => format('grossAmount', info.getValue()),
       })
     })
     .with('reserveAmount', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.reserveAmount, {
         id: 'reserveAmount',
         header: label('reserveAmount'),
-        cell: (info) => format(info.getValue(), 'reserveAmount'),
+        cell: (info) => format('reserveAmount', info.getValue()),
       })
     })
     .with('nominalAccountId', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.nominalAccountId, {
         id: 'nominalAccountId',
         header: label('nominalAccountId'),
-        cell: (info) => format(info.getValue(), 'nominalAccountId'),
+        cell: (info) => format('nominalAccountId', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return worksOrdersIdItemsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {

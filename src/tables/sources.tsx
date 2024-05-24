@@ -54,70 +54,70 @@ export const getSourcesColumn = (property: string, { label, format }: ConfigItem
       return sourcesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return sourcesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return sourcesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return sourcesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return sourcesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('name', () => {
       return sourcesColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header: label('name'),
-        cell: (info) => format(info.getValue(), 'name'),
+        cell: (info) => format('name', info.getValue()),
       })
     })
     .with('type', () => {
       return sourcesColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('officeIds', () => {
       return sourcesColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header: label('officeIds'),
-        cell: (info) => format(info.getValue(), 'officeIds'),
+        cell: (info) => format('officeIds', info.getValue()),
       })
     })
     .with('departmentIds', () => {
       return sourcesColumnHelper.accessor((row) => row.departmentIds, {
         id: 'departmentIds',
         header: label('departmentIds'),
-        cell: (info) => format(info.getValue(), 'departmentIds'),
+        cell: (info) => format('departmentIds', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return sourcesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {

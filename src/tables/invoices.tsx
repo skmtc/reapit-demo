@@ -208,112 +208,112 @@ export const getInvoicesColumn = (property: string, { label, format }: ConfigIte
       return invoicesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return invoicesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return invoicesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return invoicesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return invoicesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('reference', () => {
       return invoicesColumnHelper.accessor((row) => row.reference, {
         id: 'reference',
         header: label('reference'),
-        cell: (info) => format(info.getValue(), 'reference'),
+        cell: (info) => format('reference', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return invoicesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return invoicesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('description', () => {
       return invoicesColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('status', () => {
       return invoicesColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('date', () => {
       return invoicesColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header: label('date'),
-        cell: (info) => format(info.getValue(), 'date'),
+        cell: (info) => format('date', info.getValue()),
       })
     })
     .with('dueDate', () => {
       return invoicesColumnHelper.accessor((row) => row.dueDate, {
         id: 'dueDate',
         header: label('dueDate'),
-        cell: (info) => format(info.getValue(), 'dueDate'),
+        cell: (info) => format('dueDate', info.getValue()),
       })
     })
     .with('isRaised', () => {
       return invoicesColumnHelper.accessor((row) => row.isRaised, {
         id: 'isRaised',
         header: label('isRaised'),
-        cell: (info) => format(info.getValue(), 'isRaised'),
+        cell: (info) => format('isRaised', info.getValue()),
       })
     })
     .with('netAmount', () => {
       return invoicesColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header: label('netAmount'),
-        cell: (info) => format(info.getValue(), 'netAmount'),
+        cell: (info) => format('netAmount', info.getValue()),
       })
     })
     .with('vatAmount', () => {
       return invoicesColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header: label('vatAmount'),
-        cell: (info) => format(info.getValue(), 'vatAmount'),
+        cell: (info) => format('vatAmount', info.getValue()),
       })
     })
     .with('outstandingAmount', () => {
       return invoicesColumnHelper.accessor((row) => row.outstandingAmount, {
         id: 'outstandingAmount',
         header: label('outstandingAmount'),
-        cell: (info) => format(info.getValue(), 'outstandingAmount'),
+        cell: (info) => format('outstandingAmount', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -365,91 +365,91 @@ export const getInvoicesPaymentsColumn = (
       return invoicesPaymentsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('invoiceId', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
         header: label('invoiceId'),
-        cell: (info) => format(info.getValue(), 'invoiceId'),
+        cell: (info) => format('invoiceId', info.getValue()),
       })
     })
     .with('description', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('type', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('date', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header: label('date'),
-        cell: (info) => format(info.getValue(), 'date'),
+        cell: (info) => format('date', info.getValue()),
       })
     })
     .with('netAmount', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header: label('netAmount'),
-        cell: (info) => format(info.getValue(), 'netAmount'),
+        cell: (info) => format('netAmount', info.getValue()),
       })
     })
     .with('vatAmount', () => {
       return invoicesPaymentsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header: label('vatAmount'),
-        cell: (info) => format(info.getValue(), 'vatAmount'),
+        cell: (info) => format('vatAmount', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -501,84 +501,84 @@ export const getInvoicesCreditsColumn = (
       return invoicesCreditsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return invoicesCreditsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return invoicesCreditsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return invoicesCreditsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return invoicesCreditsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return invoicesCreditsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return invoicesCreditsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('invoiceId', () => {
       return invoicesCreditsColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
         header: label('invoiceId'),
-        cell: (info) => format(info.getValue(), 'invoiceId'),
+        cell: (info) => format('invoiceId', info.getValue()),
       })
     })
     .with('description', () => {
       return invoicesCreditsColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('date', () => {
       return invoicesCreditsColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header: label('date'),
-        cell: (info) => format(info.getValue(), 'date'),
+        cell: (info) => format('date', info.getValue()),
       })
     })
     .with('netAmount', () => {
       return invoicesCreditsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header: label('netAmount'),
-        cell: (info) => format(info.getValue(), 'netAmount'),
+        cell: (info) => format('netAmount', info.getValue()),
       })
     })
     .with('vatAmount', () => {
       return invoicesCreditsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header: label('vatAmount'),
-        cell: (info) => format(info.getValue(), 'vatAmount'),
+        cell: (info) => format('vatAmount', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -630,91 +630,91 @@ export const getInvoicesChargesColumn = (
       return invoicesChargesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return invoicesChargesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return invoicesChargesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return invoicesChargesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return invoicesChargesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('type', () => {
       return invoicesChargesColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('invoiceId', () => {
       return invoicesChargesColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
         header: label('invoiceId'),
-        cell: (info) => format(info.getValue(), 'invoiceId'),
+        cell: (info) => format('invoiceId', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return invoicesChargesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return invoicesChargesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('vatCode', () => {
       return invoicesChargesColumnHelper.accessor((row) => row.vatCode, {
         id: 'vatCode',
         header: label('vatCode'),
-        cell: (info) => format(info.getValue(), 'vatCode'),
+        cell: (info) => format('vatCode', info.getValue()),
       })
     })
     .with('description', () => {
       return invoicesChargesColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('netAmount', () => {
       return invoicesChargesColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header: label('netAmount'),
-        cell: (info) => format(info.getValue(), 'netAmount'),
+        cell: (info) => format('netAmount', info.getValue()),
       })
     })
     .with('vatAmount', () => {
       return invoicesChargesColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header: label('vatAmount'),
-        cell: (info) => format(info.getValue(), 'vatAmount'),
+        cell: (info) => format('vatAmount', info.getValue()),
       })
     })
     .otherwise(() => {

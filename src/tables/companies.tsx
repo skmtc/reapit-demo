@@ -187,210 +187,210 @@ export const getCompaniesColumn = (property: string, { label, format }: ConfigIt
       return companiesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return companiesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return companiesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return companiesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return companiesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('name', () => {
       return companiesColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header: label('name'),
-        cell: (info) => format(info.getValue(), 'name'),
+        cell: (info) => format('name', info.getValue()),
       })
     })
     .with('branch', () => {
       return companiesColumnHelper.accessor((row) => row.branch, {
         id: 'branch',
         header: label('branch'),
-        cell: (info) => format(info.getValue(), 'branch'),
+        cell: (info) => format('branch', info.getValue()),
       })
     })
     .with('notes', () => {
       return companiesColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
         header: label('notes'),
-        cell: (info) => format(info.getValue(), 'notes'),
+        cell: (info) => format('notes', info.getValue()),
       })
     })
     .with('active', () => {
       return companiesColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header: label('active'),
-        cell: (info) => format(info.getValue(), 'active'),
+        cell: (info) => format('active', info.getValue()),
       })
     })
     .with('marketingConsent', () => {
       return companiesColumnHelper.accessor((row) => row.marketingConsent, {
         id: 'marketingConsent',
         header: label('marketingConsent'),
-        cell: (info) => format(info.getValue(), 'marketingConsent'),
+        cell: (info) => format('marketingConsent', info.getValue()),
       })
     })
     .with('vatRegistered', () => {
       return companiesColumnHelper.accessor((row) => row.vatRegistered, {
         id: 'vatRegistered',
         header: label('vatRegistered'),
-        cell: (info) => format(info.getValue(), 'vatRegistered'),
+        cell: (info) => format('vatRegistered', info.getValue()),
       })
     })
     .with('typeIds', () => {
       return companiesColumnHelper.accessor((row) => row.typeIds, {
         id: 'typeIds',
         header: label('typeIds'),
-        cell: (info) => format(info.getValue(), 'typeIds'),
+        cell: (info) => format('typeIds', info.getValue()),
       })
     })
     .with('supplierTypeId', () => {
       return companiesColumnHelper.accessor((row) => row.supplierTypeId, {
         id: 'supplierTypeId',
         header: label('supplierTypeId'),
-        cell: (info) => format(info.getValue(), 'supplierTypeId'),
+        cell: (info) => format('supplierTypeId', info.getValue()),
       })
     })
     .with('workPhone', () => {
       return companiesColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
         header: label('workPhone'),
-        cell: (info) => format(info.getValue(), 'workPhone'),
+        cell: (info) => format('workPhone', info.getValue()),
       })
     })
     .with('mobilePhone', () => {
       return companiesColumnHelper.accessor((row) => row.mobilePhone, {
         id: 'mobilePhone',
         header: label('mobilePhone'),
-        cell: (info) => format(info.getValue(), 'mobilePhone'),
+        cell: (info) => format('mobilePhone', info.getValue()),
       })
     })
     .with('email', () => {
       return companiesColumnHelper.accessor((row) => row.email, {
         id: 'email',
         header: label('email'),
-        cell: (info) => format(info.getValue(), 'email'),
+        cell: (info) => format('email', info.getValue()),
       })
     })
     .with('archivedOn', () => {
       return companiesColumnHelper.accessor((row) => row.archivedOn, {
         id: 'archivedOn',
         header: label('archivedOn'),
-        cell: (info) => format(info.getValue(), 'archivedOn'),
+        cell: (info) => format('archivedOn', info.getValue()),
       })
     })
     .with('fromArchive', () => {
       return companiesColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header: label('fromArchive'),
-        cell: (info) => format(info.getValue(), 'fromArchive'),
+        cell: (info) => format('fromArchive', info.getValue()),
       })
     })
     .with('address', () => {
       return companiesColumnHelper.accessor((row) => row.address, {
         id: 'address',
         header: label('address'),
-        cell: (info) => format(info.getValue(), 'address'),
+        cell: (info) => format('address', info.getValue()),
       })
     })
     .with('payments', () => {
       return companiesColumnHelper.accessor((row) => row.payments, {
         id: 'payments',
         header: label('payments'),
-        cell: (info) => format(info.getValue(), 'payments'),
+        cell: (info) => format('payments', info.getValue()),
       })
     })
     .with('additionalContactDetails', () => {
       return companiesColumnHelper.accessor((row) => row.additionalContactDetails, {
         id: 'additionalContactDetails',
         header: label('additionalContactDetails'),
-        cell: (info) => format(info.getValue(), 'additionalContactDetails'),
+        cell: (info) => format('additionalContactDetails', info.getValue()),
       })
     })
     .with('officeIds', () => {
       return companiesColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header: label('officeIds'),
-        cell: (info) => format(info.getValue(), 'officeIds'),
+        cell: (info) => format('officeIds', info.getValue()),
       })
     })
     .with('negotiatorIds', () => {
       return companiesColumnHelper.accessor((row) => row.negotiatorIds, {
         id: 'negotiatorIds',
         header: label('negotiatorIds'),
-        cell: (info) => format(info.getValue(), 'negotiatorIds'),
+        cell: (info) => format('negotiatorIds', info.getValue()),
       })
     })
     .with('communicationPreferenceLetter', () => {
       return companiesColumnHelper.accessor((row) => row.communicationPreferenceLetter, {
         id: 'communicationPreferenceLetter',
         header: label('communicationPreferenceLetter'),
-        cell: (info) => format(info.getValue(), 'communicationPreferenceLetter'),
+        cell: (info) => format('communicationPreferenceLetter', info.getValue()),
       })
     })
     .with('communicationPreferenceEmail', () => {
       return companiesColumnHelper.accessor((row) => row.communicationPreferenceEmail, {
         id: 'communicationPreferenceEmail',
         header: label('communicationPreferenceEmail'),
-        cell: (info) => format(info.getValue(), 'communicationPreferenceEmail'),
+        cell: (info) => format('communicationPreferenceEmail', info.getValue()),
       })
     })
     .with('communicationPreferencePhone', () => {
       return companiesColumnHelper.accessor((row) => row.communicationPreferencePhone, {
         id: 'communicationPreferencePhone',
         header: label('communicationPreferencePhone'),
-        cell: (info) => format(info.getValue(), 'communicationPreferencePhone'),
+        cell: (info) => format('communicationPreferencePhone', info.getValue()),
       })
     })
     .with('communicationPreferenceSms', () => {
       return companiesColumnHelper.accessor((row) => row.communicationPreferenceSms, {
         id: 'communicationPreferenceSms',
         header: label('communicationPreferenceSms'),
-        cell: (info) => format(info.getValue(), 'communicationPreferenceSms'),
+        cell: (info) => format('communicationPreferenceSms', info.getValue()),
       })
     })
     .with('metadata', () => {
       return companiesColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return companiesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .with('relationships', () => {
       return companiesColumnHelper.accessor((row) => row.relationships, {
         id: 'relationships',
         header: label('relationships'),
-        cell: (info) => format(info.getValue(), 'relationships'),
+        cell: (info) => format('relationships', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -442,63 +442,63 @@ export const getCompaniesIdRelationshipsColumn = (
       return companiesIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return companiesIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('companyId', () => {
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
         header: label('companyId'),
-        cell: (info) => format(info.getValue(), 'companyId'),
+        cell: (info) => format('companyId', info.getValue()),
       })
     })
     .with('associatedType', () => {
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header: label('associatedType'),
-        cell: (info) => format(info.getValue(), 'associatedType'),
+        cell: (info) => format('associatedType', info.getValue()),
       })
     })
     .with('associatedId', () => {
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header: label('associatedId'),
-        cell: (info) => format(info.getValue(), 'associatedId'),
+        cell: (info) => format('associatedId', info.getValue()),
       })
     })
     .with('fromArchive', () => {
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header: label('fromArchive'),
-        cell: (info) => format(info.getValue(), 'fromArchive'),
+        cell: (info) => format('fromArchive', info.getValue()),
       })
     })
     .otherwise(() => {

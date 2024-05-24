@@ -184,140 +184,140 @@ export const getTransactionsColumn = (property: string, { label, format }: Confi
       return transactionsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return transactionsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return transactionsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return transactionsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return transactionsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('category', () => {
       return transactionsColumnHelper.accessor((row) => row.category, {
         id: 'category',
         header: label('category'),
-        cell: (info) => format(info.getValue(), 'category'),
+        cell: (info) => format('category', info.getValue()),
       })
     })
     .with('type', () => {
       return transactionsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('transactionType', () => {
       return transactionsColumnHelper.accessor((row) => row.transactionType, {
         id: 'transactionType',
         header: label('transactionType'),
-        cell: (info) => format(info.getValue(), 'transactionType'),
+        cell: (info) => format('transactionType', info.getValue()),
       })
     })
     .with('description', () => {
       return transactionsColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('status', () => {
       return transactionsColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('ledger', () => {
       return transactionsColumnHelper.accessor((row) => row.ledger, {
         id: 'ledger',
         header: label('ledger'),
-        cell: (info) => format(info.getValue(), 'ledger'),
+        cell: (info) => format('ledger', info.getValue()),
       })
     })
     .with('netAmount', () => {
       return transactionsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header: label('netAmount'),
-        cell: (info) => format(info.getValue(), 'netAmount'),
+        cell: (info) => format('netAmount', info.getValue()),
       })
     })
     .with('taxAmount', () => {
       return transactionsColumnHelper.accessor((row) => row.taxAmount, {
         id: 'taxAmount',
         header: label('taxAmount'),
-        cell: (info) => format(info.getValue(), 'taxAmount'),
+        cell: (info) => format('taxAmount', info.getValue()),
       })
     })
     .with('grossAmount', () => {
       return transactionsColumnHelper.accessor((row) => row.grossAmount, {
         id: 'grossAmount',
         header: label('grossAmount'),
-        cell: (info) => format(info.getValue(), 'grossAmount'),
+        cell: (info) => format('grossAmount', info.getValue()),
       })
     })
     .with('outstanding', () => {
       return transactionsColumnHelper.accessor((row) => row.outstanding, {
         id: 'outstanding',
         header: label('outstanding'),
-        cell: (info) => format(info.getValue(), 'outstanding'),
+        cell: (info) => format('outstanding', info.getValue()),
       })
     })
     .with('companyId', () => {
       return transactionsColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
         header: label('companyId'),
-        cell: (info) => format(info.getValue(), 'companyId'),
+        cell: (info) => format('companyId', info.getValue()),
       })
     })
     .with('landlordId', () => {
       return transactionsColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
         header: label('landlordId'),
-        cell: (info) => format(info.getValue(), 'landlordId'),
+        cell: (info) => format('landlordId', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return transactionsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('tenancyId', () => {
       return transactionsColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header: label('tenancyId'),
-        cell: (info) => format(info.getValue(), 'tenancyId'),
+        cell: (info) => format('tenancyId', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return transactionsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -369,49 +369,49 @@ export const getTransactionsNominalAccountsColumn = (
       return transactionsNominalAccountsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return transactionsNominalAccountsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return transactionsNominalAccountsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return transactionsNominalAccountsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return transactionsNominalAccountsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('name', () => {
       return transactionsNominalAccountsColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header: label('name'),
-        cell: (info) => format(info.getValue(), 'name'),
+        cell: (info) => format('name', info.getValue()),
       })
     })
     .with('appliesToWorksOrders', () => {
       return transactionsNominalAccountsColumnHelper.accessor((row) => row.appliesToWorksOrders, {
         id: 'appliesToWorksOrders',
         header: label('appliesToWorksOrders'),
-        cell: (info) => format(info.getValue(), 'appliesToWorksOrders'),
+        cell: (info) => format('appliesToWorksOrders', info.getValue()),
       })
     })
     .otherwise(() => {

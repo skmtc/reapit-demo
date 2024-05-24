@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -72,17 +72,13 @@ export const CreateNegotiators = (props: CreateNegotiatorsProps) => {
   )
 }
 
-type GetCreateNegotiatorsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateNegotiatorsFieldArgs = {
+  fieldName: FieldPath<CreateNegotiatorsBody>
+  control: Control<CreateNegotiatorsBody>
+  formConfig: FormConfig<CreateNegotiatorsBody>
 }
 
-export const getCreateNegotiatorsField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateNegotiatorsFieldArgs<CreateNegotiatorsBody>) => {
+export const getCreateNegotiatorsField = ({ fieldName, control, formConfig }: GetCreateNegotiatorsFieldArgs) => {
   return match(fieldName)
     .with('name', () => {
       const { label, Input } = formConfig['name']

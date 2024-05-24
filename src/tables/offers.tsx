@@ -152,140 +152,140 @@ export const getOffersColumn = (property: string, { label, format }: ConfigItemL
       return offersColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return offersColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return offersColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return offersColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return offersColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('currency', () => {
       return offersColumnHelper.accessor((row) => row.currency, {
         id: 'currency',
         header: label('currency'),
-        cell: (info) => format(info.getValue(), 'currency'),
+        cell: (info) => format('currency', info.getValue()),
       })
     })
     .with('applicantId', () => {
       return offersColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header: label('applicantId'),
-        cell: (info) => format(info.getValue(), 'applicantId'),
+        cell: (info) => format('applicantId', info.getValue()),
       })
     })
     .with('companyId', () => {
       return offersColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
         header: label('companyId'),
-        cell: (info) => format(info.getValue(), 'companyId'),
+        cell: (info) => format('companyId', info.getValue()),
       })
     })
     .with('contactId', () => {
       return offersColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header: label('contactId'),
-        cell: (info) => format(info.getValue(), 'contactId'),
+        cell: (info) => format('contactId', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return offersColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return offersColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('date', () => {
       return offersColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header: label('date'),
-        cell: (info) => format(info.getValue(), 'date'),
+        cell: (info) => format('date', info.getValue()),
       })
     })
     .with('amount', () => {
       return offersColumnHelper.accessor((row) => row.amount, {
         id: 'amount',
         header: label('amount'),
-        cell: (info) => format(info.getValue(), 'amount'),
+        cell: (info) => format('amount', info.getValue()),
       })
     })
     .with('status', () => {
       return offersColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('inclusions', () => {
       return offersColumnHelper.accessor((row) => row.inclusions, {
         id: 'inclusions',
         header: label('inclusions'),
-        cell: (info) => format(info.getValue(), 'inclusions'),
+        cell: (info) => format('inclusions', info.getValue()),
       })
     })
     .with('exclusions', () => {
       return offersColumnHelper.accessor((row) => row.exclusions, {
         id: 'exclusions',
         header: label('exclusions'),
-        cell: (info) => format(info.getValue(), 'exclusions'),
+        cell: (info) => format('exclusions', info.getValue()),
       })
     })
     .with('conditions', () => {
       return offersColumnHelper.accessor((row) => row.conditions, {
         id: 'conditions',
         header: label('conditions'),
-        cell: (info) => format(info.getValue(), 'conditions'),
+        cell: (info) => format('conditions', info.getValue()),
       })
     })
     .with('related', () => {
       return offersColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header: label('related'),
-        cell: (info) => format(info.getValue(), 'related'),
+        cell: (info) => format('related', info.getValue()),
       })
     })
     .with('metadata', () => {
       return offersColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return offersColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {

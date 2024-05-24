@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -7,9 +7,12 @@ import { default as Box } from '@mui/joy/Box'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { FormConfig } from '@/components/ModelRuntimeConfig'
+import { ConfigItemLookup, FormConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useCreateContact, useUpdateContactSubscription } from '@/services/contacts.ts'
+import {
+  useCreateContact,
+  useUpdateContactSubscription
+} from '@/services/contacts.ts'
 
 export const createContactsBody = z.object({
   title: z.string().nullable().optional(),
@@ -19,7 +22,10 @@ export const createContactsBody = z.object({
   active: z.boolean().nullable().optional(),
   marketingConsent: z.string(),
   source: z
-    .object({ id: z.string().nullable().optional(), type: z.string().nullable().optional() })
+    .object({
+      id: z.string().nullable().optional(),
+      type: z.string().nullable().optional()
+    })
     .nullable()
     .optional(),
   homePhone: z.string().nullable().optional(),
@@ -39,7 +45,7 @@ export const createContactsBody = z.object({
       line3: z.string().nullable().optional(),
       line4: z.string().nullable().optional(),
       postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
+      countryId: z.string().nullable().optional()
     })
     .nullable()
     .optional(),
@@ -53,7 +59,7 @@ export const createContactsBody = z.object({
       line3: z.string().nullable().optional(),
       line4: z.string().nullable().optional(),
       postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
+      countryId: z.string().nullable().optional()
     })
     .nullable()
     .optional(),
@@ -67,7 +73,7 @@ export const createContactsBody = z.object({
       line3: z.string().nullable().optional(),
       line4: z.string().nullable().optional(),
       postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
+      countryId: z.string().nullable().optional()
     })
     .nullable()
     .optional(),
@@ -75,7 +81,7 @@ export const createContactsBody = z.object({
   communicationPreferenceEmail: z.boolean().nullable().optional(),
   communicationPreferencePhone: z.boolean().nullable().optional(),
   communicationPreferenceSMS: z.boolean().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
+  metadata: z.record(z.string(), z.object({})).nullable().optional()
 })
 export type CreateContactsBody = {
   title?: string | undefined | null
@@ -84,7 +90,10 @@ export type CreateContactsBody = {
   dateOfBirth?: string | undefined | null
   active?: boolean | undefined | null
   marketingConsent: string
-  source?: { id?: string | undefined | null; type?: string | undefined | null } | undefined | null
+  source?:
+    | { id?: string | undefined | null; type?: string | undefined | null }
+    | undefined
+    | null
   homePhone?: string | undefined | null
   workPhone?: string | undefined | null
   mobilePhone?: string | undefined | null
@@ -140,18 +149,26 @@ export type CreateContactsBody = {
   communicationPreferenceSMS?: boolean | undefined | null
   metadata?: Record<string, Record<string, never>> | undefined | null
 }
-export type CreateContactsProps = { children: (control: Control<CreateContactsBody>) => ReactNode }
-export const updateContactsIdSubscriptionsSubscriptionIdBody = z.object({ status: z.string().nullable().optional() })
-export type UpdateContactsIdSubscriptionsSubscriptionIdBody = { status?: string | undefined | null }
+export type CreateContactsProps = {
+  children: (control: Control<CreateContactsBody>) => ReactNode
+}
+export const updateContactsIdSubscriptionsSubscriptionIdBody = z.object({
+  status: z.string().nullable().optional()
+})
+export type UpdateContactsIdSubscriptionsSubscriptionIdBody = {
+  status?: string | undefined | null
+}
 export type UpdateContactsIdSubscriptionsSubscriptionIdProps = {
   id: string
   subscriptionId: string
-  children: (control: Control<UpdateContactsIdSubscriptionsSubscriptionIdBody>) => ReactNode
+  children: (
+    control: Control<UpdateContactsIdSubscriptionsSubscriptionIdBody>
+  ) => ReactNode
 }
 
 export const CreateContacts = (props: CreateContactsProps) => {
   const { control, handleSubmit } = useForm<CreateContactsBody>({
-    resolver: zodResolver(createContactsBody),
+    resolver: zodResolver(createContactsBody)
   })
 
   const mutator = useCreateContact()
@@ -163,7 +180,7 @@ export const CreateContacts = (props: CreateContactsProps) => {
       flexDirection="column"
       flex={1}
       gap="16px"
-      onSubmit={handleSubmit((body) => {
+      onSubmit={handleSubmit(body => {
         mutator.mutate({ ...props, body })
       })}
     >
@@ -175,7 +192,7 @@ export const CreateContacts = (props: CreateContactsProps) => {
           pt: '16px',
           position: 'sticky',
           bottom: 0,
-          bgColor: 'white',
+          bgColor: 'white'
         }}
       >
         <Button type="submit">Submit</Button>
@@ -184,20 +201,21 @@ export const CreateContacts = (props: CreateContactsProps) => {
   )
 }
 
-type GetCreateContactsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateContactsFieldArgs = {
+  fieldName: FieldPath<CreateContactsBody>
+  control: Control<CreateContactsBody>
+  formConfig: ConfigItemLookup<CreateContactsBody>
 }
 
 export const getCreateContactsField = ({
   fieldName,
   control,
-  formConfig,
-}: GetCreateContactsFieldArgs<CreateContactsBody>) => {
+  formConfig
+}: GetCreateContactsFieldArgs) => {
   return match(fieldName)
     .with('title', () => {
-      const { label, Input } = formConfig['title']
+      const label = formConfig.label('title')
+      const Input = formConfig.Input
 
       return (
         <Controller
@@ -207,8 +225,11 @@ export const getCreateContactsField = ({
           render={({ field, fieldState }) => (
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
-              <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              <Input key="title" {...field} />
+              {formConfig.Input('title', field)}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -226,7 +247,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -244,7 +267,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -262,7 +287,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -280,7 +307,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -298,7 +327,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -316,7 +347,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -334,7 +367,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -352,7 +387,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -370,7 +407,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -388,7 +427,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -406,7 +447,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -424,7 +467,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -442,7 +487,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -460,7 +507,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -478,7 +527,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -496,7 +547,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -514,7 +567,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -532,7 +587,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -550,7 +607,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -568,7 +627,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -586,7 +647,9 @@ export const getCreateContactsField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />
@@ -598,11 +661,12 @@ export const getCreateContactsField = ({
 }
 
 export const UpdateContactsIdSubscriptionsSubscriptionId = (
-  props: UpdateContactsIdSubscriptionsSubscriptionIdProps,
+  props: UpdateContactsIdSubscriptionsSubscriptionIdProps
 ) => {
-  const { control, handleSubmit } = useForm<UpdateContactsIdSubscriptionsSubscriptionIdBody>({
-    resolver: zodResolver(updateContactsIdSubscriptionsSubscriptionIdBody),
-  })
+  const { control, handleSubmit } =
+    useForm<UpdateContactsIdSubscriptionsSubscriptionIdBody>({
+      resolver: zodResolver(updateContactsIdSubscriptionsSubscriptionIdBody)
+    })
 
   const mutator = useUpdateContactSubscription()
 
@@ -613,7 +677,7 @@ export const UpdateContactsIdSubscriptionsSubscriptionId = (
       flexDirection="column"
       flex={1}
       gap="16px"
-      onSubmit={handleSubmit((body) => {
+      onSubmit={handleSubmit(body => {
         mutator.mutate({ ...props, body })
       })}
     >
@@ -625,7 +689,7 @@ export const UpdateContactsIdSubscriptionsSubscriptionId = (
           pt: '16px',
           position: 'sticky',
           bottom: 0,
-          bgColor: 'white',
+          bgColor: 'white'
         }}
       >
         <Button type="submit">Submit</Button>
@@ -634,17 +698,17 @@ export const UpdateContactsIdSubscriptionsSubscriptionId = (
   )
 }
 
-type GetUpdateContactsIdSubscriptionsSubscriptionIdFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetUpdateContactsIdSubscriptionsSubscriptionIdFieldArgs = {
+  fieldName: FieldPath<UpdateContactsIdSubscriptionsSubscriptionIdBody>
+  control: Control<UpdateContactsIdSubscriptionsSubscriptionIdBody>
+  formConfig: FormConfig<UpdateContactsIdSubscriptionsSubscriptionIdBody>
 }
 
 export const getUpdateContactsIdSubscriptionsSubscriptionIdField = ({
   fieldName,
   control,
-  formConfig,
-}: GetUpdateContactsIdSubscriptionsSubscriptionIdFieldArgs<UpdateContactsIdSubscriptionsSubscriptionIdBody>) => {
+  formConfig
+}: GetUpdateContactsIdSubscriptionsSubscriptionIdFieldArgs) => {
   return match(fieldName)
     .with('status', () => {
       const { label, Input } = formConfig['status']
@@ -658,7 +722,9 @@ export const getUpdateContactsIdSubscriptionsSubscriptionIdField = ({
             <FormControl error={Boolean(fieldState.error?.message)}>
               <FormLabel>{label}</FormLabel>
               <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+              {fieldState.error?.message ? (
+                <FormHelperText>{fieldState.error?.message}</FormHelperText>
+              ) : null}
             </FormControl>
           )}
         />

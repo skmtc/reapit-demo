@@ -60,91 +60,91 @@ export const getAreasColumn = (property: string, { label, format }: ConfigItemLo
       return areasColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return areasColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return areasColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return areasColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return areasColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('name', () => {
       return areasColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header: label('name'),
-        cell: (info) => format(info.getValue(), 'name'),
+        cell: (info) => format('name', info.getValue()),
       })
     })
     .with('active', () => {
       return areasColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header: label('active'),
-        cell: (info) => format(info.getValue(), 'active'),
+        cell: (info) => format('active', info.getValue()),
       })
     })
     .with('type', () => {
       return areasColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('area', () => {
       return areasColumnHelper.accessor((row) => row.area, {
         id: 'area',
         header: label('area'),
-        cell: (info) => format(info.getValue(), 'area'),
+        cell: (info) => format('area', info.getValue()),
       })
     })
     .with('departmentIds', () => {
       return areasColumnHelper.accessor((row) => row.departmentIds, {
         id: 'departmentIds',
         header: label('departmentIds'),
-        cell: (info) => format(info.getValue(), 'departmentIds'),
+        cell: (info) => format('departmentIds', info.getValue()),
       })
     })
     .with('officeIds', () => {
       return areasColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header: label('officeIds'),
-        cell: (info) => format(info.getValue(), 'officeIds'),
+        cell: (info) => format('officeIds', info.getValue()),
       })
     })
     .with('parentIds', () => {
       return areasColumnHelper.accessor((row) => row.parentIds, {
         id: 'parentIds',
         header: label('parentIds'),
-        cell: (info) => format(info.getValue(), 'parentIds'),
+        cell: (info) => format('parentIds', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return areasColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {

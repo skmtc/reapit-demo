@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -83,17 +83,17 @@ export const CreateConveyancingIdDownward = (props: CreateConveyancingIdDownward
   )
 }
 
-type GetCreateConveyancingIdDownwardFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateConveyancingIdDownwardFieldArgs = {
+  fieldName: FieldPath<CreateConveyancingIdDownwardBody>
+  control: Control<CreateConveyancingIdDownwardBody>
+  formConfig: FormConfig<CreateConveyancingIdDownwardBody>
 }
 
 export const getCreateConveyancingIdDownwardField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateConveyancingIdDownwardFieldArgs<CreateConveyancingIdDownwardBody>) => {
+}: GetCreateConveyancingIdDownwardFieldArgs) => {
   return match(fieldName)
     .with('offerId', () => {
       const { label, Input } = formConfig['offerId']
@@ -225,17 +225,17 @@ export const CreateConveyancingIdUpward = (props: CreateConveyancingIdUpwardProp
   )
 }
 
-type GetCreateConveyancingIdUpwardFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateConveyancingIdUpwardFieldArgs = {
+  fieldName: FieldPath<CreateConveyancingIdUpwardBody>
+  control: Control<CreateConveyancingIdUpwardBody>
+  formConfig: FormConfig<CreateConveyancingIdUpwardBody>
 }
 
 export const getCreateConveyancingIdUpwardField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateConveyancingIdUpwardFieldArgs<CreateConveyancingIdUpwardBody>) => {
+}: GetCreateConveyancingIdUpwardFieldArgs) => {
   return match(fieldName)
     .with('offerId', () => {
       const { label, Input } = formConfig['offerId']

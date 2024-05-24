@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -112,17 +112,13 @@ export const CreateCompanies = (props: CreateCompaniesProps) => {
   )
 }
 
-type GetCreateCompaniesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateCompaniesFieldArgs = {
+  fieldName: FieldPath<CreateCompaniesBody>
+  control: Control<CreateCompaniesBody>
+  formConfig: FormConfig<CreateCompaniesBody>
 }
 
-export const getCreateCompaniesField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateCompaniesFieldArgs<CreateCompaniesBody>) => {
+export const getCreateCompaniesField = ({ fieldName, control, formConfig }: GetCreateCompaniesFieldArgs) => {
   return match(fieldName)
     .with('name', () => {
       const { label, Input } = formConfig['name']

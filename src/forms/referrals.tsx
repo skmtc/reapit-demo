@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -64,17 +64,13 @@ export const CreateReferrals = (props: CreateReferralsProps) => {
   )
 }
 
-type GetCreateReferralsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateReferralsFieldArgs = {
+  fieldName: FieldPath<CreateReferralsBody>
+  control: Control<CreateReferralsBody>
+  formConfig: FormConfig<CreateReferralsBody>
 }
 
-export const getCreateReferralsField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateReferralsFieldArgs<CreateReferralsBody>) => {
+export const getCreateReferralsField = ({ fieldName, control, formConfig }: GetCreateReferralsFieldArgs) => {
   return match(fieldName)
     .with('referralTypeId', () => {
       const { label, Input } = formConfig['referralTypeId']

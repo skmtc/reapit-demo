@@ -84,63 +84,63 @@ export const getJournalEntriesColumn = (property: string, { label, format }: Con
       return journalEntriesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return journalEntriesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('created', () => {
       return journalEntriesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return journalEntriesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('associatedType', () => {
       return journalEntriesColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header: label('associatedType'),
-        cell: (info) => format(info.getValue(), 'associatedType'),
+        cell: (info) => format('associatedType', info.getValue()),
       })
     })
     .with('associatedId', () => {
       return journalEntriesColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header: label('associatedId'),
-        cell: (info) => format(info.getValue(), 'associatedId'),
+        cell: (info) => format('associatedId', info.getValue()),
       })
     })
     .with('typeId', () => {
       return journalEntriesColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header: label('typeId'),
-        cell: (info) => format(info.getValue(), 'typeId'),
+        cell: (info) => format('typeId', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return journalEntriesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('description', () => {
       return journalEntriesColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -192,56 +192,56 @@ export const getJournalEntriesLandlordsColumn = (
       return journalEntriesLandlordsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return journalEntriesLandlordsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('created', () => {
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('landlordId', () => {
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
         header: label('landlordId'),
-        cell: (info) => format(info.getValue(), 'landlordId'),
+        cell: (info) => format('landlordId', info.getValue()),
       })
     })
     .with('type', () => {
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('description', () => {
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .otherwise(() => {

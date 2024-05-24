@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -57,17 +57,13 @@ export const CreateMetadata = (props: CreateMetadataProps) => {
   )
 }
 
-type GetCreateMetadataFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateMetadataFieldArgs = {
+  fieldName: FieldPath<CreateMetadataBody>
+  control: Control<CreateMetadataBody>
+  formConfig: FormConfig<CreateMetadataBody>
 }
 
-export const getCreateMetadataField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateMetadataFieldArgs<CreateMetadataBody>) => {
+export const getCreateMetadataField = ({ fieldName, control, formConfig }: GetCreateMetadataFieldArgs) => {
   return match(fieldName)
     .with('entityType', () => {
       const { label, Input } = formConfig['entityType']
@@ -163,17 +159,13 @@ export const UpdateMetadataId = (props: UpdateMetadataIdProps) => {
   )
 }
 
-type GetUpdateMetadataIdFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetUpdateMetadataIdFieldArgs = {
+  fieldName: FieldPath<UpdateMetadataIdBody>
+  control: Control<UpdateMetadataIdBody>
+  formConfig: FormConfig<UpdateMetadataIdBody>
 }
 
-export const getUpdateMetadataIdField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetUpdateMetadataIdFieldArgs<UpdateMetadataIdBody>) => {
+export const getUpdateMetadataIdField = ({ fieldName, control, formConfig }: GetUpdateMetadataIdFieldArgs) => {
   return match(fieldName)
     .with('metadata', () => {
       const { label, Input } = formConfig['metadata']

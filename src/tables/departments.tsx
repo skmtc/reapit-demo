@@ -72,161 +72,161 @@ export const getDepartmentsColumn = (property: string, { label, format }: Config
       return departmentsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return departmentsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return departmentsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return departmentsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return departmentsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('name', () => {
       return departmentsColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header: label('name'),
-        cell: (info) => format(info.getValue(), 'name'),
+        cell: (info) => format('name', info.getValue()),
       })
     })
     .with('typeOptions', () => {
       return departmentsColumnHelper.accessor((row) => row.typeOptions, {
         id: 'typeOptions',
         header: label('typeOptions'),
-        cell: (info) => format(info.getValue(), 'typeOptions'),
+        cell: (info) => format('typeOptions', info.getValue()),
       })
     })
     .with('styleOptions', () => {
       return departmentsColumnHelper.accessor((row) => row.styleOptions, {
         id: 'styleOptions',
         header: label('styleOptions'),
-        cell: (info) => format(info.getValue(), 'styleOptions'),
+        cell: (info) => format('styleOptions', info.getValue()),
       })
     })
     .with('situationOptions', () => {
       return departmentsColumnHelper.accessor((row) => row.situationOptions, {
         id: 'situationOptions',
         header: label('situationOptions'),
-        cell: (info) => format(info.getValue(), 'situationOptions'),
+        cell: (info) => format('situationOptions', info.getValue()),
       })
     })
     .with('parkingOptions', () => {
       return departmentsColumnHelper.accessor((row) => row.parkingOptions, {
         id: 'parkingOptions',
         header: label('parkingOptions'),
-        cell: (info) => format(info.getValue(), 'parkingOptions'),
+        cell: (info) => format('parkingOptions', info.getValue()),
       })
     })
     .with('ageOptions', () => {
       return departmentsColumnHelper.accessor((row) => row.ageOptions, {
         id: 'ageOptions',
         header: label('ageOptions'),
-        cell: (info) => format(info.getValue(), 'ageOptions'),
+        cell: (info) => format('ageOptions', info.getValue()),
       })
     })
     .with('localityOptions', () => {
       return departmentsColumnHelper.accessor((row) => row.localityOptions, {
         id: 'localityOptions',
         header: label('localityOptions'),
-        cell: (info) => format(info.getValue(), 'localityOptions'),
+        cell: (info) => format('localityOptions', info.getValue()),
       })
     })
     .with('specialFeaturesOptions', () => {
       return departmentsColumnHelper.accessor((row) => row.specialFeaturesOptions, {
         id: 'specialFeaturesOptions',
         header: label('specialFeaturesOptions'),
-        cell: (info) => format(info.getValue(), 'specialFeaturesOptions'),
+        cell: (info) => format('specialFeaturesOptions', info.getValue()),
       })
     })
     .with('commercialUseClassOptions', () => {
       return departmentsColumnHelper.accessor((row) => row.commercialUseClassOptions, {
         id: 'commercialUseClassOptions',
         header: label('commercialUseClassOptions'),
-        cell: (info) => format(info.getValue(), 'commercialUseClassOptions'),
+        cell: (info) => format('commercialUseClassOptions', info.getValue()),
       })
     })
     .with('commercialFloorLevelOptions', () => {
       return departmentsColumnHelper.accessor((row) => row.commercialFloorLevelOptions, {
         id: 'commercialFloorLevelOptions',
         header: label('commercialFloorLevelOptions'),
-        cell: (info) => format(info.getValue(), 'commercialFloorLevelOptions'),
+        cell: (info) => format('commercialFloorLevelOptions', info.getValue()),
       })
     })
     .with('hasBedrooms', () => {
       return departmentsColumnHelper.accessor((row) => row.hasBedrooms, {
         id: 'hasBedrooms',
         header: label('hasBedrooms'),
-        cell: (info) => format(info.getValue(), 'hasBedrooms'),
+        cell: (info) => format('hasBedrooms', info.getValue()),
       })
     })
     .with('hasBathrooms', () => {
       return departmentsColumnHelper.accessor((row) => row.hasBathrooms, {
         id: 'hasBathrooms',
         header: label('hasBathrooms'),
-        cell: (info) => format(info.getValue(), 'hasBathrooms'),
+        cell: (info) => format('hasBathrooms', info.getValue()),
       })
     })
     .with('hasReceptionRooms', () => {
       return departmentsColumnHelper.accessor((row) => row.hasReceptionRooms, {
         id: 'hasReceptionRooms',
         header: label('hasReceptionRooms'),
-        cell: (info) => format(info.getValue(), 'hasReceptionRooms'),
+        cell: (info) => format('hasReceptionRooms', info.getValue()),
       })
     })
     .with('hasParkingSpaces', () => {
       return departmentsColumnHelper.accessor((row) => row.hasParkingSpaces, {
         id: 'hasParkingSpaces',
         header: label('hasParkingSpaces'),
-        cell: (info) => format(info.getValue(), 'hasParkingSpaces'),
+        cell: (info) => format('hasParkingSpaces', info.getValue()),
       })
     })
     .with('hasFloorLevelEnabled', () => {
       return departmentsColumnHelper.accessor((row) => row.hasFloorLevelEnabled, {
         id: 'hasFloorLevelEnabled',
         header: label('hasFloorLevelEnabled'),
-        cell: (info) => format(info.getValue(), 'hasFloorLevelEnabled'),
+        cell: (info) => format('hasFloorLevelEnabled', info.getValue()),
       })
     })
     .with('hasInternalFloorsEnabled', () => {
       return departmentsColumnHelper.accessor((row) => row.hasInternalFloorsEnabled, {
         id: 'hasInternalFloorsEnabled',
         header: label('hasInternalFloorsEnabled'),
-        cell: (info) => format(info.getValue(), 'hasInternalFloorsEnabled'),
+        cell: (info) => format('hasInternalFloorsEnabled', info.getValue()),
       })
     })
     .with('hasTotalFloorsEnabled', () => {
       return departmentsColumnHelper.accessor((row) => row.hasTotalFloorsEnabled, {
         id: 'hasTotalFloorsEnabled',
         header: label('hasTotalFloorsEnabled'),
-        cell: (info) => format(info.getValue(), 'hasTotalFloorsEnabled'),
+        cell: (info) => format('hasTotalFloorsEnabled', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return departmentsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {

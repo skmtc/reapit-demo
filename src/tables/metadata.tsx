@@ -35,35 +35,35 @@ export const getMetadataColumn = (property: string, { label, format }: ConfigIte
       return metadataColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('modified', () => {
       return metadataColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('entityType', () => {
       return metadataColumnHelper.accessor((row) => row.entityType, {
         id: 'entityType',
         header: label('entityType'),
-        cell: (info) => format(info.getValue(), 'entityType'),
+        cell: (info) => format('entityType', info.getValue()),
       })
     })
     .with('entityId', () => {
       return metadataColumnHelper.accessor((row) => row.entityId, {
         id: 'entityId',
         header: label('entityId'),
-        cell: (info) => format(info.getValue(), 'entityId'),
+        cell: (info) => format('entityId', info.getValue()),
       })
     })
     .with('metadata', () => {
       return metadataColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .otherwise(() => {

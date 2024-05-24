@@ -15,8 +15,9 @@ import {
 } from '@/tables/contacts'
 import { createRuntimeConfig } from '@/components/ModelRuntimeConfig'
 import Link from '@mui/joy/Link'
+import { CreateContactsBody } from '@/forms/contacts'
 
-export const projectConfig: ModelConfig<ContactsBody> = {
+export const contactConfig: ModelConfig<CreateContactsBody> = {
   id: {
     key: 'id',
     label: 'Id',
@@ -25,11 +26,11 @@ export const projectConfig: ModelConfig<ContactsBody> = {
         {value}
       </Link>
     ),
-    input: () => <Box>Not implemented</Box>
+    Input: () => <Box>Not implemented</Box>
   }
 }
 
-const projectsConfig: DisplayConfig<ContactsBody> = {
+const contactsConfig: DisplayConfig<ContactsBody> = {
   id: {
     key: 'id',
     label: 'Id',
@@ -49,9 +50,9 @@ const projectsConfig: DisplayConfig<ContactsBody> = {
 const formatting = createRuntimeConfig(
   {
     type: 'display',
-    config: projectsConfig
+    config: contactsConfig
   },
-  projectConfig
+  contactConfig
 )
 
 export const Contacts = () => {

@@ -78,126 +78,126 @@ export const getNegotiatorsColumn = (property: string, { label, format }: Config
       return negotiatorsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return negotiatorsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return negotiatorsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return negotiatorsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return negotiatorsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('name', () => {
       return negotiatorsColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header: label('name'),
-        cell: (info) => format(info.getValue(), 'name'),
+        cell: (info) => format('name', info.getValue()),
       })
     })
     .with('jobTitle', () => {
       return negotiatorsColumnHelper.accessor((row) => row.jobTitle, {
         id: 'jobTitle',
         header: label('jobTitle'),
-        cell: (info) => format(info.getValue(), 'jobTitle'),
+        cell: (info) => format('jobTitle', info.getValue()),
       })
     })
     .with('officeId', () => {
       return negotiatorsColumnHelper.accessor((row) => row.officeId, {
         id: 'officeId',
         header: label('officeId'),
-        cell: (info) => format(info.getValue(), 'officeId'),
+        cell: (info) => format('officeId', info.getValue()),
       })
     })
     .with('workPhone', () => {
       return negotiatorsColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
         header: label('workPhone'),
-        cell: (info) => format(info.getValue(), 'workPhone'),
+        cell: (info) => format('workPhone', info.getValue()),
       })
     })
     .with('mobilePhone', () => {
       return negotiatorsColumnHelper.accessor((row) => row.mobilePhone, {
         id: 'mobilePhone',
         header: label('mobilePhone'),
-        cell: (info) => format(info.getValue(), 'mobilePhone'),
+        cell: (info) => format('mobilePhone', info.getValue()),
       })
     })
     .with('email', () => {
       return negotiatorsColumnHelper.accessor((row) => row.email, {
         id: 'email',
         header: label('email'),
-        cell: (info) => format(info.getValue(), 'email'),
+        cell: (info) => format('email', info.getValue()),
       })
     })
     .with('profileImageUrl', () => {
       return negotiatorsColumnHelper.accessor((row) => row.profileImageUrl, {
         id: 'profileImageUrl',
         header: label('profileImageUrl'),
-        cell: (info) => format(info.getValue(), 'profileImageUrl'),
+        cell: (info) => format('profileImageUrl', info.getValue()),
       })
     })
     .with('active', () => {
       return negotiatorsColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header: label('active'),
-        cell: (info) => format(info.getValue(), 'active'),
+        cell: (info) => format('active', info.getValue()),
       })
     })
     .with('diaryNegotiatorIds', () => {
       return negotiatorsColumnHelper.accessor((row) => row.diaryNegotiatorIds, {
         id: 'diaryNegotiatorIds',
         header: label('diaryNegotiatorIds'),
-        cell: (info) => format(info.getValue(), 'diaryNegotiatorIds'),
+        cell: (info) => format('diaryNegotiatorIds', info.getValue()),
       })
     })
     .with('diaryOfficeIds', () => {
       return negotiatorsColumnHelper.accessor((row) => row.diaryOfficeIds, {
         id: 'diaryOfficeIds',
         header: label('diaryOfficeIds'),
-        cell: (info) => format(info.getValue(), 'diaryOfficeIds'),
+        cell: (info) => format('diaryOfficeIds', info.getValue()),
       })
     })
     .with('additionalContactDetails', () => {
       return negotiatorsColumnHelper.accessor((row) => row.additionalContactDetails, {
         id: 'additionalContactDetails',
         header: label('additionalContactDetails'),
-        cell: (info) => format(info.getValue(), 'additionalContactDetails'),
+        cell: (info) => format('additionalContactDetails', info.getValue()),
       })
     })
     .with('metadata', () => {
       return negotiatorsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return negotiatorsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {

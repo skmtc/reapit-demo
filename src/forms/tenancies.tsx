@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -294,17 +294,13 @@ export const CreateTenancies = (props: CreateTenanciesProps) => {
   )
 }
 
-type GetCreateTenanciesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateTenanciesFieldArgs = {
+  fieldName: FieldPath<CreateTenanciesBody>
+  control: Control<CreateTenanciesBody>
+  formConfig: FormConfig<CreateTenanciesBody>
 }
 
-export const getCreateTenanciesField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateTenanciesFieldArgs<CreateTenanciesBody>) => {
+export const getCreateTenanciesField = ({ fieldName, control, formConfig }: GetCreateTenanciesFieldArgs) => {
   return match(fieldName)
     .with('startDate', () => {
       const { label, Input } = formConfig['startDate']
@@ -814,17 +810,17 @@ export const CreateTenanciesIdChecks = (props: CreateTenanciesIdChecksProps) => 
   )
 }
 
-type GetCreateTenanciesIdChecksFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateTenanciesIdChecksFieldArgs = {
+  fieldName: FieldPath<CreateTenanciesIdChecksBody>
+  control: Control<CreateTenanciesIdChecksBody>
+  formConfig: FormConfig<CreateTenanciesIdChecksBody>
 }
 
 export const getCreateTenanciesIdChecksField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateTenanciesIdChecksFieldArgs<CreateTenanciesIdChecksBody>) => {
+}: GetCreateTenanciesIdChecksFieldArgs) => {
   return match(fieldName)
     .with('description', () => {
       const { label, Input } = formConfig['description']
@@ -956,17 +952,17 @@ export const CreateTenanciesIdBreakClauses = (props: CreateTenanciesIdBreakClaus
   )
 }
 
-type GetCreateTenanciesIdBreakClausesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateTenanciesIdBreakClausesFieldArgs = {
+  fieldName: FieldPath<CreateTenanciesIdBreakClausesBody>
+  control: Control<CreateTenanciesIdBreakClausesBody>
+  formConfig: FormConfig<CreateTenanciesIdBreakClausesBody>
 }
 
 export const getCreateTenanciesIdBreakClausesField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateTenanciesIdBreakClausesFieldArgs<CreateTenanciesIdBreakClausesBody>) => {
+}: GetCreateTenanciesIdBreakClausesFieldArgs) => {
   return match(fieldName)
     .with('typeId', () => {
       const { label, Input } = formConfig['typeId']
@@ -1116,17 +1112,17 @@ export const CreateTenanciesIdAllowances = (props: CreateTenanciesIdAllowancesPr
   )
 }
 
-type GetCreateTenanciesIdAllowancesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateTenanciesIdAllowancesFieldArgs = {
+  fieldName: FieldPath<CreateTenanciesIdAllowancesBody>
+  control: Control<CreateTenanciesIdAllowancesBody>
+  formConfig: FormConfig<CreateTenanciesIdAllowancesBody>
 }
 
 export const getCreateTenanciesIdAllowancesField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateTenanciesIdAllowancesFieldArgs<CreateTenanciesIdAllowancesBody>) => {
+}: GetCreateTenanciesIdAllowancesFieldArgs) => {
   return match(fieldName)
     .with('typeId', () => {
       const { label, Input } = formConfig['typeId']
@@ -1222,17 +1218,17 @@ export const CreateTenanciesIdResponsibilities = (props: CreateTenanciesIdRespon
   )
 }
 
-type GetCreateTenanciesIdResponsibilitiesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateTenanciesIdResponsibilitiesFieldArgs = {
+  fieldName: FieldPath<CreateTenanciesIdResponsibilitiesBody>
+  control: Control<CreateTenanciesIdResponsibilitiesBody>
+  formConfig: FormConfig<CreateTenanciesIdResponsibilitiesBody>
 }
 
 export const getCreateTenanciesIdResponsibilitiesField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateTenanciesIdResponsibilitiesFieldArgs<CreateTenanciesIdResponsibilitiesBody>) => {
+}: GetCreateTenanciesIdResponsibilitiesFieldArgs) => {
   return match(fieldName)
     .with('typeId', () => {
       const { label, Input } = formConfig['typeId']
@@ -1328,17 +1324,17 @@ export const CreateTenanciesIdRenewalNegotiations = (props: CreateTenanciesIdRen
   )
 }
 
-type GetCreateTenanciesIdRenewalNegotiationsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateTenanciesIdRenewalNegotiationsFieldArgs = {
+  fieldName: FieldPath<CreateTenanciesIdRenewalNegotiationsBody>
+  control: Control<CreateTenanciesIdRenewalNegotiationsBody>
+  formConfig: FormConfig<CreateTenanciesIdRenewalNegotiationsBody>
 }
 
 export const getCreateTenanciesIdRenewalNegotiationsField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateTenanciesIdRenewalNegotiationsFieldArgs<CreateTenanciesIdRenewalNegotiationsBody>) => {
+}: GetCreateTenanciesIdRenewalNegotiationsFieldArgs) => {
   return match(fieldName)
     .with('startDate', () => {
       const { label, Input } = formConfig['startDate']
@@ -1508,17 +1504,17 @@ export const CreateTenanciesIdRenewalNegotiationsRenewalIdChecks = (
   )
 }
 
-type GetCreateTenanciesIdRenewalNegotiationsRenewalIdChecksFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateTenanciesIdRenewalNegotiationsRenewalIdChecksFieldArgs = {
+  fieldName: FieldPath<CreateTenanciesIdRenewalNegotiationsRenewalIdChecksBody>
+  control: Control<CreateTenanciesIdRenewalNegotiationsRenewalIdChecksBody>
+  formConfig: FormConfig<CreateTenanciesIdRenewalNegotiationsRenewalIdChecksBody>
 }
 
 export const getCreateTenanciesIdRenewalNegotiationsRenewalIdChecksField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateTenanciesIdRenewalNegotiationsRenewalIdChecksFieldArgs<CreateTenanciesIdRenewalNegotiationsRenewalIdChecksBody>) => {
+}: GetCreateTenanciesIdRenewalNegotiationsRenewalIdChecksFieldArgs) => {
   return match(fieldName)
     .with('status', () => {
       const { label, Input } = formConfig['status']

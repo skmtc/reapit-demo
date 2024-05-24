@@ -95,91 +95,91 @@ export const getIdentityChecksColumn = (property: string, { label, format }: Con
       return identityChecksColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return identityChecksColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return identityChecksColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('contactId', () => {
       return identityChecksColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header: label('contactId'),
-        cell: (info) => format(info.getValue(), 'contactId'),
+        cell: (info) => format('contactId', info.getValue()),
       })
     })
     .with('created', () => {
       return identityChecksColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return identityChecksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('checkDate', () => {
       return identityChecksColumnHelper.accessor((row) => row.checkDate, {
         id: 'checkDate',
         header: label('checkDate'),
-        cell: (info) => format(info.getValue(), 'checkDate'),
+        cell: (info) => format('checkDate', info.getValue()),
       })
     })
     .with('status', () => {
       return identityChecksColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return identityChecksColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('identityDocument1', () => {
       return identityChecksColumnHelper.accessor((row) => row.identityDocument1, {
         id: 'identityDocument1',
         header: label('identityDocument1'),
-        cell: (info) => format(info.getValue(), 'identityDocument1'),
+        cell: (info) => format('identityDocument1', info.getValue()),
       })
     })
     .with('identityDocument2', () => {
       return identityChecksColumnHelper.accessor((row) => row.identityDocument2, {
         id: 'identityDocument2',
         header: label('identityDocument2'),
-        cell: (info) => format(info.getValue(), 'identityDocument2'),
+        cell: (info) => format('identityDocument2', info.getValue()),
       })
     })
     .with('metadata', () => {
       return identityChecksColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return identityChecksColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -547,17 +547,13 @@ export const CreateProperties = (props: CreatePropertiesProps) => {
   )
 }
 
-type GetCreatePropertiesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreatePropertiesFieldArgs = {
+  fieldName: FieldPath<CreatePropertiesBody>
+  control: Control<CreatePropertiesBody>
+  formConfig: FormConfig<CreatePropertiesBody>
 }
 
-export const getCreatePropertiesField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreatePropertiesFieldArgs<CreatePropertiesBody>) => {
+export const getCreatePropertiesField = ({ fieldName, control, formConfig }: GetCreatePropertiesFieldArgs) => {
   return match(fieldName)
     .with('lastCall', () => {
       const { label, Input } = formConfig['lastCall']
@@ -1697,17 +1693,17 @@ export const CreatePropertiesIdCertificates = (props: CreatePropertiesIdCertific
   )
 }
 
-type GetCreatePropertiesIdCertificatesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreatePropertiesIdCertificatesFieldArgs = {
+  fieldName: FieldPath<CreatePropertiesIdCertificatesBody>
+  control: Control<CreatePropertiesIdCertificatesBody>
+  formConfig: FormConfig<CreatePropertiesIdCertificatesBody>
 }
 
 export const getCreatePropertiesIdCertificatesField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreatePropertiesIdCertificatesFieldArgs<CreatePropertiesIdCertificatesBody>) => {
+}: GetCreatePropertiesIdCertificatesFieldArgs) => {
   return match(fieldName)
     .with('category', () => {
       const { label, Input } = formConfig['category']
@@ -1875,17 +1871,17 @@ export const CreatePropertiesIdKeys = (props: CreatePropertiesIdKeysProps) => {
   )
 }
 
-type GetCreatePropertiesIdKeysFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreatePropertiesIdKeysFieldArgs = {
+  fieldName: FieldPath<CreatePropertiesIdKeysBody>
+  control: Control<CreatePropertiesIdKeysBody>
+  formConfig: FormConfig<CreatePropertiesIdKeysBody>
 }
 
 export const getCreatePropertiesIdKeysField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreatePropertiesIdKeysFieldArgs<CreatePropertiesIdKeysBody>) => {
+}: GetCreatePropertiesIdKeysFieldArgs) => {
   return match(fieldName)
     .with('number', () => {
       const { label, Input } = formConfig['number']
@@ -1999,17 +1995,17 @@ export const CreatePropertiesIdKeysKeyIdMovements = (props: CreatePropertiesIdKe
   )
 }
 
-type GetCreatePropertiesIdKeysKeyIdMovementsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreatePropertiesIdKeysKeyIdMovementsFieldArgs = {
+  fieldName: FieldPath<CreatePropertiesIdKeysKeyIdMovementsBody>
+  control: Control<CreatePropertiesIdKeysKeyIdMovementsBody>
+  formConfig: FormConfig<CreatePropertiesIdKeysKeyIdMovementsBody>
 }
 
 export const getCreatePropertiesIdKeysKeyIdMovementsField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreatePropertiesIdKeysKeyIdMovementsFieldArgs<CreatePropertiesIdKeysKeyIdMovementsBody>) => {
+}: GetCreatePropertiesIdKeysKeyIdMovementsFieldArgs) => {
   return match(fieldName)
     .with('checkInRequired', () => {
       const { label, Input } = formConfig['checkInRequired']
@@ -2125,17 +2121,17 @@ export const UpdatePropertiesIdKeysKeyIdMovementsMovementId = (
   )
 }
 
-type GetUpdatePropertiesIdKeysKeyIdMovementsMovementIdFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetUpdatePropertiesIdKeysKeyIdMovementsMovementIdFieldArgs = {
+  fieldName: FieldPath<UpdatePropertiesIdKeysKeyIdMovementsMovementIdBody>
+  control: Control<UpdatePropertiesIdKeysKeyIdMovementsMovementIdBody>
+  formConfig: FormConfig<UpdatePropertiesIdKeysKeyIdMovementsMovementIdBody>
 }
 
 export const getUpdatePropertiesIdKeysKeyIdMovementsMovementIdField = ({
   fieldName,
   control,
   formConfig,
-}: GetUpdatePropertiesIdKeysKeyIdMovementsMovementIdFieldArgs<UpdatePropertiesIdKeysKeyIdMovementsMovementIdBody>) => {
+}: GetUpdatePropertiesIdKeysKeyIdMovementsMovementIdFieldArgs) => {
   return match(fieldName)
     .with('checkInNegotiatorId', () => {
       const { label, Input } = formConfig['checkInNegotiatorId']
@@ -2195,17 +2191,17 @@ export const CreatePropertiesIdChecks = (props: CreatePropertiesIdChecksProps) =
   )
 }
 
-type GetCreatePropertiesIdChecksFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreatePropertiesIdChecksFieldArgs = {
+  fieldName: FieldPath<CreatePropertiesIdChecksBody>
+  control: Control<CreatePropertiesIdChecksBody>
+  formConfig: FormConfig<CreatePropertiesIdChecksBody>
 }
 
 export const getCreatePropertiesIdChecksField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreatePropertiesIdChecksFieldArgs<CreatePropertiesIdChecksBody>) => {
+}: GetCreatePropertiesIdChecksFieldArgs) => {
   return match(fieldName)
     .with('description', () => {
       const { label, Input } = formConfig['description']
@@ -2301,17 +2297,17 @@ export const CreatePropertiesIdAppraisals = (props: CreatePropertiesIdAppraisals
   )
 }
 
-type GetCreatePropertiesIdAppraisalsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreatePropertiesIdAppraisalsFieldArgs = {
+  fieldName: FieldPath<CreatePropertiesIdAppraisalsBody>
+  control: Control<CreatePropertiesIdAppraisalsBody>
+  formConfig: FormConfig<CreatePropertiesIdAppraisalsBody>
 }
 
 export const getCreatePropertiesIdAppraisalsField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreatePropertiesIdAppraisalsFieldArgs<CreatePropertiesIdAppraisalsBody>) => {
+}: GetCreatePropertiesIdAppraisalsFieldArgs) => {
   return match(fieldName)
     .with('companyId', () => {
       const { label, Input } = formConfig['companyId']

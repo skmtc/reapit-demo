@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -217,17 +217,13 @@ export const CreateApplicants = (props: CreateApplicantsProps) => {
   )
 }
 
-type GetCreateApplicantsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateApplicantsFieldArgs = {
+  fieldName: FieldPath<CreateApplicantsBody>
+  control: Control<CreateApplicantsBody>
+  formConfig: FormConfig<CreateApplicantsBody>
 }
 
-export const getCreateApplicantsField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateApplicantsFieldArgs<CreateApplicantsBody>) => {
+export const getCreateApplicantsField = ({ fieldName, control, formConfig }: GetCreateApplicantsFieldArgs) => {
   return match(fieldName)
     .with('marketingMode', () => {
       const { label, Input } = formConfig['marketingMode']
@@ -971,17 +967,17 @@ export const CreateApplicantsIdRelationships = (props: CreateApplicantsIdRelatio
   )
 }
 
-type GetCreateApplicantsIdRelationshipsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateApplicantsIdRelationshipsFieldArgs = {
+  fieldName: FieldPath<CreateApplicantsIdRelationshipsBody>
+  control: Control<CreateApplicantsIdRelationshipsBody>
+  formConfig: FormConfig<CreateApplicantsIdRelationshipsBody>
 }
 
 export const getCreateApplicantsIdRelationshipsField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateApplicantsIdRelationshipsFieldArgs<CreateApplicantsIdRelationshipsBody>) => {
+}: GetCreateApplicantsIdRelationshipsFieldArgs) => {
   return match(fieldName)
     .with('associatedId', () => {
       const { label, Input } = formConfig['associatedId']

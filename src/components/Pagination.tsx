@@ -7,7 +7,11 @@ type PaginationProps<Model, Response> = {
   rerender: () => void
 }
 
-export const Pagination = <Model, Response>({
+export type Embedded<Model> = {
+  _embedded: Model[]
+}
+
+export const Pagination = <Model, Response extends Embedded<Model>>({
   table,
   dataQuery,
   rerender

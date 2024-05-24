@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -78,17 +78,17 @@ export const CreateTransactionsSupplierInvoices = (props: CreateTransactionsSupp
   )
 }
 
-type GetCreateTransactionsSupplierInvoicesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateTransactionsSupplierInvoicesFieldArgs = {
+  fieldName: FieldPath<CreateTransactionsSupplierInvoicesBody>
+  control: Control<CreateTransactionsSupplierInvoicesBody>
+  formConfig: FormConfig<CreateTransactionsSupplierInvoicesBody>
 }
 
 export const getCreateTransactionsSupplierInvoicesField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateTransactionsSupplierInvoicesFieldArgs<CreateTransactionsSupplierInvoicesBody>) => {
+}: GetCreateTransactionsSupplierInvoicesFieldArgs) => {
   return match(fieldName)
     .with('worksOrderId', () => {
       const { label, Input } = formConfig['worksOrderId']

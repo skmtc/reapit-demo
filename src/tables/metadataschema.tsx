@@ -31,21 +31,21 @@ export const getMetadataMetadataSchemaColumn = (
       return metadataMetadataSchemaColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('modified', () => {
       return metadataMetadataSchemaColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('schema', () => {
       return metadataMetadataSchemaColumnHelper.accessor((row) => row.schema, {
         id: 'schema',
         header: label('schema'),
-        cell: (info) => format(info.getValue(), 'schema'),
+        cell: (info) => format('schema', info.getValue()),
       })
     })
     .otherwise(() => {

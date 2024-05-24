@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -65,17 +65,13 @@ export const CreateNotifications = (props: CreateNotificationsProps) => {
   )
 }
 
-type GetCreateNotificationsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateNotificationsFieldArgs = {
+  fieldName: FieldPath<CreateNotificationsBody>
+  control: Control<CreateNotificationsBody>
+  formConfig: FormConfig<CreateNotificationsBody>
 }
 
-export const getCreateNotificationsField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateNotificationsFieldArgs<CreateNotificationsBody>) => {
+export const getCreateNotificationsField = ({ fieldName, control, formConfig }: GetCreateNotificationsFieldArgs) => {
   return match(fieldName)
     .with('type', () => {
       const { label, Input } = formConfig['type']

@@ -81,133 +81,133 @@ export const getTasksColumn = (property: string, { label, format }: ConfigItemLo
       return tasksColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return tasksColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return tasksColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return tasksColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return tasksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('activates', () => {
       return tasksColumnHelper.accessor((row) => row.activates, {
         id: 'activates',
         header: label('activates'),
-        cell: (info) => format(info.getValue(), 'activates'),
+        cell: (info) => format('activates', info.getValue()),
       })
     })
     .with('completed', () => {
       return tasksColumnHelper.accessor((row) => row.completed, {
         id: 'completed',
         header: label('completed'),
-        cell: (info) => format(info.getValue(), 'completed'),
+        cell: (info) => format('completed', info.getValue()),
       })
     })
     .with('typeId', () => {
       return tasksColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header: label('typeId'),
-        cell: (info) => format(info.getValue(), 'typeId'),
+        cell: (info) => format('typeId', info.getValue()),
       })
     })
     .with('senderId', () => {
       return tasksColumnHelper.accessor((row) => row.senderId, {
         id: 'senderId',
         header: label('senderId'),
-        cell: (info) => format(info.getValue(), 'senderId'),
+        cell: (info) => format('senderId', info.getValue()),
       })
     })
     .with('text', () => {
       return tasksColumnHelper.accessor((row) => row.text, {
         id: 'text',
         header: label('text'),
-        cell: (info) => format(info.getValue(), 'text'),
+        cell: (info) => format('text', info.getValue()),
       })
     })
     .with('landlordId', () => {
       return tasksColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
         header: label('landlordId'),
-        cell: (info) => format(info.getValue(), 'landlordId'),
+        cell: (info) => format('landlordId', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return tasksColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('applicantId', () => {
       return tasksColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header: label('applicantId'),
-        cell: (info) => format(info.getValue(), 'applicantId'),
+        cell: (info) => format('applicantId', info.getValue()),
       })
     })
     .with('tenancyId', () => {
       return tasksColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header: label('tenancyId'),
-        cell: (info) => format(info.getValue(), 'tenancyId'),
+        cell: (info) => format('tenancyId', info.getValue()),
       })
     })
     .with('contactId', () => {
       return tasksColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header: label('contactId'),
-        cell: (info) => format(info.getValue(), 'contactId'),
+        cell: (info) => format('contactId', info.getValue()),
       })
     })
     .with('recipientId', () => {
       return tasksColumnHelper.accessor((row) => row.recipientId, {
         id: 'recipientId',
         header: label('recipientId'),
-        cell: (info) => format(info.getValue(), 'recipientId'),
+        cell: (info) => format('recipientId', info.getValue()),
       })
     })
     .with('recipientType', () => {
       return tasksColumnHelper.accessor((row) => row.recipientType, {
         id: 'recipientType',
         header: label('recipientType'),
-        cell: (info) => format(info.getValue(), 'recipientType'),
+        cell: (info) => format('recipientType', info.getValue()),
       })
     })
     .with('metadata', () => {
       return tasksColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return tasksColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {

@@ -297,238 +297,238 @@ export const getContactsColumn = (property: string, { label, format }: ConfigIte
       return contactsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return contactsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return contactsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return contactsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return contactsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('title', () => {
       return contactsColumnHelper.accessor((row) => row.title, {
         id: 'title',
         header: label('title'),
-        cell: (info) => format(info.getValue(), 'title'),
+        cell: (info) => format('title', info.getValue()),
       })
     })
     .with('forename', () => {
       return contactsColumnHelper.accessor((row) => row.forename, {
         id: 'forename',
         header: label('forename'),
-        cell: (info) => format(info.getValue(), 'forename'),
+        cell: (info) => format('forename', info.getValue()),
       })
     })
     .with('surname', () => {
       return contactsColumnHelper.accessor((row) => row.surname, {
         id: 'surname',
         header: label('surname'),
-        cell: (info) => format(info.getValue(), 'surname'),
+        cell: (info) => format('surname', info.getValue()),
       })
     })
     .with('dateOfBirth', () => {
       return contactsColumnHelper.accessor((row) => row.dateOfBirth, {
         id: 'dateOfBirth',
         header: label('dateOfBirth'),
-        cell: (info) => format(info.getValue(), 'dateOfBirth'),
+        cell: (info) => format('dateOfBirth', info.getValue()),
       })
     })
     .with('active', () => {
       return contactsColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header: label('active'),
-        cell: (info) => format(info.getValue(), 'active'),
+        cell: (info) => format('active', info.getValue()),
       })
     })
     .with('marketingConsent', () => {
       return contactsColumnHelper.accessor((row) => row.marketingConsent, {
         id: 'marketingConsent',
         header: label('marketingConsent'),
-        cell: (info) => format(info.getValue(), 'marketingConsent'),
+        cell: (info) => format('marketingConsent', info.getValue()),
       })
     })
     .with('identityCheck', () => {
       return contactsColumnHelper.accessor((row) => row.identityCheck, {
         id: 'identityCheck',
         header: label('identityCheck'),
-        cell: (info) => format(info.getValue(), 'identityCheck'),
+        cell: (info) => format('identityCheck', info.getValue()),
       })
     })
     .with('source', () => {
       return contactsColumnHelper.accessor((row) => row.source, {
         id: 'source',
         header: label('source'),
-        cell: (info) => format(info.getValue(), 'source'),
+        cell: (info) => format('source', info.getValue()),
       })
     })
     .with('homePhone', () => {
       return contactsColumnHelper.accessor((row) => row.homePhone, {
         id: 'homePhone',
         header: label('homePhone'),
-        cell: (info) => format(info.getValue(), 'homePhone'),
+        cell: (info) => format('homePhone', info.getValue()),
       })
     })
     .with('workPhone', () => {
       return contactsColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
         header: label('workPhone'),
-        cell: (info) => format(info.getValue(), 'workPhone'),
+        cell: (info) => format('workPhone', info.getValue()),
       })
     })
     .with('mobilePhone', () => {
       return contactsColumnHelper.accessor((row) => row.mobilePhone, {
         id: 'mobilePhone',
         header: label('mobilePhone'),
-        cell: (info) => format(info.getValue(), 'mobilePhone'),
+        cell: (info) => format('mobilePhone', info.getValue()),
       })
     })
     .with('email', () => {
       return contactsColumnHelper.accessor((row) => row.email, {
         id: 'email',
         header: label('email'),
-        cell: (info) => format(info.getValue(), 'email'),
+        cell: (info) => format('email', info.getValue()),
       })
     })
     .with('archivedOn', () => {
       return contactsColumnHelper.accessor((row) => row.archivedOn, {
         id: 'archivedOn',
         header: label('archivedOn'),
-        cell: (info) => format(info.getValue(), 'archivedOn'),
+        cell: (info) => format('archivedOn', info.getValue()),
       })
     })
     .with('fromArchive', () => {
       return contactsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header: label('fromArchive'),
-        cell: (info) => format(info.getValue(), 'fromArchive'),
+        cell: (info) => format('fromArchive', info.getValue()),
       })
     })
     .with('primaryAddress', () => {
       return contactsColumnHelper.accessor((row) => row.primaryAddress, {
         id: 'primaryAddress',
         header: label('primaryAddress'),
-        cell: (info) => format(info.getValue(), 'primaryAddress'),
+        cell: (info) => format('primaryAddress', info.getValue()),
       })
     })
     .with('secondaryAddress', () => {
       return contactsColumnHelper.accessor((row) => row.secondaryAddress, {
         id: 'secondaryAddress',
         header: label('secondaryAddress'),
-        cell: (info) => format(info.getValue(), 'secondaryAddress'),
+        cell: (info) => format('secondaryAddress', info.getValue()),
       })
     })
     .with('workAddress', () => {
       return contactsColumnHelper.accessor((row) => row.workAddress, {
         id: 'workAddress',
         header: label('workAddress'),
-        cell: (info) => format(info.getValue(), 'workAddress'),
+        cell: (info) => format('workAddress', info.getValue()),
       })
     })
     .with('officeIds', () => {
       return contactsColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header: label('officeIds'),
-        cell: (info) => format(info.getValue(), 'officeIds'),
+        cell: (info) => format('officeIds', info.getValue()),
       })
     })
     .with('negotiatorIds', () => {
       return contactsColumnHelper.accessor((row) => row.negotiatorIds, {
         id: 'negotiatorIds',
         header: label('negotiatorIds'),
-        cell: (info) => format(info.getValue(), 'negotiatorIds'),
+        cell: (info) => format('negotiatorIds', info.getValue()),
       })
     })
     .with('categoryIds', () => {
       return contactsColumnHelper.accessor((row) => row.categoryIds, {
         id: 'categoryIds',
         header: label('categoryIds'),
-        cell: (info) => format(info.getValue(), 'categoryIds'),
+        cell: (info) => format('categoryIds', info.getValue()),
       })
     })
     .with('communicationPreferenceLetter', () => {
       return contactsColumnHelper.accessor((row) => row.communicationPreferenceLetter, {
         id: 'communicationPreferenceLetter',
         header: label('communicationPreferenceLetter'),
-        cell: (info) => format(info.getValue(), 'communicationPreferenceLetter'),
+        cell: (info) => format('communicationPreferenceLetter', info.getValue()),
       })
     })
     .with('communicationPreferenceEmail', () => {
       return contactsColumnHelper.accessor((row) => row.communicationPreferenceEmail, {
         id: 'communicationPreferenceEmail',
         header: label('communicationPreferenceEmail'),
-        cell: (info) => format(info.getValue(), 'communicationPreferenceEmail'),
+        cell: (info) => format('communicationPreferenceEmail', info.getValue()),
       })
     })
     .with('communicationPreferencePhone', () => {
       return contactsColumnHelper.accessor((row) => row.communicationPreferencePhone, {
         id: 'communicationPreferencePhone',
         header: label('communicationPreferencePhone'),
-        cell: (info) => format(info.getValue(), 'communicationPreferencePhone'),
+        cell: (info) => format('communicationPreferencePhone', info.getValue()),
       })
     })
     .with('communicationPreferenceSMS', () => {
       return contactsColumnHelper.accessor((row) => row.communicationPreferenceSMS, {
         id: 'communicationPreferenceSMS',
         header: label('communicationPreferenceSMS'),
-        cell: (info) => format(info.getValue(), 'communicationPreferenceSMS'),
+        cell: (info) => format('communicationPreferenceSMS', info.getValue()),
       })
     })
     .with('additionalContactDetails', () => {
       return contactsColumnHelper.accessor((row) => row.additionalContactDetails, {
         id: 'additionalContactDetails',
         header: label('additionalContactDetails'),
-        cell: (info) => format(info.getValue(), 'additionalContactDetails'),
+        cell: (info) => format('additionalContactDetails', info.getValue()),
       })
     })
     .with('metadata', () => {
       return contactsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return contactsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .with('extrasField', () => {
       return contactsColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
         header: label('extrasField'),
-        cell: (info) => format(info.getValue(), 'extrasField'),
+        cell: (info) => format('extrasField', info.getValue()),
       })
     })
     .with('relationships', () => {
       return contactsColumnHelper.accessor((row) => row.relationships, {
         id: 'relationships',
         header: label('relationships'),
-        cell: (info) => format(info.getValue(), 'relationships'),
+        cell: (info) => format('relationships', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -580,63 +580,63 @@ export const getContactsIdRelationshipsColumn = (
       return contactsIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return contactsIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return contactsIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return contactsIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return contactsIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('contactId', () => {
       return contactsIdRelationshipsColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header: label('contactId'),
-        cell: (info) => format(info.getValue(), 'contactId'),
+        cell: (info) => format('contactId', info.getValue()),
       })
     })
     .with('associatedType', () => {
       return contactsIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header: label('associatedType'),
-        cell: (info) => format(info.getValue(), 'associatedType'),
+        cell: (info) => format('associatedType', info.getValue()),
       })
     })
     .with('associatedId', () => {
       return contactsIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header: label('associatedId'),
-        cell: (info) => format(info.getValue(), 'associatedId'),
+        cell: (info) => format('associatedId', info.getValue()),
       })
     })
     .with('fromArchive', () => {
       return contactsIdRelationshipsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header: label('fromArchive'),
-        cell: (info) => format(info.getValue(), 'fromArchive'),
+        cell: (info) => format('fromArchive', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -688,70 +688,70 @@ export const getContactsIdSubscriptionsColumn = (
       return contactsIdSubscriptionsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return contactsIdSubscriptionsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return contactsIdSubscriptionsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('contactId', () => {
       return contactsIdSubscriptionsColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header: label('contactId'),
-        cell: (info) => format(info.getValue(), 'contactId'),
+        cell: (info) => format('contactId', info.getValue()),
       })
     })
     .with('name', () => {
       return contactsIdSubscriptionsColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header: label('name'),
-        cell: (info) => format(info.getValue(), 'name'),
+        cell: (info) => format('name', info.getValue()),
       })
     })
     .with('group', () => {
       return contactsIdSubscriptionsColumnHelper.accessor((row) => row.group, {
         id: 'group',
         header: label('group'),
-        cell: (info) => format(info.getValue(), 'group'),
+        cell: (info) => format('group', info.getValue()),
       })
     })
     .with('status', () => {
       return contactsIdSubscriptionsColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('type', () => {
       return contactsIdSubscriptionsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('subscribedOn', () => {
       return contactsIdSubscriptionsColumnHelper.accessor((row) => row.subscribedOn, {
         id: 'subscribedOn',
         header: label('subscribedOn'),
-        cell: (info) => format(info.getValue(), 'subscribedOn'),
+        cell: (info) => format('subscribedOn', info.getValue()),
       })
     })
     .with('unsubscribedOn', () => {
       return contactsIdSubscriptionsColumnHelper.accessor((row) => row.unsubscribedOn, {
         id: 'unsubscribedOn',
         header: label('unsubscribedOn'),
-        cell: (info) => format(info.getValue(), 'unsubscribedOn'),
+        cell: (info) => format('unsubscribedOn', info.getValue()),
       })
     })
     .otherwise(() => {

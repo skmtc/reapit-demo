@@ -125,189 +125,189 @@ export const getEnquiriesColumn = (property: string, { label, format }: ConfigIt
       return enquiriesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return enquiriesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return enquiriesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return enquiriesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return enquiriesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('title', () => {
       return enquiriesColumnHelper.accessor((row) => row.title, {
         id: 'title',
         header: label('title'),
-        cell: (info) => format(info.getValue(), 'title'),
+        cell: (info) => format('title', info.getValue()),
       })
     })
     .with('forename', () => {
       return enquiriesColumnHelper.accessor((row) => row.forename, {
         id: 'forename',
         header: label('forename'),
-        cell: (info) => format(info.getValue(), 'forename'),
+        cell: (info) => format('forename', info.getValue()),
       })
     })
     .with('surname', () => {
       return enquiriesColumnHelper.accessor((row) => row.surname, {
         id: 'surname',
         header: label('surname'),
-        cell: (info) => format(info.getValue(), 'surname'),
+        cell: (info) => format('surname', info.getValue()),
       })
     })
     .with('enquiryType', () => {
       return enquiriesColumnHelper.accessor((row) => row.enquiryType, {
         id: 'enquiryType',
         header: label('enquiryType'),
-        cell: (info) => format(info.getValue(), 'enquiryType'),
+        cell: (info) => format('enquiryType', info.getValue()),
       })
     })
     .with('message', () => {
       return enquiriesColumnHelper.accessor((row) => row.message, {
         id: 'message',
         header: label('message'),
-        cell: (info) => format(info.getValue(), 'message'),
+        cell: (info) => format('message', info.getValue()),
       })
     })
     .with('status', () => {
       return enquiriesColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('marketingConsent', () => {
       return enquiriesColumnHelper.accessor((row) => row.marketingConsent, {
         id: 'marketingConsent',
         header: label('marketingConsent'),
-        cell: (info) => format(info.getValue(), 'marketingConsent'),
+        cell: (info) => format('marketingConsent', info.getValue()),
       })
     })
     .with('position', () => {
       return enquiriesColumnHelper.accessor((row) => row.position, {
         id: 'position',
         header: label('position'),
-        cell: (info) => format(info.getValue(), 'position'),
+        cell: (info) => format('position', info.getValue()),
       })
     })
     .with('officeId', () => {
       return enquiriesColumnHelper.accessor((row) => row.officeId, {
         id: 'officeId',
         header: label('officeId'),
-        cell: (info) => format(info.getValue(), 'officeId'),
+        cell: (info) => format('officeId', info.getValue()),
       })
     })
     .with('applicantId', () => {
       return enquiriesColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header: label('applicantId'),
-        cell: (info) => format(info.getValue(), 'applicantId'),
+        cell: (info) => format('applicantId', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return enquiriesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('sourceName', () => {
       return enquiriesColumnHelper.accessor((row) => row.sourceName, {
         id: 'sourceName',
         header: label('sourceName'),
-        cell: (info) => format(info.getValue(), 'sourceName'),
+        cell: (info) => format('sourceName', info.getValue()),
       })
     })
     .with('homePhone', () => {
       return enquiriesColumnHelper.accessor((row) => row.homePhone, {
         id: 'homePhone',
         header: label('homePhone'),
-        cell: (info) => format(info.getValue(), 'homePhone'),
+        cell: (info) => format('homePhone', info.getValue()),
       })
     })
     .with('workPhone', () => {
       return enquiriesColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
         header: label('workPhone'),
-        cell: (info) => format(info.getValue(), 'workPhone'),
+        cell: (info) => format('workPhone', info.getValue()),
       })
     })
     .with('mobilePhone', () => {
       return enquiriesColumnHelper.accessor((row) => row.mobilePhone, {
         id: 'mobilePhone',
         header: label('mobilePhone'),
-        cell: (info) => format(info.getValue(), 'mobilePhone'),
+        cell: (info) => format('mobilePhone', info.getValue()),
       })
     })
     .with('email', () => {
       return enquiriesColumnHelper.accessor((row) => row.email, {
         id: 'email',
         header: label('email'),
-        cell: (info) => format(info.getValue(), 'email'),
+        cell: (info) => format('email', info.getValue()),
       })
     })
     .with('address', () => {
       return enquiriesColumnHelper.accessor((row) => row.address, {
         id: 'address',
         header: label('address'),
-        cell: (info) => format(info.getValue(), 'address'),
+        cell: (info) => format('address', info.getValue()),
       })
     })
     .with('buying', () => {
       return enquiriesColumnHelper.accessor((row) => row.buying, {
         id: 'buying',
         header: label('buying'),
-        cell: (info) => format(info.getValue(), 'buying'),
+        cell: (info) => format('buying', info.getValue()),
       })
     })
     .with('renting', () => {
       return enquiriesColumnHelper.accessor((row) => row.renting, {
         id: 'renting',
         header: label('renting'),
-        cell: (info) => format(info.getValue(), 'renting'),
+        cell: (info) => format('renting', info.getValue()),
       })
     })
     .with('bedrooms', () => {
       return enquiriesColumnHelper.accessor((row) => row.bedrooms, {
         id: 'bedrooms',
         header: label('bedrooms'),
-        cell: (info) => format(info.getValue(), 'bedrooms'),
+        cell: (info) => format('bedrooms', info.getValue()),
       })
     })
     .with('propertyIds', () => {
       return enquiriesColumnHelper.accessor((row) => row.propertyIds, {
         id: 'propertyIds',
         header: label('propertyIds'),
-        cell: (info) => format(info.getValue(), 'propertyIds'),
+        cell: (info) => format('propertyIds', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return enquiriesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {

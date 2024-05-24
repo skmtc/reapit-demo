@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -60,17 +60,13 @@ export const CreateSources = (props: CreateSourcesProps) => {
   )
 }
 
-type GetCreateSourcesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateSourcesFieldArgs = {
+  fieldName: FieldPath<CreateSourcesBody>
+  control: Control<CreateSourcesBody>
+  formConfig: FormConfig<CreateSourcesBody>
 }
 
-export const getCreateSourcesField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateSourcesFieldArgs<CreateSourcesBody>) => {
+export const getCreateSourcesField = ({ fieldName, control, formConfig }: GetCreateSourcesFieldArgs) => {
   return match(fieldName)
     .with('name', () => {
       const { label, Input } = formConfig['name']

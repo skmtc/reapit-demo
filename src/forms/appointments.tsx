@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -136,17 +136,13 @@ export const CreateAppointments = (props: CreateAppointmentsProps) => {
   )
 }
 
-type GetCreateAppointmentsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateAppointmentsFieldArgs = {
+  fieldName: FieldPath<CreateAppointmentsBody>
+  control: Control<CreateAppointmentsBody>
+  formConfig: FormConfig<CreateAppointmentsBody>
 }
 
-export const getCreateAppointmentsField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateAppointmentsFieldArgs<CreateAppointmentsBody>) => {
+export const getCreateAppointmentsField = ({ fieldName, control, formConfig }: GetCreateAppointmentsFieldArgs) => {
   return match(fieldName)
     .with('start', () => {
       const { label, Input } = formConfig['start']
@@ -566,17 +562,17 @@ export const CreateAppointmentsIdOpenHouseAttendees = (props: CreateAppointments
   )
 }
 
-type GetCreateAppointmentsIdOpenHouseAttendeesFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateAppointmentsIdOpenHouseAttendeesFieldArgs = {
+  fieldName: FieldPath<CreateAppointmentsIdOpenHouseAttendeesBody>
+  control: Control<CreateAppointmentsIdOpenHouseAttendeesBody>
+  formConfig: FormConfig<CreateAppointmentsIdOpenHouseAttendeesBody>
 }
 
 export const getCreateAppointmentsIdOpenHouseAttendeesField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateAppointmentsIdOpenHouseAttendeesFieldArgs<CreateAppointmentsIdOpenHouseAttendeesBody>) => {
+}: GetCreateAppointmentsIdOpenHouseAttendeesFieldArgs) => {
   return match(fieldName)
     .with('interestLevel', () => {
       const { label, Input } = formConfig['interestLevel']

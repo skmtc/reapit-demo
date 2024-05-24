@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control, FieldValues } from 'react-hook-form'
+import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
 import { default as FormLabel } from '@mui/joy/FormLabel'
 import { default as FormControl } from '@mui/joy/FormControl'
 import { default as FormHelperText } from '@mui/joy/FormHelperText'
@@ -71,17 +71,13 @@ export const CreateDocuments = (props: CreateDocumentsProps) => {
   )
 }
 
-type GetCreateDocumentsFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateDocumentsFieldArgs = {
+  fieldName: FieldPath<CreateDocumentsBody>
+  control: Control<CreateDocumentsBody>
+  formConfig: FormConfig<CreateDocumentsBody>
 }
 
-export const getCreateDocumentsField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateDocumentsFieldArgs<CreateDocumentsBody>) => {
+export const getCreateDocumentsField = ({ fieldName, control, formConfig }: GetCreateDocumentsFieldArgs) => {
   return match(fieldName)
     .with('associatedType', () => {
       const { label, Input } = formConfig['associatedType']
@@ -267,17 +263,17 @@ export const CreateDocumentsSignedUrl = (props: CreateDocumentsSignedUrlProps) =
   )
 }
 
-type GetCreateDocumentsSignedUrlFieldArgs<Model extends FieldValues> = {
-  fieldName: FieldPath<Model>
-  control: Control<Model>
-  formConfig: FormConfig<Model>
+type GetCreateDocumentsSignedUrlFieldArgs = {
+  fieldName: FieldPath<CreateDocumentsSignedUrlBody>
+  control: Control<CreateDocumentsSignedUrlBody>
+  formConfig: FormConfig<CreateDocumentsSignedUrlBody>
 }
 
 export const getCreateDocumentsSignedUrlField = ({
   fieldName,
   control,
   formConfig,
-}: GetCreateDocumentsSignedUrlFieldArgs<CreateDocumentsSignedUrlBody>) => {
+}: GetCreateDocumentsSignedUrlFieldArgs) => {
   return match(fieldName)
     .with('amount', () => {
       const { label, Input } = formConfig['amount']

@@ -659,280 +659,280 @@ export const getTenanciesColumn = (property: string, { label, format }: ConfigIt
       return tenanciesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return tenanciesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return tenanciesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return tenanciesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return tenanciesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('startDate', () => {
       return tenanciesColumnHelper.accessor((row) => row.startDate, {
         id: 'startDate',
         header: label('startDate'),
-        cell: (info) => format(info.getValue(), 'startDate'),
+        cell: (info) => format('startDate', info.getValue()),
       })
     })
     .with('endDate', () => {
       return tenanciesColumnHelper.accessor((row) => row.endDate, {
         id: 'endDate',
         header: label('endDate'),
-        cell: (info) => format(info.getValue(), 'endDate'),
+        cell: (info) => format('endDate', info.getValue()),
       })
     })
     .with('status', () => {
       return tenanciesColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('agentRole', () => {
       return tenanciesColumnHelper.accessor((row) => row.agentRole, {
         id: 'agentRole',
         header: label('agentRole'),
-        cell: (info) => format(info.getValue(), 'agentRole'),
+        cell: (info) => format('agentRole', info.getValue()),
       })
     })
     .with('rent', () => {
       return tenanciesColumnHelper.accessor((row) => row.rent, {
         id: 'rent',
         header: label('rent'),
-        cell: (info) => format(info.getValue(), 'rent'),
+        cell: (info) => format('rent', info.getValue()),
       })
     })
     .with('rentFrequency', () => {
       return tenanciesColumnHelper.accessor((row) => row.rentFrequency, {
         id: 'rentFrequency',
         header: label('rentFrequency'),
-        cell: (info) => format(info.getValue(), 'rentFrequency'),
+        cell: (info) => format('rentFrequency', info.getValue()),
       })
     })
     .with('endDateConfirmed', () => {
       return tenanciesColumnHelper.accessor((row) => row.endDateConfirmed, {
         id: 'endDateConfirmed',
         header: label('endDateConfirmed'),
-        cell: (info) => format(info.getValue(), 'endDateConfirmed'),
+        cell: (info) => format('endDateConfirmed', info.getValue()),
       })
     })
     .with('isPeriodic', () => {
       return tenanciesColumnHelper.accessor((row) => row.isPeriodic, {
         id: 'isPeriodic',
         header: label('isPeriodic'),
-        cell: (info) => format(info.getValue(), 'isPeriodic'),
+        cell: (info) => format('isPeriodic', info.getValue()),
       })
     })
     .with('rentInstalmentsFrequency', () => {
       return tenanciesColumnHelper.accessor((row) => row.rentInstalmentsFrequency, {
         id: 'rentInstalmentsFrequency',
         header: label('rentInstalmentsFrequency'),
-        cell: (info) => format(info.getValue(), 'rentInstalmentsFrequency'),
+        cell: (info) => format('rentInstalmentsFrequency', info.getValue()),
       })
     })
     .with('rentInstalmentsAmount', () => {
       return tenanciesColumnHelper.accessor((row) => row.rentInstalmentsAmount, {
         id: 'rentInstalmentsAmount',
         header: label('rentInstalmentsAmount'),
-        cell: (info) => format(info.getValue(), 'rentInstalmentsAmount'),
+        cell: (info) => format('rentInstalmentsAmount', info.getValue()),
       })
     })
     .with('rentInstalmentsStart', () => {
       return tenanciesColumnHelper.accessor((row) => row.rentInstalmentsStart, {
         id: 'rentInstalmentsStart',
         header: label('rentInstalmentsStart'),
-        cell: (info) => format(info.getValue(), 'rentInstalmentsStart'),
+        cell: (info) => format('rentInstalmentsStart', info.getValue()),
       })
     })
     .with('meterReadingGas', () => {
       return tenanciesColumnHelper.accessor((row) => row.meterReadingGas, {
         id: 'meterReadingGas',
         header: label('meterReadingGas'),
-        cell: (info) => format(info.getValue(), 'meterReadingGas'),
+        cell: (info) => format('meterReadingGas', info.getValue()),
       })
     })
     .with('meterReadingGasLastRead', () => {
       return tenanciesColumnHelper.accessor((row) => row.meterReadingGasLastRead, {
         id: 'meterReadingGasLastRead',
         header: label('meterReadingGasLastRead'),
-        cell: (info) => format(info.getValue(), 'meterReadingGasLastRead'),
+        cell: (info) => format('meterReadingGasLastRead', info.getValue()),
       })
     })
     .with('meterReadingElectricity', () => {
       return tenanciesColumnHelper.accessor((row) => row.meterReadingElectricity, {
         id: 'meterReadingElectricity',
         header: label('meterReadingElectricity'),
-        cell: (info) => format(info.getValue(), 'meterReadingElectricity'),
+        cell: (info) => format('meterReadingElectricity', info.getValue()),
       })
     })
     .with('meterReadingElectricityLastRead', () => {
       return tenanciesColumnHelper.accessor((row) => row.meterReadingElectricityLastRead, {
         id: 'meterReadingElectricityLastRead',
         header: label('meterReadingElectricityLastRead'),
-        cell: (info) => format(info.getValue(), 'meterReadingElectricityLastRead'),
+        cell: (info) => format('meterReadingElectricityLastRead', info.getValue()),
       })
     })
     .with('meterReadingWater', () => {
       return tenanciesColumnHelper.accessor((row) => row.meterReadingWater, {
         id: 'meterReadingWater',
         header: label('meterReadingWater'),
-        cell: (info) => format(info.getValue(), 'meterReadingWater'),
+        cell: (info) => format('meterReadingWater', info.getValue()),
       })
     })
     .with('meterReadingWaterLastRead', () => {
       return tenanciesColumnHelper.accessor((row) => row.meterReadingWaterLastRead, {
         id: 'meterReadingWaterLastRead',
         header: label('meterReadingWaterLastRead'),
-        cell: (info) => format(info.getValue(), 'meterReadingWaterLastRead'),
+        cell: (info) => format('meterReadingWaterLastRead', info.getValue()),
       })
     })
     .with('typeId', () => {
       return tenanciesColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header: label('typeId'),
-        cell: (info) => format(info.getValue(), 'typeId'),
+        cell: (info) => format('typeId', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return tenanciesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('propertyId', () => {
       return tenanciesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header: label('propertyId'),
-        cell: (info) => format(info.getValue(), 'propertyId'),
+        cell: (info) => format('propertyId', info.getValue()),
       })
     })
     .with('applicantId', () => {
       return tenanciesColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header: label('applicantId'),
-        cell: (info) => format(info.getValue(), 'applicantId'),
+        cell: (info) => format('applicantId', info.getValue()),
       })
     })
     .with('managerId', () => {
       return tenanciesColumnHelper.accessor((row) => row.managerId, {
         id: 'managerId',
         header: label('managerId'),
-        cell: (info) => format(info.getValue(), 'managerId'),
+        cell: (info) => format('managerId', info.getValue()),
       })
     })
     .with('groupPaymentReference', () => {
       return tenanciesColumnHelper.accessor((row) => row.groupPaymentReference, {
         id: 'groupPaymentReference',
         header: label('groupPaymentReference'),
-        cell: (info) => format(info.getValue(), 'groupPaymentReference'),
+        cell: (info) => format('groupPaymentReference', info.getValue()),
       })
     })
     .with('lettingFee', () => {
       return tenanciesColumnHelper.accessor((row) => row.lettingFee, {
         id: 'lettingFee',
         header: label('lettingFee'),
-        cell: (info) => format(info.getValue(), 'lettingFee'),
+        cell: (info) => format('lettingFee', info.getValue()),
       })
     })
     .with('managementFee', () => {
       return tenanciesColumnHelper.accessor((row) => row.managementFee, {
         id: 'managementFee',
         header: label('managementFee'),
-        cell: (info) => format(info.getValue(), 'managementFee'),
+        cell: (info) => format('managementFee', info.getValue()),
       })
     })
     .with('source', () => {
       return tenanciesColumnHelper.accessor((row) => row.source, {
         id: 'source',
         header: label('source'),
-        cell: (info) => format(info.getValue(), 'source'),
+        cell: (info) => format('source', info.getValue()),
       })
     })
     .with('deposit', () => {
       return tenanciesColumnHelper.accessor((row) => row.deposit, {
         id: 'deposit',
         header: label('deposit'),
-        cell: (info) => format(info.getValue(), 'deposit'),
+        cell: (info) => format('deposit', info.getValue()),
       })
     })
     .with('related', () => {
       return tenanciesColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header: label('related'),
-        cell: (info) => format(info.getValue(), 'related'),
+        cell: (info) => format('related', info.getValue()),
       })
     })
     .with('fromArchive', () => {
       return tenanciesColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header: label('fromArchive'),
-        cell: (info) => format(info.getValue(), 'fromArchive'),
+        cell: (info) => format('fromArchive', info.getValue()),
       })
     })
     .with('metadata', () => {
       return tenanciesColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('feeNotes', () => {
       return tenanciesColumnHelper.accessor((row) => row.feeNotes, {
         id: 'feeNotes',
         header: label('feeNotes'),
-        cell: (info) => format(info.getValue(), 'feeNotes'),
+        cell: (info) => format('feeNotes', info.getValue()),
       })
     })
     .with('legalStatusId', () => {
       return tenanciesColumnHelper.accessor((row) => row.legalStatusId, {
         id: 'legalStatusId',
         header: label('legalStatusId'),
-        cell: (info) => format(info.getValue(), 'legalStatusId'),
+        cell: (info) => format('legalStatusId', info.getValue()),
       })
     })
     .with('renewalOptions', () => {
       return tenanciesColumnHelper.accessor((row) => row.renewalOptions, {
         id: 'renewalOptions',
         header: label('renewalOptions'),
-        cell: (info) => format(info.getValue(), 'renewalOptions'),
+        cell: (info) => format('renewalOptions', info.getValue()),
       })
     })
     .with('arrears', () => {
       return tenanciesColumnHelper.accessor((row) => row.arrears, {
         id: 'arrears',
         header: label('arrears'),
-        cell: (info) => format(info.getValue(), 'arrears'),
+        cell: (info) => format('arrears', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return tenanciesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -984,84 +984,84 @@ export const getTenanciesIdRelationshipsColumn = (
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('tenancyId', () => {
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header: label('tenancyId'),
-        cell: (info) => format(info.getValue(), 'tenancyId'),
+        cell: (info) => format('tenancyId', info.getValue()),
       })
     })
     .with('associatedType', () => {
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header: label('associatedType'),
-        cell: (info) => format(info.getValue(), 'associatedType'),
+        cell: (info) => format('associatedType', info.getValue()),
       })
     })
     .with('associatedId', () => {
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header: label('associatedId'),
-        cell: (info) => format(info.getValue(), 'associatedId'),
+        cell: (info) => format('associatedId', info.getValue()),
       })
     })
     .with('isMain', () => {
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.isMain, {
         id: 'isMain',
         header: label('isMain'),
-        cell: (info) => format(info.getValue(), 'isMain'),
+        cell: (info) => format('isMain', info.getValue()),
       })
     })
     .with('fromArchive', () => {
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header: label('fromArchive'),
-        cell: (info) => format(info.getValue(), 'fromArchive'),
+        cell: (info) => format('fromArchive', info.getValue()),
       })
     })
     .with('guarantors', () => {
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.guarantors, {
         id: 'guarantors',
         header: label('guarantors'),
-        cell: (info) => format(info.getValue(), 'guarantors'),
+        cell: (info) => format('guarantors', info.getValue()),
       })
     })
     .with('references', () => {
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.references, {
         id: 'references',
         header: label('references'),
-        cell: (info) => format(info.getValue(), 'references'),
+        cell: (info) => format('references', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1113,84 +1113,84 @@ export const getTenanciesIdChecksColumn = (
       return tenanciesIdChecksColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return tenanciesIdChecksColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return tenanciesIdChecksColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return tenanciesIdChecksColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return tenanciesIdChecksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('description', () => {
       return tenanciesIdChecksColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('status', () => {
       return tenanciesIdChecksColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('type', () => {
       return tenanciesIdChecksColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('checkTypeId', () => {
       return tenanciesIdChecksColumnHelper.accessor((row) => row.checkTypeId, {
         id: 'checkTypeId',
         header: label('checkTypeId'),
-        cell: (info) => format(info.getValue(), 'checkTypeId'),
+        cell: (info) => format('checkTypeId', info.getValue()),
       })
     })
     .with('tenancyId', () => {
       return tenanciesIdChecksColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header: label('tenancyId'),
-        cell: (info) => format(info.getValue(), 'tenancyId'),
+        cell: (info) => format('tenancyId', info.getValue()),
       })
     })
     .with('metadata', () => {
       return tenanciesIdChecksColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return tenanciesIdChecksColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1242,105 +1242,105 @@ export const getTenanciesIdBreakClausesColumn = (
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('clauseTypeId', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.clauseTypeId, {
         id: 'clauseTypeId',
         header: label('clauseTypeId'),
-        cell: (info) => format(info.getValue(), 'clauseTypeId'),
+        cell: (info) => format('clauseTypeId', info.getValue()),
       })
     })
     .with('description', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('active', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header: label('active'),
-        cell: (info) => format(info.getValue(), 'active'),
+        cell: (info) => format('active', info.getValue()),
       })
     })
     .with('appliesTo', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.appliesTo, {
         id: 'appliesTo',
         header: label('appliesTo'),
-        cell: (info) => format(info.getValue(), 'appliesTo'),
+        cell: (info) => format('appliesTo', info.getValue()),
       })
     })
     .with('letterText', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.letterText, {
         id: 'letterText',
         header: label('letterText'),
-        cell: (info) => format(info.getValue(), 'letterText'),
+        cell: (info) => format('letterText', info.getValue()),
       })
     })
     .with('breakFrom', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.breakFrom, {
         id: 'breakFrom',
         header: label('breakFrom'),
-        cell: (info) => format(info.getValue(), 'breakFrom'),
+        cell: (info) => format('breakFrom', info.getValue()),
       })
     })
     .with('noticeRequired', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.noticeRequired, {
         id: 'noticeRequired',
         header: label('noticeRequired'),
-        cell: (info) => format(info.getValue(), 'noticeRequired'),
+        cell: (info) => format('noticeRequired', info.getValue()),
       })
     })
     .with('agreements', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.agreements, {
         id: 'agreements',
         header: label('agreements'),
-        cell: (info) => format(info.getValue(), 'agreements'),
+        cell: (info) => format('agreements', info.getValue()),
       })
     })
     .with('tenancyId', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header: label('tenancyId'),
-        cell: (info) => format(info.getValue(), 'tenancyId'),
+        cell: (info) => format('tenancyId', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1392,84 +1392,84 @@ export const getTenanciesIdAllowancesColumn = (
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('typeId', () => {
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header: label('typeId'),
-        cell: (info) => format(info.getValue(), 'typeId'),
+        cell: (info) => format('typeId', info.getValue()),
       })
     })
     .with('description', () => {
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('state', () => {
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.state, {
         id: 'state',
         header: label('state'),
-        cell: (info) => format(info.getValue(), 'state'),
+        cell: (info) => format('state', info.getValue()),
       })
     })
     .with('agreements', () => {
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.agreements, {
         id: 'agreements',
         header: label('agreements'),
-        cell: (info) => format(info.getValue(), 'agreements'),
+        cell: (info) => format('agreements', info.getValue()),
       })
     })
     .with('letterText', () => {
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.letterText, {
         id: 'letterText',
         header: label('letterText'),
-        cell: (info) => format(info.getValue(), 'letterText'),
+        cell: (info) => format('letterText', info.getValue()),
       })
     })
     .with('tenancyId', () => {
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header: label('tenancyId'),
-        cell: (info) => format(info.getValue(), 'tenancyId'),
+        cell: (info) => format('tenancyId', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1521,84 +1521,84 @@ export const getTenanciesIdResponsibilitiesColumn = (
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('typeId', () => {
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header: label('typeId'),
-        cell: (info) => format(info.getValue(), 'typeId'),
+        cell: (info) => format('typeId', info.getValue()),
       })
     })
     .with('description', () => {
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('appliesTo', () => {
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.appliesTo, {
         id: 'appliesTo',
         header: label('appliesTo'),
-        cell: (info) => format(info.getValue(), 'appliesTo'),
+        cell: (info) => format('appliesTo', info.getValue()),
       })
     })
     .with('agreements', () => {
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.agreements, {
         id: 'agreements',
         header: label('agreements'),
-        cell: (info) => format(info.getValue(), 'agreements'),
+        cell: (info) => format('agreements', info.getValue()),
       })
     })
     .with('letterText', () => {
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.letterText, {
         id: 'letterText',
         header: label('letterText'),
-        cell: (info) => format(info.getValue(), 'letterText'),
+        cell: (info) => format('letterText', info.getValue()),
       })
     })
     .with('tenancyId', () => {
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header: label('tenancyId'),
-        cell: (info) => format(info.getValue(), 'tenancyId'),
+        cell: (info) => format('tenancyId', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1650,112 +1650,112 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('startDate', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.startDate, {
         id: 'startDate',
         header: label('startDate'),
-        cell: (info) => format(info.getValue(), 'startDate'),
+        cell: (info) => format('startDate', info.getValue()),
       })
     })
     .with('endDate', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.endDate, {
         id: 'endDate',
         header: label('endDate'),
-        cell: (info) => format(info.getValue(), 'endDate'),
+        cell: (info) => format('endDate', info.getValue()),
       })
     })
     .with('status', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('rent', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.rent, {
         id: 'rent',
         header: label('rent'),
-        cell: (info) => format(info.getValue(), 'rent'),
+        cell: (info) => format('rent', info.getValue()),
       })
     })
     .with('rentFrequency', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.rentFrequency, {
         id: 'rentFrequency',
         header: label('rentFrequency'),
-        cell: (info) => format(info.getValue(), 'rentFrequency'),
+        cell: (info) => format('rentFrequency', info.getValue()),
       })
     })
     .with('rentChange', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.rentChange, {
         id: 'rentChange',
         header: label('rentChange'),
-        cell: (info) => format(info.getValue(), 'rentChange'),
+        cell: (info) => format('rentChange', info.getValue()),
       })
     })
     .with('tenancyId', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header: label('tenancyId'),
-        cell: (info) => format(info.getValue(), 'tenancyId'),
+        cell: (info) => format('tenancyId', info.getValue()),
       })
     })
     .with('lettingFee', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.lettingFee, {
         id: 'lettingFee',
         header: label('lettingFee'),
-        cell: (info) => format(info.getValue(), 'lettingFee'),
+        cell: (info) => format('lettingFee', info.getValue()),
       })
     })
     .with('managementFee', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.managementFee, {
         id: 'managementFee',
         header: label('managementFee'),
-        cell: (info) => format(info.getValue(), 'managementFee'),
+        cell: (info) => format('managementFee', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1807,98 +1807,98 @@ export const getTenanciesIdExtensionsColumn = (
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('startDate', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.startDate, {
         id: 'startDate',
         header: label('startDate'),
-        cell: (info) => format(info.getValue(), 'startDate'),
+        cell: (info) => format('startDate', info.getValue()),
       })
     })
     .with('endDate', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.endDate, {
         id: 'endDate',
         header: label('endDate'),
-        cell: (info) => format(info.getValue(), 'endDate'),
+        cell: (info) => format('endDate', info.getValue()),
       })
     })
     .with('type', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format(info.getValue(), 'type'),
+        cell: (info) => format('type', info.getValue()),
       })
     })
     .with('negotiatorId', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header: label('negotiatorId'),
-        cell: (info) => format(info.getValue(), 'negotiatorId'),
+        cell: (info) => format('negotiatorId', info.getValue()),
       })
     })
     .with('rent', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.rent, {
         id: 'rent',
         header: label('rent'),
-        cell: (info) => format(info.getValue(), 'rent'),
+        cell: (info) => format('rent', info.getValue()),
       })
     })
     .with('rentFrequency', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.rentFrequency, {
         id: 'rentFrequency',
         header: label('rentFrequency'),
-        cell: (info) => format(info.getValue(), 'rentFrequency'),
+        cell: (info) => format('rentFrequency', info.getValue()),
       })
     })
     .with('tenancyId', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header: label('tenancyId'),
-        cell: (info) => format(info.getValue(), 'tenancyId'),
+        cell: (info) => format('tenancyId', info.getValue()),
       })
     })
     .with('fee', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.fee, {
         id: 'fee',
         header: label('fee'),
-        cell: (info) => format(info.getValue(), 'fee'),
+        cell: (info) => format('fee', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1951,84 +1951,84 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format(info.getValue(), '_links'),
+        cell: (info) => format('_links', info.getValue()),
       })
     })
     .with('_embedded', () => {
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format(info.getValue(), '_embedded'),
+        cell: (info) => format('_embedded', info.getValue()),
       })
     })
     .with('id', () => {
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format(info.getValue(), 'id'),
+        cell: (info) => format('id', info.getValue()),
       })
     })
     .with('created', () => {
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format(info.getValue(), 'created'),
+        cell: (info) => format('created', info.getValue()),
       })
     })
     .with('modified', () => {
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format(info.getValue(), 'modified'),
+        cell: (info) => format('modified', info.getValue()),
       })
     })
     .with('status', () => {
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format(info.getValue(), 'status'),
+        cell: (info) => format('status', info.getValue()),
       })
     })
     .with('description', () => {
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header: label('description'),
-        cell: (info) => format(info.getValue(), 'description'),
+        cell: (info) => format('description', info.getValue()),
       })
     })
     .with('checkTypeId', () => {
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.checkTypeId, {
         id: 'checkTypeId',
         header: label('checkTypeId'),
-        cell: (info) => format(info.getValue(), 'checkTypeId'),
+        cell: (info) => format('checkTypeId', info.getValue()),
       })
     })
     .with('tenancyId', () => {
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header: label('tenancyId'),
-        cell: (info) => format(info.getValue(), 'tenancyId'),
+        cell: (info) => format('tenancyId', info.getValue()),
       })
     })
     .with('renewalId', () => {
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.renewalId, {
         id: 'renewalId',
         header: label('renewalId'),
-        cell: (info) => format(info.getValue(), 'renewalId'),
+        cell: (info) => format('renewalId', info.getValue()),
       })
     })
     .with('metadata', () => {
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format(info.getValue(), 'metadata'),
+        cell: (info) => format('metadata', info.getValue()),
       })
     })
     .with('_eTag', () => {
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format(info.getValue(), '_eTag'),
+        cell: (info) => format('_eTag', info.getValue()),
       })
     })
     .otherwise(() => {
