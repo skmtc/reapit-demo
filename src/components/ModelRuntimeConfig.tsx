@@ -11,6 +11,7 @@ import { match } from 'ts-pattern'
 import FormControl from '@mui/joy/FormControl'
 import FormLabel from '@mui/joy/FormLabel'
 import FormHelperText from '@mui/joy/FormHelperText'
+import invariant from 'tiny-invariant'
 
 export type ColumnsMap<Model> = {
   [Property in keyof Model]: ColumnDef<Model, Model[Property]>
@@ -34,53 +35,62 @@ export type DisplayConfig<Model extends FieldValues> = Partial<{
 }>
 
 type ConfigArg<Model extends FieldValues> =
-  | {
-      type: 'display'
-      config: DisplayConfig<Model>
-    }
-  | {
-      type: 'form'
-      config: Partial<FormConfig<Model>>
-    }
+  | DisplayConfigArg<Model>
+  | FormConfigArgs<Model>
+
+type DisplayConfigArg<Model extends FieldValues> = {
+  type: 'display'
+  config: DisplayConfig<Model>
+}
+
+type FormConfigArgs<Model extends FieldValues> = {
+  type: 'form'
+  config: Partial<FormConfig<Model>>
+}
 
 export const createRuntimeConfig = <Model extends FieldValues>(
   configArg: ConfigArg<Model>,
   modelConfig: ModelConfig<Model>
-): ConfigItemLookup<Model> => ({
-  label: key => {
-    return configArg.config?.[key]?.label ?? modelConfig?.[key]?.label
-  },
-  format: <Key extends KeyPath<Model>>(key: Key, value: Model[Key]) => {
-    return match(configArg)
-      .with({ type: 'display' }, ({ config }) => {
-        return (
-          config?.[key]?.format?.(value) ?? modelConfig?.[key]?.format(value)
-        )
-      })
-      .otherwise(() => {
-        throw new Error('Unexpected type')
-      })
-  },
-  Input: <Key extends KeyPath<Model>>(
-    key: Key,
-    props: ControllerRenderProps<Model, Key>
-  ) => {
-    return match(configArg)
-      .with({ type: 'form' }, ({ config }) => {
-        const FormInput = config?.[key]?.Input
-        const ModelInput = modelConfig?.[key]?.Input
+) => {
+  return match(configArg as ConfigArg<Model>)
+    .with({ type: 'display' }, ({ config }) => {
+      return Object.fromEntries(
+        Object.keys(config).map(k => {
+          invariant(k in modelConfig, 'Unknown key')
 
-        return FormInput ? (
-          <FormInput {...{ ...props, key }} />
-        ) : (
-          <ModelInput {...{ ...props, key }} />
-        )
-      })
-      .otherwise(() => {
-        throw new Error('Unexpected type')
-      })
-  }
-})
+          const key = k as KeyPath<Model>
+
+          return [
+            key,
+            {
+              key,
+              label: config[key]?.label ?? modelConfig[key]?.label,
+              format: config[key]?.format ?? modelConfig[key]?.format
+            }
+          ]
+        })
+      ) as DisplayConfig<Model>
+    })
+    .with({ type: 'form' }, ({ config }) => {
+      return Object.fromEntries(
+        Object.keys(config).map(k => {
+          invariant(k in modelConfig, 'Unknown key')
+
+          const key = k as KeyPath<Model>
+
+          return [
+            key,
+            {
+              key,
+              label: config[key]?.label ?? modelConfig[key].label,
+              Input: config[key]?.Input ?? modelConfig[key].Input
+            }
+          ]
+        })
+      ) as unknown as FormConfig<Model>
+    })
+    .exhaustive()
+}
 
 export type KeysOf<T> = (keyof T)[]
 

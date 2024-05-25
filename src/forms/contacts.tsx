@@ -150,8 +150,9 @@ export type CreateContactsBody = {
   metadata?: Record<string, Record<string, never>> | undefined | null
 }
 export type CreateContactsProps = {
-  children: ReactNode
+  children: (control: Control<CreateContactsBody, any>) => ReactNode
 }
+
 export const updateContactsIdSubscriptionsSubscriptionIdBody = z.object({
   status: z.string().nullable().optional()
 })
@@ -164,7 +165,7 @@ export type UpdateContactsIdSubscriptionsSubscriptionIdProps = {
   children: ReactNode
 }
 
-export const CreateContacts = (props: CreateContactsProps) => {
+export const CreateContacts = ({ children, ...props }: CreateContactsProps) => {
   const { control, handleSubmit } = useForm<CreateContactsBody>({
     resolver: zodResolver(createContactsBody)
   })
@@ -182,7 +183,7 @@ export const CreateContacts = (props: CreateContactsProps) => {
         mutator.mutate({ ...props, body })
       })}
     >
-      {props.children(control)}
+      {children(control)}
       <Box
         display="flex"
         flexDirection="column"
