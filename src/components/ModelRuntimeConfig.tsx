@@ -54,14 +54,14 @@ export const createRuntimeConfig = <Model extends FieldValues>(
 ) => {
   return match(configArg as ConfigArg<Model>)
     .with({ type: 'display' }, ({ config }) => {
-      return Object.fromEntries(
+      const displayConfig = Object.fromEntries(
         Object.keys(config).map(k => {
           invariant(k in modelConfig, 'Unknown key')
 
           const key = k as KeyPath<Model>
 
           return [
-            key,
+            key as KeyPath<Model>,
             {
               key,
               label: config[key]?.label ?? modelConfig[key]?.label,
@@ -69,10 +69,15 @@ export const createRuntimeConfig = <Model extends FieldValues>(
             }
           ]
         })
-      ) as DisplayConfig<Model>
+      )
+
+      return {
+        type: 'display' as const,
+        config: displayConfig as unknown as DisplayConfig<Model>
+      }
     })
     .with({ type: 'form' }, ({ config }) => {
-      return Object.fromEntries(
+      const formConfig = Object.fromEntries(
         Object.keys(config).map(k => {
           invariant(k in modelConfig, 'Unknown key')
 
@@ -87,7 +92,12 @@ export const createRuntimeConfig = <Model extends FieldValues>(
             }
           ]
         })
-      ) as unknown as FormConfig<Model>
+      )
+
+      return {
+        type: 'form' as const,
+        config: formConfig as unknown as FormConfig<Model>
+      }
     })
     .exhaustive()
 }
