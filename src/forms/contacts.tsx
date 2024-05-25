@@ -150,7 +150,7 @@ export type CreateContactsBody = {
   metadata?: Record<string, Record<string, never>> | undefined | null
 }
 export type CreateContactsProps = {
-  children: (control: Control<CreateContactsBody>) => ReactNode
+  children: ReactNode
 }
 export const updateContactsIdSubscriptionsSubscriptionIdBody = z.object({
   status: z.string().nullable().optional()
@@ -161,9 +161,7 @@ export type UpdateContactsIdSubscriptionsSubscriptionIdBody = {
 export type UpdateContactsIdSubscriptionsSubscriptionIdProps = {
   id: string
   subscriptionId: string
-  children: (
-    control: Control<UpdateContactsIdSubscriptionsSubscriptionIdBody>
-  ) => ReactNode
+  children: ReactNode
 }
 
 export const CreateContacts = (props: CreateContactsProps) => {

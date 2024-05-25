@@ -1,11 +1,16 @@
 import { ColumnDef } from '@tanstack/react-table'
-import type {
-  FieldValues,
-  FieldPath,
-  ControllerRenderProps
+import {
+  type FieldValues,
+  type FieldPath,
+  type ControllerRenderProps,
+  Controller,
+  Control
 } from 'react-hook-form'
-import { ReactNode } from 'react'
+import { FC, ReactNode } from 'react'
 import { match } from 'ts-pattern'
+import FormControl from '@mui/joy/FormControl'
+import FormLabel from '@mui/joy/FormLabel'
+import FormHelperText from '@mui/joy/FormHelperText'
 
 export type ColumnsMap<Model> = {
   [Property in keyof Model]: ColumnDef<Model, Model[Property]>
@@ -65,7 +70,11 @@ export const createRuntimeConfig = <Model extends FieldValues>(
         const FormInput = config?.[key]?.Input
         const ModelInput = modelConfig?.[key]?.Input
 
-        return FormInput ? <FormInput {...props} /> : <ModelInput {...props} />
+        return FormInput ? (
+          <FormInput {...{ ...props, key }} />
+        ) : (
+          <ModelInput {...{ ...props, key }} />
+        )
       })
       .otherwise(() => {
         throw new Error('Unexpected type')
@@ -95,10 +104,8 @@ export type ConfigItemLookup<Model extends FieldValues> = {
 type ConfigValue<Model extends FieldValues, FormPath extends KeyPath<Model>> = {
   key: FormPath
   label: string
-  Input: <Key extends FormPath>(
-    props: ControllerRenderProps<Model, Key>
-  ) => ReactNode
-  format: <Key extends FormPath>(value: Model[Key]) => ReactNode
+  Input: FC<ControllerRenderProps<Model, FormPath>>
+  format: (value: KeyPath<Model>) => ReactNode
 }
 
 export type RestoreOptional<T, KeySource> = Partial<
@@ -115,4 +122,38 @@ export type BasicConfig<Model extends FieldValues> = {
 
 export type FormConfig<Model extends FieldValues> = BasicConfig<Model>
 
-type KeyPath<T extends FieldValues> = Extract<FieldPath<T>, keyof T>
+export type KeyPath<T extends FieldValues> = Extract<FieldPath<T>, keyof T>
+
+type FieldControllerProps<
+  Model extends FieldValues,
+  Key extends KeyPath<Model>
+> = {
+  fieldName: Key
+  config: FormConfig<Model>[Key]
+  control: Control<Model, any>
+}
+
+export const FieldController = <
+  Model extends FieldValues,
+  Key extends KeyPath<Model>
+>({
+  fieldName,
+  config: { label, Input },
+  control
+}: FieldControllerProps<Model, Key>) => (
+  <Controller
+    key={fieldName}
+    name={fieldName}
+    control={control}
+    render={({ field, fieldState }) => (
+      <FormControl error={Boolean(fieldState.error?.message)}>
+        <FormLabel>{label}</FormLabel>
+        <Input {...field} />
+
+        {fieldState.error?.message ? (
+          <FormHelperText>{fieldState.error?.message}</FormHelperText>
+        ) : null}
+      </FormControl>
+    )}
+  />
+)
