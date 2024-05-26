@@ -1,34 +1,28 @@
-import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
-import { default as FormLabel } from '@mui/joy/FormLabel'
-import { default as FormControl } from '@mui/joy/FormControl'
-import { default as FormHelperText } from '@mui/joy/FormHelperText'
+import {
+  updateSchemaRequest,
+  UpdateSchemaRequest,
+  createSchemaRequest,
+  CreateSchemaRequest,
+} from '@/index.generated.ts'
 import { default as Box } from '@mui/joy/Box'
+import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { FormConfig } from '@/components/ModelRuntimeConfig'
-import { match } from 'ts-pattern'
-import { useUpdateMetadataSchema, useCreateMetadataSchema } from '@/services/metadataschema.ts'
+import { usePutApiMetadataMetadataSchemaId, usePostApiMetadataMetadataSchema } from '@/services/metadataschema.ts'
 
-export const updateMetadataMetadataSchemaIdBody = z.object({ schema: z.string() })
-export type UpdateMetadataMetadataSchemaIdBody = { schema: string }
 export type UpdateMetadataMetadataSchemaIdProps = {
   id: string
-  children: (control: Control<UpdateMetadataMetadataSchemaIdBody>) => ReactNode
+  children: (control: Control<UpdateSchemaRequest>) => ReactNode
 }
-export const createMetadataMetadataSchemaBody = z.object({ entityType: z.string(), schema: z.string() })
-export type CreateMetadataMetadataSchemaBody = { entityType: string; schema: string }
-export type CreateMetadataMetadataSchemaProps = {
-  children: (control: Control<CreateMetadataMetadataSchemaBody>) => ReactNode
-}
+export type CreateMetadataMetadataSchemaProps = { children: (control: Control<CreateSchemaRequest>) => ReactNode }
 
 export const UpdateMetadataMetadataSchemaId = (props: UpdateMetadataMetadataSchemaIdProps) => {
-  const { control, handleSubmit } = useForm<UpdateMetadataMetadataSchemaIdBody>({
-    resolver: zodResolver(updateMetadataMetadataSchemaIdBody),
+  const { control, handleSubmit } = useForm<UpdateSchemaRequest>({
+    resolver: zodResolver(updateSchemaRequest),
   })
 
-  const mutator = useUpdateMetadataSchema()
+  const mutator = usePutApiMetadataMetadataSchemaId()
 
   return (
     <Box
@@ -56,49 +50,14 @@ export const UpdateMetadataMetadataSchemaId = (props: UpdateMetadataMetadataSche
       </Box>
     </Box>
   )
-}
-
-type GetUpdateMetadataMetadataSchemaIdFieldArgs = {
-  fieldName: FieldPath<UpdateMetadataMetadataSchemaIdBody>
-  control: Control<UpdateMetadataMetadataSchemaIdBody>
-  formConfig: FormConfig<UpdateMetadataMetadataSchemaIdBody>
-}
-
-export const getUpdateMetadataMetadataSchemaIdField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetUpdateMetadataMetadataSchemaIdFieldArgs) => {
-  return match(fieldName)
-    .with('schema', () => {
-      const { label, Input } = formConfig['schema']
-
-      return (
-        <Controller
-          key="schema"
-          name="schema"
-          control={control}
-          render={({ field, fieldState }) => (
-            <FormControl error={Boolean(fieldState.error?.message)}>
-              <FormLabel>{label}</FormLabel>
-              <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
-            </FormControl>
-          )}
-        />
-      )
-    })
-    .otherwise(() => {
-      throw new Error(`Unknown field: '${fieldName}' `)
-    })
 }
 
 export const CreateMetadataMetadataSchema = (props: CreateMetadataMetadataSchemaProps) => {
-  const { control, handleSubmit } = useForm<CreateMetadataMetadataSchemaBody>({
-    resolver: zodResolver(createMetadataMetadataSchemaBody),
+  const { control, handleSubmit } = useForm<CreateSchemaRequest>({
+    resolver: zodResolver(createSchemaRequest),
   })
 
-  const mutator = useCreateMetadataSchema()
+  const mutator = usePostApiMetadataMetadataSchema()
 
   return (
     <Box
@@ -126,57 +85,4 @@ export const CreateMetadataMetadataSchema = (props: CreateMetadataMetadataSchema
       </Box>
     </Box>
   )
-}
-
-type GetCreateMetadataMetadataSchemaFieldArgs = {
-  fieldName: FieldPath<CreateMetadataMetadataSchemaBody>
-  control: Control<CreateMetadataMetadataSchemaBody>
-  formConfig: FormConfig<CreateMetadataMetadataSchemaBody>
-}
-
-export const getCreateMetadataMetadataSchemaField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateMetadataMetadataSchemaFieldArgs) => {
-  return match(fieldName)
-    .with('entityType', () => {
-      const { label, Input } = formConfig['entityType']
-
-      return (
-        <Controller
-          key="entityType"
-          name="entityType"
-          control={control}
-          render={({ field, fieldState }) => (
-            <FormControl error={Boolean(fieldState.error?.message)}>
-              <FormLabel>{label}</FormLabel>
-              <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
-            </FormControl>
-          )}
-        />
-      )
-    })
-    .with('schema', () => {
-      const { label, Input } = formConfig['schema']
-
-      return (
-        <Controller
-          key="schema"
-          name="schema"
-          control={control}
-          render={({ field, fieldState }) => (
-            <FormControl error={Boolean(fieldState.error?.message)}>
-              <FormLabel>{label}</FormLabel>
-              <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
-            </FormControl>
-          )}
-        />
-      )
-    })
-    .otherwise(() => {
-      throw new Error(`Unknown field: '${fieldName}' `)
-    })
 }

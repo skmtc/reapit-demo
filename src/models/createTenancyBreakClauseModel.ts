@@ -32,3 +32,28 @@ export const createTenancyBreakClauseModel = z.object({
     .nullable()
     .optional(),
 })
+/** Request body used to update tenancy break clause */
+export type CreateTenancyBreakClauseModel = {
+  typeId?: /** The identifier of the associated to the break clause */ string | undefined
+  active?: /** The date the break clause becomes/became active */ string | undefined
+  appliesTo?: /** The responsible party (landlord/tenant/mutual) */ string | undefined
+  agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
+  | {
+        landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
+        tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
+      }
+    | undefined
+  breakFrom?: /** Request body used to set a break clauses break from details */
+  | {
+        date?: /** The date the break from clause can be used */ string | undefined
+        minTermMonths?: /** The minimum number of months until the break clause can be used */ number | undefined
+      }
+    | undefined
+  noticeRequired?: /** Request body used to set a break clauses notice required details */
+  | {
+        date?: /** The date a break clauses notice is required by */ string | undefined
+        beforeBreakMonths?: /** The number of months the notice is required before the break clause */
+        number | undefined
+      }
+    | undefined
+}

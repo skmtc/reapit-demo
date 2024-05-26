@@ -4,10 +4,10 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiTenanciesArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  fromArchive?: boolean | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  fromArchive?: boolean | undefined
   embed?:
     | Array<
         | 'appointments'
@@ -21,27 +21,25 @@ export type UseGetApiTenanciesArgs = {
         | 'type'
       >
     | undefined
-    | null
-  id?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  applicantId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  name?: string | undefined | null
-  nameType?: string | undefined | null
+  id?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  applicantId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  name?: string | undefined
+  nameType?: string | undefined
   status?:
     | Array<'offerPending' | 'offerWithdrawn' | 'offerRejected' | 'arranging' | 'current' | 'finished' | 'cancelled'>
     | undefined
-    | null
-  email?: Array<string> | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  endDateFrom?: string | undefined | null
-  endDateTo?: string | undefined | null
-  startDateFrom?: string | undefined | null
-  startDateTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  email?: Array<string> | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  endDateFrom?: string | undefined
+  endDateTo?: string | undefined
+  startDateFrom?: string | undefined
+  startDateTo?: string | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiTenanciesFn = async ({
   pageSize,
@@ -234,77 +232,69 @@ export const useGetApiTenancies = (args: UseGetApiTenanciesArgs) => {
 
   return result
 }
-export type UseCreateTenancyArgs = {
+export type UsePostApiTenanciesArgs = {
   body: /** Request body used to create a new tenancy */
   {
-    startDate?: string | undefined | null
-    endDate?: string | undefined | null
+    startDate?: string | undefined
+    endDate?: string | undefined
     status?: /** The current status of the tenancy (offerPending/offerWithdrawn/offerRejected/arranging) */
-    string | undefined | null
+    string | undefined
     agentRole: /** The role that the agent is performing for the tenancy (managed/rentCollection/collectFirstPayment/collectRentToDate/lettingOnly/introducingTenant) */
     string
     rent: /** The amount of rent required, returned in relation to the collection frequency */ number
     rentFrequency: /** The rent collection frequency (weekly/monthly/annually) */ string
     rentInstalmentsFrequency?: /** The frequency of rental instalment payments (weekly/fortnightly/monthly/quarterly/halfYearly/yearly/every28Days/other) */
-    string | undefined | null
-    rentInstalmentsAmount?: /** The amount due for each rent instalment (where specified) */ number | undefined | null
-    rentInstalmentsStart?: /** The date that the first instalment is due */ string | undefined | null
-    meterReadingGas?: /** The recorded utility reading for the gas meter */ string | undefined | null
-    meterReadingGasLastRead?: /** Date of when the reading of gas utility was last recorded */ string | undefined | null
-    meterReadingElectricity?: /** The recorded utility reading for the electricity meter */ string | undefined | null
+    string | undefined
+    rentInstalmentsAmount?: /** The amount due for each rent instalment (where specified) */ number | undefined
+    rentInstalmentsStart?: /** The date that the first instalment is due */ string | undefined
+    meterReadingGas?: /** The recorded utility reading for the gas meter */ string | undefined
+    meterReadingGasLastRead?: /** Date of when the reading of gas utility was last recorded */ string | undefined
+    meterReadingElectricity?: /** The recorded utility reading for the electricity meter */ string | undefined
     meterReadingElectricityLastRead?: /** Date of when the reading of electricity utility was last recorded */
-    string | undefined | null
-    meterReadingWater?: /** The recorded utility reading for the water meter */ string | undefined | null
-    meterReadingWaterLastRead?: /** Date of when the reading of water utility was last recorded */
-    string | undefined | null
-    isPeriodic?: /** A flag determining whether or not the tenancy has been extended indefinitely */
-    boolean | undefined | null
+    string | undefined
+    meterReadingWater?: /** The recorded utility reading for the water meter */ string | undefined
+    meterReadingWaterLastRead?: /** Date of when the reading of water utility was last recorded */ string | undefined
+    isPeriodic?: /** A flag determining whether or not the tenancy has been extended indefinitely */ boolean | undefined
     typeId: /** The unique identifier of the type of tenancy */ string
     negotiatorId: /** The unique identifier of the negotiator who is managing the tenancy */ string
     propertyId: /** The unique identifier of the property that relates to the tenancy */ string
     applicantId: /** The unique identifier of the applicant who has applied to be a tenant */ string
-    feeNotes?: /** Financial notes set against the tenancy */ string | undefined | null
+    feeNotes?: /** Financial notes set against the tenancy */ string | undefined
     lettingFee?: /** Request body used to set letting fees on a new tenancy */
     | {
-          type?: /** The letting fee type (percentage/fixed) */ string | undefined | null
-          amount?: /** The fee amount */ number | undefined | null
+          type?: /** The letting fee type (percentage/fixed) */ string | undefined
+          amount?: /** The fee amount */ number | undefined
           frequency?: /** The frequency of when the fee is to be collected (upfront/upfrontOver2Months/monthly/quarterly/halfYearly/yearly/28days/other/notApplicable) */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
     managementFee?: /** Request body used to set management fees on a new tenancy */
     | {
-          type?: /** The management fee type (percentage/fixed) */ string | undefined | null
-          amount?: /** The fee amount */ number | undefined | null
+          type?: /** The management fee type (percentage/fixed) */ string | undefined
+          amount?: /** The fee amount */ number | undefined
           frequency?: /** The frequency of when the fee is to be collected (monthly/quarterly/halfYearly/yearly/28days/sameAsLettingFee) */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
     deposit?: /** Request body used to set the deposit of a new tenancy */
     | {
           heldBy?: /** The deposit holder (depositProtectionScheme/stakeholder/landlordsAgent/landlord/notApplicable) */
-          string | undefined | null
-          period?: /** The number of weeks or months rent collected as the deposit on the tenancy */
-          number | undefined | null
-          type?: /** The type of deposit (weeksRent/monthsRent/fixedSum/guarantee) */ string | undefined | null
-          sum?: /** The amount of deposit held */ number | undefined | null
+          string | undefined
+          period?: /** The number of weeks or months rent collected as the deposit on the tenancy */ number | undefined
+          type?: /** The type of deposit (weeksRent/monthsRent/fixedSum/guarantee) */ string | undefined
+          sum?: /** The amount of deposit held */ number | undefined
         }
       | undefined
-      | null
     source?: /** Request body used to set the source of a new tenancy */
     | {
-          id?: /** The unique identifier of the source for the tenancy */ string | undefined | null
-          type?: /** The source type (office/source) */ string | undefined | null
+          id?: /** The unique identifier of the source for the tenancy */ string | undefined
+          type?: /** The source type (office/source) */ string | undefined
         }
       | undefined
-      | null
-    metadata?: /** App specific metadata to set against the tenancy */
-    Record<string, Record<string, never>> | undefined | null
+    metadata?: /** App specific metadata to set against the tenancy */ Record<string, Record<string, never>> | undefined
   }
 }
-export const createTenancyFn = async ({ body }: UseCreateTenancyArgs) => {
+export const postApiTenanciesFn = async ({ body }: UsePostApiTenanciesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -322,12 +312,12 @@ export const createTenancyFn = async ({ body }: UseCreateTenancyArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateTenancy = () => {
+export const usePostApiTenancies = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyFn,
+    mutationFn: postApiTenanciesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -350,7 +340,6 @@ export type UseGetApiTenanciesIdArgs = {
         | 'type'
       >
     | undefined
-    | null
 }
 export const getApiTenanciesIdFn = async ({ id, embed }: UseGetApiTenanciesIdArgs) => {
   const res = await fetch(
@@ -501,72 +490,63 @@ export type UsePatchApiTenanciesIdArgs = {
   id: string
   body: /** Request body used to update an existing Tenancy */
   {
-    startDate?: /** The start date of the tenancy */ string | undefined | null
-    endDate?: /** The end date of the tenancy */ string | undefined | null
+    startDate?: /** The start date of the tenancy */ string | undefined
+    endDate?: /** The end date of the tenancy */ string | undefined
     status?: /** The current status of the tenancy (offerPending/offerWithdrawn/offerRejected/arranging/current/finished/cancelled) */
-    string | undefined | null
+    string | undefined
     agentRole?: /** The role that the agent is performing for the tenancy (managed/rentCollection/collectFirstPayment/collectRentToDate/lettingOnly/introducingTenant) */
-    string | undefined | null
-    rent?: /** The amount of rent required, returned in relation to the collection frequency */
-    number | undefined | null
-    rentFrequency?: /** The rent collection frequency (weekly/monthly/annually) */ string | undefined | null
-    endDateConfirmed?: /** Flag for end date confirmation */ boolean | undefined | null
-    isPeriodic?: /** A flag determining whether or not the tenancy has been extended indefinitely */
-    boolean | undefined | null
-    typeId?: /** The unique identifier of the type of tenancy */ string | undefined | null
-    negotiatorId?: /** The unique identifier of the negotiator who is managing the tenancy */ string | undefined | null
+    string | undefined
+    rent?: /** The amount of rent required, returned in relation to the collection frequency */ number | undefined
+    rentFrequency?: /** The rent collection frequency (weekly/monthly/annually) */ string | undefined
+    endDateConfirmed?: /** Flag for end date confirmation */ boolean | undefined
+    isPeriodic?: /** A flag determining whether or not the tenancy has been extended indefinitely */ boolean | undefined
+    typeId?: /** The unique identifier of the type of tenancy */ string | undefined
+    negotiatorId?: /** The unique identifier of the negotiator who is managing the tenancy */ string | undefined
     source?: /** Request body used to set the source of a new tenancy */
     | {
-          id?: /** The unique identifier of the source for the tenancy */ string | undefined | null
-          type?: /** The source type (office/source) */ string | undefined | null
+          id?: /** The unique identifier of the source for the tenancy */ string | undefined
+          type?: /** The source type (office/source) */ string | undefined
         }
       | undefined
-      | null
     rentInstalmentsFrequency?: /** The frequency of rental instalment payments (weekly/fortnightly/monthly/quarterly/halfYearly/yearly/every28Days/other) */
-    string | undefined | null
-    rentInstalmentsAmount?: /** The amount due for each rent instalment (where specified) */ number | undefined | null
-    rentInstalmentsStart?: /** The date that the first instalment is due */ string | undefined | null
-    meterReadingGas?: /** The recorded utility reading for the gas meter */ string | undefined | null
-    meterReadingGasLastRead?: /** Date of when the reading of gas utility was last recorded */ string | undefined | null
-    meterReadingElectricity?: /** The recorded utility reading for the electricity meter */ string | undefined | null
+    string | undefined
+    rentInstalmentsAmount?: /** The amount due for each rent instalment (where specified) */ number | undefined
+    rentInstalmentsStart?: /** The date that the first instalment is due */ string | undefined
+    meterReadingGas?: /** The recorded utility reading for the gas meter */ string | undefined
+    meterReadingGasLastRead?: /** Date of when the reading of gas utility was last recorded */ string | undefined
+    meterReadingElectricity?: /** The recorded utility reading for the electricity meter */ string | undefined
     meterReadingElectricityLastRead?: /** Date of when the reading of electricity utility was last recorded */
-    string | undefined | null
-    meterReadingWater?: /** The recorded utility reading for the water meter */ string | undefined | null
-    meterReadingWaterLastRead?: /** Date of when the reading of water utility was last recorded */
-    string | undefined | null
-    feeNotes?: /** Financial notes set against the tenancy */ string | undefined | null
-    legalStatusId?: /** The identifier of the legal status to set against the tenancy */ string | undefined | null
+    string | undefined
+    meterReadingWater?: /** The recorded utility reading for the water meter */ string | undefined
+    meterReadingWaterLastRead?: /** Date of when the reading of water utility was last recorded */ string | undefined
+    feeNotes?: /** Financial notes set against the tenancy */ string | undefined
+    legalStatusId?: /** The identifier of the legal status to set against the tenancy */ string | undefined
     deposit?: /** Request body used to set the deposit of a tenancy */
     | {
           heldBy?: /** The deposit holder (depositProtectionScheme/stakeholder/landlordsAgent/landlord/notApplicable) */
-          string | undefined | null
-          period?: /** The number of weeks or months rent collected as the deposit on the tenancy */
-          number | undefined | null
-          type?: /** The type of deposit (weeksRent/monthsRent/fixedSum/guarantee) */ string | undefined | null
-          sum?: /** The amount of deposit held */ number | undefined | null
+          string | undefined
+          period?: /** The number of weeks or months rent collected as the deposit on the tenancy */ number | undefined
+          type?: /** The type of deposit (weeksRent/monthsRent/fixedSum/guarantee) */ string | undefined
+          sum?: /** The amount of deposit held */ number | undefined
         }
       | undefined
-      | null
     lettingFee?: /** Request body used to update letting fees on an existing tenancy */
     | {
-          type?: /** The letting fee type (percentage/fixed) */ string | undefined | null
-          amount?: /** The fee amount */ number | undefined | null
+          type?: /** The letting fee type (percentage/fixed) */ string | undefined
+          amount?: /** The fee amount */ number | undefined
           frequency?: /** The frequency of when the fee is to be collected (upfront/upfrontOver2Months/monthly/quarterly/halfYearly/yearly/28days/other/notApplicable) */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
     managementFee?: /** Request body used to update management fees on an existing tenancy */
     | {
-          type?: /** The management fee type (percentage/fixed) */ string | undefined | null
-          amount?: /** The fee amount */ number | undefined | null
+          type?: /** The management fee type (percentage/fixed) */ string | undefined
+          amount?: /** The fee amount */ number | undefined
           frequency?: /** The frequency of when the fee is to be collected (monthly/quarterly/halfYearly/yearly/28days/sameAsLettingFee) */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
-    metadata?: /** App specific metadata to set against the tenancy */
-    Record<string, Record<string, never>> | undefined | null
+    metadata?: /** App specific metadata to set against the tenancy */ Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiTenanciesIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiTenanciesIdArgs) => {
@@ -602,8 +582,8 @@ export const usePatchApiTenanciesId = () => {
 }
 export type UseGetApiTenanciesIdRelationshipsArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiTenanciesIdRelationshipsFn = async ({
   id,
@@ -760,10 +740,10 @@ export const useGetApiTenanciesIdRelationshipsRelationshipId = (
 }
 export type UseGetApiTenanciesIdChecksArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  type?: string | undefined | null
-  status?: Array<'needed' | 'notNeeded' | 'arranged' | 'completed'> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  type?: string | undefined
+  status?: Array<'needed' | 'notNeeded' | 'arranged' | 'completed'> | undefined
 }
 export const getApiTenanciesIdChecksFn = async ({
   id,
@@ -831,7 +811,7 @@ export const useGetApiTenanciesIdChecks = (args: UseGetApiTenanciesIdChecksArgs)
 
   return result
 }
-export type UseCreateTenancyCheckArgs = {
+export type UsePostApiTenanciesIdChecksArgs = {
   id: string
   body: /** Request body used to create a new tenancy check */
   {
@@ -839,18 +819,18 @@ export type UseCreateTenancyCheckArgs = {
 when creating a custom tenancy check that does not match any of the existing pre-configured
 tenancy check options.
 Description and CheckTypeId must not be supplied in the same payload, but at least one must be provided */
-    string | undefined | null
+    string | undefined
     type: /** The type of the tenancy check (preTenancy/postTenancy) */ string
     status: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string
     checkTypeId?: /** The identifier of the pre-configured tenancy check. This should be populated
 when an existing tenancy check configuration is desired, rather than a custom one
 CheckTypeId and Description must not be supplied in the same payload, but at least one must be provided */
-    string | undefined | null
+    string | undefined
     metadata?: /** App specific metadata to set against the tenancy check */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
-export const createTenancyCheckFn = async ({ id, body }: UseCreateTenancyCheckArgs) => {
+export const postApiTenanciesIdChecksFn = async ({ id, body }: UsePostApiTenanciesIdChecksArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -868,12 +848,12 @@ export const createTenancyCheckFn = async ({ id, body }: UseCreateTenancyCheckAr
 
   return z.void().parse(data)
 }
-export const useCreateTenancyCheck = () => {
+export const usePostApiTenanciesIdChecks = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyCheckFn,
+    mutationFn: postApiTenanciesIdChecksFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -964,9 +944,9 @@ export type UsePatchApiTenanciesIdChecksCheckIdArgs = {
   checkId: string
   body: /** Model for updat of an existing tenancy check */
   {
-    status?: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string | undefined | null
+    status?: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string | undefined
     metadata?: /** App specific metadata to set against the tenancy check */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiTenanciesIdChecksCheckIdFn = async ({
@@ -1007,8 +987,8 @@ export const usePatchApiTenanciesIdChecksCheckId = () => {
 }
 export type UseGetApiTenanciesIdBreakClausesArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiTenanciesIdBreakClausesFn = async ({
   id,
@@ -1089,39 +1069,35 @@ export const useGetApiTenanciesIdBreakClauses = (args: UseGetApiTenanciesIdBreak
 
   return result
 }
-export type UseCreateTenancyBreakClauseArgs = {
+export type UsePostApiTenanciesIdBreakClausesArgs = {
   id: string
   body: /** Request body used to update tenancy break clause */
   {
-    typeId?: /** The identifier of the associated to the break clause */ string | undefined | null
-    active?: /** The date the break clause becomes/became active */ string | undefined | null
-    appliesTo?: /** The responsible party (landlord/tenant/mutual) */ string | undefined | null
+    typeId?: /** The identifier of the associated to the break clause */ string | undefined
+    active?: /** The date the break clause becomes/became active */ string | undefined
+    appliesTo?: /** The responsible party (landlord/tenant/mutual) */ string | undefined
     agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
     | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined | null
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined | null
+          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
+          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
         }
       | undefined
-      | null
     breakFrom?: /** Request body used to set a break clauses break from details */
     | {
-          date?: /** The date the break from clause can be used */ string | undefined | null
-          minTermMonths?: /** The minimum number of months until the break clause can be used */
-          number | undefined | null
+          date?: /** The date the break from clause can be used */ string | undefined
+          minTermMonths?: /** The minimum number of months until the break clause can be used */ number | undefined
         }
       | undefined
-      | null
     noticeRequired?: /** Request body used to set a break clauses notice required details */
     | {
-          date?: /** The date a break clauses notice is required by */ string | undefined | null
+          date?: /** The date a break clauses notice is required by */ string | undefined
           beforeBreakMonths?: /** The number of months the notice is required before the break clause */
-          number | undefined | null
+          number | undefined
         }
       | undefined
-      | null
   }
 }
-export const createTenancyBreakClauseFn = async ({ id, body }: UseCreateTenancyBreakClauseArgs) => {
+export const postApiTenanciesIdBreakClausesFn = async ({ id, body }: UsePostApiTenanciesIdBreakClausesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/breakClauses${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -1139,12 +1115,12 @@ export const createTenancyBreakClauseFn = async ({ id, body }: UseCreateTenancyB
 
   return z.void().parse(data)
 }
-export const useCreateTenancyBreakClause = () => {
+export const usePostApiTenanciesIdBreakClauses = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyBreakClauseFn,
+    mutationFn: postApiTenanciesIdBreakClausesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -1250,31 +1226,27 @@ export type UsePatchApiTenanciesIdBreakClausesClauseIdArgs = {
   clauseId: string
   body: /** Request body used to update tenancy break clause */
   {
-    active?: /** The date the break clause becomes/became active */ string | undefined | null
-    appliesTo?: /** The responsible party (landlord/tenant/mutual) */ string | undefined | null
+    active?: /** The date the break clause becomes/became active */ string | undefined
+    appliesTo?: /** The responsible party (landlord/tenant/mutual) */ string | undefined
     agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
     | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined | null
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined | null
+          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
+          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
         }
       | undefined
-      | null
     breakFrom?: /** Request body used to set a break clauses break from details */
     | {
-          date?: /** The date the break from clause can be used */ string | undefined | null
-          minTermMonths?: /** The minimum number of months until the break clause can be used */
-          number | undefined | null
+          date?: /** The date the break from clause can be used */ string | undefined
+          minTermMonths?: /** The minimum number of months until the break clause can be used */ number | undefined
         }
       | undefined
-      | null
     noticeRequired?: /** Request body used to set a break clauses notice required details */
     | {
-          date?: /** The date a break clauses notice is required by */ string | undefined | null
+          date?: /** The date a break clauses notice is required by */ string | undefined
           beforeBreakMonths?: /** The number of months the notice is required before the break clause */
-          number | undefined | null
+          number | undefined
         }
       | undefined
-      | null
   }
 }
 export const patchApiTenanciesIdBreakClausesClauseIdFn = async ({
@@ -1315,8 +1287,8 @@ export const usePatchApiTenanciesIdBreakClausesClauseId = () => {
 }
 export type UseGetApiTenanciesIdAllowancesArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiTenanciesIdAllowancesFn = async ({
   id,
@@ -1385,22 +1357,21 @@ export const useGetApiTenanciesIdAllowances = (args: UseGetApiTenanciesIdAllowan
 
   return result
 }
-export type UseCreateTenancyAllowanceArgs = {
+export type UsePostApiTenanciesIdAllowancesArgs = {
   id: string
   body: /** Request body used to set a tenancy allowance */
   {
-    typeId?: /** The identifier of the associated to the allowance */ string | undefined | null
-    state?: /** The state of the allowance (allowed/notAllowed) */ string | undefined | null
+    typeId?: /** The identifier of the associated to the allowance */ string | undefined
+    state?: /** The state of the allowance (allowed/notAllowed) */ string | undefined
     agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
     | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined | null
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined | null
+          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
+          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
         }
       | undefined
-      | null
   }
 }
-export const createTenancyAllowanceFn = async ({ id, body }: UseCreateTenancyAllowanceArgs) => {
+export const postApiTenanciesIdAllowancesFn = async ({ id, body }: UsePostApiTenanciesIdAllowancesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/allowances${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -1418,12 +1389,12 @@ export const createTenancyAllowanceFn = async ({ id, body }: UseCreateTenancyAll
 
   return z.void().parse(data)
 }
-export const useCreateTenancyAllowance = () => {
+export const usePostApiTenanciesIdAllowances = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyAllowanceFn,
+    mutationFn: postApiTenanciesIdAllowancesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -1520,14 +1491,13 @@ export type UsePatchApiTenanciesIdAllowancesAllowanceIdArgs = {
   allowanceId: string
   body: /** Request body used to update tenancy allowance */
   {
-    state?: /** The state of the allowance (allowed/notAllowed) */ string | undefined | null
+    state?: /** The state of the allowance (allowed/notAllowed) */ string | undefined
     agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
     | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined | null
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined | null
+          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
+          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
         }
       | undefined
-      | null
   }
 }
 export const patchApiTenanciesIdAllowancesAllowanceIdFn = async ({
@@ -1568,8 +1538,8 @@ export const usePatchApiTenanciesIdAllowancesAllowanceId = () => {
 }
 export type UseGetApiTenanciesIdResponsibilitiesArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiTenanciesIdResponsibilitiesFn = async ({
   id,
@@ -1638,22 +1608,21 @@ export const useGetApiTenanciesIdResponsibilities = (args: UseGetApiTenanciesIdR
 
   return result
 }
-export type UseCreateTenancyResponsibilityArgs = {
+export type UsePostApiTenanciesIdResponsibilitiesArgs = {
   id: string
   body: /** Request body used to set a tenancy responsibility */
   {
-    typeId?: /** The identifier of the associated to the responsibility */ string | undefined | null
-    appliesTo?: /** The responsible party (landlord/tenant) */ string | undefined | null
+    typeId?: /** The identifier of the associated to the responsibility */ string | undefined
+    appliesTo?: /** The responsible party (landlord/tenant) */ string | undefined
     agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
     | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined | null
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined | null
+          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
+          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
         }
       | undefined
-      | null
   }
 }
-export const createTenancyResponsibilityFn = async ({ id, body }: UseCreateTenancyResponsibilityArgs) => {
+export const postApiTenanciesIdResponsibilitiesFn = async ({ id, body }: UsePostApiTenanciesIdResponsibilitiesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/responsibilities${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -1671,12 +1640,12 @@ export const createTenancyResponsibilityFn = async ({ id, body }: UseCreateTenan
 
   return z.void().parse(data)
 }
-export const useCreateTenancyResponsibility = () => {
+export const usePostApiTenanciesIdResponsibilities = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyResponsibilityFn,
+    mutationFn: postApiTenanciesIdResponsibilitiesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -1775,14 +1744,13 @@ export type UsePatchApiTenanciesIdResponsibilitiesResponsibilityIdArgs = {
   responsibilityId: string
   body: /** Request body used to update tenancy responsibility */
   {
-    appliesTo?: /** The responsible party (landlord/tenant) */ string | undefined | null
+    appliesTo?: /** The responsible party (landlord/tenant) */ string | undefined
     agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
     | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined | null
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined | null
+          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
+          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
         }
       | undefined
-      | null
   }
 }
 export const patchApiTenanciesIdResponsibilitiesResponsibilityIdFn = async ({
@@ -1823,8 +1791,8 @@ export const usePatchApiTenanciesIdResponsibilitiesResponsibilityId = () => {
 }
 export type UseGetApiTenanciesIdRenewalNegotiationsArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiTenanciesIdRenewalNegotiationsFn = async ({
   id,
@@ -1911,40 +1879,38 @@ export const useGetApiTenanciesIdRenewalNegotiations = (args: UseGetApiTenancies
 
   return result
 }
-export type UseCreateTenancyRenewalNegotiationArgs = {
+export type UsePostApiTenanciesIdRenewalNegotiationsArgs = {
   id: string
   body: /** Request body used to create a tenancy renewal negotiation */
   {
-    startDate?: /** The proposed start date of the tenancy renewal */ string | undefined | null
-    endDate?: /** The proposed end date of the tenancy renewal */ string | undefined | null
+    startDate?: /** The proposed start date of the tenancy renewal */ string | undefined
+    endDate?: /** The proposed end date of the tenancy renewal */ string | undefined
     negotiatorId?: /** The unique identifier of the negotiator who is managing this tenancy renewal */
-    string | undefined | null
-    rent?: /** The amount of rent required, returned in relation to the collection frequency */
-    number | undefined | null
-    rentFrequency?: /** The rent collection frequency (weekly/monthly/annually) */ string | undefined | null
+    string | undefined
+    rent?: /** The amount of rent required, returned in relation to the collection frequency */ number | undefined
+    rentFrequency?: /** The rent collection frequency (weekly/monthly/annually) */ string | undefined
     lettingFee?: /** Request body used to create a tenancy renewals letting fee */
     | {
-          type?: /** The letting fee type (fixed/perentage) */ string | undefined | null
-          amount?: /** The letting fee amount as a fixed price or percentage based on the `type` */
-          number | undefined | null
+          type?: /** The letting fee type (fixed/perentage) */ string | undefined
+          amount?: /** The letting fee amount as a fixed price or percentage based on the `type` */ number | undefined
           frequency?: /** The frequency at which the letting fee is required (monthly/quarterly/halfYearly/yearly/28days/upfront/upfrontOver2Months/other/notApplicable) */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
     managementFee?: /** Request body used to create a tenancy renewals management fee */
     | {
-          type?: /** The mangement fee type (fixed/perentage) */ string | undefined | null
-          amount?: /** The mangement fee amount as a fixed price or percentage based on the `type` */
-          number | undefined | null
+          type?: /** The mangement fee type (fixed/perentage) */ string | undefined
+          amount?: /** The mangement fee amount as a fixed price or percentage based on the `type` */ number | undefined
           frequency?: /** The frequency at which the mangement fee is required (monthly/quarterly/halfYearly/yearly/28days/sameAsLettingFee) */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
   }
 }
-export const createTenancyRenewalNegotiationFn = async ({ id, body }: UseCreateTenancyRenewalNegotiationArgs) => {
+export const postApiTenanciesIdRenewalNegotiationsFn = async ({
+  id,
+  body,
+}: UsePostApiTenanciesIdRenewalNegotiationsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -1962,12 +1928,12 @@ export const createTenancyRenewalNegotiationFn = async ({ id, body }: UseCreateT
 
   return z.void().parse(data)
 }
-export const useCreateTenancyRenewalNegotiation = () => {
+export const usePostApiTenanciesIdRenewalNegotiations = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyRenewalNegotiationFn,
+    mutationFn: postApiTenanciesIdRenewalNegotiationsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -2065,33 +2031,28 @@ export type UsePatchApiTenanciesIdRenewalNegotiationsRenewalIdArgs = {
   renewalId: string
   body: /** Request body used to update a tenancy renewal negotiation */
   {
-    startDate?: /** The proposed start date of the tenancy renewal */ string | undefined | null
-    endDate?: /** The proposed end date of the tenancy renewal */ string | undefined | null
+    startDate?: /** The proposed start date of the tenancy renewal */ string | undefined
+    endDate?: /** The proposed end date of the tenancy renewal */ string | undefined
     negotiatorId?: /** The unique identifier of the negotiator who is managing this tenancy renewal */
-    string | undefined | null
-    rent?: /** The amount of rent required, returned in relation to the collection frequency */
-    number | undefined | null
-    rentFrequency?: /** The rent collection frequency (weekly/monthly/annually) */ string | undefined | null
+    string | undefined
+    rent?: /** The amount of rent required, returned in relation to the collection frequency */ number | undefined
+    rentFrequency?: /** The rent collection frequency (weekly/monthly/annually) */ string | undefined
     lettingFee?: /** Request body used to update a tenancy renewals letting fee */
     | {
-          type?: /** The letting fee type (fixed/perentage) */ string | undefined | null
-          amount?: /** The letting fee amount as a fixed price or percentage based on the `type` */
-          number | undefined | null
+          type?: /** The letting fee type (fixed/perentage) */ string | undefined
+          amount?: /** The letting fee amount as a fixed price or percentage based on the `type` */ number | undefined
           frequency?: /** The frequency at which the letting fee is required (monthly/quarterly/halfYearly/yearly/28days/upfront/upfrontOver2Months/other/notApplicable) */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
     managementFee?: /** Request body used to update a tenancy renewals management fee */
     | {
-          type?: /** The mangement fee type (fixed/perentage) */ string | undefined | null
-          amount?: /** The mangement fee amount as a fixed price or percentage based on the `type` */
-          number | undefined | null
+          type?: /** The mangement fee type (fixed/perentage) */ string | undefined
+          amount?: /** The mangement fee amount as a fixed price or percentage based on the `type` */ number | undefined
           frequency?: /** The frequency at which the mangement fee is required (monthly/quarterly/halfYearly/yearly/28days/sameAsLettingFee) */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
   }
 }
 export const patchApiTenanciesIdRenewalNegotiationsRenewalIdFn = async ({
@@ -2132,8 +2093,8 @@ export const usePatchApiTenanciesIdRenewalNegotiationsRenewalId = () => {
 }
 export type UseGetApiTenanciesIdExtensionsArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiTenanciesIdExtensionsFn = async ({
   id,
@@ -2281,8 +2242,8 @@ export const useGetApiTenanciesIdExtensionsExtensionId = (args: UseGetApiTenanci
 export type UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs = {
   id: string
   renewalId: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn = async ({
   id,
@@ -2351,7 +2312,7 @@ export const useGetApiTenanciesIdRenewalNegotiationsRenewalIdChecks = (
 
   return result
 }
-export type UseCreateTenancyRenewalNegotiationCheckArgs = {
+export type UsePostApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs = {
   id: string
   renewalId: string
   body: /** Request body used to create a new tenancy renewal check */
@@ -2359,17 +2320,17 @@ export type UseCreateTenancyRenewalNegotiationCheckArgs = {
     status: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string
     checkTypeId?: /** The identifier of the pre-configured tenancy check. This will only be populated
 for pre-configured tenancy checks, and not for custom/ad-hoc checks added to individual tenancies */
-    string | undefined | null
-    description?: /** The name of this tenancy check */ string | undefined | null
+    string | undefined
+    description?: /** The name of this tenancy check */ string | undefined
     metadata?: /** App specific metadata to set against the tenancy renewal check */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
-export const createTenancyRenewalNegotiationCheckFn = async ({
+export const postApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn = async ({
   id,
   renewalId,
   body,
-}: UseCreateTenancyRenewalNegotiationCheckArgs) => {
+}: UsePostApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations/${renewalId}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -2387,12 +2348,12 @@ export const createTenancyRenewalNegotiationCheckFn = async ({
 
   return z.void().parse(data)
 }
-export const useCreateTenancyRenewalNegotiationCheck = () => {
+export const usePostApiTenanciesIdRenewalNegotiationsRenewalIdChecks = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyRenewalNegotiationCheckFn,
+    mutationFn: postApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -2501,9 +2462,9 @@ export type UsePatchApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdArgs 
   checkId: string
   body: /** Request body used to update a tenancy renewal check */
   {
-    status?: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string | undefined | null
+    status?: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string | undefined
     metadata?: /** App specific metadata to set against the tenancy renewal check */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdFn = async ({

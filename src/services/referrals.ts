@@ -4,21 +4,21 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiReferralsArgs = {
-  id?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  applicantId?: Array<string> | undefined | null
-  contactId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  referralTypeId?: Array<string> | undefined | null
-  status?: Array<'sent' | 'inProgress' | 'succeeded' | 'cancelled' | 'failed' | 'paid' | 'declined'> | undefined | null
-  embed?: Array<'applicant' | 'contact' | 'negotiator' | 'property' | 'type'> | undefined | null
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  id?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  applicantId?: Array<string> | undefined
+  contactId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  referralTypeId?: Array<string> | undefined
+  status?: Array<'sent' | 'inProgress' | 'succeeded' | 'cancelled' | 'failed' | 'paid' | 'declined'> | undefined
+  embed?: Array<'applicant' | 'contact' | 'negotiator' | 'property' | 'type'> | undefined
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
 }
 export const getApiReferralsFn = async ({
   id,
@@ -112,18 +112,18 @@ export const useGetApiReferrals = (args: UseGetApiReferralsArgs) => {
 
   return result
 }
-export type UseCreateReferralArgs = {
+export type UsePostApiReferralsArgs = {
   body: /** Create Referral Model */
   {
     referralTypeId: /** The unique identifier of the referral type */ string
-    negotiatorId?: /** The unique identifier of the negotiator creating the referral */ string | undefined | null
-    propertyId?: /** The unique identifier of the property */ string | undefined | null
-    applicantId?: /** The unique identifier of the applicant */ string | undefined | null
+    negotiatorId?: /** The unique identifier of the negotiator creating the referral */ string | undefined
+    propertyId?: /** The unique identifier of the property */ string | undefined
+    applicantId?: /** The unique identifier of the applicant */ string | undefined
     contactId: /** The unique identifier of the contact that has been referred */ string
-    amount?: /** The amount paid to the agent for the referral */ number | undefined | null
+    amount?: /** The amount paid to the agent for the referral */ number | undefined
   }
 }
-export const createReferralFn = async ({ body }: UseCreateReferralArgs) => {
+export const postApiReferralsFn = async ({ body }: UsePostApiReferralsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/referrals/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -141,12 +141,12 @@ export const createReferralFn = async ({ body }: UseCreateReferralArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateReferral = () => {
+export const usePostApiReferrals = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createReferralFn,
+    mutationFn: postApiReferralsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -156,7 +156,7 @@ export const useCreateReferral = () => {
 }
 export type UseGetApiReferralsIdArgs = {
   id: string
-  embed?: Array<'applicant' | 'contact' | 'negotiator' | 'property' | 'type'> | undefined | null
+  embed?: Array<'applicant' | 'contact' | 'negotiator' | 'property' | 'type'> | undefined
 }
 export const getApiReferralsIdFn = async ({ id, embed }: UseGetApiReferralsIdArgs) => {
   const res = await fetch(
@@ -221,10 +221,10 @@ export type UsePatchApiReferralsIdArgs = {
   body: /** Update Referral Model */
   {
     status?: /** The status of the referral (sent/succeeded/cancelled/failed/paid/declined/inProgress) */
-    string | undefined | null
-    amount?: /** The amount paid to the agent for the referral */ number | undefined | null
+    string | undefined
+    amount?: /** The amount paid to the agent for the referral */ number | undefined
     metadata?: /** App specific metadata to set against the referral */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiReferralsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiReferralsIdArgs) => {
@@ -259,10 +259,10 @@ export const usePatchApiReferralsId = () => {
   })
 }
 export type UseGetApiReferralsTypesArgs = {
-  id?: Array<string> | undefined | null
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
+  id?: Array<string> | undefined
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
 }
 export const getApiReferralsTypesFn = async ({ id, pageSize, pageNumber, sortBy }: UseGetApiReferralsTypesArgs) => {
   const res = await fetch(

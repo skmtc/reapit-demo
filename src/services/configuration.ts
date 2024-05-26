@@ -30,7 +30,6 @@ export type UseGetApiConfigurationTypesArgs = {
         | 'worksOrderTypes'
       >
     | undefined
-    | null
 }
 export const getApiConfigurationTypesFn = async ({ type }: UseGetApiConfigurationTypesArgs) => {
   const res = await fetch(
@@ -226,7 +225,7 @@ export const useGetApiConfigurationApplicantStatusesId = (args: UseGetApiConfigu
 
   return result
 }
-export type UseGetApiConfigurationApplicantStatusesArgs = { id?: Array<string> | undefined | null }
+export type UseGetApiConfigurationApplicantStatusesArgs = { id?: Array<string> | undefined }
 export const getApiConfigurationApplicantStatusesFn = async ({ id }: UseGetApiConfigurationApplicantStatusesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/configuration/applicantStatuses${querySerialiser({ args: { id }, options: defaultQuerySerialiserOptions })}`,
@@ -496,7 +495,7 @@ export const useGetApiConfigurationCertificateTypesId = (args: UseGetApiConfigur
 
   return result
 }
-export type UseGetApiConfigurationCompanyTypesArgs = { id?: Array<string> | undefined | null }
+export type UseGetApiConfigurationCompanyTypesArgs = { id?: Array<string> | undefined }
 export const getApiConfigurationCompanyTypesFn = async ({ id }: UseGetApiConfigurationCompanyTypesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/configuration/companyTypes${querySerialiser({ args: { id }, options: defaultQuerySerialiserOptions })}`,
@@ -572,7 +571,7 @@ export const useGetApiConfigurationContactCategoriesId = (args: UseGetApiConfigu
 
   return result
 }
-export type UseGetApiConfigurationContactCategoriesArgs = { id?: Array<string> | undefined | null }
+export type UseGetApiConfigurationContactCategoriesArgs = { id?: Array<string> | undefined }
 export const getApiConfigurationContactCategoriesFn = async ({ id }: UseGetApiConfigurationContactCategoriesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/configuration/contactCategories${querySerialiser({ args: { id }, options: defaultQuerySerialiserOptions })}`,
@@ -856,7 +855,7 @@ export const useGetApiConfigurationKeyTypesId = (args: UseGetApiConfigurationKey
 
   return result
 }
-export type UseGetApiConfigurationPortalTypesArgs = { id?: Array<string> | undefined | null }
+export type UseGetApiConfigurationPortalTypesArgs = { id?: Array<string> | undefined }
 export const getApiConfigurationPortalTypesFn = async ({ id }: UseGetApiConfigurationPortalTypesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/configuration/portalTypes${querySerialiser({ args: { id }, options: defaultQuerySerialiserOptions })}`,
@@ -907,8 +906,8 @@ export const useGetApiConfigurationPortalTypesId = (args: UseGetApiConfiguration
   return result
 }
 export type UseGetApiConfigurationPreTenancyCheckTypesArgs = {
-  active?: boolean | undefined | null
-  officeId?: Array<string> | undefined | null
+  active?: boolean | undefined
+  officeId?: Array<string> | undefined
 }
 export const getApiConfigurationPreTenancyCheckTypesFn = async ({
   active,
@@ -1035,8 +1034,8 @@ export const useGetApiConfigurationPropertyServiceTypesId = (
   return result
 }
 export type UseGetApiConfigurationRenewalCheckTypesArgs = {
-  active?: boolean | undefined | null
-  officeId?: Array<string> | undefined | null
+  active?: boolean | undefined
+  officeId?: Array<string> | undefined
 }
 export const getApiConfigurationRenewalCheckTypesFn = async ({
   active,
@@ -1466,7 +1465,7 @@ export const useGetApiConfigurationTenancyLegalStatusesId = (
 
   return result
 }
-export type UseGetApiConfigurationTenancyRenewalOptionsArgs = { id?: Array<string> | undefined | null }
+export type UseGetApiConfigurationTenancyRenewalOptionsArgs = { id?: Array<string> | undefined }
 export const getApiConfigurationTenancyRenewalOptionsFn = async ({
   id,
 }: UseGetApiConfigurationTenancyRenewalOptionsArgs) => {
@@ -1522,7 +1521,7 @@ export const useGetApiConfigurationTenancyRenewalOptionsId = (
 
   return result
 }
-export type UseGetApiConfigurationTenancyRenewalOptionConditionsArgs = { id?: Array<string> | undefined | null }
+export type UseGetApiConfigurationTenancyRenewalOptionConditionsArgs = { id?: Array<string> | undefined }
 export const getApiConfigurationTenancyRenewalOptionConditionsFn = async ({
   id,
 }: UseGetApiConfigurationTenancyRenewalOptionConditionsArgs) => {

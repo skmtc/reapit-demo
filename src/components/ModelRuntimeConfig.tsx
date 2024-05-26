@@ -60,15 +60,6 @@ type RequiredKeys<T> = keyof {
   [P in keyof T as T[P] extends Required<T>[P] ? P : never]: T[P]
 }
 
-export type ConfigItemLookup<Model extends FieldValues> = {
-  label: <Key extends KeyPath<Model>>(key: Key) => string
-  format: <Key extends KeyPath<Model>>(key: Key, value: Model[Key]) => ReactNode
-  Input: <Key extends KeyPath<Model>>(
-    key: Key,
-    props: ControllerRenderProps<Model, Key>
-  ) => ReactNode
-}
-
 type ConfigValue<Model extends FieldValues, FormPath extends KeyPath<Model>> = {
   key: FormPath
   label: string

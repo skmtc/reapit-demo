@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiResthooks } from '@/services/resthooks.ts'
@@ -16,79 +16,95 @@ export const resthooksBody = z.object({
   ignoreEtagOnlyChanges: z.boolean().nullable().optional(),
 })
 export type ResthooksBody = {
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  url?: string | undefined | null
-  description?: string | undefined | null
-  topicIds?: Array<string> | undefined | null
-  active?: boolean | undefined | null
-  ignoreEtagOnlyChanges?: boolean | undefined | null
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  url?: string | undefined
+  description?: string | undefined
+  topicIds?: Array<string> | undefined
+  active?: boolean | undefined
+  ignoreEtagOnlyChanges?: boolean | undefined
 }
 export type ResthooksArgs = {
-  sortBy?: string | undefined | null
-  active?: boolean | undefined | null
+  sortBy?: string | undefined
+  active?: boolean | undefined
   columns: ColumnsList<ResthooksBody>
 }
 
 export const resthooksColumnHelper = createColumnHelper<ResthooksBody>()
 
-export const getResthooksColumn = (property: string, { label, format }: ConfigItemLookup<ResthooksBody>) => {
+export const getResthooksColumn = (property: string, modelConfig: ModelConfig<ResthooksBody>) => {
   return match(property)
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return resthooksColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return resthooksColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return resthooksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('url', () => {
+      const { label: header, format } = modelConfig['url']
+
       return resthooksColumnHelper.accessor((row) => row.url, {
         id: 'url',
-        header: label('url'),
-        cell: (info) => format('url', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return resthooksColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('topicIds', () => {
+      const { label: header, format } = modelConfig['topicIds']
+
       return resthooksColumnHelper.accessor((row) => row.topicIds, {
         id: 'topicIds',
-        header: label('topicIds'),
-        cell: (info) => format('topicIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('active', () => {
+      const { label: header, format } = modelConfig['active']
+
       return resthooksColumnHelper.accessor((row) => row.active, {
         id: 'active',
-        header: label('active'),
-        cell: (info) => format('active', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('ignoreEtagOnlyChanges', () => {
+      const { label: header, format } = modelConfig['ignoreEtagOnlyChanges']
+
       return resthooksColumnHelper.accessor((row) => row.ignoreEtagOnlyChanges, {
         id: 'ignoreEtagOnlyChanges',
-        header: label('ignoreEtagOnlyChanges'),
-        cell: (info) => format('ignoreEtagOnlyChanges', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiDocuments } from '@/services/documents.ts'
@@ -23,24 +23,24 @@ export const documentsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type DocumentsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  associatedType?: string | undefined | null
-  isPrivate?: boolean | undefined | null
-  associatedId?: string | undefined | null
-  typeId?: string | undefined | null
-  name?: string | undefined | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  associatedType?: string | undefined
+  isPrivate?: boolean | undefined
+  associatedId?: string | undefined
+  typeId?: string | undefined
+  name?: string | undefined
+  metadata?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
 }
 export type DocumentsArgs = {
-  sortBy?: string | undefined | null
-  embed?: Array<'documentType'> | undefined | null
-  id?: Array<string> | undefined | null
-  associatedId?: Array<string> | undefined | null
+  sortBy?: string | undefined
+  embed?: Array<'documentType'> | undefined
+  id?: Array<string> | undefined
+  associatedId?: Array<string> | undefined
   associatedType?:
     | Array<
         | 'appliance'
@@ -63,103 +63,126 @@ export type DocumentsArgs = {
         | 'worksOrder'
       >
     | undefined
-    | null
-  typeId?: Array<string> | undefined | null
-  includeRoleDocuments?: boolean | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  typeId?: Array<string> | undefined
+  includeRoleDocuments?: boolean | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
   columns: ColumnsList<DocumentsBody>
 }
 
 export const documentsColumnHelper = createColumnHelper<DocumentsBody>()
 
-export const getDocumentsColumn = (property: string, { label, format }: ConfigItemLookup<DocumentsBody>) => {
+export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<DocumentsBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return documentsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return documentsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return documentsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return documentsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return documentsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('associatedType', () => {
+      const { label: header, format } = modelConfig['associatedType']
+
       return documentsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
-        header: label('associatedType'),
-        cell: (info) => format('associatedType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('isPrivate', () => {
+      const { label: header, format } = modelConfig['isPrivate']
+
       return documentsColumnHelper.accessor((row) => row.isPrivate, {
         id: 'isPrivate',
-        header: label('isPrivate'),
-        cell: (info) => format('isPrivate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('associatedId', () => {
+      const { label: header, format } = modelConfig['associatedId']
+
       return documentsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
-        header: label('associatedId'),
-        cell: (info) => format('associatedId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeId', () => {
+      const { label: header, format } = modelConfig['typeId']
+
       return documentsColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
-        header: label('typeId'),
-        cell: (info) => format('typeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('name', () => {
+      const { label: header, format } = modelConfig['name']
+
       return documentsColumnHelper.accessor((row) => row.name, {
         id: 'name',
-        header: label('name'),
-        cell: (info) => format('name', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return documentsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return documentsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

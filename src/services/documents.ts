@@ -4,12 +4,12 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiDocumentsArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?: Array<'documentType'> | undefined | null
-  id?: Array<string> | undefined | null
-  associatedId?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'documentType'> | undefined
+  id?: Array<string> | undefined
+  associatedId?: Array<string> | undefined
   associatedType?:
     | Array<
         | 'appliance'
@@ -32,14 +32,13 @@ export type UseGetApiDocumentsArgs = {
         | 'worksOrder'
       >
     | undefined
-    | null
-  typeId?: Array<string> | undefined | null
-  includeRoleDocuments?: boolean | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  typeId?: Array<string> | undefined
+  includeRoleDocuments?: boolean | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiDocumentsFn = async ({
   pageSize,
@@ -116,7 +115,7 @@ export const useGetApiDocuments = (args: UseGetApiDocumentsArgs) => {
 
   return result
 }
-export type UseCreateDocumentArgs = {
+export type UsePostApiDocumentsArgs = {
   body: /** Request body used to create a new document */
   {
     associatedType: /** The type of entity that the document is associated with (appliance/applicant/bankStatement/batch/certificate/contact/depositCertificate/estate/estateUnit/idCheck/keySet/landlord/nominalTransaction/property/supplierInvoice/tenancy/tenancyCheck/tenancyRenewal/worksOrder/renewalNegotiation) */
@@ -124,17 +123,17 @@ export type UseCreateDocumentArgs = {
     associatedId: /** The unique identifier of the entity that the document is associated with */ string
     typeId: /** The unique identifier of the type of document */ string
     name: /** The filename of the document */ string
-    isPrivate?: /** A flag denoting whether or not the document is private */ boolean | undefined | null
+    isPrivate?: /** A flag denoting whether or not the document is private */ boolean | undefined
     fileData?: /** The base64 encoded document content, prefixed with the content type (eg. data:text/plain;base64,VGVzdCBmaWxl)
 This supports upto 6MB */
-    string | undefined | null
+    string | undefined
     fileUrl?: /** The presigned s3 url which a document has been uploaded to (This supports files up to 30MB) */
-    string | undefined | null
+    string | undefined
     metadata?: /** App specific metadata to set against the document */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
-export const createDocumentFn = async ({ body }: UseCreateDocumentArgs) => {
+export const postApiDocumentsFn = async ({ body }: UsePostApiDocumentsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/documents/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -152,12 +151,12 @@ export const createDocumentFn = async ({ body }: UseCreateDocumentArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateDocument = () => {
+export const usePostApiDocuments = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createDocumentFn,
+    mutationFn: postApiDocumentsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -165,7 +164,7 @@ export const useCreateDocument = () => {
     },
   })
 }
-export type UseGetApiDocumentsIdArgs = { id: string; embed?: Array<'documentType'> | undefined | null }
+export type UseGetApiDocumentsIdArgs = { id: string; embed?: Array<'documentType'> | undefined }
 export const getApiDocumentsIdFn = async ({ id, embed }: UseGetApiDocumentsIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/documents/${id}${querySerialiser({ args: { embed }, options: defaultQuerySerialiserOptions })}`,
@@ -244,11 +243,11 @@ export type UsePatchApiDocumentsIdArgs = {
   id: string
   body: /** Request body used to update an existing document */
   {
-    typeId?: /** The unique identifier of the type of document */ string | undefined | null
-    name?: /** The filename of the document */ string | undefined | null
-    isPrivate?: /** A flag denoting whether or not the document is private */ boolean | undefined | null
+    typeId?: /** The unique identifier of the type of document */ string | undefined
+    name?: /** The filename of the document */ string | undefined
+    isPrivate?: /** A flag denoting whether or not the document is private */ boolean | undefined
     metadata?: /** App specific metadata to set against the document */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiDocumentsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiDocumentsIdArgs) => {
@@ -306,11 +305,11 @@ export const useGetApiDocumentsIdDownload = (args: UseGetApiDocumentsIdDownloadA
 
   return result
 }
-export type UseCreateSignedUrlArgs = {
+export type UsePostApiDocumentsSignedUrlArgs = {
   body: /** Request body used to create pre signed urls to upload files between 6MB and 30MB */
   { amount: /** The number of pre signed urls to create */ number }
 }
-export const createSignedUrlFn = async ({ body }: UseCreateSignedUrlArgs) => {
+export const postApiDocumentsSignedUrlFn = async ({ body }: UsePostApiDocumentsSignedUrlArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/documents/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -328,12 +327,12 @@ export const createSignedUrlFn = async ({ body }: UseCreateSignedUrlArgs) => {
 
   return z.object({ amount: z.number().int() }).parse(data)
 }
-export const useCreateSignedUrl = () => {
+export const usePostApiDocumentsSignedUrl = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createSignedUrlFn,
+    mutationFn: postApiDocumentsSignedUrlFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

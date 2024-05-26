@@ -4,24 +4,24 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiCompaniesArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?: Array<'companyTypes' | 'relationships'> | undefined | null
-  id?: Array<string> | undefined | null
-  address?: string | undefined | null
-  branch?: string | undefined | null
-  name?: string | undefined | null
-  typeId?: string | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  contactDetail?: Array<string> | undefined | null
-  fromArchive?: boolean | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'companyTypes' | 'relationships'> | undefined
+  id?: Array<string> | undefined
+  address?: string | undefined
+  branch?: string | undefined
+  name?: string | undefined
+  typeId?: string | undefined
+  negotiatorId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  contactDetail?: Array<string> | undefined
+  fromArchive?: boolean | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiCompaniesFn = async ({
   pageSize,
@@ -153,54 +153,50 @@ export const useGetApiCompanies = (args: UseGetApiCompaniesArgs) => {
 
   return result
 }
-export type UseCreateCompanyArgs = {
+export type UsePostApiCompaniesArgs = {
   body: /** Request body used to create a new company */
   {
     name: /** The name of the company */ string
-    branch?: /** The branch name of the company */ string | undefined | null
+    branch?: /** The branch name of the company */ string | undefined
     notes?: /** A free text field containing notes that describe the company's business or service offering */
-    string | undefined | null
-    active?: /** A flag determining whether or not the company is currently active */ boolean | undefined | null
-    marketingConsent?: /** The marketing consent status of the company (deny/notAsked) */ string | undefined | null
-    vatRegistered?: /** A flag determining whether or not the company is VAT registered */ boolean | undefined | null
+    string | undefined
+    active?: /** A flag determining whether or not the company is currently active */ boolean | undefined
+    marketingConsent?: /** The marketing consent status of the company (deny/notAsked) */ string | undefined
+    vatRegistered?: /** A flag determining whether or not the company is VAT registered */ boolean | undefined
     typeIds: /** A collection of unique identifiers of company types that categorise the type of business the company operates */
     Array<string>
-    supplierTypeId?: /** The unique identifier of a supplier type, if the company is a supplier */
-    string | undefined | null
+    supplierTypeId?: /** The unique identifier of a supplier type, if the company is a supplier */ string | undefined
     workPhone?: /** The work phone number of the company. (Required when no other company or address details are provided) */
-    string | undefined | null
+    string | undefined
     mobilePhone?: /** The mobile phone number of the company. (Required when no other company or address details are provided) */
-    string | undefined | null
+    string | undefined
     email?: /** The email address of the company. (Required when no other company or address details are provided) */
-    string | undefined | null
+    string | undefined
     address?: /** Request body to set the address of a new company */
     | {
-          type?: /** The type of address (primary/secondary/home/work/forwarding/company/previous) */
-          string | undefined | null
-          buildingName?: /** The building name */ string | undefined | null
-          buildingNumber?: /** The building number */ string | undefined | null
-          line1?: /** The first line of the address */ string | undefined | null
-          line2?: /** The second line of the address */ string | undefined | null
-          line3?: /** The third line of the address */ string | undefined | null
-          line4?: /** The fourth line of the address */ string | undefined | null
-          postcode?: /** The postcode */ string | undefined | null
-          countryId?: /** The ISO-3166 country code that the address resides within */ string | undefined | null
+          type?: /** The type of address (primary/secondary/home/work/forwarding/company/previous) */ string | undefined
+          buildingName?: /** The building name */ string | undefined
+          buildingNumber?: /** The building number */ string | undefined
+          line1?: /** The first line of the address */ string | undefined
+          line2?: /** The second line of the address */ string | undefined
+          line3?: /** The third line of the address */ string | undefined
+          line4?: /** The fourth line of the address */ string | undefined
+          postcode?: /** The postcode */ string | undefined
+          countryId?: /** The ISO-3166 country code that the address resides within */ string | undefined
         }
       | undefined
-      | null
     communicationPreferenceLetter?: /** A flag determining whether or not the company is happy to receive communications by letter */
-    boolean | undefined | null
+    boolean | undefined
     communicationPreferenceEmail?: /** A flag determining whether or not the company is happy to receive communications by email */
-    boolean | undefined | null
+    boolean | undefined
     communicationPreferencePhone?: /** A flag determining whether or not the company is happy to receive communications by phone */
-    boolean | undefined | null
+    boolean | undefined
     communicationPreferenceSms?: /** A flag determining whether or not the company is happy to receive communications by SMS */
-    boolean | undefined | null
-    metadata?: /** App specific metadata to set against the company */
-    Record<string, Record<string, never>> | undefined | null
+    boolean | undefined
+    metadata?: /** App specific metadata to set against the company */ Record<string, Record<string, never>> | undefined
   }
 }
-export const createCompanyFn = async ({ body }: UseCreateCompanyArgs) => {
+export const postApiCompaniesFn = async ({ body }: UsePostApiCompaniesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/companies/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -218,12 +214,12 @@ export const createCompanyFn = async ({ body }: UseCreateCompanyArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateCompany = () => {
+export const usePostApiCompanies = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createCompanyFn,
+    mutationFn: postApiCompaniesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -231,10 +227,7 @@ export const useCreateCompany = () => {
     },
   })
 }
-export type UseGetApiCompaniesIdArgs = {
-  id: string
-  embed?: Array<'companyTypes' | 'relationships'> | undefined | null
-}
+export type UseGetApiCompaniesIdArgs = { id: string; embed?: Array<'companyTypes' | 'relationships'> | undefined }
 export const getApiCompaniesIdFn = async ({ id, embed }: UseGetApiCompaniesIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/companies/${id}${querySerialiser({ args: { embed }, options: defaultQuerySerialiserOptions })}`,
@@ -332,45 +325,41 @@ export type UsePatchApiCompaniesIdArgs = {
   id: string
   body: /** Request body used to update an existing company */
   {
-    name?: /** The name of the company */ string | undefined | null
-    branch?: /** The branch name of the company */ string | undefined | null
+    name?: /** The name of the company */ string | undefined
+    branch?: /** The branch name of the company */ string | undefined
     notes?: /** A free text field containing notes that describe the company's business or service offering */
-    string | undefined | null
-    active?: /** A flag determining whether or not the company is currently active */ boolean | undefined | null
-    marketingConsent?: /** The marketing consent status of the company (deny/notAsked) */ string | undefined | null
-    vatRegistered?: /** A flag determining whether or not the company is VAT registered */ boolean | undefined | null
+    string | undefined
+    active?: /** A flag determining whether or not the company is currently active */ boolean | undefined
+    marketingConsent?: /** The marketing consent status of the company (deny/notAsked) */ string | undefined
+    vatRegistered?: /** A flag determining whether or not the company is VAT registered */ boolean | undefined
     typeIds?: /** A collection of unique identifiers of company types that categorise the type of business the company operates */
-    Array<string> | undefined | null
-    supplierTypeId?: /** The unique identifier of a supplier type, if the company is a supplier */
-    string | undefined | null
-    workPhone?: /** The work phone number of the company */ string | undefined | null
-    mobilePhone?: /** The mobile phone number of the company */ string | undefined | null
-    email?: /** The email address of the company */ string | undefined | null
+    Array<string> | undefined
+    supplierTypeId?: /** The unique identifier of a supplier type, if the company is a supplier */ string | undefined
+    workPhone?: /** The work phone number of the company */ string | undefined
+    mobilePhone?: /** The mobile phone number of the company */ string | undefined
+    email?: /** The email address of the company */ string | undefined
     address?: /** Request body to set the address of an existing company */
     | {
-          type?: /** The type of address (primary/secondary/home/work/forwarding/company/previous) */
-          string | undefined | null
-          buildingName?: /** The building name */ string | undefined | null
-          buildingNumber?: /** The building number */ string | undefined | null
-          line1?: /** The first line of the address */ string | undefined | null
-          line2?: /** The second line of the address */ string | undefined | null
-          line3?: /** The third line of the address */ string | undefined | null
-          line4?: /** The fourth line of the address */ string | undefined | null
-          postcode?: /** The postcode */ string | undefined | null
-          countryId?: /** The ISO-3166 country code that the address resides within */ string | undefined | null
+          type?: /** The type of address (primary/secondary/home/work/forwarding/company/previous) */ string | undefined
+          buildingName?: /** The building name */ string | undefined
+          buildingNumber?: /** The building number */ string | undefined
+          line1?: /** The first line of the address */ string | undefined
+          line2?: /** The second line of the address */ string | undefined
+          line3?: /** The third line of the address */ string | undefined
+          line4?: /** The fourth line of the address */ string | undefined
+          postcode?: /** The postcode */ string | undefined
+          countryId?: /** The ISO-3166 country code that the address resides within */ string | undefined
         }
       | undefined
-      | null
     communicationPreferenceLetter?: /** A flag determining whether or not the company is happy to receive communications by letter */
-    boolean | undefined | null
+    boolean | undefined
     communicationPreferenceEmail?: /** A flag determining whether or not the company is happy to receive communications by email */
-    boolean | undefined | null
+    boolean | undefined
     communicationPreferencePhone?: /** A flag determining whether or not the company is happy to receive communications by phone */
-    boolean | undefined | null
+    boolean | undefined
     communicationPreferenceSms?: /** A flag determining whether or not the company is happy to receive communications by SMS */
-    boolean | undefined | null
-    metadata?: /** App specific metadata to set against the company */
-    Record<string, Record<string, never>> | undefined | null
+    boolean | undefined
+    metadata?: /** App specific metadata to set against the company */ Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiCompaniesIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiCompaniesIdArgs) => {
@@ -406,8 +395,8 @@ export const usePatchApiCompaniesId = () => {
 }
 export type UseGetApiCompaniesIdRelationshipsArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiCompaniesIdRelationshipsFn = async ({
   id,

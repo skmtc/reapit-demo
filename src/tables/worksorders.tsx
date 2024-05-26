@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiWorksOrders, useGetApiWorksOrdersIdItems } from '@/services/worksorders.ts'
@@ -60,58 +60,57 @@ export const worksOrdersBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type WorksOrdersBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  companyId?: string | undefined | null
-  propertyId?: string | undefined | null
-  tenancyId?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  typeId?: string | undefined | null
-  status?: string | undefined | null
-  description?: string | undefined | null
-  reporter?: string | undefined | null
-  priority?: string | undefined | null
-  booked?: string | undefined | null
-  required?: string | undefined | null
-  completed?: string | undefined | null
-  totalNetAmount?: number | undefined | null
-  totalVatAmount?: number | undefined | null
-  totalGrossAmount?: number | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  companyId?: string | undefined
+  propertyId?: string | undefined
+  tenancyId?: string | undefined
+  negotiatorId?: string | undefined
+  typeId?: string | undefined
+  status?: string | undefined
+  description?: string | undefined
+  reporter?: string | undefined
+  priority?: string | undefined
+  booked?: string | undefined
+  required?: string | undefined
+  completed?: string | undefined
+  totalNetAmount?: number | undefined
+  totalVatAmount?: number | undefined
+  totalGrossAmount?: number | undefined
   items?:
     | Array<{
-        _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-        _embedded?: Record<string, Record<string, never>> | undefined | null
-        id?: string | undefined | null
-        worksOrderId?: string | undefined | null
-        created?: string | undefined | null
-        modified?: string | undefined | null
-        notes?: string | undefined | null
-        chargeTo?: string | undefined | null
-        estimate?: number | undefined | null
-        estimateType?: string | undefined | null
-        netAmount?: number | undefined | null
-        vatAmount?: number | undefined | null
-        grossAmount?: number | undefined | null
-        reserveAmount?: number | undefined | null
-        nominalAccountId?: string | undefined | null
-        _eTag?: string | undefined | null
+        _links?: Record<string, { href?: string | undefined }> | undefined
+        _embedded?: Record<string, Record<string, never>> | undefined
+        id?: string | undefined
+        worksOrderId?: string | undefined
+        created?: string | undefined
+        modified?: string | undefined
+        notes?: string | undefined
+        chargeTo?: string | undefined
+        estimate?: number | undefined
+        estimateType?: string | undefined
+        netAmount?: number | undefined
+        vatAmount?: number | undefined
+        grossAmount?: number | undefined
+        reserveAmount?: number | undefined
+        nominalAccountId?: string | undefined
+        _eTag?: string | undefined
       }>
     | undefined
-    | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  extrasField?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
+  metadata?: Record<string, Record<string, never>> | undefined
+  extrasField?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
 }
 export type WorksOrdersArgs = {
-  sortBy?: string | undefined | null
-  embed?: Array<'company' | 'documents' | 'negotiator' | 'property' | 'tenancy' | 'type'> | undefined | null
-  id?: Array<string> | undefined | null
-  companyId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
+  sortBy?: string | undefined
+  embed?: Array<'company' | 'documents' | 'negotiator' | 'property' | 'tenancy' | 'type'> | undefined
+  id?: Array<string> | undefined
+  companyId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
   status?:
     | Array<
         | 'pendingApproval'
@@ -124,19 +123,18 @@ export type WorksOrdersArgs = {
         | 'quoteAccepted'
       >
     | undefined
-    | null
-  tenancyId?: Array<string> | undefined | null
-  typeId?: Array<string> | undefined | null
-  extrasField?: Array<string> | undefined | null
-  completedFrom?: string | undefined | null
-  completedTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  requiredFrom?: string | undefined | null
-  requiredTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  tenancyId?: Array<string> | undefined
+  typeId?: Array<string> | undefined
+  extrasField?: Array<string> | undefined
+  completedFrom?: string | undefined
+  completedTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  requiredFrom?: string | undefined
+  requiredTo?: string | undefined
+  metadata?: Array<string> | undefined
   columns: ColumnsList<WorksOrdersBody>
 }
 export const worksOrdersIdItemsBody = z.object({
@@ -161,195 +159,243 @@ export const worksOrdersIdItemsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type WorksOrdersIdItemsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  worksOrderId?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  notes?: string | undefined | null
-  chargeTo?: string | undefined | null
-  estimate?: number | undefined | null
-  estimateType?: string | undefined | null
-  netAmount?: number | undefined | null
-  vatAmount?: number | undefined | null
-  grossAmount?: number | undefined | null
-  reserveAmount?: number | undefined | null
-  nominalAccountId?: string | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  worksOrderId?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  notes?: string | undefined
+  chargeTo?: string | undefined
+  estimate?: number | undefined
+  estimateType?: string | undefined
+  netAmount?: number | undefined
+  vatAmount?: number | undefined
+  grossAmount?: number | undefined
+  reserveAmount?: number | undefined
+  nominalAccountId?: string | undefined
+  _eTag?: string | undefined
 }
 export type WorksOrdersIdItemsArgs = { id: string; columns: ColumnsList<WorksOrdersIdItemsBody> }
 
 export const worksOrdersColumnHelper = createColumnHelper<WorksOrdersBody>()
 
-export const getWorksOrdersColumn = (property: string, { label, format }: ConfigItemLookup<WorksOrdersBody>) => {
+export const getWorksOrdersColumn = (property: string, modelConfig: ModelConfig<WorksOrdersBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return worksOrdersColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return worksOrdersColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return worksOrdersColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return worksOrdersColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return worksOrdersColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('companyId', () => {
+      const { label: header, format } = modelConfig['companyId']
+
       return worksOrdersColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
-        header: label('companyId'),
-        cell: (info) => format('companyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return worksOrdersColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('tenancyId', () => {
+      const { label: header, format } = modelConfig['tenancyId']
+
       return worksOrdersColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
-        header: label('tenancyId'),
-        cell: (info) => format('tenancyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return worksOrdersColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeId', () => {
+      const { label: header, format } = modelConfig['typeId']
+
       return worksOrdersColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
-        header: label('typeId'),
-        cell: (info) => format('typeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return worksOrdersColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return worksOrdersColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('reporter', () => {
+      const { label: header, format } = modelConfig['reporter']
+
       return worksOrdersColumnHelper.accessor((row) => row.reporter, {
         id: 'reporter',
-        header: label('reporter'),
-        cell: (info) => format('reporter', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('priority', () => {
+      const { label: header, format } = modelConfig['priority']
+
       return worksOrdersColumnHelper.accessor((row) => row.priority, {
         id: 'priority',
-        header: label('priority'),
-        cell: (info) => format('priority', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('booked', () => {
+      const { label: header, format } = modelConfig['booked']
+
       return worksOrdersColumnHelper.accessor((row) => row.booked, {
         id: 'booked',
-        header: label('booked'),
-        cell: (info) => format('booked', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('required', () => {
+      const { label: header, format } = modelConfig['required']
+
       return worksOrdersColumnHelper.accessor((row) => row.required, {
         id: 'required',
-        header: label('required'),
-        cell: (info) => format('required', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('completed', () => {
+      const { label: header, format } = modelConfig['completed']
+
       return worksOrdersColumnHelper.accessor((row) => row.completed, {
         id: 'completed',
-        header: label('completed'),
-        cell: (info) => format('completed', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('totalNetAmount', () => {
+      const { label: header, format } = modelConfig['totalNetAmount']
+
       return worksOrdersColumnHelper.accessor((row) => row.totalNetAmount, {
         id: 'totalNetAmount',
-        header: label('totalNetAmount'),
-        cell: (info) => format('totalNetAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('totalVatAmount', () => {
+      const { label: header, format } = modelConfig['totalVatAmount']
+
       return worksOrdersColumnHelper.accessor((row) => row.totalVatAmount, {
         id: 'totalVatAmount',
-        header: label('totalVatAmount'),
-        cell: (info) => format('totalVatAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('totalGrossAmount', () => {
+      const { label: header, format } = modelConfig['totalGrossAmount']
+
       return worksOrdersColumnHelper.accessor((row) => row.totalGrossAmount, {
         id: 'totalGrossAmount',
-        header: label('totalGrossAmount'),
-        cell: (info) => format('totalGrossAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('items', () => {
+      const { label: header, format } = modelConfig['items']
+
       return worksOrdersColumnHelper.accessor((row) => row.items, {
         id: 'items',
-        header: label('items'),
-        cell: (info) => format('items', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return worksOrdersColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('extrasField', () => {
+      const { label: header, format } = modelConfig['extrasField']
+
       return worksOrdersColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
-        header: label('extrasField'),
-        cell: (info) => format('extrasField', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return worksOrdersColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -392,121 +438,150 @@ export const useWorksOrdersTable = (args: WorksOrdersArgs) => {
 }
 export const worksOrdersIdItemsColumnHelper = createColumnHelper<WorksOrdersIdItemsBody>()
 
-export const getWorksOrdersIdItemsColumn = (
-  property: string,
-  { label, format }: ConfigItemLookup<WorksOrdersIdItemsBody>,
-) => {
+export const getWorksOrdersIdItemsColumn = (property: string, modelConfig: ModelConfig<WorksOrdersIdItemsBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('worksOrderId', () => {
+      const { label: header, format } = modelConfig['worksOrderId']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.worksOrderId, {
         id: 'worksOrderId',
-        header: label('worksOrderId'),
-        cell: (info) => format('worksOrderId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('notes', () => {
+      const { label: header, format } = modelConfig['notes']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
-        header: label('notes'),
-        cell: (info) => format('notes', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('chargeTo', () => {
+      const { label: header, format } = modelConfig['chargeTo']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.chargeTo, {
         id: 'chargeTo',
-        header: label('chargeTo'),
-        cell: (info) => format('chargeTo', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('estimate', () => {
+      const { label: header, format } = modelConfig['estimate']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.estimate, {
         id: 'estimate',
-        header: label('estimate'),
-        cell: (info) => format('estimate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('estimateType', () => {
+      const { label: header, format } = modelConfig['estimateType']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.estimateType, {
         id: 'estimateType',
-        header: label('estimateType'),
-        cell: (info) => format('estimateType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('netAmount', () => {
+      const { label: header, format } = modelConfig['netAmount']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
-        header: label('netAmount'),
-        cell: (info) => format('netAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('vatAmount', () => {
+      const { label: header, format } = modelConfig['vatAmount']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
-        header: label('vatAmount'),
-        cell: (info) => format('vatAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('grossAmount', () => {
+      const { label: header, format } = modelConfig['grossAmount']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.grossAmount, {
         id: 'grossAmount',
-        header: label('grossAmount'),
-        cell: (info) => format('grossAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('reserveAmount', () => {
+      const { label: header, format } = modelConfig['reserveAmount']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.reserveAmount, {
         id: 'reserveAmount',
-        header: label('reserveAmount'),
-        cell: (info) => format('reserveAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('nominalAccountId', () => {
+      const { label: header, format } = modelConfig['nominalAccountId']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.nominalAccountId, {
         id: 'nominalAccountId',
-        header: label('nominalAccountId'),
-        cell: (info) => format('nominalAccountId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return worksOrdersIdItemsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiIdentityChecks } from '@/services/identitychecks.ts'
@@ -40,146 +40,170 @@ export const identityChecksBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type IdentityChecksBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  contactId?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  checkDate?: string | undefined | null
-  status?: string | undefined | null
-  negotiatorId?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  contactId?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  checkDate?: string | undefined
+  status?: string | undefined
+  negotiatorId?: string | undefined
   identityDocument1?:
     | {
-        documentId?: string | undefined | null
-        typeId?: string | undefined | null
-        expiry?: string | undefined | null
-        details?: string | undefined | null
+        documentId?: string | undefined
+        typeId?: string | undefined
+        expiry?: string | undefined
+        details?: string | undefined
       }
     | undefined
-    | null
   identityDocument2?:
     | {
-        documentId?: string | undefined | null
-        typeId?: string | undefined | null
-        expiry?: string | undefined | null
-        details?: string | undefined | null
+        documentId?: string | undefined
+        typeId?: string | undefined
+        expiry?: string | undefined
+        details?: string | undefined
       }
     | undefined
-    | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
+  metadata?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
 }
 export type IdentityChecksArgs = {
-  sortBy?: string | undefined | null
-  embed?: Array<'contact' | 'document1' | 'document2' | 'documentType1' | 'documentType2'> | undefined | null
-  id?: Array<string> | undefined | null
-  contactId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  status?: Array<'unknown' | 'unchecked' | 'pending' | 'fail' | 'cancelled' | 'warnings' | 'pass'> | undefined | null
-  checkDateFrom?: string | undefined | null
-  checkDateTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  sortBy?: string | undefined
+  embed?: Array<'contact' | 'document1' | 'document2' | 'documentType1' | 'documentType2'> | undefined
+  id?: Array<string> | undefined
+  contactId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  status?: Array<'unknown' | 'unchecked' | 'pending' | 'fail' | 'cancelled' | 'warnings' | 'pass'> | undefined
+  checkDateFrom?: string | undefined
+  checkDateTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
   columns: ColumnsList<IdentityChecksBody>
 }
 
 export const identityChecksColumnHelper = createColumnHelper<IdentityChecksBody>()
 
-export const getIdentityChecksColumn = (property: string, { label, format }: ConfigItemLookup<IdentityChecksBody>) => {
+export const getIdentityChecksColumn = (property: string, modelConfig: ModelConfig<IdentityChecksBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return identityChecksColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return identityChecksColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return identityChecksColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('contactId', () => {
+      const { label: header, format } = modelConfig['contactId']
+
       return identityChecksColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
-        header: label('contactId'),
-        cell: (info) => format('contactId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return identityChecksColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return identityChecksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('checkDate', () => {
+      const { label: header, format } = modelConfig['checkDate']
+
       return identityChecksColumnHelper.accessor((row) => row.checkDate, {
         id: 'checkDate',
-        header: label('checkDate'),
-        cell: (info) => format('checkDate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return identityChecksColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return identityChecksColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('identityDocument1', () => {
+      const { label: header, format } = modelConfig['identityDocument1']
+
       return identityChecksColumnHelper.accessor((row) => row.identityDocument1, {
         id: 'identityDocument1',
-        header: label('identityDocument1'),
-        cell: (info) => format('identityDocument1', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('identityDocument2', () => {
+      const { label: header, format } = modelConfig['identityDocument2']
+
       return identityChecksColumnHelper.accessor((row) => row.identityDocument2, {
         id: 'identityDocument2',
-        header: label('identityDocument2'),
-        cell: (info) => format('identityDocument2', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return identityChecksColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return identityChecksColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

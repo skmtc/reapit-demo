@@ -4,19 +4,19 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiPropertyImagesArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  id?: Array<string> | undefined | null
-  embed?: Array<'property'> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  type?: Array<'photograph' | 'map' | 'floorPlan' | 'epc'> | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  fromArchive?: boolean | undefined | null
-  metadata?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  embed?: Array<'property'> | undefined
+  propertyId?: Array<string> | undefined
+  type?: Array<'photograph' | 'map' | 'floorPlan' | 'epc'> | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  fromArchive?: boolean | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiPropertyImagesFn = async ({
   pageSize,
@@ -92,19 +92,19 @@ export const useGetApiPropertyImages = (args: UseGetApiPropertyImagesArgs) => {
 
   return result
 }
-export type UseCreatePropertyImageArgs = {
+export type UsePostApiPropertyImagesArgs = {
   body: /** Request body used to create a new property image */
   {
     data?: /** The base64 encoded file content, prefixed with the content type (eg. data:image/jpeg;base64,VGVzdCBmaWxl) */
-    string | undefined | null
+    string | undefined
     fileUrl?: /** The presigned s3 url which a property image has been uploaded to (This supports files up to 30MB) */
-    string | undefined | null
+    string | undefined
     propertyId: /** The unique identifier of the property attached to the image */ string
     caption: /** The image caption */ string
     type: /** The type of image (photograph/floorPlan/epc/map) */ string
   }
 }
-export const createPropertyImageFn = async ({ body }: UseCreatePropertyImageArgs) => {
+export const postApiPropertyImagesFn = async ({ body }: UsePostApiPropertyImagesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -122,12 +122,12 @@ export const createPropertyImageFn = async ({ body }: UseCreatePropertyImageArgs
 
   return z.void().parse(data)
 }
-export const useCreatePropertyImage = () => {
+export const usePostApiPropertyImages = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createPropertyImageFn,
+    mutationFn: postApiPropertyImagesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -135,7 +135,7 @@ export const useCreatePropertyImage = () => {
     },
   })
 }
-export type UseGetApiPropertyImagesIdArgs = { id: string; embed?: Array<'property'> | undefined | null }
+export type UseGetApiPropertyImagesIdArgs = { id: string; embed?: Array<'property'> | undefined }
 export const getApiPropertyImagesIdFn = async ({ id, embed }: UseGetApiPropertyImagesIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/${id}${querySerialiser({ args: { embed }, options: defaultQuerySerialiserOptions })}`,
@@ -214,8 +214,8 @@ export type UsePatchApiPropertyImagesIdArgs = {
   id: string
   body: /** Request body used to update an existing property image */
   {
-    caption?: /** The image caption */ string | undefined | null
-    type?: /** The type of image (photograph/floorPlan/epc/map) */ string | undefined | null
+    caption?: /** The image caption */ string | undefined
+    type?: /** The type of image (photograph/floorPlan/epc/map) */ string | undefined
   }
 }
 export const patchApiPropertyImagesIdFn = async ({
@@ -253,11 +253,11 @@ export const usePatchApiPropertyImagesId = () => {
     },
   })
 }
-export type UseCreatePropertyImageSignedUrlArgs = {
+export type UsePostApiPropertyImagesSignedUrlArgs = {
   body: /** Request body used to create pre signed urls to upload files between 6MB and 30MB */
   { amount: /** The number of pre signed urls to create */ number }
 }
-export const createPropertyImageSignedUrlFn = async ({ body }: UseCreatePropertyImageSignedUrlArgs) => {
+export const postApiPropertyImagesSignedUrlFn = async ({ body }: UsePostApiPropertyImagesSignedUrlArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -275,12 +275,12 @@ export const createPropertyImageSignedUrlFn = async ({ body }: UseCreateProperty
 
   return z.object({ amount: z.number().int() }).parse(data)
 }
-export const useCreatePropertyImageSignedUrl = () => {
+export const usePostApiPropertyImagesSignedUrl = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createPropertyImageSignedUrlFn,
+    mutationFn: postApiPropertyImagesSignedUrlFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -288,16 +288,16 @@ export const useCreatePropertyImageSignedUrl = () => {
     },
   })
 }
-export type UseReindexPropertyImagesArgs = {
+export type UsePostApiPropertyImagesReindexArgs = {
   body: /** Request body used to reindex property images */
   {
-    propertyId?: /** The unique identifier of the property to update */ string | undefined | null
+    propertyId?: /** The unique identifier of the property to update */ string | undefined
     imageOrder?: /** Ordered collection of image identifiers for the property.
 The first image in the collection will be set as the properties primary image. */
-    Array<string> | undefined | null
+    Array<string> | undefined
   }
 }
-export const reindexPropertyImagesFn = async ({ body }: UseReindexPropertyImagesArgs) => {
+export const postApiPropertyImagesReindexFn = async ({ body }: UsePostApiPropertyImagesReindexArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/reindex${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -315,12 +315,12 @@ export const reindexPropertyImagesFn = async ({ body }: UseReindexPropertyImages
 
   return z.void().parse(data)
 }
-export const useReindexPropertyImages = () => {
+export const usePostApiPropertyImagesReindex = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: reindexPropertyImagesFn,
+    mutationFn: postApiPropertyImagesReindexFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

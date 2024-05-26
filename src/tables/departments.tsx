@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiDepartments } from '@/services/departments.ts'
@@ -34,199 +34,245 @@ export const departmentsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type DepartmentsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  name?: string | undefined | null
-  typeOptions?: Array<string> | undefined | null
-  styleOptions?: Array<string> | undefined | null
-  situationOptions?: Array<string> | undefined | null
-  parkingOptions?: Array<string> | undefined | null
-  ageOptions?: Array<string> | undefined | null
-  localityOptions?: Array<string> | undefined | null
-  specialFeaturesOptions?: Array<string> | undefined | null
-  commercialUseClassOptions?: Array<string> | undefined | null
-  commercialFloorLevelOptions?: Array<string> | undefined | null
-  hasBedrooms?: boolean | undefined | null
-  hasBathrooms?: boolean | undefined | null
-  hasReceptionRooms?: boolean | undefined | null
-  hasParkingSpaces?: boolean | undefined | null
-  hasFloorLevelEnabled?: boolean | undefined | null
-  hasInternalFloorsEnabled?: boolean | undefined | null
-  hasTotalFloorsEnabled?: boolean | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  name?: string | undefined
+  typeOptions?: Array<string> | undefined
+  styleOptions?: Array<string> | undefined
+  situationOptions?: Array<string> | undefined
+  parkingOptions?: Array<string> | undefined
+  ageOptions?: Array<string> | undefined
+  localityOptions?: Array<string> | undefined
+  specialFeaturesOptions?: Array<string> | undefined
+  commercialUseClassOptions?: Array<string> | undefined
+  commercialFloorLevelOptions?: Array<string> | undefined
+  hasBedrooms?: boolean | undefined
+  hasBathrooms?: boolean | undefined
+  hasReceptionRooms?: boolean | undefined
+  hasParkingSpaces?: boolean | undefined
+  hasFloorLevelEnabled?: boolean | undefined
+  hasInternalFloorsEnabled?: boolean | undefined
+  hasTotalFloorsEnabled?: boolean | undefined
+  _eTag?: string | undefined
 }
 export type DepartmentsArgs = {
-  id?: Array<string> | undefined | null
-  name?: string | undefined | null
+  id?: Array<string> | undefined
+  name?: string | undefined
   columns: ColumnsList<DepartmentsBody>
 }
 
 export const departmentsColumnHelper = createColumnHelper<DepartmentsBody>()
 
-export const getDepartmentsColumn = (property: string, { label, format }: ConfigItemLookup<DepartmentsBody>) => {
+export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<DepartmentsBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return departmentsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return departmentsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return departmentsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return departmentsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return departmentsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('name', () => {
+      const { label: header, format } = modelConfig['name']
+
       return departmentsColumnHelper.accessor((row) => row.name, {
         id: 'name',
-        header: label('name'),
-        cell: (info) => format('name', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeOptions', () => {
+      const { label: header, format } = modelConfig['typeOptions']
+
       return departmentsColumnHelper.accessor((row) => row.typeOptions, {
         id: 'typeOptions',
-        header: label('typeOptions'),
-        cell: (info) => format('typeOptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('styleOptions', () => {
+      const { label: header, format } = modelConfig['styleOptions']
+
       return departmentsColumnHelper.accessor((row) => row.styleOptions, {
         id: 'styleOptions',
-        header: label('styleOptions'),
-        cell: (info) => format('styleOptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('situationOptions', () => {
+      const { label: header, format } = modelConfig['situationOptions']
+
       return departmentsColumnHelper.accessor((row) => row.situationOptions, {
         id: 'situationOptions',
-        header: label('situationOptions'),
-        cell: (info) => format('situationOptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('parkingOptions', () => {
+      const { label: header, format } = modelConfig['parkingOptions']
+
       return departmentsColumnHelper.accessor((row) => row.parkingOptions, {
         id: 'parkingOptions',
-        header: label('parkingOptions'),
-        cell: (info) => format('parkingOptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('ageOptions', () => {
+      const { label: header, format } = modelConfig['ageOptions']
+
       return departmentsColumnHelper.accessor((row) => row.ageOptions, {
         id: 'ageOptions',
-        header: label('ageOptions'),
-        cell: (info) => format('ageOptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('localityOptions', () => {
+      const { label: header, format } = modelConfig['localityOptions']
+
       return departmentsColumnHelper.accessor((row) => row.localityOptions, {
         id: 'localityOptions',
-        header: label('localityOptions'),
-        cell: (info) => format('localityOptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('specialFeaturesOptions', () => {
+      const { label: header, format } = modelConfig['specialFeaturesOptions']
+
       return departmentsColumnHelper.accessor((row) => row.specialFeaturesOptions, {
         id: 'specialFeaturesOptions',
-        header: label('specialFeaturesOptions'),
-        cell: (info) => format('specialFeaturesOptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('commercialUseClassOptions', () => {
+      const { label: header, format } = modelConfig['commercialUseClassOptions']
+
       return departmentsColumnHelper.accessor((row) => row.commercialUseClassOptions, {
         id: 'commercialUseClassOptions',
-        header: label('commercialUseClassOptions'),
-        cell: (info) => format('commercialUseClassOptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('commercialFloorLevelOptions', () => {
+      const { label: header, format } = modelConfig['commercialFloorLevelOptions']
+
       return departmentsColumnHelper.accessor((row) => row.commercialFloorLevelOptions, {
         id: 'commercialFloorLevelOptions',
-        header: label('commercialFloorLevelOptions'),
-        cell: (info) => format('commercialFloorLevelOptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('hasBedrooms', () => {
+      const { label: header, format } = modelConfig['hasBedrooms']
+
       return departmentsColumnHelper.accessor((row) => row.hasBedrooms, {
         id: 'hasBedrooms',
-        header: label('hasBedrooms'),
-        cell: (info) => format('hasBedrooms', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('hasBathrooms', () => {
+      const { label: header, format } = modelConfig['hasBathrooms']
+
       return departmentsColumnHelper.accessor((row) => row.hasBathrooms, {
         id: 'hasBathrooms',
-        header: label('hasBathrooms'),
-        cell: (info) => format('hasBathrooms', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('hasReceptionRooms', () => {
+      const { label: header, format } = modelConfig['hasReceptionRooms']
+
       return departmentsColumnHelper.accessor((row) => row.hasReceptionRooms, {
         id: 'hasReceptionRooms',
-        header: label('hasReceptionRooms'),
-        cell: (info) => format('hasReceptionRooms', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('hasParkingSpaces', () => {
+      const { label: header, format } = modelConfig['hasParkingSpaces']
+
       return departmentsColumnHelper.accessor((row) => row.hasParkingSpaces, {
         id: 'hasParkingSpaces',
-        header: label('hasParkingSpaces'),
-        cell: (info) => format('hasParkingSpaces', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('hasFloorLevelEnabled', () => {
+      const { label: header, format } = modelConfig['hasFloorLevelEnabled']
+
       return departmentsColumnHelper.accessor((row) => row.hasFloorLevelEnabled, {
         id: 'hasFloorLevelEnabled',
-        header: label('hasFloorLevelEnabled'),
-        cell: (info) => format('hasFloorLevelEnabled', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('hasInternalFloorsEnabled', () => {
+      const { label: header, format } = modelConfig['hasInternalFloorsEnabled']
+
       return departmentsColumnHelper.accessor((row) => row.hasInternalFloorsEnabled, {
         id: 'hasInternalFloorsEnabled',
-        header: label('hasInternalFloorsEnabled'),
-        cell: (info) => format('hasInternalFloorsEnabled', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('hasTotalFloorsEnabled', () => {
+      const { label: header, format } = modelConfig['hasTotalFloorsEnabled']
+
       return departmentsColumnHelper.accessor((row) => row.hasTotalFloorsEnabled, {
         id: 'hasTotalFloorsEnabled',
-        header: label('hasTotalFloorsEnabled'),
-        cell: (info) => format('hasTotalFloorsEnabled', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return departmentsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiSources } from '@/services/sources.ts'
@@ -21,103 +21,123 @@ export const sourcesBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type SourcesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  name?: string | undefined | null
-  type?: string | undefined | null
-  officeIds?: Array<string> | undefined | null
-  departmentIds?: Array<string> | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  name?: string | undefined
+  type?: string | undefined
+  officeIds?: Array<string> | undefined
+  departmentIds?: Array<string> | undefined
+  _eTag?: string | undefined
 }
 export type SourcesArgs = {
-  sortBy?: string | undefined | null
-  id?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  departmentId?: Array<string> | undefined | null
-  name?: string | undefined | null
-  type?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  departmentId?: Array<string> | undefined
+  name?: string | undefined
+  type?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
   columns: ColumnsList<SourcesBody>
 }
 
 export const sourcesColumnHelper = createColumnHelper<SourcesBody>()
 
-export const getSourcesColumn = (property: string, { label, format }: ConfigItemLookup<SourcesBody>) => {
+export const getSourcesColumn = (property: string, modelConfig: ModelConfig<SourcesBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return sourcesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return sourcesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return sourcesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return sourcesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return sourcesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('name', () => {
+      const { label: header, format } = modelConfig['name']
+
       return sourcesColumnHelper.accessor((row) => row.name, {
         id: 'name',
-        header: label('name'),
-        cell: (info) => format('name', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return sourcesColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('officeIds', () => {
+      const { label: header, format } = modelConfig['officeIds']
+
       return sourcesColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
-        header: label('officeIds'),
-        cell: (info) => format('officeIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('departmentIds', () => {
+      const { label: header, format } = modelConfig['departmentIds']
+
       return sourcesColumnHelper.accessor((row) => row.departmentIds, {
         id: 'departmentIds',
-        header: label('departmentIds'),
-        cell: (info) => format('departmentIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return sourcesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

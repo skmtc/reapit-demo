@@ -4,18 +4,18 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiConveyancingArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  id?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  buyerId?: Array<string> | undefined | null
-  embed?: Array<'buyerSolicitor' | 'offer' | 'property' | 'vendor' | 'vendorSolicitor'> | undefined | null
-  metadata?: Array<string> | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  buyerId?: Array<string> | undefined
+  embed?: Array<'buyerSolicitor' | 'offer' | 'property' | 'vendor' | 'vendorSolicitor'> | undefined
+  metadata?: Array<string> | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
 }
 export const getApiConveyancingFn = async ({
   pageSize,
@@ -137,7 +137,7 @@ export const useGetApiConveyancing = (args: UseGetApiConveyancingArgs) => {
 }
 export type UseGetApiConveyancingIdArgs = {
   id: string
-  embed?: Array<'buyerSolicitor' | 'offer' | 'property' | 'vendor' | 'vendorSolicitor'> | undefined | null
+  embed?: Array<'buyerSolicitor' | 'offer' | 'property' | 'vendor' | 'vendorSolicitor'> | undefined
 }
 export const getApiConveyancingIdFn = async ({ id, embed }: UseGetApiConveyancingIdArgs) => {
   const res = await fetch(
@@ -231,46 +231,44 @@ export type UsePatchApiConveyancingIdArgs = {
   body: /** Request body for updating sales progression information on an existing offer */
   {
     vendorSolicitorId?: /** The unique identifier of the vendor that this offer is associated to. Empty if the offer is external and relates to a property not instructed to the agent */
-    string | undefined | null
+    string | undefined
     buyerSolicitorId?: /** The unique identifier of the solicitor / conveyancer that the vendor has instructed */
-    string | undefined | null
+    string | undefined
     fixturesAndFittingsCompleted?: /** The date when the fixtures and fittings form has been completed */
-    string | undefined | null
-    deedsRequested?: /** The date when the title deeds were requested from land registry */ string | undefined | null
-    deedsReceived?: /** The date when the title deeds were received from land registry */ string | undefined | null
-    enquiriesSent?: /** The date when the legal enquiries raised by the buyers solicitor were sent */
-    string | undefined | null
+    string | undefined
+    deedsRequested?: /** The date when the title deeds were requested from land registry */ string | undefined
+    deedsReceived?: /** The date when the title deeds were received from land registry */ string | undefined
+    enquiriesSent?: /** The date when the legal enquiries raised by the buyers solicitor were sent */ string | undefined
     enquiriesAnswered?: /** The date when the legal enquiries raised by the buyers solicitor were answered */
-    string | undefined | null
-    searchesPaid?: /** The date when the buyer paid for conveyancing searches */ string | undefined | null
-    searchesApplied?: /** The date when conveyancing searches were applied for */ string | undefined | null
-    searchesReceived?: /** The date when conveyancing searches were received */ string | undefined | null
-    contractSent?: /** The date when the draft contract was sent */ string | undefined | null
-    contractReceived?: /** The date when the draft contract was received */ string | undefined | null
-    contractApproved?: /** The date when the contract was approved */ string | undefined | null
-    contractVendorSigned?: /** The date when the vendor signed the approved contract */ string | undefined | null
-    contractBuyerSigned?: /** The date when the buyer signed the approved contract */ string | undefined | null
+    string | undefined
+    searchesPaid?: /** The date when the buyer paid for conveyancing searches */ string | undefined
+    searchesApplied?: /** The date when conveyancing searches were applied for */ string | undefined
+    searchesReceived?: /** The date when conveyancing searches were received */ string | undefined
+    contractSent?: /** The date when the draft contract was sent */ string | undefined
+    contractReceived?: /** The date when the draft contract was received */ string | undefined
+    contractApproved?: /** The date when the contract was approved */ string | undefined
+    contractVendorSigned?: /** The date when the vendor signed the approved contract */ string | undefined
+    contractBuyerSigned?: /** The date when the buyer signed the approved contract */ string | undefined
     mortgageRequired?: /** Indication of whether the buyer will require a mortgage to fund the purchase (yes/no/unknown) */
-    string | undefined | null
-    mortgageLoanPercentage?: /** The loan to value percentage of the mortgage required */ number | undefined | null
-    mortgageSubmitted?: /** The date when the mortgage application was submitted */ string | undefined | null
-    mortgageOfferReceived?: /** The date when the mortgage offer was received */ string | undefined | null
-    mortgageLenderId?: /** The unique identifier of the company who will provide the mortgage */
-    string | undefined | null
-    mortgageBrokerId?: /** The unique identifier of the company who brokered the mortgage */ string | undefined | null
-    mortgageSurveyDate?: /** The date of the mortgage valuation/survey */ string | undefined | null
+    string | undefined
+    mortgageLoanPercentage?: /** The loan to value percentage of the mortgage required */ number | undefined
+    mortgageSubmitted?: /** The date when the mortgage application was submitted */ string | undefined
+    mortgageOfferReceived?: /** The date when the mortgage offer was received */ string | undefined
+    mortgageLenderId?: /** The unique identifier of the company who will provide the mortgage */ string | undefined
+    mortgageBrokerId?: /** The unique identifier of the company who brokered the mortgage */ string | undefined
+    mortgageSurveyDate?: /** The date of the mortgage valuation/survey */ string | undefined
     mortgageSurveyorId?: /** The unique identifier of the company who will perform the mortgage valuation/survey */
-    string | undefined | null
+    string | undefined
     additionalSurveyRequired?: /** Indication of whether the buyer requires that an additional survey take place (yes/no/unknown) */
-    string | undefined | null
-    additionalSurveyDate?: /** The date of the additional survey */ string | undefined | null
+    string | undefined
+    additionalSurveyDate?: /** The date of the additional survey */ string | undefined
     additionalSurveyorId?: /** The unique identifier of the company who will perform the additional survey */
-    string | undefined | null
-    exchangedVendor?: /** The date when the vendor conveyancer confirms the exchange */ string | undefined | null
-    exchangedBuyer?: /** The date when the buyer conveyancer confirms the exchange */ string | undefined | null
-    completion?: /** The date when the sale completed */ string | undefined | null
+    string | undefined
+    exchangedVendor?: /** The date when the vendor conveyancer confirms the exchange */ string | undefined
+    exchangedBuyer?: /** The date when the buyer conveyancer confirms the exchange */ string | undefined
+    completion?: /** The date when the sale completed */ string | undefined
     metadata?: /** App specific metadata to set against this conveyancing record */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiConveyancingIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiConveyancingIdArgs) => {
@@ -306,9 +304,9 @@ export const usePatchApiConveyancingId = () => {
 }
 export type UseGetApiConveyancingIdChainArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
 }
 export const getApiConveyancingIdChainFn = async ({
   id,
@@ -420,23 +418,23 @@ export const useGetApiConveyancingIdChain = (args: UseGetApiConveyancingIdChainA
 
   return result
 }
-export type UseCreateDownwardChainArgs = {
+export type UsePostApiConveyancingIdDownwardArgs = {
   id: string
   body: /** Request body for associating this offer to another one below it in the chain */
   {
     offerId?: /** The unique identifier of the offer below this one in the chain. Should be left empty if the upward property is external (instructed by another agent) */
-    string | undefined | null
+    string | undefined
     propertyAddress?: /** The address of the property below this one in the chain. (Required when 'offerId' is not provided) */
-    string | undefined | null
+    string | undefined
     agent?: /** The name of the agent managing the sale of the property. (Required when 'offerId' is not provided) */
-    string | undefined | null
+    string | undefined
     buyer?: /** The name of the buyer purchasing the property. (Required when 'offerId' is not provided) */
-    string | undefined | null
+    string | undefined
     buyerSolicitorId?: /** The unique identifier of the solicitor / conveyancer that the buyer has instructed. (Required when 'offerId' is not provided) */
-    string | undefined | null
+    string | undefined
   }
 }
-export const createDownwardChainFn = async ({ id, body }: UseCreateDownwardChainArgs) => {
+export const postApiConveyancingIdDownwardFn = async ({ id, body }: UsePostApiConveyancingIdDownwardArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/conveyancing/${id}/downward${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -454,12 +452,12 @@ export const createDownwardChainFn = async ({ id, body }: UseCreateDownwardChain
 
   return z.void().parse(data)
 }
-export const useCreateDownwardChain = () => {
+export const usePostApiConveyancingIdDownward = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createDownwardChainFn,
+    mutationFn: postApiConveyancingIdDownwardFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -499,23 +497,23 @@ export const useDeleteApiConveyancingIdDownward = () => {
     },
   })
 }
-export type UseCreateUpwardChainArgs = {
+export type UsePostApiConveyancingIdUpwardArgs = {
   id: string
   body: /** Request body for associating this offer to another one above it in the chain */
   {
     offerId?: /** The unique identifier of the offer above this one in the chain. Should be left empty if the upward property is external (instructed by another agent) */
-    string | undefined | null
+    string | undefined
     propertyAddress?: /** The address of the property above this one in the chain. (Required when 'offerId' is not provided) */
-    string | undefined | null
+    string | undefined
     agent?: /** The name of the agent managing the sale of the property. (Required when 'offerId' is not provided) */
-    string | undefined | null
+    string | undefined
     vendor?: /** The name of the vendor selling the property. (Required when 'offerId' is not provided) */
-    string | undefined | null
+    string | undefined
     vendorSolicitorId?: /** The unique identifier of the solicitor / conveyancer that the vendor has instructed. (Required when 'offerId' is not provided) */
-    string | undefined | null
+    string | undefined
   }
 }
-export const createUpwardChainFn = async ({ id, body }: UseCreateUpwardChainArgs) => {
+export const postApiConveyancingIdUpwardFn = async ({ id, body }: UsePostApiConveyancingIdUpwardArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/conveyancing/${id}/upward${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -533,12 +531,12 @@ export const createUpwardChainFn = async ({ id, body }: UseCreateUpwardChainArgs
 
   return z.void().parse(data)
 }
-export const useCreateUpwardChain = () => {
+export const usePostApiConveyancingIdUpward = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createUpwardChainFn,
+    mutationFn: postApiConveyancingIdUpwardFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

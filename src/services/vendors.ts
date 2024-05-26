@@ -5,10 +5,7 @@ import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiVendorsIdArgs = {
   id: string
-  embed?:
-    | Array<'negotiator' | 'offices' | 'property' | 'sellingReason' | 'solicitor' | 'source' | 'type'>
-    | undefined
-    | null
+  embed?: Array<'negotiator' | 'offices' | 'property' | 'sellingReason' | 'solicitor' | 'source' | 'type'> | undefined
 }
 export const getApiVendorsIdFn = async ({ id, embed }: UseGetApiVendorsIdArgs) => {
   const res = await fetch(
@@ -103,22 +100,21 @@ export type UsePatchApiVendorsIdArgs = {
   id: string
   body: /** Request body used to update an existing vendor */
   {
-    lastCall?: /** The date the vendor was last called */ string | undefined | null
-    nextCall?: /** The date the vendor is next due to be called */ string | undefined | null
-    typeId?: /** The unique identifier of the type of vendor */ string | undefined | null
-    sellingReasonId?: /** The unique identifier of the reason the vendor is selling */ string | undefined | null
-    solicitorId?: /** The unique identifier of the vendor's solicitor */ string | undefined | null
+    lastCall?: /** The date the vendor was last called */ string | undefined
+    nextCall?: /** The date the vendor is next due to be called */ string | undefined
+    typeId?: /** The unique identifier of the type of vendor */ string | undefined
+    sellingReasonId?: /** The unique identifier of the reason the vendor is selling */ string | undefined
+    solicitorId?: /** The unique identifier of the vendor's solicitor */ string | undefined
     correspondenceAddressType?: /** Value indicating where hard copies of correspondence should be sent for the primary contact (property/contact) */
-    string | undefined | null
+    string | undefined
     source?: /** Representation of a vendor's source */
     | {
-          id?: /** The unique identifier of the source of the vendor */ string | undefined | null
-          type?: /** The source type (office/source) */ string | undefined | null
+          id?: /** The unique identifier of the source of the vendor */ string | undefined
+          type?: /** The source type (office/source) */ string | undefined
         }
       | undefined
-      | null
     metadata?: /** App specific metadata that has been set against the vendor */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiVendorsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiVendorsIdArgs) => {
@@ -153,29 +149,26 @@ export const usePatchApiVendorsId = () => {
   })
 }
 export type UseGetApiVendorsArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?:
-    | Array<'negotiator' | 'offices' | 'property' | 'sellingReason' | 'solicitor' | 'source' | 'type'>
-    | undefined
-    | null
-  id?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  email?: Array<string> | undefined | null
-  fromArchive?: boolean | undefined | null
-  address?: string | undefined | null
-  name?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  lastCallFrom?: string | undefined | null
-  lastCallTo?: string | undefined | null
-  nextCallFrom?: string | undefined | null
-  nextCallTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'negotiator' | 'offices' | 'property' | 'sellingReason' | 'solicitor' | 'source' | 'type'> | undefined
+  id?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  email?: Array<string> | undefined
+  fromArchive?: boolean | undefined
+  address?: string | undefined
+  name?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  lastCallFrom?: string | undefined
+  lastCallTo?: string | undefined
+  nextCallFrom?: string | undefined
+  nextCallTo?: string | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiVendorsFn = async ({
   pageSize,
@@ -309,8 +302,8 @@ export const useGetApiVendors = (args: UseGetApiVendorsArgs) => {
 }
 export type UseGetApiVendorsIdRelationshipsArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiVendorsIdRelationshipsFn = async ({
   id,
@@ -373,7 +366,7 @@ export const useGetApiVendorsIdRelationships = (args: UseGetApiVendorsIdRelation
 
   return result
 }
-export type UseCreateVendorRelationshipArgs = {
+export type UsePostApiVendorsIdRelationshipsArgs = {
   id: string
   body: /** Request body used to create or update a relationship between a vendor and a contact or company */
   {
@@ -383,7 +376,7 @@ export type UseCreateVendorRelationshipArgs = {
     boolean
   }
 }
-export const createVendorRelationshipFn = async ({ id, body }: UseCreateVendorRelationshipArgs) => {
+export const postApiVendorsIdRelationshipsFn = async ({ id, body }: UsePostApiVendorsIdRelationshipsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/vendors/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -401,12 +394,12 @@ export const createVendorRelationshipFn = async ({ id, body }: UseCreateVendorRe
 
   return z.void().parse(data)
 }
-export const useCreateVendorRelationship = () => {
+export const usePostApiVendorsIdRelationships = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createVendorRelationshipFn,
+    mutationFn: postApiVendorsIdRelationshipsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

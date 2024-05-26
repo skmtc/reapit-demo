@@ -4,12 +4,12 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiMetadataArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  entityType?: string | undefined | null
-  id?: Array<string> | undefined | null
-  entityId?: Array<string> | undefined | null
-  filter?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  entityType?: string | undefined
+  id?: Array<string> | undefined
+  entityId?: Array<string> | undefined
+  filter?: Array<string> | undefined
 }
 export const getApiMetadataFn = async ({
   pageSize,
@@ -68,7 +68,7 @@ export const useGetApiMetadata = (args: UseGetApiMetadataArgs) => {
 
   return result
 }
-export type UseCreateMetadataArgs = {
+export type UsePostApiMetadataArgs = {
   body: /** Payload to create a metadata record */
   {
     entityType: /** The type of the entity that this metadata is related to. This can represent a Foundations inbuilt type (an entity presented in our APIs) or it can be a custom entity type (a dynamic standalone metadata entity that you create).
@@ -77,11 +77,11 @@ Inbuilt types: applicant, appointment, company, contact, conveyancing, identityC
     string
     entityId?: /** The unique identifier of the entity that this metadata is related to.
 For custom entities, this can be left blank and an id will be generated for you. */
-    string | undefined | null
+    string | undefined
     metadata: /** The JSON document to store */ string
   }
 }
-export const createMetadataFn = async ({ body }: UseCreateMetadataArgs) => {
+export const postApiMetadataFn = async ({ body }: UsePostApiMetadataArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/metadata/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -99,12 +99,12 @@ export const createMetadataFn = async ({ body }: UseCreateMetadataArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateMetadata = () => {
+export const usePostApiMetadata = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createMetadataFn,
+    mutationFn: postApiMetadataFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -144,11 +144,11 @@ export const useGetApiMetadataId = (args: UseGetApiMetadataIdArgs) => {
 
   return result
 }
-export type UseUpdateMetadataArgs = {
+export type UsePutApiMetadataIdArgs = {
   id: string
   body: /** Payload to update a metadata record */ { metadata: /** The updated JSON document to store */ string }
 }
-export const updateMetadataFn = async ({ id, body }: UseUpdateMetadataArgs) => {
+export const putApiMetadataIdFn = async ({ id, body }: UsePutApiMetadataIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/metadata/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -166,12 +166,12 @@ export const updateMetadataFn = async ({ id, body }: UseUpdateMetadataArgs) => {
 
   return z.void().parse(data)
 }
-export const useUpdateMetadata = () => {
+export const usePutApiMetadataId = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: updateMetadataFn,
+    mutationFn: putApiMetadataIdFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

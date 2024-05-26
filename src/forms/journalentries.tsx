@@ -1,69 +1,25 @@
-import { z } from 'zod'
-import { Controller, FieldPath, useForm, Control } from 'react-hook-form'
-import { default as FormLabel } from '@mui/joy/FormLabel'
-import { default as FormControl } from '@mui/joy/FormControl'
-import { default as FormHelperText } from '@mui/joy/FormHelperText'
+import {
+  createJournalEntryModel,
+  CreateJournalEntryModel,
+  createBulkJournalEntryModel,
+  CreateBulkJournalEntryModel,
+} from '@/index.generated.ts'
 import { default as Box } from '@mui/joy/Box'
+import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { FormConfig } from '@/components/ModelRuntimeConfig'
-import { match } from 'ts-pattern'
-import { useCreateJournalEntry, useCreateBulkJournalEntry } from '@/services/journalentries.ts'
+import { usePostApiJournalEntries, usePostApiJournalEntriesBulk } from '@/services/journalentries.ts'
 
-export const createJournalEntriesBody = z.object({
-  typeId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  associatedType: z.string().nullable().optional(),
-  associatedId: z.string().nullable().optional(),
-  description: z.string(),
-  negotiatorId: z.string().nullable().optional(),
-})
-export type CreateJournalEntriesBody = {
-  typeId?: string | undefined | null
-  propertyId?: string | undefined | null
-  associatedType?: string | undefined | null
-  associatedId?: string | undefined | null
-  description: string
-  negotiatorId?: string | undefined | null
-}
-export type CreateJournalEntriesProps = { children: (control: Control<CreateJournalEntriesBody>) => ReactNode }
-export const createJournalEntriesBulkBody = z.object({
-  createJournalEntry: z
-    .array(
-      z.object({
-        typeId: z.string().nullable().optional(),
-        propertyId: z.string().nullable().optional(),
-        associatedType: z.string().nullable().optional(),
-        associatedId: z.string().nullable().optional(),
-        description: z.string(),
-        negotiatorId: z.string().nullable().optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-})
-export type CreateJournalEntriesBulkBody = {
-  createJournalEntry?:
-    | Array<{
-        typeId?: string | undefined | null
-        propertyId?: string | undefined | null
-        associatedType?: string | undefined | null
-        associatedId?: string | undefined | null
-        description: string
-        negotiatorId?: string | undefined | null
-      }>
-    | undefined
-    | null
-}
-export type CreateJournalEntriesBulkProps = { children: (control: Control<CreateJournalEntriesBulkBody>) => ReactNode }
+export type CreateJournalEntriesProps = { children: (control: Control<CreateJournalEntryModel>) => ReactNode }
+export type CreateJournalEntriesBulkProps = { children: (control: Control<CreateBulkJournalEntryModel>) => ReactNode }
 
 export const CreateJournalEntries = (props: CreateJournalEntriesProps) => {
-  const { control, handleSubmit } = useForm<CreateJournalEntriesBody>({
-    resolver: zodResolver(createJournalEntriesBody),
+  const { control, handleSubmit } = useForm<CreateJournalEntryModel>({
+    resolver: zodResolver(createJournalEntryModel),
   })
 
-  const mutator = useCreateJournalEntry()
+  const mutator = usePostApiJournalEntries()
 
   return (
     <Box
@@ -91,135 +47,14 @@ export const CreateJournalEntries = (props: CreateJournalEntriesProps) => {
       </Box>
     </Box>
   )
-}
-
-type GetCreateJournalEntriesFieldArgs = {
-  fieldName: FieldPath<CreateJournalEntriesBody>
-  control: Control<CreateJournalEntriesBody>
-  formConfig: FormConfig<CreateJournalEntriesBody>
-}
-
-export const getCreateJournalEntriesField = ({ fieldName, control, formConfig }: GetCreateJournalEntriesFieldArgs) => {
-  return match(fieldName)
-    .with('typeId', () => {
-      const { label, Input } = formConfig['typeId']
-
-      return (
-        <Controller
-          key="typeId"
-          name="typeId"
-          control={control}
-          render={({ field, fieldState }) => (
-            <FormControl error={Boolean(fieldState.error?.message)}>
-              <FormLabel>{label}</FormLabel>
-              <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
-            </FormControl>
-          )}
-        />
-      )
-    })
-    .with('propertyId', () => {
-      const { label, Input } = formConfig['propertyId']
-
-      return (
-        <Controller
-          key="propertyId"
-          name="propertyId"
-          control={control}
-          render={({ field, fieldState }) => (
-            <FormControl error={Boolean(fieldState.error?.message)}>
-              <FormLabel>{label}</FormLabel>
-              <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
-            </FormControl>
-          )}
-        />
-      )
-    })
-    .with('associatedType', () => {
-      const { label, Input } = formConfig['associatedType']
-
-      return (
-        <Controller
-          key="associatedType"
-          name="associatedType"
-          control={control}
-          render={({ field, fieldState }) => (
-            <FormControl error={Boolean(fieldState.error?.message)}>
-              <FormLabel>{label}</FormLabel>
-              <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
-            </FormControl>
-          )}
-        />
-      )
-    })
-    .with('associatedId', () => {
-      const { label, Input } = formConfig['associatedId']
-
-      return (
-        <Controller
-          key="associatedId"
-          name="associatedId"
-          control={control}
-          render={({ field, fieldState }) => (
-            <FormControl error={Boolean(fieldState.error?.message)}>
-              <FormLabel>{label}</FormLabel>
-              <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
-            </FormControl>
-          )}
-        />
-      )
-    })
-    .with('description', () => {
-      const { label, Input } = formConfig['description']
-
-      return (
-        <Controller
-          key="description"
-          name="description"
-          control={control}
-          render={({ field, fieldState }) => (
-            <FormControl error={Boolean(fieldState.error?.message)}>
-              <FormLabel>{label}</FormLabel>
-              <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
-            </FormControl>
-          )}
-        />
-      )
-    })
-    .with('negotiatorId', () => {
-      const { label, Input } = formConfig['negotiatorId']
-
-      return (
-        <Controller
-          key="negotiatorId"
-          name="negotiatorId"
-          control={control}
-          render={({ field, fieldState }) => (
-            <FormControl error={Boolean(fieldState.error?.message)}>
-              <FormLabel>{label}</FormLabel>
-              <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
-            </FormControl>
-          )}
-        />
-      )
-    })
-    .otherwise(() => {
-      throw new Error(`Unknown field: '${fieldName}' `)
-    })
 }
 
 export const CreateJournalEntriesBulk = (props: CreateJournalEntriesBulkProps) => {
-  const { control, handleSubmit } = useForm<CreateJournalEntriesBulkBody>({
-    resolver: zodResolver(createJournalEntriesBulkBody),
+  const { control, handleSubmit } = useForm<CreateBulkJournalEntryModel>({
+    resolver: zodResolver(createBulkJournalEntryModel),
   })
 
-  const mutator = useCreateBulkJournalEntry()
+  const mutator = usePostApiJournalEntriesBulk()
 
   return (
     <Box
@@ -247,39 +82,4 @@ export const CreateJournalEntriesBulk = (props: CreateJournalEntriesBulkProps) =
       </Box>
     </Box>
   )
-}
-
-type GetCreateJournalEntriesBulkFieldArgs = {
-  fieldName: FieldPath<CreateJournalEntriesBulkBody>
-  control: Control<CreateJournalEntriesBulkBody>
-  formConfig: FormConfig<CreateJournalEntriesBulkBody>
-}
-
-export const getCreateJournalEntriesBulkField = ({
-  fieldName,
-  control,
-  formConfig,
-}: GetCreateJournalEntriesBulkFieldArgs) => {
-  return match(fieldName)
-    .with('createJournalEntry', () => {
-      const { label, Input } = formConfig['createJournalEntry']
-
-      return (
-        <Controller
-          key="createJournalEntry"
-          name="createJournalEntry"
-          control={control}
-          render={({ field, fieldState }) => (
-            <FormControl error={Boolean(fieldState.error?.message)}>
-              <FormLabel>{label}</FormLabel>
-              <Input {...field} />
-              {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
-            </FormControl>
-          )}
-        />
-      )
-    })
-    .otherwise(() => {
-      throw new Error(`Unknown field: '${fieldName}' `)
-    })
 }

@@ -4,21 +4,21 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiIdentityChecksArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?: Array<'contact' | 'document1' | 'document2' | 'documentType1' | 'documentType2'> | undefined | null
-  id?: Array<string> | undefined | null
-  contactId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  status?: Array<'unknown' | 'unchecked' | 'pending' | 'fail' | 'cancelled' | 'warnings' | 'pass'> | undefined | null
-  checkDateFrom?: string | undefined | null
-  checkDateTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'contact' | 'document1' | 'document2' | 'documentType1' | 'documentType2'> | undefined
+  id?: Array<string> | undefined
+  contactId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  status?: Array<'unknown' | 'unchecked' | 'pending' | 'fail' | 'cancelled' | 'warnings' | 'pass'> | undefined
+  checkDateFrom?: string | undefined
+  checkDateTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiIdentityChecksFn = async ({
   pageSize,
@@ -113,7 +113,7 @@ export const useGetApiIdentityChecks = (args: UseGetApiIdentityChecksArgs) => {
 
   return result
 }
-export type UseCreateIdentityCheckArgs = {
+export type UsePostApiIdentityChecksArgs = {
   body: /** Request body used to create a new contact identity check */
   {
     contactId: /** The unique identifier of the contact associated to the identity check */ string
@@ -125,41 +125,37 @@ export type UseCreateIdentityCheckArgs = {
 A second identity document is not required and can be ignored by being set to null */
     | {
           typeId: /** The unique identifier of the type of identity document provided */ string
-          expiry?: /** The date when the document expires and becomes invalid */ string | undefined | null
+          expiry?: /** The date when the document expires and becomes invalid */ string | undefined
           details?: /** Details regarding the identity document (eg. passport number) (Required when 'fileData' is not given) */
-          string | undefined | null
+          string | undefined
           fileData?: /** The base64 encoded identity document content, prefixed with the content type (eg. data:text/plain;base64,VGVzdCBmaWxl) (Required when 'details' are not given)
 The total request payload cannot exceed 6Mb, regardless of the number of documents being sent */
-          string | undefined | null
+          string | undefined
           fileUrl?: /** The presigned s3 url which a document has been uploaded to (This supports files up to 30MB) */
-          string | undefined | null
-          name?: /** The filename to store the document as (Required when 'details' are not given) */
-          string | undefined | null
+          string | undefined
+          name?: /** The filename to store the document as (Required when 'details' are not given) */ string | undefined
         }
       | undefined
-      | null
     identityDocument2?: /** Request body to attach an identity document to a new contact identity check
 A second identity document is not required and can be ignored by being set to null */
     | {
           typeId: /** The unique identifier of the type of identity document provided */ string
-          expiry?: /** The date when the document expires and becomes invalid */ string | undefined | null
+          expiry?: /** The date when the document expires and becomes invalid */ string | undefined
           details?: /** Details regarding the identity document (eg. passport number) (Required when 'fileData' is not given) */
-          string | undefined | null
+          string | undefined
           fileData?: /** The base64 encoded identity document content, prefixed with the content type (eg. data:text/plain;base64,VGVzdCBmaWxl) (Required when 'details' are not given)
 The total request payload cannot exceed 6Mb, regardless of the number of documents being sent */
-          string | undefined | null
+          string | undefined
           fileUrl?: /** The presigned s3 url which a document has been uploaded to (This supports files up to 30MB) */
-          string | undefined | null
-          name?: /** The filename to store the document as (Required when 'details' are not given) */
-          string | undefined | null
+          string | undefined
+          name?: /** The filename to store the document as (Required when 'details' are not given) */ string | undefined
         }
       | undefined
-      | null
     metadata?: /** App specific metadata to set against the identity check */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
-export const createIdentityCheckFn = async ({ body }: UseCreateIdentityCheckArgs) => {
+export const postApiIdentityChecksFn = async ({ body }: UsePostApiIdentityChecksArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/identityChecks/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -177,12 +173,12 @@ export const createIdentityCheckFn = async ({ body }: UseCreateIdentityCheckArgs
 
   return z.void().parse(data)
 }
-export const useCreateIdentityCheck = () => {
+export const usePostApiIdentityChecks = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createIdentityCheckFn,
+    mutationFn: postApiIdentityChecksFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -192,7 +188,7 @@ export const useCreateIdentityCheck = () => {
 }
 export type UseGetApiIdentityChecksIdArgs = {
   id: string
-  embed?: Array<'contact' | 'document1' | 'document2' | 'documentType1' | 'documentType2'> | undefined | null
+  embed?: Array<'contact' | 'document1' | 'document2' | 'documentType1' | 'documentType2'> | undefined
 }
 export const getApiIdentityChecksIdFn = async ({ id, embed }: UseGetApiIdentityChecksIdArgs) => {
   const res = await fetch(
@@ -258,41 +254,38 @@ export type UsePatchApiIdentityChecksIdArgs = {
   body: /** Request body used to update an exist contact identity check */
   {
     checkDate?: /** The date when the identity check was performed. This may differ to the date when the check was created */
-    string | undefined | null
+    string | undefined
     status?: /** The current status of the identity check (pass/fail/pending/cancelled/warnings/unchecked) */
-    string | undefined | null
-    negotiatorId?: /** The unique identifier of the negotiator that initiated the identity check */
-    string | undefined | null
+    string | undefined
+    negotiatorId?: /** The unique identifier of the negotiator that initiated the identity check */ string | undefined
     identityDocument1?: /** Request body to update an identity document attached to an existing contact identity check */
     | {
-          typeId?: /** The unique identifier of the type of identity document provided */ string | undefined | null
-          expiry?: /** The date when the document expires and becomes invalid */ string | undefined | null
-          details?: /** Details regarding the identity document (eg. passport number) */ string | undefined | null
+          typeId?: /** The unique identifier of the type of identity document provided */ string | undefined
+          expiry?: /** The date when the document expires and becomes invalid */ string | undefined
+          details?: /** Details regarding the identity document (eg. passport number) */ string | undefined
           fileData?: /** The base64 encoded identity document content, prefixed with the content type (eg. data:text/plain;base64,VGVzdCBmaWxl)
 The total request payload cannot exceed 6Mb, regardless of the number of documents being sent */
-          string | undefined | null
+          string | undefined
           fileUrl?: /** The presigned s3 url which a document has been uploaded to (This supports files up to 30MB) */
-          string | undefined | null
-          name?: /** The filename to store the document as */ string | undefined | null
+          string | undefined
+          name?: /** The filename to store the document as */ string | undefined
         }
       | undefined
-      | null
     identityDocument2?: /** Request body to update an identity document attached to an existing contact identity check */
     | {
-          typeId?: /** The unique identifier of the type of identity document provided */ string | undefined | null
-          expiry?: /** The date when the document expires and becomes invalid */ string | undefined | null
-          details?: /** Details regarding the identity document (eg. passport number) */ string | undefined | null
+          typeId?: /** The unique identifier of the type of identity document provided */ string | undefined
+          expiry?: /** The date when the document expires and becomes invalid */ string | undefined
+          details?: /** Details regarding the identity document (eg. passport number) */ string | undefined
           fileData?: /** The base64 encoded identity document content, prefixed with the content type (eg. data:text/plain;base64,VGVzdCBmaWxl)
 The total request payload cannot exceed 6Mb, regardless of the number of documents being sent */
-          string | undefined | null
+          string | undefined
           fileUrl?: /** The presigned s3 url which a document has been uploaded to (This supports files up to 30MB) */
-          string | undefined | null
-          name?: /** The filename to store the document as */ string | undefined | null
+          string | undefined
+          name?: /** The filename to store the document as */ string | undefined
         }
       | undefined
-      | null
     metadata?: /** App specific metadata to set against the identity check */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiIdentityChecksIdFn = async ({
@@ -330,11 +323,11 @@ export const usePatchApiIdentityChecksId = () => {
     },
   })
 }
-export type UseCreateIdentityCheckSignedUrlArgs = {
+export type UsePostApiIdentityChecksSignedUrlArgs = {
   body: /** Request body used to create pre signed urls to upload files between 6MB and 30MB */
   { amount: /** The number of pre signed urls to create */ number }
 }
-export const createIdentityCheckSignedUrlFn = async ({ body }: UseCreateIdentityCheckSignedUrlArgs) => {
+export const postApiIdentityChecksSignedUrlFn = async ({ body }: UsePostApiIdentityChecksSignedUrlArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/identityChecks/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -352,12 +345,12 @@ export const createIdentityCheckSignedUrlFn = async ({ body }: UseCreateIdentity
 
   return z.object({ amount: z.number().int() }).parse(data)
 }
-export const useCreateIdentityCheckSignedUrl = () => {
+export const usePostApiIdentityChecksSignedUrl = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createIdentityCheckSignedUrlFn,
+    mutationFn: postApiIdentityChecksSignedUrlFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

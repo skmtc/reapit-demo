@@ -14,3 +14,15 @@ export const createOpenHouseAttendeeModel = z.object({
     .nullable()
     .optional(),
 })
+/** Request body used to create a new open house attendee */
+export type CreateOpenHouseAttendeeModel = {
+  interestLevel?: /** The interest level of the open house attendee (veryInterested/mightBeInterested/notInterested/notSet) */
+  string | undefined
+  notes?: /** Notes on this open house attendee */ string | undefined
+  attendee?: /** Represents an external attendee on an appointment */
+  | {
+        id?: /** The unique identifier of the attendee */ string | undefined
+        type?: /** The type of attendee (applicant/contact/landlord/tenant) */ string | undefined
+      }
+    | undefined
+}

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiTasks } from '@/services/tasks.ts'
@@ -30,184 +30,222 @@ export const tasksBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type TasksBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  activates?: string | undefined | null
-  completed?: string | undefined | null
-  typeId?: string | undefined | null
-  senderId?: string | undefined | null
-  text?: string | undefined | null
-  landlordId?: string | undefined | null
-  propertyId?: string | undefined | null
-  applicantId?: string | undefined | null
-  tenancyId?: string | undefined | null
-  contactId?: string | undefined | null
-  recipientId?: string | undefined | null
-  recipientType?: string | undefined | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  activates?: string | undefined
+  completed?: string | undefined
+  typeId?: string | undefined
+  senderId?: string | undefined
+  text?: string | undefined
+  landlordId?: string | undefined
+  propertyId?: string | undefined
+  applicantId?: string | undefined
+  tenancyId?: string | undefined
+  contactId?: string | undefined
+  recipientId?: string | undefined
+  recipientType?: string | undefined
+  metadata?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
 }
 export type TasksArgs = {
-  sortBy?: string | undefined | null
-  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | undefined | null
-  id?: Array<string> | undefined | null
-  applicantId?: Array<string> | undefined | null
-  contactId?: Array<string> | undefined | null
-  landlordId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  recipientId?: Array<string> | undefined | null
-  senderId?: Array<string> | undefined | null
-  typeId?: Array<string> | undefined | null
-  tenancyId?: Array<string> | undefined | null
-  activatesFrom?: string | undefined | null
-  activatesTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  sortBy?: string | undefined
+  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | undefined
+  id?: Array<string> | undefined
+  applicantId?: Array<string> | undefined
+  contactId?: Array<string> | undefined
+  landlordId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  recipientId?: Array<string> | undefined
+  senderId?: Array<string> | undefined
+  typeId?: Array<string> | undefined
+  tenancyId?: Array<string> | undefined
+  activatesFrom?: string | undefined
+  activatesTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
   columns: ColumnsList<TasksBody>
 }
 
 export const tasksColumnHelper = createColumnHelper<TasksBody>()
 
-export const getTasksColumn = (property: string, { label, format }: ConfigItemLookup<TasksBody>) => {
+export const getTasksColumn = (property: string, modelConfig: ModelConfig<TasksBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return tasksColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return tasksColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return tasksColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return tasksColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return tasksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('activates', () => {
+      const { label: header, format } = modelConfig['activates']
+
       return tasksColumnHelper.accessor((row) => row.activates, {
         id: 'activates',
-        header: label('activates'),
-        cell: (info) => format('activates', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('completed', () => {
+      const { label: header, format } = modelConfig['completed']
+
       return tasksColumnHelper.accessor((row) => row.completed, {
         id: 'completed',
-        header: label('completed'),
-        cell: (info) => format('completed', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeId', () => {
+      const { label: header, format } = modelConfig['typeId']
+
       return tasksColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
-        header: label('typeId'),
-        cell: (info) => format('typeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('senderId', () => {
+      const { label: header, format } = modelConfig['senderId']
+
       return tasksColumnHelper.accessor((row) => row.senderId, {
         id: 'senderId',
-        header: label('senderId'),
-        cell: (info) => format('senderId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('text', () => {
+      const { label: header, format } = modelConfig['text']
+
       return tasksColumnHelper.accessor((row) => row.text, {
         id: 'text',
-        header: label('text'),
-        cell: (info) => format('text', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('landlordId', () => {
+      const { label: header, format } = modelConfig['landlordId']
+
       return tasksColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
-        header: label('landlordId'),
-        cell: (info) => format('landlordId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return tasksColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('applicantId', () => {
+      const { label: header, format } = modelConfig['applicantId']
+
       return tasksColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
-        header: label('applicantId'),
-        cell: (info) => format('applicantId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('tenancyId', () => {
+      const { label: header, format } = modelConfig['tenancyId']
+
       return tasksColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
-        header: label('tenancyId'),
-        cell: (info) => format('tenancyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('contactId', () => {
+      const { label: header, format } = modelConfig['contactId']
+
       return tasksColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
-        header: label('contactId'),
-        cell: (info) => format('contactId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('recipientId', () => {
+      const { label: header, format } = modelConfig['recipientId']
+
       return tasksColumnHelper.accessor((row) => row.recipientId, {
         id: 'recipientId',
-        header: label('recipientId'),
-        cell: (info) => format('recipientId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('recipientType', () => {
+      const { label: header, format } = modelConfig['recipientType']
+
       return tasksColumnHelper.accessor((row) => row.recipientType, {
         id: 'recipientType',
-        header: label('recipientType'),
-        cell: (info) => format('recipientType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return tasksColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return tasksColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

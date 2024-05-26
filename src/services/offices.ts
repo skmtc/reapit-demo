@@ -4,21 +4,21 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiOfficesArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?: Array<'negotiators'> | undefined | null
-  id?: Array<string> | undefined | null
-  address?: string | undefined | null
-  name?: string | undefined | null
-  region?: string | undefined | null
-  active?: boolean | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
-  extrasField?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'negotiators'> | undefined
+  id?: Array<string> | undefined
+  address?: string | undefined
+  name?: string | undefined
+  region?: string | undefined
+  active?: boolean | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
+  extrasField?: Array<string> | undefined
 }
 export const getApiOfficesFn = async ({
   pageSize,
@@ -119,37 +119,35 @@ export const useGetApiOffices = (args: UseGetApiOfficesArgs) => {
 
   return result
 }
-export type UseCreateOfficeArgs = {
+export type UsePostApiOfficesArgs = {
   body: /** Request body used to create a new office */
   {
     name: /** The name of the office */ string
-    active?: /** A flag denoting whether or not this office is active */ boolean | undefined | null
-    manager?: /** The name of the office manager */ string | undefined | null
+    active?: /** A flag denoting whether or not this office is active */ boolean | undefined
+    manager?: /** The name of the office manager */ string | undefined
     address: /** Request body used to set the address of a new office */
     {
-      buildingName?: /** The building name */ string | undefined | null
-      buildingNumber?: /** The building number */ string | undefined | null
+      buildingName?: /** The building name */ string | undefined
+      buildingNumber?: /** The building number */ string | undefined
       line1: /** The first line of the address */ string
-      line2?: /** The second line of the address */ string | undefined | null
-      line3?: /** The third line of the address */ string | undefined | null
-      line4?: /** The fourth line of the address */ string | undefined | null
-      postcode?: /** The postcode */ string | undefined | null
-      countryId?: /** The ISO-3166 country code that the address resides within */ string | undefined | null
+      line2?: /** The second line of the address */ string | undefined
+      line3?: /** The third line of the address */ string | undefined
+      line4?: /** The fourth line of the address */ string | undefined
+      postcode?: /** The postcode */ string | undefined
+      countryId?: /** The ISO-3166 country code that the address resides within */ string | undefined
       geolocation?: /** Request body used to set the geolocation coordinates of a new address */
       | {
-            latitude?: /** The latitude coordinate of the coordinate pair */ number | undefined | null
-            longitude?: /** The longitude coordinate of the coordinate pair */ number | undefined | null
+            latitude?: /** The latitude coordinate of the coordinate pair */ number | undefined
+            longitude?: /** The longitude coordinate of the coordinate pair */ number | undefined
           }
         | undefined
-        | null
     }
-    workPhone?: /** The work phone number of the office */ string | undefined | null
-    email?: /** The email address of the office */ string | undefined | null
-    metadata?: /** App specific metadata to set against the office */
-    Record<string, Record<string, never>> | undefined | null
+    workPhone?: /** The work phone number of the office */ string | undefined
+    email?: /** The email address of the office */ string | undefined
+    metadata?: /** App specific metadata to set against the office */ Record<string, Record<string, never>> | undefined
   }
 }
-export const createOfficeFn = async ({ body }: UseCreateOfficeArgs) => {
+export const postApiOfficesFn = async ({ body }: UsePostApiOfficesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -167,12 +165,12 @@ export const createOfficeFn = async ({ body }: UseCreateOfficeArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateOffice = () => {
+export const usePostApiOffices = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createOfficeFn,
+    mutationFn: postApiOfficesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -182,8 +180,8 @@ export const useCreateOffice = () => {
 }
 export type UseGetApiOfficesIdArgs = {
   id: string
-  embed?: Array<'negotiators'> | undefined | null
-  extrasField?: Array<string> | undefined | null
+  embed?: Array<'negotiators'> | undefined
+  extrasField?: Array<string> | undefined
 }
 export const getApiOfficesIdFn = async ({ id, embed, extrasField }: UseGetApiOfficesIdArgs) => {
   const res = await fetch(
@@ -254,33 +252,30 @@ export type UsePatchApiOfficesIdArgs = {
   id: string
   body: /** Request body used to update an existing office */
   {
-    name?: /** The name of the office */ string | undefined | null
-    active?: /** A flag denoting whether or not this office is active */ boolean | undefined | null
-    manager?: /** The name of the office manager */ string | undefined | null
+    name?: /** The name of the office */ string | undefined
+    active?: /** A flag denoting whether or not this office is active */ boolean | undefined
+    manager?: /** The name of the office manager */ string | undefined
     address?: /** Request body used to update the address of an existing office */
     | {
-          buildingName?: /** The building name */ string | undefined | null
-          buildingNumber?: /** The building number */ string | undefined | null
-          line1?: /** The first line of the address */ string | undefined | null
-          line2?: /** The second line of the address */ string | undefined | null
-          line3?: /** The third line of the address */ string | undefined | null
-          line4?: /** The fourth line of the address */ string | undefined | null
-          postcode?: /** The postcode */ string | undefined | null
-          countryId?: /** The ISO-3166 country code that the address resides within */ string | undefined | null
+          buildingName?: /** The building name */ string | undefined
+          buildingNumber?: /** The building number */ string | undefined
+          line1?: /** The first line of the address */ string | undefined
+          line2?: /** The second line of the address */ string | undefined
+          line3?: /** The third line of the address */ string | undefined
+          line4?: /** The fourth line of the address */ string | undefined
+          postcode?: /** The postcode */ string | undefined
+          countryId?: /** The ISO-3166 country code that the address resides within */ string | undefined
           geolocation?: /** Request body used to set the geolocation coordinates of an existing address */
           | {
-                latitude?: /** The latitude coordinate of the coordinate pair */ number | undefined | null
-                longitude?: /** The longitude coordinate of the coordinate pair */ number | undefined | null
+                latitude?: /** The latitude coordinate of the coordinate pair */ number | undefined
+                longitude?: /** The longitude coordinate of the coordinate pair */ number | undefined
               }
             | undefined
-            | null
         }
       | undefined
-      | null
-    workPhone?: /** The work phone number of the office */ string | undefined | null
-    email?: /** The email address of the office */ string | undefined | null
-    metadata?: /** App specific metadata to set against the office */
-    Record<string, Record<string, never>> | undefined | null
+    workPhone?: /** The work phone number of the office */ string | undefined
+    email?: /** The email address of the office */ string | undefined
+    metadata?: /** App specific metadata to set against the office */ Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiOfficesIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiOfficesIdArgs) => {

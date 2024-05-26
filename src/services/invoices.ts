@@ -3,20 +3,20 @@ import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySeria
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 
 export type UseGetApiInvoicesArgs = {
-  pageNumber?: number | undefined | null
-  pageSize?: number | undefined | null
-  sortBy?: string | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  status?: Array<'pending' | 'raised' | 'partPaid' | 'partCredited' | 'credited' | 'paid'> | undefined | null
-  dateFrom?: string | undefined | null
-  dateTo?: string | undefined | null
-  dueDateFrom?: string | undefined | null
-  dueDateTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  pageNumber?: number | undefined
+  pageSize?: number | undefined
+  sortBy?: string | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  status?: Array<'pending' | 'raised' | 'partPaid' | 'partCredited' | 'credited' | 'paid'> | undefined
+  dateFrom?: string | undefined
+  dateTo?: string | undefined
+  dueDateFrom?: string | undefined
+  dueDateTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
 }
 export const getApiInvoicesFn = async ({
   pageNumber,
@@ -212,19 +212,19 @@ export const useGetApiInvoicesId = (args: UseGetApiInvoicesIdArgs) => {
   return result
 }
 export type UseGetApiInvoicesPaymentsArgs = {
-  pageNumber?: number | undefined | null
-  pageSize?: number | undefined | null
-  sortBy?: string | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  invoiceId?: Array<string> | undefined | null
-  type?: Array<'payment' | 'accountPayment' | 'advertisingPayment' | 'buyerDeposit'> | undefined | null
-  dateFrom?: string | undefined | null
-  dateTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  pageNumber?: number | undefined
+  pageSize?: number | undefined
+  sortBy?: string | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  invoiceId?: Array<string> | undefined
+  type?: Array<'payment' | 'accountPayment' | 'advertisingPayment' | 'buyerDeposit'> | undefined
+  dateFrom?: string | undefined
+  dateTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
 }
 export const getApiInvoicesPaymentsFn = async ({
   pageNumber,
@@ -345,18 +345,18 @@ export const useGetApiInvoicesPaymentsId = (args: UseGetApiInvoicesPaymentsIdArg
   return result
 }
 export type UseGetApiInvoicesCreditsArgs = {
-  pageNumber?: number | undefined | null
-  pageSize?: number | undefined | null
-  sortBy?: string | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  invoiceId?: Array<string> | undefined | null
-  dateFrom?: string | undefined | null
-  dateTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  pageNumber?: number | undefined
+  pageSize?: number | undefined
+  sortBy?: string | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  invoiceId?: Array<string> | undefined
+  dateFrom?: string | undefined
+  dateTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
 }
 export const getApiInvoicesCreditsFn = async ({
   pageNumber,
@@ -474,16 +474,16 @@ export const useGetApiInvoicesCreditsId = (args: UseGetApiInvoicesCreditsIdArgs)
   return result
 }
 export type UseGetApiInvoicesChargesArgs = {
-  pageNumber?: number | undefined | null
-  pageSize?: number | undefined | null
-  sortBy?: string | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  invoiceId?: Array<string> | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  pageNumber?: number | undefined
+  pageSize?: number | undefined
+  sortBy?: string | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  invoiceId?: Array<string> | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
 }
 export const getApiInvoicesChargesFn = async ({
   pageNumber,

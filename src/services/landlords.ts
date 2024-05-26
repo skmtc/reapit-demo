@@ -4,22 +4,22 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiLandlordsArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?: Array<'appointments' | 'documents' | 'office' | 'properties' | 'solicitor' | 'source'> | undefined | null
-  id?: Array<string> | undefined | null
-  email?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  extrasField?: Array<string> | undefined | null
-  active?: boolean | undefined | null
-  address?: string | undefined | null
-  name?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'appointments' | 'documents' | 'office' | 'properties' | 'solicitor' | 'source'> | undefined
+  id?: Array<string> | undefined
+  email?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  extrasField?: Array<string> | undefined
+  active?: boolean | undefined
+  address?: string | undefined
+  name?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiLandlordsFn = async ({
   pageSize,
@@ -139,32 +139,30 @@ export const useGetApiLandlords = (args: UseGetApiLandlordsArgs) => {
 
   return result
 }
-export type UseCreateLandlordArgs = {
+export type UsePostApiLandlordsArgs = {
   body: /** Request body used to create a new landlord */
   {
-    active?: /** A flag determining whether or not the landlord is currently active */ boolean | undefined | null
-    solicitorId?: /** The unique identifier of the company acting as the landlord's solicitor */
-    string | undefined | null
+    active?: /** A flag determining whether or not the landlord is currently active */ boolean | undefined
+    solicitorId?: /** The unique identifier of the company acting as the landlord's solicitor */ string | undefined
     officeId: /** The unique identifier of the office that is associated to the landlord */ string
     source?: /** Request body used to set the source of a new landlord */
     | {
-          id?: /** The unique identifier of the source of the landlord */ string | undefined | null
-          type?: /** The source type (office/source) */ string | undefined | null
+          id?: /** The unique identifier of the source of the landlord */ string | undefined
+          type?: /** The source type (office/source) */ string | undefined
         }
       | undefined
-      | null
     related: /** A collection of contacts and/or companies associated to the landlord. The first item in the collection is considered the primary relationship */
     Array</** Request body used to create a new relationship between a landlord and a contact or company */
     {
       associatedId?: /** The unique identifier of the contact or company to create a relationship with */
-      string | undefined | null
-      associatedType?: /** The type of relationship to create (contact/company) */ string | undefined | null
+      string | undefined
+      associatedType?: /** The type of relationship to create (contact/company) */ string | undefined
     }>
     metadata?: /** App specific metadata that to set against the landlord */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
-export const createLandlordFn = async ({ body }: UseCreateLandlordArgs) => {
+export const postApiLandlordsFn = async ({ body }: UsePostApiLandlordsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -182,12 +180,12 @@ export const createLandlordFn = async ({ body }: UseCreateLandlordArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateLandlord = () => {
+export const usePostApiLandlords = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createLandlordFn,
+    mutationFn: postApiLandlordsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -197,8 +195,8 @@ export const useCreateLandlord = () => {
 }
 export type UseGetApiLandlordsIdArgs = {
   id: string
-  embed?: Array<'appointments' | 'documents' | 'office' | 'properties' | 'solicitor' | 'source'> | undefined | null
-  extrasField?: Array<string> | undefined | null
+  embed?: Array<'appointments' | 'documents' | 'office' | 'properties' | 'solicitor' | 'source'> | undefined
+  extrasField?: Array<string> | undefined
 }
 export const getApiLandlordsIdFn = async ({ id, embed, extrasField }: UseGetApiLandlordsIdArgs) => {
   const res = await fetch(
@@ -285,19 +283,17 @@ export type UsePatchApiLandlordsIdArgs = {
   id: string
   body: /** Request body used to update an existing landlord */
   {
-    active?: /** A flag determining whether or not the landlord is currently active */ boolean | undefined | null
-    solicitorId?: /** The unique identifier of the company acting as the landlord's solicitor */
-    string | undefined | null
-    officeId?: /** The unique identifier of the office that is associated to the landlord */ string | undefined | null
+    active?: /** A flag determining whether or not the landlord is currently active */ boolean | undefined
+    solicitorId?: /** The unique identifier of the company acting as the landlord's solicitor */ string | undefined
+    officeId?: /** The unique identifier of the office that is associated to the landlord */ string | undefined
     source?: /** Request body used to update the source of an existing landlord */
     | {
-          id?: /** The unique identifier of the source of the landlord */ string | undefined | null
-          type?: /** The source type (office/source) */ string | undefined | null
+          id?: /** The unique identifier of the source of the landlord */ string | undefined
+          type?: /** The source type (office/source) */ string | undefined
         }
       | undefined
-      | null
     metadata?: /** App specific metadata that to set against the landlord */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiLandlordsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiLandlordsIdArgs) => {
@@ -333,8 +329,8 @@ export const usePatchApiLandlordsId = () => {
 }
 export type UseGetApiLandlordsIdRelationshipsArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiLandlordsIdRelationshipsFn = async ({
   id,
@@ -397,7 +393,7 @@ export const useGetApiLandlordsIdRelationships = (args: UseGetApiLandlordsIdRela
 
   return result
 }
-export type UseCreateLandlordRelationshipArgs = {
+export type UsePostApiLandlordsIdRelationshipsArgs = {
   id: string
   body: /** Request body used to create or update a relationship between a landlord and a contact or company */
   {
@@ -407,7 +403,7 @@ export type UseCreateLandlordRelationshipArgs = {
     boolean
   }
 }
-export const createLandlordRelationshipFn = async ({ id, body }: UseCreateLandlordRelationshipArgs) => {
+export const postApiLandlordsIdRelationshipsFn = async ({ id, body }: UsePostApiLandlordsIdRelationshipsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -425,12 +421,12 @@ export const createLandlordRelationshipFn = async ({ id, body }: UseCreateLandlo
 
   return z.void().parse(data)
 }
-export const useCreateLandlordRelationship = () => {
+export const usePostApiLandlordsIdRelationships = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createLandlordRelationshipFn,
+    mutationFn: postApiLandlordsIdRelationshipsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

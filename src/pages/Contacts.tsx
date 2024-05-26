@@ -1,9 +1,5 @@
 import { SharedTable } from '@/components/SharedTable'
-import {
-  ColumnsList,
-  ModelConfig,
-  NotImplemented
-} from '@/components/ModelRuntimeConfig'
+import { ColumnsList, ModelConfig } from '@/components/ModelRuntimeConfig'
 import Box from '@mui/joy/Box'
 import Typography from '@mui/joy/Typography'
 import Button from '@mui/joy/Button'
@@ -14,47 +10,19 @@ import {
   useContactsTable
 } from '@/tables/contacts'
 import { createConfig } from '@/components/ModelRuntimeConfig'
-import Link from '@mui/joy/Link'
-
-export const contactConfig: ModelConfig<ContactsBody> = {
-  id: {
-    key: 'id',
-    label: 'Id',
-    format: value => (
-      <Link component={RouterLink} to={`/deployments/${value}`}>
-        {value}
-      </Link>
-    ),
-    Input: NotImplemented
-  }
-}
-
-const contactsConfig: ModelConfig<ContactsBody> = {
-  id: {
-    key: 'id',
-    label: 'Id',
-    Input: NotImplemented,
-    format: value => (
-      <Link component={RouterLink} to={`/deployments/${value}`}>
-        {value}
-      </Link>
-    )
-  },
-  surname: {
-    key: 'surname',
-    label: 'Surname',
-    Input: NotImplemented,
-    format: value => value
-  }
-}
+import { createContactsConfig } from '@/forms/contacts'
 
 const contactTableConfig: ModelConfig<ContactsBody> = createConfig(
-  contactsConfig,
-  contactConfig
+  createContactsConfig,
+  createContactsConfig
 )
+
+console.log('contactTableConfig', contactTableConfig)
 
 export const Contacts = () => {
   const cols: (keyof ContactsBody)[] = ['id', 'surname']
+
+  console.log('contactTableConfig', contactTableConfig)
 
   const columns: ColumnsList<ContactsBody> = cols.map(col =>
     getContactsColumn(col, contactTableConfig)

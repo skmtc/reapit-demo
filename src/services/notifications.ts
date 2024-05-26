@@ -3,27 +3,25 @@ import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySeria
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
-export type UseCreateNotificationArgs = {
+export type UsePostApiNotificationsArgs = {
   body: /** Payload for creating a notification */
   {
-    type?: /** The notification type (telephony) */ string | undefined | null
-    subType?: /** The sub category type (answeredCall/endedCall/incomingCall/missedCall) */ string | undefined | null
-    products?: /** The products the notification is associated to, and will be delivered to */
-    Array<string> | undefined | null
+    type?: /** The notification type (telephony) */ string | undefined
+    subType?: /** The sub category type (answeredCall/endedCall/incomingCall/missedCall) */ string | undefined
+    products?: /** The products the notification is associated to, and will be delivered to */ Array<string> | undefined
     targets?: /** Payload for defining notification targets */
     | {
           negotiatorId?: /** The identifier of the negotiators whom should receive the notification */
-          Array<string> | undefined | null
+          Array<string> | undefined
         }
       | undefined
-      | null
     payload?: /** The payload to deliver to the specified target(s). Note that the payload must match the expected format
 based on the type/subType combination and will be validated accordingly. Please refer to [the documentation](https://foundations-documentation.reapit.cloud/api/notifications)
 for more information */
-    Record<string, never> | undefined | null
+    Record<string, never> | undefined
   }
 }
-export const createNotificationFn = async ({ body }: UseCreateNotificationArgs) => {
+export const postApiNotificationsFn = async ({ body }: UsePostApiNotificationsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/notifications/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -41,12 +39,12 @@ export const createNotificationFn = async ({ body }: UseCreateNotificationArgs) 
 
   return z.void().parse(data)
 }
-export const useCreateNotification = () => {
+export const usePostApiNotifications = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createNotificationFn,
+    mutationFn: postApiNotificationsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

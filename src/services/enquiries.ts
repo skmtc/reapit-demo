@@ -4,14 +4,14 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiEnquiriesArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  enquiryType?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  enquiryType?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
 }
 export const getApiEnquiriesFn = async ({
   pageSize,
@@ -122,14 +122,14 @@ export const useGetApiEnquiries = (args: UseGetApiEnquiriesArgs) => {
 
   return result
 }
-export type UseCreateEnquiryArgs = {
+export type UsePostApiEnquiriesArgs = {
   body: /** Request body used to create an enquiry */
   {
     title: /** The title of the individual making the enquiry */ string
     forename: /** The forename of the individual making the enquiry */ string
     surname: /** The surname of the individual making the enquiry */ string
     position?: /** The selling position of the individual making the enquiry (renting/instructedThisAgent/instructedOtherAgent/privateSale/notOnMarket) */
-    string | undefined | null
+    string | undefined
     enquiryType: /** The type of enquiry. Enquiries can created for applicants interested in buying/renting, as well as prospective vendors and landlords (salesApplicant/lettingsApplicant/salesProperty/lettingsProperty) */
     string
     message: /** Textual information about the nature of the enquiry - usually the message text from the individual making the enquiry */
@@ -139,48 +139,45 @@ export type UseCreateEnquiryArgs = {
     string
     sourceName: /** The name of the source that the enquiry was generated from */ string
     homePhone?: /** The home phone number of the individual making the enquiry (Required when no other contact details are given) */
-    string | undefined | null
+    string | undefined
     workPhone?: /** The work phone number of the individual making the enquiry (Required when no other contact details are given) */
-    string | undefined | null
+    string | undefined
     mobilePhone?: /** The mobile phone number of the individual making the enquiry (Required when no other contact details are given) */
-    string | undefined | null
+    string | undefined
     email?: /** The email of the individual making the enquiry (Required when no other contact details are given) */
-    string | undefined | null
+    string | undefined
     address?: /** Request body used to create a enquiries address */
     | {
-          buildingName?: /** Sets the building name */ string | undefined | null
-          buildingNumber?: /** Sets the building number */ string | undefined | null
-          line1?: /** Sets the first line of the address */ string | undefined | null
-          line2?: /** Sets the second line of the address */ string | undefined | null
-          line3?: /** Sets the third line of the address */ string | undefined | null
-          line4?: /** Sets the fourth line of the address */ string | undefined | null
-          postcode?: /** Sets the postcode */ string | undefined | null
-          countryId?: /** Sets the ISO-3166 country code that the address resides within */ string | undefined | null
+          buildingName?: /** Sets the building name */ string | undefined
+          buildingNumber?: /** Sets the building number */ string | undefined
+          line1?: /** Sets the first line of the address */ string | undefined
+          line2?: /** Sets the second line of the address */ string | undefined
+          line3?: /** Sets the third line of the address */ string | undefined
+          line4?: /** Sets the fourth line of the address */ string | undefined
+          postcode?: /** Sets the postcode */ string | undefined
+          countryId?: /** Sets the ISO-3166 country code that the address resides within */ string | undefined
         }
       | undefined
-      | null
     buying?: /** The details specific to a buying enquiry */
     | {
-          priceFrom?: /** The lower bound of the prospective buyer's budget */ number | undefined | null
-          priceTo?: /** The upper bound of the prospective buyer's budget */ number | undefined | null
+          priceFrom?: /** The lower bound of the prospective buyer's budget */ number | undefined
+          priceTo?: /** The upper bound of the prospective buyer's budget */ number | undefined
         }
       | undefined
-      | null
     renting?: /** The details specific to renting enquiry. When type is renting. */
     | {
-          rentFrom?: /** The lower bound of the prospective tenant's budget */ number | undefined | null
-          rentTo?: /** The upper bound of the prospective tenant's budget */ number | undefined | null
+          rentFrom?: /** The lower bound of the prospective tenant's budget */ number | undefined
+          rentTo?: /** The upper bound of the prospective tenant's budget */ number | undefined
           rentFrequency?: /** The desired rent collection frequency specified by the prospective tenant (weekly/monthly/annually). */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
-    bedrooms?: /** The number of bedrooms the prospective buyer or tenant requires */ number | undefined | null
+    bedrooms?: /** The number of bedrooms the prospective buyer or tenant requires */ number | undefined
     propertyIds?: /** A list of unique property identifiers that the enquiry relates to. Used to indicate the properties that a sales or lettings applicant has expressed an interest in */
-    Array<string> | undefined | null
+    Array<string> | undefined
   }
 }
-export const createEnquiryFn = async ({ body }: UseCreateEnquiryArgs) => {
+export const postApiEnquiriesFn = async ({ body }: UsePostApiEnquiriesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/enquiries/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -198,12 +195,12 @@ export const createEnquiryFn = async ({ body }: UseCreateEnquiryArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateEnquiry = () => {
+export const usePostApiEnquiries = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createEnquiryFn,
+    mutationFn: postApiEnquiriesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -295,9 +292,9 @@ export type UsePatchApiEnquiriesIdArgs = {
   id: number
   body: /** Request body used to update an existing enquiry */
   {
-    applicantId?: /** The unique identifier of the applicant associated to the enquiry */ string | undefined | null
+    applicantId?: /** The unique identifier of the applicant associated to the enquiry */ string | undefined
     status?: /** The status of the enquiry (added/alreadyExists/duplicateEntry/pending/rejected/spam) */
-    string | undefined | null
+    string | undefined
   }
 }
 export const patchApiEnquiriesIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiEnquiriesIdArgs) => {

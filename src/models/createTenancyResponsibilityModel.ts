@@ -13,3 +13,14 @@ export const createTenancyResponsibilityModel = z.object({
     .nullable()
     .optional(),
 })
+/** Request body used to set a tenancy responsibility */
+export type CreateTenancyResponsibilityModel = {
+  typeId?: /** The identifier of the associated to the responsibility */ string | undefined
+  appliesTo?: /** The responsible party (landlord/tenant) */ string | undefined
+  agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
+  | {
+        landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
+        tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
+      }
+    | undefined
+}

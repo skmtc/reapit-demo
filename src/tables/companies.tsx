@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiCompanies, useGetApiCompaniesIdRelationships } from '@/services/companies.ts'
@@ -74,82 +74,77 @@ export const companiesBody = z.object({
     .optional(),
 })
 export type CompaniesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  name?: string | undefined | null
-  branch?: string | undefined | null
-  notes?: string | undefined | null
-  active?: boolean | undefined | null
-  marketingConsent?: string | undefined | null
-  vatRegistered?: boolean | undefined | null
-  typeIds?: Array<string> | undefined | null
-  supplierTypeId?: string | undefined | null
-  workPhone?: string | undefined | null
-  mobilePhone?: string | undefined | null
-  email?: string | undefined | null
-  archivedOn?: string | undefined | null
-  fromArchive?: boolean | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  name?: string | undefined
+  branch?: string | undefined
+  notes?: string | undefined
+  active?: boolean | undefined
+  marketingConsent?: string | undefined
+  vatRegistered?: boolean | undefined
+  typeIds?: Array<string> | undefined
+  supplierTypeId?: string | undefined
+  workPhone?: string | undefined
+  mobilePhone?: string | undefined
+  email?: string | undefined
+  archivedOn?: string | undefined
+  fromArchive?: boolean | undefined
   address?:
     | {
-        buildingName?: string | undefined | null
-        buildingNumber?: string | undefined | null
-        line1?: string | undefined | null
-        line2?: string | undefined | null
-        line3?: string | undefined | null
-        line4?: string | undefined | null
-        postcode?: string | undefined | null
-        country?: string | undefined | null
+        buildingName?: string | undefined
+        buildingNumber?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        line3?: string | undefined
+        line4?: string | undefined
+        postcode?: string | undefined
+        country?: string | undefined
       }
     | undefined
-    | null
-  payments?: { nominalAccountId?: string | undefined | null } | undefined | null
-  additionalContactDetails?:
-    | Array<{ type?: string | undefined | null; value?: string | undefined | null }>
-    | undefined
-    | null
-  officeIds?: Array<string> | undefined | null
-  negotiatorIds?: Array<string> | undefined | null
-  communicationPreferenceLetter?: boolean | undefined | null
-  communicationPreferenceEmail?: boolean | undefined | null
-  communicationPreferencePhone?: boolean | undefined | null
-  communicationPreferenceSms?: boolean | undefined | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
+  payments?: { nominalAccountId?: string | undefined } | undefined
+  additionalContactDetails?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
+  officeIds?: Array<string> | undefined
+  negotiatorIds?: Array<string> | undefined
+  communicationPreferenceLetter?: boolean | undefined
+  communicationPreferenceEmail?: boolean | undefined
+  communicationPreferencePhone?: boolean | undefined
+  communicationPreferenceSms?: boolean | undefined
+  metadata?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
   relationships?:
     | Array<{
-        _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-        _embedded?: Record<string, Record<string, never>> | undefined | null
-        id?: string | undefined | null
-        created?: string | undefined | null
-        modified?: string | undefined | null
-        companyId?: string | undefined | null
-        associatedType?: string | undefined | null
-        associatedId?: string | undefined | null
-        fromArchive?: boolean | undefined | null
+        _links?: Record<string, { href?: string | undefined }> | undefined
+        _embedded?: Record<string, Record<string, never>> | undefined
+        id?: string | undefined
+        created?: string | undefined
+        modified?: string | undefined
+        companyId?: string | undefined
+        associatedType?: string | undefined
+        associatedId?: string | undefined
+        fromArchive?: boolean | undefined
       }>
     | undefined
-    | null
 }
 export type CompaniesArgs = {
-  sortBy?: string | undefined | null
-  embed?: Array<'companyTypes' | 'relationships'> | undefined | null
-  id?: Array<string> | undefined | null
-  address?: string | undefined | null
-  branch?: string | undefined | null
-  name?: string | undefined | null
-  typeId?: string | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  contactDetail?: Array<string> | undefined | null
-  fromArchive?: boolean | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  sortBy?: string | undefined
+  embed?: Array<'companyTypes' | 'relationships'> | undefined
+  id?: Array<string> | undefined
+  address?: string | undefined
+  branch?: string | undefined
+  name?: string | undefined
+  typeId?: string | undefined
+  negotiatorId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  contactDetail?: Array<string> | undefined
+  fromArchive?: boolean | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
   columns: ColumnsList<CompaniesBody>
 }
 export const companiesIdRelationshipsBody = z.object({
@@ -167,230 +162,290 @@ export const companiesIdRelationshipsBody = z.object({
   fromArchive: z.boolean().nullable().optional(),
 })
 export type CompaniesIdRelationshipsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  companyId?: string | undefined | null
-  associatedType?: string | undefined | null
-  associatedId?: string | undefined | null
-  fromArchive?: boolean | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  companyId?: string | undefined
+  associatedType?: string | undefined
+  associatedId?: string | undefined
+  fromArchive?: boolean | undefined
 }
 export type CompaniesIdRelationshipsArgs = { id: string; columns: ColumnsList<CompaniesIdRelationshipsBody> }
 
 export const companiesColumnHelper = createColumnHelper<CompaniesBody>()
 
-export const getCompaniesColumn = (property: string, { label, format }: ConfigItemLookup<CompaniesBody>) => {
+export const getCompaniesColumn = (property: string, modelConfig: ModelConfig<CompaniesBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return companiesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return companiesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return companiesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return companiesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return companiesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('name', () => {
+      const { label: header, format } = modelConfig['name']
+
       return companiesColumnHelper.accessor((row) => row.name, {
         id: 'name',
-        header: label('name'),
-        cell: (info) => format('name', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('branch', () => {
+      const { label: header, format } = modelConfig['branch']
+
       return companiesColumnHelper.accessor((row) => row.branch, {
         id: 'branch',
-        header: label('branch'),
-        cell: (info) => format('branch', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('notes', () => {
+      const { label: header, format } = modelConfig['notes']
+
       return companiesColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
-        header: label('notes'),
-        cell: (info) => format('notes', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('active', () => {
+      const { label: header, format } = modelConfig['active']
+
       return companiesColumnHelper.accessor((row) => row.active, {
         id: 'active',
-        header: label('active'),
-        cell: (info) => format('active', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('marketingConsent', () => {
+      const { label: header, format } = modelConfig['marketingConsent']
+
       return companiesColumnHelper.accessor((row) => row.marketingConsent, {
         id: 'marketingConsent',
-        header: label('marketingConsent'),
-        cell: (info) => format('marketingConsent', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('vatRegistered', () => {
+      const { label: header, format } = modelConfig['vatRegistered']
+
       return companiesColumnHelper.accessor((row) => row.vatRegistered, {
         id: 'vatRegistered',
-        header: label('vatRegistered'),
-        cell: (info) => format('vatRegistered', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeIds', () => {
+      const { label: header, format } = modelConfig['typeIds']
+
       return companiesColumnHelper.accessor((row) => row.typeIds, {
         id: 'typeIds',
-        header: label('typeIds'),
-        cell: (info) => format('typeIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('supplierTypeId', () => {
+      const { label: header, format } = modelConfig['supplierTypeId']
+
       return companiesColumnHelper.accessor((row) => row.supplierTypeId, {
         id: 'supplierTypeId',
-        header: label('supplierTypeId'),
-        cell: (info) => format('supplierTypeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('workPhone', () => {
+      const { label: header, format } = modelConfig['workPhone']
+
       return companiesColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
-        header: label('workPhone'),
-        cell: (info) => format('workPhone', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('mobilePhone', () => {
+      const { label: header, format } = modelConfig['mobilePhone']
+
       return companiesColumnHelper.accessor((row) => row.mobilePhone, {
         id: 'mobilePhone',
-        header: label('mobilePhone'),
-        cell: (info) => format('mobilePhone', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('email', () => {
+      const { label: header, format } = modelConfig['email']
+
       return companiesColumnHelper.accessor((row) => row.email, {
         id: 'email',
-        header: label('email'),
-        cell: (info) => format('email', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('archivedOn', () => {
+      const { label: header, format } = modelConfig['archivedOn']
+
       return companiesColumnHelper.accessor((row) => row.archivedOn, {
         id: 'archivedOn',
-        header: label('archivedOn'),
-        cell: (info) => format('archivedOn', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('fromArchive', () => {
+      const { label: header, format } = modelConfig['fromArchive']
+
       return companiesColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
-        header: label('fromArchive'),
-        cell: (info) => format('fromArchive', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('address', () => {
+      const { label: header, format } = modelConfig['address']
+
       return companiesColumnHelper.accessor((row) => row.address, {
         id: 'address',
-        header: label('address'),
-        cell: (info) => format('address', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('payments', () => {
+      const { label: header, format } = modelConfig['payments']
+
       return companiesColumnHelper.accessor((row) => row.payments, {
         id: 'payments',
-        header: label('payments'),
-        cell: (info) => format('payments', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('additionalContactDetails', () => {
+      const { label: header, format } = modelConfig['additionalContactDetails']
+
       return companiesColumnHelper.accessor((row) => row.additionalContactDetails, {
         id: 'additionalContactDetails',
-        header: label('additionalContactDetails'),
-        cell: (info) => format('additionalContactDetails', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('officeIds', () => {
+      const { label: header, format } = modelConfig['officeIds']
+
       return companiesColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
-        header: label('officeIds'),
-        cell: (info) => format('officeIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorIds', () => {
+      const { label: header, format } = modelConfig['negotiatorIds']
+
       return companiesColumnHelper.accessor((row) => row.negotiatorIds, {
         id: 'negotiatorIds',
-        header: label('negotiatorIds'),
-        cell: (info) => format('negotiatorIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('communicationPreferenceLetter', () => {
+      const { label: header, format } = modelConfig['communicationPreferenceLetter']
+
       return companiesColumnHelper.accessor((row) => row.communicationPreferenceLetter, {
         id: 'communicationPreferenceLetter',
-        header: label('communicationPreferenceLetter'),
-        cell: (info) => format('communicationPreferenceLetter', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('communicationPreferenceEmail', () => {
+      const { label: header, format } = modelConfig['communicationPreferenceEmail']
+
       return companiesColumnHelper.accessor((row) => row.communicationPreferenceEmail, {
         id: 'communicationPreferenceEmail',
-        header: label('communicationPreferenceEmail'),
-        cell: (info) => format('communicationPreferenceEmail', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('communicationPreferencePhone', () => {
+      const { label: header, format } = modelConfig['communicationPreferencePhone']
+
       return companiesColumnHelper.accessor((row) => row.communicationPreferencePhone, {
         id: 'communicationPreferencePhone',
-        header: label('communicationPreferencePhone'),
-        cell: (info) => format('communicationPreferencePhone', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('communicationPreferenceSms', () => {
+      const { label: header, format } = modelConfig['communicationPreferenceSms']
+
       return companiesColumnHelper.accessor((row) => row.communicationPreferenceSms, {
         id: 'communicationPreferenceSms',
-        header: label('communicationPreferenceSms'),
-        cell: (info) => format('communicationPreferenceSms', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return companiesColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return companiesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('relationships', () => {
+      const { label: header, format } = modelConfig['relationships']
+
       return companiesColumnHelper.accessor((row) => row.relationships, {
         id: 'relationships',
-        header: label('relationships'),
-        cell: (info) => format('relationships', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -435,70 +490,88 @@ export const companiesIdRelationshipsColumnHelper = createColumnHelper<Companies
 
 export const getCompaniesIdRelationshipsColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<CompaniesIdRelationshipsBody>,
+  modelConfig: ModelConfig<CompaniesIdRelationshipsBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return companiesIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return companiesIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('companyId', () => {
+      const { label: header, format } = modelConfig['companyId']
+
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
-        header: label('companyId'),
-        cell: (info) => format('companyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('associatedType', () => {
+      const { label: header, format } = modelConfig['associatedType']
+
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
-        header: label('associatedType'),
-        cell: (info) => format('associatedType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('associatedId', () => {
+      const { label: header, format } = modelConfig['associatedId']
+
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
-        header: label('associatedId'),
-        cell: (info) => format('associatedId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('fromArchive', () => {
+      const { label: header, format } = modelConfig['fromArchive']
+
       return companiesIdRelationshipsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
-        header: label('fromArchive'),
-        cell: (info) => format('fromArchive', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

@@ -4,9 +4,9 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiApplicantsArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
   embed?:
     | Array<
         | 'appointments'
@@ -20,27 +20,24 @@ export type UseGetApiApplicantsArgs = {
         | 'source'
       >
     | undefined
-    | null
-  id?: Array<string> | undefined | null
-  age?: Array<'period' | 'new' | 'modern' | 'old'> | undefined | null
-  contactDetail?: Array<string> | undefined | null
-  emailAddresses?: Array<string> | undefined | null
-  furnishing?: Array<'furnished' | 'unfurnished' | 'partFurnished'> | undefined | null
-  locality?: Array<'rural' | 'village' | 'townCity'> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
+  id?: Array<string> | undefined
+  age?: Array<'period' | 'new' | 'modern' | 'old'> | undefined
+  contactDetail?: Array<string> | undefined
+  emailAddresses?: Array<string> | undefined
+  furnishing?: Array<'furnished' | 'unfurnished' | 'partFurnished'> | undefined
+  locality?: Array<'rural' | 'village' | 'townCity'> | undefined
+  negotiatorId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
   parking?:
     | Array<
         'residents' | 'offStreet' | 'secure' | 'underground' | 'garage' | 'doubleGarage' | 'tripleGarage' | 'carport'
       >
     | undefined
-    | null
   situation?:
     | Array<
         'garden' | 'land' | 'patio' | 'roofTerrace' | 'conservatory' | 'balcony' | 'communalGardens' | 'outsideSpace'
       >
     | undefined
-    | null
   style?:
     | Array<
         | 'terraced'
@@ -59,7 +56,6 @@ export type UseGetApiApplicantsArgs = {
         | 'duplex'
       >
     | undefined
-    | null
   type?:
     | Array<
         | 'house'
@@ -74,34 +70,33 @@ export type UseGetApiApplicantsArgs = {
         | 'developmentPlot'
       >
     | undefined
-    | null
-  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | undefined | null
-  address?: string | undefined | null
-  departmentId?: string | undefined | null
-  marketingMode?: Array<'buying' | 'renting'> | undefined | null
-  name?: string | undefined | null
-  nameType?: Array<'surname' | 'initials' | 'full' | 'companyName'> | undefined | null
-  priceFrom?: number | undefined | null
-  priceTo?: number | undefined | null
-  rentFrom?: number | undefined | null
-  rentTo?: number | undefined | null
-  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | undefined | null
-  bedroomsFrom?: number | undefined | null
-  bedroomsTo?: number | undefined | null
-  active?: boolean | undefined | null
-  fromArchive?: boolean | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  hasLastCall?: boolean | undefined | null
-  lastCallFrom?: string | undefined | null
-  lastCallTo?: string | undefined | null
-  nextCallFrom?: string | undefined | null
-  nextCallTo?: string | undefined | null
-  hasNextCall?: boolean | undefined | null
-  metadata?: Array<string> | undefined | null
-  locationOptions?: string | undefined | null
+  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | undefined
+  address?: string | undefined
+  departmentId?: string | undefined
+  marketingMode?: Array<'buying' | 'renting'> | undefined
+  name?: string | undefined
+  nameType?: Array<'surname' | 'initials' | 'full' | 'companyName'> | undefined
+  priceFrom?: number | undefined
+  priceTo?: number | undefined
+  rentFrom?: number | undefined
+  rentTo?: number | undefined
+  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | undefined
+  bedroomsFrom?: number | undefined
+  bedroomsTo?: number | undefined
+  active?: boolean | undefined
+  fromArchive?: boolean | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  hasLastCall?: boolean | undefined
+  lastCallFrom?: string | undefined
+  lastCallTo?: string | undefined
+  nextCallFrom?: string | undefined
+  nextCallTo?: string | undefined
+  hasNextCall?: boolean | undefined
+  metadata?: Array<string> | undefined
+  locationOptions?: string | undefined
 }
 export const getApiApplicantsFn = async ({
   pageSize,
@@ -338,131 +333,120 @@ export const useGetApiApplicants = (args: UseGetApiApplicantsArgs) => {
 
   return result
 }
-export type UseCreateApplicantArgs = {
+export type UsePostApiApplicantsArgs = {
   body: /** Request body used to create a new applicant */
   {
     marketingMode: /** Indicates whether the applicant is look to buy or rent a property (buying/renting) */ string
     currency?: /** The ISO-4217 currency code that relates to monetary amounts specified by the applicant
 Where not specified this will default to the customer's base currency */
-    string | undefined | null
+    string | undefined
     active?: /** A flag determining whether or not the applicant is actively looking for a property */
-    boolean | undefined | null
-    notes?: /** A free text field describing any adhoc buying or renting requirements */ string | undefined | null
-    statusId?: /** The status id of the applicant */ string | undefined | null
+    boolean | undefined
+    notes?: /** A free text field describing any adhoc buying or renting requirements */ string | undefined
+    statusId?: /** The status id of the applicant */ string | undefined
     sellingStatus?: /** The applicant's selling status (preAppraisal/valuation/paidValuation/forSale/forSaleUnavailable/underOffer/underOfferUnavailable/reserved/exchanged/completed/soldExternally/withdrawn) */
-    string | undefined | null
+    string | undefined
     sellingPosition?: /** The applicant's selling position (nothingToSell/renting/sellingWithUs/sellingWithOtherAgent/sellingPrivately/notYetOnMarket) */
-    string | undefined | null
-    lastCall?: /** The date when the applicant was last contacted */ string | undefined | null
-    nextCall?: /** The date when the applicant is next due to be contacted */ string | undefined | null
+    string | undefined
+    lastCall?: /** The date when the applicant was last contacted */ string | undefined
+    nextCall?: /** The date when the applicant is next due to be contacted */ string | undefined
     departmentId: /** The unique identifier of the department the applicant is associated with. The applicant will only match to properties with the same values set. See the [Platform Glossary](https://foundations-documentation.reapit.cloud/platform-glossary#department) for more information about departments */
     string
-    solicitorId?: /** The unique identifier of the solicitor associated to the applicant */ string | undefined | null
-    potentialClient?: /** A flag determining whether or not the applicant is a potential client */
-    boolean | undefined | null
+    solicitorId?: /** The unique identifier of the solicitor associated to the applicant */ string | undefined
+    potentialClient?: /** A flag determining whether or not the applicant is a potential client */ boolean | undefined
     type?: /** The applicant's property type requirements (eg house, bungalow, land), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     style?: /** The applicant's property style requirements (eg detached, semiDetached), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     situation?: /** The applicant's requirements for other aspects of prospective properties - such as outside space - as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     parking?: /** The applicant's parking requirements (eg garage), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     age?: /** The applicant's property age requirements (eg new, period), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     locality?: /** The applicant's general property location requirements (eg rural, townCity), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     specialFeatures?: /** The applicant's special feature property requirements (eg Swimming Pool, Tennis Court), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
-    bedroomsMin?: /** The minimum number of bedrooms the applicant requires */ number | undefined | null
-    bedroomsMax?: /** The maximum number of bedrooms the applicant requires */ number | undefined | null
-    receptionsMin?: /** The minimum number of reception rooms the applicant requires */ number | undefined | null
-    receptionsMax?: /** The maximum number of reception rooms the applicant requires */ number | undefined | null
-    bathroomsMin?: /** The minimum number of bathrooms the applicant requires */ number | undefined | null
-    bathroomsMax?: /** The maximum number of bathrooms the applicant requires */ number | undefined | null
-    parkingSpacesMin?: /** The minimum number of parking spaces the applicant requires */ number | undefined | null
-    parkingSpacesMax?: /** The maximum number of parking spaces the applicant requires */ number | undefined | null
-    locationType?: /** The applicant's location type (areas/addresses/none) */ string | undefined | null
-    locationOptions?: /** The applicant's location options */ Array<string> | undefined | null
+    Array<string> | undefined
+    bedroomsMin?: /** The minimum number of bedrooms the applicant requires */ number | undefined
+    bedroomsMax?: /** The maximum number of bedrooms the applicant requires */ number | undefined
+    receptionsMin?: /** The minimum number of reception rooms the applicant requires */ number | undefined
+    receptionsMax?: /** The maximum number of reception rooms the applicant requires */ number | undefined
+    bathroomsMin?: /** The minimum number of bathrooms the applicant requires */ number | undefined
+    bathroomsMax?: /** The maximum number of bathrooms the applicant requires */ number | undefined
+    parkingSpacesMin?: /** The minimum number of parking spaces the applicant requires */ number | undefined
+    parkingSpacesMax?: /** The maximum number of parking spaces the applicant requires */ number | undefined
+    locationType?: /** The applicant's location type (areas/addresses/none) */ string | undefined
+    locationOptions?: /** The applicant's location options */ Array<string> | undefined
     buying?: /** The details specific to applicants with a marketingMode of buying */
     | {
-          reasonId?: /** The identifier of the applicant's buying reason */ string | undefined | null
-          positionId?: /** The identifier of the applicant's selling position */ string | undefined | null
+          reasonId?: /** The identifier of the applicant's buying reason */ string | undefined
+          positionId?: /** The identifier of the applicant's selling position */ string | undefined
           priceFrom?: /** The lower bound of the applicant's budget. (Required when 'marketingMode' is 'buying' and 'priceTo' is not provided) */
-          number | undefined | null
+          number | undefined
           priceTo?: /** The upper bound of the applicant's budget. (Required when 'marketingMode' is 'buying' and 'priceFrom' is not provided) */
-          number | undefined | null
+          number | undefined
           decoration?: /** A list of property decoration requirements taken from the full listing of the associated department (unmodernised/fair/good/veryGood) */
-          Array<string> | undefined | null
+          Array<string> | undefined
           tenure?: /** A list of tenure requirements taken from the full listing of the associated department (freehold/leasehold/shareOfFreehold) */
-          Array<string> | undefined | null
+          Array<string> | undefined
           mortgageExpiry?: /** The date when the applicant's current mortgage expires/is due for renewal */
-          string | undefined | null
+          string | undefined
           leaseRemaining?: /** The details specific to the applicant's lease term requirements where they are interested in properties with a leasehold tenure */
           | {
                 min?: /** The minimum number of years that must remain on the lease of a leasehold property */
-                number | undefined | null
+                number | undefined
                 max?: /** The maximum number of years that must remain on the lease of a leasehold property */
-                number | undefined | null
+                number | undefined
               }
             | undefined
-            | null
         }
       | undefined
-      | null
     renting?: /** The details specific to applicants with a marketingMode of renting */
     | {
-          moveDate?: /** The date the applicant is looking to move to a new property */ string | undefined | null
-          term?: /** The applicant's preferred letting term (long/short/any) */ string | undefined | null
+          moveDate?: /** The date the applicant is looking to move to a new property */ string | undefined
+          term?: /** The applicant's preferred letting term (long/short/any) */ string | undefined
           rentFrom?: /** The lower bound of the applicant's budget. (Required when 'marketingMode' is 'renting' and 'rentTo' is 0) */
-          number | undefined | null
+          number | undefined
           rentTo?: /** The upper bound of the applicant's budget. (Required when 'marketingMode' is 'renting' and 'rentFrom' is 0) */
-          number | undefined | null
+          number | undefined
           rentFrequency?: /** The desired rent collection frequency specified by the applicant's budget (weekly/monthly/annually/fourWeekly). */
-          string | undefined | null
+          string | undefined
           furnishing?: /** A list of property furnishing requirements taken from the full listing of the associated department */
-          Array<string> | undefined | null
-          positionId?: /** The identifier of the applicant's renting position */ string | undefined | null
+          Array<string> | undefined
+          positionId?: /** The identifier of the applicant's renting position */ string | undefined
         }
       | undefined
-      | null
     externalArea?: /** The applicant's outdoor space requirements */
     | {
-          type?: /** The unit of area that each amount corresponds to (acres/hectares) */ string | undefined | null
+          type?: /** The unit of area that each amount corresponds to (acres/hectares) */ string | undefined
           amountFrom?: /** The minimum unit value of outside space that the applicant is looking for */
-          number | undefined | null
-          amountTo?: /** The maximum unit value of outside space that the applicant is looking for */
-          number | undefined | null
+          number | undefined
+          amountTo?: /** The maximum unit value of outside space that the applicant is looking for */ number | undefined
         }
       | undefined
-      | null
     internalArea?: /** The applicant's indoor space requirements */
     | {
-          type?: /** The unit of area that each amount corresponds to (squareFeet/squareMetres) */
-          string | undefined | null
-          amount?: /** The unit value of inside space that the applicant is looking for */ number | undefined | null
+          type?: /** The unit of area that each amount corresponds to (squareFeet/squareMetres) */ string | undefined
+          amount?: /** The unit value of inside space that the applicant is looking for */ number | undefined
         }
       | undefined
-      | null
     source?: /** An applicant's source of enquiry */
     | {
-          id?: /** The unique identifier of the applicant's source */ string | undefined | null
-          type?: /** The source type (office/source) */ string | undefined | null
+          id?: /** The unique identifier of the applicant's source */ string | undefined
+          type?: /** The source type (office/source) */ string | undefined
         }
       | undefined
-      | null
     regional?: /** Details relating to the real estate market in specific countries. Child models are named based on the ISO3166 country code that the data inside the model relates to */
     | {
           ggy?: /** Details of regional information specific to Guernsey */
           | {
                 market?: /** Requirements describing which markets the applicant is looking for properties in (local/openA/openB/openC/openD) */
-                Array<string> | undefined | null
+                Array<string> | undefined
               }
             | undefined
-            | null
         }
       | undefined
-      | null
     officeIds: /** A collection of unique identifiers of offices attached to the applicant. The first item in the collection is considered the primary office */
     Array<string>
     negotiatorIds: /** A collection of unique identifiers of negotiators attached to the applicant. The first item in the collection is considered the primary negotiator */
@@ -471,13 +455,13 @@ Where not specified this will default to the customer's base currency */
     Array</** Request body used to create a relationship between an applicant and a contact or company */
     {
       associatedId: /** The unique identifier of the contact or company to create a relationship with */ string
-      associatedType?: /** The type of relationship to create (contact/company) */ string | undefined | null
+      associatedType?: /** The type of relationship to create (contact/company) */ string | undefined
     }>
     metadata?: /** App specific metadata to set against the applicant */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
-export const createApplicantFn = async ({ body }: UseCreateApplicantArgs) => {
+export const postApiApplicantsFn = async ({ body }: UsePostApiApplicantsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -495,12 +479,12 @@ export const createApplicantFn = async ({ body }: UseCreateApplicantArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateApplicant = () => {
+export const usePostApiApplicants = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createApplicantFn,
+    mutationFn: postApiApplicantsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -523,7 +507,6 @@ export type UseGetApiApplicantsIdArgs = {
         | 'source'
       >
     | undefined
-    | null
 }
 export const getApiApplicantsIdFn = async ({ id, embed }: UseGetApiApplicantsIdArgs) => {
   const res = await fetch(
@@ -701,130 +684,119 @@ export type UsePatchApiApplicantsIdArgs = {
   body: /** Request body used to update an existing applicant */
   {
     marketingMode?: /** Indicates whether the applicant is look to buy or rent a property (buying/renting) */
-    string | undefined | null
+    string | undefined
     currency?: /** The ISO-4217 currency code that relates to monetary amounts specified by the applicant
 Where not specified this will default to the customer's base currency */
-    string | undefined | null
+    string | undefined
     active?: /** A flag determining whether or not the applicant is actively looking for a property */
-    boolean | undefined | null
-    notes?: /** A free text field describing any adhoc buying or renting requirements */ string | undefined | null
-    statusId?: /** The status id of the applicant */ string | undefined | null
+    boolean | undefined
+    notes?: /** A free text field describing any adhoc buying or renting requirements */ string | undefined
+    statusId?: /** The status id of the applicant */ string | undefined
     sellingStatus?: /** The applicant's selling status (preAppraisal/valuation/paidValuation/forSale/forSaleUnavailable/underOffer/underOfferUnavailable/reserved/exchanged/completed/soldExternally/withdrawn) */
-    string | undefined | null
+    string | undefined
     sellingPosition?: /** The applicant's selling position (nothingToSell/renting/sellingWithUs/sellingWithOtherAgent/sellingPrivately/notYetOnMarket) */
-    string | undefined | null
-    lastCall?: /** The date when the applicant was last contacted */ string | undefined | null
-    nextCall?: /** The date when the applicant is next due to be contacted */ string | undefined | null
+    string | undefined
+    lastCall?: /** The date when the applicant was last contacted */ string | undefined
+    nextCall?: /** The date when the applicant is next due to be contacted */ string | undefined
     departmentId?: /** The unique identifier of the department that the applicant requirements are associated with. The applicant will only match to properties with the same value */
-    string | undefined | null
-    solicitorId?: /** The unique identifier of the solicitor associated to the applicant */ string | undefined | null
-    potentialClient?: /** A flag determining whether or not the applicant is a potential client */
-    boolean | undefined | null
+    string | undefined
+    solicitorId?: /** The unique identifier of the solicitor associated to the applicant */ string | undefined
+    potentialClient?: /** A flag determining whether or not the applicant is a potential client */ boolean | undefined
     type?: /** The applicant's property type requirements (eg house, bungalow, land), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     style?: /** The applicant's property style requirements (eg detached, semiDetached), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     situation?: /** The applicant's requirements for other aspects of prospective properties - such as outside space - as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     parking?: /** The applicant's parking requirements (eg garage), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     age?: /** The applicant's property age requirements (eg new, period), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     locality?: /** The applicant's general property location requirements (eg rural, townCity), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     specialFeatures?: /** The applicant's special feature property requirements (eg Swimming Pool, Tennis Court), as defined by the applicant's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    Array<string> | undefined | null
-    bedroomsMin?: /** The minimum number of bedrooms the applicant requires */ number | undefined | null
-    bedroomsMax?: /** The maximum number of bedrooms the applicant requires */ number | undefined | null
-    receptionsMin?: /** The minimum number of reception rooms the applicant requires */ number | undefined | null
-    receptionsMax?: /** The maximum number of reception rooms the applicant requires */ number | undefined | null
-    bathroomsMin?: /** The minimum number of bathrooms the applicant requires */ number | undefined | null
-    bathroomsMax?: /** The maximum number of bathrooms the applicant requires */ number | undefined | null
-    parkingSpacesMin?: /** The minimum number of parking spaces the applicant requires */ number | undefined | null
-    parkingSpacesMax?: /** The maximum number of parking spaces the applicant requires */ number | undefined | null
-    locationType?: /** The applicant's location type (areas/addresses/none) */ string | undefined | null
-    locationOptions?: /** The applicant's location options */ Array<string> | undefined | null
+    Array<string> | undefined
+    bedroomsMin?: /** The minimum number of bedrooms the applicant requires */ number | undefined
+    bedroomsMax?: /** The maximum number of bedrooms the applicant requires */ number | undefined
+    receptionsMin?: /** The minimum number of reception rooms the applicant requires */ number | undefined
+    receptionsMax?: /** The maximum number of reception rooms the applicant requires */ number | undefined
+    bathroomsMin?: /** The minimum number of bathrooms the applicant requires */ number | undefined
+    bathroomsMax?: /** The maximum number of bathrooms the applicant requires */ number | undefined
+    parkingSpacesMin?: /** The minimum number of parking spaces the applicant requires */ number | undefined
+    parkingSpacesMax?: /** The maximum number of parking spaces the applicant requires */ number | undefined
+    locationType?: /** The applicant's location type (areas/addresses/none) */ string | undefined
+    locationOptions?: /** The applicant's location options */ Array<string> | undefined
     buying?: /** The details specific to applicants with a marketingMode of buying */
     | {
-          reasonId?: /** The identifier of the applicant's buying reason */ string | undefined | null
-          positionId?: /** The identifier of the applicant's selling position */ string | undefined | null
-          priceFrom?: /** The lower bound of the applicant's budget */ number | undefined | null
-          priceTo?: /** The upper bound of the applicant's budget */ number | undefined | null
+          reasonId?: /** The identifier of the applicant's buying reason */ string | undefined
+          positionId?: /** The identifier of the applicant's selling position */ string | undefined
+          priceFrom?: /** The lower bound of the applicant's budget */ number | undefined
+          priceTo?: /** The upper bound of the applicant's budget */ number | undefined
           decoration?: /** A list of property decoration requirements taken from the full listing of the associated department (unmodernised/fair/good/veryGood) */
-          Array<string> | undefined | null
+          Array<string> | undefined
           tenure?: /** A list of tenure requirements taken from the full listing of the associated department (freehold/leasehold/shareOfFreehold) */
-          Array<string> | undefined | null
+          Array<string> | undefined
           mortgageExpiry?: /** The date when the applicant's current mortgage expires/is due for renewal */
-          string | undefined | null
+          string | undefined
           leaseRemaining?: /** The details specific to the applicant's lease term requirements where they are interested in properties with a leasehold tenure */
           | {
                 min?: /** The minimum number of years that must remain on the lease of a leasehold property */
-                number | undefined | null
+                number | undefined
                 max?: /** The maximum number of years that must remain on the lease of a leasehold property */
-                number | undefined | null
+                number | undefined
               }
             | undefined
-            | null
         }
       | undefined
-      | null
     renting?: /** The details specific to applicants with a marketingMode of renting */
     | {
-          moveDate?: /** The date the applicant is looking to move to a new property */ string | undefined | null
-          term?: /** The applicant's preferred letting term (long/short/any) */ string | undefined | null
-          rentFrom?: /** The lower bound of the applicant's budget */ number | undefined | null
-          rentTo?: /** The upper bound of the applicant's budget */ number | undefined | null
+          moveDate?: /** The date the applicant is looking to move to a new property */ string | undefined
+          term?: /** The applicant's preferred letting term (long/short/any) */ string | undefined
+          rentFrom?: /** The lower bound of the applicant's budget */ number | undefined
+          rentTo?: /** The upper bound of the applicant's budget */ number | undefined
           rentFrequency?: /** The desired rent collection frequency specified by the applicant's budget (weekly/monthly/annually) */
-          string | undefined | null
+          string | undefined
           furnishing?: /** A list of property furnishing requirements taken from the full listing of the associated department */
-          Array<string> | undefined | null
-          positionId?: /** The identifier of the applicant's renting position */ string | undefined | null
+          Array<string> | undefined
+          positionId?: /** The identifier of the applicant's renting position */ string | undefined
         }
       | undefined
-      | null
     externalArea?: /** The applicant's outdoor space requirements */
     | {
-          type?: /** The unit of area that each amount corresponds to (acres/hectares) */ string | undefined | null
+          type?: /** The unit of area that each amount corresponds to (acres/hectares) */ string | undefined
           amountFrom?: /** The minimum unit value of outside space that the applicant is looking for */
-          number | undefined | null
-          amountTo?: /** The maximum unit value of outside space that the applicant is looking for */
-          number | undefined | null
+          number | undefined
+          amountTo?: /** The maximum unit value of outside space that the applicant is looking for */ number | undefined
         }
       | undefined
-      | null
     internalArea?: /** The applicant's indoor space requirements */
     | {
-          type?: /** The unit of area that each amount corresponds to (squareFeet/squareMetres) */
-          string | undefined | null
-          amount?: /** The unit value of inside space that the applicant is looking for */ number | undefined | null
+          type?: /** The unit of area that each amount corresponds to (squareFeet/squareMetres) */ string | undefined
+          amount?: /** The unit value of inside space that the applicant is looking for */ number | undefined
         }
       | undefined
-      | null
     source?: /** An applicant's source of enquiry */
     | {
-          id?: /** The unique identifier of the applicant's source */ string | undefined | null
-          type?: /** The source type (office/source) */ string | undefined | null
+          id?: /** The unique identifier of the applicant's source */ string | undefined
+          type?: /** The source type (office/source) */ string | undefined
         }
       | undefined
-      | null
     regional?: /** Details relating to the real estate market in specific countries. Child models are named based on the ISO3166 country code that the data inside the model relates to */
     | {
           ggy?: /** Details of regional information specific to Guernsey */
           | {
                 market?: /** Requirements describing which markets the applicant is looking for properties in (local/openA/openB/openC/openD) */
-                Array<string> | undefined | null
+                Array<string> | undefined
               }
             | undefined
-            | null
         }
       | undefined
-      | null
     officeIds?: /** A collection of unique identifiers of offices attached to the applicant. The first item in the collection is considered the primary office */
-    Array<string> | undefined | null
+    Array<string> | undefined
     negotiatorIds?: /** A collection of unique identifiers of negotiators attached to the applicant. The first item in the collection is considered the primary negotiator */
-    Array<string> | undefined | null
+    Array<string> | undefined
     metadata?: /** App specific metadata to set against the applicant */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiApplicantsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiApplicantsIdArgs) => {
@@ -860,8 +832,8 @@ export const usePatchApiApplicantsId = () => {
 }
 export type UseGetApiApplicantsIdRelationshipsArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiApplicantsIdRelationshipsFn = async ({
   id,
@@ -925,18 +897,18 @@ export const useGetApiApplicantsIdRelationships = (args: UseGetApiApplicantsIdRe
 
   return result
 }
-export type UseCreateApplicantRelationshipArgs = {
+export type UsePostApiApplicantsIdRelationshipsArgs = {
   id: string
   body: /** Request body used to create or update a relationship between an applicant and a contact or company */
   {
     associatedId?: /** The unique identifier of the contact or company to create a relationship with */
-    string | undefined | null
-    associatedType?: /** The type of relationship to create (contact/company) */ string | undefined | null
+    string | undefined
+    associatedType?: /** The type of relationship to create (contact/company) */ string | undefined
     isMain?: /** Flag denoting whether or not this relationship should be considered to be the main/primary relationship. Setting to true will automatically demote the existing primary relationship */
-    boolean | undefined | null
+    boolean | undefined
   }
 }
-export const createApplicantRelationshipFn = async ({ id, body }: UseCreateApplicantRelationshipArgs) => {
+export const postApiApplicantsIdRelationshipsFn = async ({ id, body }: UsePostApiApplicantsIdRelationshipsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -954,12 +926,12 @@ export const createApplicantRelationshipFn = async ({ id, body }: UseCreateAppli
 
   return z.void().parse(data)
 }
-export const useCreateApplicantRelationship = () => {
+export const usePostApiApplicantsIdRelationships = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createApplicantRelationshipFn,
+    mutationFn: postApiApplicantsIdRelationshipsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

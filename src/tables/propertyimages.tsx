@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiPropertyImages } from '@/services/propertyimages.ts'
@@ -23,120 +23,144 @@ export const propertyImagesBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type PropertyImagesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  propertyId?: string | undefined | null
-  url?: string | undefined | null
-  caption?: string | undefined | null
-  type?: string | undefined | null
-  order?: number | undefined | null
-  fromArchive?: boolean | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  propertyId?: string | undefined
+  url?: string | undefined
+  caption?: string | undefined
+  type?: string | undefined
+  order?: number | undefined
+  fromArchive?: boolean | undefined
+  _eTag?: string | undefined
 }
 export type PropertyImagesArgs = {
-  sortBy?: string | undefined | null
-  id?: Array<string> | undefined | null
-  embed?: Array<'property'> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  type?: Array<'photograph' | 'map' | 'floorPlan' | 'epc'> | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  fromArchive?: boolean | undefined | null
-  metadata?: Array<string> | undefined | null
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  embed?: Array<'property'> | undefined
+  propertyId?: Array<string> | undefined
+  type?: Array<'photograph' | 'map' | 'floorPlan' | 'epc'> | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  fromArchive?: boolean | undefined
+  metadata?: Array<string> | undefined
   columns: ColumnsList<PropertyImagesBody>
 }
 
 export const propertyImagesColumnHelper = createColumnHelper<PropertyImagesBody>()
 
-export const getPropertyImagesColumn = (property: string, { label, format }: ConfigItemLookup<PropertyImagesBody>) => {
+export const getPropertyImagesColumn = (property: string, modelConfig: ModelConfig<PropertyImagesBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return propertyImagesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return propertyImagesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return propertyImagesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return propertyImagesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return propertyImagesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return propertyImagesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('url', () => {
+      const { label: header, format } = modelConfig['url']
+
       return propertyImagesColumnHelper.accessor((row) => row.url, {
         id: 'url',
-        header: label('url'),
-        cell: (info) => format('url', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('caption', () => {
+      const { label: header, format } = modelConfig['caption']
+
       return propertyImagesColumnHelper.accessor((row) => row.caption, {
         id: 'caption',
-        header: label('caption'),
-        cell: (info) => format('caption', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return propertyImagesColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('order', () => {
+      const { label: header, format } = modelConfig['order']
+
       return propertyImagesColumnHelper.accessor((row) => row.order, {
         id: 'order',
-        header: label('order'),
-        cell: (info) => format('order', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('fromArchive', () => {
+      const { label: header, format } = modelConfig['fromArchive']
+
       return propertyImagesColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
-        header: label('fromArchive'),
-        cell: (info) => format('fromArchive', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return propertyImagesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

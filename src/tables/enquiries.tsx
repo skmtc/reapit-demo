@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiEnquiries } from '@/services/enquiries.ts'
@@ -60,254 +60,302 @@ export const enquiriesBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type EnquiriesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: number | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  title?: string | undefined | null
-  forename?: string | undefined | null
-  surname?: string | undefined | null
-  enquiryType?: string | undefined | null
-  message?: string | undefined | null
-  status?: string | undefined | null
-  marketingConsent?: string | undefined | null
-  position?: string | undefined | null
-  officeId?: string | undefined | null
-  applicantId?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  sourceName?: string | undefined | null
-  homePhone?: string | undefined | null
-  workPhone?: string | undefined | null
-  mobilePhone?: string | undefined | null
-  email?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: number | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  title?: string | undefined
+  forename?: string | undefined
+  surname?: string | undefined
+  enquiryType?: string | undefined
+  message?: string | undefined
+  status?: string | undefined
+  marketingConsent?: string | undefined
+  position?: string | undefined
+  officeId?: string | undefined
+  applicantId?: string | undefined
+  negotiatorId?: string | undefined
+  sourceName?: string | undefined
+  homePhone?: string | undefined
+  workPhone?: string | undefined
+  mobilePhone?: string | undefined
+  email?: string | undefined
   address?:
     | {
-        buildingName?: string | undefined | null
-        buildingNumber?: string | undefined | null
-        line1?: string | undefined | null
-        line2?: string | undefined | null
-        line3?: string | undefined | null
-        line4?: string | undefined | null
-        postcode?: string | undefined | null
-        countryId?: string | undefined | null
+        buildingName?: string | undefined
+        buildingNumber?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        line3?: string | undefined
+        line4?: string | undefined
+        postcode?: string | undefined
+        countryId?: string | undefined
       }
     | undefined
-    | null
-  buying?: { priceFrom?: number | undefined | null; priceTo?: number | undefined | null } | undefined | null
+  buying?: { priceFrom?: number | undefined; priceTo?: number | undefined } | undefined
   renting?:
-    | {
-        rentFrom?: number | undefined | null
-        rentTo?: number | undefined | null
-        rentFrequency?: string | undefined | null
-      }
+    | { rentFrom?: number | undefined; rentTo?: number | undefined; rentFrequency?: string | undefined }
     | undefined
-    | null
-  bedrooms?: number | undefined | null
-  propertyIds?: Array<string> | undefined | null
-  _eTag?: string | undefined | null
+  bedrooms?: number | undefined
+  propertyIds?: Array<string> | undefined
+  _eTag?: string | undefined
 }
 export type EnquiriesArgs = {
-  sortBy?: string | undefined | null
-  enquiryType?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  sortBy?: string | undefined
+  enquiryType?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
   columns: ColumnsList<EnquiriesBody>
 }
 
 export const enquiriesColumnHelper = createColumnHelper<EnquiriesBody>()
 
-export const getEnquiriesColumn = (property: string, { label, format }: ConfigItemLookup<EnquiriesBody>) => {
+export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<EnquiriesBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return enquiriesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return enquiriesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return enquiriesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return enquiriesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return enquiriesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('title', () => {
+      const { label: header, format } = modelConfig['title']
+
       return enquiriesColumnHelper.accessor((row) => row.title, {
         id: 'title',
-        header: label('title'),
-        cell: (info) => format('title', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('forename', () => {
+      const { label: header, format } = modelConfig['forename']
+
       return enquiriesColumnHelper.accessor((row) => row.forename, {
         id: 'forename',
-        header: label('forename'),
-        cell: (info) => format('forename', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('surname', () => {
+      const { label: header, format } = modelConfig['surname']
+
       return enquiriesColumnHelper.accessor((row) => row.surname, {
         id: 'surname',
-        header: label('surname'),
-        cell: (info) => format('surname', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('enquiryType', () => {
+      const { label: header, format } = modelConfig['enquiryType']
+
       return enquiriesColumnHelper.accessor((row) => row.enquiryType, {
         id: 'enquiryType',
-        header: label('enquiryType'),
-        cell: (info) => format('enquiryType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('message', () => {
+      const { label: header, format } = modelConfig['message']
+
       return enquiriesColumnHelper.accessor((row) => row.message, {
         id: 'message',
-        header: label('message'),
-        cell: (info) => format('message', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return enquiriesColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('marketingConsent', () => {
+      const { label: header, format } = modelConfig['marketingConsent']
+
       return enquiriesColumnHelper.accessor((row) => row.marketingConsent, {
         id: 'marketingConsent',
-        header: label('marketingConsent'),
-        cell: (info) => format('marketingConsent', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('position', () => {
+      const { label: header, format } = modelConfig['position']
+
       return enquiriesColumnHelper.accessor((row) => row.position, {
         id: 'position',
-        header: label('position'),
-        cell: (info) => format('position', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('officeId', () => {
+      const { label: header, format } = modelConfig['officeId']
+
       return enquiriesColumnHelper.accessor((row) => row.officeId, {
         id: 'officeId',
-        header: label('officeId'),
-        cell: (info) => format('officeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('applicantId', () => {
+      const { label: header, format } = modelConfig['applicantId']
+
       return enquiriesColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
-        header: label('applicantId'),
-        cell: (info) => format('applicantId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return enquiriesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('sourceName', () => {
+      const { label: header, format } = modelConfig['sourceName']
+
       return enquiriesColumnHelper.accessor((row) => row.sourceName, {
         id: 'sourceName',
-        header: label('sourceName'),
-        cell: (info) => format('sourceName', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('homePhone', () => {
+      const { label: header, format } = modelConfig['homePhone']
+
       return enquiriesColumnHelper.accessor((row) => row.homePhone, {
         id: 'homePhone',
-        header: label('homePhone'),
-        cell: (info) => format('homePhone', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('workPhone', () => {
+      const { label: header, format } = modelConfig['workPhone']
+
       return enquiriesColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
-        header: label('workPhone'),
-        cell: (info) => format('workPhone', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('mobilePhone', () => {
+      const { label: header, format } = modelConfig['mobilePhone']
+
       return enquiriesColumnHelper.accessor((row) => row.mobilePhone, {
         id: 'mobilePhone',
-        header: label('mobilePhone'),
-        cell: (info) => format('mobilePhone', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('email', () => {
+      const { label: header, format } = modelConfig['email']
+
       return enquiriesColumnHelper.accessor((row) => row.email, {
         id: 'email',
-        header: label('email'),
-        cell: (info) => format('email', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('address', () => {
+      const { label: header, format } = modelConfig['address']
+
       return enquiriesColumnHelper.accessor((row) => row.address, {
         id: 'address',
-        header: label('address'),
-        cell: (info) => format('address', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('buying', () => {
+      const { label: header, format } = modelConfig['buying']
+
       return enquiriesColumnHelper.accessor((row) => row.buying, {
         id: 'buying',
-        header: label('buying'),
-        cell: (info) => format('buying', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('renting', () => {
+      const { label: header, format } = modelConfig['renting']
+
       return enquiriesColumnHelper.accessor((row) => row.renting, {
         id: 'renting',
-        header: label('renting'),
-        cell: (info) => format('renting', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('bedrooms', () => {
+      const { label: header, format } = modelConfig['bedrooms']
+
       return enquiriesColumnHelper.accessor((row) => row.bedrooms, {
         id: 'bedrooms',
-        header: label('bedrooms'),
-        cell: (info) => format('bedrooms', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyIds', () => {
+      const { label: header, format } = modelConfig['propertyIds']
+
       return enquiriesColumnHelper.accessor((row) => row.propertyIds, {
         id: 'propertyIds',
-        header: label('propertyIds'),
-        cell: (info) => format('propertyIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return enquiriesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

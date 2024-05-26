@@ -33,11 +33,11 @@ export const useGetApiMetadataMetadataSchemaId = (args: UseGetApiMetadataMetadat
 
   return result
 }
-export type UseUpdateMetadataSchemaArgs = {
+export type UsePutApiMetadataMetadataSchemaIdArgs = {
   id: string
   body: /** Payload to update a JSON schema */ { schema: /** The updated JSON schema to store */ string }
 }
-export const updateMetadataSchemaFn = async ({ id, body }: UseUpdateMetadataSchemaArgs) => {
+export const putApiMetadataMetadataSchemaIdFn = async ({ id, body }: UsePutApiMetadataMetadataSchemaIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/metadata/metadataSchema/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -55,12 +55,12 @@ export const updateMetadataSchemaFn = async ({ id, body }: UseUpdateMetadataSche
 
   return z.void().parse(data)
 }
-export const useUpdateMetadataSchema = () => {
+export const usePutApiMetadataMetadataSchemaId = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: updateMetadataSchemaFn,
+    mutationFn: putApiMetadataMetadataSchemaIdFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -69,9 +69,9 @@ export const useUpdateMetadataSchema = () => {
   })
 }
 export type UseGetApiMetadataMetadataSchemaArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  entityType?: string | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  entityType?: string | undefined
 }
 export const getApiMetadataMetadataSchemaFn = async ({
   pageSize,
@@ -125,14 +125,14 @@ export const useGetApiMetadataMetadataSchema = (args: UseGetApiMetadataMetadataS
 
   return result
 }
-export type UseCreateMetadataSchemaArgs = {
+export type UsePostApiMetadataMetadataSchemaArgs = {
   body: /** Payload to create a JSON schema for metadata validation */
   {
     entityType: /** The name of the entity type that this schema is related to */ string
     schema: /** The JSON schema used to validate entities of this type */ string
   }
 }
-export const createMetadataSchemaFn = async ({ body }: UseCreateMetadataSchemaArgs) => {
+export const postApiMetadataMetadataSchemaFn = async ({ body }: UsePostApiMetadataMetadataSchemaArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/metadata/metadataSchema${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -150,12 +150,12 @@ export const createMetadataSchemaFn = async ({ body }: UseCreateMetadataSchemaAr
 
   return z.void().parse(data)
 }
-export const useCreateMetadataSchema = () => {
+export const usePostApiMetadataMetadataSchema = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createMetadataSchemaFn,
+    mutationFn: postApiMetadataMetadataSchemaFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

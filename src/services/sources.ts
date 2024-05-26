@@ -4,18 +4,18 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiSourcesArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  id?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  departmentId?: Array<string> | undefined | null
-  name?: string | undefined | null
-  type?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  departmentId?: Array<string> | undefined
+  name?: string | undefined
+  type?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
 }
 export const getApiSourcesFn = async ({
   pageSize,
@@ -88,18 +88,18 @@ export const useGetApiSources = (args: UseGetApiSourcesArgs) => {
 
   return result
 }
-export type UseCreateSourceArgs = {
+export type UsePostApiSourcesArgs = {
   body: /** Request body used to create a new source of business */
   {
     name: /** The name of the source or advertising publication */ string
     type: /** The type of the source (source/advertisement) */ string
     officeIds?: /** A collection of the unique identifiers of offices that regularly get business from the source */
-    Array<string> | undefined | null
+    Array<string> | undefined
     departmentIds?: /** A collection of unique identifiers of departments that regularly get business from the source */
-    Array<string> | undefined | null
+    Array<string> | undefined
   }
 }
-export const createSourceFn = async ({ body }: UseCreateSourceArgs) => {
+export const postApiSourcesFn = async ({ body }: UsePostApiSourcesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/sources/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -117,12 +117,12 @@ export const createSourceFn = async ({ body }: UseCreateSourceArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateSource = () => {
+export const usePostApiSources = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createSourceFn,
+    mutationFn: postApiSourcesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -175,12 +175,12 @@ export type UsePatchApiSourcesIdArgs = {
   id: string
   body: /** Request body used to update an existing source of business */
   {
-    name?: /** The name of the source or advertising publication */ string | undefined | null
-    type?: /** The type of the source (source/advertisement) */ string | undefined | null
+    name?: /** The name of the source or advertising publication */ string | undefined
+    type?: /** The type of the source (source/advertisement) */ string | undefined
     officeIds?: /** A collection of the unique identifiers of offices that regularly get business from the source */
-    Array<string> | undefined | null
+    Array<string> | undefined
     departmentIds?: /** A collection of unique identifiers of departments that regularly get business from the source */
-    Array<string> | undefined | null
+    Array<string> | undefined
   }
 }
 export const patchApiSourcesIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiSourcesIdArgs) => {

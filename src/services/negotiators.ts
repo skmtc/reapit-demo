@@ -4,20 +4,20 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiNegotiatorsArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?: Array<'office'> | undefined | null
-  id?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  email?: string | undefined | null
-  name?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  active?: boolean | undefined | null
-  metadata?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'office'> | undefined
+  id?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  email?: string | undefined
+  name?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  active?: boolean | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiNegotiatorsFn = async ({
   pageSize,
@@ -103,25 +103,25 @@ export const useGetApiNegotiators = (args: UseGetApiNegotiatorsArgs) => {
 
   return result
 }
-export type UseCreateNegotiatorArgs = {
+export type UsePostApiNegotiatorsArgs = {
   body: /** Request body used to create a new negotiator */
   {
     name: /** The name of the negotiator */ string
-    jobTitle?: /** The job title of the negotiator */ string | undefined | null
-    active?: /** A flag determining whether or not the negotiator is active */ boolean | undefined | null
+    jobTitle?: /** The job title of the negotiator */ string | undefined
+    active?: /** A flag determining whether or not the negotiator is active */ boolean | undefined
     officeId: /** The unique identifier of the office that the negotiator is attached to */ string
-    workPhone?: /** The work phone number of the negotiator */ string | undefined | null
-    mobilePhone?: /** The mobile phone number of the negotiator */ string | undefined | null
-    email?: /** The email address of the negotiator */ string | undefined | null
+    workPhone?: /** The work phone number of the negotiator */ string | undefined
+    mobilePhone?: /** The mobile phone number of the negotiator */ string | undefined
+    email?: /** The email address of the negotiator */ string | undefined
     diaryNegotiatorIds?: /** The identifiers of other negotiators whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
-    Array<string> | undefined | null
+    Array<string> | undefined
     diaryOfficeIds?: /** The identifiers of other offices whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
-    Array<string> | undefined | null
+    Array<string> | undefined
     metadata?: /** App specific metadata to set against the negotiator */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
-export const createNegotiatorFn = async ({ body }: UseCreateNegotiatorArgs) => {
+export const postApiNegotiatorsFn = async ({ body }: UsePostApiNegotiatorsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -139,12 +139,12 @@ export const createNegotiatorFn = async ({ body }: UseCreateNegotiatorArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateNegotiator = () => {
+export const usePostApiNegotiators = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createNegotiatorFn,
+    mutationFn: postApiNegotiatorsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -152,7 +152,7 @@ export const useCreateNegotiator = () => {
     },
   })
 }
-export type UseGetApiNegotiatorsIdArgs = { id: string; embed?: Array<'office'> | undefined | null }
+export type UseGetApiNegotiatorsIdArgs = { id: string; embed?: Array<'office'> | undefined }
 export const getApiNegotiatorsIdFn = async ({ id, embed }: UseGetApiNegotiatorsIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${id}${querySerialiser({ args: { embed }, options: defaultQuerySerialiserOptions })}`,
@@ -208,18 +208,18 @@ export type UsePatchApiNegotiatorsIdArgs = {
   id: string
   body: /** Request body used to update an existing negotiator */
   {
-    name?: /** The name of the negotiator */ string | undefined | null
-    jobTitle?: /** The job title of the negotiator */ string | undefined | null
-    active?: /** A flag determining whether or not the negotiator is active */ boolean | undefined | null
-    workPhone?: /** The work phone number of the negotiator */ string | undefined | null
-    mobilePhone?: /** The mobile phone number of the negotiator */ string | undefined | null
-    email?: /** The email address of the negotiator */ string | undefined | null
+    name?: /** The name of the negotiator */ string | undefined
+    jobTitle?: /** The job title of the negotiator */ string | undefined
+    active?: /** A flag determining whether or not the negotiator is active */ boolean | undefined
+    workPhone?: /** The work phone number of the negotiator */ string | undefined
+    mobilePhone?: /** The mobile phone number of the negotiator */ string | undefined
+    email?: /** The email address of the negotiator */ string | undefined
     diaryNegotiatorIds?: /** The identifiers of other negotiators whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
-    Array<string> | undefined | null
+    Array<string> | undefined
     diaryOfficeIds?: /** The identifiers of other offices whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
-    Array<string> | undefined | null
+    Array<string> | undefined
     metadata?: /** App specific metadata to set against the negotiator */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiNegotiatorsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiNegotiatorsIdArgs) => {

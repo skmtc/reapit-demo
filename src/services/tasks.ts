@@ -4,27 +4,27 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiTasksArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | undefined | null
-  id?: Array<string> | undefined | null
-  applicantId?: Array<string> | undefined | null
-  contactId?: Array<string> | undefined | null
-  landlordId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  recipientId?: Array<string> | undefined | null
-  senderId?: Array<string> | undefined | null
-  typeId?: Array<string> | undefined | null
-  tenancyId?: Array<string> | undefined | null
-  activatesFrom?: string | undefined | null
-  activatesTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | undefined
+  id?: Array<string> | undefined
+  applicantId?: Array<string> | undefined
+  contactId?: Array<string> | undefined
+  landlordId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  recipientId?: Array<string> | undefined
+  senderId?: Array<string> | undefined
+  typeId?: Array<string> | undefined
+  tenancyId?: Array<string> | undefined
+  activatesFrom?: string | undefined
+  activatesTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiTasksFn = async ({
   pageSize,
@@ -115,26 +115,26 @@ export const useGetApiTasks = (args: UseGetApiTasksArgs) => {
 
   return result
 }
-export type UseCreateTaskArgs = {
+export type UsePostApiTasksArgs = {
   body: /** Request body used to create a new task, which can also be an internal message */
   {
-    activates?: /** The date the task becomes active (Required when 'TypeId' is given) */ string | undefined | null
-    completed?: /** The date the task was completed */ string | undefined | null
-    typeId?: /** The unique identifier of the task type */ string | undefined | null
+    activates?: /** The date the task becomes active (Required when 'TypeId' is given) */ string | undefined
+    completed?: /** The date the task was completed */ string | undefined
+    typeId?: /** The unique identifier of the task type */ string | undefined
     senderId: /** The unique identifer of the negotiator that created the task */ string
     text: /** The textual contents of the task or message */ string
-    landlordId?: /** The unique identifier of the landlord the task is associated to */ string | undefined | null
-    propertyId?: /** The unique identifier of the property the task is associated to */ string | undefined | null
-    applicantId?: /** The unique identifier of the applicant the task is associated to */ string | undefined | null
-    tenancyId?: /** The unique identifier of the tenancy the task is associated to */ string | undefined | null
-    contactId?: /** The unique identifier of the contact the task is associated to */ string | undefined | null
+    landlordId?: /** The unique identifier of the landlord the task is associated to */ string | undefined
+    propertyId?: /** The unique identifier of the property the task is associated to */ string | undefined
+    applicantId?: /** The unique identifier of the applicant the task is associated to */ string | undefined
+    tenancyId?: /** The unique identifier of the tenancy the task is associated to */ string | undefined
+    contactId?: /** The unique identifier of the contact the task is associated to */ string | undefined
     recipientId: /** The unique identifier of the negotiator or office the task is being sent to */ string
     recipientType: /** The type of the recipient (office/negotiator) */ string
     metadata?: /** App specific metadata that has been set against the task */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
-export const createTaskFn = async ({ body }: UseCreateTaskArgs) => {
+export const postApiTasksFn = async ({ body }: UsePostApiTasksArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tasks/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -152,12 +152,12 @@ export const createTaskFn = async ({ body }: UseCreateTaskArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateTask = () => {
+export const usePostApiTasks = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTaskFn,
+    mutationFn: postApiTasksFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -167,7 +167,7 @@ export const useCreateTask = () => {
 }
 export type UseGetApiTasksIdArgs = {
   id: string
-  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | undefined | null
+  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | undefined
 }
 export const getApiTasksIdFn = async ({ id, embed }: UseGetApiTasksIdArgs) => {
   const res = await fetch(
@@ -222,21 +222,20 @@ export type UsePatchApiTasksIdArgs = {
   id: string
   body: /** Request body used to update an existing task, which can also be an internal message */
   {
-    activates?: /** The date the task becomes active (Required when 'TypeId' is given) */ string | undefined | null
-    completed?: /** The date the task was completed */ string | undefined | null
-    typeId?: /** The unique identifier of the task type */ string | undefined | null
-    senderId?: /** The unique identifer of the negotiator that created the task */ string | undefined | null
-    text?: /** The textual contents of the task or message */ string | undefined | null
-    landlordId?: /** The unique identifier of the landlord the task is associated to */ string | undefined | null
-    propertyId?: /** The unique identifier of the property the task is associated to */ string | undefined | null
-    applicantId?: /** The unique identifier of the applicant the task is associated to */ string | undefined | null
-    tenancyId?: /** The unique identifier of the tenancy the task is associated to */ string | undefined | null
-    contactId?: /** The unique identifier of the contact the task is associated to */ string | undefined | null
-    recipientId?: /** The unique identifier of the negotiator or office the task is being sent to */
-    string | undefined | null
-    recipientType?: /** The type of the recipient (office/negotiator) */ string | undefined | null
+    activates?: /** The date the task becomes active (Required when 'TypeId' is given) */ string | undefined
+    completed?: /** The date the task was completed */ string | undefined
+    typeId?: /** The unique identifier of the task type */ string | undefined
+    senderId?: /** The unique identifer of the negotiator that created the task */ string | undefined
+    text?: /** The textual contents of the task or message */ string | undefined
+    landlordId?: /** The unique identifier of the landlord the task is associated to */ string | undefined
+    propertyId?: /** The unique identifier of the property the task is associated to */ string | undefined
+    applicantId?: /** The unique identifier of the applicant the task is associated to */ string | undefined
+    tenancyId?: /** The unique identifier of the tenancy the task is associated to */ string | undefined
+    contactId?: /** The unique identifier of the contact the task is associated to */ string | undefined
+    recipientId?: /** The unique identifier of the negotiator or office the task is being sent to */ string | undefined
+    recipientType?: /** The type of the recipient (office/negotiator) */ string | undefined
     metadata?: /** App specific metadata that has been set against the task */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiTasksIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiTasksIdArgs) => {

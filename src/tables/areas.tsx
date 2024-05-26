@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiAreas } from '@/services/areas.ts'
@@ -24,127 +24,153 @@ export const areasBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type AreasBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  name?: string | undefined | null
-  active?: boolean | undefined | null
-  type?: string | undefined | null
-  area?: Array<string> | undefined | null
-  departmentIds?: Array<string> | undefined | null
-  officeIds?: Array<string> | undefined | null
-  parentIds?: Array<string> | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  name?: string | undefined
+  active?: boolean | undefined
+  type?: string | undefined
+  area?: Array<string> | undefined
+  departmentIds?: Array<string> | undefined
+  officeIds?: Array<string> | undefined
+  parentIds?: Array<string> | undefined
+  _eTag?: string | undefined
 }
 export type AreasArgs = {
-  sortBy?: string | undefined | null
-  id?: Array<string> | undefined | null
-  departmentId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  name?: string | undefined | null
-  active?: boolean | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  departmentId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  name?: string | undefined
+  active?: boolean | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
   columns: ColumnsList<AreasBody>
 }
 
 export const areasColumnHelper = createColumnHelper<AreasBody>()
 
-export const getAreasColumn = (property: string, { label, format }: ConfigItemLookup<AreasBody>) => {
+export const getAreasColumn = (property: string, modelConfig: ModelConfig<AreasBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return areasColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return areasColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return areasColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return areasColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return areasColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('name', () => {
+      const { label: header, format } = modelConfig['name']
+
       return areasColumnHelper.accessor((row) => row.name, {
         id: 'name',
-        header: label('name'),
-        cell: (info) => format('name', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('active', () => {
+      const { label: header, format } = modelConfig['active']
+
       return areasColumnHelper.accessor((row) => row.active, {
         id: 'active',
-        header: label('active'),
-        cell: (info) => format('active', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return areasColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('area', () => {
+      const { label: header, format } = modelConfig['area']
+
       return areasColumnHelper.accessor((row) => row.area, {
         id: 'area',
-        header: label('area'),
-        cell: (info) => format('area', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('departmentIds', () => {
+      const { label: header, format } = modelConfig['departmentIds']
+
       return areasColumnHelper.accessor((row) => row.departmentIds, {
         id: 'departmentIds',
-        header: label('departmentIds'),
-        cell: (info) => format('departmentIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('officeIds', () => {
+      const { label: header, format } = modelConfig['officeIds']
+
       return areasColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
-        header: label('officeIds'),
-        cell: (info) => format('officeIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('parentIds', () => {
+      const { label: header, format } = modelConfig['parentIds']
+
       return areasColumnHelper.accessor((row) => row.parentIds, {
         id: 'parentIds',
-        header: label('parentIds'),
-        cell: (info) => format('parentIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return areasColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

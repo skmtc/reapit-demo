@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiMetadataMetadataSchema } from '@/services/metadataschema.ts'
@@ -11,12 +11,12 @@ export const metadataMetadataSchemaBody = z.object({
   schema: z.string().nullable().optional(),
 })
 export type MetadataMetadataSchemaBody = {
-  id?: string | undefined | null
-  modified?: string | undefined | null
-  schema?: string | undefined | null
+  id?: string | undefined
+  modified?: string | undefined
+  schema?: string | undefined
 }
 export type MetadataMetadataSchemaArgs = {
-  entityType?: string | undefined | null
+  entityType?: string | undefined
   columns: ColumnsList<MetadataMetadataSchemaBody>
 }
 
@@ -24,28 +24,34 @@ export const metadataMetadataSchemaColumnHelper = createColumnHelper<MetadataMet
 
 export const getMetadataMetadataSchemaColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<MetadataMetadataSchemaBody>,
+  modelConfig: ModelConfig<MetadataMetadataSchemaBody>,
 ) => {
   return match(property)
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return metadataMetadataSchemaColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return metadataMetadataSchemaColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('schema', () => {
+      const { label: header, format } = modelConfig['schema']
+
       return metadataMetadataSchemaColumnHelper.accessor((row) => row.schema, {
         id: 'schema',
-        header: label('schema'),
-        cell: (info) => format('schema', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

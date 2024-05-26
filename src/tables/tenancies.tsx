@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import {
@@ -136,109 +136,91 @@ export const tenanciesBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type TenanciesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  startDate?: string | undefined | null
-  endDate?: string | undefined | null
-  status?: string | undefined | null
-  agentRole?: string | undefined | null
-  rent?: number | undefined | null
-  rentFrequency?: string | undefined | null
-  endDateConfirmed?: boolean | undefined | null
-  isPeriodic?: boolean | undefined | null
-  rentInstalmentsFrequency?: string | undefined | null
-  rentInstalmentsAmount?: number | undefined | null
-  rentInstalmentsStart?: string | undefined | null
-  meterReadingGas?: string | undefined | null
-  meterReadingGasLastRead?: string | undefined | null
-  meterReadingElectricity?: string | undefined | null
-  meterReadingElectricityLastRead?: string | undefined | null
-  meterReadingWater?: string | undefined | null
-  meterReadingWaterLastRead?: string | undefined | null
-  typeId?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  propertyId?: string | undefined | null
-  applicantId?: string | undefined | null
-  managerId?: string | undefined | null
-  groupPaymentReference?: string | undefined | null
-  lettingFee?:
-    | { type?: string | undefined | null; amount?: number | undefined | null; frequency?: string | undefined | null }
-    | undefined
-    | null
-  managementFee?:
-    | { type?: string | undefined | null; amount?: number | undefined | null; frequency?: string | undefined | null }
-    | undefined
-    | null
-  source?: { id?: string | undefined | null; type?: string | undefined | null } | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  startDate?: string | undefined
+  endDate?: string | undefined
+  status?: string | undefined
+  agentRole?: string | undefined
+  rent?: number | undefined
+  rentFrequency?: string | undefined
+  endDateConfirmed?: boolean | undefined
+  isPeriodic?: boolean | undefined
+  rentInstalmentsFrequency?: string | undefined
+  rentInstalmentsAmount?: number | undefined
+  rentInstalmentsStart?: string | undefined
+  meterReadingGas?: string | undefined
+  meterReadingGasLastRead?: string | undefined
+  meterReadingElectricity?: string | undefined
+  meterReadingElectricityLastRead?: string | undefined
+  meterReadingWater?: string | undefined
+  meterReadingWaterLastRead?: string | undefined
+  typeId?: string | undefined
+  negotiatorId?: string | undefined
+  propertyId?: string | undefined
+  applicantId?: string | undefined
+  managerId?: string | undefined
+  groupPaymentReference?: string | undefined
+  lettingFee?: { type?: string | undefined; amount?: number | undefined; frequency?: string | undefined } | undefined
+  managementFee?: { type?: string | undefined; amount?: number | undefined; frequency?: string | undefined } | undefined
+  source?: { id?: string | undefined; type?: string | undefined } | undefined
   deposit?:
-    | {
-        heldBy?: string | undefined | null
-        period?: number | undefined | null
-        type?: string | undefined | null
-        sum?: number | undefined | null
-      }
+    | { heldBy?: string | undefined; period?: number | undefined; type?: string | undefined; sum?: number | undefined }
     | undefined
-    | null
   related?:
     | Array<{
-        id?: string | undefined | null
-        name?: string | undefined | null
-        title?: string | undefined | null
-        forename?: string | undefined | null
-        surname?: string | undefined | null
-        dateOfBirth?: string | undefined | null
-        type?: string | undefined | null
-        homePhone?: string | undefined | null
-        workPhone?: string | undefined | null
-        mobilePhone?: string | undefined | null
-        email?: string | undefined | null
-        paymentReference?: string | undefined | null
-        fromArchive?: boolean | undefined | null
-        marketingConsent?: string | undefined | null
+        id?: string | undefined
+        name?: string | undefined
+        title?: string | undefined
+        forename?: string | undefined
+        surname?: string | undefined
+        dateOfBirth?: string | undefined
+        type?: string | undefined
+        homePhone?: string | undefined
+        workPhone?: string | undefined
+        mobilePhone?: string | undefined
+        email?: string | undefined
+        paymentReference?: string | undefined
+        fromArchive?: boolean | undefined
+        marketingConsent?: string | undefined
         primaryAddress?:
           | {
-              buildingName?: string | undefined | null
-              buildingNumber?: string | undefined | null
-              line1?: string | undefined | null
-              line2?: string | undefined | null
-              line3?: string | undefined | null
-              line4?: string | undefined | null
-              postcode?: string | undefined | null
-              countryId?: string | undefined | null
+              buildingName?: string | undefined
+              buildingNumber?: string | undefined
+              line1?: string | undefined
+              line2?: string | undefined
+              line3?: string | undefined
+              line4?: string | undefined
+              postcode?: string | undefined
+              countryId?: string | undefined
             }
           | undefined
-          | null
-        occupyOn?: string | undefined | null
-        vacateOn?: string | undefined | null
-        additionalContactDetails?:
-          | Array<{ type?: string | undefined | null; value?: string | undefined | null }>
-          | undefined
-          | null
+        occupyOn?: string | undefined
+        vacateOn?: string | undefined
+        additionalContactDetails?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
       }>
     | undefined
-    | null
-  fromArchive?: boolean | undefined | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  feeNotes?: string | undefined | null
-  legalStatusId?: string | undefined | null
+  fromArchive?: boolean | undefined
+  metadata?: Record<string, Record<string, never>> | undefined
+  feeNotes?: string | undefined
+  legalStatusId?: string | undefined
   renewalOptions?:
     | {
-        optionId?: string | undefined | null
-        optionText?: string | undefined | null
-        expiry?: string | undefined | null
-        conditionIds?: Array<string> | undefined | null
+        optionId?: string | undefined
+        optionText?: string | undefined
+        expiry?: string | undefined
+        conditionIds?: Array<string> | undefined
       }
     | undefined
-    | null
-  arrears?: { chaseArrears?: boolean | undefined | null; paymentPlan?: string | undefined | null } | undefined | null
-  _eTag?: string | undefined | null
+  arrears?: { chaseArrears?: boolean | undefined; paymentPlan?: string | undefined } | undefined
+  _eTag?: string | undefined
 }
 export type TenanciesArgs = {
-  sortBy?: string | undefined | null
-  fromArchive?: boolean | undefined | null
+  sortBy?: string | undefined
+  fromArchive?: boolean | undefined
   embed?:
     | Array<
         | 'appointments'
@@ -252,27 +234,25 @@ export type TenanciesArgs = {
         | 'type'
       >
     | undefined
-    | null
-  id?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  applicantId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  name?: string | undefined | null
-  nameType?: string | undefined | null
+  id?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  applicantId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  name?: string | undefined
+  nameType?: string | undefined
   status?:
     | Array<'offerPending' | 'offerWithdrawn' | 'offerRejected' | 'arranging' | 'current' | 'finished' | 'cancelled'>
     | undefined
-    | null
-  email?: Array<string> | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  endDateFrom?: string | undefined | null
-  endDateTo?: string | undefined | null
-  startDateFrom?: string | undefined | null
-  startDateTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  email?: Array<string> | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  endDateFrom?: string | undefined
+  endDateTo?: string | undefined
+  startDateFrom?: string | undefined
+  startDateTo?: string | undefined
+  metadata?: Array<string> | undefined
   columns: ColumnsList<TenanciesBody>
 }
 export const tenanciesIdRelationshipsBody = z.object({
@@ -314,35 +294,33 @@ export const tenanciesIdRelationshipsBody = z.object({
     .optional(),
 })
 export type TenanciesIdRelationshipsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  tenancyId?: string | undefined | null
-  associatedType?: string | undefined | null
-  associatedId?: string | undefined | null
-  isMain?: boolean | undefined | null
-  fromArchive?: boolean | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  tenancyId?: string | undefined
+  associatedType?: string | undefined
+  associatedId?: string | undefined
+  isMain?: boolean | undefined
+  fromArchive?: boolean | undefined
   guarantors?:
     | Array<{
-        id?: string | undefined | null
-        guarantorAssociatedId?: string | undefined | null
-        type?: string | undefined | null
-        referenceStatus?: string | undefined | null
+        id?: string | undefined
+        guarantorAssociatedId?: string | undefined
+        type?: string | undefined
+        referenceStatus?: string | undefined
       }>
     | undefined
-    | null
   references?:
     | Array<{
-        id?: string | undefined | null
-        referenceAssociatedId?: string | undefined | null
-        type?: string | undefined | null
-        referenceStatus?: string | undefined | null
-        referenceType?: string | undefined | null
+        id?: string | undefined
+        referenceAssociatedId?: string | undefined
+        type?: string | undefined
+        referenceStatus?: string | undefined
+        referenceType?: string | undefined
       }>
     | undefined
-    | null
 }
 export type TenanciesIdRelationshipsArgs = { id: string; columns: ColumnsList<TenanciesIdRelationshipsBody> }
 export const tenanciesIdChecksBody = z.object({
@@ -363,23 +341,23 @@ export const tenanciesIdChecksBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type TenanciesIdChecksBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  description?: string | undefined | null
-  status?: string | undefined | null
-  type?: string | undefined | null
-  checkTypeId?: string | undefined | null
-  tenancyId?: string | undefined | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  description?: string | undefined
+  status?: string | undefined
+  type?: string | undefined
+  checkTypeId?: string | undefined
+  tenancyId?: string | undefined
+  metadata?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
 }
 export type TenanciesIdChecksArgs = {
   id: string
-  type?: string | undefined | null
-  status?: Array<'needed' | 'notNeeded' | 'arranged' | 'completed'> | undefined | null
+  type?: string | undefined
+  status?: Array<'needed' | 'notNeeded' | 'arranged' | 'completed'> | undefined
   columns: ColumnsList<TenanciesIdChecksBody>
 }
 export const tenanciesIdBreakClausesBody = z.object({
@@ -412,24 +390,21 @@ export const tenanciesIdBreakClausesBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type TenanciesIdBreakClausesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  clauseTypeId?: string | undefined | null
-  description?: string | undefined | null
-  active?: string | undefined | null
-  appliesTo?: string | undefined | null
-  letterText?: string | undefined | null
-  breakFrom?: { date?: string | undefined | null; minTermMonths?: number | undefined | null } | undefined | null
-  noticeRequired?:
-    | { date?: string | undefined | null; beforeBreakMonths?: number | undefined | null }
-    | undefined
-    | null
-  agreements?: { landlord?: boolean | undefined | null; tenant?: boolean | undefined | null } | undefined | null
-  tenancyId?: string | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  clauseTypeId?: string | undefined
+  description?: string | undefined
+  active?: string | undefined
+  appliesTo?: string | undefined
+  letterText?: string | undefined
+  breakFrom?: { date?: string | undefined; minTermMonths?: number | undefined } | undefined
+  noticeRequired?: { date?: string | undefined; beforeBreakMonths?: number | undefined } | undefined
+  agreements?: { landlord?: boolean | undefined; tenant?: boolean | undefined } | undefined
+  tenancyId?: string | undefined
+  _eTag?: string | undefined
 }
 export type TenanciesIdBreakClausesArgs = { id: string; columns: ColumnsList<TenanciesIdBreakClausesBody> }
 export const tenanciesIdAllowancesBody = z.object({
@@ -453,18 +428,18 @@ export const tenanciesIdAllowancesBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type TenanciesIdAllowancesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  typeId?: string | undefined | null
-  description?: string | undefined | null
-  state?: string | undefined | null
-  agreements?: { landlord?: boolean | undefined | null; tenant?: boolean | undefined | null } | undefined | null
-  letterText?: string | undefined | null
-  tenancyId?: string | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  typeId?: string | undefined
+  description?: string | undefined
+  state?: string | undefined
+  agreements?: { landlord?: boolean | undefined; tenant?: boolean | undefined } | undefined
+  letterText?: string | undefined
+  tenancyId?: string | undefined
+  _eTag?: string | undefined
 }
 export type TenanciesIdAllowancesArgs = { id: string; columns: ColumnsList<TenanciesIdAllowancesBody> }
 export const tenanciesIdResponsibilitiesBody = z.object({
@@ -488,18 +463,18 @@ export const tenanciesIdResponsibilitiesBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type TenanciesIdResponsibilitiesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  typeId?: string | undefined | null
-  description?: string | undefined | null
-  appliesTo?: string | undefined | null
-  agreements?: { landlord?: boolean | undefined | null; tenant?: boolean | undefined | null } | undefined | null
-  letterText?: string | undefined | null
-  tenancyId?: string | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  typeId?: string | undefined
+  description?: string | undefined
+  appliesTo?: string | undefined
+  agreements?: { landlord?: boolean | undefined; tenant?: boolean | undefined } | undefined
+  letterText?: string | undefined
+  tenancyId?: string | undefined
+  _eTag?: string | undefined
 }
 export type TenanciesIdResponsibilitiesArgs = { id: string; columns: ColumnsList<TenanciesIdResponsibilitiesBody> }
 export const tenanciesIdRenewalNegotiationsBody = z.object({
@@ -541,28 +516,22 @@ export const tenanciesIdRenewalNegotiationsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type TenanciesIdRenewalNegotiationsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  startDate?: string | undefined | null
-  endDate?: string | undefined | null
-  status?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  rent?: number | undefined | null
-  rentFrequency?: string | undefined | null
-  rentChange?: { amount?: number | undefined | null; percentage?: number | undefined | null } | undefined | null
-  tenancyId?: string | undefined | null
-  lettingFee?:
-    | { type?: string | undefined | null; amount?: number | undefined | null; frequency?: string | undefined | null }
-    | undefined
-    | null
-  managementFee?:
-    | { type?: string | undefined | null; amount?: number | undefined | null; frequency?: string | undefined | null }
-    | undefined
-    | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  startDate?: string | undefined
+  endDate?: string | undefined
+  status?: string | undefined
+  negotiatorId?: string | undefined
+  rent?: number | undefined
+  rentFrequency?: string | undefined
+  rentChange?: { amount?: number | undefined; percentage?: number | undefined } | undefined
+  tenancyId?: string | undefined
+  lettingFee?: { type?: string | undefined; amount?: number | undefined; frequency?: string | undefined } | undefined
+  managementFee?: { type?: string | undefined; amount?: number | undefined; frequency?: string | undefined } | undefined
+  _eTag?: string | undefined
 }
 export type TenanciesIdRenewalNegotiationsArgs = {
   id: string
@@ -595,23 +564,20 @@ export const tenanciesIdExtensionsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type TenanciesIdExtensionsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  startDate?: string | undefined | null
-  endDate?: string | undefined | null
-  type?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  rent?: number | undefined | null
-  rentFrequency?: string | undefined | null
-  tenancyId?: string | undefined | null
-  fee?:
-    | { amount?: number | undefined | null; summary?: string | undefined | null; type?: string | undefined | null }
-    | undefined
-    | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  startDate?: string | undefined
+  endDate?: string | undefined
+  type?: string | undefined
+  negotiatorId?: string | undefined
+  rent?: number | undefined
+  rentFrequency?: string | undefined
+  tenancyId?: string | undefined
+  fee?: { amount?: number | undefined; summary?: string | undefined; type?: string | undefined } | undefined
+  _eTag?: string | undefined
 }
 export type TenanciesIdExtensionsArgs = { id: string; columns: ColumnsList<TenanciesIdExtensionsBody> }
 export const tenanciesIdRenewalNegotiationsRenewalIdChecksBody = z.object({
@@ -632,18 +598,18 @@ export const tenanciesIdRenewalNegotiationsRenewalIdChecksBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type TenanciesIdRenewalNegotiationsRenewalIdChecksBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  status?: string | undefined | null
-  description?: string | undefined | null
-  checkTypeId?: string | undefined | null
-  tenancyId?: string | undefined | null
-  renewalId?: string | undefined | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  status?: string | undefined
+  description?: string | undefined
+  checkTypeId?: string | undefined
+  tenancyId?: string | undefined
+  renewalId?: string | undefined
+  metadata?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
 }
 export type TenanciesIdRenewalNegotiationsRenewalIdChecksArgs = {
   id: string
@@ -653,286 +619,366 @@ export type TenanciesIdRenewalNegotiationsRenewalIdChecksArgs = {
 
 export const tenanciesColumnHelper = createColumnHelper<TenanciesBody>()
 
-export const getTenanciesColumn = (property: string, { label, format }: ConfigItemLookup<TenanciesBody>) => {
+export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<TenanciesBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return tenanciesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return tenanciesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return tenanciesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return tenanciesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return tenanciesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('startDate', () => {
+      const { label: header, format } = modelConfig['startDate']
+
       return tenanciesColumnHelper.accessor((row) => row.startDate, {
         id: 'startDate',
-        header: label('startDate'),
-        cell: (info) => format('startDate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('endDate', () => {
+      const { label: header, format } = modelConfig['endDate']
+
       return tenanciesColumnHelper.accessor((row) => row.endDate, {
         id: 'endDate',
-        header: label('endDate'),
-        cell: (info) => format('endDate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return tenanciesColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('agentRole', () => {
+      const { label: header, format } = modelConfig['agentRole']
+
       return tenanciesColumnHelper.accessor((row) => row.agentRole, {
         id: 'agentRole',
-        header: label('agentRole'),
-        cell: (info) => format('agentRole', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rent', () => {
+      const { label: header, format } = modelConfig['rent']
+
       return tenanciesColumnHelper.accessor((row) => row.rent, {
         id: 'rent',
-        header: label('rent'),
-        cell: (info) => format('rent', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rentFrequency', () => {
+      const { label: header, format } = modelConfig['rentFrequency']
+
       return tenanciesColumnHelper.accessor((row) => row.rentFrequency, {
         id: 'rentFrequency',
-        header: label('rentFrequency'),
-        cell: (info) => format('rentFrequency', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('endDateConfirmed', () => {
+      const { label: header, format } = modelConfig['endDateConfirmed']
+
       return tenanciesColumnHelper.accessor((row) => row.endDateConfirmed, {
         id: 'endDateConfirmed',
-        header: label('endDateConfirmed'),
-        cell: (info) => format('endDateConfirmed', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('isPeriodic', () => {
+      const { label: header, format } = modelConfig['isPeriodic']
+
       return tenanciesColumnHelper.accessor((row) => row.isPeriodic, {
         id: 'isPeriodic',
-        header: label('isPeriodic'),
-        cell: (info) => format('isPeriodic', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rentInstalmentsFrequency', () => {
+      const { label: header, format } = modelConfig['rentInstalmentsFrequency']
+
       return tenanciesColumnHelper.accessor((row) => row.rentInstalmentsFrequency, {
         id: 'rentInstalmentsFrequency',
-        header: label('rentInstalmentsFrequency'),
-        cell: (info) => format('rentInstalmentsFrequency', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rentInstalmentsAmount', () => {
+      const { label: header, format } = modelConfig['rentInstalmentsAmount']
+
       return tenanciesColumnHelper.accessor((row) => row.rentInstalmentsAmount, {
         id: 'rentInstalmentsAmount',
-        header: label('rentInstalmentsAmount'),
-        cell: (info) => format('rentInstalmentsAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rentInstalmentsStart', () => {
+      const { label: header, format } = modelConfig['rentInstalmentsStart']
+
       return tenanciesColumnHelper.accessor((row) => row.rentInstalmentsStart, {
         id: 'rentInstalmentsStart',
-        header: label('rentInstalmentsStart'),
-        cell: (info) => format('rentInstalmentsStart', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('meterReadingGas', () => {
+      const { label: header, format } = modelConfig['meterReadingGas']
+
       return tenanciesColumnHelper.accessor((row) => row.meterReadingGas, {
         id: 'meterReadingGas',
-        header: label('meterReadingGas'),
-        cell: (info) => format('meterReadingGas', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('meterReadingGasLastRead', () => {
+      const { label: header, format } = modelConfig['meterReadingGasLastRead']
+
       return tenanciesColumnHelper.accessor((row) => row.meterReadingGasLastRead, {
         id: 'meterReadingGasLastRead',
-        header: label('meterReadingGasLastRead'),
-        cell: (info) => format('meterReadingGasLastRead', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('meterReadingElectricity', () => {
+      const { label: header, format } = modelConfig['meterReadingElectricity']
+
       return tenanciesColumnHelper.accessor((row) => row.meterReadingElectricity, {
         id: 'meterReadingElectricity',
-        header: label('meterReadingElectricity'),
-        cell: (info) => format('meterReadingElectricity', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('meterReadingElectricityLastRead', () => {
+      const { label: header, format } = modelConfig['meterReadingElectricityLastRead']
+
       return tenanciesColumnHelper.accessor((row) => row.meterReadingElectricityLastRead, {
         id: 'meterReadingElectricityLastRead',
-        header: label('meterReadingElectricityLastRead'),
-        cell: (info) => format('meterReadingElectricityLastRead', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('meterReadingWater', () => {
+      const { label: header, format } = modelConfig['meterReadingWater']
+
       return tenanciesColumnHelper.accessor((row) => row.meterReadingWater, {
         id: 'meterReadingWater',
-        header: label('meterReadingWater'),
-        cell: (info) => format('meterReadingWater', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('meterReadingWaterLastRead', () => {
+      const { label: header, format } = modelConfig['meterReadingWaterLastRead']
+
       return tenanciesColumnHelper.accessor((row) => row.meterReadingWaterLastRead, {
         id: 'meterReadingWaterLastRead',
-        header: label('meterReadingWaterLastRead'),
-        cell: (info) => format('meterReadingWaterLastRead', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeId', () => {
+      const { label: header, format } = modelConfig['typeId']
+
       return tenanciesColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
-        header: label('typeId'),
-        cell: (info) => format('typeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return tenanciesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return tenanciesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('applicantId', () => {
+      const { label: header, format } = modelConfig['applicantId']
+
       return tenanciesColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
-        header: label('applicantId'),
-        cell: (info) => format('applicantId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('managerId', () => {
+      const { label: header, format } = modelConfig['managerId']
+
       return tenanciesColumnHelper.accessor((row) => row.managerId, {
         id: 'managerId',
-        header: label('managerId'),
-        cell: (info) => format('managerId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('groupPaymentReference', () => {
+      const { label: header, format } = modelConfig['groupPaymentReference']
+
       return tenanciesColumnHelper.accessor((row) => row.groupPaymentReference, {
         id: 'groupPaymentReference',
-        header: label('groupPaymentReference'),
-        cell: (info) => format('groupPaymentReference', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('lettingFee', () => {
+      const { label: header, format } = modelConfig['lettingFee']
+
       return tenanciesColumnHelper.accessor((row) => row.lettingFee, {
         id: 'lettingFee',
-        header: label('lettingFee'),
-        cell: (info) => format('lettingFee', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('managementFee', () => {
+      const { label: header, format } = modelConfig['managementFee']
+
       return tenanciesColumnHelper.accessor((row) => row.managementFee, {
         id: 'managementFee',
-        header: label('managementFee'),
-        cell: (info) => format('managementFee', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('source', () => {
+      const { label: header, format } = modelConfig['source']
+
       return tenanciesColumnHelper.accessor((row) => row.source, {
         id: 'source',
-        header: label('source'),
-        cell: (info) => format('source', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('deposit', () => {
+      const { label: header, format } = modelConfig['deposit']
+
       return tenanciesColumnHelper.accessor((row) => row.deposit, {
         id: 'deposit',
-        header: label('deposit'),
-        cell: (info) => format('deposit', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('related', () => {
+      const { label: header, format } = modelConfig['related']
+
       return tenanciesColumnHelper.accessor((row) => row.related, {
         id: 'related',
-        header: label('related'),
-        cell: (info) => format('related', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('fromArchive', () => {
+      const { label: header, format } = modelConfig['fromArchive']
+
       return tenanciesColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
-        header: label('fromArchive'),
-        cell: (info) => format('fromArchive', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return tenanciesColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('feeNotes', () => {
+      const { label: header, format } = modelConfig['feeNotes']
+
       return tenanciesColumnHelper.accessor((row) => row.feeNotes, {
         id: 'feeNotes',
-        header: label('feeNotes'),
-        cell: (info) => format('feeNotes', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('legalStatusId', () => {
+      const { label: header, format } = modelConfig['legalStatusId']
+
       return tenanciesColumnHelper.accessor((row) => row.legalStatusId, {
         id: 'legalStatusId',
-        header: label('legalStatusId'),
-        cell: (info) => format('legalStatusId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('renewalOptions', () => {
+      const { label: header, format } = modelConfig['renewalOptions']
+
       return tenanciesColumnHelper.accessor((row) => row.renewalOptions, {
         id: 'renewalOptions',
-        header: label('renewalOptions'),
-        cell: (info) => format('renewalOptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('arrears', () => {
+      const { label: header, format } = modelConfig['arrears']
+
       return tenanciesColumnHelper.accessor((row) => row.arrears, {
         id: 'arrears',
-        header: label('arrears'),
-        cell: (info) => format('arrears', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return tenanciesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -977,91 +1023,115 @@ export const tenanciesIdRelationshipsColumnHelper = createColumnHelper<Tenancies
 
 export const getTenanciesIdRelationshipsColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<TenanciesIdRelationshipsBody>,
+  modelConfig: ModelConfig<TenanciesIdRelationshipsBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('tenancyId', () => {
+      const { label: header, format } = modelConfig['tenancyId']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
-        header: label('tenancyId'),
-        cell: (info) => format('tenancyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('associatedType', () => {
+      const { label: header, format } = modelConfig['associatedType']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
-        header: label('associatedType'),
-        cell: (info) => format('associatedType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('associatedId', () => {
+      const { label: header, format } = modelConfig['associatedId']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
-        header: label('associatedId'),
-        cell: (info) => format('associatedId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('isMain', () => {
+      const { label: header, format } = modelConfig['isMain']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.isMain, {
         id: 'isMain',
-        header: label('isMain'),
-        cell: (info) => format('isMain', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('fromArchive', () => {
+      const { label: header, format } = modelConfig['fromArchive']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
-        header: label('fromArchive'),
-        cell: (info) => format('fromArchive', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('guarantors', () => {
+      const { label: header, format } = modelConfig['guarantors']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.guarantors, {
         id: 'guarantors',
-        header: label('guarantors'),
-        cell: (info) => format('guarantors', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('references', () => {
+      const { label: header, format } = modelConfig['references']
+
       return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.references, {
         id: 'references',
-        header: label('references'),
-        cell: (info) => format('references', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1104,93 +1174,114 @@ export const useTenanciesIdRelationshipsTable = (args: TenanciesIdRelationshipsA
 }
 export const tenanciesIdChecksColumnHelper = createColumnHelper<TenanciesIdChecksBody>()
 
-export const getTenanciesIdChecksColumn = (
-  property: string,
-  { label, format }: ConfigItemLookup<TenanciesIdChecksBody>,
-) => {
+export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelConfig<TenanciesIdChecksBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('checkTypeId', () => {
+      const { label: header, format } = modelConfig['checkTypeId']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row.checkTypeId, {
         id: 'checkTypeId',
-        header: label('checkTypeId'),
-        cell: (info) => format('checkTypeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('tenancyId', () => {
+      const { label: header, format } = modelConfig['tenancyId']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
-        header: label('tenancyId'),
-        cell: (info) => format('tenancyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return tenanciesIdChecksColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1235,112 +1326,142 @@ export const tenanciesIdBreakClausesColumnHelper = createColumnHelper<TenanciesI
 
 export const getTenanciesIdBreakClausesColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<TenanciesIdBreakClausesBody>,
+  modelConfig: ModelConfig<TenanciesIdBreakClausesBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('clauseTypeId', () => {
+      const { label: header, format } = modelConfig['clauseTypeId']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.clauseTypeId, {
         id: 'clauseTypeId',
-        header: label('clauseTypeId'),
-        cell: (info) => format('clauseTypeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('active', () => {
+      const { label: header, format } = modelConfig['active']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.active, {
         id: 'active',
-        header: label('active'),
-        cell: (info) => format('active', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('appliesTo', () => {
+      const { label: header, format } = modelConfig['appliesTo']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.appliesTo, {
         id: 'appliesTo',
-        header: label('appliesTo'),
-        cell: (info) => format('appliesTo', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('letterText', () => {
+      const { label: header, format } = modelConfig['letterText']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.letterText, {
         id: 'letterText',
-        header: label('letterText'),
-        cell: (info) => format('letterText', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('breakFrom', () => {
+      const { label: header, format } = modelConfig['breakFrom']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.breakFrom, {
         id: 'breakFrom',
-        header: label('breakFrom'),
-        cell: (info) => format('breakFrom', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('noticeRequired', () => {
+      const { label: header, format } = modelConfig['noticeRequired']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.noticeRequired, {
         id: 'noticeRequired',
-        header: label('noticeRequired'),
-        cell: (info) => format('noticeRequired', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('agreements', () => {
+      const { label: header, format } = modelConfig['agreements']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.agreements, {
         id: 'agreements',
-        header: label('agreements'),
-        cell: (info) => format('agreements', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('tenancyId', () => {
+      const { label: header, format } = modelConfig['tenancyId']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
-        header: label('tenancyId'),
-        cell: (info) => format('tenancyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return tenanciesIdBreakClausesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1385,91 +1506,115 @@ export const tenanciesIdAllowancesColumnHelper = createColumnHelper<TenanciesIdA
 
 export const getTenanciesIdAllowancesColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<TenanciesIdAllowancesBody>,
+  modelConfig: ModelConfig<TenanciesIdAllowancesBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeId', () => {
+      const { label: header, format } = modelConfig['typeId']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
-        header: label('typeId'),
-        cell: (info) => format('typeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('state', () => {
+      const { label: header, format } = modelConfig['state']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.state, {
         id: 'state',
-        header: label('state'),
-        cell: (info) => format('state', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('agreements', () => {
+      const { label: header, format } = modelConfig['agreements']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.agreements, {
         id: 'agreements',
-        header: label('agreements'),
-        cell: (info) => format('agreements', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('letterText', () => {
+      const { label: header, format } = modelConfig['letterText']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.letterText, {
         id: 'letterText',
-        header: label('letterText'),
-        cell: (info) => format('letterText', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('tenancyId', () => {
+      const { label: header, format } = modelConfig['tenancyId']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
-        header: label('tenancyId'),
-        cell: (info) => format('tenancyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return tenanciesIdAllowancesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1514,91 +1659,115 @@ export const tenanciesIdResponsibilitiesColumnHelper = createColumnHelper<Tenanc
 
 export const getTenanciesIdResponsibilitiesColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<TenanciesIdResponsibilitiesBody>,
+  modelConfig: ModelConfig<TenanciesIdResponsibilitiesBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeId', () => {
+      const { label: header, format } = modelConfig['typeId']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
-        header: label('typeId'),
-        cell: (info) => format('typeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('appliesTo', () => {
+      const { label: header, format } = modelConfig['appliesTo']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.appliesTo, {
         id: 'appliesTo',
-        header: label('appliesTo'),
-        cell: (info) => format('appliesTo', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('agreements', () => {
+      const { label: header, format } = modelConfig['agreements']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.agreements, {
         id: 'agreements',
-        header: label('agreements'),
-        cell: (info) => format('agreements', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('letterText', () => {
+      const { label: header, format } = modelConfig['letterText']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.letterText, {
         id: 'letterText',
-        header: label('letterText'),
-        cell: (info) => format('letterText', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('tenancyId', () => {
+      const { label: header, format } = modelConfig['tenancyId']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
-        header: label('tenancyId'),
-        cell: (info) => format('tenancyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1643,119 +1812,151 @@ export const tenanciesIdRenewalNegotiationsColumnHelper = createColumnHelper<Ten
 
 export const getTenanciesIdRenewalNegotiationsColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<TenanciesIdRenewalNegotiationsBody>,
+  modelConfig: ModelConfig<TenanciesIdRenewalNegotiationsBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('startDate', () => {
+      const { label: header, format } = modelConfig['startDate']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.startDate, {
         id: 'startDate',
-        header: label('startDate'),
-        cell: (info) => format('startDate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('endDate', () => {
+      const { label: header, format } = modelConfig['endDate']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.endDate, {
         id: 'endDate',
-        header: label('endDate'),
-        cell: (info) => format('endDate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rent', () => {
+      const { label: header, format } = modelConfig['rent']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.rent, {
         id: 'rent',
-        header: label('rent'),
-        cell: (info) => format('rent', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rentFrequency', () => {
+      const { label: header, format } = modelConfig['rentFrequency']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.rentFrequency, {
         id: 'rentFrequency',
-        header: label('rentFrequency'),
-        cell: (info) => format('rentFrequency', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rentChange', () => {
+      const { label: header, format } = modelConfig['rentChange']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.rentChange, {
         id: 'rentChange',
-        header: label('rentChange'),
-        cell: (info) => format('rentChange', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('tenancyId', () => {
+      const { label: header, format } = modelConfig['tenancyId']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
-        header: label('tenancyId'),
-        cell: (info) => format('tenancyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('lettingFee', () => {
+      const { label: header, format } = modelConfig['lettingFee']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.lettingFee, {
         id: 'lettingFee',
-        header: label('lettingFee'),
-        cell: (info) => format('lettingFee', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('managementFee', () => {
+      const { label: header, format } = modelConfig['managementFee']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.managementFee, {
         id: 'managementFee',
-        header: label('managementFee'),
-        cell: (info) => format('managementFee', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1800,105 +2001,133 @@ export const tenanciesIdExtensionsColumnHelper = createColumnHelper<TenanciesIdE
 
 export const getTenanciesIdExtensionsColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<TenanciesIdExtensionsBody>,
+  modelConfig: ModelConfig<TenanciesIdExtensionsBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('startDate', () => {
+      const { label: header, format } = modelConfig['startDate']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.startDate, {
         id: 'startDate',
-        header: label('startDate'),
-        cell: (info) => format('startDate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('endDate', () => {
+      const { label: header, format } = modelConfig['endDate']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.endDate, {
         id: 'endDate',
-        header: label('endDate'),
-        cell: (info) => format('endDate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rent', () => {
+      const { label: header, format } = modelConfig['rent']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.rent, {
         id: 'rent',
-        header: label('rent'),
-        cell: (info) => format('rent', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rentFrequency', () => {
+      const { label: header, format } = modelConfig['rentFrequency']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.rentFrequency, {
         id: 'rentFrequency',
-        header: label('rentFrequency'),
-        cell: (info) => format('rentFrequency', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('tenancyId', () => {
+      const { label: header, format } = modelConfig['tenancyId']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
-        header: label('tenancyId'),
-        cell: (info) => format('tenancyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('fee', () => {
+      const { label: header, format } = modelConfig['fee']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row.fee, {
         id: 'fee',
-        header: label('fee'),
-        cell: (info) => format('fee', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return tenanciesIdExtensionsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1944,91 +2173,115 @@ export const tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper =
 
 export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<TenanciesIdRenewalNegotiationsRenewalIdChecksBody>,
+  modelConfig: ModelConfig<TenanciesIdRenewalNegotiationsRenewalIdChecksBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('checkTypeId', () => {
+      const { label: header, format } = modelConfig['checkTypeId']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.checkTypeId, {
         id: 'checkTypeId',
-        header: label('checkTypeId'),
-        cell: (info) => format('checkTypeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('tenancyId', () => {
+      const { label: header, format } = modelConfig['tenancyId']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
-        header: label('tenancyId'),
-        cell: (info) => format('tenancyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('renewalId', () => {
+      const { label: header, format } = modelConfig['renewalId']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.renewalId, {
         id: 'renewalId',
-        header: label('renewalId'),
-        cell: (info) => format('renewalId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

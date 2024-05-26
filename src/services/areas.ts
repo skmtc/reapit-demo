@@ -4,18 +4,18 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiAreasArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  id?: Array<string> | undefined | null
-  departmentId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  name?: string | undefined | null
-  active?: boolean | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  departmentId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  name?: string | undefined
+  active?: boolean | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
 }
 export const getApiAreasFn = async ({
   pageSize,
@@ -91,7 +91,7 @@ export const useGetApiAreas = (args: UseGetApiAreasArgs) => {
 
   return result
 }
-export type UseCreateAreaArgs = {
+export type UsePostApiAreasArgs = {
   body: /** Request body used to create a new area */
   {
     name: /** The name of the area */ string
@@ -99,14 +99,14 @@ export type UseCreateAreaArgs = {
     area: /** The location details (comma delimited list of postcodes, group ids or lat/long coordinate groups) */
     Array<string>
     departmentIds?: /** A collection of unique identifiers of departments associated to the area */
-    Array<string> | undefined | null
+    Array<string> | undefined
     officeIds?: /** A collection of unique identifiers of offices attached to the area. The first item in the collection is considered the primary office */
-    Array<string> | undefined | null
+    Array<string> | undefined
     parentId?: /** The unique identifier of the parent area, if the area should be registered as a child area/group in an existing area group */
-    string | undefined | null
+    string | undefined
   }
 }
-export const createAreaFn = async ({ body }: UseCreateAreaArgs) => {
+export const postApiAreasFn = async ({ body }: UsePostApiAreasArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/areas/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -124,12 +124,12 @@ export const createAreaFn = async ({ body }: UseCreateAreaArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateArea = () => {
+export const usePostApiAreas = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createAreaFn,
+    mutationFn: postApiAreasFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -185,13 +185,13 @@ export type UsePatchApiAreasIdArgs = {
   id: string
   body: /** Request body used to update an existing area */
   {
-    name?: /** The name of the area */ string | undefined | null
+    name?: /** The name of the area */ string | undefined
     area?: /** The location details (comma delimited list of postcodes, group ids or lat/long coordinate groups) */
-    Array<string> | undefined | null
+    Array<string> | undefined
     departmentIds?: /** A collection of unique identifiers of departments associated to the area */
-    Array<string> | undefined | null
+    Array<string> | undefined
     officeIds?: /** A collection of unique identifiers of offices attached to the area. The first item in the collection is considered the primary office */
-    Array<string> | undefined | null
+    Array<string> | undefined
   }
 }
 export const patchApiAreasIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiAreasIdArgs) => {

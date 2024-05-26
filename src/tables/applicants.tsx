@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiApplicants, useGetApiApplicantsIdRelationships } from '@/services/applicants.ts'
@@ -152,124 +152,110 @@ export const applicantsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type ApplicantsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  marketingMode?: string | undefined | null
-  currency?: string | undefined | null
-  active?: boolean | undefined | null
-  notes?: string | undefined | null
-  sellingStatus?: string | undefined | null
-  sellingPosition?: string | undefined | null
-  statusId?: string | undefined | null
-  lastCall?: string | undefined | null
-  nextCall?: string | undefined | null
-  departmentId?: string | undefined | null
-  solicitorId?: string | undefined | null
-  potentialClient?: boolean | undefined | null
-  type?: Array<string> | undefined | null
-  style?: Array<string> | undefined | null
-  situation?: Array<string> | undefined | null
-  parking?: Array<string> | undefined | null
-  age?: Array<string> | undefined | null
-  locality?: Array<string> | undefined | null
-  specialFeatures?: Array<string> | undefined | null
-  unmappedRequirements?:
-    | Array<{ type?: string | undefined | null; value?: string | undefined | null }>
-    | undefined
-    | null
-  bedroomsMin?: number | undefined | null
-  bedroomsMax?: number | undefined | null
-  receptionsMin?: number | undefined | null
-  receptionsMax?: number | undefined | null
-  bathroomsMin?: number | undefined | null
-  bathroomsMax?: number | undefined | null
-  parkingSpacesMin?: number | undefined | null
-  parkingSpacesMax?: number | undefined | null
-  locationType?: string | undefined | null
-  locationOptions?: Array<string> | undefined | null
-  archivedOn?: string | undefined | null
-  fromArchive?: boolean | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  marketingMode?: string | undefined
+  currency?: string | undefined
+  active?: boolean | undefined
+  notes?: string | undefined
+  sellingStatus?: string | undefined
+  sellingPosition?: string | undefined
+  statusId?: string | undefined
+  lastCall?: string | undefined
+  nextCall?: string | undefined
+  departmentId?: string | undefined
+  solicitorId?: string | undefined
+  potentialClient?: boolean | undefined
+  type?: Array<string> | undefined
+  style?: Array<string> | undefined
+  situation?: Array<string> | undefined
+  parking?: Array<string> | undefined
+  age?: Array<string> | undefined
+  locality?: Array<string> | undefined
+  specialFeatures?: Array<string> | undefined
+  unmappedRequirements?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
+  bedroomsMin?: number | undefined
+  bedroomsMax?: number | undefined
+  receptionsMin?: number | undefined
+  receptionsMax?: number | undefined
+  bathroomsMin?: number | undefined
+  bathroomsMax?: number | undefined
+  parkingSpacesMin?: number | undefined
+  parkingSpacesMax?: number | undefined
+  locationType?: string | undefined
+  locationOptions?: Array<string> | undefined
+  archivedOn?: string | undefined
+  fromArchive?: boolean | undefined
   buying?:
     | {
-        priceFrom?: number | undefined | null
-        priceTo?: number | undefined | null
-        decoration?: Array<string> | undefined | null
-        reasonId?: string | undefined | null
-        positionId?: string | undefined | null
-        tenure?: Array<string> | undefined | null
-        mortgageExpiry?: string | undefined | null
-        leaseRemaining?: { min?: number | undefined | null; max?: number | undefined | null } | undefined | null
+        priceFrom?: number | undefined
+        priceTo?: number | undefined
+        decoration?: Array<string> | undefined
+        reasonId?: string | undefined
+        positionId?: string | undefined
+        tenure?: Array<string> | undefined
+        mortgageExpiry?: string | undefined
+        leaseRemaining?: { min?: number | undefined; max?: number | undefined } | undefined
       }
     | undefined
-    | null
   renting?:
     | {
-        moveDate?: string | undefined | null
-        term?: string | undefined | null
-        rentFrom?: number | undefined | null
-        rentTo?: number | undefined | null
-        rentFrequency?: string | undefined | null
-        furnishing?: Array<string> | undefined | null
-        positionId?: string | undefined | null
+        moveDate?: string | undefined
+        term?: string | undefined
+        rentFrom?: number | undefined
+        rentTo?: number | undefined
+        rentFrequency?: string | undefined
+        furnishing?: Array<string> | undefined
+        positionId?: string | undefined
       }
     | undefined
-    | null
   externalArea?:
-    | { type?: string | undefined | null; amountFrom?: number | undefined | null; amountTo?: number | undefined | null }
+    | { type?: string | undefined; amountFrom?: number | undefined; amountTo?: number | undefined }
     | undefined
-    | null
-  internalArea?: { type?: string | undefined | null; amount?: number | undefined | null } | undefined | null
-  source?: { id?: string | undefined | null; type?: string | undefined | null } | undefined | null
-  commercial?:
-    | { useClass?: Array<string> | undefined | null; floorLevel?: Array<string> | undefined | null }
-    | undefined
-    | null
-  regional?: { ggy?: { market?: Array<string> | undefined | null } | undefined | null } | undefined | null
-  officeIds?: Array<string> | undefined | null
-  negotiatorIds?: Array<string> | undefined | null
+  internalArea?: { type?: string | undefined; amount?: number | undefined } | undefined
+  source?: { id?: string | undefined; type?: string | undefined } | undefined
+  commercial?: { useClass?: Array<string> | undefined; floorLevel?: Array<string> | undefined } | undefined
+  regional?: { ggy?: { market?: Array<string> | undefined } | undefined } | undefined
+  officeIds?: Array<string> | undefined
+  negotiatorIds?: Array<string> | undefined
   related?:
     | Array<{
-        id?: string | undefined | null
-        name?: string | undefined | null
-        title?: string | undefined | null
-        forename?: string | undefined | null
-        surname?: string | undefined | null
-        dateOfBirth?: string | undefined | null
-        type?: string | undefined | null
-        homePhone?: string | undefined | null
-        workPhone?: string | undefined | null
-        mobilePhone?: string | undefined | null
-        email?: string | undefined | null
-        marketingConsent?: string | undefined | null
-        fromArchive?: boolean | undefined | null
+        id?: string | undefined
+        name?: string | undefined
+        title?: string | undefined
+        forename?: string | undefined
+        surname?: string | undefined
+        dateOfBirth?: string | undefined
+        type?: string | undefined
+        homePhone?: string | undefined
+        workPhone?: string | undefined
+        mobilePhone?: string | undefined
+        email?: string | undefined
+        marketingConsent?: string | undefined
+        fromArchive?: boolean | undefined
         primaryAddress?:
           | {
-              buildingName?: string | undefined | null
-              buildingNumber?: string | undefined | null
-              line1?: string | undefined | null
-              line2?: string | undefined | null
-              line3?: string | undefined | null
-              line4?: string | undefined | null
-              postcode?: string | undefined | null
-              countryId?: string | undefined | null
+              buildingName?: string | undefined
+              buildingNumber?: string | undefined
+              line1?: string | undefined
+              line2?: string | undefined
+              line3?: string | undefined
+              line4?: string | undefined
+              postcode?: string | undefined
+              countryId?: string | undefined
             }
           | undefined
-          | null
-        additionalContactDetails?:
-          | Array<{ type?: string | undefined | null; value?: string | undefined | null }>
-          | undefined
-          | null
+        additionalContactDetails?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
       }>
     | undefined
-    | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
+  metadata?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
 }
 export type ApplicantsArgs = {
-  sortBy?: string | undefined | null
+  sortBy?: string | undefined
   embed?:
     | Array<
         | 'appointments'
@@ -283,27 +269,24 @@ export type ApplicantsArgs = {
         | 'source'
       >
     | undefined
-    | null
-  id?: Array<string> | undefined | null
-  age?: Array<'period' | 'new' | 'modern' | 'old'> | undefined | null
-  contactDetail?: Array<string> | undefined | null
-  emailAddresses?: Array<string> | undefined | null
-  furnishing?: Array<'furnished' | 'unfurnished' | 'partFurnished'> | undefined | null
-  locality?: Array<'rural' | 'village' | 'townCity'> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
+  id?: Array<string> | undefined
+  age?: Array<'period' | 'new' | 'modern' | 'old'> | undefined
+  contactDetail?: Array<string> | undefined
+  emailAddresses?: Array<string> | undefined
+  furnishing?: Array<'furnished' | 'unfurnished' | 'partFurnished'> | undefined
+  locality?: Array<'rural' | 'village' | 'townCity'> | undefined
+  negotiatorId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
   parking?:
     | Array<
         'residents' | 'offStreet' | 'secure' | 'underground' | 'garage' | 'doubleGarage' | 'tripleGarage' | 'carport'
       >
     | undefined
-    | null
   situation?:
     | Array<
         'garden' | 'land' | 'patio' | 'roofTerrace' | 'conservatory' | 'balcony' | 'communalGardens' | 'outsideSpace'
       >
     | undefined
-    | null
   style?:
     | Array<
         | 'terraced'
@@ -322,7 +305,6 @@ export type ApplicantsArgs = {
         | 'duplex'
       >
     | undefined
-    | null
   type?:
     | Array<
         | 'house'
@@ -337,34 +319,33 @@ export type ApplicantsArgs = {
         | 'developmentPlot'
       >
     | undefined
-    | null
-  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | undefined | null
-  address?: string | undefined | null
-  departmentId?: string | undefined | null
-  marketingMode?: Array<'buying' | 'renting'> | undefined | null
-  name?: string | undefined | null
-  nameType?: Array<'surname' | 'initials' | 'full' | 'companyName'> | undefined | null
-  priceFrom?: number | undefined | null
-  priceTo?: number | undefined | null
-  rentFrom?: number | undefined | null
-  rentTo?: number | undefined | null
-  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | undefined | null
-  bedroomsFrom?: number | undefined | null
-  bedroomsTo?: number | undefined | null
-  active?: boolean | undefined | null
-  fromArchive?: boolean | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  hasLastCall?: boolean | undefined | null
-  lastCallFrom?: string | undefined | null
-  lastCallTo?: string | undefined | null
-  nextCallFrom?: string | undefined | null
-  nextCallTo?: string | undefined | null
-  hasNextCall?: boolean | undefined | null
-  metadata?: Array<string> | undefined | null
-  locationOptions?: string | undefined | null
+  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | undefined
+  address?: string | undefined
+  departmentId?: string | undefined
+  marketingMode?: Array<'buying' | 'renting'> | undefined
+  name?: string | undefined
+  nameType?: Array<'surname' | 'initials' | 'full' | 'companyName'> | undefined
+  priceFrom?: number | undefined
+  priceTo?: number | undefined
+  rentFrom?: number | undefined
+  rentTo?: number | undefined
+  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | undefined
+  bedroomsFrom?: number | undefined
+  bedroomsTo?: number | undefined
+  active?: boolean | undefined
+  fromArchive?: boolean | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  hasLastCall?: boolean | undefined
+  lastCallFrom?: string | undefined
+  lastCallTo?: string | undefined
+  nextCallFrom?: string | undefined
+  nextCallTo?: string | undefined
+  hasNextCall?: boolean | undefined
+  metadata?: Array<string> | undefined
+  locationOptions?: string | undefined
   columns: ColumnsList<ApplicantsBody>
 }
 export const applicantsIdRelationshipsBody = z.object({
@@ -383,364 +364,462 @@ export const applicantsIdRelationshipsBody = z.object({
   fromArchive: z.boolean().nullable().optional(),
 })
 export type ApplicantsIdRelationshipsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  applicantId?: string | undefined | null
-  associatedType?: string | undefined | null
-  associatedId?: string | undefined | null
-  isMain?: boolean | undefined | null
-  fromArchive?: boolean | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  applicantId?: string | undefined
+  associatedType?: string | undefined
+  associatedId?: string | undefined
+  isMain?: boolean | undefined
+  fromArchive?: boolean | undefined
 }
 export type ApplicantsIdRelationshipsArgs = { id: string; columns: ColumnsList<ApplicantsIdRelationshipsBody> }
 
 export const applicantsColumnHelper = createColumnHelper<ApplicantsBody>()
 
-export const getApplicantsColumn = (property: string, { label, format }: ConfigItemLookup<ApplicantsBody>) => {
+export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<ApplicantsBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return applicantsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return applicantsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return applicantsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return applicantsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return applicantsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('marketingMode', () => {
+      const { label: header, format } = modelConfig['marketingMode']
+
       return applicantsColumnHelper.accessor((row) => row.marketingMode, {
         id: 'marketingMode',
-        header: label('marketingMode'),
-        cell: (info) => format('marketingMode', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('currency', () => {
+      const { label: header, format } = modelConfig['currency']
+
       return applicantsColumnHelper.accessor((row) => row.currency, {
         id: 'currency',
-        header: label('currency'),
-        cell: (info) => format('currency', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('active', () => {
+      const { label: header, format } = modelConfig['active']
+
       return applicantsColumnHelper.accessor((row) => row.active, {
         id: 'active',
-        header: label('active'),
-        cell: (info) => format('active', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('notes', () => {
+      const { label: header, format } = modelConfig['notes']
+
       return applicantsColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
-        header: label('notes'),
-        cell: (info) => format('notes', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('sellingStatus', () => {
+      const { label: header, format } = modelConfig['sellingStatus']
+
       return applicantsColumnHelper.accessor((row) => row.sellingStatus, {
         id: 'sellingStatus',
-        header: label('sellingStatus'),
-        cell: (info) => format('sellingStatus', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('sellingPosition', () => {
+      const { label: header, format } = modelConfig['sellingPosition']
+
       return applicantsColumnHelper.accessor((row) => row.sellingPosition, {
         id: 'sellingPosition',
-        header: label('sellingPosition'),
-        cell: (info) => format('sellingPosition', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('statusId', () => {
+      const { label: header, format } = modelConfig['statusId']
+
       return applicantsColumnHelper.accessor((row) => row.statusId, {
         id: 'statusId',
-        header: label('statusId'),
-        cell: (info) => format('statusId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('lastCall', () => {
+      const { label: header, format } = modelConfig['lastCall']
+
       return applicantsColumnHelper.accessor((row) => row.lastCall, {
         id: 'lastCall',
-        header: label('lastCall'),
-        cell: (info) => format('lastCall', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('nextCall', () => {
+      const { label: header, format } = modelConfig['nextCall']
+
       return applicantsColumnHelper.accessor((row) => row.nextCall, {
         id: 'nextCall',
-        header: label('nextCall'),
-        cell: (info) => format('nextCall', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('departmentId', () => {
+      const { label: header, format } = modelConfig['departmentId']
+
       return applicantsColumnHelper.accessor((row) => row.departmentId, {
         id: 'departmentId',
-        header: label('departmentId'),
-        cell: (info) => format('departmentId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('solicitorId', () => {
+      const { label: header, format } = modelConfig['solicitorId']
+
       return applicantsColumnHelper.accessor((row) => row.solicitorId, {
         id: 'solicitorId',
-        header: label('solicitorId'),
-        cell: (info) => format('solicitorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('potentialClient', () => {
+      const { label: header, format } = modelConfig['potentialClient']
+
       return applicantsColumnHelper.accessor((row) => row.potentialClient, {
         id: 'potentialClient',
-        header: label('potentialClient'),
-        cell: (info) => format('potentialClient', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return applicantsColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('style', () => {
+      const { label: header, format } = modelConfig['style']
+
       return applicantsColumnHelper.accessor((row) => row.style, {
         id: 'style',
-        header: label('style'),
-        cell: (info) => format('style', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('situation', () => {
+      const { label: header, format } = modelConfig['situation']
+
       return applicantsColumnHelper.accessor((row) => row.situation, {
         id: 'situation',
-        header: label('situation'),
-        cell: (info) => format('situation', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('parking', () => {
+      const { label: header, format } = modelConfig['parking']
+
       return applicantsColumnHelper.accessor((row) => row.parking, {
         id: 'parking',
-        header: label('parking'),
-        cell: (info) => format('parking', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('age', () => {
+      const { label: header, format } = modelConfig['age']
+
       return applicantsColumnHelper.accessor((row) => row.age, {
         id: 'age',
-        header: label('age'),
-        cell: (info) => format('age', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('locality', () => {
+      const { label: header, format } = modelConfig['locality']
+
       return applicantsColumnHelper.accessor((row) => row.locality, {
         id: 'locality',
-        header: label('locality'),
-        cell: (info) => format('locality', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('specialFeatures', () => {
+      const { label: header, format } = modelConfig['specialFeatures']
+
       return applicantsColumnHelper.accessor((row) => row.specialFeatures, {
         id: 'specialFeatures',
-        header: label('specialFeatures'),
-        cell: (info) => format('specialFeatures', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('unmappedRequirements', () => {
+      const { label: header, format } = modelConfig['unmappedRequirements']
+
       return applicantsColumnHelper.accessor((row) => row.unmappedRequirements, {
         id: 'unmappedRequirements',
-        header: label('unmappedRequirements'),
-        cell: (info) => format('unmappedRequirements', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('bedroomsMin', () => {
+      const { label: header, format } = modelConfig['bedroomsMin']
+
       return applicantsColumnHelper.accessor((row) => row.bedroomsMin, {
         id: 'bedroomsMin',
-        header: label('bedroomsMin'),
-        cell: (info) => format('bedroomsMin', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('bedroomsMax', () => {
+      const { label: header, format } = modelConfig['bedroomsMax']
+
       return applicantsColumnHelper.accessor((row) => row.bedroomsMax, {
         id: 'bedroomsMax',
-        header: label('bedroomsMax'),
-        cell: (info) => format('bedroomsMax', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('receptionsMin', () => {
+      const { label: header, format } = modelConfig['receptionsMin']
+
       return applicantsColumnHelper.accessor((row) => row.receptionsMin, {
         id: 'receptionsMin',
-        header: label('receptionsMin'),
-        cell: (info) => format('receptionsMin', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('receptionsMax', () => {
+      const { label: header, format } = modelConfig['receptionsMax']
+
       return applicantsColumnHelper.accessor((row) => row.receptionsMax, {
         id: 'receptionsMax',
-        header: label('receptionsMax'),
-        cell: (info) => format('receptionsMax', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('bathroomsMin', () => {
+      const { label: header, format } = modelConfig['bathroomsMin']
+
       return applicantsColumnHelper.accessor((row) => row.bathroomsMin, {
         id: 'bathroomsMin',
-        header: label('bathroomsMin'),
-        cell: (info) => format('bathroomsMin', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('bathroomsMax', () => {
+      const { label: header, format } = modelConfig['bathroomsMax']
+
       return applicantsColumnHelper.accessor((row) => row.bathroomsMax, {
         id: 'bathroomsMax',
-        header: label('bathroomsMax'),
-        cell: (info) => format('bathroomsMax', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('parkingSpacesMin', () => {
+      const { label: header, format } = modelConfig['parkingSpacesMin']
+
       return applicantsColumnHelper.accessor((row) => row.parkingSpacesMin, {
         id: 'parkingSpacesMin',
-        header: label('parkingSpacesMin'),
-        cell: (info) => format('parkingSpacesMin', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('parkingSpacesMax', () => {
+      const { label: header, format } = modelConfig['parkingSpacesMax']
+
       return applicantsColumnHelper.accessor((row) => row.parkingSpacesMax, {
         id: 'parkingSpacesMax',
-        header: label('parkingSpacesMax'),
-        cell: (info) => format('parkingSpacesMax', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('locationType', () => {
+      const { label: header, format } = modelConfig['locationType']
+
       return applicantsColumnHelper.accessor((row) => row.locationType, {
         id: 'locationType',
-        header: label('locationType'),
-        cell: (info) => format('locationType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('locationOptions', () => {
+      const { label: header, format } = modelConfig['locationOptions']
+
       return applicantsColumnHelper.accessor((row) => row.locationOptions, {
         id: 'locationOptions',
-        header: label('locationOptions'),
-        cell: (info) => format('locationOptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('archivedOn', () => {
+      const { label: header, format } = modelConfig['archivedOn']
+
       return applicantsColumnHelper.accessor((row) => row.archivedOn, {
         id: 'archivedOn',
-        header: label('archivedOn'),
-        cell: (info) => format('archivedOn', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('fromArchive', () => {
+      const { label: header, format } = modelConfig['fromArchive']
+
       return applicantsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
-        header: label('fromArchive'),
-        cell: (info) => format('fromArchive', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('buying', () => {
+      const { label: header, format } = modelConfig['buying']
+
       return applicantsColumnHelper.accessor((row) => row.buying, {
         id: 'buying',
-        header: label('buying'),
-        cell: (info) => format('buying', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('renting', () => {
+      const { label: header, format } = modelConfig['renting']
+
       return applicantsColumnHelper.accessor((row) => row.renting, {
         id: 'renting',
-        header: label('renting'),
-        cell: (info) => format('renting', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('externalArea', () => {
+      const { label: header, format } = modelConfig['externalArea']
+
       return applicantsColumnHelper.accessor((row) => row.externalArea, {
         id: 'externalArea',
-        header: label('externalArea'),
-        cell: (info) => format('externalArea', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('internalArea', () => {
+      const { label: header, format } = modelConfig['internalArea']
+
       return applicantsColumnHelper.accessor((row) => row.internalArea, {
         id: 'internalArea',
-        header: label('internalArea'),
-        cell: (info) => format('internalArea', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('source', () => {
+      const { label: header, format } = modelConfig['source']
+
       return applicantsColumnHelper.accessor((row) => row.source, {
         id: 'source',
-        header: label('source'),
-        cell: (info) => format('source', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('commercial', () => {
+      const { label: header, format } = modelConfig['commercial']
+
       return applicantsColumnHelper.accessor((row) => row.commercial, {
         id: 'commercial',
-        header: label('commercial'),
-        cell: (info) => format('commercial', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('regional', () => {
+      const { label: header, format } = modelConfig['regional']
+
       return applicantsColumnHelper.accessor((row) => row.regional, {
         id: 'regional',
-        header: label('regional'),
-        cell: (info) => format('regional', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('officeIds', () => {
+      const { label: header, format } = modelConfig['officeIds']
+
       return applicantsColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
-        header: label('officeIds'),
-        cell: (info) => format('officeIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorIds', () => {
+      const { label: header, format } = modelConfig['negotiatorIds']
+
       return applicantsColumnHelper.accessor((row) => row.negotiatorIds, {
         id: 'negotiatorIds',
-        header: label('negotiatorIds'),
-        cell: (info) => format('negotiatorIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('related', () => {
+      const { label: header, format } = modelConfig['related']
+
       return applicantsColumnHelper.accessor((row) => row.related, {
         id: 'related',
-        header: label('related'),
-        cell: (info) => format('related', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return applicantsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return applicantsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -785,77 +864,97 @@ export const applicantsIdRelationshipsColumnHelper = createColumnHelper<Applican
 
 export const getApplicantsIdRelationshipsColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<ApplicantsIdRelationshipsBody>,
+  modelConfig: ModelConfig<ApplicantsIdRelationshipsBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('applicantId', () => {
+      const { label: header, format } = modelConfig['applicantId']
+
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
-        header: label('applicantId'),
-        cell: (info) => format('applicantId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('associatedType', () => {
+      const { label: header, format } = modelConfig['associatedType']
+
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
-        header: label('associatedType'),
-        cell: (info) => format('associatedType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('associatedId', () => {
+      const { label: header, format } = modelConfig['associatedId']
+
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
-        header: label('associatedId'),
-        cell: (info) => format('associatedId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('isMain', () => {
+      const { label: header, format } = modelConfig['isMain']
+
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.isMain, {
         id: 'isMain',
-        header: label('isMain'),
-        cell: (info) => format('isMain', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('fromArchive', () => {
+      const { label: header, format } = modelConfig['fromArchive']
+
       return applicantsIdRelationshipsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
-        header: label('fromArchive'),
-        cell: (info) => format('fromArchive', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

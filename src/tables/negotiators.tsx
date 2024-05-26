@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiNegotiators } from '@/services/negotiators.ts'
@@ -32,172 +32,205 @@ export const negotiatorsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type NegotiatorsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  name?: string | undefined | null
-  jobTitle?: string | undefined | null
-  officeId?: string | undefined | null
-  workPhone?: string | undefined | null
-  mobilePhone?: string | undefined | null
-  email?: string | undefined | null
-  profileImageUrl?: string | undefined | null
-  active?: boolean | undefined | null
-  diaryNegotiatorIds?: Array<string> | undefined | null
-  diaryOfficeIds?: Array<string> | undefined | null
-  additionalContactDetails?:
-    | Array<{ type?: string | undefined | null; value?: string | undefined | null }>
-    | undefined
-    | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  name?: string | undefined
+  jobTitle?: string | undefined
+  officeId?: string | undefined
+  workPhone?: string | undefined
+  mobilePhone?: string | undefined
+  email?: string | undefined
+  profileImageUrl?: string | undefined
+  active?: boolean | undefined
+  diaryNegotiatorIds?: Array<string> | undefined
+  diaryOfficeIds?: Array<string> | undefined
+  additionalContactDetails?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
+  metadata?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
 }
 export type NegotiatorsArgs = {
-  sortBy?: string | undefined | null
-  embed?: Array<'office'> | undefined | null
-  id?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  email?: string | undefined | null
-  name?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  active?: boolean | undefined | null
-  metadata?: Array<string> | undefined | null
+  sortBy?: string | undefined
+  embed?: Array<'office'> | undefined
+  id?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  email?: string | undefined
+  name?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  active?: boolean | undefined
+  metadata?: Array<string> | undefined
   columns: ColumnsList<NegotiatorsBody>
 }
 
 export const negotiatorsColumnHelper = createColumnHelper<NegotiatorsBody>()
 
-export const getNegotiatorsColumn = (property: string, { label, format }: ConfigItemLookup<NegotiatorsBody>) => {
+export const getNegotiatorsColumn = (property: string, modelConfig: ModelConfig<NegotiatorsBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return negotiatorsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return negotiatorsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return negotiatorsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return negotiatorsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return negotiatorsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('name', () => {
+      const { label: header, format } = modelConfig['name']
+
       return negotiatorsColumnHelper.accessor((row) => row.name, {
         id: 'name',
-        header: label('name'),
-        cell: (info) => format('name', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('jobTitle', () => {
+      const { label: header, format } = modelConfig['jobTitle']
+
       return negotiatorsColumnHelper.accessor((row) => row.jobTitle, {
         id: 'jobTitle',
-        header: label('jobTitle'),
-        cell: (info) => format('jobTitle', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('officeId', () => {
+      const { label: header, format } = modelConfig['officeId']
+
       return negotiatorsColumnHelper.accessor((row) => row.officeId, {
         id: 'officeId',
-        header: label('officeId'),
-        cell: (info) => format('officeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('workPhone', () => {
+      const { label: header, format } = modelConfig['workPhone']
+
       return negotiatorsColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
-        header: label('workPhone'),
-        cell: (info) => format('workPhone', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('mobilePhone', () => {
+      const { label: header, format } = modelConfig['mobilePhone']
+
       return negotiatorsColumnHelper.accessor((row) => row.mobilePhone, {
         id: 'mobilePhone',
-        header: label('mobilePhone'),
-        cell: (info) => format('mobilePhone', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('email', () => {
+      const { label: header, format } = modelConfig['email']
+
       return negotiatorsColumnHelper.accessor((row) => row.email, {
         id: 'email',
-        header: label('email'),
-        cell: (info) => format('email', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('profileImageUrl', () => {
+      const { label: header, format } = modelConfig['profileImageUrl']
+
       return negotiatorsColumnHelper.accessor((row) => row.profileImageUrl, {
         id: 'profileImageUrl',
-        header: label('profileImageUrl'),
-        cell: (info) => format('profileImageUrl', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('active', () => {
+      const { label: header, format } = modelConfig['active']
+
       return negotiatorsColumnHelper.accessor((row) => row.active, {
         id: 'active',
-        header: label('active'),
-        cell: (info) => format('active', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('diaryNegotiatorIds', () => {
+      const { label: header, format } = modelConfig['diaryNegotiatorIds']
+
       return negotiatorsColumnHelper.accessor((row) => row.diaryNegotiatorIds, {
         id: 'diaryNegotiatorIds',
-        header: label('diaryNegotiatorIds'),
-        cell: (info) => format('diaryNegotiatorIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('diaryOfficeIds', () => {
+      const { label: header, format } = modelConfig['diaryOfficeIds']
+
       return negotiatorsColumnHelper.accessor((row) => row.diaryOfficeIds, {
         id: 'diaryOfficeIds',
-        header: label('diaryOfficeIds'),
-        cell: (info) => format('diaryOfficeIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('additionalContactDetails', () => {
+      const { label: header, format } = modelConfig['additionalContactDetails']
+
       return negotiatorsColumnHelper.accessor((row) => row.additionalContactDetails, {
         id: 'additionalContactDetails',
-        header: label('additionalContactDetails'),
-        cell: (info) => format('additionalContactDetails', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return negotiatorsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return negotiatorsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

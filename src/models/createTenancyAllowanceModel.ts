@@ -13,3 +13,14 @@ export const createTenancyAllowanceModel = z.object({
     .nullable()
     .optional(),
 })
+/** Request body used to set a tenancy allowance */
+export type CreateTenancyAllowanceModel = {
+  typeId?: /** The identifier of the associated to the allowance */ string | undefined
+  state?: /** The state of the allowance (allowed/notAllowed) */ string | undefined
+  agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
+  | {
+        landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
+        tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
+      }
+    | undefined
+}

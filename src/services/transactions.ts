@@ -4,14 +4,14 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiTransactionsArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  id?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  landlordId?: Array<string> | undefined | null
-  tenancyId?: Array<string> | undefined | null
-  status?: Array<'awaitingAuthorisation' | 'awaitingPosting' | 'posted' | 'rejected'> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  landlordId?: Array<string> | undefined
+  tenancyId?: Array<string> | undefined
+  status?: Array<'awaitingAuthorisation' | 'awaitingPosting' | 'posted' | 'rejected'> | undefined
   type?:
     | Array<
         | 'creditAdjustment'
@@ -32,8 +32,7 @@ export type UseGetApiTransactionsArgs = {
         | 'transfer'
       >
     | undefined
-    | null
-  ledger?: Array<'landlord' | 'tenant' | 'vendor'> | undefined | null
+  ledger?: Array<'landlord' | 'tenant' | 'vendor'> | undefined
   category?:
     | Array<
         | 'advertisingCharge'
@@ -92,13 +91,12 @@ export type UseGetApiTransactionsArgs = {
         | 'worksOrderPayment'
       >
     | undefined
-    | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  outstandingFrom?: number | undefined | null
-  outstandingTo?: number | undefined | null
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  outstandingFrom?: number | undefined
+  outstandingTo?: number | undefined
 }
 export const getApiTransactionsFn = async ({
   pageSize,
@@ -237,11 +235,11 @@ export const useGetApiTransactionsId = (args: UseGetApiTransactionsIdArgs) => {
   return result
 }
 export type UseGetApiTransactionsNominalAccountsArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  id?: Array<string> | undefined | null
-  appliesToWorksOrders?: boolean | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  appliesToWorksOrders?: boolean | undefined
 }
 export const getApiTransactionsNominalAccountsFn = async ({
   pageSize,
@@ -341,33 +339,33 @@ export const useGetApiTransactionsNominalAccountsId = (args: UseGetApiTransactio
 
   return result
 }
-export type UseCreateSupplierInvoiceArgs = {
+export type UsePostApiTransactionsSupplierInvoicesArgs = {
   body: /** Request body used to create a new supplier invoice */
   {
     worksOrderId?: /** The unique identifier of the works order the supplier invoice is associated with, where applicable
 Must be provided if propertyId/companyId/tenancyId are not present */
-    string | undefined | null
+    string | undefined
     propertyId?: /** The unique identifier of the property the supplier invoice is associated with, where applicable
 When providing a propertyId along with a worksOrderId, the id will be validated against the works order to check they match */
-    string | undefined | null
+    string | undefined
     companyId?: /** The unique identifier of the contractor (company) the supplier invoice is associated with, where applicable
 When providing a companyId along with a worksOrderId, the id will be validated against the works order to check they match */
-    string | undefined | null
+    string | undefined
     tenancyId?: /** The unique identifier of the tenancy the supplier invoice is associated with, where applicable
 When providing a tenancyId along with a worksOrderId, the id will be validated against the works order to check they match */
-    string | undefined | null
+    string | undefined
     description: /** The supplier invoice work description */ string
     accountId: /** The identifier of the nominal account the supplier invoice should be attributed to */ string
     invoiceRef: /** The invoice reference */ string
     negotiatorId: /** The unique identifier of the negotiator the invoice should be attributed to (normally the person creating it on the system) */
     string
     invoiceDate: /** The invoice date */ string
-    dueDate?: /** The date the invoice should be paid by */ string | undefined | null
+    dueDate?: /** The date the invoice should be paid by */ string | undefined
     netAmount: /** The invoice net amount */ number
     taxAmount: /** The invoice tax amount */ number
   }
 }
-export const createSupplierInvoiceFn = async ({ body }: UseCreateSupplierInvoiceArgs) => {
+export const postApiTransactionsSupplierInvoicesFn = async ({ body }: UsePostApiTransactionsSupplierInvoicesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/transactions/supplierInvoices${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -385,12 +383,12 @@ export const createSupplierInvoiceFn = async ({ body }: UseCreateSupplierInvoice
 
   return z.void().parse(data)
 }
-export const useCreateSupplierInvoice = () => {
+export const usePostApiTransactionsSupplierInvoices = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createSupplierInvoiceFn,
+    mutationFn: postApiTransactionsSupplierInvoicesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

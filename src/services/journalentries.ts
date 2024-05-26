@@ -4,17 +4,17 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiJournalEntriesArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?: Array<'property' | 'negotiator' | 'type'> | undefined | null
-  associatedType?: string | undefined | null
-  associatedId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  typeId?: Array<string> | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'property' | 'negotiator' | 'type'> | undefined
+  associatedType?: string | undefined
+  associatedId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  typeId?: Array<string> | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
 }
 export const getApiJournalEntriesFn = async ({
   pageSize,
@@ -85,24 +85,24 @@ export const useGetApiJournalEntries = (args: UseGetApiJournalEntriesArgs) => {
 
   return result
 }
-export type UseCreateJournalEntryArgs = {
+export type UsePostApiJournalEntriesArgs = {
   body: /** Request body to create a journal entry */
   {
     typeId?: /** The unique identifier of the type the journal entry is related to.
 Default value set to MI */
-    string | undefined | null
+    string | undefined
     propertyId?: /** The unique identifier of the property the journal entry is related to. Can additionally be associated to another type (Required when 'associatedId' is not given) */
-    string | undefined | null
+    string | undefined
     associatedType?: /** The entity type the journal entry has been raised against (applicant/contact/company/landlord/tenancy/worksOrder) (Required when 'associatedId' is given)
 TypeId must be set to WO when passing worksOrder */
-    string | undefined | null
+    string | undefined
     associatedId?: /** The unique identifier of the entity the journal entry has been raised against. Can additionally be associated to a property (Required when 'propertyId' is not given) */
-    string | undefined | null
+    string | undefined
     description: /** The textual description of the journal entry event */ string
-    negotiatorId?: /** The identifier of the negotiator recording the journal entry */ string | undefined | null
+    negotiatorId?: /** The identifier of the negotiator recording the journal entry */ string | undefined
   }
 }
-export const createJournalEntryFn = async ({ body }: UseCreateJournalEntryArgs) => {
+export const postApiJournalEntriesFn = async ({ body }: UsePostApiJournalEntriesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/journalEntries/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -120,12 +120,12 @@ export const createJournalEntryFn = async ({ body }: UseCreateJournalEntryArgs) 
 
   return z.void().parse(data)
 }
-export const useCreateJournalEntry = () => {
+export const usePostApiJournalEntries = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createJournalEntryFn,
+    mutationFn: postApiJournalEntriesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -134,15 +134,15 @@ export const useCreateJournalEntry = () => {
   })
 }
 export type UseGetApiJournalEntriesLandlordsArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  landlordId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  type?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  landlordId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  type?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
 }
 export const getApiJournalEntriesLandlordsFn = async ({
   pageSize,
@@ -210,7 +210,7 @@ export const useGetApiJournalEntriesLandlords = (args: UseGetApiJournalEntriesLa
 
   return result
 }
-export type UseCreateBulkJournalEntryArgs = {
+export type UsePostApiJournalEntriesBulkArgs = {
   body: /** Request body to create bulk journal entry */
   {
     createJournalEntry?: /** Collection of journal entries */
@@ -218,22 +218,21 @@ export type UseCreateBulkJournalEntryArgs = {
         {
           typeId?: /** The unique identifier of the type the journal entry is related to.
 Default value set to MI */
-          string | undefined | null
+          string | undefined
           propertyId?: /** The unique identifier of the property the journal entry is related to. Can additionally be associated to another type (Required when 'associatedId' is not given) */
-          string | undefined | null
+          string | undefined
           associatedType?: /** The entity type the journal entry has been raised against (applicant/contact/company/landlord/tenancy/worksOrder) (Required when 'associatedId' is given)
 TypeId must be set to WO when passing worksOrder */
-          string | undefined | null
+          string | undefined
           associatedId?: /** The unique identifier of the entity the journal entry has been raised against. Can additionally be associated to a property (Required when 'propertyId' is not given) */
-          string | undefined | null
+          string | undefined
           description: /** The textual description of the journal entry event */ string
-          negotiatorId?: /** The identifier of the negotiator recording the journal entry */ string | undefined | null
+          negotiatorId?: /** The identifier of the negotiator recording the journal entry */ string | undefined
         }>
       | undefined
-      | null
   }
 }
-export const createBulkJournalEntryFn = async ({ body }: UseCreateBulkJournalEntryArgs) => {
+export const postApiJournalEntriesBulkFn = async ({ body }: UsePostApiJournalEntriesBulkArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/journalEntries/bulk${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -251,12 +250,12 @@ export const createBulkJournalEntryFn = async ({ body }: UseCreateBulkJournalEnt
 
   return z.void().parse(data)
 }
-export const useCreateBulkJournalEntry = () => {
+export const usePostApiJournalEntriesBulk = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createBulkJournalEntryFn,
+    mutationFn: postApiJournalEntriesBulkFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

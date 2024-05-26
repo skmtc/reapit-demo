@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import {
@@ -32,36 +32,36 @@ export const invoicesBody = z.object({
   outstandingAmount: z.number().nullable().optional(),
 })
 export type InvoicesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  reference?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  propertyId?: string | undefined | null
-  description?: string | undefined | null
-  status?: string | undefined | null
-  date?: string | undefined | null
-  dueDate?: string | undefined | null
-  isRaised?: boolean | undefined | null
-  netAmount?: number | undefined | null
-  vatAmount?: number | undefined | null
-  outstandingAmount?: number | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  reference?: string | undefined
+  negotiatorId?: string | undefined
+  propertyId?: string | undefined
+  description?: string | undefined
+  status?: string | undefined
+  date?: string | undefined
+  dueDate?: string | undefined
+  isRaised?: boolean | undefined
+  netAmount?: number | undefined
+  vatAmount?: number | undefined
+  outstandingAmount?: number | undefined
 }
 export type InvoicesArgs = {
-  sortBy?: string | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  status?: Array<'pending' | 'raised' | 'partPaid' | 'partCredited' | 'credited' | 'paid'> | undefined | null
-  dateFrom?: string | undefined | null
-  dateTo?: string | undefined | null
-  dueDateFrom?: string | undefined | null
-  dueDateTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  sortBy?: string | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  status?: Array<'pending' | 'raised' | 'partPaid' | 'partCredited' | 'credited' | 'paid'> | undefined
+  dateFrom?: string | undefined
+  dateTo?: string | undefined
+  dueDateFrom?: string | undefined
+  dueDateTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
   columns: ColumnsList<InvoicesBody>
 }
 export const invoicesPaymentsBody = z.object({
@@ -83,32 +83,32 @@ export const invoicesPaymentsBody = z.object({
   vatAmount: z.number().nullable().optional(),
 })
 export type InvoicesPaymentsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  propertyId?: string | undefined | null
-  invoiceId?: string | undefined | null
-  description?: string | undefined | null
-  type?: string | undefined | null
-  date?: string | undefined | null
-  netAmount?: number | undefined | null
-  vatAmount?: number | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  negotiatorId?: string | undefined
+  propertyId?: string | undefined
+  invoiceId?: string | undefined
+  description?: string | undefined
+  type?: string | undefined
+  date?: string | undefined
+  netAmount?: number | undefined
+  vatAmount?: number | undefined
 }
 export type InvoicesPaymentsArgs = {
-  sortBy?: string | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  invoiceId?: Array<string> | undefined | null
-  type?: Array<'payment' | 'accountPayment' | 'advertisingPayment' | 'buyerDeposit'> | undefined | null
-  dateFrom?: string | undefined | null
-  dateTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  sortBy?: string | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  invoiceId?: Array<string> | undefined
+  type?: Array<'payment' | 'accountPayment' | 'advertisingPayment' | 'buyerDeposit'> | undefined
+  dateFrom?: string | undefined
+  dateTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
   columns: ColumnsList<InvoicesPaymentsBody>
 }
 export const invoicesCreditsBody = z.object({
@@ -129,30 +129,30 @@ export const invoicesCreditsBody = z.object({
   vatAmount: z.number().nullable().optional(),
 })
 export type InvoicesCreditsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  propertyId?: string | undefined | null
-  invoiceId?: string | undefined | null
-  description?: string | undefined | null
-  date?: string | undefined | null
-  netAmount?: number | undefined | null
-  vatAmount?: number | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  negotiatorId?: string | undefined
+  propertyId?: string | undefined
+  invoiceId?: string | undefined
+  description?: string | undefined
+  date?: string | undefined
+  netAmount?: number | undefined
+  vatAmount?: number | undefined
 }
 export type InvoicesCreditsArgs = {
-  sortBy?: string | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  invoiceId?: Array<string> | undefined | null
-  dateFrom?: string | undefined | null
-  dateTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  sortBy?: string | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  invoiceId?: Array<string> | undefined
+  dateFrom?: string | undefined
+  dateTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
   columns: ColumnsList<InvoicesCreditsBody>
 }
 export const invoicesChargesBody = z.object({
@@ -174,146 +174,178 @@ export const invoicesChargesBody = z.object({
   vatAmount: z.number().nullable().optional(),
 })
 export type InvoicesChargesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  type?: string | undefined | null
-  invoiceId?: string | undefined | null
-  propertyId?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  vatCode?: string | undefined | null
-  description?: string | undefined | null
-  netAmount?: number | undefined | null
-  vatAmount?: number | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  type?: string | undefined
+  invoiceId?: string | undefined
+  propertyId?: string | undefined
+  negotiatorId?: string | undefined
+  vatCode?: string | undefined
+  description?: string | undefined
+  netAmount?: number | undefined
+  vatAmount?: number | undefined
 }
 export type InvoicesChargesArgs = {
-  sortBy?: string | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  invoiceId?: Array<string> | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  sortBy?: string | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  invoiceId?: Array<string> | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
   columns: ColumnsList<InvoicesChargesBody>
 }
 
 export const invoicesColumnHelper = createColumnHelper<InvoicesBody>()
 
-export const getInvoicesColumn = (property: string, { label, format }: ConfigItemLookup<InvoicesBody>) => {
+export const getInvoicesColumn = (property: string, modelConfig: ModelConfig<InvoicesBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return invoicesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return invoicesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return invoicesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return invoicesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return invoicesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('reference', () => {
+      const { label: header, format } = modelConfig['reference']
+
       return invoicesColumnHelper.accessor((row) => row.reference, {
         id: 'reference',
-        header: label('reference'),
-        cell: (info) => format('reference', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return invoicesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return invoicesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return invoicesColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return invoicesColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('date', () => {
+      const { label: header, format } = modelConfig['date']
+
       return invoicesColumnHelper.accessor((row) => row.date, {
         id: 'date',
-        header: label('date'),
-        cell: (info) => format('date', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('dueDate', () => {
+      const { label: header, format } = modelConfig['dueDate']
+
       return invoicesColumnHelper.accessor((row) => row.dueDate, {
         id: 'dueDate',
-        header: label('dueDate'),
-        cell: (info) => format('dueDate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('isRaised', () => {
+      const { label: header, format } = modelConfig['isRaised']
+
       return invoicesColumnHelper.accessor((row) => row.isRaised, {
         id: 'isRaised',
-        header: label('isRaised'),
-        cell: (info) => format('isRaised', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('netAmount', () => {
+      const { label: header, format } = modelConfig['netAmount']
+
       return invoicesColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
-        header: label('netAmount'),
-        cell: (info) => format('netAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('vatAmount', () => {
+      const { label: header, format } = modelConfig['vatAmount']
+
       return invoicesColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
-        header: label('vatAmount'),
-        cell: (info) => format('vatAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('outstandingAmount', () => {
+      const { label: header, format } = modelConfig['outstandingAmount']
+
       return invoicesColumnHelper.accessor((row) => row.outstandingAmount, {
         id: 'outstandingAmount',
-        header: label('outstandingAmount'),
-        cell: (info) => format('outstandingAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -356,100 +388,123 @@ export const useInvoicesTable = (args: InvoicesArgs) => {
 }
 export const invoicesPaymentsColumnHelper = createColumnHelper<InvoicesPaymentsBody>()
 
-export const getInvoicesPaymentsColumn = (
-  property: string,
-  { label, format }: ConfigItemLookup<InvoicesPaymentsBody>,
-) => {
+export const getInvoicesPaymentsColumn = (property: string, modelConfig: ModelConfig<InvoicesPaymentsBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('invoiceId', () => {
+      const { label: header, format } = modelConfig['invoiceId']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
-        header: label('invoiceId'),
-        cell: (info) => format('invoiceId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('date', () => {
+      const { label: header, format } = modelConfig['date']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row.date, {
         id: 'date',
-        header: label('date'),
-        cell: (info) => format('date', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('netAmount', () => {
+      const { label: header, format } = modelConfig['netAmount']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
-        header: label('netAmount'),
-        cell: (info) => format('netAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('vatAmount', () => {
+      const { label: header, format } = modelConfig['vatAmount']
+
       return invoicesPaymentsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
-        header: label('vatAmount'),
-        cell: (info) => format('vatAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -492,93 +547,114 @@ export const useInvoicesPaymentsTable = (args: InvoicesPaymentsArgs) => {
 }
 export const invoicesCreditsColumnHelper = createColumnHelper<InvoicesCreditsBody>()
 
-export const getInvoicesCreditsColumn = (
-  property: string,
-  { label, format }: ConfigItemLookup<InvoicesCreditsBody>,
-) => {
+export const getInvoicesCreditsColumn = (property: string, modelConfig: ModelConfig<InvoicesCreditsBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return invoicesCreditsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return invoicesCreditsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return invoicesCreditsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return invoicesCreditsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return invoicesCreditsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return invoicesCreditsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return invoicesCreditsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('invoiceId', () => {
+      const { label: header, format } = modelConfig['invoiceId']
+
       return invoicesCreditsColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
-        header: label('invoiceId'),
-        cell: (info) => format('invoiceId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return invoicesCreditsColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('date', () => {
+      const { label: header, format } = modelConfig['date']
+
       return invoicesCreditsColumnHelper.accessor((row) => row.date, {
         id: 'date',
-        header: label('date'),
-        cell: (info) => format('date', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('netAmount', () => {
+      const { label: header, format } = modelConfig['netAmount']
+
       return invoicesCreditsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
-        header: label('netAmount'),
-        cell: (info) => format('netAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('vatAmount', () => {
+      const { label: header, format } = modelConfig['vatAmount']
+
       return invoicesCreditsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
-        header: label('vatAmount'),
-        cell: (info) => format('vatAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -621,100 +697,123 @@ export const useInvoicesCreditsTable = (args: InvoicesCreditsArgs) => {
 }
 export const invoicesChargesColumnHelper = createColumnHelper<InvoicesChargesBody>()
 
-export const getInvoicesChargesColumn = (
-  property: string,
-  { label, format }: ConfigItemLookup<InvoicesChargesBody>,
-) => {
+export const getInvoicesChargesColumn = (property: string, modelConfig: ModelConfig<InvoicesChargesBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return invoicesChargesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return invoicesChargesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return invoicesChargesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return invoicesChargesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return invoicesChargesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return invoicesChargesColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('invoiceId', () => {
+      const { label: header, format } = modelConfig['invoiceId']
+
       return invoicesChargesColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
-        header: label('invoiceId'),
-        cell: (info) => format('invoiceId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return invoicesChargesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return invoicesChargesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('vatCode', () => {
+      const { label: header, format } = modelConfig['vatCode']
+
       return invoicesChargesColumnHelper.accessor((row) => row.vatCode, {
         id: 'vatCode',
-        header: label('vatCode'),
-        cell: (info) => format('vatCode', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return invoicesChargesColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('netAmount', () => {
+      const { label: header, format } = modelConfig['netAmount']
+
       return invoicesChargesColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
-        header: label('netAmount'),
-        cell: (info) => format('netAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('vatAmount', () => {
+      const { label: header, format } = modelConfig['vatAmount']
+
       return invoicesChargesColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
-        header: label('vatAmount'),
-        cell: (info) => format('vatAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

@@ -4,3 +4,5 @@ import { z } from 'zod'
 export const createPreSignedUrlsModel = z.object({
   /** The number of pre signed urls to create */ amount: z.number().int(),
 })
+/** Request body used to create pre signed urls to upload files between 6MB and 30MB */
+export type CreatePreSignedUrlsModel = { amount: /** The number of pre signed urls to create */ number }

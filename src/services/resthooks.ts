@@ -4,10 +4,10 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiResthooksArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  active?: boolean | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  active?: boolean | undefined
 }
 export const getApiResthooksFn = async ({ pageSize, pageNumber, sortBy, active }: UseGetApiResthooksArgs) => {
   const res = await fetch(
@@ -62,21 +62,20 @@ export const useGetApiResthooks = (args: UseGetApiResthooksArgs) => {
 
   return result
 }
-export type UseCreateResthookArgs = {
+export type UsePostApiResthooksArgs = {
   body: /** Request body used to create a new webhook subscription */
   {
     url: /** The url where the payload associated with the webhook should be sent to */ string
     description?: /** A short description associated with the webhook (ie a friendly name or label) */
-    string | undefined | null
-    topicIds?: /** The identifiers of the topics the subscription is associated with */ Array<string> | undefined | null
-    active?: /** Flag denoting whether or not the webhook is active and ready to receive data */
-    boolean | undefined | null
+    string | undefined
+    topicIds?: /** The identifiers of the topics the subscription is associated with */ Array<string> | undefined
+    active?: /** Flag denoting whether or not the webhook is active and ready to receive data */ boolean | undefined
     ignoreEtagOnlyChanges?: /** Flag denoting whether or events that only contain changes to etags and/or modified dates are emitted
 Pass true to disable emitting of these events */
-    boolean | undefined | null
+    boolean | undefined
   }
 }
-export const createResthookFn = async ({ body }: UseCreateResthookArgs) => {
+export const postApiResthooksFn = async ({ body }: UsePostApiResthooksArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/resthooks/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -94,12 +93,12 @@ export const createResthookFn = async ({ body }: UseCreateResthookArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateResthook = () => {
+export const usePostApiResthooks = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createResthookFn,
+    mutationFn: postApiResthooksFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -142,22 +141,21 @@ export const useGetApiResthooksId = (args: UseGetApiResthooksIdArgs) => {
 
   return result
 }
-export type UseUpdateResthookArgs = {
+export type UsePutApiResthooksIdArgs = {
   id: string
   body: /** Request body used to update a webhook subscription */
   {
     url: /** The url where the payload associated with the webhook should be sent to */ string
     description?: /** A short description associated with the webhook (ie a friendly name or label) */
-    string | undefined | null
-    topicIds?: /** The identifiers of the topics the subscription is associated with */ Array<string> | undefined | null
-    active?: /** Flag denoting whether or not the webhook is active and ready to receive data */
-    boolean | undefined | null
+    string | undefined
+    topicIds?: /** The identifiers of the topics the subscription is associated with */ Array<string> | undefined
+    active?: /** Flag denoting whether or not the webhook is active and ready to receive data */ boolean | undefined
     ignoreEtagOnlyChanges?: /** Flag denoting whether or events that only contain changes to etags and/or modified dates are emitted
 Pass true to disable emitting of these events */
-    boolean | undefined | null
+    boolean | undefined
   }
 }
-export const updateResthookFn = async ({ id, body }: UseUpdateResthookArgs) => {
+export const putApiResthooksIdFn = async ({ id, body }: UsePutApiResthooksIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/resthooks/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -175,12 +173,12 @@ export const updateResthookFn = async ({ id, body }: UseUpdateResthookArgs) => {
 
   return z.void().parse(data)
 }
-export const useUpdateResthook = () => {
+export const usePutApiResthooksId = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: updateResthookFn,
+    mutationFn: putApiResthooksIdFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

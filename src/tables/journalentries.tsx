@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiJournalEntries, useGetApiJournalEntriesLandlords } from '@/services/journalentries.ts'
@@ -20,26 +20,26 @@ export const journalEntriesBody = z.object({
   description: z.string().nullable().optional(),
 })
 export type JournalEntriesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  created?: string | undefined | null
-  propertyId?: string | undefined | null
-  associatedType?: string | undefined | null
-  associatedId?: string | undefined | null
-  typeId?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  description?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  created?: string | undefined
+  propertyId?: string | undefined
+  associatedType?: string | undefined
+  associatedId?: string | undefined
+  typeId?: string | undefined
+  negotiatorId?: string | undefined
+  description?: string | undefined
 }
 export type JournalEntriesArgs = {
-  sortBy?: string | undefined | null
-  embed?: Array<'property' | 'negotiator' | 'type'> | undefined | null
-  associatedType?: string | undefined | null
-  associatedId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  typeId?: Array<string> | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
+  sortBy?: string | undefined
+  embed?: Array<'property' | 'negotiator' | 'type'> | undefined
+  associatedType?: string | undefined
+  associatedId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  typeId?: Array<string> | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
   columns: ColumnsList<JournalEntriesBody>
 }
 export const journalEntriesLandlordsBody = z.object({
@@ -56,91 +56,109 @@ export const journalEntriesLandlordsBody = z.object({
   description: z.string().nullable().optional(),
 })
 export type JournalEntriesLandlordsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  created?: string | undefined | null
-  propertyId?: string | undefined | null
-  landlordId?: string | undefined | null
-  type?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  description?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  created?: string | undefined
+  propertyId?: string | undefined
+  landlordId?: string | undefined
+  type?: string | undefined
+  negotiatorId?: string | undefined
+  description?: string | undefined
 }
 export type JournalEntriesLandlordsArgs = {
-  sortBy?: string | undefined | null
-  landlordId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  type?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
+  sortBy?: string | undefined
+  landlordId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  type?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
   columns: ColumnsList<JournalEntriesLandlordsBody>
 }
 
 export const journalEntriesColumnHelper = createColumnHelper<JournalEntriesBody>()
 
-export const getJournalEntriesColumn = (property: string, { label, format }: ConfigItemLookup<JournalEntriesBody>) => {
+export const getJournalEntriesColumn = (property: string, modelConfig: ModelConfig<JournalEntriesBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return journalEntriesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return journalEntriesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return journalEntriesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return journalEntriesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('associatedType', () => {
+      const { label: header, format } = modelConfig['associatedType']
+
       return journalEntriesColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
-        header: label('associatedType'),
-        cell: (info) => format('associatedType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('associatedId', () => {
+      const { label: header, format } = modelConfig['associatedId']
+
       return journalEntriesColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
-        header: label('associatedId'),
-        cell: (info) => format('associatedId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeId', () => {
+      const { label: header, format } = modelConfig['typeId']
+
       return journalEntriesColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
-        header: label('typeId'),
-        cell: (info) => format('typeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return journalEntriesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return journalEntriesColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -185,63 +203,79 @@ export const journalEntriesLandlordsColumnHelper = createColumnHelper<JournalEnt
 
 export const getJournalEntriesLandlordsColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<JournalEntriesLandlordsBody>,
+  modelConfig: ModelConfig<JournalEntriesLandlordsBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return journalEntriesLandlordsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return journalEntriesLandlordsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('landlordId', () => {
+      const { label: header, format } = modelConfig['landlordId']
+
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
-        header: label('landlordId'),
-        cell: (info) => format('landlordId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return journalEntriesLandlordsColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiMetadata } from '@/services/metadata.ts'
@@ -13,57 +13,67 @@ export const metadataBody = z.object({
   metadata: z.string().nullable().optional(),
 })
 export type MetadataBody = {
-  id?: string | undefined | null
-  modified?: string | undefined | null
-  entityType?: string | undefined | null
-  entityId?: string | undefined | null
-  metadata?: string | undefined | null
+  id?: string | undefined
+  modified?: string | undefined
+  entityType?: string | undefined
+  entityId?: string | undefined
+  metadata?: string | undefined
 }
 export type MetadataArgs = {
-  entityType?: string | undefined | null
-  id?: Array<string> | undefined | null
-  entityId?: Array<string> | undefined | null
-  filter?: Array<string> | undefined | null
+  entityType?: string | undefined
+  id?: Array<string> | undefined
+  entityId?: Array<string> | undefined
+  filter?: Array<string> | undefined
   columns: ColumnsList<MetadataBody>
 }
 
 export const metadataColumnHelper = createColumnHelper<MetadataBody>()
 
-export const getMetadataColumn = (property: string, { label, format }: ConfigItemLookup<MetadataBody>) => {
+export const getMetadataColumn = (property: string, modelConfig: ModelConfig<MetadataBody>) => {
   return match(property)
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return metadataColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return metadataColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('entityType', () => {
+      const { label: header, format } = modelConfig['entityType']
+
       return metadataColumnHelper.accessor((row) => row.entityType, {
         id: 'entityType',
-        header: label('entityType'),
-        cell: (info) => format('entityType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('entityId', () => {
+      const { label: header, format } = modelConfig['entityId']
+
       return metadataColumnHelper.accessor((row) => row.entityId, {
         id: 'entityId',
-        header: label('entityId'),
-        cell: (info) => format('entityId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return metadataColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

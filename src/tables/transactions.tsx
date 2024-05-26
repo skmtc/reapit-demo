@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiTransactions, useGetApiTransactionsNominalAccounts } from '@/services/transactions.ts'
@@ -31,34 +31,34 @@ export const transactionsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type TransactionsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  category?: string | undefined | null
-  type?: string | undefined | null
-  transactionType?: string | undefined | null
-  description?: string | undefined | null
-  status?: string | undefined | null
-  ledger?: string | undefined | null
-  netAmount?: number | undefined | null
-  taxAmount?: number | undefined | null
-  grossAmount?: number | undefined | null
-  outstanding?: number | undefined | null
-  companyId?: string | undefined | null
-  landlordId?: string | undefined | null
-  propertyId?: string | undefined | null
-  tenancyId?: string | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  category?: string | undefined
+  type?: string | undefined
+  transactionType?: string | undefined
+  description?: string | undefined
+  status?: string | undefined
+  ledger?: string | undefined
+  netAmount?: number | undefined
+  taxAmount?: number | undefined
+  grossAmount?: number | undefined
+  outstanding?: number | undefined
+  companyId?: string | undefined
+  landlordId?: string | undefined
+  propertyId?: string | undefined
+  tenancyId?: string | undefined
+  _eTag?: string | undefined
 }
 export type TransactionsArgs = {
-  sortBy?: string | undefined | null
-  id?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  landlordId?: Array<string> | undefined | null
-  tenancyId?: Array<string> | undefined | null
-  status?: Array<'awaitingAuthorisation' | 'awaitingPosting' | 'posted' | 'rejected'> | undefined | null
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  landlordId?: Array<string> | undefined
+  tenancyId?: Array<string> | undefined
+  status?: Array<'awaitingAuthorisation' | 'awaitingPosting' | 'posted' | 'rejected'> | undefined
   type?:
     | Array<
         | 'creditAdjustment'
@@ -79,8 +79,7 @@ export type TransactionsArgs = {
         | 'transfer'
       >
     | undefined
-    | null
-  ledger?: Array<'landlord' | 'tenant' | 'vendor'> | undefined | null
+  ledger?: Array<'landlord' | 'tenant' | 'vendor'> | undefined
   category?:
     | Array<
         | 'advertisingCharge'
@@ -139,13 +138,12 @@ export type TransactionsArgs = {
         | 'worksOrderPayment'
       >
     | undefined
-    | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  outstandingFrom?: number | undefined | null
-  outstandingTo?: number | undefined | null
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  outstandingFrom?: number | undefined
+  outstandingTo?: number | undefined
   columns: ColumnsList<TransactionsBody>
 }
 export const transactionsNominalAccountsBody = z.object({
@@ -161,163 +159,203 @@ export const transactionsNominalAccountsBody = z.object({
   appliesToWorksOrders: z.boolean().nullable().optional(),
 })
 export type TransactionsNominalAccountsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  name?: string | undefined | null
-  appliesToWorksOrders?: boolean | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  name?: string | undefined
+  appliesToWorksOrders?: boolean | undefined
 }
 export type TransactionsNominalAccountsArgs = {
-  sortBy?: string | undefined | null
-  id?: Array<string> | undefined | null
-  appliesToWorksOrders?: boolean | undefined | null
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  appliesToWorksOrders?: boolean | undefined
   columns: ColumnsList<TransactionsNominalAccountsBody>
 }
 
 export const transactionsColumnHelper = createColumnHelper<TransactionsBody>()
 
-export const getTransactionsColumn = (property: string, { label, format }: ConfigItemLookup<TransactionsBody>) => {
+export const getTransactionsColumn = (property: string, modelConfig: ModelConfig<TransactionsBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return transactionsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return transactionsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return transactionsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return transactionsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return transactionsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('category', () => {
+      const { label: header, format } = modelConfig['category']
+
       return transactionsColumnHelper.accessor((row) => row.category, {
         id: 'category',
-        header: label('category'),
-        cell: (info) => format('category', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return transactionsColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('transactionType', () => {
+      const { label: header, format } = modelConfig['transactionType']
+
       return transactionsColumnHelper.accessor((row) => row.transactionType, {
         id: 'transactionType',
-        header: label('transactionType'),
-        cell: (info) => format('transactionType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return transactionsColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return transactionsColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('ledger', () => {
+      const { label: header, format } = modelConfig['ledger']
+
       return transactionsColumnHelper.accessor((row) => row.ledger, {
         id: 'ledger',
-        header: label('ledger'),
-        cell: (info) => format('ledger', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('netAmount', () => {
+      const { label: header, format } = modelConfig['netAmount']
+
       return transactionsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
-        header: label('netAmount'),
-        cell: (info) => format('netAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('taxAmount', () => {
+      const { label: header, format } = modelConfig['taxAmount']
+
       return transactionsColumnHelper.accessor((row) => row.taxAmount, {
         id: 'taxAmount',
-        header: label('taxAmount'),
-        cell: (info) => format('taxAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('grossAmount', () => {
+      const { label: header, format } = modelConfig['grossAmount']
+
       return transactionsColumnHelper.accessor((row) => row.grossAmount, {
         id: 'grossAmount',
-        header: label('grossAmount'),
-        cell: (info) => format('grossAmount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('outstanding', () => {
+      const { label: header, format } = modelConfig['outstanding']
+
       return transactionsColumnHelper.accessor((row) => row.outstanding, {
         id: 'outstanding',
-        header: label('outstanding'),
-        cell: (info) => format('outstanding', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('companyId', () => {
+      const { label: header, format } = modelConfig['companyId']
+
       return transactionsColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
-        header: label('companyId'),
-        cell: (info) => format('companyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('landlordId', () => {
+      const { label: header, format } = modelConfig['landlordId']
+
       return transactionsColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
-        header: label('landlordId'),
-        cell: (info) => format('landlordId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return transactionsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('tenancyId', () => {
+      const { label: header, format } = modelConfig['tenancyId']
+
       return transactionsColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
-        header: label('tenancyId'),
-        cell: (info) => format('tenancyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return transactionsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -362,56 +400,70 @@ export const transactionsNominalAccountsColumnHelper = createColumnHelper<Transa
 
 export const getTransactionsNominalAccountsColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<TransactionsNominalAccountsBody>,
+  modelConfig: ModelConfig<TransactionsNominalAccountsBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return transactionsNominalAccountsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return transactionsNominalAccountsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return transactionsNominalAccountsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return transactionsNominalAccountsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return transactionsNominalAccountsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('name', () => {
+      const { label: header, format } = modelConfig['name']
+
       return transactionsNominalAccountsColumnHelper.accessor((row) => row.name, {
         id: 'name',
-        header: label('name'),
-        cell: (info) => format('name', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('appliesToWorksOrders', () => {
+      const { label: header, format } = modelConfig['appliesToWorksOrders']
+
       return transactionsNominalAccountsColumnHelper.accessor((row) => row.appliesToWorksOrders, {
         id: 'appliesToWorksOrders',
-        header: label('appliesToWorksOrders'),
-        cell: (info) => format('appliesToWorksOrders', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

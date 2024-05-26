@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiAppointments, useGetApiAppointmentsIdOpenHouseAttendees } from '@/services/appointments.ts'
@@ -82,91 +82,79 @@ export const appointmentsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type AppointmentsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  start?: string | undefined | null
-  end?: string | undefined | null
-  typeId?: string | undefined | null
-  description?: string | undefined | null
-  recurring?: boolean | undefined | null
-  recurrence?:
-    | { interval?: number | undefined | null; type?: string | undefined | null; until?: string | undefined | null }
-    | undefined
-    | null
-  cancelled?: boolean | undefined | null
-  followUp?:
-    | { due?: string | undefined | null; responseId?: string | undefined | null; notes?: string | undefined | null }
-    | undefined
-    | null
-  propertyId?: string | undefined | null
-  organiserId?: string | undefined | null
-  negotiatorIds?: Array<string> | undefined | null
-  officeIds?: Array<string> | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  start?: string | undefined
+  end?: string | undefined
+  typeId?: string | undefined
+  description?: string | undefined
+  recurring?: boolean | undefined
+  recurrence?: { interval?: number | undefined; type?: string | undefined; until?: string | undefined } | undefined
+  cancelled?: boolean | undefined
+  followUp?: { due?: string | undefined; responseId?: string | undefined; notes?: string | undefined } | undefined
+  propertyId?: string | undefined
+  organiserId?: string | undefined
+  negotiatorIds?: Array<string> | undefined
+  officeIds?: Array<string> | undefined
   attendee?:
     | {
-        id?: string | undefined | null
-        type?: string | undefined | null
+        id?: string | undefined
+        type?: string | undefined
         contacts?:
           | Array<{
-              id?: string | undefined | null
-              name?: string | undefined | null
-              homePhone?: string | undefined | null
-              workPhone?: string | undefined | null
-              mobilePhone?: string | undefined | null
-              email?: string | undefined | null
-              fromArchive?: boolean | undefined | null
+              id?: string | undefined
+              name?: string | undefined
+              homePhone?: string | undefined
+              workPhone?: string | undefined
+              mobilePhone?: string | undefined
+              email?: string | undefined
+              fromArchive?: boolean | undefined
             }>
           | undefined
-          | null
       }
     | undefined
-    | null
-  attended?: string | undefined | null
-  accompanied?: boolean | undefined | null
-  isRepeat?: boolean | undefined | null
-  virtual?: boolean | undefined | null
-  negotiatorConfirmed?: boolean | undefined | null
-  attendeeConfirmed?: boolean | undefined | null
-  propertyConfirmed?: boolean | undefined | null
-  fromArchive?: boolean | undefined | null
-  otherAgentId?: string | undefined | null
+  attended?: string | undefined
+  accompanied?: boolean | undefined
+  isRepeat?: boolean | undefined
+  virtual?: boolean | undefined
+  negotiatorConfirmed?: boolean | undefined
+  attendeeConfirmed?: boolean | undefined
+  propertyConfirmed?: boolean | undefined
+  fromArchive?: boolean | undefined
+  otherAgentId?: string | undefined
   documents?:
-    | {
-        draftPropertyInspectionReportId?: string | undefined | null
-        finalPropertyInspectionReportId?: string | undefined | null
-      }
+    | { draftPropertyInspectionReportId?: string | undefined; finalPropertyInspectionReportId?: string | undefined }
     | undefined
-    | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  extrasField?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
+  metadata?: Record<string, Record<string, never>> | undefined
+  extrasField?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
 }
 export type AppointmentsArgs = {
-  sortBy?: string | undefined | null
-  embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | undefined | null
-  id?: Array<string> | undefined | null
-  typeId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  attendeeId?: Array<string> | undefined | null
-  attendeeType?: Array<'applicant' | 'contact' | 'landlord' | 'tenancy'> | undefined | null
-  start?: string | undefined | null
-  end?: string | undefined | null
-  includeCancelled?: boolean | undefined | null
-  includeUnconfirmed?: boolean | undefined | null
-  fromArchive?: boolean | undefined | null
-  followUpFrom?: string | undefined | null
-  followUpTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  extrasField?: Array<string> | undefined | null
-  metadata?: Array<string> | undefined | null
+  sortBy?: string | undefined
+  embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | undefined
+  id?: Array<string> | undefined
+  typeId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  attendeeId?: Array<string> | undefined
+  attendeeType?: Array<'applicant' | 'contact' | 'landlord' | 'tenancy'> | undefined
+  start?: string | undefined
+  end?: string | undefined
+  includeCancelled?: boolean | undefined
+  includeUnconfirmed?: boolean | undefined
+  fromArchive?: boolean | undefined
+  followUpFrom?: string | undefined
+  followUpTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  extrasField?: Array<string> | undefined
+  metadata?: Array<string> | undefined
   columns: ColumnsList<AppointmentsBody>
 }
 export const appointmentsIdOpenHouseAttendeesBody = z.object({
@@ -205,34 +193,32 @@ export const appointmentsIdOpenHouseAttendeesBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type AppointmentsIdOpenHouseAttendeesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  openHouseId?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  notes?: string | undefined | null
-  interestLevel?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  openHouseId?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  notes?: string | undefined
+  interestLevel?: string | undefined
   attendee?:
     | {
-        id?: string | undefined | null
-        type?: string | undefined | null
+        id?: string | undefined
+        type?: string | undefined
         contacts?:
           | Array<{
-              id?: string | undefined | null
-              name?: string | undefined | null
-              homePhone?: string | undefined | null
-              workPhone?: string | undefined | null
-              mobilePhone?: string | undefined | null
-              email?: string | undefined | null
-              fromArchive?: boolean | undefined | null
+              id?: string | undefined
+              name?: string | undefined
+              homePhone?: string | undefined
+              workPhone?: string | undefined
+              mobilePhone?: string | undefined
+              email?: string | undefined
+              fromArchive?: boolean | undefined
             }>
           | undefined
-          | null
       }
     | undefined
-    | null
-  _eTag?: string | undefined | null
+  _eTag?: string | undefined
 }
 export type AppointmentsIdOpenHouseAttendeesArgs = {
   id: string
@@ -241,223 +227,285 @@ export type AppointmentsIdOpenHouseAttendeesArgs = {
 
 export const appointmentsColumnHelper = createColumnHelper<AppointmentsBody>()
 
-export const getAppointmentsColumn = (property: string, { label, format }: ConfigItemLookup<AppointmentsBody>) => {
+export const getAppointmentsColumn = (property: string, modelConfig: ModelConfig<AppointmentsBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return appointmentsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return appointmentsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return appointmentsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return appointmentsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return appointmentsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('start', () => {
+      const { label: header, format } = modelConfig['start']
+
       return appointmentsColumnHelper.accessor((row) => row.start, {
         id: 'start',
-        header: label('start'),
-        cell: (info) => format('start', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('end', () => {
+      const { label: header, format } = modelConfig['end']
+
       return appointmentsColumnHelper.accessor((row) => row.end, {
         id: 'end',
-        header: label('end'),
-        cell: (info) => format('end', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeId', () => {
+      const { label: header, format } = modelConfig['typeId']
+
       return appointmentsColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
-        header: label('typeId'),
-        cell: (info) => format('typeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return appointmentsColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('recurring', () => {
+      const { label: header, format } = modelConfig['recurring']
+
       return appointmentsColumnHelper.accessor((row) => row.recurring, {
         id: 'recurring',
-        header: label('recurring'),
-        cell: (info) => format('recurring', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('recurrence', () => {
+      const { label: header, format } = modelConfig['recurrence']
+
       return appointmentsColumnHelper.accessor((row) => row.recurrence, {
         id: 'recurrence',
-        header: label('recurrence'),
-        cell: (info) => format('recurrence', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('cancelled', () => {
+      const { label: header, format } = modelConfig['cancelled']
+
       return appointmentsColumnHelper.accessor((row) => row.cancelled, {
         id: 'cancelled',
-        header: label('cancelled'),
-        cell: (info) => format('cancelled', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('followUp', () => {
+      const { label: header, format } = modelConfig['followUp']
+
       return appointmentsColumnHelper.accessor((row) => row.followUp, {
         id: 'followUp',
-        header: label('followUp'),
-        cell: (info) => format('followUp', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return appointmentsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('organiserId', () => {
+      const { label: header, format } = modelConfig['organiserId']
+
       return appointmentsColumnHelper.accessor((row) => row.organiserId, {
         id: 'organiserId',
-        header: label('organiserId'),
-        cell: (info) => format('organiserId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorIds', () => {
+      const { label: header, format } = modelConfig['negotiatorIds']
+
       return appointmentsColumnHelper.accessor((row) => row.negotiatorIds, {
         id: 'negotiatorIds',
-        header: label('negotiatorIds'),
-        cell: (info) => format('negotiatorIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('officeIds', () => {
+      const { label: header, format } = modelConfig['officeIds']
+
       return appointmentsColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
-        header: label('officeIds'),
-        cell: (info) => format('officeIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('attendee', () => {
+      const { label: header, format } = modelConfig['attendee']
+
       return appointmentsColumnHelper.accessor((row) => row.attendee, {
         id: 'attendee',
-        header: label('attendee'),
-        cell: (info) => format('attendee', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('attended', () => {
+      const { label: header, format } = modelConfig['attended']
+
       return appointmentsColumnHelper.accessor((row) => row.attended, {
         id: 'attended',
-        header: label('attended'),
-        cell: (info) => format('attended', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('accompanied', () => {
+      const { label: header, format } = modelConfig['accompanied']
+
       return appointmentsColumnHelper.accessor((row) => row.accompanied, {
         id: 'accompanied',
-        header: label('accompanied'),
-        cell: (info) => format('accompanied', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('isRepeat', () => {
+      const { label: header, format } = modelConfig['isRepeat']
+
       return appointmentsColumnHelper.accessor((row) => row.isRepeat, {
         id: 'isRepeat',
-        header: label('isRepeat'),
-        cell: (info) => format('isRepeat', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('virtual', () => {
+      const { label: header, format } = modelConfig['virtual']
+
       return appointmentsColumnHelper.accessor((row) => row.virtual, {
         id: 'virtual',
-        header: label('virtual'),
-        cell: (info) => format('virtual', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorConfirmed', () => {
+      const { label: header, format } = modelConfig['negotiatorConfirmed']
+
       return appointmentsColumnHelper.accessor((row) => row.negotiatorConfirmed, {
         id: 'negotiatorConfirmed',
-        header: label('negotiatorConfirmed'),
-        cell: (info) => format('negotiatorConfirmed', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('attendeeConfirmed', () => {
+      const { label: header, format } = modelConfig['attendeeConfirmed']
+
       return appointmentsColumnHelper.accessor((row) => row.attendeeConfirmed, {
         id: 'attendeeConfirmed',
-        header: label('attendeeConfirmed'),
-        cell: (info) => format('attendeeConfirmed', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyConfirmed', () => {
+      const { label: header, format } = modelConfig['propertyConfirmed']
+
       return appointmentsColumnHelper.accessor((row) => row.propertyConfirmed, {
         id: 'propertyConfirmed',
-        header: label('propertyConfirmed'),
-        cell: (info) => format('propertyConfirmed', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('fromArchive', () => {
+      const { label: header, format } = modelConfig['fromArchive']
+
       return appointmentsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
-        header: label('fromArchive'),
-        cell: (info) => format('fromArchive', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('otherAgentId', () => {
+      const { label: header, format } = modelConfig['otherAgentId']
+
       return appointmentsColumnHelper.accessor((row) => row.otherAgentId, {
         id: 'otherAgentId',
-        header: label('otherAgentId'),
-        cell: (info) => format('otherAgentId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('documents', () => {
+      const { label: header, format } = modelConfig['documents']
+
       return appointmentsColumnHelper.accessor((row) => row.documents, {
         id: 'documents',
-        header: label('documents'),
-        cell: (info) => format('documents', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return appointmentsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('extrasField', () => {
+      const { label: header, format } = modelConfig['extrasField']
+
       return appointmentsColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
-        header: label('extrasField'),
-        cell: (info) => format('extrasField', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return appointmentsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -502,77 +550,97 @@ export const appointmentsIdOpenHouseAttendeesColumnHelper = createColumnHelper<A
 
 export const getAppointmentsIdOpenHouseAttendeesColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<AppointmentsIdOpenHouseAttendeesBody>,
+  modelConfig: ModelConfig<AppointmentsIdOpenHouseAttendeesBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return appointmentsIdOpenHouseAttendeesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return appointmentsIdOpenHouseAttendeesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return appointmentsIdOpenHouseAttendeesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('openHouseId', () => {
+      const { label: header, format } = modelConfig['openHouseId']
+
       return appointmentsIdOpenHouseAttendeesColumnHelper.accessor((row) => row.openHouseId, {
         id: 'openHouseId',
-        header: label('openHouseId'),
-        cell: (info) => format('openHouseId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return appointmentsIdOpenHouseAttendeesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return appointmentsIdOpenHouseAttendeesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('notes', () => {
+      const { label: header, format } = modelConfig['notes']
+
       return appointmentsIdOpenHouseAttendeesColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
-        header: label('notes'),
-        cell: (info) => format('notes', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('interestLevel', () => {
+      const { label: header, format } = modelConfig['interestLevel']
+
       return appointmentsIdOpenHouseAttendeesColumnHelper.accessor((row) => row.interestLevel, {
         id: 'interestLevel',
-        header: label('interestLevel'),
-        cell: (info) => format('interestLevel', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('attendee', () => {
+      const { label: header, format } = modelConfig['attendee']
+
       return appointmentsIdOpenHouseAttendeesColumnHelper.accessor((row) => row.attendee, {
         id: 'attendee',
-        header: label('attendee'),
-        cell: (info) => format('attendee', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return appointmentsIdOpenHouseAttendeesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

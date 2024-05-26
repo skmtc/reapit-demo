@@ -4,30 +4,30 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiAppointmentsArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | undefined | null
-  id?: Array<string> | undefined | null
-  typeId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  attendeeId?: Array<string> | undefined | null
-  attendeeType?: Array<'applicant' | 'contact' | 'landlord' | 'tenancy'> | undefined | null
-  start?: string | undefined | null
-  end?: string | undefined | null
-  includeCancelled?: boolean | undefined | null
-  includeUnconfirmed?: boolean | undefined | null
-  fromArchive?: boolean | undefined | null
-  followUpFrom?: string | undefined | null
-  followUpTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  extrasField?: Array<string> | undefined | null
-  metadata?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | undefined
+  id?: Array<string> | undefined
+  typeId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  attendeeId?: Array<string> | undefined
+  attendeeType?: Array<'applicant' | 'contact' | 'landlord' | 'tenancy'> | undefined
+  start?: string | undefined
+  end?: string | undefined
+  includeCancelled?: boolean | undefined
+  includeUnconfirmed?: boolean | undefined
+  fromArchive?: boolean | undefined
+  followUpFrom?: string | undefined
+  followUpTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  extrasField?: Array<string> | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiAppointmentsFn = async ({
   pageSize,
@@ -173,66 +173,61 @@ export const useGetApiAppointments = (args: UseGetApiAppointmentsArgs) => {
 
   return result
 }
-export type UseCreateAppointmentArgs = {
+export type UsePostApiAppointmentsArgs = {
   body: /** Request body used to create a new calendar appointment */
   {
     start: /** The date and time when the appointment will start */ string
     end: /** The date and time when the appointment will end */ string
-    followUpOn?: /** The date when the appointment should be followed up */ string | undefined | null
+    followUpOn?: /** The date when the appointment should be followed up */ string | undefined
     typeId: /** The unique identifier of the appointment type */ string
-    description?: /** A free text description about the appointment */ string | undefined | null
-    organiserId?: /** The unique identifier of the negotiator that organised the appointment */
-    string | undefined | null
+    description?: /** A free text description about the appointment */ string | undefined
+    organiserId?: /** The unique identifier of the negotiator that organised the appointment */ string | undefined
     negotiatorIds?: /** A collection of unique identifiers of negotiators attached to the appointment. The first item in the collection is considered the primary negotiator */
-    Array<string> | undefined | null
+    Array<string> | undefined
     officeIds?: /** A collection of unique identifiers of offices attached to the appointment. The first item in the collection is considered the primary office */
-    Array<string> | undefined | null
+    Array<string> | undefined
     attendee?: /** Represents an external attendee on an appointment */
     | {
-          id?: /** The unique identifier of the attendee */ string | undefined | null
-          type?: /** The type of attendee (applicant/contact/landlord/tenant) */ string | undefined | null
+          id?: /** The unique identifier of the attendee */ string | undefined
+          type?: /** The type of attendee (applicant/contact/landlord/tenant) */ string | undefined
         }
       | undefined
-      | null
-    propertyId?: /** The unique identifier of the property related to the appointment */ string | undefined | null
+    propertyId?: /** The unique identifier of the property related to the appointment */ string | undefined
     otherAgentId?: /** The unique identifier of the external company either carrying out or attending the appointment with the agent */
-    string | undefined | null
+    string | undefined
     accompanied?: /** A flag denoting whether or not the appointment will be accompanied by one or more negotiators */
-    boolean | undefined | null
+    boolean | undefined
     negotiatorConfirmed?: /** A flag denoting whether or not the main negotiator has confirmed their attendance */
-    boolean | undefined | null
+    boolean | undefined
     attendeeConfirmed?: /** A flag denoting whether or not the attendee has confirmed their attendance */
-    boolean | undefined | null
+    boolean | undefined
     propertyConfirmed?: /** A flag denoting whether or not the property and/or property's vendor has confirmed their attendance */
-    boolean | undefined | null
-    virtual?: /** A flag denoting whether or not the appointment is virtual */ boolean | undefined | null
+    boolean | undefined
+    virtual?: /** A flag denoting whether or not the appointment is virtual */ boolean | undefined
     isRepeat?: /** A flag denoting whether or not the appointment is a subsequent appointment to a previous one (a repeat appointment for the same attendee) */
-    boolean | undefined | null
-    attended?: /** The attendance status of the appointment (notSet/noShow/attended) */ string | undefined | null
+    boolean | undefined
+    attended?: /** The attendance status of the appointment (notSet/noShow/attended) */ string | undefined
     recurrence?: /** Details of an appointment's recurrence pattern */
     | {
-          interval?: /** The numeric value denoting how often the appointment will recur */ number | undefined | null
-          type?: /** The type of unit that the `interval` applies to (daily/weekly/yearly/monthly) */
-          string | undefined | null
+          interval?: /** The numeric value denoting how often the appointment will recur */ number | undefined
+          type?: /** The type of unit that the `interval` applies to (daily/weekly/yearly/monthly) */ string | undefined
           until?: /** The date and time of the last occurrence of the appointment. (Required if 'type' is provided) */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
     documents?: /** A view of the documents associated to the appointment */
     | {
           draftPropertyInspectionReportId?: /** The unique identifier of the draft property inspection report document */
-          string | undefined | null
+          string | undefined
           finalPropertyInspectionReportId?: /** The unique identifier of the final property inspection report document */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
     metadata?: /** App specific metadata to set against the appointment */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
-export const createAppointmentFn = async ({ body }: UseCreateAppointmentArgs) => {
+export const postApiAppointmentsFn = async ({ body }: UsePostApiAppointmentsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -250,12 +245,12 @@ export const createAppointmentFn = async ({ body }: UseCreateAppointmentArgs) =>
 
   return z.void().parse(data)
 }
-export const useCreateAppointment = () => {
+export const usePostApiAppointments = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createAppointmentFn,
+    mutationFn: postApiAppointmentsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -265,8 +260,8 @@ export const useCreateAppointment = () => {
 }
 export type UseGetApiAppointmentsIdArgs = {
   id: string
-  embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | undefined | null
-  extrasField?: Array<string> | undefined | null
+  embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | undefined
+  extrasField?: Array<string> | undefined
 }
 export const getApiAppointmentsIdFn = async ({ id, embed, extrasField }: UseGetApiAppointmentsIdArgs) => {
   const res = await fetch(
@@ -373,70 +368,64 @@ export type UsePatchApiAppointmentsIdArgs = {
   id: string
   body: /** Request body used to update an existing calendar appointment */
   {
-    start?: /** The date and time when the appointment will start */ string | undefined | null
-    end?: /** The date and time when the appointment will end */ string | undefined | null
-    followUpOn?: /** The date when the appointment should be followed up */ string | undefined | null
-    typeId?: /** The unique identifier of the appointment type */ string | undefined | null
-    description?: /** A free text description about the appointment */ string | undefined | null
-    propertyId?: /** The unique identifier of the property related to the appointment */ string | undefined | null
+    start?: /** The date and time when the appointment will start */ string | undefined
+    end?: /** The date and time when the appointment will end */ string | undefined
+    followUpOn?: /** The date when the appointment should be followed up */ string | undefined
+    typeId?: /** The unique identifier of the appointment type */ string | undefined
+    description?: /** A free text description about the appointment */ string | undefined
+    propertyId?: /** The unique identifier of the property related to the appointment */ string | undefined
     otherAgentId?: /** The unique identifier of the external company either carrying out or attending the appointment with the agent */
-    string | undefined | null
-    organiserId?: /** The unique identifier of the negotiator that organised the appointment */
-    string | undefined | null
-    cancelled?: /** A flag denoting whether or not the appointment has been cancelled */ boolean | undefined | null
+    string | undefined
+    organiserId?: /** The unique identifier of the negotiator that organised the appointment */ string | undefined
+    cancelled?: /** A flag denoting whether or not the appointment has been cancelled */ boolean | undefined
     negotiatorIds?: /** A collection of unique identifiers of negotiators attached to the appointment. The first item in the collection is considered the primary negotiator */
-    Array<string> | undefined | null
+    Array<string> | undefined
     officeIds?: /** A collection of unique identifiers of offices attached to the appointment. The first item in the collection is considered the primary office */
-    Array<string> | undefined | null
+    Array<string> | undefined
     attendee?: /** Represents an external attendee on an appointment */
     | {
           id?: /** The unique identifier of the attendee. To clear an attendee this can be passed as an empty string. */
-          string | undefined | null
-          type?: /** The type of attendee (applicant/contact/landlord/tenant) */ string | undefined | null
+          string | undefined
+          type?: /** The type of attendee (applicant/contact/landlord/tenant) */ string | undefined
           confirmed?: /** A flag denoting whether or not the attendee has confirmed their attendance */
-          boolean | undefined | null
+          boolean | undefined
         }
       | undefined
-      | null
     accompanied?: /** A flag denoting whether or not the appointment will be accompanied by one or more negotiators */
-    boolean | undefined | null
-    virtual?: /** A flag denoting whether or not the appointment is virtual */ boolean | undefined | null
+    boolean | undefined
+    virtual?: /** A flag denoting whether or not the appointment is virtual */ boolean | undefined
     isRepeat?: /** A flag denoting whether or not the appointment is a subsequent appointment to a previous one (a repeat appointment for the same attendee) */
-    boolean | undefined | null
+    boolean | undefined
     negotiatorConfirmed?: /** A flag denoting whether or not the main negotiator has confirmed their attendance */
-    boolean | undefined | null
+    boolean | undefined
     attendeeConfirmed?: /** A flag denoting whether or not the attendee has confirmed their attendance */
-    boolean | undefined | null
+    boolean | undefined
     propertyConfirmed?: /** A flag denoting whether or not the property and/or property's vendor has confirmed their attendance */
-    boolean | undefined | null
-    attended?: /** The attendance status of the appointment (notSet/noShow/attended) */ string | undefined | null
+    boolean | undefined
+    attended?: /** The attendance status of the appointment (notSet/noShow/attended) */ string | undefined
     followUp?: /** Represents the follow up information on a single appointment */
     | {
-          responseId?: /** The unique identifier of a pre-defined follow up response type */ string | undefined | null
-          notes?: /** The internal follow up notes to be stored against the appointment */ string | undefined | null
+          responseId?: /** The unique identifier of a pre-defined follow up response type */ string | undefined
+          notes?: /** The internal follow up notes to be stored against the appointment */ string | undefined
         }
       | undefined
-      | null
     recurrence?: /** Details of an appointment's recurrence pattern */
     | {
-          type?: /** The type of unit that the `interval` applies to (daily/weekly/yearly/monthly) */
-          string | undefined | null
-          interval?: /** The numeric value denoting how often the appointment will recur */ number | undefined | null
-          until?: /** The date and time of the last occurrence of the appointment */ string | undefined | null
+          type?: /** The type of unit that the `interval` applies to (daily/weekly/yearly/monthly) */ string | undefined
+          interval?: /** The numeric value denoting how often the appointment will recur */ number | undefined
+          until?: /** The date and time of the last occurrence of the appointment */ string | undefined
         }
       | undefined
-      | null
     documents?: /** A view of the documents associated to the appointment */
     | {
           draftPropertyInspectionReportId?: /** The unique identifier of the draft property inspection report document */
-          string | undefined | null
+          string | undefined
           finalPropertyInspectionReportId?: /** The unique identifier of the final property inspection report document */
-          string | undefined | null
+          string | undefined
         }
       | undefined
-      | null
     metadata?: /** App specific metadata to set against the appointment */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiAppointmentsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiAppointmentsIdArgs) => {
@@ -472,8 +461,8 @@ export const usePatchApiAppointmentsId = () => {
 }
 export type UseGetApiAppointmentsIdOpenHouseAttendeesArgs = {
   id: string
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
 }
 export const getApiAppointmentsIdOpenHouseAttendeesFn = async ({
   id,
@@ -557,23 +546,25 @@ export const useGetApiAppointmentsIdOpenHouseAttendees = (args: UseGetApiAppoint
 
   return result
 }
-export type UseCreateOpenHouseAttendeeArgs = {
+export type UsePostApiAppointmentsIdOpenHouseAttendeesArgs = {
   id: string
   body: /** Request body used to create a new open house attendee */
   {
     interestLevel?: /** The interest level of the open house attendee (veryInterested/mightBeInterested/notInterested/notSet) */
-    string | undefined | null
-    notes?: /** Notes on this open house attendee */ string | undefined | null
+    string | undefined
+    notes?: /** Notes on this open house attendee */ string | undefined
     attendee?: /** Represents an external attendee on an appointment */
     | {
-          id?: /** The unique identifier of the attendee */ string | undefined | null
-          type?: /** The type of attendee (applicant/contact/landlord/tenant) */ string | undefined | null
+          id?: /** The unique identifier of the attendee */ string | undefined
+          type?: /** The type of attendee (applicant/contact/landlord/tenant) */ string | undefined
         }
       | undefined
-      | null
   }
 }
-export const createOpenHouseAttendeeFn = async ({ id, body }: UseCreateOpenHouseAttendeeArgs) => {
+export const postApiAppointmentsIdOpenHouseAttendeesFn = async ({
+  id,
+  body,
+}: UsePostApiAppointmentsIdOpenHouseAttendeesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${id}/openHouseAttendees${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -591,12 +582,12 @@ export const createOpenHouseAttendeeFn = async ({ id, body }: UseCreateOpenHouse
 
   return z.void().parse(data)
 }
-export const useCreateOpenHouseAttendee = () => {
+export const usePostApiAppointmentsIdOpenHouseAttendees = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createOpenHouseAttendeeFn,
+    mutationFn: postApiAppointmentsIdOpenHouseAttendeesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -717,8 +708,8 @@ export type UsePatchApiAppointmentsIdOpenHouseAttendeesOpenHouseAttendeeIdArgs =
   body: /** Request body used to upda te a new open house attendee */
   {
     interestLevel?: /** The interest level of the open house attendee (veryInterested/mightBeInterested/notInterested/notSet) */
-    string | undefined | null
-    notes?: /** Notes on this open house attendee */ string | undefined | null
+    string | undefined
+    notes?: /** Notes on this open house attendee */ string | undefined
   }
 }
 export const patchApiAppointmentsIdOpenHouseAttendeesOpenHouseAttendeeIdFn = async ({

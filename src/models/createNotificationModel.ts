@@ -20,3 +20,19 @@ based on the type/subType combination and will be validated accordingly. Please 
 for more information */
   payload: z.object({}).nullable().optional(),
 })
+/** Payload for creating a notification */
+export type CreateNotificationModel = {
+  type?: /** The notification type (telephony) */ string | undefined
+  subType?: /** The sub category type (answeredCall/endedCall/incomingCall/missedCall) */ string | undefined
+  products?: /** The products the notification is associated to, and will be delivered to */ Array<string> | undefined
+  targets?: /** Payload for defining notification targets */
+  | {
+        negotiatorId?: /** The identifier of the negotiators whom should receive the notification */
+        Array<string> | undefined
+      }
+    | undefined
+  payload?: /** The payload to deliver to the specified target(s). Note that the payload must match the expected format
+based on the type/subType combination and will be validated accordingly. Please refer to [the documentation](https://foundations-documentation.reapit.cloud/api/notifications)
+for more information */
+  Record<string, never> | undefined
+}

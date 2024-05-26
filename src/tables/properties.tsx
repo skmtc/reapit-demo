@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import {
@@ -328,281 +328,245 @@ export const propertiesBody = z.object({
     .optional(),
 })
 export type PropertiesBody = {
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  lastCall?: string | undefined | null
-  nextCall?: string | undefined | null
-  marketingMode?: string | undefined | null
-  currency?: string | undefined | null
-  alternateId?: string | undefined | null
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  lastCall?: string | undefined
+  nextCall?: string | undefined
+  marketingMode?: string | undefined
+  currency?: string | undefined
+  alternateId?: string | undefined
   address?:
     | {
-        buildingName?: string | undefined | null
-        buildingNumber?: string | undefined | null
-        line1?: string | undefined | null
-        line2?: string | undefined | null
-        line3?: string | undefined | null
-        line4?: string | undefined | null
-        postcode?: string | undefined | null
-        countryId?: string | undefined | null
-        localTimeZone?: string | undefined | null
-        geolocation?: { latitude?: number | undefined | null; longitude?: number | undefined | null } | undefined | null
+        buildingName?: string | undefined
+        buildingNumber?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        line3?: string | undefined
+        line4?: string | undefined
+        postcode?: string | undefined
+        countryId?: string | undefined
+        localTimeZone?: string | undefined
+        geolocation?: { latitude?: number | undefined; longitude?: number | undefined } | undefined
       }
     | undefined
-    | null
-  areaId?: string | undefined | null
-  strapline?: string | undefined | null
-  description?: string | undefined | null
-  longDescription?: string | undefined | null
-  localAuthorityCompanyId?: string | undefined | null
-  localAuthorityCompanyName?: string | undefined | null
-  summary?: string | undefined | null
-  departmentId?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  bedrooms?: number | undefined | null
-  bedroomsMax?: number | undefined | null
-  receptions?: number | undefined | null
-  receptionsMax?: number | undefined | null
-  bathrooms?: number | undefined | null
-  bathroomsMax?: number | undefined | null
-  numberOfUnits?: number | undefined | null
-  parkingSpaces?: number | undefined | null
-  councilTax?: string | undefined | null
-  disabledPortalIds?: Array<string> | undefined | null
-  internetAdvertising?: boolean | undefined | null
-  isExternal?: boolean | undefined | null
-  viewingArrangements?: string | undefined | null
-  videoUrl?: string | undefined | null
-  videoCaption?: string | undefined | null
-  video2Url?: string | undefined | null
-  video2Caption?: string | undefined | null
-  notes?: string | undefined | null
-  boardStatus?: string | undefined | null
-  boardNotes?: string | undefined | null
-  featuredImageUrl?: string | undefined | null
-  url?: string | undefined | null
-  urlCaption?: string | undefined | null
-  groundRent?: number | undefined | null
-  groundRentComment?: string | undefined | null
-  groundRentReviewDate?: string | undefined | null
-  groundRentIncrease?: number | undefined | null
-  serviceCharge?: number | undefined | null
-  serviceChargeComment?: string | undefined | null
-  floorLevel?: number | undefined | null
-  internalFloors?: number | undefined | null
-  totalFloors?: number | undefined | null
-  boardUpdated?: string | undefined | null
-  valuation?: string | undefined | null
-  archivedOn?: string | undefined | null
-  fromArchive?: boolean | undefined | null
+  areaId?: string | undefined
+  strapline?: string | undefined
+  description?: string | undefined
+  longDescription?: string | undefined
+  localAuthorityCompanyId?: string | undefined
+  localAuthorityCompanyName?: string | undefined
+  summary?: string | undefined
+  departmentId?: string | undefined
+  negotiatorId?: string | undefined
+  bedrooms?: number | undefined
+  bedroomsMax?: number | undefined
+  receptions?: number | undefined
+  receptionsMax?: number | undefined
+  bathrooms?: number | undefined
+  bathroomsMax?: number | undefined
+  numberOfUnits?: number | undefined
+  parkingSpaces?: number | undefined
+  councilTax?: string | undefined
+  disabledPortalIds?: Array<string> | undefined
+  internetAdvertising?: boolean | undefined
+  isExternal?: boolean | undefined
+  viewingArrangements?: string | undefined
+  videoUrl?: string | undefined
+  videoCaption?: string | undefined
+  video2Url?: string | undefined
+  video2Caption?: string | undefined
+  notes?: string | undefined
+  boardStatus?: string | undefined
+  boardNotes?: string | undefined
+  featuredImageUrl?: string | undefined
+  url?: string | undefined
+  urlCaption?: string | undefined
+  groundRent?: number | undefined
+  groundRentComment?: string | undefined
+  groundRentReviewDate?: string | undefined
+  groundRentIncrease?: number | undefined
+  serviceCharge?: number | undefined
+  serviceChargeComment?: string | undefined
+  floorLevel?: number | undefined
+  internalFloors?: number | undefined
+  totalFloors?: number | undefined
+  boardUpdated?: string | undefined
+  valuation?: string | undefined
+  archivedOn?: string | undefined
+  fromArchive?: boolean | undefined
   rural?:
-    | {
-        tenureId?: string | undefined | null
-        buildingsDescription?: string | undefined | null
-        landDescription?: string | undefined | null
-      }
+    | { tenureId?: string | undefined; buildingsDescription?: string | undefined; landDescription?: string | undefined }
     | undefined
-    | null
-  externalArea?:
-    | { type?: string | undefined | null; min?: number | undefined | null; max?: number | undefined | null }
-    | undefined
-    | null
-  internalArea?:
-    | { type?: string | undefined | null; min?: number | undefined | null; max?: number | undefined | null }
-    | undefined
-    | null
+  externalArea?: { type?: string | undefined; min?: number | undefined; max?: number | undefined } | undefined
+  internalArea?: { type?: string | undefined; min?: number | undefined; max?: number | undefined } | undefined
   epc?:
     | {
-        exempt?: boolean | undefined | null
-        eer?: number | undefined | null
-        eerRating?: string | undefined | null
-        eerPotential?: number | undefined | null
-        eerPotentialRating?: string | undefined | null
-        eir?: number | undefined | null
-        eirRating?: string | undefined | null
-        eirPotential?: number | undefined | null
-        eirPotentialRating?: string | undefined | null
-        fullDocumentUrl?: string | undefined | null
-        firstPageDocumentUrl?: string | undefined | null
+        exempt?: boolean | undefined
+        eer?: number | undefined
+        eerRating?: string | undefined
+        eerPotential?: number | undefined
+        eerPotentialRating?: string | undefined
+        eir?: number | undefined
+        eirRating?: string | undefined
+        eirPotential?: number | undefined
+        eirPotentialRating?: string | undefined
+        fullDocumentUrl?: string | undefined
+        firstPageDocumentUrl?: string | undefined
       }
     | undefined
-    | null
   selling?:
     | {
-        instructed?: string | undefined | null
-        price?: number | undefined | null
-        priceTo?: number | undefined | null
-        reservationFee?: number | undefined | null
-        qualifier?: string | undefined | null
-        status?: string | undefined | null
-        disposal?: string | undefined | null
-        completed?: string | undefined | null
-        exchanged?: string | undefined | null
-        accountPaid?: string | undefined | null
-        tenure?: { type?: string | undefined | null; expiry?: string | undefined | null } | undefined | null
-        vendorId?: string | undefined | null
-        agency?: string | undefined | null
-        agencyId?: string | undefined | null
-        agreementExpiry?: string | undefined | null
-        fee?: { type?: string | undefined | null; amount?: number | undefined | null } | undefined | null
-        exchangedCompanyFee?: number | undefined | null
-        recommendedPrice?: number | undefined | null
-        valuationPrice?: number | undefined | null
-        brochureId?: string | undefined | null
-        publicBrochureUrl?: string | undefined | null
-        exchangedPrice?: number | undefined | null
-        exchangedOfficeId?: string | undefined | null
-        decoration?: Array<string> | undefined | null
+        instructed?: string | undefined
+        price?: number | undefined
+        priceTo?: number | undefined
+        reservationFee?: number | undefined
+        qualifier?: string | undefined
+        status?: string | undefined
+        disposal?: string | undefined
+        completed?: string | undefined
+        exchanged?: string | undefined
+        accountPaid?: string | undefined
+        tenure?: { type?: string | undefined; expiry?: string | undefined } | undefined
+        vendorId?: string | undefined
+        agency?: string | undefined
+        agencyId?: string | undefined
+        agreementExpiry?: string | undefined
+        fee?: { type?: string | undefined; amount?: number | undefined } | undefined
+        exchangedCompanyFee?: number | undefined
+        recommendedPrice?: number | undefined
+        valuationPrice?: number | undefined
+        brochureId?: string | undefined
+        publicBrochureUrl?: string | undefined
+        exchangedPrice?: number | undefined
+        exchangedOfficeId?: string | undefined
+        decoration?: Array<string> | undefined
         sharedOwnership?:
-          | {
-              sharedPercentage?: number | undefined | null
-              rent?: number | undefined | null
-              rentFrequency?: string | undefined | null
-            }
+          | { sharedPercentage?: number | undefined; rent?: number | undefined; rentFrequency?: string | undefined }
           | undefined
-          | null
         subAgentTerms?:
-          | {
-              feeAvailable?: boolean | undefined | null
-              type?: string | undefined | null
-              amount?: number | undefined | null
-            }
+          | { feeAvailable?: boolean | undefined; type?: string | undefined; amount?: number | undefined }
           | undefined
-          | null
       }
     | undefined
-    | null
   letting?:
     | {
-        instructed?: string | undefined | null
-        availableFrom?: string | undefined | null
-        availableTo?: string | undefined | null
-        agreementSigned?: string | undefined | null
-        rent?: number | undefined | null
-        rentFrequency?: string | undefined | null
-        rentIncludes?: string | undefined | null
-        furnishing?: Array<string> | undefined | null
-        term?: string | undefined | null
-        status?: string | undefined | null
-        agentRole?: string | undefined | null
-        landlordId?: string | undefined | null
-        worksOrderNote?: string | undefined | null
-        minimumTerm?: number | undefined | null
-        propertyManagerId?: string | undefined | null
-        managementCompanyIds?: Array<string> | undefined | null
-        brochureId?: string | undefined | null
-        publicBrochureUrl?: string | undefined | null
-        managementFee?: { type?: string | undefined | null; amount?: number | undefined | null } | undefined | null
-        lettingFee?: { type?: string | undefined | null; amount?: number | undefined | null } | undefined | null
-        qualifier?: string | undefined | null
+        instructed?: string | undefined
+        availableFrom?: string | undefined
+        availableTo?: string | undefined
+        agreementSigned?: string | undefined
+        rent?: number | undefined
+        rentFrequency?: string | undefined
+        rentIncludes?: string | undefined
+        furnishing?: Array<string> | undefined
+        term?: string | undefined
+        status?: string | undefined
+        agentRole?: string | undefined
+        landlordId?: string | undefined
+        worksOrderNote?: string | undefined
+        minimumTerm?: number | undefined
+        propertyManagerId?: string | undefined
+        managementCompanyIds?: Array<string> | undefined
+        brochureId?: string | undefined
+        publicBrochureUrl?: string | undefined
+        managementFee?: { type?: string | undefined; amount?: number | undefined } | undefined
+        lettingFee?: { type?: string | undefined; amount?: number | undefined } | undefined
+        qualifier?: string | undefined
         utilities?:
           | {
-              hasGas?: boolean | undefined | null
-              gasCompanyId?: string | undefined | null
-              gasMeterPoint?: string | undefined | null
-              electricityCompanyId?: string | undefined | null
-              electricityMeterPoint?: string | undefined | null
-              waterCompanyId?: string | undefined | null
-              waterMeterPoint?: string | undefined | null
-              telephoneCompanyId?: string | undefined | null
-              internetCompanyId?: string | undefined | null
-              cableTvCompanyId?: string | undefined | null
+              hasGas?: boolean | undefined
+              gasCompanyId?: string | undefined
+              gasMeterPoint?: string | undefined
+              electricityCompanyId?: string | undefined
+              electricityMeterPoint?: string | undefined
+              waterCompanyId?: string | undefined
+              waterMeterPoint?: string | undefined
+              telephoneCompanyId?: string | undefined
+              internetCompanyId?: string | undefined
+              cableTvCompanyId?: string | undefined
             }
           | undefined
-          | null
-        deposit?: { type?: string | undefined | null; amount?: number | undefined | null } | undefined | null
+        deposit?: { type?: string | undefined; amount?: number | undefined } | undefined
         rentInsurance?:
           | {
-              status?: string | undefined | null
-              referenceNumber?: string | undefined | null
-              start?: string | undefined | null
-              end?: string | undefined | null
-              cancelledReasonId?: string | undefined | null
-              cancelledComment?: string | undefined | null
-              autoRenew?: boolean | undefined | null
+              status?: string | undefined
+              referenceNumber?: string | undefined
+              start?: string | undefined
+              end?: string | undefined
+              cancelledReasonId?: string | undefined
+              cancelledComment?: string | undefined
+              autoRenew?: boolean | undefined
             }
           | undefined
-          | null
         licencing?:
           | {
-              licenceRequired?: boolean | undefined | null
-              licenceType?: string | undefined | null
-              households?: number | undefined | null
-              occupants?: number | undefined | null
-              aboveCommercialPremises?: boolean | undefined | null
+              licenceRequired?: boolean | undefined
+              licenceType?: string | undefined
+              households?: number | undefined
+              occupants?: number | undefined
+              aboveCommercialPremises?: boolean | undefined
               application?:
                 | {
-                    status?: string | undefined | null
-                    referenceNumber?: string | undefined | null
-                    date?: string | undefined | null
-                    granted?: string | undefined | null
-                    expiry?: string | undefined | null
+                    status?: string | undefined
+                    referenceNumber?: string | undefined
+                    date?: string | undefined
+                    granted?: string | undefined
+                    expiry?: string | undefined
                   }
                 | undefined
-                | null
             }
           | undefined
-          | null
       }
     | undefined
-    | null
-  commercial?:
-    | { useClass?: Array<string> | undefined | null; floorLevel?: Array<string> | undefined | null }
-    | undefined
-    | null
+  commercial?: { useClass?: Array<string> | undefined; floorLevel?: Array<string> | undefined } | undefined
   regional?:
     | {
-        ggy?: { market?: Array<string> | undefined | null } | undefined | null
+        ggy?: { market?: Array<string> | undefined } | undefined
         irl?:
           | {
               buildingEnergyRating?:
                 | {
-                    exempt?: boolean | undefined | null
-                    rating?: string | undefined | null
-                    refNumber?: string | undefined | null
-                    epi?: string | undefined | null
+                    exempt?: boolean | undefined
+                    rating?: string | undefined
+                    refNumber?: string | undefined
+                    epi?: string | undefined
                   }
                 | undefined
-                | null
             }
           | undefined
-          | null
       }
     | undefined
-    | null
-  type?: Array<string> | undefined | null
-  style?: Array<string> | undefined | null
-  situation?: Array<string> | undefined | null
-  parking?: Array<string> | undefined | null
-  age?: Array<string> | undefined | null
-  locality?: Array<string> | undefined | null
-  specialFeatures?: Array<string> | undefined | null
-  unmappedAttributes?: Array<{ type?: string | undefined | null; value?: string | undefined | null }> | undefined | null
-  availableServicesIds?: Array<string> | undefined | null
+  type?: Array<string> | undefined
+  style?: Array<string> | undefined
+  situation?: Array<string> | undefined
+  parking?: Array<string> | undefined
+  age?: Array<string> | undefined
+  locality?: Array<string> | undefined
+  specialFeatures?: Array<string> | undefined
+  unmappedAttributes?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
+  availableServicesIds?: Array<string> | undefined
   rooms?:
     | Array<{
-        name?: string | undefined | null
-        dimensions?: string | undefined | null
-        dimensionsAlt?: string | undefined | null
-        description?: string | undefined | null
+        name?: string | undefined
+        dimensions?: string | undefined
+        dimensionsAlt?: string | undefined
+        description?: string | undefined
       }>
     | undefined
-    | null
-  roomDetailsApproved?: boolean | undefined | null
-  officeIds?: Array<string> | undefined | null
-  lostInstructionDate?: string | undefined | null
-  lostInstructionNote?: string | undefined | null
-  developmentSiteType?: string | undefined | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  keywords?: Array<string> | undefined | null
-  extrasField?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
+  roomDetailsApproved?: boolean | undefined
+  officeIds?: Array<string> | undefined
+  lostInstructionDate?: string | undefined
+  lostInstructionNote?: string | undefined
+  developmentSiteType?: string | undefined
+  metadata?: Record<string, Record<string, never>> | undefined
+  keywords?: Array<string> | undefined
+  extrasField?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
+  _links?: Record<string, { href?: string | undefined }> | undefined
 }
 export type PropertiesArgs = {
-  sortBy?: string | undefined | null
+  sortBy?: string | undefined
   embed?:
     | Array<
         | 'appointments'
@@ -620,18 +584,16 @@ export type PropertiesArgs = {
         | 'vendor'
       >
     | undefined
-    | null
-  id?: Array<string> | undefined | null
-  age?: Array<'period' | 'new' | 'modern' | 'old'> | undefined | null
+  id?: Array<string> | undefined
+  age?: Array<'period' | 'new' | 'modern' | 'old'> | undefined
   agentRole?:
     | Array<
         'managed' | 'rentCollection' | 'collectFirstPayment' | 'collectRentToDate' | 'lettingOnly' | 'introducingTenant'
       >
     | undefined
-    | null
-  areaId?: Array<string> | undefined | null
-  excludeAreaId?: Array<string> | undefined | null
-  landlordId?: Array<string> | undefined | null
+  areaId?: Array<string> | undefined
+  excludeAreaId?: Array<string> | undefined
+  landlordId?: Array<string> | undefined
   lettingStatus?:
     | Array<
         | 'valuation'
@@ -652,18 +614,16 @@ export type PropertiesArgs = {
         | 'withdrawn'
       >
     | undefined
-    | null
-  locality?: Array<'rural' | 'village' | 'townCity'> | undefined | null
-  marketingMode?: Array<'selling' | 'letting' | 'sellingAndLetting'> | undefined | null
-  masterId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  officeId?: Array<string> | undefined | null
+  locality?: Array<'rural' | 'village' | 'townCity'> | undefined
+  marketingMode?: Array<'selling' | 'letting' | 'sellingAndLetting'> | undefined
+  masterId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
   parking?:
     | Array<
         'residents' | 'offStreet' | 'secure' | 'underground' | 'garage' | 'doubleGarage' | 'tripleGarage' | 'carport'
       >
     | undefined
-    | null
   sellingStatus?:
     | Array<
         | 'preAppraisal'
@@ -680,13 +640,11 @@ export type PropertiesArgs = {
         | 'withdrawn'
       >
     | undefined
-    | null
   situation?:
     | Array<
         'garden' | 'land' | 'patio' | 'roofTerrace' | 'conservatory' | 'balcony' | 'communalGardens' | 'outsideSpace'
       >
     | undefined
-    | null
   style?:
     | Array<
         | 'terraced'
@@ -705,7 +663,6 @@ export type PropertiesArgs = {
         | 'duplex'
       >
     | undefined
-    | null
   type?:
     | Array<
         | 'house'
@@ -720,29 +677,28 @@ export type PropertiesArgs = {
         | 'developmentPlot'
       >
     | undefined
-    | null
-  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | undefined | null
-  address?: string | undefined | null
-  countryId?: string | undefined | null
-  departmentId?: string | undefined | null
-  bedroomsFrom?: number | undefined | null
-  bedroomsTo?: number | undefined | null
-  priceFrom?: number | undefined | null
-  priceTo?: number | undefined | null
-  priceFiltersCurrency?: string | undefined | null
-  rentFrom?: number | undefined | null
-  rentTo?: number | undefined | null
-  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | undefined | null
-  internetAdvertising?: boolean | undefined | null
-  isExternal?: boolean | undefined | null
-  fromArchive?: boolean | undefined | null
-  availableFrom?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
-  extrasField?: Array<string> | undefined | null
+  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | undefined
+  address?: string | undefined
+  countryId?: string | undefined
+  departmentId?: string | undefined
+  bedroomsFrom?: number | undefined
+  bedroomsTo?: number | undefined
+  priceFrom?: number | undefined
+  priceTo?: number | undefined
+  priceFiltersCurrency?: string | undefined
+  rentFrom?: number | undefined
+  rentTo?: number | undefined
+  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | undefined
+  internetAdvertising?: boolean | undefined
+  isExternal?: boolean | undefined
+  fromArchive?: boolean | undefined
+  availableFrom?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
+  extrasField?: Array<string> | undefined
   columns: ColumnsList<PropertiesBody>
 }
 export const propertiesIdCertificatesBody = z.object({
@@ -767,26 +723,26 @@ export const propertiesIdCertificatesBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type PropertiesIdCertificatesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  category?: string | undefined | null
-  typeId?: string | undefined | null
-  start?: string | undefined | null
-  expiry?: string | undefined | null
-  propertyId?: string | undefined | null
-  companyId?: string | undefined | null
-  statusId?: string | undefined | null
-  notes?: string | undefined | null
-  referenceNumber?: string | undefined | null
-  responsibleParty?: string | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  category?: string | undefined
+  typeId?: string | undefined
+  start?: string | undefined
+  expiry?: string | undefined
+  propertyId?: string | undefined
+  companyId?: string | undefined
+  statusId?: string | undefined
+  notes?: string | undefined
+  referenceNumber?: string | undefined
+  responsibleParty?: string | undefined
+  _eTag?: string | undefined
 }
 export type PropertiesIdCertificatesArgs = {
   id: string
-  category?: Array<'safetyCertificate' | 'insurancePolicy' | 'warranty'> | undefined | null
+  category?: Array<'safetyCertificate' | 'insurancePolicy' | 'warranty'> | undefined
   columns: ColumnsList<PropertiesIdCertificatesBody>
 }
 export const propertiesIdKeysBody = z.object({
@@ -810,18 +766,18 @@ export const propertiesIdKeysBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type PropertiesIdKeysBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  number?: string | undefined | null
-  typeId?: string | undefined | null
-  officeId?: string | undefined | null
-  propertyId?: string | undefined | null
-  status?: string | undefined | null
-  keysInSet?: Array<{ name?: string | undefined | null }> | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  number?: string | undefined
+  typeId?: string | undefined
+  officeId?: string | undefined
+  propertyId?: string | undefined
+  status?: string | undefined
+  keysInSet?: Array<{ name?: string | undefined }> | undefined
+  _eTag?: string | undefined
 }
 export type PropertiesIdKeysArgs = { id: string; columns: ColumnsList<PropertiesIdKeysBody> }
 export const propertiesIdKeysKeyIdMovementsBody = z.object({
@@ -844,20 +800,20 @@ export const propertiesIdKeysKeyIdMovementsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type PropertiesIdKeysKeyIdMovementsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  keyId?: string | undefined | null
-  propertyId?: string | undefined | null
-  checkOutToId?: string | undefined | null
-  checkOutToType?: string | undefined | null
-  checkOutAt?: string | undefined | null
-  checkOutNegotiatorId?: string | undefined | null
-  checkInAt?: string | undefined | null
-  checkInNegotiatorId?: string | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  keyId?: string | undefined
+  propertyId?: string | undefined
+  checkOutToId?: string | undefined
+  checkOutToType?: string | undefined
+  checkOutAt?: string | undefined
+  checkOutNegotiatorId?: string | undefined
+  checkInAt?: string | undefined
+  checkInNegotiatorId?: string | undefined
+  _eTag?: string | undefined
 }
 export type PropertiesIdKeysKeyIdMovementsArgs = {
   id: string
@@ -880,20 +836,20 @@ export const propertiesIdChecksBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type PropertiesIdChecksBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  description?: string | undefined | null
-  status?: string | undefined | null
-  type?: string | undefined | null
-  propertyId?: string | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  description?: string | undefined
+  status?: string | undefined
+  type?: string | undefined
+  propertyId?: string | undefined
+  _eTag?: string | undefined
 }
 export type PropertiesIdChecksArgs = {
   id: string
-  type?: string | undefined | null
+  type?: string | undefined
   columns: ColumnsList<PropertiesIdChecksBody>
 }
 export const propertiesCertificatesBody = z.object({
@@ -918,35 +874,35 @@ export const propertiesCertificatesBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type PropertiesCertificatesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  category?: string | undefined | null
-  typeId?: string | undefined | null
-  start?: string | undefined | null
-  expiry?: string | undefined | null
-  propertyId?: string | undefined | null
-  companyId?: string | undefined | null
-  statusId?: string | undefined | null
-  notes?: string | undefined | null
-  referenceNumber?: string | undefined | null
-  responsibleParty?: string | undefined | null
-  _eTag?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  category?: string | undefined
+  typeId?: string | undefined
+  start?: string | undefined
+  expiry?: string | undefined
+  propertyId?: string | undefined
+  companyId?: string | undefined
+  statusId?: string | undefined
+  notes?: string | undefined
+  referenceNumber?: string | undefined
+  responsibleParty?: string | undefined
+  _eTag?: string | undefined
 }
 export type PropertiesCertificatesArgs = {
-  sortBy?: string | undefined | null
-  expiryDateFrom?: string | undefined | null
-  expiryDateTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  categories?: Array<string> | undefined | null
-  typeIds?: Array<string> | undefined | null
-  propertyIds?: Array<string> | undefined | null
-  embed?: Array<'property'> | undefined | null
+  sortBy?: string | undefined
+  expiryDateFrom?: string | undefined
+  expiryDateTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  categories?: Array<string> | undefined
+  typeIds?: Array<string> | undefined
+  propertyIds?: Array<string> | undefined
+  embed?: Array<'property'> | undefined
   columns: ColumnsList<PropertiesCertificatesBody>
 }
 export const propertiesIdAppraisalsBody = z.object({
@@ -965,602 +921,768 @@ export const propertiesIdAppraisalsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type PropertiesIdAppraisalsBody = {
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  companyId?: string | undefined | null
-  isExternal?: boolean | undefined | null
-  date?: string | undefined | null
-  price?: number | undefined | null
-  fee?: { type?: string | undefined | null; amount?: number | undefined | null } | undefined | null
-  notes?: string | undefined | null
-  _eTag?: string | undefined | null
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  companyId?: string | undefined
+  isExternal?: boolean | undefined
+  date?: string | undefined
+  price?: number | undefined
+  fee?: { type?: string | undefined; amount?: number | undefined } | undefined
+  notes?: string | undefined
+  _eTag?: string | undefined
 }
 export type PropertiesIdAppraisalsArgs = { id: string; columns: ColumnsList<PropertiesIdAppraisalsBody> }
 
 export const propertiesColumnHelper = createColumnHelper<PropertiesBody>()
 
-export const getPropertiesColumn = (property: string, { label, format }: ConfigItemLookup<PropertiesBody>) => {
+export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<PropertiesBody>) => {
   return match(property)
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return propertiesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return propertiesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return propertiesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return propertiesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('lastCall', () => {
+      const { label: header, format } = modelConfig['lastCall']
+
       return propertiesColumnHelper.accessor((row) => row.lastCall, {
         id: 'lastCall',
-        header: label('lastCall'),
-        cell: (info) => format('lastCall', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('nextCall', () => {
+      const { label: header, format } = modelConfig['nextCall']
+
       return propertiesColumnHelper.accessor((row) => row.nextCall, {
         id: 'nextCall',
-        header: label('nextCall'),
-        cell: (info) => format('nextCall', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('marketingMode', () => {
+      const { label: header, format } = modelConfig['marketingMode']
+
       return propertiesColumnHelper.accessor((row) => row.marketingMode, {
         id: 'marketingMode',
-        header: label('marketingMode'),
-        cell: (info) => format('marketingMode', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('currency', () => {
+      const { label: header, format } = modelConfig['currency']
+
       return propertiesColumnHelper.accessor((row) => row.currency, {
         id: 'currency',
-        header: label('currency'),
-        cell: (info) => format('currency', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('alternateId', () => {
+      const { label: header, format } = modelConfig['alternateId']
+
       return propertiesColumnHelper.accessor((row) => row.alternateId, {
         id: 'alternateId',
-        header: label('alternateId'),
-        cell: (info) => format('alternateId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('address', () => {
+      const { label: header, format } = modelConfig['address']
+
       return propertiesColumnHelper.accessor((row) => row.address, {
         id: 'address',
-        header: label('address'),
-        cell: (info) => format('address', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('areaId', () => {
+      const { label: header, format } = modelConfig['areaId']
+
       return propertiesColumnHelper.accessor((row) => row.areaId, {
         id: 'areaId',
-        header: label('areaId'),
-        cell: (info) => format('areaId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('strapline', () => {
+      const { label: header, format } = modelConfig['strapline']
+
       return propertiesColumnHelper.accessor((row) => row.strapline, {
         id: 'strapline',
-        header: label('strapline'),
-        cell: (info) => format('strapline', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return propertiesColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('longDescription', () => {
+      const { label: header, format } = modelConfig['longDescription']
+
       return propertiesColumnHelper.accessor((row) => row.longDescription, {
         id: 'longDescription',
-        header: label('longDescription'),
-        cell: (info) => format('longDescription', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('localAuthorityCompanyId', () => {
+      const { label: header, format } = modelConfig['localAuthorityCompanyId']
+
       return propertiesColumnHelper.accessor((row) => row.localAuthorityCompanyId, {
         id: 'localAuthorityCompanyId',
-        header: label('localAuthorityCompanyId'),
-        cell: (info) => format('localAuthorityCompanyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('localAuthorityCompanyName', () => {
+      const { label: header, format } = modelConfig['localAuthorityCompanyName']
+
       return propertiesColumnHelper.accessor((row) => row.localAuthorityCompanyName, {
         id: 'localAuthorityCompanyName',
-        header: label('localAuthorityCompanyName'),
-        cell: (info) => format('localAuthorityCompanyName', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('summary', () => {
+      const { label: header, format } = modelConfig['summary']
+
       return propertiesColumnHelper.accessor((row) => row.summary, {
         id: 'summary',
-        header: label('summary'),
-        cell: (info) => format('summary', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('departmentId', () => {
+      const { label: header, format } = modelConfig['departmentId']
+
       return propertiesColumnHelper.accessor((row) => row.departmentId, {
         id: 'departmentId',
-        header: label('departmentId'),
-        cell: (info) => format('departmentId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return propertiesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('bedrooms', () => {
+      const { label: header, format } = modelConfig['bedrooms']
+
       return propertiesColumnHelper.accessor((row) => row.bedrooms, {
         id: 'bedrooms',
-        header: label('bedrooms'),
-        cell: (info) => format('bedrooms', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('bedroomsMax', () => {
+      const { label: header, format } = modelConfig['bedroomsMax']
+
       return propertiesColumnHelper.accessor((row) => row.bedroomsMax, {
         id: 'bedroomsMax',
-        header: label('bedroomsMax'),
-        cell: (info) => format('bedroomsMax', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('receptions', () => {
+      const { label: header, format } = modelConfig['receptions']
+
       return propertiesColumnHelper.accessor((row) => row.receptions, {
         id: 'receptions',
-        header: label('receptions'),
-        cell: (info) => format('receptions', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('receptionsMax', () => {
+      const { label: header, format } = modelConfig['receptionsMax']
+
       return propertiesColumnHelper.accessor((row) => row.receptionsMax, {
         id: 'receptionsMax',
-        header: label('receptionsMax'),
-        cell: (info) => format('receptionsMax', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('bathrooms', () => {
+      const { label: header, format } = modelConfig['bathrooms']
+
       return propertiesColumnHelper.accessor((row) => row.bathrooms, {
         id: 'bathrooms',
-        header: label('bathrooms'),
-        cell: (info) => format('bathrooms', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('bathroomsMax', () => {
+      const { label: header, format } = modelConfig['bathroomsMax']
+
       return propertiesColumnHelper.accessor((row) => row.bathroomsMax, {
         id: 'bathroomsMax',
-        header: label('bathroomsMax'),
-        cell: (info) => format('bathroomsMax', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('numberOfUnits', () => {
+      const { label: header, format } = modelConfig['numberOfUnits']
+
       return propertiesColumnHelper.accessor((row) => row.numberOfUnits, {
         id: 'numberOfUnits',
-        header: label('numberOfUnits'),
-        cell: (info) => format('numberOfUnits', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('parkingSpaces', () => {
+      const { label: header, format } = modelConfig['parkingSpaces']
+
       return propertiesColumnHelper.accessor((row) => row.parkingSpaces, {
         id: 'parkingSpaces',
-        header: label('parkingSpaces'),
-        cell: (info) => format('parkingSpaces', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('councilTax', () => {
+      const { label: header, format } = modelConfig['councilTax']
+
       return propertiesColumnHelper.accessor((row) => row.councilTax, {
         id: 'councilTax',
-        header: label('councilTax'),
-        cell: (info) => format('councilTax', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('disabledPortalIds', () => {
+      const { label: header, format } = modelConfig['disabledPortalIds']
+
       return propertiesColumnHelper.accessor((row) => row.disabledPortalIds, {
         id: 'disabledPortalIds',
-        header: label('disabledPortalIds'),
-        cell: (info) => format('disabledPortalIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('internetAdvertising', () => {
+      const { label: header, format } = modelConfig['internetAdvertising']
+
       return propertiesColumnHelper.accessor((row) => row.internetAdvertising, {
         id: 'internetAdvertising',
-        header: label('internetAdvertising'),
-        cell: (info) => format('internetAdvertising', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('isExternal', () => {
+      const { label: header, format } = modelConfig['isExternal']
+
       return propertiesColumnHelper.accessor((row) => row.isExternal, {
         id: 'isExternal',
-        header: label('isExternal'),
-        cell: (info) => format('isExternal', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('viewingArrangements', () => {
+      const { label: header, format } = modelConfig['viewingArrangements']
+
       return propertiesColumnHelper.accessor((row) => row.viewingArrangements, {
         id: 'viewingArrangements',
-        header: label('viewingArrangements'),
-        cell: (info) => format('viewingArrangements', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('videoUrl', () => {
+      const { label: header, format } = modelConfig['videoUrl']
+
       return propertiesColumnHelper.accessor((row) => row.videoUrl, {
         id: 'videoUrl',
-        header: label('videoUrl'),
-        cell: (info) => format('videoUrl', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('videoCaption', () => {
+      const { label: header, format } = modelConfig['videoCaption']
+
       return propertiesColumnHelper.accessor((row) => row.videoCaption, {
         id: 'videoCaption',
-        header: label('videoCaption'),
-        cell: (info) => format('videoCaption', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('video2Url', () => {
+      const { label: header, format } = modelConfig['video2Url']
+
       return propertiesColumnHelper.accessor((row) => row.video2Url, {
         id: 'video2Url',
-        header: label('video2Url'),
-        cell: (info) => format('video2Url', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('video2Caption', () => {
+      const { label: header, format } = modelConfig['video2Caption']
+
       return propertiesColumnHelper.accessor((row) => row.video2Caption, {
         id: 'video2Caption',
-        header: label('video2Caption'),
-        cell: (info) => format('video2Caption', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('notes', () => {
+      const { label: header, format } = modelConfig['notes']
+
       return propertiesColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
-        header: label('notes'),
-        cell: (info) => format('notes', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('boardStatus', () => {
+      const { label: header, format } = modelConfig['boardStatus']
+
       return propertiesColumnHelper.accessor((row) => row.boardStatus, {
         id: 'boardStatus',
-        header: label('boardStatus'),
-        cell: (info) => format('boardStatus', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('boardNotes', () => {
+      const { label: header, format } = modelConfig['boardNotes']
+
       return propertiesColumnHelper.accessor((row) => row.boardNotes, {
         id: 'boardNotes',
-        header: label('boardNotes'),
-        cell: (info) => format('boardNotes', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('featuredImageUrl', () => {
+      const { label: header, format } = modelConfig['featuredImageUrl']
+
       return propertiesColumnHelper.accessor((row) => row.featuredImageUrl, {
         id: 'featuredImageUrl',
-        header: label('featuredImageUrl'),
-        cell: (info) => format('featuredImageUrl', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('url', () => {
+      const { label: header, format } = modelConfig['url']
+
       return propertiesColumnHelper.accessor((row) => row.url, {
         id: 'url',
-        header: label('url'),
-        cell: (info) => format('url', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('urlCaption', () => {
+      const { label: header, format } = modelConfig['urlCaption']
+
       return propertiesColumnHelper.accessor((row) => row.urlCaption, {
         id: 'urlCaption',
-        header: label('urlCaption'),
-        cell: (info) => format('urlCaption', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('groundRent', () => {
+      const { label: header, format } = modelConfig['groundRent']
+
       return propertiesColumnHelper.accessor((row) => row.groundRent, {
         id: 'groundRent',
-        header: label('groundRent'),
-        cell: (info) => format('groundRent', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('groundRentComment', () => {
+      const { label: header, format } = modelConfig['groundRentComment']
+
       return propertiesColumnHelper.accessor((row) => row.groundRentComment, {
         id: 'groundRentComment',
-        header: label('groundRentComment'),
-        cell: (info) => format('groundRentComment', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('groundRentReviewDate', () => {
+      const { label: header, format } = modelConfig['groundRentReviewDate']
+
       return propertiesColumnHelper.accessor((row) => row.groundRentReviewDate, {
         id: 'groundRentReviewDate',
-        header: label('groundRentReviewDate'),
-        cell: (info) => format('groundRentReviewDate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('groundRentIncrease', () => {
+      const { label: header, format } = modelConfig['groundRentIncrease']
+
       return propertiesColumnHelper.accessor((row) => row.groundRentIncrease, {
         id: 'groundRentIncrease',
-        header: label('groundRentIncrease'),
-        cell: (info) => format('groundRentIncrease', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('serviceCharge', () => {
+      const { label: header, format } = modelConfig['serviceCharge']
+
       return propertiesColumnHelper.accessor((row) => row.serviceCharge, {
         id: 'serviceCharge',
-        header: label('serviceCharge'),
-        cell: (info) => format('serviceCharge', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('serviceChargeComment', () => {
+      const { label: header, format } = modelConfig['serviceChargeComment']
+
       return propertiesColumnHelper.accessor((row) => row.serviceChargeComment, {
         id: 'serviceChargeComment',
-        header: label('serviceChargeComment'),
-        cell: (info) => format('serviceChargeComment', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('floorLevel', () => {
+      const { label: header, format } = modelConfig['floorLevel']
+
       return propertiesColumnHelper.accessor((row) => row.floorLevel, {
         id: 'floorLevel',
-        header: label('floorLevel'),
-        cell: (info) => format('floorLevel', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('internalFloors', () => {
+      const { label: header, format } = modelConfig['internalFloors']
+
       return propertiesColumnHelper.accessor((row) => row.internalFloors, {
         id: 'internalFloors',
-        header: label('internalFloors'),
-        cell: (info) => format('internalFloors', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('totalFloors', () => {
+      const { label: header, format } = modelConfig['totalFloors']
+
       return propertiesColumnHelper.accessor((row) => row.totalFloors, {
         id: 'totalFloors',
-        header: label('totalFloors'),
-        cell: (info) => format('totalFloors', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('boardUpdated', () => {
+      const { label: header, format } = modelConfig['boardUpdated']
+
       return propertiesColumnHelper.accessor((row) => row.boardUpdated, {
         id: 'boardUpdated',
-        header: label('boardUpdated'),
-        cell: (info) => format('boardUpdated', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('valuation', () => {
+      const { label: header, format } = modelConfig['valuation']
+
       return propertiesColumnHelper.accessor((row) => row.valuation, {
         id: 'valuation',
-        header: label('valuation'),
-        cell: (info) => format('valuation', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('archivedOn', () => {
+      const { label: header, format } = modelConfig['archivedOn']
+
       return propertiesColumnHelper.accessor((row) => row.archivedOn, {
         id: 'archivedOn',
-        header: label('archivedOn'),
-        cell: (info) => format('archivedOn', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('fromArchive', () => {
+      const { label: header, format } = modelConfig['fromArchive']
+
       return propertiesColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
-        header: label('fromArchive'),
-        cell: (info) => format('fromArchive', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rural', () => {
+      const { label: header, format } = modelConfig['rural']
+
       return propertiesColumnHelper.accessor((row) => row.rural, {
         id: 'rural',
-        header: label('rural'),
-        cell: (info) => format('rural', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('externalArea', () => {
+      const { label: header, format } = modelConfig['externalArea']
+
       return propertiesColumnHelper.accessor((row) => row.externalArea, {
         id: 'externalArea',
-        header: label('externalArea'),
-        cell: (info) => format('externalArea', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('internalArea', () => {
+      const { label: header, format } = modelConfig['internalArea']
+
       return propertiesColumnHelper.accessor((row) => row.internalArea, {
         id: 'internalArea',
-        header: label('internalArea'),
-        cell: (info) => format('internalArea', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('epc', () => {
+      const { label: header, format } = modelConfig['epc']
+
       return propertiesColumnHelper.accessor((row) => row.epc, {
         id: 'epc',
-        header: label('epc'),
-        cell: (info) => format('epc', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('selling', () => {
+      const { label: header, format } = modelConfig['selling']
+
       return propertiesColumnHelper.accessor((row) => row.selling, {
         id: 'selling',
-        header: label('selling'),
-        cell: (info) => format('selling', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('letting', () => {
+      const { label: header, format } = modelConfig['letting']
+
       return propertiesColumnHelper.accessor((row) => row.letting, {
         id: 'letting',
-        header: label('letting'),
-        cell: (info) => format('letting', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('commercial', () => {
+      const { label: header, format } = modelConfig['commercial']
+
       return propertiesColumnHelper.accessor((row) => row.commercial, {
         id: 'commercial',
-        header: label('commercial'),
-        cell: (info) => format('commercial', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('regional', () => {
+      const { label: header, format } = modelConfig['regional']
+
       return propertiesColumnHelper.accessor((row) => row.regional, {
         id: 'regional',
-        header: label('regional'),
-        cell: (info) => format('regional', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return propertiesColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('style', () => {
+      const { label: header, format } = modelConfig['style']
+
       return propertiesColumnHelper.accessor((row) => row.style, {
         id: 'style',
-        header: label('style'),
-        cell: (info) => format('style', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('situation', () => {
+      const { label: header, format } = modelConfig['situation']
+
       return propertiesColumnHelper.accessor((row) => row.situation, {
         id: 'situation',
-        header: label('situation'),
-        cell: (info) => format('situation', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('parking', () => {
+      const { label: header, format } = modelConfig['parking']
+
       return propertiesColumnHelper.accessor((row) => row.parking, {
         id: 'parking',
-        header: label('parking'),
-        cell: (info) => format('parking', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('age', () => {
+      const { label: header, format } = modelConfig['age']
+
       return propertiesColumnHelper.accessor((row) => row.age, {
         id: 'age',
-        header: label('age'),
-        cell: (info) => format('age', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('locality', () => {
+      const { label: header, format } = modelConfig['locality']
+
       return propertiesColumnHelper.accessor((row) => row.locality, {
         id: 'locality',
-        header: label('locality'),
-        cell: (info) => format('locality', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('specialFeatures', () => {
+      const { label: header, format } = modelConfig['specialFeatures']
+
       return propertiesColumnHelper.accessor((row) => row.specialFeatures, {
         id: 'specialFeatures',
-        header: label('specialFeatures'),
-        cell: (info) => format('specialFeatures', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('unmappedAttributes', () => {
+      const { label: header, format } = modelConfig['unmappedAttributes']
+
       return propertiesColumnHelper.accessor((row) => row.unmappedAttributes, {
         id: 'unmappedAttributes',
-        header: label('unmappedAttributes'),
-        cell: (info) => format('unmappedAttributes', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('availableServicesIds', () => {
+      const { label: header, format } = modelConfig['availableServicesIds']
+
       return propertiesColumnHelper.accessor((row) => row.availableServicesIds, {
         id: 'availableServicesIds',
-        header: label('availableServicesIds'),
-        cell: (info) => format('availableServicesIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('rooms', () => {
+      const { label: header, format } = modelConfig['rooms']
+
       return propertiesColumnHelper.accessor((row) => row.rooms, {
         id: 'rooms',
-        header: label('rooms'),
-        cell: (info) => format('rooms', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('roomDetailsApproved', () => {
+      const { label: header, format } = modelConfig['roomDetailsApproved']
+
       return propertiesColumnHelper.accessor((row) => row.roomDetailsApproved, {
         id: 'roomDetailsApproved',
-        header: label('roomDetailsApproved'),
-        cell: (info) => format('roomDetailsApproved', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('officeIds', () => {
+      const { label: header, format } = modelConfig['officeIds']
+
       return propertiesColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
-        header: label('officeIds'),
-        cell: (info) => format('officeIds', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('lostInstructionDate', () => {
+      const { label: header, format } = modelConfig['lostInstructionDate']
+
       return propertiesColumnHelper.accessor((row) => row.lostInstructionDate, {
         id: 'lostInstructionDate',
-        header: label('lostInstructionDate'),
-        cell: (info) => format('lostInstructionDate', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('lostInstructionNote', () => {
+      const { label: header, format } = modelConfig['lostInstructionNote']
+
       return propertiesColumnHelper.accessor((row) => row.lostInstructionNote, {
         id: 'lostInstructionNote',
-        header: label('lostInstructionNote'),
-        cell: (info) => format('lostInstructionNote', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('developmentSiteType', () => {
+      const { label: header, format } = modelConfig['developmentSiteType']
+
       return propertiesColumnHelper.accessor((row) => row.developmentSiteType, {
         id: 'developmentSiteType',
-        header: label('developmentSiteType'),
-        cell: (info) => format('developmentSiteType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return propertiesColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('keywords', () => {
+      const { label: header, format } = modelConfig['keywords']
+
       return propertiesColumnHelper.accessor((row) => row.keywords, {
         id: 'keywords',
-        header: label('keywords'),
-        cell: (info) => format('keywords', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('extrasField', () => {
+      const { label: header, format } = modelConfig['extrasField']
+
       return propertiesColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
-        header: label('extrasField'),
-        cell: (info) => format('extrasField', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return propertiesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return propertiesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1605,119 +1727,151 @@ export const propertiesIdCertificatesColumnHelper = createColumnHelper<Propertie
 
 export const getPropertiesIdCertificatesColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<PropertiesIdCertificatesBody>,
+  modelConfig: ModelConfig<PropertiesIdCertificatesBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('category', () => {
+      const { label: header, format } = modelConfig['category']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.category, {
         id: 'category',
-        header: label('category'),
-        cell: (info) => format('category', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeId', () => {
+      const { label: header, format } = modelConfig['typeId']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
-        header: label('typeId'),
-        cell: (info) => format('typeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('start', () => {
+      const { label: header, format } = modelConfig['start']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.start, {
         id: 'start',
-        header: label('start'),
-        cell: (info) => format('start', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('expiry', () => {
+      const { label: header, format } = modelConfig['expiry']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.expiry, {
         id: 'expiry',
-        header: label('expiry'),
-        cell: (info) => format('expiry', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('companyId', () => {
+      const { label: header, format } = modelConfig['companyId']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
-        header: label('companyId'),
-        cell: (info) => format('companyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('statusId', () => {
+      const { label: header, format } = modelConfig['statusId']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.statusId, {
         id: 'statusId',
-        header: label('statusId'),
-        cell: (info) => format('statusId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('notes', () => {
+      const { label: header, format } = modelConfig['notes']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
-        header: label('notes'),
-        cell: (info) => format('notes', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('referenceNumber', () => {
+      const { label: header, format } = modelConfig['referenceNumber']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.referenceNumber, {
         id: 'referenceNumber',
-        header: label('referenceNumber'),
-        cell: (info) => format('referenceNumber', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('responsibleParty', () => {
+      const { label: header, format } = modelConfig['responsibleParty']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row.responsibleParty, {
         id: 'responsibleParty',
-        header: label('responsibleParty'),
-        cell: (info) => format('responsibleParty', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return propertiesIdCertificatesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1760,93 +1914,114 @@ export const usePropertiesIdCertificatesTable = (args: PropertiesIdCertificatesA
 }
 export const propertiesIdKeysColumnHelper = createColumnHelper<PropertiesIdKeysBody>()
 
-export const getPropertiesIdKeysColumn = (
-  property: string,
-  { label, format }: ConfigItemLookup<PropertiesIdKeysBody>,
-) => {
+export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelConfig<PropertiesIdKeysBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('number', () => {
+      const { label: header, format } = modelConfig['number']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row.number, {
         id: 'number',
-        header: label('number'),
-        cell: (info) => format('number', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeId', () => {
+      const { label: header, format } = modelConfig['typeId']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
-        header: label('typeId'),
-        cell: (info) => format('typeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('officeId', () => {
+      const { label: header, format } = modelConfig['officeId']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row.officeId, {
         id: 'officeId',
-        header: label('officeId'),
-        cell: (info) => format('officeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('keysInSet', () => {
+      const { label: header, format } = modelConfig['keysInSet']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row.keysInSet, {
         id: 'keysInSet',
-        header: label('keysInSet'),
-        cell: (info) => format('keysInSet', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return propertiesIdKeysColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -1891,105 +2066,133 @@ export const propertiesIdKeysKeyIdMovementsColumnHelper = createColumnHelper<Pro
 
 export const getPropertiesIdKeysKeyIdMovementsColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<PropertiesIdKeysKeyIdMovementsBody>,
+  modelConfig: ModelConfig<PropertiesIdKeysKeyIdMovementsBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('keyId', () => {
+      const { label: header, format } = modelConfig['keyId']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.keyId, {
         id: 'keyId',
-        header: label('keyId'),
-        cell: (info) => format('keyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('checkOutToId', () => {
+      const { label: header, format } = modelConfig['checkOutToId']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkOutToId, {
         id: 'checkOutToId',
-        header: label('checkOutToId'),
-        cell: (info) => format('checkOutToId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('checkOutToType', () => {
+      const { label: header, format } = modelConfig['checkOutToType']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkOutToType, {
         id: 'checkOutToType',
-        header: label('checkOutToType'),
-        cell: (info) => format('checkOutToType', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('checkOutAt', () => {
+      const { label: header, format } = modelConfig['checkOutAt']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkOutAt, {
         id: 'checkOutAt',
-        header: label('checkOutAt'),
-        cell: (info) => format('checkOutAt', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('checkOutNegotiatorId', () => {
+      const { label: header, format } = modelConfig['checkOutNegotiatorId']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkOutNegotiatorId, {
         id: 'checkOutNegotiatorId',
-        header: label('checkOutNegotiatorId'),
-        cell: (info) => format('checkOutNegotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('checkInAt', () => {
+      const { label: header, format } = modelConfig['checkInAt']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkInAt, {
         id: 'checkInAt',
-        header: label('checkInAt'),
-        cell: (info) => format('checkInAt', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('checkInNegotiatorId', () => {
+      const { label: header, format } = modelConfig['checkInNegotiatorId']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkInNegotiatorId, {
         id: 'checkInNegotiatorId',
-        header: label('checkInNegotiatorId'),
-        cell: (info) => format('checkInNegotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -2032,79 +2235,96 @@ export const usePropertiesIdKeysKeyIdMovementsTable = (args: PropertiesIdKeysKey
 }
 export const propertiesIdChecksColumnHelper = createColumnHelper<PropertiesIdChecksBody>()
 
-export const getPropertiesIdChecksColumn = (
-  property: string,
-  { label, format }: ConfigItemLookup<PropertiesIdChecksBody>,
-) => {
+export const getPropertiesIdChecksColumn = (property: string, modelConfig: ModelConfig<PropertiesIdChecksBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return propertiesIdChecksColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return propertiesIdChecksColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return propertiesIdChecksColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return propertiesIdChecksColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return propertiesIdChecksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('description', () => {
+      const { label: header, format } = modelConfig['description']
+
       return propertiesIdChecksColumnHelper.accessor((row) => row.description, {
         id: 'description',
-        header: label('description'),
-        cell: (info) => format('description', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return propertiesIdChecksColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return propertiesIdChecksColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return propertiesIdChecksColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return propertiesIdChecksColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -2149,119 +2369,151 @@ export const propertiesCertificatesColumnHelper = createColumnHelper<PropertiesC
 
 export const getPropertiesCertificatesColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<PropertiesCertificatesBody>,
+  modelConfig: ModelConfig<PropertiesCertificatesBody>,
 ) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('category', () => {
+      const { label: header, format } = modelConfig['category']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.category, {
         id: 'category',
-        header: label('category'),
-        cell: (info) => format('category', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('typeId', () => {
+      const { label: header, format } = modelConfig['typeId']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
-        header: label('typeId'),
-        cell: (info) => format('typeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('start', () => {
+      const { label: header, format } = modelConfig['start']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.start, {
         id: 'start',
-        header: label('start'),
-        cell: (info) => format('start', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('expiry', () => {
+      const { label: header, format } = modelConfig['expiry']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.expiry, {
         id: 'expiry',
-        header: label('expiry'),
-        cell: (info) => format('expiry', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('companyId', () => {
+      const { label: header, format } = modelConfig['companyId']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
-        header: label('companyId'),
-        cell: (info) => format('companyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('statusId', () => {
+      const { label: header, format } = modelConfig['statusId']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.statusId, {
         id: 'statusId',
-        header: label('statusId'),
-        cell: (info) => format('statusId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('notes', () => {
+      const { label: header, format } = modelConfig['notes']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
-        header: label('notes'),
-        cell: (info) => format('notes', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('referenceNumber', () => {
+      const { label: header, format } = modelConfig['referenceNumber']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.referenceNumber, {
         id: 'referenceNumber',
-        header: label('referenceNumber'),
-        cell: (info) => format('referenceNumber', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('responsibleParty', () => {
+      const { label: header, format } = modelConfig['responsibleParty']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row.responsibleParty, {
         id: 'responsibleParty',
-        header: label('responsibleParty'),
-        cell: (info) => format('responsibleParty', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return propertiesCertificatesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -2306,77 +2558,97 @@ export const propertiesIdAppraisalsColumnHelper = createColumnHelper<PropertiesI
 
 export const getPropertiesIdAppraisalsColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<PropertiesIdAppraisalsBody>,
+  modelConfig: ModelConfig<PropertiesIdAppraisalsBody>,
 ) => {
   return match(property)
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return propertiesIdAppraisalsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return propertiesIdAppraisalsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return propertiesIdAppraisalsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('companyId', () => {
+      const { label: header, format } = modelConfig['companyId']
+
       return propertiesIdAppraisalsColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
-        header: label('companyId'),
-        cell: (info) => format('companyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('isExternal', () => {
+      const { label: header, format } = modelConfig['isExternal']
+
       return propertiesIdAppraisalsColumnHelper.accessor((row) => row.isExternal, {
         id: 'isExternal',
-        header: label('isExternal'),
-        cell: (info) => format('isExternal', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('date', () => {
+      const { label: header, format } = modelConfig['date']
+
       return propertiesIdAppraisalsColumnHelper.accessor((row) => row.date, {
         id: 'date',
-        header: label('date'),
-        cell: (info) => format('date', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('price', () => {
+      const { label: header, format } = modelConfig['price']
+
       return propertiesIdAppraisalsColumnHelper.accessor((row) => row.price, {
         id: 'price',
-        header: label('price'),
-        cell: (info) => format('price', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('fee', () => {
+      const { label: header, format } = modelConfig['fee']
+
       return propertiesIdAppraisalsColumnHelper.accessor((row) => row.fee, {
         id: 'fee',
-        header: label('fee'),
-        cell: (info) => format('fee', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('notes', () => {
+      const { label: header, format } = modelConfig['notes']
+
       return propertiesIdAppraisalsColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
-        header: label('notes'),
-        cell: (info) => format('notes', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return propertiesIdAppraisalsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

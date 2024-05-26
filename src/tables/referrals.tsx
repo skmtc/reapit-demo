@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { useGetApiReferrals, useGetApiReferralsTypes } from '@/services/referrals.ts'
@@ -39,49 +39,48 @@ export const referralsBody = z.object({
   _eTag: z.string().nullable().optional(),
 })
 export type ReferralsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  created?: string | undefined | null
-  modified?: string | undefined | null
-  referralTypeId?: string | undefined | null
-  type?: string | undefined | null
-  negotiatorId?: string | undefined | null
-  propertyId?: string | undefined | null
-  applicantId?: string | undefined | null
-  contactId?: string | undefined | null
-  status?: string | undefined | null
-  amount?: number | undefined | null
-  paid?: string | undefined | null
-  accepted?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  created?: string | undefined
+  modified?: string | undefined
+  referralTypeId?: string | undefined
+  type?: string | undefined
+  negotiatorId?: string | undefined
+  propertyId?: string | undefined
+  applicantId?: string | undefined
+  contactId?: string | undefined
+  status?: string | undefined
+  amount?: number | undefined
+  paid?: string | undefined
+  accepted?: string | undefined
   related?:
     | {
-        id?: string | undefined | null
-        title?: string | undefined | null
-        forename?: string | undefined | null
-        surname?: string | undefined | null
-        mobilePhone?: string | undefined | null
-        email?: string | undefined | null
+        id?: string | undefined
+        title?: string | undefined
+        forename?: string | undefined
+        surname?: string | undefined
+        mobilePhone?: string | undefined
+        email?: string | undefined
       }
     | undefined
-    | null
-  metadata?: Record<string, Record<string, never>> | undefined | null
-  _eTag?: string | undefined | null
+  metadata?: Record<string, Record<string, never>> | undefined
+  _eTag?: string | undefined
 }
 export type ReferralsArgs = {
-  id?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
-  applicantId?: Array<string> | undefined | null
-  contactId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  referralTypeId?: Array<string> | undefined | null
-  status?: Array<'sent' | 'inProgress' | 'succeeded' | 'cancelled' | 'failed' | 'paid' | 'declined'> | undefined | null
-  embed?: Array<'applicant' | 'contact' | 'negotiator' | 'property' | 'type'> | undefined | null
-  sortBy?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
+  id?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
+  applicantId?: Array<string> | undefined
+  contactId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  referralTypeId?: Array<string> | undefined
+  status?: Array<'sent' | 'inProgress' | 'succeeded' | 'cancelled' | 'failed' | 'paid' | 'declined'> | undefined
+  embed?: Array<'applicant' | 'contact' | 'negotiator' | 'property' | 'type'> | undefined
+  sortBy?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
   columns: ColumnsList<ReferralsBody>
 }
 export const referralsTypesBody = z.object({
@@ -94,145 +93,181 @@ export const referralsTypesBody = z.object({
   name: z.string().nullable().optional(),
 })
 export type ReferralsTypesBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
-  _embedded?: Record<string, Record<string, never>> | undefined | null
-  id?: string | undefined | null
-  name?: string | undefined | null
+  _links?: Record<string, { href?: string | undefined }> | undefined
+  _embedded?: Record<string, Record<string, never>> | undefined
+  id?: string | undefined
+  name?: string | undefined
 }
 export type ReferralsTypesArgs = {
-  id?: Array<string> | undefined | null
-  sortBy?: string | undefined | null
+  id?: Array<string> | undefined
+  sortBy?: string | undefined
   columns: ColumnsList<ReferralsTypesBody>
 }
 
 export const referralsColumnHelper = createColumnHelper<ReferralsBody>()
 
-export const getReferralsColumn = (property: string, { label, format }: ConfigItemLookup<ReferralsBody>) => {
+export const getReferralsColumn = (property: string, modelConfig: ModelConfig<ReferralsBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return referralsColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return referralsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return referralsColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('created', () => {
+      const { label: header, format } = modelConfig['created']
+
       return referralsColumnHelper.accessor((row) => row.created, {
         id: 'created',
-        header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('modified', () => {
+      const { label: header, format } = modelConfig['modified']
+
       return referralsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
-        header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('referralTypeId', () => {
+      const { label: header, format } = modelConfig['referralTypeId']
+
       return referralsColumnHelper.accessor((row) => row.referralTypeId, {
         id: 'referralTypeId',
-        header: label('referralTypeId'),
-        cell: (info) => format('referralTypeId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('type', () => {
+      const { label: header, format } = modelConfig['type']
+
       return referralsColumnHelper.accessor((row) => row.type, {
         id: 'type',
-        header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('negotiatorId', () => {
+      const { label: header, format } = modelConfig['negotiatorId']
+
       return referralsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
-        header: label('negotiatorId'),
-        cell: (info) => format('negotiatorId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('propertyId', () => {
+      const { label: header, format } = modelConfig['propertyId']
+
       return referralsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
-        header: label('propertyId'),
-        cell: (info) => format('propertyId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('applicantId', () => {
+      const { label: header, format } = modelConfig['applicantId']
+
       return referralsColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
-        header: label('applicantId'),
-        cell: (info) => format('applicantId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('contactId', () => {
+      const { label: header, format } = modelConfig['contactId']
+
       return referralsColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
-        header: label('contactId'),
-        cell: (info) => format('contactId', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('status', () => {
+      const { label: header, format } = modelConfig['status']
+
       return referralsColumnHelper.accessor((row) => row.status, {
         id: 'status',
-        header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('amount', () => {
+      const { label: header, format } = modelConfig['amount']
+
       return referralsColumnHelper.accessor((row) => row.amount, {
         id: 'amount',
-        header: label('amount'),
-        cell: (info) => format('amount', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('paid', () => {
+      const { label: header, format } = modelConfig['paid']
+
       return referralsColumnHelper.accessor((row) => row.paid, {
         id: 'paid',
-        header: label('paid'),
-        cell: (info) => format('paid', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('accepted', () => {
+      const { label: header, format } = modelConfig['accepted']
+
       return referralsColumnHelper.accessor((row) => row.accepted, {
         id: 'accepted',
-        header: label('accepted'),
-        cell: (info) => format('accepted', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('related', () => {
+      const { label: header, format } = modelConfig['related']
+
       return referralsColumnHelper.accessor((row) => row.related, {
         id: 'related',
-        header: label('related'),
-        cell: (info) => format('related', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('metadata', () => {
+      const { label: header, format } = modelConfig['metadata']
+
       return referralsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
-        header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_eTag', () => {
+      const { label: header, format } = modelConfig['_eTag']
+
       return referralsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
-        header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {
@@ -275,34 +310,42 @@ export const useReferralsTable = (args: ReferralsArgs) => {
 }
 export const referralsTypesColumnHelper = createColumnHelper<ReferralsTypesBody>()
 
-export const getReferralsTypesColumn = (property: string, { label, format }: ConfigItemLookup<ReferralsTypesBody>) => {
+export const getReferralsTypesColumn = (property: string, modelConfig: ModelConfig<ReferralsTypesBody>) => {
   return match(property)
     .with('_links', () => {
+      const { label: header, format } = modelConfig['_links']
+
       return referralsTypesColumnHelper.accessor((row) => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('_embedded', () => {
+      const { label: header, format } = modelConfig['_embedded']
+
       return referralsTypesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('id', () => {
+      const { label: header, format } = modelConfig['id']
+
       return referralsTypesColumnHelper.accessor((row) => row.id, {
         id: 'id',
-        header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .with('name', () => {
+      const { label: header, format } = modelConfig['name']
+
       return referralsTypesColumnHelper.accessor((row) => row.name, {
         id: 'name',
-        header: label('name'),
-        cell: (info) => format('name', info.getValue()),
+        header,
+        cell: (info) => format(info.getValue()),
       })
     })
     .otherwise(() => {

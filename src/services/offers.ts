@@ -4,28 +4,27 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiOffersArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?: Array<'applicant' | 'conveyancing' | 'property' | 'negotiator'> | undefined | null
-  id?: Array<string> | undefined | null
-  applicantId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'applicant' | 'conveyancing' | 'property' | 'negotiator'> | undefined
+  id?: Array<string> | undefined
+  applicantId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
   status?:
     | Array<'pending' | 'withdrawn' | 'rejected' | 'accepted' | 'noteOfInterest' | 'noteOfInterestWithdrawn'>
     | undefined
-    | null
-  address?: string | undefined | null
-  name?: string | undefined | null
-  amountFrom?: number | undefined | null
-  amountTo?: number | undefined | null
-  dateFrom?: string | undefined | null
-  dateTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  address?: string | undefined
+  name?: string | undefined
+  amountFrom?: number | undefined
+  amountTo?: number | undefined
+  dateFrom?: string | undefined
+  dateTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiOffersFn = async ({
   pageSize,
@@ -152,25 +151,23 @@ export const useGetApiOffers = (args: UseGetApiOffersArgs) => {
 
   return result
 }
-export type UseCreateOfferArgs = {
+export type UsePostApiOffersArgs = {
   body: /** Request body used to create a new offer */
   {
     applicantId: /** The unique identifier of the applicant associated to the offer */ string
     propertyId: /** The unique identifier of the property associated to the offer */ string
-    negotiatorId?: /** The unique identifier of the negotiator associated to the offer */ string | undefined | null
+    negotiatorId?: /** The unique identifier of the negotiator associated to the offer */ string | undefined
     date: /** The date when the offer was made */ string
     amount: /** The monetary amount of the offer */ number
     status: /** The current status of the offer (pending/withdrawn/rejected/accepted/noteOfInterest) */ string
-    inclusions?: /** A free text field describing items that should be included in the sale */ string | undefined | null
-    exclusions?: /** A free text field describing items that are explicitly excluded from the sale */
-    string | undefined | null
+    inclusions?: /** A free text field describing items that should be included in the sale */ string | undefined
+    exclusions?: /** A free text field describing items that are explicitly excluded from the sale */ string | undefined
     conditions?: /** A free text field describing any other conditions set by either party that relate to the sale */
-    string | undefined | null
-    metadata?: /** App specific metadata to set against the offer */
-    Record<string, Record<string, never>> | undefined | null
+    string | undefined
+    metadata?: /** App specific metadata to set against the offer */ Record<string, Record<string, never>> | undefined
   }
 }
-export const createOfferFn = async ({ body }: UseCreateOfferArgs) => {
+export const postApiOffersFn = async ({ body }: UsePostApiOffersArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/offers/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -188,12 +185,12 @@ export const createOfferFn = async ({ body }: UseCreateOfferArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateOffer = () => {
+export const usePostApiOffers = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createOfferFn,
+    mutationFn: postApiOffersFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -203,7 +200,7 @@ export const useCreateOffer = () => {
 }
 export type UseGetApiOffersIdArgs = {
   id: string
-  embed?: Array<'applicant' | 'conveyancing' | 'property' | 'negotiator'> | undefined | null
+  embed?: Array<'applicant' | 'conveyancing' | 'property' | 'negotiator'> | undefined
 }
 export const getApiOffersIdFn = async ({ id, embed }: UseGetApiOffersIdArgs) => {
   const res = await fetch(
@@ -294,18 +291,16 @@ export type UsePatchApiOffersIdArgs = {
   id: string
   body: /** Request body used to update an existing offer */
   {
-    negotiatorId?: /** The unique identifier of the negotiator associated to the offer */ string | undefined | null
-    date?: /** The date when the offer was made */ string | undefined | null
-    amount?: /** The monetary amount of the offer */ number | undefined | null
+    negotiatorId?: /** The unique identifier of the negotiator associated to the offer */ string | undefined
+    date?: /** The date when the offer was made */ string | undefined
+    amount?: /** The monetary amount of the offer */ number | undefined
     status?: /** The current status of the offer (pending/withdrawn/rejected/accepted/noteOfInterest) */
-    string | undefined | null
-    inclusions?: /** A free text field describing items that should be included in the sale */ string | undefined | null
-    exclusions?: /** A free text field describing items that are explicitly excluded from the sale */
-    string | undefined | null
+    string | undefined
+    inclusions?: /** A free text field describing items that should be included in the sale */ string | undefined
+    exclusions?: /** A free text field describing items that are explicitly excluded from the sale */ string | undefined
     conditions?: /** A free text field describing any other conditions set by either party that relate to the sale */
-    string | undefined | null
-    metadata?: /** App specific metadata to set against the offer */
-    Record<string, Record<string, never>> | undefined | null
+    string | undefined
+    metadata?: /** App specific metadata to set against the offer */ Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiOffersIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiOffersIdArgs) => {

@@ -4,14 +4,14 @@ import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type UseGetApiWorksOrdersArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
-  sortBy?: string | undefined | null
-  embed?: Array<'company' | 'documents' | 'negotiator' | 'property' | 'tenancy' | 'type'> | undefined | null
-  id?: Array<string> | undefined | null
-  companyId?: Array<string> | undefined | null
-  negotiatorId?: Array<string> | undefined | null
-  propertyId?: Array<string> | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  embed?: Array<'company' | 'documents' | 'negotiator' | 'property' | 'tenancy' | 'type'> | undefined
+  id?: Array<string> | undefined
+  companyId?: Array<string> | undefined
+  negotiatorId?: Array<string> | undefined
+  propertyId?: Array<string> | undefined
   status?:
     | Array<
         | 'pendingApproval'
@@ -24,19 +24,18 @@ export type UseGetApiWorksOrdersArgs = {
         | 'quoteAccepted'
       >
     | undefined
-    | null
-  tenancyId?: Array<string> | undefined | null
-  typeId?: Array<string> | undefined | null
-  extrasField?: Array<string> | undefined | null
-  completedFrom?: string | undefined | null
-  completedTo?: string | undefined | null
-  createdFrom?: string | undefined | null
-  createdTo?: string | undefined | null
-  modifiedFrom?: string | undefined | null
-  modifiedTo?: string | undefined | null
-  requiredFrom?: string | undefined | null
-  requiredTo?: string | undefined | null
-  metadata?: Array<string> | undefined | null
+  tenancyId?: Array<string> | undefined
+  typeId?: Array<string> | undefined
+  extrasField?: Array<string> | undefined
+  completedFrom?: string | undefined
+  completedTo?: string | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+  requiredFrom?: string | undefined
+  requiredTo?: string | undefined
+  metadata?: Array<string> | undefined
 }
 export const getApiWorksOrdersFn = async ({
   pageSize,
@@ -157,42 +156,41 @@ export const useGetApiWorksOrders = (args: UseGetApiWorksOrdersArgs) => {
 
   return result
 }
-export type UseCreateWorksOrderArgs = {
+export type UsePostApiWorksOrdersArgs = {
   body: /** Request body used to create a new works order */
   {
     companyId?: /** The unique identifier of the company that has been selected to perform the work */
-    string | undefined | null
+    string | undefined
     propertyId: /** The unique identifier of the property where the work is to be carried out */ string
-    tenancyId?: /** The unique identifier of the tenancy that the works order originated from */
-    string | undefined | null
+    tenancyId?: /** The unique identifier of the tenancy that the works order originated from */ string | undefined
     negotiatorId: /** The unique identifier of the negotiator that booked the works order */ string
-    typeId?: /** The unique id of the type of work that needs to be carried out */ string | undefined | null
+    typeId?: /** The unique id of the type of work that needs to be carried out */ string | undefined
     status: /** The current status of the works order (pendingApproval/pendingQuote/raised/raisedToChase/landlordToComplete/complete/cancelled/quoteAccepted) */
     string
     description: /** A free text description of the work required */ string
     reporter: /** The party requesting the work to be carried out (landlord/tenant/other) */ string
-    priority?: /** The priority level of the works order (low/medium/high) */ string | undefined | null
-    booked?: /** The date when the works order was booked */ string | undefined | null
-    required?: /** The date when the work is required to be completed by */ string | undefined | null
-    completed?: /** The date when the work was completed */ string | undefined | null
+    priority?: /** The priority level of the works order (low/medium/high) */ string | undefined
+    booked?: /** The date when the works order was booked */ string | undefined
+    required?: /** The date when the work is required to be completed by */ string | undefined
+    completed?: /** The date when the work was completed */ string | undefined
     items: /** Individual work items to attach to the works order */
     Array</** Representation of a works order item */
     {
       notes: /** The notes attached to the works order item */ string
       chargeTo: /** The party to be charged for the work being carried out (landlord/tenant) */ string
       estimate?: /** The estimate of any costs associated with the work being carried out given to the party to be charged for the work */
-      number | undefined | null
-      estimateType?: /** The type of estimate supplied (agent/verbal/written) */ string | undefined | null
-      netAmount?: /** The net cost of the work to be carried out */ number | undefined | null
-      vatAmount?: /** The cost of the vat associated with the work */ number | undefined | null
+      number | undefined
+      estimateType?: /** The type of estimate supplied (agent/verbal/written) */ string | undefined
+      netAmount?: /** The net cost of the work to be carried out */ number | undefined
+      vatAmount?: /** The cost of the vat associated with the work */ number | undefined
       reserveAmount?: /** The amount of funds to be held back by the agent in landlord payment runs to cover the cost of any works required by the works order item */
-      number | undefined | null
+      number | undefined
     }>
     metadata?: /** App specific metadata to set against the works order */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
-export const createWorksOrderFn = async ({ body }: UseCreateWorksOrderArgs) => {
+export const postApiWorksOrdersFn = async ({ body }: UsePostApiWorksOrdersArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -210,12 +208,12 @@ export const createWorksOrderFn = async ({ body }: UseCreateWorksOrderArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateWorksOrder = () => {
+export const usePostApiWorksOrders = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createWorksOrderFn,
+    mutationFn: postApiWorksOrdersFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -225,8 +223,8 @@ export const useCreateWorksOrder = () => {
 }
 export type UseGetApiWorksOrdersIdArgs = {
   id: string
-  embed?: Array<'company' | 'documents' | 'negotiator' | 'property' | 'tenancy' | 'type'> | undefined | null
-  extrasField?: Array<string> | undefined | null
+  embed?: Array<'company' | 'documents' | 'negotiator' | 'property' | 'tenancy' | 'type'> | undefined
+  extrasField?: Array<string> | undefined
 }
 export const getApiWorksOrdersIdFn = async ({ id, embed, extrasField }: UseGetApiWorksOrdersIdArgs) => {
   const res = await fetch(
@@ -312,23 +310,21 @@ export type UsePatchApiWorksOrdersIdArgs = {
   body: /** Request body used to update an existing works order */
   {
     companyId?: /** The unique identifier of the company that has been selected to perform the work */
-    string | undefined | null
-    propertyId?: /** The unique identifier of the property where the work is to be carried out */
-    string | undefined | null
-    tenancyId?: /** The unique identifier of the tenancy that the works order originated from */
-    string | undefined | null
-    negotiatorId?: /** The unique identifier of the negotiator that booked the works order */ string | undefined | null
-    typeId?: /** The unique id of the type of work that needs to be carried out */ string | undefined | null
+    string | undefined
+    propertyId?: /** The unique identifier of the property where the work is to be carried out */ string | undefined
+    tenancyId?: /** The unique identifier of the tenancy that the works order originated from */ string | undefined
+    negotiatorId?: /** The unique identifier of the negotiator that booked the works order */ string | undefined
+    typeId?: /** The unique id of the type of work that needs to be carried out */ string | undefined
     status?: /** The current status of the works order (pendingApproval/pendingQuote/raised/raisedToChase/landlordToComplete/complete/cancelled/quoteAccepted) */
-    string | undefined | null
-    description?: /** A free text description of the work required */ string | undefined | null
-    reporter?: /** The party requesting the work to be carried out (landlord/tenant/other) */ string | undefined | null
-    priority?: /** The priority level of the works order (low/medium/high) */ string | undefined | null
-    booked?: /** The date when the works order was booked */ string | undefined | null
-    required?: /** The date when the work is required to be completed by */ string | undefined | null
-    completed?: /** The date when the work was completed */ string | undefined | null
+    string | undefined
+    description?: /** A free text description of the work required */ string | undefined
+    reporter?: /** The party requesting the work to be carried out (landlord/tenant/other) */ string | undefined
+    priority?: /** The priority level of the works order (low/medium/high) */ string | undefined
+    booked?: /** The date when the works order was booked */ string | undefined
+    required?: /** The date when the work is required to be completed by */ string | undefined
+    completed?: /** The date when the work was completed */ string | undefined
     metadata?: /** App specific metadata to set against the works order */
-    Record<string, Record<string, never>> | undefined | null
+    Record<string, Record<string, never>> | undefined
   }
 }
 export const patchApiWorksOrdersIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiWorksOrdersIdArgs) => {
@@ -363,8 +359,8 @@ export const usePatchApiWorksOrdersId = () => {
   })
 }
 export type UseGetApiWorksOrdersIdItemsArgs = {
-  pageSize?: number | undefined | null
-  pageNumber?: number | undefined | null
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
   id: string
 }
 export const getApiWorksOrdersIdItemsFn = async ({ pageSize, pageNumber, id }: UseGetApiWorksOrdersIdItemsArgs) => {
@@ -431,22 +427,22 @@ export const useGetApiWorksOrdersIdItems = (args: UseGetApiWorksOrdersIdItemsArg
 
   return result
 }
-export type UseCreateWorksOrderItemArgs = {
+export type UsePostApiWorksOrdersIdItemsArgs = {
   id: string
   body: /** Representation of a works order item */
   {
     notes: /** The notes attached to the works order item */ string
     chargeTo: /** The party to be charged for the work being carried out (landlord/tenant) */ string
     estimate?: /** The estimate of any costs associated with the work being carried out given to the party to be charged for the work */
-    number | undefined | null
-    estimateType?: /** The type of estimate supplied (agent/verbal/written) */ string | undefined | null
-    netAmount?: /** The net cost of the work to be carried out */ number | undefined | null
-    vatAmount?: /** The cost of the vat associated with the work */ number | undefined | null
+    number | undefined
+    estimateType?: /** The type of estimate supplied (agent/verbal/written) */ string | undefined
+    netAmount?: /** The net cost of the work to be carried out */ number | undefined
+    vatAmount?: /** The cost of the vat associated with the work */ number | undefined
     reserveAmount?: /** The amount of funds to be held back by the agent in landlord payment runs to cover the cost of any works required by the works order item */
-    number | undefined | null
+    number | undefined
   }
 }
-export const createWorksOrderItemFn = async ({ id, body }: UseCreateWorksOrderItemArgs) => {
+export const postApiWorksOrdersIdItemsFn = async ({ id, body }: UsePostApiWorksOrdersIdItemsArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${id}/items${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -464,12 +460,12 @@ export const createWorksOrderItemFn = async ({ id, body }: UseCreateWorksOrderIt
 
   return z.void().parse(data)
 }
-export const useCreateWorksOrderItem = () => {
+export const usePostApiWorksOrdersIdItems = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createWorksOrderItemFn,
+    mutationFn: postApiWorksOrdersIdItemsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -561,15 +557,15 @@ export type UsePatchApiWorksOrdersIdItemsItemIdArgs = {
   itemId: string
   body: /** Representation of a works order item */
   {
-    notes?: /** The notes attached to the works order item */ string | undefined | null
-    chargeTo?: /** The party to be charged for the work being carried out (landlord/tenant) */ string | undefined | null
+    notes?: /** The notes attached to the works order item */ string | undefined
+    chargeTo?: /** The party to be charged for the work being carried out (landlord/tenant) */ string | undefined
     estimate?: /** The estimate of any costs associated with the work being carried out given to the party to be charged for the work */
-    number | undefined | null
-    estimateType?: /** The type of estimate supplied (agent/verbal/written) */ string | undefined | null
-    netAmount?: /** The net cost of the work to be carried out */ number | undefined | null
-    vatAmount?: /** The cost of the vat associated with the work */ number | undefined | null
+    number | undefined
+    estimateType?: /** The type of estimate supplied (agent/verbal/written) */ string | undefined
+    netAmount?: /** The net cost of the work to be carried out */ number | undefined
+    vatAmount?: /** The cost of the vat associated with the work */ number | undefined
     reserveAmount?: /** The amount of funds to be held back by the agent in landlord payment runs to cover the cost of any works required by the works order item */
-    number | undefined | null
+    number | undefined
   }
 }
 export const patchApiWorksOrdersIdItemsItemIdFn = async ({
