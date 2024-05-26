@@ -2,7 +2,7 @@ import { SharedTable } from '@/components/SharedTable'
 import {
   ColumnsList,
   ModelConfig,
-  DisplayConfig
+  NotImplemented
 } from '@/components/ModelRuntimeConfig'
 import Box from '@mui/joy/Box'
 import Typography from '@mui/joy/Typography'
@@ -13,11 +13,10 @@ import {
   getContactsColumn,
   useContactsTable
 } from '@/tables/contacts'
-import { createRuntimeConfig } from '@/components/ModelRuntimeConfig'
+import { createConfig } from '@/components/ModelRuntimeConfig'
 import Link from '@mui/joy/Link'
-import { CreateContactsBody } from '@/forms/contacts'
 
-export const contactConfig: ModelConfig<CreateContactsBody> = {
+export const contactConfig: ModelConfig<ContactsBody> = {
   id: {
     key: 'id',
     label: 'Id',
@@ -26,14 +25,15 @@ export const contactConfig: ModelConfig<CreateContactsBody> = {
         {value}
       </Link>
     ),
-    Input: () => <Box>Not implemented</Box>
+    Input: NotImplemented
   }
 }
 
-const contactsConfig: DisplayConfig<ContactsBody> = {
+const contactsConfig: ModelConfig<ContactsBody> = {
   id: {
     key: 'id',
     label: 'Id',
+    Input: NotImplemented,
     format: value => (
       <Link component={RouterLink} to={`/deployments/${value}`}>
         {value}
@@ -43,15 +43,13 @@ const contactsConfig: DisplayConfig<ContactsBody> = {
   surname: {
     key: 'surname',
     label: 'Surname',
+    Input: NotImplemented,
     format: value => value
   }
 }
 
-const formatting = createRuntimeConfig(
-  {
-    type: 'display',
-    config: contactsConfig
-  },
+const contactTableConfig: ModelConfig<ContactsBody> = createConfig(
+  contactsConfig,
   contactConfig
 )
 
@@ -59,7 +57,7 @@ export const Contacts = () => {
   const cols: (keyof ContactsBody)[] = ['id', 'surname']
 
   const columns: ColumnsList<ContactsBody> = cols.map(col =>
-    getContactsColumn(col, formatting)
+    getContactsColumn(col, contactTableConfig)
   )
 
   const { table, dataQuery } = useContactsTable({ columns })

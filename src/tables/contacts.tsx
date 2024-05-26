@@ -1,12 +1,21 @@
 import { z } from 'zod'
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ConfigItemLookup, ColumnsList } from '@/components/ModelRuntimeConfig'
+import {
+  createColumnHelper,
+  useReactTable,
+  getCoreRowModel,
+  PaginationState
+} from '@tanstack/react-table'
+import {
+  ConfigItemLookup,
+  ColumnsList,
+  ModelConfig
+} from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import {
   useGetApiContacts,
   useGetApiContactsIdRelationships,
-  useGetApiContactsIdSubscriptions,
+  useGetApiContactsIdSubscriptions
 } from '@/services/contacts.ts'
 
 export const contactsBody = z.object({
@@ -26,7 +35,10 @@ export const contactsBody = z.object({
   marketingConsent: z.string().nullable().optional(),
   identityCheck: z.string().nullable().optional(),
   source: z
-    .object({ id: z.string().nullable().optional(), type: z.string().nullable().optional() })
+    .object({
+      id: z.string().nullable().optional(),
+      type: z.string().nullable().optional()
+    })
     .nullable()
     .optional(),
   homePhone: z.string().nullable().optional(),
@@ -45,7 +57,7 @@ export const contactsBody = z.object({
       line3: z.string().nullable().optional(),
       line4: z.string().nullable().optional(),
       postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
+      countryId: z.string().nullable().optional()
     })
     .nullable()
     .optional(),
@@ -59,7 +71,7 @@ export const contactsBody = z.object({
       line3: z.string().nullable().optional(),
       line4: z.string().nullable().optional(),
       postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
+      countryId: z.string().nullable().optional()
     })
     .nullable()
     .optional(),
@@ -73,7 +85,7 @@ export const contactsBody = z.object({
       line3: z.string().nullable().optional(),
       line4: z.string().nullable().optional(),
       postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
+      countryId: z.string().nullable().optional()
     })
     .nullable()
     .optional(),
@@ -85,7 +97,12 @@ export const contactsBody = z.object({
   communicationPreferencePhone: z.boolean().nullable().optional(),
   communicationPreferenceSMS: z.boolean().nullable().optional(),
   additionalContactDetails: z
-    .array(z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }))
+    .array(
+      z.object({
+        type: z.string().nullable().optional(),
+        value: z.string().nullable().optional()
+      })
+    )
     .nullable()
     .optional(),
   metadata: z.record(z.string(), z.object({})).nullable().optional(),
@@ -95,7 +112,10 @@ export const contactsBody = z.object({
     .array(
       z.object({
         _links: z
-          .record(z.string(), z.object({ href: z.string().nullable().optional() }))
+          .record(
+            z.string(),
+            z.object({ href: z.string().nullable().optional() })
+          )
           .nullable()
           .optional(),
         _embedded: z.record(z.string(), z.object({})).nullable().optional(),
@@ -105,14 +125,17 @@ export const contactsBody = z.object({
         contactId: z.string().nullable().optional(),
         associatedType: z.string().nullable().optional(),
         associatedId: z.string().nullable().optional(),
-        fromArchive: z.boolean().nullable().optional(),
-      }),
+        fromArchive: z.boolean().nullable().optional()
+      })
     )
     .nullable()
-    .optional(),
+    .optional()
 })
 export type ContactsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
+  _links?:
+    | Record<string, { href?: string | undefined | null }>
+    | undefined
+    | null
   _embedded?: Record<string, Record<string, never>> | undefined | null
   id?: string | undefined | null
   created?: string | undefined | null
@@ -124,7 +147,10 @@ export type ContactsBody = {
   active?: boolean | undefined | null
   marketingConsent?: string | undefined | null
   identityCheck?: string | undefined | null
-  source?: { id?: string | undefined | null; type?: string | undefined | null } | undefined | null
+  source?:
+    | { id?: string | undefined | null; type?: string | undefined | null }
+    | undefined
+    | null
   homePhone?: string | undefined | null
   workPhone?: string | undefined | null
   mobilePhone?: string | undefined | null
@@ -181,7 +207,10 @@ export type ContactsBody = {
   communicationPreferencePhone?: boolean | undefined | null
   communicationPreferenceSMS?: boolean | undefined | null
   additionalContactDetails?:
-    | Array<{ type?: string | undefined | null; value?: string | undefined | null }>
+    | Array<{
+        type?: string | undefined | null
+        value?: string | undefined | null
+      }>
     | undefined
     | null
   metadata?: Record<string, Record<string, never>> | undefined | null
@@ -189,7 +218,10 @@ export type ContactsBody = {
   extrasField?: Record<string, Record<string, never>> | undefined | null
   relationships?:
     | Array<{
-        _links?: Record<string, { href?: string | undefined | null }> | undefined | null
+        _links?:
+          | Record<string, { href?: string | undefined | null }>
+          | undefined
+          | null
         _embedded?: Record<string, Record<string, never>> | undefined | null
         id?: string | undefined | null
         created?: string | undefined | null
@@ -205,7 +237,14 @@ export type ContactsBody = {
 export type ContactsArgs = {
   sortBy?: string | undefined | null
   embed?:
-    | Array<'documents' | 'identityChecks' | 'negotiators' | 'offices' | 'relationships' | 'source'>
+    | Array<
+        | 'documents'
+        | 'identityChecks'
+        | 'negotiators'
+        | 'offices'
+        | 'relationships'
+        | 'source'
+      >
     | undefined
     | null
   id?: Array<string> | undefined | null
@@ -214,11 +253,17 @@ export type ContactsArgs = {
   negotiatorId?: Array<string> | undefined | null
   officeId?: Array<string> | undefined | null
   address?: string | undefined | null
-  identityCheck?: Array<'pass' | 'fail' | 'pending' | 'warnings' | 'unchecked'> | undefined | null
+  identityCheck?:
+    | Array<'pass' | 'fail' | 'pending' | 'warnings' | 'unchecked'>
+    | undefined
+    | null
   name?: string | undefined | null
   nameType?: string | undefined | null
   marketingConsent?: Array<'grant' | 'deny' | 'notAsked'> | undefined | null
-  marketingConsentFilterType?: Array<'assumedOrExplicit' | 'explicit'> | undefined | null
+  marketingConsentFilterType?:
+    | Array<'assumedOrExplicit' | 'explicit'>
+    | undefined
+    | null
   active?: boolean | undefined | null
   fromArchive?: boolean | undefined | null
   createdFrom?: string | undefined | null
@@ -241,10 +286,13 @@ export const contactsIdRelationshipsBody = z.object({
   contactId: z.string().nullable().optional(),
   associatedType: z.string().nullable().optional(),
   associatedId: z.string().nullable().optional(),
-  fromArchive: z.boolean().nullable().optional(),
+  fromArchive: z.boolean().nullable().optional()
 })
 export type ContactsIdRelationshipsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
+  _links?:
+    | Record<string, { href?: string | undefined | null }>
+    | undefined
+    | null
   _embedded?: Record<string, Record<string, never>> | undefined | null
   id?: string | undefined | null
   created?: string | undefined | null
@@ -254,7 +302,10 @@ export type ContactsIdRelationshipsBody = {
   associatedId?: string | undefined | null
   fromArchive?: boolean | undefined | null
 }
-export type ContactsIdRelationshipsArgs = { id: string; columns: ColumnsList<ContactsIdRelationshipsBody> }
+export type ContactsIdRelationshipsArgs = {
+  id: string
+  columns: ColumnsList<ContactsIdRelationshipsBody>
+}
 export const contactsIdSubscriptionsBody = z.object({
   _links: z
     .record(z.string(), z.object({ href: z.string().nullable().optional() }))
@@ -268,10 +319,13 @@ export const contactsIdSubscriptionsBody = z.object({
   status: z.string().nullable().optional(),
   type: z.string().nullable().optional(),
   subscribedOn: z.string().nullable().optional(),
-  unsubscribedOn: z.string().nullable().optional(),
+  unsubscribedOn: z.string().nullable().optional()
 })
 export type ContactsIdSubscriptionsBody = {
-  _links?: Record<string, { href?: string | undefined | null }> | undefined | null
+  _links?:
+    | Record<string, { href?: string | undefined | null }>
+    | undefined
+    | null
   _embedded?: Record<string, Record<string, never>> | undefined | null
   id?: string | undefined | null
   contactId?: string | undefined | null
@@ -291,244 +345,263 @@ export type ContactsIdSubscriptionsArgs = {
 
 export const contactsColumnHelper = createColumnHelper<ContactsBody>()
 
-export const getContactsColumn = (property: string, { label, format }: ConfigItemLookup<ContactsBody>) => {
+export const getContactsColumn = (
+  property: string,
+  modelConfig: ModelConfig<ContactsBody>
+) => {
   return match(property)
     .with('_links', () => {
-      return contactsColumnHelper.accessor((row) => row._links, {
+      const { label: header, format } = modelConfig['_links']
+      return contactsColumnHelper.accessor(row => row._links, {
         id: '_links',
-        header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        header,
+        cell: info => format(info.getValue())
       })
     })
     .with('_embedded', () => {
-      return contactsColumnHelper.accessor((row) => row._embedded, {
+      return contactsColumnHelper.accessor(row => row._embedded, {
         id: '_embedded',
         header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
+        cell: info => format('_embedded', info.getValue())
       })
     })
     .with('id', () => {
-      return contactsColumnHelper.accessor((row) => row.id, {
+      return contactsColumnHelper.accessor(row => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        cell: info => format('id', info.getValue())
       })
     })
     .with('created', () => {
-      return contactsColumnHelper.accessor((row) => row.created, {
+      return contactsColumnHelper.accessor(row => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        cell: info => format('created', info.getValue())
       })
     })
     .with('modified', () => {
-      return contactsColumnHelper.accessor((row) => row.modified, {
+      return contactsColumnHelper.accessor(row => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        cell: info => format('modified', info.getValue())
       })
     })
     .with('title', () => {
-      return contactsColumnHelper.accessor((row) => row.title, {
+      return contactsColumnHelper.accessor(row => row.title, {
         id: 'title',
         header: label('title'),
-        cell: (info) => format('title', info.getValue()),
+        cell: info => format('title', info.getValue())
       })
     })
     .with('forename', () => {
-      return contactsColumnHelper.accessor((row) => row.forename, {
+      return contactsColumnHelper.accessor(row => row.forename, {
         id: 'forename',
         header: label('forename'),
-        cell: (info) => format('forename', info.getValue()),
+        cell: info => format('forename', info.getValue())
       })
     })
     .with('surname', () => {
-      return contactsColumnHelper.accessor((row) => row.surname, {
+      return contactsColumnHelper.accessor(row => row.surname, {
         id: 'surname',
         header: label('surname'),
-        cell: (info) => format('surname', info.getValue()),
+        cell: info => format('surname', info.getValue())
       })
     })
     .with('dateOfBirth', () => {
-      return contactsColumnHelper.accessor((row) => row.dateOfBirth, {
+      return contactsColumnHelper.accessor(row => row.dateOfBirth, {
         id: 'dateOfBirth',
         header: label('dateOfBirth'),
-        cell: (info) => format('dateOfBirth', info.getValue()),
+        cell: info => format('dateOfBirth', info.getValue())
       })
     })
     .with('active', () => {
-      return contactsColumnHelper.accessor((row) => row.active, {
+      return contactsColumnHelper.accessor(row => row.active, {
         id: 'active',
         header: label('active'),
-        cell: (info) => format('active', info.getValue()),
+        cell: info => format('active', info.getValue())
       })
     })
     .with('marketingConsent', () => {
-      return contactsColumnHelper.accessor((row) => row.marketingConsent, {
+      return contactsColumnHelper.accessor(row => row.marketingConsent, {
         id: 'marketingConsent',
         header: label('marketingConsent'),
-        cell: (info) => format('marketingConsent', info.getValue()),
+        cell: info => format('marketingConsent', info.getValue())
       })
     })
     .with('identityCheck', () => {
-      return contactsColumnHelper.accessor((row) => row.identityCheck, {
+      return contactsColumnHelper.accessor(row => row.identityCheck, {
         id: 'identityCheck',
         header: label('identityCheck'),
-        cell: (info) => format('identityCheck', info.getValue()),
+        cell: info => format('identityCheck', info.getValue())
       })
     })
     .with('source', () => {
-      return contactsColumnHelper.accessor((row) => row.source, {
+      return contactsColumnHelper.accessor(row => row.source, {
         id: 'source',
         header: label('source'),
-        cell: (info) => format('source', info.getValue()),
+        cell: info => format('source', info.getValue())
       })
     })
     .with('homePhone', () => {
-      return contactsColumnHelper.accessor((row) => row.homePhone, {
+      return contactsColumnHelper.accessor(row => row.homePhone, {
         id: 'homePhone',
         header: label('homePhone'),
-        cell: (info) => format('homePhone', info.getValue()),
+        cell: info => format('homePhone', info.getValue())
       })
     })
     .with('workPhone', () => {
-      return contactsColumnHelper.accessor((row) => row.workPhone, {
+      return contactsColumnHelper.accessor(row => row.workPhone, {
         id: 'workPhone',
         header: label('workPhone'),
-        cell: (info) => format('workPhone', info.getValue()),
+        cell: info => format('workPhone', info.getValue())
       })
     })
     .with('mobilePhone', () => {
-      return contactsColumnHelper.accessor((row) => row.mobilePhone, {
+      return contactsColumnHelper.accessor(row => row.mobilePhone, {
         id: 'mobilePhone',
         header: label('mobilePhone'),
-        cell: (info) => format('mobilePhone', info.getValue()),
+        cell: info => format('mobilePhone', info.getValue())
       })
     })
     .with('email', () => {
-      return contactsColumnHelper.accessor((row) => row.email, {
+      return contactsColumnHelper.accessor(row => row.email, {
         id: 'email',
         header: label('email'),
-        cell: (info) => format('email', info.getValue()),
+        cell: info => format('email', info.getValue())
       })
     })
     .with('archivedOn', () => {
-      return contactsColumnHelper.accessor((row) => row.archivedOn, {
+      return contactsColumnHelper.accessor(row => row.archivedOn, {
         id: 'archivedOn',
         header: label('archivedOn'),
-        cell: (info) => format('archivedOn', info.getValue()),
+        cell: info => format('archivedOn', info.getValue())
       })
     })
     .with('fromArchive', () => {
-      return contactsColumnHelper.accessor((row) => row.fromArchive, {
+      return contactsColumnHelper.accessor(row => row.fromArchive, {
         id: 'fromArchive',
         header: label('fromArchive'),
-        cell: (info) => format('fromArchive', info.getValue()),
+        cell: info => format('fromArchive', info.getValue())
       })
     })
     .with('primaryAddress', () => {
-      return contactsColumnHelper.accessor((row) => row.primaryAddress, {
+      return contactsColumnHelper.accessor(row => row.primaryAddress, {
         id: 'primaryAddress',
         header: label('primaryAddress'),
-        cell: (info) => format('primaryAddress', info.getValue()),
+        cell: info => format('primaryAddress', info.getValue())
       })
     })
     .with('secondaryAddress', () => {
-      return contactsColumnHelper.accessor((row) => row.secondaryAddress, {
+      return contactsColumnHelper.accessor(row => row.secondaryAddress, {
         id: 'secondaryAddress',
         header: label('secondaryAddress'),
-        cell: (info) => format('secondaryAddress', info.getValue()),
+        cell: info => format('secondaryAddress', info.getValue())
       })
     })
     .with('workAddress', () => {
-      return contactsColumnHelper.accessor((row) => row.workAddress, {
+      return contactsColumnHelper.accessor(row => row.workAddress, {
         id: 'workAddress',
         header: label('workAddress'),
-        cell: (info) => format('workAddress', info.getValue()),
+        cell: info => format('workAddress', info.getValue())
       })
     })
     .with('officeIds', () => {
-      return contactsColumnHelper.accessor((row) => row.officeIds, {
+      return contactsColumnHelper.accessor(row => row.officeIds, {
         id: 'officeIds',
         header: label('officeIds'),
-        cell: (info) => format('officeIds', info.getValue()),
+        cell: info => format('officeIds', info.getValue())
       })
     })
     .with('negotiatorIds', () => {
-      return contactsColumnHelper.accessor((row) => row.negotiatorIds, {
+      return contactsColumnHelper.accessor(row => row.negotiatorIds, {
         id: 'negotiatorIds',
         header: label('negotiatorIds'),
-        cell: (info) => format('negotiatorIds', info.getValue()),
+        cell: info => format('negotiatorIds', info.getValue())
       })
     })
     .with('categoryIds', () => {
-      return contactsColumnHelper.accessor((row) => row.categoryIds, {
+      return contactsColumnHelper.accessor(row => row.categoryIds, {
         id: 'categoryIds',
         header: label('categoryIds'),
-        cell: (info) => format('categoryIds', info.getValue()),
+        cell: info => format('categoryIds', info.getValue())
       })
     })
     .with('communicationPreferenceLetter', () => {
-      return contactsColumnHelper.accessor((row) => row.communicationPreferenceLetter, {
-        id: 'communicationPreferenceLetter',
-        header: label('communicationPreferenceLetter'),
-        cell: (info) => format('communicationPreferenceLetter', info.getValue()),
-      })
+      return contactsColumnHelper.accessor(
+        row => row.communicationPreferenceLetter,
+        {
+          id: 'communicationPreferenceLetter',
+          header: label('communicationPreferenceLetter'),
+          cell: info => format('communicationPreferenceLetter', info.getValue())
+        }
+      )
     })
     .with('communicationPreferenceEmail', () => {
-      return contactsColumnHelper.accessor((row) => row.communicationPreferenceEmail, {
-        id: 'communicationPreferenceEmail',
-        header: label('communicationPreferenceEmail'),
-        cell: (info) => format('communicationPreferenceEmail', info.getValue()),
-      })
+      return contactsColumnHelper.accessor(
+        row => row.communicationPreferenceEmail,
+        {
+          id: 'communicationPreferenceEmail',
+          header: label('communicationPreferenceEmail'),
+          cell: info => format('communicationPreferenceEmail', info.getValue())
+        }
+      )
     })
     .with('communicationPreferencePhone', () => {
-      return contactsColumnHelper.accessor((row) => row.communicationPreferencePhone, {
-        id: 'communicationPreferencePhone',
-        header: label('communicationPreferencePhone'),
-        cell: (info) => format('communicationPreferencePhone', info.getValue()),
-      })
+      return contactsColumnHelper.accessor(
+        row => row.communicationPreferencePhone,
+        {
+          id: 'communicationPreferencePhone',
+          header: label('communicationPreferencePhone'),
+          cell: info => format('communicationPreferencePhone', info.getValue())
+        }
+      )
     })
     .with('communicationPreferenceSMS', () => {
-      return contactsColumnHelper.accessor((row) => row.communicationPreferenceSMS, {
-        id: 'communicationPreferenceSMS',
-        header: label('communicationPreferenceSMS'),
-        cell: (info) => format('communicationPreferenceSMS', info.getValue()),
-      })
+      return contactsColumnHelper.accessor(
+        row => row.communicationPreferenceSMS,
+        {
+          id: 'communicationPreferenceSMS',
+          header: label('communicationPreferenceSMS'),
+          cell: info => format('communicationPreferenceSMS', info.getValue())
+        }
+      )
     })
     .with('additionalContactDetails', () => {
-      return contactsColumnHelper.accessor((row) => row.additionalContactDetails, {
-        id: 'additionalContactDetails',
-        header: label('additionalContactDetails'),
-        cell: (info) => format('additionalContactDetails', info.getValue()),
-      })
+      return contactsColumnHelper.accessor(
+        row => row.additionalContactDetails,
+        {
+          id: 'additionalContactDetails',
+          header: label('additionalContactDetails'),
+          cell: info => format('additionalContactDetails', info.getValue())
+        }
+      )
     })
     .with('metadata', () => {
-      return contactsColumnHelper.accessor((row) => row.metadata, {
+      return contactsColumnHelper.accessor(row => row.metadata, {
         id: 'metadata',
         header: label('metadata'),
-        cell: (info) => format('metadata', info.getValue()),
+        cell: info => format('metadata', info.getValue())
       })
     })
     .with('_eTag', () => {
-      return contactsColumnHelper.accessor((row) => row._eTag, {
+      return contactsColumnHelper.accessor(row => row._eTag, {
         id: '_eTag',
         header: label('_eTag'),
-        cell: (info) => format('_eTag', info.getValue()),
+        cell: info => format('_eTag', info.getValue())
       })
     })
     .with('extrasField', () => {
-      return contactsColumnHelper.accessor((row) => row.extrasField, {
+      return contactsColumnHelper.accessor(row => row.extrasField, {
         id: 'extrasField',
         header: label('extrasField'),
-        cell: (info) => format('extrasField', info.getValue()),
+        cell: info => format('extrasField', info.getValue())
       })
     })
     .with('relationships', () => {
-      return contactsColumnHelper.accessor((row) => row.relationships, {
+      return contactsColumnHelper.accessor(row => row.relationships, {
         id: 'relationships',
         header: label('relationships'),
-        cell: (info) => format('relationships', info.getValue()),
+        cell: info => format('relationships', info.getValue())
       })
     })
     .otherwise(() => {
@@ -541,13 +614,13 @@ export const useContactsTable = (args: ContactsArgs) => {
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 12,
+    pageSize: 12
   })
 
   const dataQuery = useGetApiContacts({
     ...args,
     pageNumber: pagination.pageIndex + 1,
-    pageSize: pagination.pageSize,
+    pageSize: pagination.pageSize
   })
 
   const defaultData = useMemo(() => [], [])
@@ -558,104 +631,122 @@ export const useContactsTable = (args: ContactsArgs) => {
     // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
     rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
     state: {
-      pagination,
+      pagination
     },
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true, //we're doing manual "server-side" pagination
     // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
+    debugTable: true
   })
 
   return { rerender, table, dataQuery }
 }
-export const contactsIdRelationshipsColumnHelper = createColumnHelper<ContactsIdRelationshipsBody>()
+export const contactsIdRelationshipsColumnHelper =
+  createColumnHelper<ContactsIdRelationshipsBody>()
 
 export const getContactsIdRelationshipsColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<ContactsIdRelationshipsBody>,
+  { label, format }: ConfigItemLookup<ContactsIdRelationshipsBody>
 ) => {
   return match(property)
     .with('_links', () => {
-      return contactsIdRelationshipsColumnHelper.accessor((row) => row._links, {
+      return contactsIdRelationshipsColumnHelper.accessor(row => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        cell: info => format('_links', info.getValue())
       })
     })
     .with('_embedded', () => {
-      return contactsIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
-      })
+      return contactsIdRelationshipsColumnHelper.accessor(
+        row => row._embedded,
+        {
+          id: '_embedded',
+          header: label('_embedded'),
+          cell: info => format('_embedded', info.getValue())
+        }
+      )
     })
     .with('id', () => {
-      return contactsIdRelationshipsColumnHelper.accessor((row) => row.id, {
+      return contactsIdRelationshipsColumnHelper.accessor(row => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        cell: info => format('id', info.getValue())
       })
     })
     .with('created', () => {
-      return contactsIdRelationshipsColumnHelper.accessor((row) => row.created, {
+      return contactsIdRelationshipsColumnHelper.accessor(row => row.created, {
         id: 'created',
         header: label('created'),
-        cell: (info) => format('created', info.getValue()),
+        cell: info => format('created', info.getValue())
       })
     })
     .with('modified', () => {
-      return contactsIdRelationshipsColumnHelper.accessor((row) => row.modified, {
+      return contactsIdRelationshipsColumnHelper.accessor(row => row.modified, {
         id: 'modified',
         header: label('modified'),
-        cell: (info) => format('modified', info.getValue()),
+        cell: info => format('modified', info.getValue())
       })
     })
     .with('contactId', () => {
-      return contactsIdRelationshipsColumnHelper.accessor((row) => row.contactId, {
-        id: 'contactId',
-        header: label('contactId'),
-        cell: (info) => format('contactId', info.getValue()),
-      })
+      return contactsIdRelationshipsColumnHelper.accessor(
+        row => row.contactId,
+        {
+          id: 'contactId',
+          header: label('contactId'),
+          cell: info => format('contactId', info.getValue())
+        }
+      )
     })
     .with('associatedType', () => {
-      return contactsIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
-        id: 'associatedType',
-        header: label('associatedType'),
-        cell: (info) => format('associatedType', info.getValue()),
-      })
+      return contactsIdRelationshipsColumnHelper.accessor(
+        row => row.associatedType,
+        {
+          id: 'associatedType',
+          header: label('associatedType'),
+          cell: info => format('associatedType', info.getValue())
+        }
+      )
     })
     .with('associatedId', () => {
-      return contactsIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
-        id: 'associatedId',
-        header: label('associatedId'),
-        cell: (info) => format('associatedId', info.getValue()),
-      })
+      return contactsIdRelationshipsColumnHelper.accessor(
+        row => row.associatedId,
+        {
+          id: 'associatedId',
+          header: label('associatedId'),
+          cell: info => format('associatedId', info.getValue())
+        }
+      )
     })
     .with('fromArchive', () => {
-      return contactsIdRelationshipsColumnHelper.accessor((row) => row.fromArchive, {
-        id: 'fromArchive',
-        header: label('fromArchive'),
-        cell: (info) => format('fromArchive', info.getValue()),
-      })
+      return contactsIdRelationshipsColumnHelper.accessor(
+        row => row.fromArchive,
+        {
+          id: 'fromArchive',
+          header: label('fromArchive'),
+          cell: info => format('fromArchive', info.getValue())
+        }
+      )
     })
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 
-export const useContactsIdRelationshipsTable = (args: ContactsIdRelationshipsArgs) => {
+export const useContactsIdRelationshipsTable = (
+  args: ContactsIdRelationshipsArgs
+) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 12,
+    pageSize: 12
   })
 
   const dataQuery = useGetApiContactsIdRelationships({
     ...args,
     pageNumber: pagination.pageIndex + 1,
-    pageSize: pagination.pageSize,
+    pageSize: pagination.pageSize
   })
 
   const defaultData = useMemo(() => [], [])
@@ -666,111 +757,126 @@ export const useContactsIdRelationshipsTable = (args: ContactsIdRelationshipsArg
     // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
     rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
     state: {
-      pagination,
+      pagination
     },
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true, //we're doing manual "server-side" pagination
     // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
+    debugTable: true
   })
 
   return { rerender, table, dataQuery }
 }
-export const contactsIdSubscriptionsColumnHelper = createColumnHelper<ContactsIdSubscriptionsBody>()
+export const contactsIdSubscriptionsColumnHelper =
+  createColumnHelper<ContactsIdSubscriptionsBody>()
 
 export const getContactsIdSubscriptionsColumn = (
   property: string,
-  { label, format }: ConfigItemLookup<ContactsIdSubscriptionsBody>,
+  { label, format }: ConfigItemLookup<ContactsIdSubscriptionsBody>
 ) => {
   return match(property)
     .with('_links', () => {
-      return contactsIdSubscriptionsColumnHelper.accessor((row) => row._links, {
+      return contactsIdSubscriptionsColumnHelper.accessor(row => row._links, {
         id: '_links',
         header: label('_links'),
-        cell: (info) => format('_links', info.getValue()),
+        cell: info => format('_links', info.getValue())
       })
     })
     .with('_embedded', () => {
-      return contactsIdSubscriptionsColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header: label('_embedded'),
-        cell: (info) => format('_embedded', info.getValue()),
-      })
+      return contactsIdSubscriptionsColumnHelper.accessor(
+        row => row._embedded,
+        {
+          id: '_embedded',
+          header: label('_embedded'),
+          cell: info => format('_embedded', info.getValue())
+        }
+      )
     })
     .with('id', () => {
-      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.id, {
+      return contactsIdSubscriptionsColumnHelper.accessor(row => row.id, {
         id: 'id',
         header: label('id'),
-        cell: (info) => format('id', info.getValue()),
+        cell: info => format('id', info.getValue())
       })
     })
     .with('contactId', () => {
-      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.contactId, {
-        id: 'contactId',
-        header: label('contactId'),
-        cell: (info) => format('contactId', info.getValue()),
-      })
+      return contactsIdSubscriptionsColumnHelper.accessor(
+        row => row.contactId,
+        {
+          id: 'contactId',
+          header: label('contactId'),
+          cell: info => format('contactId', info.getValue())
+        }
+      )
     })
     .with('name', () => {
-      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.name, {
+      return contactsIdSubscriptionsColumnHelper.accessor(row => row.name, {
         id: 'name',
         header: label('name'),
-        cell: (info) => format('name', info.getValue()),
+        cell: info => format('name', info.getValue())
       })
     })
     .with('group', () => {
-      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.group, {
+      return contactsIdSubscriptionsColumnHelper.accessor(row => row.group, {
         id: 'group',
         header: label('group'),
-        cell: (info) => format('group', info.getValue()),
+        cell: info => format('group', info.getValue())
       })
     })
     .with('status', () => {
-      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.status, {
+      return contactsIdSubscriptionsColumnHelper.accessor(row => row.status, {
         id: 'status',
         header: label('status'),
-        cell: (info) => format('status', info.getValue()),
+        cell: info => format('status', info.getValue())
       })
     })
     .with('type', () => {
-      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.type, {
+      return contactsIdSubscriptionsColumnHelper.accessor(row => row.type, {
         id: 'type',
         header: label('type'),
-        cell: (info) => format('type', info.getValue()),
+        cell: info => format('type', info.getValue())
       })
     })
     .with('subscribedOn', () => {
-      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.subscribedOn, {
-        id: 'subscribedOn',
-        header: label('subscribedOn'),
-        cell: (info) => format('subscribedOn', info.getValue()),
-      })
+      return contactsIdSubscriptionsColumnHelper.accessor(
+        row => row.subscribedOn,
+        {
+          id: 'subscribedOn',
+          header: label('subscribedOn'),
+          cell: info => format('subscribedOn', info.getValue())
+        }
+      )
     })
     .with('unsubscribedOn', () => {
-      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.unsubscribedOn, {
-        id: 'unsubscribedOn',
-        header: label('unsubscribedOn'),
-        cell: (info) => format('unsubscribedOn', info.getValue()),
-      })
+      return contactsIdSubscriptionsColumnHelper.accessor(
+        row => row.unsubscribedOn,
+        {
+          id: 'unsubscribedOn',
+          header: label('unsubscribedOn'),
+          cell: info => format('unsubscribedOn', info.getValue())
+        }
+      )
     })
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 
-export const useContactsIdSubscriptionsTable = (args: ContactsIdSubscriptionsArgs) => {
+export const useContactsIdSubscriptionsTable = (
+  args: ContactsIdSubscriptionsArgs
+) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 12,
+    pageSize: 12
   })
 
   const dataQuery = useGetApiContactsIdSubscriptions({
     ...args,
     pageNumber: pagination.pageIndex + 1,
-    pageSize: pagination.pageSize,
+    pageSize: pagination.pageSize
   })
 
   const defaultData = useMemo(() => [], [])
@@ -781,13 +887,13 @@ export const useContactsIdSubscriptionsTable = (args: ContactsIdSubscriptionsArg
     // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
     rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
     state: {
-      pagination,
+      pagination
     },
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true, //we're doing manual "server-side" pagination
     // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
+    debugTable: true
   })
 
   return { rerender, table, dataQuery }

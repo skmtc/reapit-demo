@@ -7,11 +7,11 @@ import {
   Control
 } from 'react-hook-form'
 import { FC, ReactNode } from 'react'
-import { match } from 'ts-pattern'
 import FormControl from '@mui/joy/FormControl'
 import FormLabel from '@mui/joy/FormLabel'
 import FormHelperText from '@mui/joy/FormHelperText'
 import invariant from 'tiny-invariant'
+import Box from '@mui/joy/Box'
 
 export type ColumnsMap<Model> = {
   [Property in keyof Model]: ColumnDef<Model, Model[Property]>
@@ -27,79 +27,27 @@ export type ModelConfig<Model extends FieldValues> = {
   [Property in KeyPath<Model>]: ConfigValue<Model, Property>
 }
 
-export type DisplayConfig<Model extends FieldValues> = Partial<{
-  [FormPath in KeyPath<Model>]: Pick<
-    ConfigValue<Model, FormPath>,
-    'key' | 'label' | 'format'
-  >
-}>
-
-type ConfigArg<Model extends FieldValues> =
-  | DisplayConfigArg<Model>
-  | FormConfigArgs<Model>
-
-type DisplayConfigArg<Model extends FieldValues> = {
-  type: 'display'
-  config: DisplayConfig<Model>
-}
-
-type FormConfigArgs<Model extends FieldValues> = {
-  type: 'form'
-  config: Partial<FormConfig<Model>>
-}
-
-export const createRuntimeConfig = <Model extends FieldValues>(
-  configArg: ConfigArg<Model>,
+export const createConfig = <Model extends FieldValues>(
+  displayConfig: ModelConfig<Model>,
   modelConfig: ModelConfig<Model>
 ) => {
-  return match(configArg as ConfigArg<Model>)
-    .with({ type: 'display' }, ({ config }) => {
-      const displayConfig = Object.fromEntries(
-        Object.keys(config).map(k => {
-          invariant(k in modelConfig, 'Unknown key')
+  return Object.fromEntries(
+    Object.keys(displayConfig).map(k => {
+      invariant(k in modelConfig, 'Unknown key')
 
-          const key = k as KeyPath<Model>
+      const key = k as KeyPath<Model>
 
-          return [
-            key as KeyPath<Model>,
-            {
-              key,
-              label: config[key]?.label ?? modelConfig[key]?.label,
-              format: config[key]?.format ?? modelConfig[key]?.format
-            }
-          ]
-        })
-      )
-
-      return {
-        type: 'display' as const,
-        config: displayConfig as unknown as DisplayConfig<Model>
-      }
+      return [
+        key as KeyPath<Model>,
+        {
+          key,
+          label: displayConfig[key]?.label ?? modelConfig[key]?.label,
+          format: displayConfig[key]?.format ?? modelConfig[key]?.format,
+          Input: displayConfig[key]?.Input ?? modelConfig[key].Input
+        }
+      ]
     })
-    .with({ type: 'form' }, ({ config }) => {
-      const formConfig = Object.fromEntries(
-        Object.keys(config).map(k => {
-          invariant(k in modelConfig, 'Unknown key')
-
-          const key = k as KeyPath<Model>
-
-          return [
-            key,
-            {
-              key,
-              label: config[key]?.label ?? modelConfig[key].label,
-              Input: config[key]?.Input ?? modelConfig[key].Input
-            }
-          ]
-        })
-      )
-
-      return {
-        type: 'form' as const,
-        config: formConfig as unknown as FormConfig<Model>
-      }
-    })
-    .exhaustive()
+  ) as unknown as ModelConfig<Model>
 }
 
 export type KeysOf<T> = (keyof T)[]
@@ -125,22 +73,13 @@ type ConfigValue<Model extends FieldValues, FormPath extends KeyPath<Model>> = {
   key: FormPath
   label: string
   Input: FC<ControllerRenderProps<Model, FormPath>>
-  format: (value: KeyPath<Model>) => ReactNode
+  format: (value: Model[FormPath]) => ReactNode
 }
 
 export type RestoreOptional<T, KeySource> = Partial<
   Pick<T, OptionalKeys<KeySource>>
 > &
   Pick<T, RequiredKeys<KeySource>>
-
-export type BasicConfig<Model extends FieldValues> = {
-  [FormPath in KeyPath<Model>]: Pick<
-    ConfigValue<Model, FormPath>,
-    'key' | 'label' | 'Input'
-  >
-}
-
-export type FormConfig<Model extends FieldValues> = BasicConfig<Model>
 
 export type KeyPath<T extends FieldValues> = Extract<FieldPath<T>, keyof T>
 
@@ -149,7 +88,7 @@ type FieldControllerProps<
   Key extends KeyPath<Model>
 > = {
   fieldName: Key
-  config: FormConfig<Model>[Key]
+  config: ModelConfig<Model>[Key]
   control: Control<Model, any>
 }
 
@@ -177,3 +116,5 @@ export const FieldController = <
     )}
   />
 )
+
+export const NotImplemented = () => <Box>Not implemented</Box>
