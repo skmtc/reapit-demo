@@ -1,109 +1,15 @@
-import { z } from 'zod'
+import { landlordModel, LandlordModel } from '@/models/landlordModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiLandlords, useGetApiLandlordsIdRelationships } from '@/services/landlords.ts'
+import {
+  landlordContactRelationshipModel,
+  LandlordContactRelationshipModel,
+} from '@/models/landlordContactRelationshipModel.ts'
 
-export const landlordsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  active: z.boolean().nullable().optional(),
-  solicitorId: z.string().nullable().optional(),
-  officeId: z.string().nullable().optional(),
-  source: z
-    .object({ id: z.string().nullable().optional(), type: z.string().nullable().optional() })
-    .nullable()
-    .optional(),
-  related: z
-    .array(
-      z.object({
-        id: z.string().nullable().optional(),
-        name: z.string().nullable().optional(),
-        title: z.string().nullable().optional(),
-        forename: z.string().nullable().optional(),
-        surname: z.string().nullable().optional(),
-        dateOfBirth: z.string().nullable().optional(),
-        type: z.string().nullable().optional(),
-        homePhone: z.string().nullable().optional(),
-        workPhone: z.string().nullable().optional(),
-        mobilePhone: z.string().nullable().optional(),
-        email: z.string().nullable().optional(),
-        marketingConsent: z.string().nullable().optional(),
-        primaryAddress: z
-          .object({
-            buildingName: z.string().nullable().optional(),
-            buildingNumber: z.string().nullable().optional(),
-            line1: z.string().nullable().optional(),
-            line2: z.string().nullable().optional(),
-            line3: z.string().nullable().optional(),
-            line4: z.string().nullable().optional(),
-            postcode: z.string().nullable().optional(),
-            countryId: z.string().nullable().optional(),
-          })
-          .nullable()
-          .optional(),
-        additionalContactDetails: z
-          .array(z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-          .nullable()
-          .optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  extrasField: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type LandlordsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  active?: boolean | undefined
-  solicitorId?: string | undefined
-  officeId?: string | undefined
-  source?: { id?: string | undefined; type?: string | undefined } | undefined
-  related?:
-    | Array<{
-        id?: string | undefined
-        name?: string | undefined
-        title?: string | undefined
-        forename?: string | undefined
-        surname?: string | undefined
-        dateOfBirth?: string | undefined
-        type?: string | undefined
-        homePhone?: string | undefined
-        workPhone?: string | undefined
-        mobilePhone?: string | undefined
-        email?: string | undefined
-        marketingConsent?: string | undefined
-        primaryAddress?:
-          | {
-              buildingName?: string | undefined
-              buildingNumber?: string | undefined
-              line1?: string | undefined
-              line2?: string | undefined
-              line3?: string | undefined
-              line4?: string | undefined
-              postcode?: string | undefined
-              countryId?: string | undefined
-            }
-          | undefined
-        additionalContactDetails?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
-      }>
-    | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  extrasField?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-}
 export type LandlordsArgs = {
   sortBy?: string | undefined
   embed?: Array<'appointments' | 'documents' | 'office' | 'properties' | 'solicitor' | 'source'> | undefined
@@ -119,38 +25,13 @@ export type LandlordsArgs = {
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
   metadata?: Array<string> | undefined
-  columns: ColumnsList<LandlordsBody>
+  columns: ColumnsList<LandlordModel>
 }
-export const landlordsIdRelationshipsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  landlordId: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  associatedType: z.string().nullable().optional(),
-  associatedId: z.string().nullable().optional(),
-  isMain: z.boolean().nullable().optional(),
-})
-export type LandlordsIdRelationshipsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  landlordId?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  associatedType?: string | undefined
-  associatedId?: string | undefined
-  isMain?: boolean | undefined
-}
-export type LandlordsIdRelationshipsArgs = { id: string; columns: ColumnsList<LandlordsIdRelationshipsBody> }
+export type LandlordsIdRelationshipsArgs = { id: string; columns: ColumnsList<LandlordContactRelationshipModel> }
 
-export const landlordsColumnHelper = createColumnHelper<LandlordsBody>()
+export const landlordsColumnHelper = createColumnHelper<LandlordModel>()
 
-export const getLandlordsColumn = (property: string, modelConfig: ModelConfig<LandlordsBody>) => {
+export const getLandlordsColumn = (property: string, modelConfig: ModelConfig<LandlordModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -307,11 +188,11 @@ export const useLandlordsTable = (args: LandlordsArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const landlordsIdRelationshipsColumnHelper = createColumnHelper<LandlordsIdRelationshipsBody>()
+export const landlordsIdRelationshipsColumnHelper = createColumnHelper<LandlordContactRelationshipModel>()
 
 export const getLandlordsIdRelationshipsColumn = (
   property: string,
-  modelConfig: ModelConfig<LandlordsIdRelationshipsBody>,
+  modelConfig: ModelConfig<LandlordContactRelationshipModel>,
 ) => {
   return match(property)
     .with('_links', () => {

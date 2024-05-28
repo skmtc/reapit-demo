@@ -1,10 +1,10 @@
-import { createOfferModel, CreateOfferModel } from '@/index.generated.ts'
+import { createOfferModel, CreateOfferModel } from '@/models/createOfferModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiOffers } from '@/services/offers.ts'
+import { useCreateOffer } from '@/services/offers.ts'
 
 export type CreateOffersProps = { children: (control: Control<CreateOfferModel>) => ReactNode }
 
@@ -13,7 +13,7 @@ export const CreateOffers = (props: CreateOffersProps) => {
     resolver: zodResolver(createOfferModel),
   })
 
-  const mutator = usePostApiOffers()
+  const mutator = useCreateOffer()
 
   return (
     <Box

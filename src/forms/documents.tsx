@@ -1,15 +1,11 @@
-import {
-  createDocumentModel,
-  CreateDocumentModel,
-  createPreSignedUrlsModel,
-  CreatePreSignedUrlsModel,
-} from '@/index.generated.ts'
+import { createDocumentModel, CreateDocumentModel } from '@/models/createDocumentModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiDocuments, usePostApiDocumentsSignedUrl } from '@/services/documents.ts'
+import { useCreateDocument, useCreateSignedUrl } from '@/services/documents.ts'
+import { createPreSignedUrlsModel, CreatePreSignedUrlsModel } from '@/models/createPreSignedUrlsModel.ts'
 
 export type CreateDocumentsProps = { children: (control: Control<CreateDocumentModel>) => ReactNode }
 export type CreateDocumentsSignedUrlProps = { children: (control: Control<CreatePreSignedUrlsModel>) => ReactNode }
@@ -19,7 +15,7 @@ export const CreateDocuments = (props: CreateDocumentsProps) => {
     resolver: zodResolver(createDocumentModel),
   })
 
-  const mutator = usePostApiDocuments()
+  const mutator = useCreateDocument()
 
   return (
     <Box
@@ -54,7 +50,7 @@ export const CreateDocumentsSignedUrl = (props: CreateDocumentsSignedUrlProps) =
     resolver: zodResolver(createPreSignedUrlsModel),
   })
 
-  const mutator = usePostApiDocumentsSignedUrl()
+  const mutator = useCreateSignedUrl()
 
   return (
     <Box

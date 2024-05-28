@@ -1,137 +1,12 @@
-import { z } from 'zod'
+import { appointmentModel, AppointmentModel } from '@/models/appointmentModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiAppointments, useGetApiAppointmentsIdOpenHouseAttendees } from '@/services/appointments.ts'
+import { openHouseAttendeeModel, OpenHouseAttendeeModel } from '@/models/openHouseAttendeeModel.ts'
 
-export const appointmentsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  start: z.string().nullable().optional(),
-  end: z.string().nullable().optional(),
-  typeId: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  recurring: z.boolean().nullable().optional(),
-  recurrence: z
-    .object({
-      interval: z.number().int().nullable().optional(),
-      type: z.string().nullable().optional(),
-      until: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  cancelled: z.boolean().nullable().optional(),
-  followUp: z
-    .object({
-      due: z.string().nullable().optional(),
-      responseId: z.string().nullable().optional(),
-      notes: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  propertyId: z.string().nullable().optional(),
-  organiserId: z.string().nullable().optional(),
-  negotiatorIds: z.array(z.string()).nullable().optional(),
-  officeIds: z.array(z.string()).nullable().optional(),
-  attendee: z
-    .object({
-      id: z.string().nullable().optional(),
-      type: z.string().nullable().optional(),
-      contacts: z
-        .array(
-          z.object({
-            id: z.string().nullable().optional(),
-            name: z.string().nullable().optional(),
-            homePhone: z.string().nullable().optional(),
-            workPhone: z.string().nullable().optional(),
-            mobilePhone: z.string().nullable().optional(),
-            email: z.string().nullable().optional(),
-            fromArchive: z.boolean().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-    })
-    .nullable()
-    .optional(),
-  attended: z.string().nullable().optional(),
-  accompanied: z.boolean().nullable().optional(),
-  isRepeat: z.boolean().nullable().optional(),
-  virtual: z.boolean().nullable().optional(),
-  negotiatorConfirmed: z.boolean().nullable().optional(),
-  attendeeConfirmed: z.boolean().nullable().optional(),
-  propertyConfirmed: z.boolean().nullable().optional(),
-  fromArchive: z.boolean().nullable().optional(),
-  otherAgentId: z.string().nullable().optional(),
-  documents: z
-    .object({
-      draftPropertyInspectionReportId: z.string().nullable().optional(),
-      finalPropertyInspectionReportId: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  extrasField: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type AppointmentsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  start?: string | undefined
-  end?: string | undefined
-  typeId?: string | undefined
-  description?: string | undefined
-  recurring?: boolean | undefined
-  recurrence?: { interval?: number | undefined; type?: string | undefined; until?: string | undefined } | undefined
-  cancelled?: boolean | undefined
-  followUp?: { due?: string | undefined; responseId?: string | undefined; notes?: string | undefined } | undefined
-  propertyId?: string | undefined
-  organiserId?: string | undefined
-  negotiatorIds?: Array<string> | undefined
-  officeIds?: Array<string> | undefined
-  attendee?:
-    | {
-        id?: string | undefined
-        type?: string | undefined
-        contacts?:
-          | Array<{
-              id?: string | undefined
-              name?: string | undefined
-              homePhone?: string | undefined
-              workPhone?: string | undefined
-              mobilePhone?: string | undefined
-              email?: string | undefined
-              fromArchive?: boolean | undefined
-            }>
-          | undefined
-      }
-    | undefined
-  attended?: string | undefined
-  accompanied?: boolean | undefined
-  isRepeat?: boolean | undefined
-  virtual?: boolean | undefined
-  negotiatorConfirmed?: boolean | undefined
-  attendeeConfirmed?: boolean | undefined
-  propertyConfirmed?: boolean | undefined
-  fromArchive?: boolean | undefined
-  otherAgentId?: string | undefined
-  documents?:
-    | { draftPropertyInspectionReportId?: string | undefined; finalPropertyInspectionReportId?: string | undefined }
-    | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  extrasField?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-}
 export type AppointmentsArgs = {
   sortBy?: string | undefined
   embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | undefined
@@ -155,79 +30,13 @@ export type AppointmentsArgs = {
   modifiedTo?: string | undefined
   extrasField?: Array<string> | undefined
   metadata?: Array<string> | undefined
-  columns: ColumnsList<AppointmentsBody>
+  columns: ColumnsList<AppointmentModel>
 }
-export const appointmentsIdOpenHouseAttendeesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  openHouseId: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  notes: z.string().nullable().optional(),
-  interestLevel: z.string().nullable().optional(),
-  attendee: z
-    .object({
-      id: z.string().nullable().optional(),
-      type: z.string().nullable().optional(),
-      contacts: z
-        .array(
-          z.object({
-            id: z.string().nullable().optional(),
-            name: z.string().nullable().optional(),
-            homePhone: z.string().nullable().optional(),
-            workPhone: z.string().nullable().optional(),
-            mobilePhone: z.string().nullable().optional(),
-            email: z.string().nullable().optional(),
-            fromArchive: z.boolean().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-    })
-    .nullable()
-    .optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type AppointmentsIdOpenHouseAttendeesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  openHouseId?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  notes?: string | undefined
-  interestLevel?: string | undefined
-  attendee?:
-    | {
-        id?: string | undefined
-        type?: string | undefined
-        contacts?:
-          | Array<{
-              id?: string | undefined
-              name?: string | undefined
-              homePhone?: string | undefined
-              workPhone?: string | undefined
-              mobilePhone?: string | undefined
-              email?: string | undefined
-              fromArchive?: boolean | undefined
-            }>
-          | undefined
-      }
-    | undefined
-  _eTag?: string | undefined
-}
-export type AppointmentsIdOpenHouseAttendeesArgs = {
-  id: string
-  columns: ColumnsList<AppointmentsIdOpenHouseAttendeesBody>
-}
+export type AppointmentsIdOpenHouseAttendeesArgs = { id: string; columns: ColumnsList<OpenHouseAttendeeModel> }
 
-export const appointmentsColumnHelper = createColumnHelper<AppointmentsBody>()
+export const appointmentsColumnHelper = createColumnHelper<AppointmentModel>()
 
-export const getAppointmentsColumn = (property: string, modelConfig: ModelConfig<AppointmentsBody>) => {
+export const getAppointmentsColumn = (property: string, modelConfig: ModelConfig<AppointmentModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -546,11 +355,11 @@ export const useAppointmentsTable = (args: AppointmentsArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const appointmentsIdOpenHouseAttendeesColumnHelper = createColumnHelper<AppointmentsIdOpenHouseAttendeesBody>()
+export const appointmentsIdOpenHouseAttendeesColumnHelper = createColumnHelper<OpenHouseAttendeeModel>()
 
 export const getAppointmentsIdOpenHouseAttendeesColumn = (
   property: string,
-  modelConfig: ModelConfig<AppointmentsIdOpenHouseAttendeesBody>,
+  modelConfig: ModelConfig<OpenHouseAttendeeModel>,
 ) => {
   return match(property)
     .with('_links', () => {

@@ -1,15 +1,14 @@
-import {
-  createLandlordModel,
-  CreateLandlordModel,
-  createLandlordContactRelationshipModel,
-  CreateLandlordContactRelationshipModel,
-} from '@/index.generated.ts'
+import { createLandlordModel, CreateLandlordModel } from '@/models/createLandlordModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiLandlords, usePostApiLandlordsIdRelationships } from '@/services/landlords.ts'
+import { useCreateLandlord, useCreateLandlordRelationship } from '@/services/landlords.ts'
+import {
+  createLandlordContactRelationshipModel,
+  CreateLandlordContactRelationshipModel,
+} from '@/models/createLandlordContactRelationshipModel.ts'
 
 export type CreateLandlordsProps = { children: (control: Control<CreateLandlordModel>) => ReactNode }
 export type CreateLandlordsIdRelationshipsProps = {
@@ -22,7 +21,7 @@ export const CreateLandlords = (props: CreateLandlordsProps) => {
     resolver: zodResolver(createLandlordModel),
   })
 
-  const mutator = usePostApiLandlords()
+  const mutator = useCreateLandlord()
 
   return (
     <Box
@@ -57,7 +56,7 @@ export const CreateLandlordsIdRelationships = (props: CreateLandlordsIdRelations
     resolver: zodResolver(createLandlordContactRelationshipModel),
   })
 
-  const mutator = usePostApiLandlordsIdRelationships()
+  const mutator = useCreateLandlordRelationship()
 
   return (
     <Box

@@ -1,11 +1,9 @@
 import { z } from 'zod'
+import { linkModel, LinkModel } from '@/models/linkModel.ts'
 
 /** Representation of a key movement */
 export const keyMovementModel = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
+  _links: z.record(z.string(), linkModel).nullable().optional(),
   _embedded: z.record(z.string(), z.object({})).nullable().optional(),
   /** The unique identifier of the key movement */ id: z.string().nullable().optional(),
   /** The date and time when the key movement was created */ created: z.string().nullable().optional(),
@@ -27,7 +25,7 @@ export const keyMovementModel = z.object({
 })
 /** Representation of a key movement */
 export type KeyMovementModel = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
+  _links?: Record<string, LinkModel> | undefined
   _embedded?: Record<string, Record<string, never>> | undefined
   id?: /** The unique identifier of the key movement */ string | undefined
   created?: /** The date and time when the key movement was created */ string | undefined

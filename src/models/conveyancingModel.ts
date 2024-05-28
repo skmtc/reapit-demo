@@ -1,11 +1,10 @@
 import { z } from 'zod'
+import { linkModel, LinkModel } from '@/models/linkModel.ts'
+import { checkListItemModel, CheckListItemModel } from '@/models/checkListItemModel.ts'
 
 /** Representation of an offers sales progression information */
 export const conveyancingModel = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
+  _links: z.record(z.string(), linkModel).nullable().optional(),
   _embedded: z.record(z.string(), z.object({})).nullable().optional(),
   /** The unique identifier of the offer */ id: z.string().nullable().optional(),
   /** The date and time when the offer was created */ created: z.string().nullable().optional(),
@@ -71,17 +70,7 @@ export const conveyancingModel = z.object({
   /** The date when the buyer conveyancer confirms the exchange */ exchangedBuyer: z.string().nullable().optional(),
   /** The date when the sale completed */ completion: z.string().nullable().optional(),
   /** Check list items to be completed as part of the sales progression process */
-  checkListItems: z
-    .array(
-      /** Representation of a check list item */
-      z.object({
-        /** The name of the check list item */ name: z.string().nullable().optional(),
-        /** A flag to determine if the item is completed */ completed: z.boolean().nullable().optional(),
-        /** The date when the item was completed */ completedDate: z.string().nullable().optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
+  checkListItems: z.array(checkListItemModel).nullable().optional(),
   /** The ETag for the current version of this conveyancing record. Used for managing update concurrency */
   _eTag: z.string().nullable().optional(),
   /** App specific metadata that has been set against this conveyancing record */
@@ -89,7 +78,7 @@ export const conveyancingModel = z.object({
 })
 /** Representation of an offers sales progression information */
 export type ConveyancingModel = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
+  _links?: Record<string, LinkModel> | undefined
   _embedded?: Record<string, Record<string, never>> | undefined
   id?: /** The unique identifier of the offer */ string | undefined
   created?: /** The date and time when the offer was created */ string | undefined
@@ -150,13 +139,7 @@ export type ConveyancingModel = {
   exchangedBuyer?: /** The date when the buyer conveyancer confirms the exchange */ string | undefined
   completion?: /** The date when the sale completed */ string | undefined
   checkListItems?: /** Check list items to be completed as part of the sales progression process */
-  | Array</** Representation of a check list item */
-      {
-        name?: /** The name of the check list item */ string | undefined
-        completed?: /** A flag to determine if the item is completed */ boolean | undefined
-        completedDate?: /** The date when the item was completed */ string | undefined
-      }>
-    | undefined
+  Array<CheckListItemModel> | undefined
   _eTag?: /** The ETag for the current version of this conveyancing record. Used for managing update concurrency */
   string | undefined
   metadata?: /** App specific metadata that has been set against this conveyancing record */

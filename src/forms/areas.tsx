@@ -1,10 +1,10 @@
-import { createAreaModel, CreateAreaModel } from '@/index.generated.ts'
+import { createAreaModel, CreateAreaModel } from '@/models/createAreaModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiAreas } from '@/services/areas.ts'
+import { useCreateArea } from '@/services/areas.ts'
 
 export type CreateAreasProps = { children: (control: Control<CreateAreaModel>) => ReactNode }
 
@@ -13,7 +13,7 @@ export const CreateAreas = (props: CreateAreasProps) => {
     resolver: zodResolver(createAreaModel),
   })
 
-  const mutator = usePostApiAreas()
+  const mutator = useCreateArea()
 
   return (
     <Box

@@ -1,4 +1,7 @@
 import { z } from 'zod'
+import { createEnquiryAddressModel, CreateEnquiryAddressModel } from '@/models/createEnquiryAddressModel.ts'
+import { createEnquiryBuyingModel, CreateEnquiryBuyingModel } from '@/models/createEnquiryBuyingModel.ts'
+import { createEnquiryRentingModel, CreateEnquiryRentingModel } from '@/models/createEnquiryRentingModel.ts'
 
 /** Request body used to create an enquiry */
 export const createEnquiryModel = z.object({
@@ -23,38 +26,9 @@ export const createEnquiryModel = z.object({
   mobilePhone: z.string().nullable().optional(),
   /** The email of the individual making the enquiry (Required when no other contact details are given) */
   email: z.string().nullable().optional(),
-  /** Request body used to create a enquiries address */
-  address: z
-    .object({
-      /** Sets the building name */ buildingName: z.string().nullable().optional(),
-      /** Sets the building number */ buildingNumber: z.string().nullable().optional(),
-      /** Sets the first line of the address */ line1: z.string().nullable().optional(),
-      /** Sets the second line of the address */ line2: z.string().nullable().optional(),
-      /** Sets the third line of the address */ line3: z.string().nullable().optional(),
-      /** Sets the fourth line of the address */ line4: z.string().nullable().optional(),
-      /** Sets the postcode */ postcode: z.string().nullable().optional(),
-      /** Sets the ISO-3166 country code that the address resides within */ countryId: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  /** The details specific to a buying enquiry */
-  buying: z
-    .object({
-      /** The lower bound of the prospective buyer's budget */ priceFrom: z.number().int().nullable().optional(),
-      /** The upper bound of the prospective buyer's budget */ priceTo: z.number().int().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  /** The details specific to renting enquiry. When type is renting. */
-  renting: z
-    .object({
-      /** The lower bound of the prospective tenant's budget */ rentFrom: z.number().int().nullable().optional(),
-      /** The upper bound of the prospective tenant's budget */ rentTo: z.number().int().nullable().optional(),
-      /** The desired rent collection frequency specified by the prospective tenant (weekly/monthly/annually). */
-      rentFrequency: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
+  address: createEnquiryAddressModel.nullable().optional(),
+  buying: createEnquiryBuyingModel.nullable().optional(),
+  renting: createEnquiryRentingModel.nullable().optional(),
   /** The number of bedrooms the prospective buyer or tenant requires */
   bedrooms: z.number().int().nullable().optional(),
   /** A list of unique property identifiers that the enquiry relates to. Used to indicate the properties that a sales or lettings applicant has expressed an interest in */
@@ -83,32 +57,9 @@ export type CreateEnquiryModel = {
   string | undefined
   email?: /** The email of the individual making the enquiry (Required when no other contact details are given) */
   string | undefined
-  address?: /** Request body used to create a enquiries address */
-  | {
-        buildingName?: /** Sets the building name */ string | undefined
-        buildingNumber?: /** Sets the building number */ string | undefined
-        line1?: /** Sets the first line of the address */ string | undefined
-        line2?: /** Sets the second line of the address */ string | undefined
-        line3?: /** Sets the third line of the address */ string | undefined
-        line4?: /** Sets the fourth line of the address */ string | undefined
-        postcode?: /** Sets the postcode */ string | undefined
-        countryId?: /** Sets the ISO-3166 country code that the address resides within */ string | undefined
-      }
-    | undefined
-  buying?: /** The details specific to a buying enquiry */
-  | {
-        priceFrom?: /** The lower bound of the prospective buyer's budget */ number | undefined
-        priceTo?: /** The upper bound of the prospective buyer's budget */ number | undefined
-      }
-    | undefined
-  renting?: /** The details specific to renting enquiry. When type is renting. */
-  | {
-        rentFrom?: /** The lower bound of the prospective tenant's budget */ number | undefined
-        rentTo?: /** The upper bound of the prospective tenant's budget */ number | undefined
-        rentFrequency?: /** The desired rent collection frequency specified by the prospective tenant (weekly/monthly/annually). */
-        string | undefined
-      }
-    | undefined
+  address?: CreateEnquiryAddressModel | undefined
+  buying?: CreateEnquiryBuyingModel | undefined
+  renting?: CreateEnquiryRentingModel | undefined
   bedrooms?: /** The number of bedrooms the prospective buyer or tenant requires */ number | undefined
   propertyIds?: /** A list of unique property identifiers that the enquiry relates to. Used to indicate the properties that a sales or lettings applicant has expressed an interest in */
   Array<string> | undefined

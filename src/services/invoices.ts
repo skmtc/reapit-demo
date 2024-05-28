@@ -1,6 +1,13 @@
-import { z } from 'zod'
+import { invoiceModelPagedResult } from '@/models/invoiceModelPagedResult.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
+import { invoiceDetailModel } from '@/models/invoiceDetailModel.ts'
+import { paymentModelPagedResult } from '@/models/paymentModelPagedResult.ts'
+import { paymentModel } from '@/models/paymentModel.ts'
+import { creditModelPagedResult } from '@/models/creditModelPagedResult.ts'
+import { creditModel } from '@/models/creditModel.ts'
+import { chargeModelPagedResult } from '@/models/chargeModelPagedResult.ts'
+import { chargeModel } from '@/models/chargeModel.ts'
 
 export type UseGetApiInvoicesArgs = {
   pageNumber?: number | undefined
@@ -48,45 +55,7 @@ export const getApiInvoicesFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            reference: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            status: z.string().nullable().optional(),
-            date: z.string().nullable().optional(),
-            dueDate: z.string().nullable().optional(),
-            isRaised: z.boolean().nullable().optional(),
-            netAmount: z.number().nullable().optional(),
-            vatAmount: z.number().nullable().optional(),
-            outstandingAmount: z.number().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return invoiceModelPagedResult.parse(data)
 }
 export const useGetApiInvoices = (args: UseGetApiInvoicesArgs) => {
   const result = useQuery({
@@ -111,97 +80,7 @@ export const getApiInvoicesIdFn = async ({ id }: UseGetApiInvoicesIdArgs) => {
 
   const data = await res.json()
 
-  return z
-    .object({
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      reference: z.string().nullable().optional(),
-      negotiatorId: z.string().nullable().optional(),
-      propertyId: z.string().nullable().optional(),
-      description: z.string().nullable().optional(),
-      status: z.string().nullable().optional(),
-      date: z.string().nullable().optional(),
-      dueDate: z.string().nullable().optional(),
-      isRaised: z.boolean().nullable().optional(),
-      netAmount: z.number().nullable().optional(),
-      vatAmount: z.number().nullable().optional(),
-      outstandingAmount: z.number().nullable().optional(),
-      charges: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            invoiceId: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            vatCode: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            netAmount: z.number().nullable().optional(),
-            vatAmount: z.number().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      credits: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            invoiceId: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            date: z.string().nullable().optional(),
-            netAmount: z.number().nullable().optional(),
-            vatAmount: z.number().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      payments: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            invoiceId: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            date: z.string().nullable().optional(),
-            netAmount: z.number().nullable().optional(),
-            vatAmount: z.number().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-    })
-    .parse(data)
+  return invoiceDetailModel.parse(data)
 }
 export const useGetApiInvoicesId = (args: UseGetApiInvoicesIdArgs) => {
   const result = useQuery({
@@ -255,42 +134,7 @@ export const getApiInvoicesPaymentsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            invoiceId: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            date: z.string().nullable().optional(),
-            netAmount: z.number().nullable().optional(),
-            vatAmount: z.number().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return paymentModelPagedResult.parse(data)
 }
 export const useGetApiInvoicesPayments = (args: UseGetApiInvoicesPaymentsArgs) => {
   const result = useQuery({
@@ -315,26 +159,7 @@ export const getApiInvoicesPaymentsIdFn = async ({ id }: UseGetApiInvoicesPaymen
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      negotiatorId: z.string().nullable().optional(),
-      propertyId: z.string().nullable().optional(),
-      invoiceId: z.string().nullable().optional(),
-      description: z.string().nullable().optional(),
-      type: z.string().nullable().optional(),
-      date: z.string().nullable().optional(),
-      netAmount: z.number().nullable().optional(),
-      vatAmount: z.number().nullable().optional(),
-    })
-    .parse(data)
+  return paymentModel.parse(data)
 }
 export const useGetApiInvoicesPaymentsId = (args: UseGetApiInvoicesPaymentsIdArgs) => {
   const result = useQuery({
@@ -386,41 +211,7 @@ export const getApiInvoicesCreditsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            invoiceId: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            date: z.string().nullable().optional(),
-            netAmount: z.number().nullable().optional(),
-            vatAmount: z.number().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return creditModelPagedResult.parse(data)
 }
 export const useGetApiInvoicesCredits = (args: UseGetApiInvoicesCreditsArgs) => {
   const result = useQuery({
@@ -445,25 +236,7 @@ export const getApiInvoicesCreditsIdFn = async ({ id }: UseGetApiInvoicesCredits
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      negotiatorId: z.string().nullable().optional(),
-      propertyId: z.string().nullable().optional(),
-      invoiceId: z.string().nullable().optional(),
-      description: z.string().nullable().optional(),
-      date: z.string().nullable().optional(),
-      netAmount: z.number().nullable().optional(),
-      vatAmount: z.number().nullable().optional(),
-    })
-    .parse(data)
+  return creditModel.parse(data)
 }
 export const useGetApiInvoicesCreditsId = (args: UseGetApiInvoicesCreditsIdArgs) => {
   const result = useQuery({
@@ -511,42 +284,7 @@ export const getApiInvoicesChargesFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            invoiceId: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            vatCode: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            netAmount: z.number().nullable().optional(),
-            vatAmount: z.number().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return chargeModelPagedResult.parse(data)
 }
 export const useGetApiInvoicesCharges = (args: UseGetApiInvoicesChargesArgs) => {
   const result = useQuery({
@@ -571,26 +309,7 @@ export const getApiInvoicesChargesIdFn = async ({ id }: UseGetApiInvoicesCharges
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      type: z.string().nullable().optional(),
-      invoiceId: z.string().nullable().optional(),
-      propertyId: z.string().nullable().optional(),
-      negotiatorId: z.string().nullable().optional(),
-      vatCode: z.string().nullable().optional(),
-      description: z.string().nullable().optional(),
-      netAmount: z.number().nullable().optional(),
-      vatAmount: z.number().nullable().optional(),
-    })
-    .parse(data)
+  return chargeModel.parse(data)
 }
 export const useGetApiInvoicesChargesId = (args: UseGetApiInvoicesChargesIdArgs) => {
   const result = useQuery({

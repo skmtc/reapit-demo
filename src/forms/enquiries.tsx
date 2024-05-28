@@ -1,10 +1,10 @@
-import { createEnquiryModel, CreateEnquiryModel } from '@/index.generated.ts'
+import { createEnquiryModel, CreateEnquiryModel } from '@/models/createEnquiryModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiEnquiries } from '@/services/enquiries.ts'
+import { useCreateEnquiry } from '@/services/enquiries.ts'
 
 export type CreateEnquiriesProps = { children: (control: Control<CreateEnquiryModel>) => ReactNode }
 
@@ -13,7 +13,7 @@ export const CreateEnquiries = (props: CreateEnquiriesProps) => {
     resolver: zodResolver(createEnquiryModel),
   })
 
-  const mutator = usePostApiEnquiries()
+  const mutator = useCreateEnquiry()
 
   return (
     <Box

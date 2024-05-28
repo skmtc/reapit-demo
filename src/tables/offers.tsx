@@ -1,120 +1,11 @@
-import { z } from 'zod'
+import { offerModel, OfferModel } from '@/models/offerModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiOffers } from '@/services/offers.ts'
 
-export const offersBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  currency: z.string().nullable().optional(),
-  applicantId: z.string().nullable().optional(),
-  companyId: z.string().nullable().optional(),
-  contactId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  date: z.string().nullable().optional(),
-  amount: z.number().nullable().optional(),
-  status: z.string().nullable().optional(),
-  inclusions: z.string().nullable().optional(),
-  exclusions: z.string().nullable().optional(),
-  conditions: z.string().nullable().optional(),
-  related: z
-    .array(
-      z.object({
-        id: z.string().nullable().optional(),
-        name: z.string().nullable().optional(),
-        title: z.string().nullable().optional(),
-        forename: z.string().nullable().optional(),
-        surname: z.string().nullable().optional(),
-        dateOfBirth: z.string().nullable().optional(),
-        type: z.string().nullable().optional(),
-        homePhone: z.string().nullable().optional(),
-        workPhone: z.string().nullable().optional(),
-        mobilePhone: z.string().nullable().optional(),
-        email: z.string().nullable().optional(),
-        marketingConsent: z.string().nullable().optional(),
-        primaryAddress: z
-          .object({
-            buildingName: z.string().nullable().optional(),
-            buildingNumber: z.string().nullable().optional(),
-            line1: z.string().nullable().optional(),
-            line2: z.string().nullable().optional(),
-            line3: z.string().nullable().optional(),
-            line4: z.string().nullable().optional(),
-            postcode: z.string().nullable().optional(),
-            countryId: z.string().nullable().optional(),
-          })
-          .nullable()
-          .optional(),
-        additionalContactDetails: z
-          .array(z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-          .nullable()
-          .optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type OffersBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  currency?: string | undefined
-  applicantId?: string | undefined
-  companyId?: string | undefined
-  contactId?: string | undefined
-  propertyId?: string | undefined
-  negotiatorId?: string | undefined
-  date?: string | undefined
-  amount?: number | undefined
-  status?: string | undefined
-  inclusions?: string | undefined
-  exclusions?: string | undefined
-  conditions?: string | undefined
-  related?:
-    | Array<{
-        id?: string | undefined
-        name?: string | undefined
-        title?: string | undefined
-        forename?: string | undefined
-        surname?: string | undefined
-        dateOfBirth?: string | undefined
-        type?: string | undefined
-        homePhone?: string | undefined
-        workPhone?: string | undefined
-        mobilePhone?: string | undefined
-        email?: string | undefined
-        marketingConsent?: string | undefined
-        primaryAddress?:
-          | {
-              buildingName?: string | undefined
-              buildingNumber?: string | undefined
-              line1?: string | undefined
-              line2?: string | undefined
-              line3?: string | undefined
-              line4?: string | undefined
-              postcode?: string | undefined
-              countryId?: string | undefined
-            }
-          | undefined
-        additionalContactDetails?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
-      }>
-    | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-}
 export type OffersArgs = {
   sortBy?: string | undefined
   embed?: Array<'applicant' | 'conveyancing' | 'property' | 'negotiator'> | undefined
@@ -135,12 +26,12 @@ export type OffersArgs = {
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
   metadata?: Array<string> | undefined
-  columns: ColumnsList<OffersBody>
+  columns: ColumnsList<OfferModel>
 }
 
-export const offersColumnHelper = createColumnHelper<OffersBody>()
+export const offersColumnHelper = createColumnHelper<OfferModel>()
 
-export const getOffersColumn = (property: string, modelConfig: ModelConfig<OffersBody>) => {
+export const getOffersColumn = (property: string, modelConfig: ModelConfig<OfferModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

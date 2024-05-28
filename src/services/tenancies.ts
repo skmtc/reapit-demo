@@ -1,7 +1,37 @@
-import { z } from 'zod'
+import { tenancyModelPagedResult } from '@/models/tenancyModelPagedResult.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateTenancyModel } from '@/models/createTenancyModel.ts'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { tenancyModel } from '@/models/tenancyModel.ts'
+import { UpdateTenancyModel } from '@/models/updateTenancyModel.ts'
+import { tenancyContactRelationshipModelPagedResult } from '@/models/tenancyContactRelationshipModelPagedResult.ts'
+import { tenancyContactRelationshipModel } from '@/models/tenancyContactRelationshipModel.ts'
+import { tenancyCheckModelPagedResult } from '@/models/tenancyCheckModelPagedResult.ts'
+import { CreateTenancyCheckModel } from '@/models/createTenancyCheckModel.ts'
+import { tenancyCheckModel } from '@/models/tenancyCheckModel.ts'
+import { UpdateTenancyCheckModel } from '@/models/updateTenancyCheckModel.ts'
+import { tenancyBreakClauseModelPagedResult } from '@/models/tenancyBreakClauseModelPagedResult.ts'
+import { CreateTenancyBreakClauseModel } from '@/models/createTenancyBreakClauseModel.ts'
+import { tenancyBreakClauseModel } from '@/models/tenancyBreakClauseModel.ts'
+import { UpdateTenancyBreakClauseModel } from '@/models/updateTenancyBreakClauseModel.ts'
+import { tenancyAllowanceModelPagedResult } from '@/models/tenancyAllowanceModelPagedResult.ts'
+import { CreateTenancyAllowanceModel } from '@/models/createTenancyAllowanceModel.ts'
+import { tenancyAllowanceModel } from '@/models/tenancyAllowanceModel.ts'
+import { UpdateTenancyAllowanceModel } from '@/models/updateTenancyAllowanceModel.ts'
+import { tenancyResponsibilityModelPagedResult } from '@/models/tenancyResponsibilityModelPagedResult.ts'
+import { CreateTenancyResponsibilityModel } from '@/models/createTenancyResponsibilityModel.ts'
+import { tenancyResponsibilityModel } from '@/models/tenancyResponsibilityModel.ts'
+import { UpdateTenancyResponsibilityModel } from '@/models/updateTenancyResponsibilityModel.ts'
+import { tenancyRenewalModelPagedResult } from '@/models/tenancyRenewalModelPagedResult.ts'
+import { CreateTenancyRenewalModel } from '@/models/createTenancyRenewalModel.ts'
+import { UpdateTenancyRenewalModel } from '@/models/updateTenancyRenewalModel.ts'
+import { tenancyExtensionAlterationModelPagedResult } from '@/models/tenancyExtensionAlterationModelPagedResult.ts'
+import { tenancyRenewalCheckModelPagedResult } from '@/models/tenancyRenewalCheckModelPagedResult.ts'
+import { CreateTenancyRenewalCheckModel } from '@/models/createTenancyRenewalCheckModel.ts'
+import { tenancyRenewalCheckModel } from '@/models/tenancyRenewalCheckModel.ts'
+import { UpdateTenancyRenewalCheckModel } from '@/models/updateTenancyRenewalCheckModel.ts'
 
 export type UseGetApiTenanciesArgs = {
   pageSize?: number | undefined
@@ -79,149 +109,7 @@ export const getApiTenanciesFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            startDate: z.string().nullable().optional(),
-            endDate: z.string().nullable().optional(),
-            status: z.string().nullable().optional(),
-            agentRole: z.string().nullable().optional(),
-            rent: z.number().nullable().optional(),
-            rentFrequency: z.string().nullable().optional(),
-            endDateConfirmed: z.boolean().nullable().optional(),
-            isPeriodic: z.boolean().nullable().optional(),
-            rentInstalmentsFrequency: z.string().nullable().optional(),
-            rentInstalmentsAmount: z.number().nullable().optional(),
-            rentInstalmentsStart: z.string().nullable().optional(),
-            meterReadingGas: z.string().nullable().optional(),
-            meterReadingGasLastRead: z.string().nullable().optional(),
-            meterReadingElectricity: z.string().nullable().optional(),
-            meterReadingElectricityLastRead: z.string().nullable().optional(),
-            meterReadingWater: z.string().nullable().optional(),
-            meterReadingWaterLastRead: z.string().nullable().optional(),
-            typeId: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            applicantId: z.string().nullable().optional(),
-            managerId: z.string().nullable().optional(),
-            groupPaymentReference: z.string().nullable().optional(),
-            lettingFee: z
-              .object({
-                type: z.string().nullable().optional(),
-                amount: z.number().nullable().optional(),
-                frequency: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            managementFee: z
-              .object({
-                type: z.string().nullable().optional(),
-                amount: z.number().nullable().optional(),
-                frequency: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            source: z
-              .object({ id: z.string().nullable().optional(), type: z.string().nullable().optional() })
-              .nullable()
-              .optional(),
-            deposit: z
-              .object({
-                heldBy: z.string().nullable().optional(),
-                period: z.number().int().nullable().optional(),
-                type: z.string().nullable().optional(),
-                sum: z.number().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            related: z
-              .array(
-                z.object({
-                  id: z.string().nullable().optional(),
-                  name: z.string().nullable().optional(),
-                  title: z.string().nullable().optional(),
-                  forename: z.string().nullable().optional(),
-                  surname: z.string().nullable().optional(),
-                  dateOfBirth: z.string().nullable().optional(),
-                  type: z.string().nullable().optional(),
-                  homePhone: z.string().nullable().optional(),
-                  workPhone: z.string().nullable().optional(),
-                  mobilePhone: z.string().nullable().optional(),
-                  email: z.string().nullable().optional(),
-                  paymentReference: z.string().nullable().optional(),
-                  fromArchive: z.boolean().nullable().optional(),
-                  marketingConsent: z.string().nullable().optional(),
-                  primaryAddress: z
-                    .object({
-                      buildingName: z.string().nullable().optional(),
-                      buildingNumber: z.string().nullable().optional(),
-                      line1: z.string().nullable().optional(),
-                      line2: z.string().nullable().optional(),
-                      line3: z.string().nullable().optional(),
-                      line4: z.string().nullable().optional(),
-                      postcode: z.string().nullable().optional(),
-                      countryId: z.string().nullable().optional(),
-                    })
-                    .nullable()
-                    .optional(),
-                  occupyOn: z.string().nullable().optional(),
-                  vacateOn: z.string().nullable().optional(),
-                  additionalContactDetails: z
-                    .array(
-                      z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }),
-                    )
-                    .nullable()
-                    .optional(),
-                }),
-              )
-              .nullable()
-              .optional(),
-            fromArchive: z.boolean().nullable().optional(),
-            metadata: z.record(z.string(), z.object({})).nullable().optional(),
-            feeNotes: z.string().nullable().optional(),
-            legalStatusId: z.string().nullable().optional(),
-            renewalOptions: z
-              .object({
-                optionId: z.string().nullable().optional(),
-                optionText: z.string().nullable().optional(),
-                expiry: z.string().nullable().optional(),
-                conditionIds: z.array(z.string()).nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            arrears: z
-              .object({
-                chaseArrears: z.boolean().nullable().optional(),
-                paymentPlan: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyModelPagedResult.parse(data)
 }
 export const useGetApiTenancies = (args: UseGetApiTenanciesArgs) => {
   const result = useQuery({
@@ -232,69 +120,8 @@ export const useGetApiTenancies = (args: UseGetApiTenanciesArgs) => {
 
   return result
 }
-export type UsePostApiTenanciesArgs = {
-  body: /** Request body used to create a new tenancy */
-  {
-    startDate?: string | undefined
-    endDate?: string | undefined
-    status?: /** The current status of the tenancy (offerPending/offerWithdrawn/offerRejected/arranging) */
-    string | undefined
-    agentRole: /** The role that the agent is performing for the tenancy (managed/rentCollection/collectFirstPayment/collectRentToDate/lettingOnly/introducingTenant) */
-    string
-    rent: /** The amount of rent required, returned in relation to the collection frequency */ number
-    rentFrequency: /** The rent collection frequency (weekly/monthly/annually) */ string
-    rentInstalmentsFrequency?: /** The frequency of rental instalment payments (weekly/fortnightly/monthly/quarterly/halfYearly/yearly/every28Days/other) */
-    string | undefined
-    rentInstalmentsAmount?: /** The amount due for each rent instalment (where specified) */ number | undefined
-    rentInstalmentsStart?: /** The date that the first instalment is due */ string | undefined
-    meterReadingGas?: /** The recorded utility reading for the gas meter */ string | undefined
-    meterReadingGasLastRead?: /** Date of when the reading of gas utility was last recorded */ string | undefined
-    meterReadingElectricity?: /** The recorded utility reading for the electricity meter */ string | undefined
-    meterReadingElectricityLastRead?: /** Date of when the reading of electricity utility was last recorded */
-    string | undefined
-    meterReadingWater?: /** The recorded utility reading for the water meter */ string | undefined
-    meterReadingWaterLastRead?: /** Date of when the reading of water utility was last recorded */ string | undefined
-    isPeriodic?: /** A flag determining whether or not the tenancy has been extended indefinitely */ boolean | undefined
-    typeId: /** The unique identifier of the type of tenancy */ string
-    negotiatorId: /** The unique identifier of the negotiator who is managing the tenancy */ string
-    propertyId: /** The unique identifier of the property that relates to the tenancy */ string
-    applicantId: /** The unique identifier of the applicant who has applied to be a tenant */ string
-    feeNotes?: /** Financial notes set against the tenancy */ string | undefined
-    lettingFee?: /** Request body used to set letting fees on a new tenancy */
-    | {
-          type?: /** The letting fee type (percentage/fixed) */ string | undefined
-          amount?: /** The fee amount */ number | undefined
-          frequency?: /** The frequency of when the fee is to be collected (upfront/upfrontOver2Months/monthly/quarterly/halfYearly/yearly/28days/other/notApplicable) */
-          string | undefined
-        }
-      | undefined
-    managementFee?: /** Request body used to set management fees on a new tenancy */
-    | {
-          type?: /** The management fee type (percentage/fixed) */ string | undefined
-          amount?: /** The fee amount */ number | undefined
-          frequency?: /** The frequency of when the fee is to be collected (monthly/quarterly/halfYearly/yearly/28days/sameAsLettingFee) */
-          string | undefined
-        }
-      | undefined
-    deposit?: /** Request body used to set the deposit of a new tenancy */
-    | {
-          heldBy?: /** The deposit holder (depositProtectionScheme/stakeholder/landlordsAgent/landlord/notApplicable) */
-          string | undefined
-          period?: /** The number of weeks or months rent collected as the deposit on the tenancy */ number | undefined
-          type?: /** The type of deposit (weeksRent/monthsRent/fixedSum/guarantee) */ string | undefined
-          sum?: /** The amount of deposit held */ number | undefined
-        }
-      | undefined
-    source?: /** Request body used to set the source of a new tenancy */
-    | {
-          id?: /** The unique identifier of the source for the tenancy */ string | undefined
-          type?: /** The source type (office/source) */ string | undefined
-        }
-      | undefined
-    metadata?: /** App specific metadata to set against the tenancy */ Record<string, Record<string, never>> | undefined
-  }
-}
-export const postApiTenanciesFn = async ({ body }: UsePostApiTenanciesArgs) => {
+export type UseCreateTenancyArgs = { body: CreateTenancyModel }
+export const createTenancyFn = async ({ body }: UseCreateTenancyArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -312,12 +139,12 @@ export const postApiTenanciesFn = async ({ body }: UsePostApiTenanciesArgs) => {
 
   return z.void().parse(data)
 }
-export const usePostApiTenancies = () => {
+export const useCreateTenancy = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiTenanciesFn,
+    mutationFn: createTenancyFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -354,128 +181,7 @@ export const getApiTenanciesIdFn = async ({ id, embed }: UseGetApiTenanciesIdArg
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      startDate: z.string().nullable().optional(),
-      endDate: z.string().nullable().optional(),
-      status: z.string().nullable().optional(),
-      agentRole: z.string().nullable().optional(),
-      rent: z.number().nullable().optional(),
-      rentFrequency: z.string().nullable().optional(),
-      endDateConfirmed: z.boolean().nullable().optional(),
-      isPeriodic: z.boolean().nullable().optional(),
-      rentInstalmentsFrequency: z.string().nullable().optional(),
-      rentInstalmentsAmount: z.number().nullable().optional(),
-      rentInstalmentsStart: z.string().nullable().optional(),
-      meterReadingGas: z.string().nullable().optional(),
-      meterReadingGasLastRead: z.string().nullable().optional(),
-      meterReadingElectricity: z.string().nullable().optional(),
-      meterReadingElectricityLastRead: z.string().nullable().optional(),
-      meterReadingWater: z.string().nullable().optional(),
-      meterReadingWaterLastRead: z.string().nullable().optional(),
-      typeId: z.string().nullable().optional(),
-      negotiatorId: z.string().nullable().optional(),
-      propertyId: z.string().nullable().optional(),
-      applicantId: z.string().nullable().optional(),
-      managerId: z.string().nullable().optional(),
-      groupPaymentReference: z.string().nullable().optional(),
-      lettingFee: z
-        .object({
-          type: z.string().nullable().optional(),
-          amount: z.number().nullable().optional(),
-          frequency: z.string().nullable().optional(),
-        })
-        .nullable()
-        .optional(),
-      managementFee: z
-        .object({
-          type: z.string().nullable().optional(),
-          amount: z.number().nullable().optional(),
-          frequency: z.string().nullable().optional(),
-        })
-        .nullable()
-        .optional(),
-      source: z
-        .object({ id: z.string().nullable().optional(), type: z.string().nullable().optional() })
-        .nullable()
-        .optional(),
-      deposit: z
-        .object({
-          heldBy: z.string().nullable().optional(),
-          period: z.number().int().nullable().optional(),
-          type: z.string().nullable().optional(),
-          sum: z.number().nullable().optional(),
-        })
-        .nullable()
-        .optional(),
-      related: z
-        .array(
-          z.object({
-            id: z.string().nullable().optional(),
-            name: z.string().nullable().optional(),
-            title: z.string().nullable().optional(),
-            forename: z.string().nullable().optional(),
-            surname: z.string().nullable().optional(),
-            dateOfBirth: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            homePhone: z.string().nullable().optional(),
-            workPhone: z.string().nullable().optional(),
-            mobilePhone: z.string().nullable().optional(),
-            email: z.string().nullable().optional(),
-            paymentReference: z.string().nullable().optional(),
-            fromArchive: z.boolean().nullable().optional(),
-            marketingConsent: z.string().nullable().optional(),
-            primaryAddress: z
-              .object({
-                buildingName: z.string().nullable().optional(),
-                buildingNumber: z.string().nullable().optional(),
-                line1: z.string().nullable().optional(),
-                line2: z.string().nullable().optional(),
-                line3: z.string().nullable().optional(),
-                line4: z.string().nullable().optional(),
-                postcode: z.string().nullable().optional(),
-                countryId: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            occupyOn: z.string().nullable().optional(),
-            vacateOn: z.string().nullable().optional(),
-            additionalContactDetails: z
-              .array(z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      fromArchive: z.boolean().nullable().optional(),
-      metadata: z.record(z.string(), z.object({})).nullable().optional(),
-      feeNotes: z.string().nullable().optional(),
-      legalStatusId: z.string().nullable().optional(),
-      renewalOptions: z
-        .object({
-          optionId: z.string().nullable().optional(),
-          optionText: z.string().nullable().optional(),
-          expiry: z.string().nullable().optional(),
-          conditionIds: z.array(z.string()).nullable().optional(),
-        })
-        .nullable()
-        .optional(),
-      arrears: z
-        .object({ chaseArrears: z.boolean().nullable().optional(), paymentPlan: z.string().nullable().optional() })
-        .nullable()
-        .optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return tenancyModel.parse(data)
 }
 export const useGetApiTenanciesId = (args: UseGetApiTenanciesIdArgs) => {
   const result = useQuery({
@@ -485,70 +191,7 @@ export const useGetApiTenanciesId = (args: UseGetApiTenanciesIdArgs) => {
 
   return result
 }
-export type UsePatchApiTenanciesIdArgs = {
-  'If-Match'?: string
-  id: string
-  body: /** Request body used to update an existing Tenancy */
-  {
-    startDate?: /** The start date of the tenancy */ string | undefined
-    endDate?: /** The end date of the tenancy */ string | undefined
-    status?: /** The current status of the tenancy (offerPending/offerWithdrawn/offerRejected/arranging/current/finished/cancelled) */
-    string | undefined
-    agentRole?: /** The role that the agent is performing for the tenancy (managed/rentCollection/collectFirstPayment/collectRentToDate/lettingOnly/introducingTenant) */
-    string | undefined
-    rent?: /** The amount of rent required, returned in relation to the collection frequency */ number | undefined
-    rentFrequency?: /** The rent collection frequency (weekly/monthly/annually) */ string | undefined
-    endDateConfirmed?: /** Flag for end date confirmation */ boolean | undefined
-    isPeriodic?: /** A flag determining whether or not the tenancy has been extended indefinitely */ boolean | undefined
-    typeId?: /** The unique identifier of the type of tenancy */ string | undefined
-    negotiatorId?: /** The unique identifier of the negotiator who is managing the tenancy */ string | undefined
-    source?: /** Request body used to set the source of a new tenancy */
-    | {
-          id?: /** The unique identifier of the source for the tenancy */ string | undefined
-          type?: /** The source type (office/source) */ string | undefined
-        }
-      | undefined
-    rentInstalmentsFrequency?: /** The frequency of rental instalment payments (weekly/fortnightly/monthly/quarterly/halfYearly/yearly/every28Days/other) */
-    string | undefined
-    rentInstalmentsAmount?: /** The amount due for each rent instalment (where specified) */ number | undefined
-    rentInstalmentsStart?: /** The date that the first instalment is due */ string | undefined
-    meterReadingGas?: /** The recorded utility reading for the gas meter */ string | undefined
-    meterReadingGasLastRead?: /** Date of when the reading of gas utility was last recorded */ string | undefined
-    meterReadingElectricity?: /** The recorded utility reading for the electricity meter */ string | undefined
-    meterReadingElectricityLastRead?: /** Date of when the reading of electricity utility was last recorded */
-    string | undefined
-    meterReadingWater?: /** The recorded utility reading for the water meter */ string | undefined
-    meterReadingWaterLastRead?: /** Date of when the reading of water utility was last recorded */ string | undefined
-    feeNotes?: /** Financial notes set against the tenancy */ string | undefined
-    legalStatusId?: /** The identifier of the legal status to set against the tenancy */ string | undefined
-    deposit?: /** Request body used to set the deposit of a tenancy */
-    | {
-          heldBy?: /** The deposit holder (depositProtectionScheme/stakeholder/landlordsAgent/landlord/notApplicable) */
-          string | undefined
-          period?: /** The number of weeks or months rent collected as the deposit on the tenancy */ number | undefined
-          type?: /** The type of deposit (weeksRent/monthsRent/fixedSum/guarantee) */ string | undefined
-          sum?: /** The amount of deposit held */ number | undefined
-        }
-      | undefined
-    lettingFee?: /** Request body used to update letting fees on an existing tenancy */
-    | {
-          type?: /** The letting fee type (percentage/fixed) */ string | undefined
-          amount?: /** The fee amount */ number | undefined
-          frequency?: /** The frequency of when the fee is to be collected (upfront/upfrontOver2Months/monthly/quarterly/halfYearly/yearly/28days/other/notApplicable) */
-          string | undefined
-        }
-      | undefined
-    managementFee?: /** Request body used to update management fees on an existing tenancy */
-    | {
-          type?: /** The management fee type (percentage/fixed) */ string | undefined
-          amount?: /** The fee amount */ number | undefined
-          frequency?: /** The frequency of when the fee is to be collected (monthly/quarterly/halfYearly/yearly/28days/sameAsLettingFee) */
-          string | undefined
-        }
-      | undefined
-    metadata?: /** App specific metadata to set against the tenancy */ Record<string, Record<string, never>> | undefined
-  }
-}
+export type UsePatchApiTenanciesIdArgs = { 'If-Match'?: string; id: string; body: UpdateTenancyModel }
 export const patchApiTenanciesIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiTenanciesIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
@@ -604,62 +247,7 @@ export const getApiTenanciesIdRelationshipsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            tenancyId: z.string().nullable().optional(),
-            associatedType: z.string().nullable().optional(),
-            associatedId: z.string().nullable().optional(),
-            isMain: z.boolean().nullable().optional(),
-            fromArchive: z.boolean().nullable().optional(),
-            guarantors: z
-              .array(
-                z.object({
-                  id: z.string().nullable().optional(),
-                  guarantorAssociatedId: z.string().nullable().optional(),
-                  type: z.string().nullable().optional(),
-                  referenceStatus: z.string().nullable().optional(),
-                }),
-              )
-              .nullable()
-              .optional(),
-            references: z
-              .array(
-                z.object({
-                  id: z.string().nullable().optional(),
-                  referenceAssociatedId: z.string().nullable().optional(),
-                  type: z.string().nullable().optional(),
-                  referenceStatus: z.string().nullable().optional(),
-                  referenceType: z.string().nullable().optional(),
-                }),
-              )
-              .nullable()
-              .optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyContactRelationshipModelPagedResult.parse(data)
 }
 export const useGetApiTenanciesIdRelationships = (args: UseGetApiTenanciesIdRelationshipsArgs) => {
   const result = useQuery({
@@ -687,46 +275,7 @@ export const getApiTenanciesIdRelationshipsRelationshipIdFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      tenancyId: z.string().nullable().optional(),
-      associatedType: z.string().nullable().optional(),
-      associatedId: z.string().nullable().optional(),
-      isMain: z.boolean().nullable().optional(),
-      fromArchive: z.boolean().nullable().optional(),
-      guarantors: z
-        .array(
-          z.object({
-            id: z.string().nullable().optional(),
-            guarantorAssociatedId: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            referenceStatus: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      references: z
-        .array(
-          z.object({
-            id: z.string().nullable().optional(),
-            referenceAssociatedId: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            referenceStatus: z.string().nullable().optional(),
-            referenceType: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyContactRelationshipModel.parse(data)
 }
 export const useGetApiTenanciesIdRelationshipsRelationshipId = (
   args: UseGetApiTenanciesIdRelationshipsRelationshipIdArgs,
@@ -766,41 +315,7 @@ export const getApiTenanciesIdChecksFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            status: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            checkTypeId: z.string().nullable().optional(),
-            tenancyId: z.string().nullable().optional(),
-            metadata: z.record(z.string(), z.object({})).nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyCheckModelPagedResult.parse(data)
 }
 export const useGetApiTenanciesIdChecks = (args: UseGetApiTenanciesIdChecksArgs) => {
   const result = useQuery({
@@ -811,26 +326,8 @@ export const useGetApiTenanciesIdChecks = (args: UseGetApiTenanciesIdChecksArgs)
 
   return result
 }
-export type UsePostApiTenanciesIdChecksArgs = {
-  id: string
-  body: /** Request body used to create a new tenancy check */
-  {
-    description?: /** Short, descriptive text describing the purpose of the check. This should be populated
-when creating a custom tenancy check that does not match any of the existing pre-configured
-tenancy check options.
-Description and CheckTypeId must not be supplied in the same payload, but at least one must be provided */
-    string | undefined
-    type: /** The type of the tenancy check (preTenancy/postTenancy) */ string
-    status: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string
-    checkTypeId?: /** The identifier of the pre-configured tenancy check. This should be populated
-when an existing tenancy check configuration is desired, rather than a custom one
-CheckTypeId and Description must not be supplied in the same payload, but at least one must be provided */
-    string | undefined
-    metadata?: /** App specific metadata to set against the tenancy check */
-    Record<string, Record<string, never>> | undefined
-  }
-}
-export const postApiTenanciesIdChecksFn = async ({ id, body }: UsePostApiTenanciesIdChecksArgs) => {
+export type UseCreateTenancyCheckArgs = { id: string; body: CreateTenancyCheckModel }
+export const createTenancyCheckFn = async ({ id, body }: UseCreateTenancyCheckArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -848,12 +345,12 @@ export const postApiTenanciesIdChecksFn = async ({ id, body }: UsePostApiTenanci
 
   return z.void().parse(data)
 }
-export const usePostApiTenanciesIdChecks = () => {
+export const useCreateTenancyCheck = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiTenanciesIdChecksFn,
+    mutationFn: createTenancyCheckFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -875,25 +372,7 @@ export const getApiTenanciesIdChecksCheckIdFn = async ({ id, checkId }: UseGetAp
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      description: z.string().nullable().optional(),
-      status: z.string().nullable().optional(),
-      type: z.string().nullable().optional(),
-      checkTypeId: z.string().nullable().optional(),
-      tenancyId: z.string().nullable().optional(),
-      metadata: z.record(z.string(), z.object({})).nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return tenancyCheckModel.parse(data)
 }
 export const useGetApiTenanciesIdChecksCheckId = (args: UseGetApiTenanciesIdChecksCheckIdArgs) => {
   const result = useQuery({
@@ -942,12 +421,7 @@ export type UsePatchApiTenanciesIdChecksCheckIdArgs = {
   'If-Match'?: string
   id: string
   checkId: string
-  body: /** Model for updat of an existing tenancy check */
-  {
-    status?: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string | undefined
-    metadata?: /** App specific metadata to set against the tenancy check */
-    Record<string, Record<string, never>> | undefined
-  }
+  body: UpdateTenancyCheckModel
 }
 export const patchApiTenanciesIdChecksCheckIdFn = async ({
   'If-Match': IfMatch,
@@ -1009,56 +483,7 @@ export const getApiTenanciesIdBreakClausesFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            clauseTypeId: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            active: z.string().nullable().optional(),
-            appliesTo: z.string().nullable().optional(),
-            letterText: z.string().nullable().optional(),
-            breakFrom: z
-              .object({ date: z.string().nullable().optional(), minTermMonths: z.number().int().nullable().optional() })
-              .nullable()
-              .optional(),
-            noticeRequired: z
-              .object({
-                date: z.string().nullable().optional(),
-                beforeBreakMonths: z.number().int().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            agreements: z
-              .object({ landlord: z.boolean().nullable().optional(), tenant: z.boolean().nullable().optional() })
-              .nullable()
-              .optional(),
-            tenancyId: z.string().nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyBreakClauseModelPagedResult.parse(data)
 }
 export const useGetApiTenanciesIdBreakClauses = (args: UseGetApiTenanciesIdBreakClausesArgs) => {
   const result = useQuery({
@@ -1069,35 +494,8 @@ export const useGetApiTenanciesIdBreakClauses = (args: UseGetApiTenanciesIdBreak
 
   return result
 }
-export type UsePostApiTenanciesIdBreakClausesArgs = {
-  id: string
-  body: /** Request body used to update tenancy break clause */
-  {
-    typeId?: /** The identifier of the associated to the break clause */ string | undefined
-    active?: /** The date the break clause becomes/became active */ string | undefined
-    appliesTo?: /** The responsible party (landlord/tenant/mutual) */ string | undefined
-    agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
-    | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
-        }
-      | undefined
-    breakFrom?: /** Request body used to set a break clauses break from details */
-    | {
-          date?: /** The date the break from clause can be used */ string | undefined
-          minTermMonths?: /** The minimum number of months until the break clause can be used */ number | undefined
-        }
-      | undefined
-    noticeRequired?: /** Request body used to set a break clauses notice required details */
-    | {
-          date?: /** The date a break clauses notice is required by */ string | undefined
-          beforeBreakMonths?: /** The number of months the notice is required before the break clause */
-          number | undefined
-        }
-      | undefined
-  }
-}
-export const postApiTenanciesIdBreakClausesFn = async ({ id, body }: UsePostApiTenanciesIdBreakClausesArgs) => {
+export type UseCreateTenancyBreakClauseArgs = { id: string; body: CreateTenancyBreakClauseModel }
+export const createTenancyBreakClauseFn = async ({ id, body }: UseCreateTenancyBreakClauseArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/breakClauses${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -1115,12 +513,12 @@ export const postApiTenanciesIdBreakClausesFn = async ({ id, body }: UsePostApiT
 
   return z.void().parse(data)
 }
-export const usePostApiTenanciesIdBreakClauses = () => {
+export const useCreateTenancyBreakClause = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiTenanciesIdBreakClausesFn,
+    mutationFn: createTenancyBreakClauseFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -1145,37 +543,7 @@ export const getApiTenanciesIdBreakClausesClauseIdFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      clauseTypeId: z.string().nullable().optional(),
-      description: z.string().nullable().optional(),
-      active: z.string().nullable().optional(),
-      appliesTo: z.string().nullable().optional(),
-      letterText: z.string().nullable().optional(),
-      breakFrom: z
-        .object({ date: z.string().nullable().optional(), minTermMonths: z.number().int().nullable().optional() })
-        .nullable()
-        .optional(),
-      noticeRequired: z
-        .object({ date: z.string().nullable().optional(), beforeBreakMonths: z.number().int().nullable().optional() })
-        .nullable()
-        .optional(),
-      agreements: z
-        .object({ landlord: z.boolean().nullable().optional(), tenant: z.boolean().nullable().optional() })
-        .nullable()
-        .optional(),
-      tenancyId: z.string().nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return tenancyBreakClauseModel.parse(data)
 }
 export const useGetApiTenanciesIdBreakClausesClauseId = (args: UseGetApiTenanciesIdBreakClausesClauseIdArgs) => {
   const result = useQuery({
@@ -1224,30 +592,7 @@ export type UsePatchApiTenanciesIdBreakClausesClauseIdArgs = {
   'If-Match'?: string
   id: string
   clauseId: string
-  body: /** Request body used to update tenancy break clause */
-  {
-    active?: /** The date the break clause becomes/became active */ string | undefined
-    appliesTo?: /** The responsible party (landlord/tenant/mutual) */ string | undefined
-    agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
-    | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
-        }
-      | undefined
-    breakFrom?: /** Request body used to set a break clauses break from details */
-    | {
-          date?: /** The date the break from clause can be used */ string | undefined
-          minTermMonths?: /** The minimum number of months until the break clause can be used */ number | undefined
-        }
-      | undefined
-    noticeRequired?: /** Request body used to set a break clauses notice required details */
-    | {
-          date?: /** The date a break clauses notice is required by */ string | undefined
-          beforeBreakMonths?: /** The number of months the notice is required before the break clause */
-          number | undefined
-        }
-      | undefined
-  }
+  body: UpdateTenancyBreakClauseModel
 }
 export const patchApiTenanciesIdBreakClausesClauseIdFn = async ({
   'If-Match': IfMatch,
@@ -1309,44 +654,7 @@ export const getApiTenanciesIdAllowancesFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            typeId: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            state: z.string().nullable().optional(),
-            agreements: z
-              .object({ landlord: z.boolean().nullable().optional(), tenant: z.boolean().nullable().optional() })
-              .nullable()
-              .optional(),
-            letterText: z.string().nullable().optional(),
-            tenancyId: z.string().nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyAllowanceModelPagedResult.parse(data)
 }
 export const useGetApiTenanciesIdAllowances = (args: UseGetApiTenanciesIdAllowancesArgs) => {
   const result = useQuery({
@@ -1357,21 +665,8 @@ export const useGetApiTenanciesIdAllowances = (args: UseGetApiTenanciesIdAllowan
 
   return result
 }
-export type UsePostApiTenanciesIdAllowancesArgs = {
-  id: string
-  body: /** Request body used to set a tenancy allowance */
-  {
-    typeId?: /** The identifier of the associated to the allowance */ string | undefined
-    state?: /** The state of the allowance (allowed/notAllowed) */ string | undefined
-    agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
-    | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
-        }
-      | undefined
-  }
-}
-export const postApiTenanciesIdAllowancesFn = async ({ id, body }: UsePostApiTenanciesIdAllowancesArgs) => {
+export type UseCreateTenancyAllowanceArgs = { id: string; body: CreateTenancyAllowanceModel }
+export const createTenancyAllowanceFn = async ({ id, body }: UseCreateTenancyAllowanceArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/allowances${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -1389,12 +684,12 @@ export const postApiTenanciesIdAllowancesFn = async ({ id, body }: UsePostApiTen
 
   return z.void().parse(data)
 }
-export const usePostApiTenanciesIdAllowances = () => {
+export const useCreateTenancyAllowance = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiTenanciesIdAllowancesFn,
+    mutationFn: createTenancyAllowanceFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -1419,28 +714,7 @@ export const getApiTenanciesIdAllowancesAllowanceIdFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      typeId: z.string().nullable().optional(),
-      description: z.string().nullable().optional(),
-      state: z.string().nullable().optional(),
-      agreements: z
-        .object({ landlord: z.boolean().nullable().optional(), tenant: z.boolean().nullable().optional() })
-        .nullable()
-        .optional(),
-      letterText: z.string().nullable().optional(),
-      tenancyId: z.string().nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return tenancyAllowanceModel.parse(data)
 }
 export const useGetApiTenanciesIdAllowancesAllowanceId = (args: UseGetApiTenanciesIdAllowancesAllowanceIdArgs) => {
   const result = useQuery({
@@ -1489,16 +763,7 @@ export type UsePatchApiTenanciesIdAllowancesAllowanceIdArgs = {
   'If-Match'?: string
   id: string
   allowanceId: string
-  body: /** Request body used to update tenancy allowance */
-  {
-    state?: /** The state of the allowance (allowed/notAllowed) */ string | undefined
-    agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
-    | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
-        }
-      | undefined
-  }
+  body: UpdateTenancyAllowanceModel
 }
 export const patchApiTenanciesIdAllowancesAllowanceIdFn = async ({
   'If-Match': IfMatch,
@@ -1560,44 +825,7 @@ export const getApiTenanciesIdResponsibilitiesFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            typeId: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            appliesTo: z.string().nullable().optional(),
-            agreements: z
-              .object({ landlord: z.boolean().nullable().optional(), tenant: z.boolean().nullable().optional() })
-              .nullable()
-              .optional(),
-            letterText: z.string().nullable().optional(),
-            tenancyId: z.string().nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyResponsibilityModelPagedResult.parse(data)
 }
 export const useGetApiTenanciesIdResponsibilities = (args: UseGetApiTenanciesIdResponsibilitiesArgs) => {
   const result = useQuery({
@@ -1608,21 +836,8 @@ export const useGetApiTenanciesIdResponsibilities = (args: UseGetApiTenanciesIdR
 
   return result
 }
-export type UsePostApiTenanciesIdResponsibilitiesArgs = {
-  id: string
-  body: /** Request body used to set a tenancy responsibility */
-  {
-    typeId?: /** The identifier of the associated to the responsibility */ string | undefined
-    appliesTo?: /** The responsible party (landlord/tenant) */ string | undefined
-    agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
-    | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
-        }
-      | undefined
-  }
-}
-export const postApiTenanciesIdResponsibilitiesFn = async ({ id, body }: UsePostApiTenanciesIdResponsibilitiesArgs) => {
+export type UseCreateTenancyResponsibilityArgs = { id: string; body: CreateTenancyResponsibilityModel }
+export const createTenancyResponsibilityFn = async ({ id, body }: UseCreateTenancyResponsibilityArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/responsibilities${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -1640,12 +855,12 @@ export const postApiTenanciesIdResponsibilitiesFn = async ({ id, body }: UsePost
 
   return z.void().parse(data)
 }
-export const usePostApiTenanciesIdResponsibilities = () => {
+export const useCreateTenancyResponsibility = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiTenanciesIdResponsibilitiesFn,
+    mutationFn: createTenancyResponsibilityFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -1670,28 +885,7 @@ export const getApiTenanciesIdResponsibilitiesResponsibilityIdFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      typeId: z.string().nullable().optional(),
-      description: z.string().nullable().optional(),
-      appliesTo: z.string().nullable().optional(),
-      agreements: z
-        .object({ landlord: z.boolean().nullable().optional(), tenant: z.boolean().nullable().optional() })
-        .nullable()
-        .optional(),
-      letterText: z.string().nullable().optional(),
-      tenancyId: z.string().nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return tenancyResponsibilityModel.parse(data)
 }
 export const useGetApiTenanciesIdResponsibilitiesResponsibilityId = (
   args: UseGetApiTenanciesIdResponsibilitiesResponsibilityIdArgs,
@@ -1742,16 +936,7 @@ export type UsePatchApiTenanciesIdResponsibilitiesResponsibilityIdArgs = {
   'If-Match'?: string
   id: string
   responsibilityId: string
-  body: /** Request body used to update tenancy responsibility */
-  {
-    appliesTo?: /** The responsible party (landlord/tenant) */ string | undefined
-    agreements?: /** Request body used to set party agreements to a specific clause in a tenancy agreement */
-    | {
-          landlord?: /** A flag to determine if the landlord has agreed */ boolean | undefined
-          tenant?: /** A flag to determine if the tenant has agreed */ boolean | undefined
-        }
-      | undefined
-  }
+  body: UpdateTenancyResponsibilityModel
 }
 export const patchApiTenanciesIdResponsibilitiesResponsibilityIdFn = async ({
   'If-Match': IfMatch,
@@ -1813,62 +998,7 @@ export const getApiTenanciesIdRenewalNegotiationsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            startDate: z.string().nullable().optional(),
-            endDate: z.string().nullable().optional(),
-            status: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            rent: z.number().nullable().optional(),
-            rentFrequency: z.string().nullable().optional(),
-            rentChange: z
-              .object({ amount: z.number().nullable().optional(), percentage: z.number().nullable().optional() })
-              .nullable()
-              .optional(),
-            tenancyId: z.string().nullable().optional(),
-            lettingFee: z
-              .object({
-                type: z.string().nullable().optional(),
-                amount: z.number().nullable().optional(),
-                frequency: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            managementFee: z
-              .object({
-                type: z.string().nullable().optional(),
-                amount: z.number().nullable().optional(),
-                frequency: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyRenewalModelPagedResult.parse(data)
 }
 export const useGetApiTenanciesIdRenewalNegotiations = (args: UseGetApiTenanciesIdRenewalNegotiationsArgs) => {
   const result = useQuery({
@@ -1879,38 +1009,8 @@ export const useGetApiTenanciesIdRenewalNegotiations = (args: UseGetApiTenancies
 
   return result
 }
-export type UsePostApiTenanciesIdRenewalNegotiationsArgs = {
-  id: string
-  body: /** Request body used to create a tenancy renewal negotiation */
-  {
-    startDate?: /** The proposed start date of the tenancy renewal */ string | undefined
-    endDate?: /** The proposed end date of the tenancy renewal */ string | undefined
-    negotiatorId?: /** The unique identifier of the negotiator who is managing this tenancy renewal */
-    string | undefined
-    rent?: /** The amount of rent required, returned in relation to the collection frequency */ number | undefined
-    rentFrequency?: /** The rent collection frequency (weekly/monthly/annually) */ string | undefined
-    lettingFee?: /** Request body used to create a tenancy renewals letting fee */
-    | {
-          type?: /** The letting fee type (fixed/perentage) */ string | undefined
-          amount?: /** The letting fee amount as a fixed price or percentage based on the `type` */ number | undefined
-          frequency?: /** The frequency at which the letting fee is required (monthly/quarterly/halfYearly/yearly/28days/upfront/upfrontOver2Months/other/notApplicable) */
-          string | undefined
-        }
-      | undefined
-    managementFee?: /** Request body used to create a tenancy renewals management fee */
-    | {
-          type?: /** The mangement fee type (fixed/perentage) */ string | undefined
-          amount?: /** The mangement fee amount as a fixed price or percentage based on the `type` */ number | undefined
-          frequency?: /** The frequency at which the mangement fee is required (monthly/quarterly/halfYearly/yearly/28days/sameAsLettingFee) */
-          string | undefined
-        }
-      | undefined
-  }
-}
-export const postApiTenanciesIdRenewalNegotiationsFn = async ({
-  id,
-  body,
-}: UsePostApiTenanciesIdRenewalNegotiationsArgs) => {
+export type UseCreateTenancyRenewalNegotiationArgs = { id: string; body: CreateTenancyRenewalModel }
+export const createTenancyRenewalNegotiationFn = async ({ id, body }: UseCreateTenancyRenewalNegotiationArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -1928,12 +1028,12 @@ export const postApiTenanciesIdRenewalNegotiationsFn = async ({
 
   return z.void().parse(data)
 }
-export const usePostApiTenanciesIdRenewalNegotiations = () => {
+export const useCreateTenancyRenewalNegotiation = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiTenanciesIdRenewalNegotiationsFn,
+    mutationFn: createTenancyRenewalNegotiationFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -1958,62 +1058,7 @@ export const getApiTenanciesIdRenewalNegotiationsRenewalIdFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            startDate: z.string().nullable().optional(),
-            endDate: z.string().nullable().optional(),
-            status: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            rent: z.number().nullable().optional(),
-            rentFrequency: z.string().nullable().optional(),
-            rentChange: z
-              .object({ amount: z.number().nullable().optional(), percentage: z.number().nullable().optional() })
-              .nullable()
-              .optional(),
-            tenancyId: z.string().nullable().optional(),
-            lettingFee: z
-              .object({
-                type: z.string().nullable().optional(),
-                amount: z.number().nullable().optional(),
-                frequency: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            managementFee: z
-              .object({
-                type: z.string().nullable().optional(),
-                amount: z.number().nullable().optional(),
-                frequency: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyRenewalModelPagedResult.parse(data)
 }
 export const useGetApiTenanciesIdRenewalNegotiationsRenewalId = (
   args: UseGetApiTenanciesIdRenewalNegotiationsRenewalIdArgs,
@@ -2029,31 +1074,7 @@ export type UsePatchApiTenanciesIdRenewalNegotiationsRenewalIdArgs = {
   'If-Match'?: string
   id: string
   renewalId: string
-  body: /** Request body used to update a tenancy renewal negotiation */
-  {
-    startDate?: /** The proposed start date of the tenancy renewal */ string | undefined
-    endDate?: /** The proposed end date of the tenancy renewal */ string | undefined
-    negotiatorId?: /** The unique identifier of the negotiator who is managing this tenancy renewal */
-    string | undefined
-    rent?: /** The amount of rent required, returned in relation to the collection frequency */ number | undefined
-    rentFrequency?: /** The rent collection frequency (weekly/monthly/annually) */ string | undefined
-    lettingFee?: /** Request body used to update a tenancy renewals letting fee */
-    | {
-          type?: /** The letting fee type (fixed/perentage) */ string | undefined
-          amount?: /** The letting fee amount as a fixed price or percentage based on the `type` */ number | undefined
-          frequency?: /** The frequency at which the letting fee is required (monthly/quarterly/halfYearly/yearly/28days/upfront/upfrontOver2Months/other/notApplicable) */
-          string | undefined
-        }
-      | undefined
-    managementFee?: /** Request body used to update a tenancy renewals management fee */
-    | {
-          type?: /** The mangement fee type (fixed/perentage) */ string | undefined
-          amount?: /** The mangement fee amount as a fixed price or percentage based on the `type` */ number | undefined
-          frequency?: /** The frequency at which the mangement fee is required (monthly/quarterly/halfYearly/yearly/28days/sameAsLettingFee) */
-          string | undefined
-        }
-      | undefined
-  }
+  body: UpdateTenancyRenewalModel
 }
 export const patchApiTenanciesIdRenewalNegotiationsRenewalIdFn = async ({
   'If-Match': IfMatch,
@@ -2115,50 +1136,7 @@ export const getApiTenanciesIdExtensionsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            startDate: z.string().nullable().optional(),
-            endDate: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            rent: z.number().nullable().optional(),
-            rentFrequency: z.string().nullable().optional(),
-            tenancyId: z.string().nullable().optional(),
-            fee: z
-              .object({
-                amount: z.number().nullable().optional(),
-                summary: z.string().nullable().optional(),
-                type: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyExtensionAlterationModelPagedResult.parse(data)
 }
 export const useGetApiTenanciesIdExtensions = (args: UseGetApiTenanciesIdExtensionsArgs) => {
   const result = useQuery({
@@ -2186,50 +1164,7 @@ export const getApiTenanciesIdExtensionsExtensionIdFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            startDate: z.string().nullable().optional(),
-            endDate: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            rent: z.number().nullable().optional(),
-            rentFrequency: z.string().nullable().optional(),
-            tenancyId: z.string().nullable().optional(),
-            fee: z
-              .object({
-                amount: z.number().nullable().optional(),
-                summary: z.string().nullable().optional(),
-                type: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyExtensionAlterationModelPagedResult.parse(data)
 }
 export const useGetApiTenanciesIdExtensionsExtensionId = (args: UseGetApiTenanciesIdExtensionsExtensionIdArgs) => {
   const result = useQuery({
@@ -2265,41 +1200,7 @@ export const getApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            status: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            checkTypeId: z.string().nullable().optional(),
-            tenancyId: z.string().nullable().optional(),
-            renewalId: z.string().nullable().optional(),
-            metadata: z.record(z.string(), z.object({})).nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return tenancyRenewalCheckModelPagedResult.parse(data)
 }
 export const useGetApiTenanciesIdRenewalNegotiationsRenewalIdChecks = (
   args: UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs,
@@ -2312,25 +1213,16 @@ export const useGetApiTenanciesIdRenewalNegotiationsRenewalIdChecks = (
 
   return result
 }
-export type UsePostApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs = {
+export type UseCreateTenancyRenewalNegotiationCheckArgs = {
   id: string
   renewalId: string
-  body: /** Request body used to create a new tenancy renewal check */
-  {
-    status: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string
-    checkTypeId?: /** The identifier of the pre-configured tenancy check. This will only be populated
-for pre-configured tenancy checks, and not for custom/ad-hoc checks added to individual tenancies */
-    string | undefined
-    description?: /** The name of this tenancy check */ string | undefined
-    metadata?: /** App specific metadata to set against the tenancy renewal check */
-    Record<string, Record<string, never>> | undefined
-  }
+  body: CreateTenancyRenewalCheckModel
 }
-export const postApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn = async ({
+export const createTenancyRenewalNegotiationCheckFn = async ({
   id,
   renewalId,
   body,
-}: UsePostApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs) => {
+}: UseCreateTenancyRenewalNegotiationCheckArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations/${renewalId}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -2348,12 +1240,12 @@ export const postApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn = async ({
 
   return z.void().parse(data)
 }
-export const usePostApiTenanciesIdRenewalNegotiationsRenewalIdChecks = () => {
+export const useCreateTenancyRenewalNegotiationCheck = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn,
+    mutationFn: createTenancyRenewalNegotiationCheckFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -2383,25 +1275,7 @@ export const getApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdFn = asyn
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      status: z.string().nullable().optional(),
-      description: z.string().nullable().optional(),
-      checkTypeId: z.string().nullable().optional(),
-      tenancyId: z.string().nullable().optional(),
-      renewalId: z.string().nullable().optional(),
-      metadata: z.record(z.string(), z.object({})).nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return tenancyRenewalCheckModel.parse(data)
 }
 export const useGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckId = (
   args: UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdArgs,
@@ -2460,12 +1334,7 @@ export type UsePatchApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdArgs 
   id: string
   renewalId: string
   checkId: string
-  body: /** Request body used to update a tenancy renewal check */
-  {
-    status?: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string | undefined
-    metadata?: /** App specific metadata to set against the tenancy renewal check */
-    Record<string, Record<string, never>> | undefined
-  }
+  body: UpdateTenancyRenewalCheckModel
 }
 export const patchApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdFn = async ({
   'If-Match': IfMatch,

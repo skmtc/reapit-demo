@@ -1,200 +1,17 @@
-import { z } from 'zod'
+import { contactModel, ContactModel } from '@/models/contactModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import {
   useGetApiContacts,
   useGetApiContactsIdRelationships,
   useGetApiContactsIdSubscriptions,
 } from '@/services/contacts.ts'
+import { contactRoleModel, ContactRoleModel } from '@/models/contactRoleModel.ts'
+import { contactSubscriptionModel, ContactSubscriptionModel } from '@/models/contactSubscriptionModel.ts'
 
-export const contactsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  title: z.string().nullable().optional(),
-  forename: z.string().nullable().optional(),
-  surname: z.string().nullable().optional(),
-  dateOfBirth: z.string().nullable().optional(),
-  active: z.boolean().nullable().optional(),
-  marketingConsent: z.string().nullable().optional(),
-  identityCheck: z.string().nullable().optional(),
-  source: z
-    .object({ id: z.string().nullable().optional(), type: z.string().nullable().optional() })
-    .nullable()
-    .optional(),
-  homePhone: z.string().nullable().optional(),
-  workPhone: z.string().nullable().optional(),
-  mobilePhone: z.string().nullable().optional(),
-  email: z.string().nullable().optional(),
-  archivedOn: z.string().nullable().optional(),
-  fromArchive: z.boolean().nullable().optional(),
-  primaryAddress: z
-    .object({
-      type: z.string().nullable().optional(),
-      buildingName: z.string().nullable().optional(),
-      buildingNumber: z.string().nullable().optional(),
-      line1: z.string().nullable().optional(),
-      line2: z.string().nullable().optional(),
-      line3: z.string().nullable().optional(),
-      line4: z.string().nullable().optional(),
-      postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  secondaryAddress: z
-    .object({
-      type: z.string().nullable().optional(),
-      buildingName: z.string().nullable().optional(),
-      buildingNumber: z.string().nullable().optional(),
-      line1: z.string().nullable().optional(),
-      line2: z.string().nullable().optional(),
-      line3: z.string().nullable().optional(),
-      line4: z.string().nullable().optional(),
-      postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  workAddress: z
-    .object({
-      type: z.string().nullable().optional(),
-      buildingName: z.string().nullable().optional(),
-      buildingNumber: z.string().nullable().optional(),
-      line1: z.string().nullable().optional(),
-      line2: z.string().nullable().optional(),
-      line3: z.string().nullable().optional(),
-      line4: z.string().nullable().optional(),
-      postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  officeIds: z.array(z.string()).nullable().optional(),
-  negotiatorIds: z.array(z.string()).nullable().optional(),
-  categoryIds: z.array(z.string()).nullable().optional(),
-  communicationPreferenceLetter: z.boolean().nullable().optional(),
-  communicationPreferenceEmail: z.boolean().nullable().optional(),
-  communicationPreferencePhone: z.boolean().nullable().optional(),
-  communicationPreferenceSMS: z.boolean().nullable().optional(),
-  additionalContactDetails: z
-    .array(z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-  extrasField: z.record(z.string(), z.object({})).nullable().optional(),
-  relationships: z
-    .array(
-      z.object({
-        _links: z
-          .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-          .nullable()
-          .optional(),
-        _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-        id: z.string().nullable().optional(),
-        created: z.string().nullable().optional(),
-        modified: z.string().nullable().optional(),
-        contactId: z.string().nullable().optional(),
-        associatedType: z.string().nullable().optional(),
-        associatedId: z.string().nullable().optional(),
-        fromArchive: z.boolean().nullable().optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-})
-export type ContactsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  title?: string | undefined
-  forename?: string | undefined
-  surname?: string | undefined
-  dateOfBirth?: string | undefined
-  active?: boolean | undefined
-  marketingConsent?: string | undefined
-  identityCheck?: string | undefined
-  source?: { id?: string | undefined; type?: string | undefined } | undefined
-  homePhone?: string | undefined
-  workPhone?: string | undefined
-  mobilePhone?: string | undefined
-  email?: string | undefined
-  archivedOn?: string | undefined
-  fromArchive?: boolean | undefined
-  primaryAddress?:
-    | {
-        type?: string | undefined
-        buildingName?: string | undefined
-        buildingNumber?: string | undefined
-        line1?: string | undefined
-        line2?: string | undefined
-        line3?: string | undefined
-        line4?: string | undefined
-        postcode?: string | undefined
-        countryId?: string | undefined
-      }
-    | undefined
-  secondaryAddress?:
-    | {
-        type?: string | undefined
-        buildingName?: string | undefined
-        buildingNumber?: string | undefined
-        line1?: string | undefined
-        line2?: string | undefined
-        line3?: string | undefined
-        line4?: string | undefined
-        postcode?: string | undefined
-        countryId?: string | undefined
-      }
-    | undefined
-  workAddress?:
-    | {
-        type?: string | undefined
-        buildingName?: string | undefined
-        buildingNumber?: string | undefined
-        line1?: string | undefined
-        line2?: string | undefined
-        line3?: string | undefined
-        line4?: string | undefined
-        postcode?: string | undefined
-        countryId?: string | undefined
-      }
-    | undefined
-  officeIds?: Array<string> | undefined
-  negotiatorIds?: Array<string> | undefined
-  categoryIds?: Array<string> | undefined
-  communicationPreferenceLetter?: boolean | undefined
-  communicationPreferenceEmail?: boolean | undefined
-  communicationPreferencePhone?: boolean | undefined
-  communicationPreferenceSMS?: boolean | undefined
-  additionalContactDetails?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-  extrasField?: Record<string, Record<string, never>> | undefined
-  relationships?:
-    | Array<{
-        _links?: Record<string, { href?: string | undefined }> | undefined
-        _embedded?: Record<string, Record<string, never>> | undefined
-        id?: string | undefined
-        created?: string | undefined
-        modified?: string | undefined
-        contactId?: string | undefined
-        associatedType?: string | undefined
-        associatedId?: string | undefined
-        fromArchive?: boolean | undefined
-      }>
-    | undefined
-}
 export type ContactsArgs = {
   sortBy?: string | undefined
   embed?: Array<'documents' | 'identityChecks' | 'negotiators' | 'offices' | 'relationships' | 'source'> | undefined
@@ -217,71 +34,19 @@ export type ContactsArgs = {
   modifiedTo?: string | undefined
   metadata?: Array<string> | undefined
   extrasField?: Array<string> | undefined
-  columns: ColumnsList<ContactsBody>
+  columns: ColumnsList<ContactModel>
 }
-export const contactsIdRelationshipsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  contactId: z.string().nullable().optional(),
-  associatedType: z.string().nullable().optional(),
-  associatedId: z.string().nullable().optional(),
-  fromArchive: z.boolean().nullable().optional(),
-})
-export type ContactsIdRelationshipsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  contactId?: string | undefined
-  associatedType?: string | undefined
-  associatedId?: string | undefined
-  fromArchive?: boolean | undefined
-}
-export type ContactsIdRelationshipsArgs = { id: string; columns: ColumnsList<ContactsIdRelationshipsBody> }
-export const contactsIdSubscriptionsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  contactId: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  group: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  subscribedOn: z.string().nullable().optional(),
-  unsubscribedOn: z.string().nullable().optional(),
-})
-export type ContactsIdSubscriptionsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  contactId?: string | undefined
-  name?: string | undefined
-  group?: string | undefined
-  status?: string | undefined
-  type?: string | undefined
-  subscribedOn?: string | undefined
-  unsubscribedOn?: string | undefined
-}
+export type ContactsIdRelationshipsArgs = { id: string; columns: ColumnsList<ContactRoleModel> }
 export type ContactsIdSubscriptionsArgs = {
   id: string
   type?: string | undefined
   status?: string | undefined
-  columns: ColumnsList<ContactsIdSubscriptionsBody>
+  columns: ColumnsList<ContactSubscriptionModel>
 }
 
-export const contactsColumnHelper = createColumnHelper<ContactsBody>()
+export const contactsColumnHelper = createColumnHelper<ContactModel>()
 
-export const getContactsColumn = (property: string, modelConfig: ModelConfig<ContactsBody>) => {
+export const getContactsColumn = (property: string, modelConfig: ModelConfig<ContactModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -627,12 +392,9 @@ export const useContactsTable = (args: ContactsArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const contactsIdRelationshipsColumnHelper = createColumnHelper<ContactsIdRelationshipsBody>()
+export const contactsIdRelationshipsColumnHelper = createColumnHelper<ContactRoleModel>()
 
-export const getContactsIdRelationshipsColumn = (
-  property: string,
-  modelConfig: ModelConfig<ContactsIdRelationshipsBody>,
-) => {
+export const getContactsIdRelationshipsColumn = (property: string, modelConfig: ModelConfig<ContactRoleModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -753,11 +515,11 @@ export const useContactsIdRelationshipsTable = (args: ContactsIdRelationshipsArg
 
   return { rerender, table, dataQuery }
 }
-export const contactsIdSubscriptionsColumnHelper = createColumnHelper<ContactsIdSubscriptionsBody>()
+export const contactsIdSubscriptionsColumnHelper = createColumnHelper<ContactSubscriptionModel>()
 
 export const getContactsIdSubscriptionsColumn = (
   property: string,
-  modelConfig: ModelConfig<ContactsIdSubscriptionsBody>,
+  modelConfig: ModelConfig<ContactSubscriptionModel>,
 ) => {
   return match(property)
     .with('_links', () => {

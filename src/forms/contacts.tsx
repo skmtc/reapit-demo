@@ -1,15 +1,14 @@
-import {
-  createContactModel,
-  CreateContactModel,
-  updateContactSubscriptionModel,
-  UpdateContactSubscriptionModel,
-} from '@/index.generated.ts'
+import { createContactModel, CreateContactModel } from '@/models/createContactModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiContacts, usePutApiContactsIdSubscriptionsSubscriptionId } from '@/services/contacts.ts'
+import { useCreateContact, useUpdateContactSubscription } from '@/services/contacts.ts'
+import {
+  updateContactSubscriptionModel,
+  UpdateContactSubscriptionModel,
+} from '@/models/updateContactSubscriptionModel.ts'
 
 export type CreateContactsProps = { children: (control: Control<CreateContactModel>) => ReactNode }
 export type UpdateContactsIdSubscriptionsSubscriptionIdProps = {
@@ -23,7 +22,7 @@ export const CreateContacts = (props: CreateContactsProps) => {
     resolver: zodResolver(createContactModel),
   })
 
-  const mutator = usePostApiContacts()
+  const mutator = useCreateContact()
 
   return (
     <Box
@@ -60,7 +59,7 @@ export const UpdateContactsIdSubscriptionsSubscriptionId = (
     resolver: zodResolver(updateContactSubscriptionModel),
   })
 
-  const mutator = usePutApiContactsIdSubscriptionsSubscriptionId()
+  const mutator = useUpdateContactSubscription()
 
   return (
     <Box

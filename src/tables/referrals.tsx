@@ -1,72 +1,12 @@
-import { z } from 'zod'
+import { referralModel, ReferralModel } from '@/models/referralModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiReferrals, useGetApiReferralsTypes } from '@/services/referrals.ts'
+import { referralTypeModel, ReferralTypeModel } from '@/models/referralTypeModel.ts'
 
-export const referralsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  referralTypeId: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  applicantId: z.string().nullable().optional(),
-  contactId: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  amount: z.number().nullable().optional(),
-  paid: z.string().nullable().optional(),
-  accepted: z.string().nullable().optional(),
-  related: z
-    .object({
-      id: z.string().nullable().optional(),
-      title: z.string().nullable().optional(),
-      forename: z.string().nullable().optional(),
-      surname: z.string().nullable().optional(),
-      mobilePhone: z.string().nullable().optional(),
-      email: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type ReferralsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  referralTypeId?: string | undefined
-  type?: string | undefined
-  negotiatorId?: string | undefined
-  propertyId?: string | undefined
-  applicantId?: string | undefined
-  contactId?: string | undefined
-  status?: string | undefined
-  amount?: number | undefined
-  paid?: string | undefined
-  accepted?: string | undefined
-  related?:
-    | {
-        id?: string | undefined
-        title?: string | undefined
-        forename?: string | undefined
-        surname?: string | undefined
-        mobilePhone?: string | undefined
-        email?: string | undefined
-      }
-    | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-}
 export type ReferralsArgs = {
   id?: Array<string> | undefined
   propertyId?: Array<string> | undefined
@@ -81,32 +21,17 @@ export type ReferralsArgs = {
   createdTo?: string | undefined
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
-  columns: ColumnsList<ReferralsBody>
-}
-export const referralsTypesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-})
-export type ReferralsTypesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  name?: string | undefined
+  columns: ColumnsList<ReferralModel>
 }
 export type ReferralsTypesArgs = {
   id?: Array<string> | undefined
   sortBy?: string | undefined
-  columns: ColumnsList<ReferralsTypesBody>
+  columns: ColumnsList<ReferralTypeModel>
 }
 
-export const referralsColumnHelper = createColumnHelper<ReferralsBody>()
+export const referralsColumnHelper = createColumnHelper<ReferralModel>()
 
-export const getReferralsColumn = (property: string, modelConfig: ModelConfig<ReferralsBody>) => {
+export const getReferralsColumn = (property: string, modelConfig: ModelConfig<ReferralModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -308,9 +233,9 @@ export const useReferralsTable = (args: ReferralsArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const referralsTypesColumnHelper = createColumnHelper<ReferralsTypesBody>()
+export const referralsTypesColumnHelper = createColumnHelper<ReferralTypeModel>()
 
-export const getReferralsTypesColumn = (property: string, modelConfig: ModelConfig<ReferralsTypesBody>) => {
+export const getReferralsTypesColumn = (property: string, modelConfig: ModelConfig<ReferralTypeModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

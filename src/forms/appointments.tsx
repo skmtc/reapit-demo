@@ -1,15 +1,11 @@
-import {
-  createAppointmentModel,
-  CreateAppointmentModel,
-  createOpenHouseAttendeeModel,
-  CreateOpenHouseAttendeeModel,
-} from '@/index.generated.ts'
+import { createAppointmentModel, CreateAppointmentModel } from '@/models/createAppointmentModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiAppointments, usePostApiAppointmentsIdOpenHouseAttendees } from '@/services/appointments.ts'
+import { useCreateAppointment, useCreateOpenHouseAttendee } from '@/services/appointments.ts'
+import { createOpenHouseAttendeeModel, CreateOpenHouseAttendeeModel } from '@/models/createOpenHouseAttendeeModel.ts'
 
 export type CreateAppointmentsProps = { children: (control: Control<CreateAppointmentModel>) => ReactNode }
 export type CreateAppointmentsIdOpenHouseAttendeesProps = {
@@ -22,7 +18,7 @@ export const CreateAppointments = (props: CreateAppointmentsProps) => {
     resolver: zodResolver(createAppointmentModel),
   })
 
-  const mutator = usePostApiAppointments()
+  const mutator = useCreateAppointment()
 
   return (
     <Box
@@ -57,7 +53,7 @@ export const CreateAppointmentsIdOpenHouseAttendees = (props: CreateAppointments
     resolver: zodResolver(createOpenHouseAttendeeModel),
   })
 
-  const mutator = usePostApiAppointmentsIdOpenHouseAttendees()
+  const mutator = useCreateOpenHouseAttendee()
 
   return (
     <Box

@@ -1,54 +1,19 @@
-import { z } from 'zod'
+import { invoiceModel, InvoiceModel } from '@/models/invoiceModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import {
   useGetApiInvoices,
   useGetApiInvoicesPayments,
   useGetApiInvoicesCredits,
   useGetApiInvoicesCharges,
 } from '@/services/invoices.ts'
+import { paymentModel, PaymentModel } from '@/models/paymentModel.ts'
+import { creditModel, CreditModel } from '@/models/creditModel.ts'
+import { chargeModel, ChargeModel } from '@/models/chargeModel.ts'
 
-export const invoicesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  reference: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  date: z.string().nullable().optional(),
-  dueDate: z.string().nullable().optional(),
-  isRaised: z.boolean().nullable().optional(),
-  netAmount: z.number().nullable().optional(),
-  vatAmount: z.number().nullable().optional(),
-  outstandingAmount: z.number().nullable().optional(),
-})
-export type InvoicesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  reference?: string | undefined
-  negotiatorId?: string | undefined
-  propertyId?: string | undefined
-  description?: string | undefined
-  status?: string | undefined
-  date?: string | undefined
-  dueDate?: string | undefined
-  isRaised?: boolean | undefined
-  netAmount?: number | undefined
-  vatAmount?: number | undefined
-  outstandingAmount?: number | undefined
-}
 export type InvoicesArgs = {
   sortBy?: string | undefined
   negotiatorId?: Array<string> | undefined
@@ -62,40 +27,7 @@ export type InvoicesArgs = {
   createdTo?: string | undefined
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
-  columns: ColumnsList<InvoicesBody>
-}
-export const invoicesPaymentsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  invoiceId: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  date: z.string().nullable().optional(),
-  netAmount: z.number().nullable().optional(),
-  vatAmount: z.number().nullable().optional(),
-})
-export type InvoicesPaymentsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  negotiatorId?: string | undefined
-  propertyId?: string | undefined
-  invoiceId?: string | undefined
-  description?: string | undefined
-  type?: string | undefined
-  date?: string | undefined
-  netAmount?: number | undefined
-  vatAmount?: number | undefined
+  columns: ColumnsList<InvoiceModel>
 }
 export type InvoicesPaymentsArgs = {
   sortBy?: string | undefined
@@ -109,38 +41,7 @@ export type InvoicesPaymentsArgs = {
   createdTo?: string | undefined
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
-  columns: ColumnsList<InvoicesPaymentsBody>
-}
-export const invoicesCreditsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  invoiceId: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  date: z.string().nullable().optional(),
-  netAmount: z.number().nullable().optional(),
-  vatAmount: z.number().nullable().optional(),
-})
-export type InvoicesCreditsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  negotiatorId?: string | undefined
-  propertyId?: string | undefined
-  invoiceId?: string | undefined
-  description?: string | undefined
-  date?: string | undefined
-  netAmount?: number | undefined
-  vatAmount?: number | undefined
+  columns: ColumnsList<PaymentModel>
 }
 export type InvoicesCreditsArgs = {
   sortBy?: string | undefined
@@ -153,40 +54,7 @@ export type InvoicesCreditsArgs = {
   createdTo?: string | undefined
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
-  columns: ColumnsList<InvoicesCreditsBody>
-}
-export const invoicesChargesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  invoiceId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  vatCode: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  netAmount: z.number().nullable().optional(),
-  vatAmount: z.number().nullable().optional(),
-})
-export type InvoicesChargesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  type?: string | undefined
-  invoiceId?: string | undefined
-  propertyId?: string | undefined
-  negotiatorId?: string | undefined
-  vatCode?: string | undefined
-  description?: string | undefined
-  netAmount?: number | undefined
-  vatAmount?: number | undefined
+  columns: ColumnsList<CreditModel>
 }
 export type InvoicesChargesArgs = {
   sortBy?: string | undefined
@@ -197,12 +65,12 @@ export type InvoicesChargesArgs = {
   createdTo?: string | undefined
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
-  columns: ColumnsList<InvoicesChargesBody>
+  columns: ColumnsList<ChargeModel>
 }
 
-export const invoicesColumnHelper = createColumnHelper<InvoicesBody>()
+export const invoicesColumnHelper = createColumnHelper<InvoiceModel>()
 
-export const getInvoicesColumn = (property: string, modelConfig: ModelConfig<InvoicesBody>) => {
+export const getInvoicesColumn = (property: string, modelConfig: ModelConfig<InvoiceModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -386,9 +254,9 @@ export const useInvoicesTable = (args: InvoicesArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const invoicesPaymentsColumnHelper = createColumnHelper<InvoicesPaymentsBody>()
+export const invoicesPaymentsColumnHelper = createColumnHelper<PaymentModel>()
 
-export const getInvoicesPaymentsColumn = (property: string, modelConfig: ModelConfig<InvoicesPaymentsBody>) => {
+export const getInvoicesPaymentsColumn = (property: string, modelConfig: ModelConfig<PaymentModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -545,9 +413,9 @@ export const useInvoicesPaymentsTable = (args: InvoicesPaymentsArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const invoicesCreditsColumnHelper = createColumnHelper<InvoicesCreditsBody>()
+export const invoicesCreditsColumnHelper = createColumnHelper<CreditModel>()
 
-export const getInvoicesCreditsColumn = (property: string, modelConfig: ModelConfig<InvoicesCreditsBody>) => {
+export const getInvoicesCreditsColumn = (property: string, modelConfig: ModelConfig<CreditModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -695,9 +563,9 @@ export const useInvoicesCreditsTable = (args: InvoicesCreditsArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const invoicesChargesColumnHelper = createColumnHelper<InvoicesChargesBody>()
+export const invoicesChargesColumnHelper = createColumnHelper<ChargeModel>()
 
-export const getInvoicesChargesColumn = (property: string, modelConfig: ModelConfig<InvoicesChargesBody>) => {
+export const getInvoicesChargesColumn = (property: string, modelConfig: ModelConfig<ChargeModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

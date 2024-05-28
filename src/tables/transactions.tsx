@@ -1,57 +1,12 @@
-import { z } from 'zod'
+import { transactionModel, TransactionModel } from '@/models/transactionModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiTransactions, useGetApiTransactionsNominalAccounts } from '@/services/transactions.ts'
+import { nominalAccountModel, NominalAccountModel } from '@/models/nominalAccountModel.ts'
 
-export const transactionsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  category: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  transactionType: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  ledger: z.string().nullable().optional(),
-  netAmount: z.number().nullable().optional(),
-  taxAmount: z.number().nullable().optional(),
-  grossAmount: z.number().nullable().optional(),
-  outstanding: z.number().nullable().optional(),
-  companyId: z.string().nullable().optional(),
-  landlordId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  tenancyId: z.string().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type TransactionsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  category?: string | undefined
-  type?: string | undefined
-  transactionType?: string | undefined
-  description?: string | undefined
-  status?: string | undefined
-  ledger?: string | undefined
-  netAmount?: number | undefined
-  taxAmount?: number | undefined
-  grossAmount?: number | undefined
-  outstanding?: number | undefined
-  companyId?: string | undefined
-  landlordId?: string | undefined
-  propertyId?: string | undefined
-  tenancyId?: string | undefined
-  _eTag?: string | undefined
-}
 export type TransactionsArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
@@ -144,39 +99,18 @@ export type TransactionsArgs = {
   modifiedTo?: string | undefined
   outstandingFrom?: number | undefined
   outstandingTo?: number | undefined
-  columns: ColumnsList<TransactionsBody>
-}
-export const transactionsNominalAccountsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  appliesToWorksOrders: z.boolean().nullable().optional(),
-})
-export type TransactionsNominalAccountsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  name?: string | undefined
-  appliesToWorksOrders?: boolean | undefined
+  columns: ColumnsList<TransactionModel>
 }
 export type TransactionsNominalAccountsArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
   appliesToWorksOrders?: boolean | undefined
-  columns: ColumnsList<TransactionsNominalAccountsBody>
+  columns: ColumnsList<NominalAccountModel>
 }
 
-export const transactionsColumnHelper = createColumnHelper<TransactionsBody>()
+export const transactionsColumnHelper = createColumnHelper<TransactionModel>()
 
-export const getTransactionsColumn = (property: string, modelConfig: ModelConfig<TransactionsBody>) => {
+export const getTransactionsColumn = (property: string, modelConfig: ModelConfig<TransactionModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -396,11 +330,11 @@ export const useTransactionsTable = (args: TransactionsArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const transactionsNominalAccountsColumnHelper = createColumnHelper<TransactionsNominalAccountsBody>()
+export const transactionsNominalAccountsColumnHelper = createColumnHelper<NominalAccountModel>()
 
 export const getTransactionsNominalAccountsColumn = (
   property: string,
-  modelConfig: ModelConfig<TransactionsNominalAccountsBody>,
+  modelConfig: ModelConfig<NominalAccountModel>,
 ) => {
   return match(property)
     .with('_links', () => {

@@ -1,10 +1,10 @@
-import { createTaskModel, CreateTaskModel } from '@/index.generated.ts'
+import { createTaskModel, CreateTaskModel } from '@/models/createTaskModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiTasks } from '@/services/tasks.ts'
+import { useCreateTask } from '@/services/tasks.ts'
 
 export type CreateTasksProps = { children: (control: Control<CreateTaskModel>) => ReactNode }
 
@@ -13,7 +13,7 @@ export const CreateTasks = (props: CreateTasksProps) => {
     resolver: zodResolver(createTaskModel),
   })
 
-  const mutator = usePostApiTasks()
+  const mutator = useCreateTask()
 
   return (
     <Box

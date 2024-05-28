@@ -1,39 +1,20 @@
-import { z } from 'zod'
+import { webhookModel, WebhookModel } from '@/models/webhookModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiResthooks } from '@/services/resthooks.ts'
 
-export const resthooksBody = z.object({
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  url: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  topicIds: z.array(z.string()).nullable().optional(),
-  active: z.boolean().nullable().optional(),
-  ignoreEtagOnlyChanges: z.boolean().nullable().optional(),
-})
-export type ResthooksBody = {
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  url?: string | undefined
-  description?: string | undefined
-  topicIds?: Array<string> | undefined
-  active?: boolean | undefined
-  ignoreEtagOnlyChanges?: boolean | undefined
-}
 export type ResthooksArgs = {
   sortBy?: string | undefined
   active?: boolean | undefined
-  columns: ColumnsList<ResthooksBody>
+  columns: ColumnsList<WebhookModel>
 }
 
-export const resthooksColumnHelper = createColumnHelper<ResthooksBody>()
+export const resthooksColumnHelper = createColumnHelper<WebhookModel>()
 
-export const getResthooksColumn = (property: string, modelConfig: ModelConfig<ResthooksBody>) => {
+export const getResthooksColumn = (property: string, modelConfig: ModelConfig<WebhookModel>) => {
   return match(property)
     .with('id', () => {
       const { label: header, format } = modelConfig['id']

@@ -1,15 +1,14 @@
-import {
-  createApplicantModel,
-  CreateApplicantModel,
-  createApplicantContactRelationshipModel,
-  CreateApplicantContactRelationshipModel,
-} from '@/index.generated.ts'
+import { createApplicantModel, CreateApplicantModel } from '@/models/createApplicantModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiApplicants, usePostApiApplicantsIdRelationships } from '@/services/applicants.ts'
+import { useCreateApplicant, useCreateApplicantRelationship } from '@/services/applicants.ts'
+import {
+  createApplicantContactRelationshipModel,
+  CreateApplicantContactRelationshipModel,
+} from '@/models/createApplicantContactRelationshipModel.ts'
 
 export type CreateApplicantsProps = { children: (control: Control<CreateApplicantModel>) => ReactNode }
 export type CreateApplicantsIdRelationshipsProps = {
@@ -22,7 +21,7 @@ export const CreateApplicants = (props: CreateApplicantsProps) => {
     resolver: zodResolver(createApplicantModel),
   })
 
-  const mutator = usePostApiApplicants()
+  const mutator = useCreateApplicant()
 
   return (
     <Box
@@ -57,7 +56,7 @@ export const CreateApplicantsIdRelationships = (props: CreateApplicantsIdRelatio
     resolver: zodResolver(createApplicantContactRelationshipModel),
   })
 
-  const mutator = usePostApiApplicantsIdRelationships()
+  const mutator = useCreateApplicantRelationship()
 
   return (
     <Box

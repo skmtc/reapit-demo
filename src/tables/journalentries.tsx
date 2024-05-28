@@ -1,35 +1,12 @@
-import { z } from 'zod'
+import { journalEntryModel, JournalEntryModel } from '@/models/journalEntryModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiJournalEntries, useGetApiJournalEntriesLandlords } from '@/services/journalentries.ts'
+import { landlordJournalEntryModel, LandlordJournalEntryModel } from '@/models/landlordJournalEntryModel.ts'
 
-export const journalEntriesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  created: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  associatedType: z.string().nullable().optional(),
-  associatedId: z.string().nullable().optional(),
-  typeId: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-})
-export type JournalEntriesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  created?: string | undefined
-  propertyId?: string | undefined
-  associatedType?: string | undefined
-  associatedId?: string | undefined
-  typeId?: string | undefined
-  negotiatorId?: string | undefined
-  description?: string | undefined
-}
 export type JournalEntriesArgs = {
   sortBy?: string | undefined
   embed?: Array<'property' | 'negotiator' | 'type'> | undefined
@@ -40,30 +17,7 @@ export type JournalEntriesArgs = {
   typeId?: Array<string> | undefined
   createdFrom?: string | undefined
   createdTo?: string | undefined
-  columns: ColumnsList<JournalEntriesBody>
-}
-export const journalEntriesLandlordsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  created: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  landlordId: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-})
-export type JournalEntriesLandlordsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  created?: string | undefined
-  propertyId?: string | undefined
-  landlordId?: string | undefined
-  type?: string | undefined
-  negotiatorId?: string | undefined
-  description?: string | undefined
+  columns: ColumnsList<JournalEntryModel>
 }
 export type JournalEntriesLandlordsArgs = {
   sortBy?: string | undefined
@@ -73,12 +27,12 @@ export type JournalEntriesLandlordsArgs = {
   type?: string | undefined
   createdFrom?: string | undefined
   createdTo?: string | undefined
-  columns: ColumnsList<JournalEntriesLandlordsBody>
+  columns: ColumnsList<LandlordJournalEntryModel>
 }
 
-export const journalEntriesColumnHelper = createColumnHelper<JournalEntriesBody>()
+export const journalEntriesColumnHelper = createColumnHelper<JournalEntryModel>()
 
-export const getJournalEntriesColumn = (property: string, modelConfig: ModelConfig<JournalEntriesBody>) => {
+export const getJournalEntriesColumn = (property: string, modelConfig: ModelConfig<JournalEntryModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -199,11 +153,11 @@ export const useJournalEntriesTable = (args: JournalEntriesArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const journalEntriesLandlordsColumnHelper = createColumnHelper<JournalEntriesLandlordsBody>()
+export const journalEntriesLandlordsColumnHelper = createColumnHelper<LandlordJournalEntryModel>()
 
 export const getJournalEntriesLandlordsColumn = (
   property: string,
-  modelConfig: ModelConfig<JournalEntriesLandlordsBody>,
+  modelConfig: ModelConfig<LandlordJournalEntryModel>,
 ) => {
   return match(property)
     .with('_links', () => {

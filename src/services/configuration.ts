@@ -1,6 +1,11 @@
-import { z } from 'zod'
+import { typeModel } from '@/models/typeModel.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery } from '@tanstack/react-query'
+import { z } from 'zod'
+import { listItemModel } from '@/models/listItemModel.ts'
+import { certificateTypeModel } from '@/models/certificateTypeModel.ts'
+import { listItemDetailModel } from '@/models/listItemDetailModel.ts'
+import { terminologyModel } from '@/models/terminologyModel.ts'
 
 export type UseGetApiConfigurationTypesArgs = {
   type?:
@@ -44,102 +49,7 @@ export const getApiConfigurationTypesFn = async ({ type }: UseGetApiConfiguratio
 
   const data = await res.json()
 
-  return z
-    .object({
-      agencyTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      appointmentTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      applicantStatuses: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      boardStatuses: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      buyingPositions: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      buyingReasons: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      certificateTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      companyTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      contactCategories: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      documentTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      identityDocumentTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      journalEntryTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      keyTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      followUpResponses: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      sellingReasons: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      rentInsuranceCancellationReasons: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      rentingPositions: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      supplierTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      taskTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      tenancyLegalStatuses: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      tenancyTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      vendorTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      worksOrderTypes: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return typeModel.parse(data)
 }
 export const useGetApiConfigurationTypes = (args: UseGetApiConfigurationTypesArgs) => {
   const result = useQuery({
@@ -163,9 +73,7 @@ export const getApiConfigurationAgencyTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationAgencyTypes = () => {
   const result = useQuery({
@@ -189,7 +97,7 @@ export const getApiConfigurationAgencyTypesIdFn = async ({ id }: UseGetApiConfig
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationAgencyTypesId = (args: UseGetApiConfigurationAgencyTypesIdArgs) => {
   const result = useQuery({
@@ -215,7 +123,7 @@ export const getApiConfigurationApplicantStatusesIdFn = async ({
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationApplicantStatusesId = (args: UseGetApiConfigurationApplicantStatusesIdArgs) => {
   const result = useQuery({
@@ -239,9 +147,7 @@ export const getApiConfigurationApplicantStatusesFn = async ({ id }: UseGetApiCo
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationApplicantStatuses = (args: UseGetApiConfigurationApplicantStatusesArgs) => {
   const result = useQuery({
@@ -265,9 +171,7 @@ export const getApiConfigurationAppointmentTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationAppointmentTypes = () => {
   const result = useQuery({
@@ -291,7 +195,7 @@ export const getApiConfigurationAppointmentTypesIdFn = async ({ id }: UseGetApiC
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationAppointmentTypesId = (args: UseGetApiConfigurationAppointmentTypesIdArgs) => {
   const result = useQuery({
@@ -315,9 +219,7 @@ export const getApiConfigurationBoardStatusesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationBoardStatuses = () => {
   const result = useQuery({
@@ -341,7 +243,7 @@ export const getApiConfigurationBoardStatusesIdFn = async ({ id }: UseGetApiConf
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationBoardStatusesId = (args: UseGetApiConfigurationBoardStatusesIdArgs) => {
   const result = useQuery({
@@ -365,9 +267,7 @@ export const getApiConfigurationBuyingPositionsFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationBuyingPositions = () => {
   const result = useQuery({
@@ -391,7 +291,7 @@ export const getApiConfigurationBuyingPositionsIdFn = async ({ id }: UseGetApiCo
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationBuyingPositionsId = (args: UseGetApiConfigurationBuyingPositionsIdArgs) => {
   const result = useQuery({
@@ -415,9 +315,7 @@ export const getApiConfigurationBuyingReasonsFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationBuyingReasons = () => {
   const result = useQuery({
@@ -441,18 +339,7 @@ export const getApiConfigurationCertificateTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(
-      z.object({
-        id: z.string().nullable().optional(),
-        value: z.string().nullable().optional(),
-        statuses: z
-          .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-          .nullable()
-          .optional(),
-      }),
-    )
-    .parse(data)
+  return z.array(certificateTypeModel).parse(data)
 }
 export const useGetApiConfigurationCertificateTypes = () => {
   const result = useQuery({
@@ -476,16 +363,7 @@ export const getApiConfigurationCertificateTypesIdFn = async ({ id }: UseGetApiC
 
   const data = await res.json()
 
-  return z
-    .object({
-      id: z.string().nullable().optional(),
-      value: z.string().nullable().optional(),
-      statuses: z
-        .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return certificateTypeModel.parse(data)
 }
 export const useGetApiConfigurationCertificateTypesId = (args: UseGetApiConfigurationCertificateTypesIdArgs) => {
   const result = useQuery({
@@ -509,9 +387,7 @@ export const getApiConfigurationCompanyTypesFn = async ({ id }: UseGetApiConfigu
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationCompanyTypes = (args: UseGetApiConfigurationCompanyTypesArgs) => {
   const result = useQuery({
@@ -535,7 +411,7 @@ export const getApiConfigurationCompanyTypesIdFn = async ({ id }: UseGetApiConfi
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationCompanyTypesId = (args: UseGetApiConfigurationCompanyTypesIdArgs) => {
   const result = useQuery({
@@ -561,7 +437,7 @@ export const getApiConfigurationContactCategoriesIdFn = async ({
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationContactCategoriesId = (args: UseGetApiConfigurationContactCategoriesIdArgs) => {
   const result = useQuery({
@@ -585,9 +461,7 @@ export const getApiConfigurationContactCategoriesFn = async ({ id }: UseGetApiCo
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationContactCategories = (args: UseGetApiConfigurationContactCategoriesArgs) => {
   const result = useQuery({
@@ -611,9 +485,7 @@ export const getApiConfigurationDocumentTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationDocumentTypes = () => {
   const result = useQuery({
@@ -637,7 +509,7 @@ export const getApiConfigurationDocumentTypesIdFn = async ({ id }: UseGetApiConf
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationDocumentTypesId = (args: UseGetApiConfigurationDocumentTypesIdArgs) => {
   const result = useQuery({
@@ -661,9 +533,7 @@ export const getApiConfigurationFollowUpResponsesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationFollowUpResponses = () => {
   const result = useQuery({
@@ -689,7 +559,7 @@ export const getApiConfigurationFollowUpResponsesIdFn = async ({
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationFollowUpResponsesId = (args: UseGetApiConfigurationFollowUpResponsesIdArgs) => {
   const result = useQuery({
@@ -713,9 +583,7 @@ export const getApiConfigurationIdentityDocumentTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationIdentityDocumentTypes = () => {
   const result = useQuery({
@@ -741,7 +609,7 @@ export const getApiConfigurationIdentityDocumentTypesIdFn = async ({
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationIdentityDocumentTypesId = (
   args: UseGetApiConfigurationIdentityDocumentTypesIdArgs,
@@ -767,9 +635,7 @@ export const getApiConfigurationJournalEntryTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationJournalEntryTypes = () => {
   const result = useQuery({
@@ -795,7 +661,7 @@ export const getApiConfigurationJournalEntryTypesIdFn = async ({
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationJournalEntryTypesId = (args: UseGetApiConfigurationJournalEntryTypesIdArgs) => {
   const result = useQuery({
@@ -819,9 +685,7 @@ export const getApiConfigurationKeyTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationKeyTypes = () => {
   const result = useQuery({
@@ -845,7 +709,7 @@ export const getApiConfigurationKeyTypesIdFn = async ({ id }: UseGetApiConfigura
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationKeyTypesId = (args: UseGetApiConfigurationKeyTypesIdArgs) => {
   const result = useQuery({
@@ -869,9 +733,7 @@ export const getApiConfigurationPortalTypesFn = async ({ id }: UseGetApiConfigur
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationPortalTypes = (args: UseGetApiConfigurationPortalTypesArgs) => {
   const result = useQuery({
@@ -895,7 +757,7 @@ export const getApiConfigurationPortalTypesIdFn = async ({ id }: UseGetApiConfig
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationPortalTypesId = (args: UseGetApiConfigurationPortalTypesIdArgs) => {
   const result = useQuery({
@@ -925,16 +787,7 @@ export const getApiConfigurationPreTenancyCheckTypesFn = async ({
 
   const data = await res.json()
 
-  return z
-    .array(
-      z.object({
-        id: z.string().nullable().optional(),
-        value: z.string().nullable().optional(),
-        active: z.boolean().nullable().optional(),
-        officeIds: z.array(z.string()).nullable().optional(),
-      }),
-    )
-    .parse(data)
+  return z.array(listItemDetailModel).parse(data)
 }
 export const useGetApiConfigurationPreTenancyCheckTypes = (args: UseGetApiConfigurationPreTenancyCheckTypesArgs) => {
   const result = useQuery({
@@ -960,14 +813,7 @@ export const getApiConfigurationPreTenancyCheckTypesIdFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      id: z.string().nullable().optional(),
-      value: z.string().nullable().optional(),
-      active: z.boolean().nullable().optional(),
-      officeIds: z.array(z.string()).nullable().optional(),
-    })
-    .parse(data)
+  return listItemDetailModel.parse(data)
 }
 export const useGetApiConfigurationPreTenancyCheckTypesId = (
   args: UseGetApiConfigurationPreTenancyCheckTypesIdArgs,
@@ -993,9 +839,7 @@ export const getApiConfigurationPropertyServiceTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationPropertyServiceTypes = () => {
   const result = useQuery({
@@ -1021,7 +865,7 @@ export const getApiConfigurationPropertyServiceTypesIdFn = async ({
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationPropertyServiceTypesId = (
   args: UseGetApiConfigurationPropertyServiceTypesIdArgs,
@@ -1053,16 +897,7 @@ export const getApiConfigurationRenewalCheckTypesFn = async ({
 
   const data = await res.json()
 
-  return z
-    .array(
-      z.object({
-        id: z.string().nullable().optional(),
-        value: z.string().nullable().optional(),
-        active: z.boolean().nullable().optional(),
-        officeIds: z.array(z.string()).nullable().optional(),
-      }),
-    )
-    .parse(data)
+  return z.array(listItemDetailModel).parse(data)
 }
 export const useGetApiConfigurationRenewalCheckTypes = (args: UseGetApiConfigurationRenewalCheckTypesArgs) => {
   const result = useQuery({
@@ -1088,14 +923,7 @@ export const getApiConfigurationRenewalCheckTypesIdFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      id: z.string().nullable().optional(),
-      value: z.string().nullable().optional(),
-      active: z.boolean().nullable().optional(),
-      officeIds: z.array(z.string()).nullable().optional(),
-    })
-    .parse(data)
+  return listItemDetailModel.parse(data)
 }
 export const useGetApiConfigurationRenewalCheckTypesId = (args: UseGetApiConfigurationRenewalCheckTypesIdArgs) => {
   const result = useQuery({
@@ -1119,9 +947,7 @@ export const getApiConfigurationRentInsuranceCancellationReasonsFn = async () =>
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationRentInsuranceCancellationReasons = () => {
   const result = useQuery({
@@ -1147,7 +973,7 @@ export const getApiConfigurationRentInsuranceCancellationReasonsIdFn = async ({
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationRentInsuranceCancellationReasonsId = (
   args: UseGetApiConfigurationRentInsuranceCancellationReasonsIdArgs,
@@ -1173,9 +999,7 @@ export const getApiConfigurationRentingPositionsFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationRentingPositions = () => {
   const result = useQuery({
@@ -1199,7 +1023,7 @@ export const getApiConfigurationRentingPositionsIdFn = async ({ id }: UseGetApiC
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationRentingPositionsId = (args: UseGetApiConfigurationRentingPositionsIdArgs) => {
   const result = useQuery({
@@ -1223,9 +1047,7 @@ export const getApiConfigurationRuralTenancyTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationRuralTenancyTypes = () => {
   const result = useQuery({
@@ -1251,7 +1073,7 @@ export const getApiConfigurationRuralTenancyTypesIdFn = async ({
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationRuralTenancyTypesId = (args: UseGetApiConfigurationRuralTenancyTypesIdArgs) => {
   const result = useQuery({
@@ -1275,9 +1097,7 @@ export const getApiConfigurationSellingReasonsFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationSellingReasons = () => {
   const result = useQuery({
@@ -1301,7 +1121,7 @@ export const getApiConfigurationSellingReasonsIdFn = async ({ id }: UseGetApiCon
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationSellingReasonsId = (args: UseGetApiConfigurationSellingReasonsIdArgs) => {
   const result = useQuery({
@@ -1325,9 +1145,7 @@ export const getApiConfigurationSupplierTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationSupplierTypes = () => {
   const result = useQuery({
@@ -1351,7 +1169,7 @@ export const getApiConfigurationSupplierTypesIdFn = async ({ id }: UseGetApiConf
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationSupplierTypesId = (args: UseGetApiConfigurationSupplierTypesIdArgs) => {
   const result = useQuery({
@@ -1375,9 +1193,7 @@ export const getApiConfigurationTaskTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationTaskTypes = () => {
   const result = useQuery({
@@ -1401,7 +1217,7 @@ export const getApiConfigurationTaskTypesIdFn = async ({ id }: UseGetApiConfigur
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationTaskTypesId = (args: UseGetApiConfigurationTaskTypesIdArgs) => {
   const result = useQuery({
@@ -1425,9 +1241,7 @@ export const getApiConfigurationTenancyLegalStatusesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationTenancyLegalStatuses = () => {
   const result = useQuery({
@@ -1453,7 +1267,7 @@ export const getApiConfigurationTenancyLegalStatusesIdFn = async ({
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationTenancyLegalStatusesId = (
   args: UseGetApiConfigurationTenancyLegalStatusesIdArgs,
@@ -1481,9 +1295,7 @@ export const getApiConfigurationTenancyRenewalOptionsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationTenancyRenewalOptions = (args: UseGetApiConfigurationTenancyRenewalOptionsArgs) => {
   const result = useQuery({
@@ -1509,7 +1321,7 @@ export const getApiConfigurationTenancyRenewalOptionsIdFn = async ({
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationTenancyRenewalOptionsId = (
   args: UseGetApiConfigurationTenancyRenewalOptionsIdArgs,
@@ -1537,9 +1349,7 @@ export const getApiConfigurationTenancyRenewalOptionConditionsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationTenancyRenewalOptionConditions = (
   args: UseGetApiConfigurationTenancyRenewalOptionConditionsArgs,
@@ -1567,7 +1377,7 @@ export const getApiConfigurationTenancyRenewalOptionConditionsIdFn = async ({
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationTenancyRenewalOptionConditionsId = (
   args: UseGetApiConfigurationTenancyRenewalOptionConditionsIdArgs,
@@ -1593,9 +1403,7 @@ export const getApiConfigurationTenancyTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationTenancyTypes = () => {
   const result = useQuery({
@@ -1619,7 +1427,7 @@ export const getApiConfigurationTenancyTypesIdFn = async ({ id }: UseGetApiConfi
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationTenancyTypesId = (args: UseGetApiConfigurationTenancyTypesIdArgs) => {
   const result = useQuery({
@@ -1643,9 +1451,7 @@ export const getApiConfigurationVendorTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationVendorTypes = () => {
   const result = useQuery({
@@ -1669,7 +1475,7 @@ export const getApiConfigurationVendorTypesIdFn = async ({ id }: UseGetApiConfig
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationVendorTypesId = (args: UseGetApiConfigurationVendorTypesIdArgs) => {
   const result = useQuery({
@@ -1693,9 +1499,7 @@ export const getApiConfigurationWorksOrderTypesFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .array(z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .parse(data)
+  return z.array(listItemModel).parse(data)
 }
 export const useGetApiConfigurationWorksOrderTypes = () => {
   const result = useQuery({
@@ -1719,7 +1523,7 @@ export const getApiConfigurationWorksOrderTypesIdFn = async ({ id }: UseGetApiCo
 
   const data = await res.json()
 
-  return z.object({ id: z.string().nullable().optional(), value: z.string().nullable().optional() }).parse(data)
+  return listItemModel.parse(data)
 }
 export const useGetApiConfigurationWorksOrderTypesId = (args: UseGetApiConfigurationWorksOrderTypesIdArgs) => {
   const result = useQuery({
@@ -1743,17 +1547,7 @@ export const getApiConfigurationTerminologyFn = async () => {
 
   const data = await res.json()
 
-  return z
-    .object({
-      properties: z
-        .object({
-          useSoldStc: z.boolean().nullable().optional(),
-          useMarketAppraisal: z.boolean().nullable().optional(),
-        })
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return terminologyModel.parse(data)
 }
 export const useGetApiConfigurationTerminology = () => {
   const result = useQuery({

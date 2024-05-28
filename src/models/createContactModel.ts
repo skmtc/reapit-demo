@@ -1,4 +1,6 @@
 import { z } from 'zod'
+import { createContactSourceModel, CreateContactSourceModel } from '@/models/createContactSourceModel.ts'
+import { createContactAddressModel, CreateContactAddressModel } from '@/models/createContactAddressModel.ts'
 
 /** Request body used to create a new contact */
 export const createContactModel = z.object({
@@ -8,14 +10,7 @@ export const createContactModel = z.object({
   /** The contact's date of birth */ dateOfBirth: z.string().nullable().optional(),
   /** A flag determining whether or not the contact is currently active */ active: z.boolean().nullable().optional(),
   /** The marketing consent status of the contact (grant/deny/notAsked) */ marketingConsent: z.string(),
-  /** Request body used to set the source of a new contact */
-  source: z
-    .object({
-      /** The unique identifier of the source of the contact */ id: z.string().nullable().optional(),
-      /** The source type (office/source) */ type: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
+  source: createContactSourceModel.nullable().optional(),
   /** The home phone number of the contact (Required when no other contact details are provided) */
   homePhone: z.string().nullable().optional(),
   /** The work phone number of the contact (Required when no other contact details are provided) */
@@ -29,54 +24,9 @@ export const createContactModel = z.object({
   /** A collection of unique identifiers of negotiators attached to the contact. The first item in the collection is considered the primary negotiator */
   negotiatorIds: z.array(z.string()),
   /** A collection of categories associated to the contact. */ categoryIds: z.array(z.string()).nullable().optional(),
-  /** Request body used to set an address against a new contact */
-  primaryAddress: z
-    .object({
-      /** The type of address (primary/secondary/home/work/forwarding/company/previous) */
-      type: z.string().nullable().optional(),
-      /** The building name */ buildingName: z.string().nullable().optional(),
-      /** The building number */ buildingNumber: z.string().nullable().optional(),
-      /** The first line of the address */ line1: z.string().nullable().optional(),
-      /** The second line of the address */ line2: z.string().nullable().optional(),
-      /** The third line of the address */ line3: z.string().nullable().optional(),
-      /** The fourth line of the address */ line4: z.string().nullable().optional(),
-      /** The postcode */ postcode: z.string().nullable().optional(),
-      /** The ISO-3166 country code that the address resides in */ countryId: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  /** Request body used to set an address against a new contact */
-  secondaryAddress: z
-    .object({
-      /** The type of address (primary/secondary/home/work/forwarding/company/previous) */
-      type: z.string().nullable().optional(),
-      /** The building name */ buildingName: z.string().nullable().optional(),
-      /** The building number */ buildingNumber: z.string().nullable().optional(),
-      /** The first line of the address */ line1: z.string().nullable().optional(),
-      /** The second line of the address */ line2: z.string().nullable().optional(),
-      /** The third line of the address */ line3: z.string().nullable().optional(),
-      /** The fourth line of the address */ line4: z.string().nullable().optional(),
-      /** The postcode */ postcode: z.string().nullable().optional(),
-      /** The ISO-3166 country code that the address resides in */ countryId: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  /** Request body used to set an address against a new contact */
-  workAddress: z
-    .object({
-      /** The type of address (primary/secondary/home/work/forwarding/company/previous) */
-      type: z.string().nullable().optional(),
-      /** The building name */ buildingName: z.string().nullable().optional(),
-      /** The building number */ buildingNumber: z.string().nullable().optional(),
-      /** The first line of the address */ line1: z.string().nullable().optional(),
-      /** The second line of the address */ line2: z.string().nullable().optional(),
-      /** The third line of the address */ line3: z.string().nullable().optional(),
-      /** The fourth line of the address */ line4: z.string().nullable().optional(),
-      /** The postcode */ postcode: z.string().nullable().optional(),
-      /** The ISO-3166 country code that the address resides in */ countryId: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
+  primaryAddress: createContactAddressModel.nullable().optional(),
+  secondaryAddress: createContactAddressModel.nullable().optional(),
+  workAddress: createContactAddressModel.nullable().optional(),
   /** A flag determining whether or not the contact is happy to receive communications by letter */
   communicationPreferenceLetter: z.boolean().nullable().optional(),
   /** A flag determining whether or not the contact is happy to receive communications by email */
@@ -96,12 +46,7 @@ export type CreateContactModel = {
   dateOfBirth?: /** The contact's date of birth */ string | undefined
   active?: /** A flag determining whether or not the contact is currently active */ boolean | undefined
   marketingConsent: /** The marketing consent status of the contact (grant/deny/notAsked) */ string
-  source?: /** Request body used to set the source of a new contact */
-  | {
-        id?: /** The unique identifier of the source of the contact */ string | undefined
-        type?: /** The source type (office/source) */ string | undefined
-      }
-    | undefined
+  source?: CreateContactSourceModel | undefined
   homePhone?: /** The home phone number of the contact (Required when no other contact details are provided) */
   string | undefined
   workPhone?: /** The work phone number of the contact (Required when no other contact details are provided) */
@@ -115,45 +60,9 @@ export type CreateContactModel = {
   negotiatorIds: /** A collection of unique identifiers of negotiators attached to the contact. The first item in the collection is considered the primary negotiator */
   Array<string>
   categoryIds?: /** A collection of categories associated to the contact. */ Array<string> | undefined
-  primaryAddress?: /** Request body used to set an address against a new contact */
-  | {
-        type?: /** The type of address (primary/secondary/home/work/forwarding/company/previous) */ string | undefined
-        buildingName?: /** The building name */ string | undefined
-        buildingNumber?: /** The building number */ string | undefined
-        line1?: /** The first line of the address */ string | undefined
-        line2?: /** The second line of the address */ string | undefined
-        line3?: /** The third line of the address */ string | undefined
-        line4?: /** The fourth line of the address */ string | undefined
-        postcode?: /** The postcode */ string | undefined
-        countryId?: /** The ISO-3166 country code that the address resides in */ string | undefined
-      }
-    | undefined
-  secondaryAddress?: /** Request body used to set an address against a new contact */
-  | {
-        type?: /** The type of address (primary/secondary/home/work/forwarding/company/previous) */ string | undefined
-        buildingName?: /** The building name */ string | undefined
-        buildingNumber?: /** The building number */ string | undefined
-        line1?: /** The first line of the address */ string | undefined
-        line2?: /** The second line of the address */ string | undefined
-        line3?: /** The third line of the address */ string | undefined
-        line4?: /** The fourth line of the address */ string | undefined
-        postcode?: /** The postcode */ string | undefined
-        countryId?: /** The ISO-3166 country code that the address resides in */ string | undefined
-      }
-    | undefined
-  workAddress?: /** Request body used to set an address against a new contact */
-  | {
-        type?: /** The type of address (primary/secondary/home/work/forwarding/company/previous) */ string | undefined
-        buildingName?: /** The building name */ string | undefined
-        buildingNumber?: /** The building number */ string | undefined
-        line1?: /** The first line of the address */ string | undefined
-        line2?: /** The second line of the address */ string | undefined
-        line3?: /** The third line of the address */ string | undefined
-        line4?: /** The fourth line of the address */ string | undefined
-        postcode?: /** The postcode */ string | undefined
-        countryId?: /** The ISO-3166 country code that the address resides in */ string | undefined
-      }
-    | undefined
+  primaryAddress?: CreateContactAddressModel | undefined
+  secondaryAddress?: CreateContactAddressModel | undefined
+  workAddress?: CreateContactAddressModel | undefined
   communicationPreferenceLetter?: /** A flag determining whether or not the contact is happy to receive communications by letter */
   boolean | undefined
   communicationPreferenceEmail?: /** A flag determining whether or not the contact is happy to receive communications by email */

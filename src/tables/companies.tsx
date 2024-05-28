@@ -1,133 +1,12 @@
-import { z } from 'zod'
+import { companyModel, CompanyModel } from '@/models/companyModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiCompanies, useGetApiCompaniesIdRelationships } from '@/services/companies.ts'
+import { companyRoleModel, CompanyRoleModel } from '@/models/companyRoleModel.ts'
 
-export const companiesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  branch: z.string().nullable().optional(),
-  notes: z.string().nullable().optional(),
-  active: z.boolean().nullable().optional(),
-  marketingConsent: z.string().nullable().optional(),
-  vatRegistered: z.boolean().nullable().optional(),
-  typeIds: z.array(z.string()).nullable().optional(),
-  supplierTypeId: z.string().nullable().optional(),
-  workPhone: z.string().nullable().optional(),
-  mobilePhone: z.string().nullable().optional(),
-  email: z.string().nullable().optional(),
-  archivedOn: z.string().nullable().optional(),
-  fromArchive: z.boolean().nullable().optional(),
-  address: z
-    .object({
-      buildingName: z.string().nullable().optional(),
-      buildingNumber: z.string().nullable().optional(),
-      line1: z.string().nullable().optional(),
-      line2: z.string().nullable().optional(),
-      line3: z.string().nullable().optional(),
-      line4: z.string().nullable().optional(),
-      postcode: z.string().nullable().optional(),
-      country: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  payments: z.object({ nominalAccountId: z.string().nullable().optional() }).nullable().optional(),
-  additionalContactDetails: z
-    .array(z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  officeIds: z.array(z.string()).nullable().optional(),
-  negotiatorIds: z.array(z.string()).nullable().optional(),
-  communicationPreferenceLetter: z.boolean().nullable().optional(),
-  communicationPreferenceEmail: z.boolean().nullable().optional(),
-  communicationPreferencePhone: z.boolean().nullable().optional(),
-  communicationPreferenceSms: z.boolean().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-  relationships: z
-    .array(
-      z.object({
-        _links: z
-          .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-          .nullable()
-          .optional(),
-        _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-        id: z.string().nullable().optional(),
-        created: z.string().nullable().optional(),
-        modified: z.string().nullable().optional(),
-        companyId: z.string().nullable().optional(),
-        associatedType: z.string().nullable().optional(),
-        associatedId: z.string().nullable().optional(),
-        fromArchive: z.boolean().nullable().optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-})
-export type CompaniesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  name?: string | undefined
-  branch?: string | undefined
-  notes?: string | undefined
-  active?: boolean | undefined
-  marketingConsent?: string | undefined
-  vatRegistered?: boolean | undefined
-  typeIds?: Array<string> | undefined
-  supplierTypeId?: string | undefined
-  workPhone?: string | undefined
-  mobilePhone?: string | undefined
-  email?: string | undefined
-  archivedOn?: string | undefined
-  fromArchive?: boolean | undefined
-  address?:
-    | {
-        buildingName?: string | undefined
-        buildingNumber?: string | undefined
-        line1?: string | undefined
-        line2?: string | undefined
-        line3?: string | undefined
-        line4?: string | undefined
-        postcode?: string | undefined
-        country?: string | undefined
-      }
-    | undefined
-  payments?: { nominalAccountId?: string | undefined } | undefined
-  additionalContactDetails?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
-  officeIds?: Array<string> | undefined
-  negotiatorIds?: Array<string> | undefined
-  communicationPreferenceLetter?: boolean | undefined
-  communicationPreferenceEmail?: boolean | undefined
-  communicationPreferencePhone?: boolean | undefined
-  communicationPreferenceSms?: boolean | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-  relationships?:
-    | Array<{
-        _links?: Record<string, { href?: string | undefined }> | undefined
-        _embedded?: Record<string, Record<string, never>> | undefined
-        id?: string | undefined
-        created?: string | undefined
-        modified?: string | undefined
-        companyId?: string | undefined
-        associatedType?: string | undefined
-        associatedId?: string | undefined
-        fromArchive?: boolean | undefined
-      }>
-    | undefined
-}
 export type CompaniesArgs = {
   sortBy?: string | undefined
   embed?: Array<'companyTypes' | 'relationships'> | undefined
@@ -145,38 +24,13 @@ export type CompaniesArgs = {
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
   metadata?: Array<string> | undefined
-  columns: ColumnsList<CompaniesBody>
+  columns: ColumnsList<CompanyModel>
 }
-export const companiesIdRelationshipsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  companyId: z.string().nullable().optional(),
-  associatedType: z.string().nullable().optional(),
-  associatedId: z.string().nullable().optional(),
-  fromArchive: z.boolean().nullable().optional(),
-})
-export type CompaniesIdRelationshipsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  companyId?: string | undefined
-  associatedType?: string | undefined
-  associatedId?: string | undefined
-  fromArchive?: boolean | undefined
-}
-export type CompaniesIdRelationshipsArgs = { id: string; columns: ColumnsList<CompaniesIdRelationshipsBody> }
+export type CompaniesIdRelationshipsArgs = { id: string; columns: ColumnsList<CompanyRoleModel> }
 
-export const companiesColumnHelper = createColumnHelper<CompaniesBody>()
+export const companiesColumnHelper = createColumnHelper<CompanyModel>()
 
-export const getCompaniesColumn = (property: string, modelConfig: ModelConfig<CompaniesBody>) => {
+export const getCompaniesColumn = (property: string, modelConfig: ModelConfig<CompanyModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -486,12 +340,9 @@ export const useCompaniesTable = (args: CompaniesArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const companiesIdRelationshipsColumnHelper = createColumnHelper<CompaniesIdRelationshipsBody>()
+export const companiesIdRelationshipsColumnHelper = createColumnHelper<CompanyRoleModel>()
 
-export const getCompaniesIdRelationshipsColumn = (
-  property: string,
-  modelConfig: ModelConfig<CompaniesIdRelationshipsBody>,
-) => {
+export const getCompaniesIdRelationshipsColumn = (property: string, modelConfig: ModelConfig<CompanyRoleModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

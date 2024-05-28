@@ -1,33 +1,24 @@
-import {
-  createPropertyModel,
-  CreatePropertyModel,
-  createCertificateModel,
-  CreateCertificateModel,
-  createKeyModel,
-  CreateKeyModel,
-  createKeyMovementModel,
-  CreateKeyMovementModel,
-  keyMovementModel,
-  KeyMovementModel,
-  createPropertyCheckModel,
-  CreatePropertyCheckModel,
-  createPropertyAppraisalModel,
-  CreatePropertyAppraisalModel,
-} from '@/index.generated.ts'
+import { createPropertyModel, CreatePropertyModel } from '@/models/createPropertyModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import {
-  usePostApiProperties,
-  usePostApiPropertiesIdCertificates,
-  usePostApiPropertiesIdKeys,
-  usePostApiPropertiesIdKeysKeyIdMovements,
-  usePutApiPropertiesIdKeysKeyIdMovementsMovementId,
-  usePostApiPropertiesIdChecks,
-  usePostApiPropertiesIdAppraisals,
+  useCreateProperty,
+  useCreatePropertyCertificate,
+  useCreatePropertyKey,
+  useCreatePropertyKeyMovement,
+  useUpdatePropertyKeyMovement,
+  useCreatePropertyCheck,
+  useCreatePropertyAppraisal,
 } from '@/services/properties.ts'
+import { createCertificateModel, CreateCertificateModel } from '@/models/createCertificateModel.ts'
+import { createKeyModel, CreateKeyModel } from '@/models/createKeyModel.ts'
+import { createKeyMovementModel, CreateKeyMovementModel } from '@/models/createKeyMovementModel.ts'
+import { keyMovementModel, KeyMovementModel } from '@/models/keyMovementModel.ts'
+import { createPropertyCheckModel, CreatePropertyCheckModel } from '@/models/createPropertyCheckModel.ts'
+import { createPropertyAppraisalModel, CreatePropertyAppraisalModel } from '@/models/createPropertyAppraisalModel.ts'
 
 export type CreatePropertiesProps = { children: (control: Control<CreatePropertyModel>) => ReactNode }
 export type CreatePropertiesIdCertificatesProps = {
@@ -60,7 +51,7 @@ export const CreateProperties = (props: CreatePropertiesProps) => {
     resolver: zodResolver(createPropertyModel),
   })
 
-  const mutator = usePostApiProperties()
+  const mutator = useCreateProperty()
 
   return (
     <Box
@@ -95,7 +86,7 @@ export const CreatePropertiesIdCertificates = (props: CreatePropertiesIdCertific
     resolver: zodResolver(createCertificateModel),
   })
 
-  const mutator = usePostApiPropertiesIdCertificates()
+  const mutator = useCreatePropertyCertificate()
 
   return (
     <Box
@@ -130,7 +121,7 @@ export const CreatePropertiesIdKeys = (props: CreatePropertiesIdKeysProps) => {
     resolver: zodResolver(createKeyModel),
   })
 
-  const mutator = usePostApiPropertiesIdKeys()
+  const mutator = useCreatePropertyKey()
 
   return (
     <Box
@@ -165,7 +156,7 @@ export const CreatePropertiesIdKeysKeyIdMovements = (props: CreatePropertiesIdKe
     resolver: zodResolver(createKeyMovementModel),
   })
 
-  const mutator = usePostApiPropertiesIdKeysKeyIdMovements()
+  const mutator = useCreatePropertyKeyMovement()
 
   return (
     <Box
@@ -202,7 +193,7 @@ export const UpdatePropertiesIdKeysKeyIdMovementsMovementId = (
     resolver: zodResolver(keyMovementModel),
   })
 
-  const mutator = usePutApiPropertiesIdKeysKeyIdMovementsMovementId()
+  const mutator = useUpdatePropertyKeyMovement()
 
   return (
     <Box
@@ -237,7 +228,7 @@ export const CreatePropertiesIdChecks = (props: CreatePropertiesIdChecksProps) =
     resolver: zodResolver(createPropertyCheckModel),
   })
 
-  const mutator = usePostApiPropertiesIdChecks()
+  const mutator = useCreatePropertyCheck()
 
   return (
     <Box
@@ -272,7 +263,7 @@ export const CreatePropertiesIdAppraisals = (props: CreatePropertiesIdAppraisals
     resolver: zodResolver(createPropertyAppraisalModel),
   })
 
-  const mutator = usePostApiPropertiesIdAppraisals()
+  const mutator = useCreatePropertyAppraisal()
 
   return (
     <Box

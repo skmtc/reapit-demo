@@ -1,4 +1,16 @@
 import { z } from 'zod'
+import {
+  createAppointmentAttendeeModel,
+  CreateAppointmentAttendeeModel,
+} from '@/models/createAppointmentAttendeeModel.ts'
+import {
+  createAppointmentRecurrenceModel,
+  CreateAppointmentRecurrenceModel,
+} from '@/models/createAppointmentRecurrenceModel.ts'
+import {
+  createAppointmentDocumentModel,
+  CreateAppointmentDocumentModel,
+} from '@/models/createAppointmentDocumentModel.ts'
 
 /** Request body used to create a new calendar appointment */
 export const createAppointmentModel = z.object({
@@ -13,14 +25,7 @@ export const createAppointmentModel = z.object({
   negotiatorIds: z.array(z.string()).nullable().optional(),
   /** A collection of unique identifiers of offices attached to the appointment. The first item in the collection is considered the primary office */
   officeIds: z.array(z.string()).nullable().optional(),
-  /** Represents an external attendee on an appointment */
-  attendee: z
-    .object({
-      /** The unique identifier of the attendee */ id: z.string().nullable().optional(),
-      /** The type of attendee (applicant/contact/landlord/tenant) */ type: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
+  attendee: createAppointmentAttendeeModel.nullable().optional(),
   /** The unique identifier of the property related to the appointment */ propertyId: z.string().nullable().optional(),
   /** The unique identifier of the external company either carrying out or attending the appointment with the agent */
   otherAgentId: z.string().nullable().optional(),
@@ -36,28 +41,8 @@ export const createAppointmentModel = z.object({
   /** A flag denoting whether or not the appointment is a subsequent appointment to a previous one (a repeat appointment for the same attendee) */
   isRepeat: z.boolean().nullable().optional(),
   /** The attendance status of the appointment (notSet/noShow/attended) */ attended: z.string().nullable().optional(),
-  /** Details of an appointment's recurrence pattern */
-  recurrence: z
-    .object({
-      /** The numeric value denoting how often the appointment will recur */
-      interval: z.number().int().nullable().optional(),
-      /** The type of unit that the `interval` applies to (daily/weekly/yearly/monthly) */
-      type: z.string().nullable().optional(),
-      /** The date and time of the last occurrence of the appointment. (Required if 'type' is provided) */
-      until: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  /** A view of the documents associated to the appointment */
-  documents: z
-    .object({
-      /** The unique identifier of the draft property inspection report document */
-      draftPropertyInspectionReportId: z.string().nullable().optional(),
-      /** The unique identifier of the final property inspection report document */
-      finalPropertyInspectionReportId: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
+  recurrence: createAppointmentRecurrenceModel.nullable().optional(),
+  documents: createAppointmentDocumentModel.nullable().optional(),
   /** App specific metadata to set against the appointment */
   metadata: z.record(z.string(), z.object({})).nullable().optional(),
 })
@@ -73,12 +58,7 @@ export type CreateAppointmentModel = {
   Array<string> | undefined
   officeIds?: /** A collection of unique identifiers of offices attached to the appointment. The first item in the collection is considered the primary office */
   Array<string> | undefined
-  attendee?: /** Represents an external attendee on an appointment */
-  | {
-        id?: /** The unique identifier of the attendee */ string | undefined
-        type?: /** The type of attendee (applicant/contact/landlord/tenant) */ string | undefined
-      }
-    | undefined
+  attendee?: CreateAppointmentAttendeeModel | undefined
   propertyId?: /** The unique identifier of the property related to the appointment */ string | undefined
   otherAgentId?: /** The unique identifier of the external company either carrying out or attending the appointment with the agent */
   string | undefined
@@ -94,22 +74,8 @@ export type CreateAppointmentModel = {
   isRepeat?: /** A flag denoting whether or not the appointment is a subsequent appointment to a previous one (a repeat appointment for the same attendee) */
   boolean | undefined
   attended?: /** The attendance status of the appointment (notSet/noShow/attended) */ string | undefined
-  recurrence?: /** Details of an appointment's recurrence pattern */
-  | {
-        interval?: /** The numeric value denoting how often the appointment will recur */ number | undefined
-        type?: /** The type of unit that the `interval` applies to (daily/weekly/yearly/monthly) */ string | undefined
-        until?: /** The date and time of the last occurrence of the appointment. (Required if 'type' is provided) */
-        string | undefined
-      }
-    | undefined
-  documents?: /** A view of the documents associated to the appointment */
-  | {
-        draftPropertyInspectionReportId?: /** The unique identifier of the draft property inspection report document */
-        string | undefined
-        finalPropertyInspectionReportId?: /** The unique identifier of the final property inspection report document */
-        string | undefined
-      }
-    | undefined
+  recurrence?: CreateAppointmentRecurrenceModel | undefined
+  documents?: CreateAppointmentDocumentModel | undefined
   metadata?: /** App specific metadata to set against the appointment */
   Record<string, Record<string, never>> | undefined
 }

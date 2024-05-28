@@ -1,106 +1,11 @@
-import { z } from 'zod'
+import { enquiryModel, EnquiryModel } from '@/models/enquiryModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiEnquiries } from '@/services/enquiries.ts'
 
-export const enquiriesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.number().int().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  title: z.string().nullable().optional(),
-  forename: z.string().nullable().optional(),
-  surname: z.string().nullable().optional(),
-  enquiryType: z.string().nullable().optional(),
-  message: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  marketingConsent: z.string().nullable().optional(),
-  position: z.string().nullable().optional(),
-  officeId: z.string().nullable().optional(),
-  applicantId: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  sourceName: z.string().nullable().optional(),
-  homePhone: z.string().nullable().optional(),
-  workPhone: z.string().nullable().optional(),
-  mobilePhone: z.string().nullable().optional(),
-  email: z.string().nullable().optional(),
-  address: z
-    .object({
-      buildingName: z.string().nullable().optional(),
-      buildingNumber: z.string().nullable().optional(),
-      line1: z.string().nullable().optional(),
-      line2: z.string().nullable().optional(),
-      line3: z.string().nullable().optional(),
-      line4: z.string().nullable().optional(),
-      postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  buying: z
-    .object({ priceFrom: z.number().int().nullable().optional(), priceTo: z.number().int().nullable().optional() })
-    .nullable()
-    .optional(),
-  renting: z
-    .object({
-      rentFrom: z.number().nullable().optional(),
-      rentTo: z.number().nullable().optional(),
-      rentFrequency: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  bedrooms: z.number().int().nullable().optional(),
-  propertyIds: z.array(z.string()).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type EnquiriesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: number | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  title?: string | undefined
-  forename?: string | undefined
-  surname?: string | undefined
-  enquiryType?: string | undefined
-  message?: string | undefined
-  status?: string | undefined
-  marketingConsent?: string | undefined
-  position?: string | undefined
-  officeId?: string | undefined
-  applicantId?: string | undefined
-  negotiatorId?: string | undefined
-  sourceName?: string | undefined
-  homePhone?: string | undefined
-  workPhone?: string | undefined
-  mobilePhone?: string | undefined
-  email?: string | undefined
-  address?:
-    | {
-        buildingName?: string | undefined
-        buildingNumber?: string | undefined
-        line1?: string | undefined
-        line2?: string | undefined
-        line3?: string | undefined
-        line4?: string | undefined
-        postcode?: string | undefined
-        countryId?: string | undefined
-      }
-    | undefined
-  buying?: { priceFrom?: number | undefined; priceTo?: number | undefined } | undefined
-  renting?:
-    | { rentFrom?: number | undefined; rentTo?: number | undefined; rentFrequency?: string | undefined }
-    | undefined
-  bedrooms?: number | undefined
-  propertyIds?: Array<string> | undefined
-  _eTag?: string | undefined
-}
 export type EnquiriesArgs = {
   sortBy?: string | undefined
   enquiryType?: string | undefined
@@ -108,12 +13,12 @@ export type EnquiriesArgs = {
   createdTo?: string | undefined
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
-  columns: ColumnsList<EnquiriesBody>
+  columns: ColumnsList<EnquiryModel>
 }
 
-export const enquiriesColumnHelper = createColumnHelper<EnquiriesBody>()
+export const enquiriesColumnHelper = createColumnHelper<EnquiryModel>()
 
-export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<EnquiriesBody>) => {
+export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<EnquiryModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

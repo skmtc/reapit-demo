@@ -1,109 +1,12 @@
-import { z } from 'zod'
+import { worksOrderModel, WorksOrderModel } from '@/models/worksOrderModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiWorksOrders, useGetApiWorksOrdersIdItems } from '@/services/worksorders.ts'
+import { worksOrderItemModel, WorksOrderItemModel } from '@/models/worksOrderItemModel.ts'
 
-export const worksOrdersBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  companyId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  tenancyId: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  typeId: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  reporter: z.string().nullable().optional(),
-  priority: z.string().nullable().optional(),
-  booked: z.string().nullable().optional(),
-  required: z.string().nullable().optional(),
-  completed: z.string().nullable().optional(),
-  totalNetAmount: z.number().nullable().optional(),
-  totalVatAmount: z.number().nullable().optional(),
-  totalGrossAmount: z.number().nullable().optional(),
-  items: z
-    .array(
-      z.object({
-        _links: z
-          .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-          .nullable()
-          .optional(),
-        _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-        id: z.string().nullable().optional(),
-        worksOrderId: z.string().nullable().optional(),
-        created: z.string().nullable().optional(),
-        modified: z.string().nullable().optional(),
-        notes: z.string().nullable().optional(),
-        chargeTo: z.string().nullable().optional(),
-        estimate: z.number().nullable().optional(),
-        estimateType: z.string().nullable().optional(),
-        netAmount: z.number().nullable().optional(),
-        vatAmount: z.number().nullable().optional(),
-        grossAmount: z.number().nullable().optional(),
-        reserveAmount: z.number().nullable().optional(),
-        nominalAccountId: z.string().nullable().optional(),
-        _eTag: z.string().nullable().optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  extrasField: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type WorksOrdersBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  companyId?: string | undefined
-  propertyId?: string | undefined
-  tenancyId?: string | undefined
-  negotiatorId?: string | undefined
-  typeId?: string | undefined
-  status?: string | undefined
-  description?: string | undefined
-  reporter?: string | undefined
-  priority?: string | undefined
-  booked?: string | undefined
-  required?: string | undefined
-  completed?: string | undefined
-  totalNetAmount?: number | undefined
-  totalVatAmount?: number | undefined
-  totalGrossAmount?: number | undefined
-  items?:
-    | Array<{
-        _links?: Record<string, { href?: string | undefined }> | undefined
-        _embedded?: Record<string, Record<string, never>> | undefined
-        id?: string | undefined
-        worksOrderId?: string | undefined
-        created?: string | undefined
-        modified?: string | undefined
-        notes?: string | undefined
-        chargeTo?: string | undefined
-        estimate?: number | undefined
-        estimateType?: string | undefined
-        netAmount?: number | undefined
-        vatAmount?: number | undefined
-        grossAmount?: number | undefined
-        reserveAmount?: number | undefined
-        nominalAccountId?: string | undefined
-        _eTag?: string | undefined
-      }>
-    | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  extrasField?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-}
 export type WorksOrdersArgs = {
   sortBy?: string | undefined
   embed?: Array<'company' | 'documents' | 'negotiator' | 'property' | 'tenancy' | 'type'> | undefined
@@ -135,52 +38,13 @@ export type WorksOrdersArgs = {
   requiredFrom?: string | undefined
   requiredTo?: string | undefined
   metadata?: Array<string> | undefined
-  columns: ColumnsList<WorksOrdersBody>
+  columns: ColumnsList<WorksOrderModel>
 }
-export const worksOrdersIdItemsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  worksOrderId: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  notes: z.string().nullable().optional(),
-  chargeTo: z.string().nullable().optional(),
-  estimate: z.number().nullable().optional(),
-  estimateType: z.string().nullable().optional(),
-  netAmount: z.number().nullable().optional(),
-  vatAmount: z.number().nullable().optional(),
-  grossAmount: z.number().nullable().optional(),
-  reserveAmount: z.number().nullable().optional(),
-  nominalAccountId: z.string().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type WorksOrdersIdItemsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  worksOrderId?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  notes?: string | undefined
-  chargeTo?: string | undefined
-  estimate?: number | undefined
-  estimateType?: string | undefined
-  netAmount?: number | undefined
-  vatAmount?: number | undefined
-  grossAmount?: number | undefined
-  reserveAmount?: number | undefined
-  nominalAccountId?: string | undefined
-  _eTag?: string | undefined
-}
-export type WorksOrdersIdItemsArgs = { id: string; columns: ColumnsList<WorksOrdersIdItemsBody> }
+export type WorksOrdersIdItemsArgs = { id: string; columns: ColumnsList<WorksOrderItemModel> }
 
-export const worksOrdersColumnHelper = createColumnHelper<WorksOrdersBody>()
+export const worksOrdersColumnHelper = createColumnHelper<WorksOrderModel>()
 
-export const getWorksOrdersColumn = (property: string, modelConfig: ModelConfig<WorksOrdersBody>) => {
+export const getWorksOrdersColumn = (property: string, modelConfig: ModelConfig<WorksOrderModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -436,9 +300,9 @@ export const useWorksOrdersTable = (args: WorksOrdersArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const worksOrdersIdItemsColumnHelper = createColumnHelper<WorksOrdersIdItemsBody>()
+export const worksOrdersIdItemsColumnHelper = createColumnHelper<WorksOrderItemModel>()
 
-export const getWorksOrdersIdItemsColumn = (property: string, modelConfig: ModelConfig<WorksOrdersIdItemsBody>) => {
+export const getWorksOrdersIdItemsColumn = (property: string, modelConfig: ModelConfig<WorksOrderItemModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

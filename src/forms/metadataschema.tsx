@@ -1,15 +1,11 @@
-import {
-  updateSchemaRequest,
-  UpdateSchemaRequest,
-  createSchemaRequest,
-  CreateSchemaRequest,
-} from '@/index.generated.ts'
+import { updateSchemaRequest, UpdateSchemaRequest } from '@/models/updateSchemaRequest.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePutApiMetadataMetadataSchemaId, usePostApiMetadataMetadataSchema } from '@/services/metadataschema.ts'
+import { useUpdateMetadataSchema, useCreateMetadataSchema } from '@/services/metadataschema.ts'
+import { createSchemaRequest, CreateSchemaRequest } from '@/models/createSchemaRequest.ts'
 
 export type UpdateMetadataMetadataSchemaIdProps = {
   id: string
@@ -22,7 +18,7 @@ export const UpdateMetadataMetadataSchemaId = (props: UpdateMetadataMetadataSche
     resolver: zodResolver(updateSchemaRequest),
   })
 
-  const mutator = usePutApiMetadataMetadataSchemaId()
+  const mutator = useUpdateMetadataSchema()
 
   return (
     <Box
@@ -57,7 +53,7 @@ export const CreateMetadataMetadataSchema = (props: CreateMetadataMetadataSchema
     resolver: zodResolver(createSchemaRequest),
   })
 
-  const mutator = usePostApiMetadataMetadataSchema()
+  const mutator = useCreateMetadataSchema()
 
   return (
     <Box

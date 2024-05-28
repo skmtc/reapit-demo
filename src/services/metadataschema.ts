@@ -1,7 +1,11 @@
-import { z } from 'zod'
+import { schemaModel } from '@/models/schemaModel.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { UpdateSchemaRequest } from '@/models/updateSchemaRequest.ts'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { schemaModelPagedResult } from '@/models/schemaModelPagedResult.ts'
+import { CreateSchemaRequest } from '@/models/createSchemaRequest.ts'
 
 export type UseGetApiMetadataMetadataSchemaIdArgs = { id: string }
 export const getApiMetadataMetadataSchemaIdFn = async ({ id }: UseGetApiMetadataMetadataSchemaIdArgs) => {
@@ -17,13 +21,7 @@ export const getApiMetadataMetadataSchemaIdFn = async ({ id }: UseGetApiMetadata
 
   const data = await res.json()
 
-  return z
-    .object({
-      id: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      schema: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return schemaModel.parse(data)
 }
 export const useGetApiMetadataMetadataSchemaId = (args: UseGetApiMetadataMetadataSchemaIdArgs) => {
   const result = useQuery({
@@ -33,11 +31,8 @@ export const useGetApiMetadataMetadataSchemaId = (args: UseGetApiMetadataMetadat
 
   return result
 }
-export type UsePutApiMetadataMetadataSchemaIdArgs = {
-  id: string
-  body: /** Payload to update a JSON schema */ { schema: /** The updated JSON schema to store */ string }
-}
-export const putApiMetadataMetadataSchemaIdFn = async ({ id, body }: UsePutApiMetadataMetadataSchemaIdArgs) => {
+export type UseUpdateMetadataSchemaArgs = { id: string; body: UpdateSchemaRequest }
+export const updateMetadataSchemaFn = async ({ id, body }: UseUpdateMetadataSchemaArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/metadata/metadataSchema/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -55,12 +50,12 @@ export const putApiMetadataMetadataSchemaIdFn = async ({ id, body }: UsePutApiMe
 
   return z.void().parse(data)
 }
-export const usePutApiMetadataMetadataSchemaId = () => {
+export const useUpdateMetadataSchema = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: putApiMetadataMetadataSchemaIdFn,
+    mutationFn: updateMetadataSchemaFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -92,29 +87,7 @@ export const getApiMetadataMetadataSchemaFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            id: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            schema: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return schemaModelPagedResult.parse(data)
 }
 export const useGetApiMetadataMetadataSchema = (args: UseGetApiMetadataMetadataSchemaArgs) => {
   const result = useQuery({
@@ -125,14 +98,8 @@ export const useGetApiMetadataMetadataSchema = (args: UseGetApiMetadataMetadataS
 
   return result
 }
-export type UsePostApiMetadataMetadataSchemaArgs = {
-  body: /** Payload to create a JSON schema for metadata validation */
-  {
-    entityType: /** The name of the entity type that this schema is related to */ string
-    schema: /** The JSON schema used to validate entities of this type */ string
-  }
-}
-export const postApiMetadataMetadataSchemaFn = async ({ body }: UsePostApiMetadataMetadataSchemaArgs) => {
+export type UseCreateMetadataSchemaArgs = { body: CreateSchemaRequest }
+export const createMetadataSchemaFn = async ({ body }: UseCreateMetadataSchemaArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/metadata/metadataSchema${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -150,12 +117,12 @@ export const postApiMetadataMetadataSchemaFn = async ({ body }: UsePostApiMetada
 
   return z.void().parse(data)
 }
-export const usePostApiMetadataMetadataSchema = () => {
+export const useCreateMetadataSchema = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiMetadataMetadataSchemaFn,
+    mutationFn: createMetadataSchemaFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

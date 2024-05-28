@@ -1,55 +1,11 @@
-import { z } from 'zod'
+import { taskModel, TaskModel } from '@/models/taskModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiTasks } from '@/services/tasks.ts'
 
-export const tasksBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  activates: z.string().nullable().optional(),
-  completed: z.string().nullable().optional(),
-  typeId: z.string().nullable().optional(),
-  senderId: z.string().nullable().optional(),
-  text: z.string().nullable().optional(),
-  landlordId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  applicantId: z.string().nullable().optional(),
-  tenancyId: z.string().nullable().optional(),
-  contactId: z.string().nullable().optional(),
-  recipientId: z.string().nullable().optional(),
-  recipientType: z.string().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type TasksBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  activates?: string | undefined
-  completed?: string | undefined
-  typeId?: string | undefined
-  senderId?: string | undefined
-  text?: string | undefined
-  landlordId?: string | undefined
-  propertyId?: string | undefined
-  applicantId?: string | undefined
-  tenancyId?: string | undefined
-  contactId?: string | undefined
-  recipientId?: string | undefined
-  recipientType?: string | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-}
 export type TasksArgs = {
   sortBy?: string | undefined
   embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | undefined
@@ -70,12 +26,12 @@ export type TasksArgs = {
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
   metadata?: Array<string> | undefined
-  columns: ColumnsList<TasksBody>
+  columns: ColumnsList<TaskModel>
 }
 
-export const tasksColumnHelper = createColumnHelper<TasksBody>()
+export const tasksColumnHelper = createColumnHelper<TaskModel>()
 
-export const getTasksColumn = (property: string, modelConfig: ModelConfig<TasksBody>) => {
+export const getTasksColumn = (property: string, modelConfig: ModelConfig<TaskModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

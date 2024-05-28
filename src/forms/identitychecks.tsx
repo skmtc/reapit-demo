@@ -1,15 +1,11 @@
-import {
-  createIdentityCheckModel,
-  CreateIdentityCheckModel,
-  createPreSignedUrlsModel,
-  CreatePreSignedUrlsModel,
-} from '@/index.generated.ts'
+import { createIdentityCheckModel, CreateIdentityCheckModel } from '@/models/createIdentityCheckModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiIdentityChecks, usePostApiIdentityChecksSignedUrl } from '@/services/identitychecks.ts'
+import { useCreateIdentityCheck, useCreateIdentityCheckSignedUrl } from '@/services/identitychecks.ts'
+import { createPreSignedUrlsModel, CreatePreSignedUrlsModel } from '@/models/createPreSignedUrlsModel.ts'
 
 export type CreateIdentityChecksProps = { children: (control: Control<CreateIdentityCheckModel>) => ReactNode }
 export type CreateIdentityChecksSignedUrlProps = { children: (control: Control<CreatePreSignedUrlsModel>) => ReactNode }
@@ -19,7 +15,7 @@ export const CreateIdentityChecks = (props: CreateIdentityChecksProps) => {
     resolver: zodResolver(createIdentityCheckModel),
   })
 
-  const mutator = usePostApiIdentityChecks()
+  const mutator = useCreateIdentityCheck()
 
   return (
     <Box
@@ -54,7 +50,7 @@ export const CreateIdentityChecksSignedUrl = (props: CreateIdentityChecksSignedU
     resolver: zodResolver(createPreSignedUrlsModel),
   })
 
-  const mutator = usePostApiIdentityChecksSignedUrl()
+  const mutator = useCreateIdentityCheckSignedUrl()
 
   return (
     <Box

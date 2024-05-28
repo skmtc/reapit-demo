@@ -1,7 +1,11 @@
-import { z } from 'zod'
+import { sourceModelPagedResult } from '@/models/sourceModelPagedResult.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateSourceModel } from '@/models/createSourceModel.ts'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { sourceModel } from '@/models/sourceModel.ts'
+import { UpdateSourceModel } from '@/models/updateSourceModel.ts'
 
 export type UseGetApiSourcesArgs = {
   pageSize?: number | undefined
@@ -45,39 +49,7 @@ export const getApiSourcesFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            name: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            officeIds: z.array(z.string()).nullable().optional(),
-            departmentIds: z.array(z.string()).nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return sourceModelPagedResult.parse(data)
 }
 export const useGetApiSources = (args: UseGetApiSourcesArgs) => {
   const result = useQuery({
@@ -88,18 +60,8 @@ export const useGetApiSources = (args: UseGetApiSourcesArgs) => {
 
   return result
 }
-export type UsePostApiSourcesArgs = {
-  body: /** Request body used to create a new source of business */
-  {
-    name: /** The name of the source or advertising publication */ string
-    type: /** The type of the source (source/advertisement) */ string
-    officeIds?: /** A collection of the unique identifiers of offices that regularly get business from the source */
-    Array<string> | undefined
-    departmentIds?: /** A collection of unique identifiers of departments that regularly get business from the source */
-    Array<string> | undefined
-  }
-}
-export const postApiSourcesFn = async ({ body }: UsePostApiSourcesArgs) => {
+export type UseCreateSourceArgs = { body: CreateSourceModel }
+export const createSourceFn = async ({ body }: UseCreateSourceArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/sources/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -117,12 +79,12 @@ export const postApiSourcesFn = async ({ body }: UsePostApiSourcesArgs) => {
 
   return z.void().parse(data)
 }
-export const usePostApiSources = () => {
+export const useCreateSource = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiSourcesFn,
+    mutationFn: createSourceFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -144,23 +106,7 @@ export const getApiSourcesIdFn = async ({ id }: UseGetApiSourcesIdArgs) => {
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      name: z.string().nullable().optional(),
-      type: z.string().nullable().optional(),
-      officeIds: z.array(z.string()).nullable().optional(),
-      departmentIds: z.array(z.string()).nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return sourceModel.parse(data)
 }
 export const useGetApiSourcesId = (args: UseGetApiSourcesIdArgs) => {
   const result = useQuery({
@@ -170,19 +116,7 @@ export const useGetApiSourcesId = (args: UseGetApiSourcesIdArgs) => {
 
   return result
 }
-export type UsePatchApiSourcesIdArgs = {
-  'If-Match'?: string
-  id: string
-  body: /** Request body used to update an existing source of business */
-  {
-    name?: /** The name of the source or advertising publication */ string | undefined
-    type?: /** The type of the source (source/advertisement) */ string | undefined
-    officeIds?: /** A collection of the unique identifiers of offices that regularly get business from the source */
-    Array<string> | undefined
-    departmentIds?: /** A collection of unique identifiers of departments that regularly get business from the source */
-    Array<string> | undefined
-  }
-}
+export type UsePatchApiSourcesIdArgs = { 'If-Match'?: string; id: string; body: UpdateSourceModel }
 export const patchApiSourcesIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiSourcesIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/sources/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,

@@ -1,7 +1,13 @@
-import { z } from 'zod'
+import { propertyImageModelPagedResult } from '@/models/propertyImageModelPagedResult.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreatePropertyImageModel } from '@/models/createPropertyImageModel.ts'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { propertyImageModel } from '@/models/propertyImageModel.ts'
+import { UpdatePropertyImageModel } from '@/models/updatePropertyImageModel.ts'
+import { CreatePreSignedUrlsModel, createPreSignedUrlsModel } from '@/models/createPreSignedUrlsModel.ts'
+import { ReindexPropertyImagesModel } from '@/models/reindexPropertyImagesModel.ts'
 
 export type UseGetApiPropertyImagesArgs = {
   pageSize?: number | undefined
@@ -47,41 +53,7 @@ export const getApiPropertyImagesFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            url: z.string().nullable().optional(),
-            caption: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            order: z.number().int().nullable().optional(),
-            fromArchive: z.boolean().nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return propertyImageModelPagedResult.parse(data)
 }
 export const useGetApiPropertyImages = (args: UseGetApiPropertyImagesArgs) => {
   const result = useQuery({
@@ -92,19 +64,8 @@ export const useGetApiPropertyImages = (args: UseGetApiPropertyImagesArgs) => {
 
   return result
 }
-export type UsePostApiPropertyImagesArgs = {
-  body: /** Request body used to create a new property image */
-  {
-    data?: /** The base64 encoded file content, prefixed with the content type (eg. data:image/jpeg;base64,VGVzdCBmaWxl) */
-    string | undefined
-    fileUrl?: /** The presigned s3 url which a property image has been uploaded to (This supports files up to 30MB) */
-    string | undefined
-    propertyId: /** The unique identifier of the property attached to the image */ string
-    caption: /** The image caption */ string
-    type: /** The type of image (photograph/floorPlan/epc/map) */ string
-  }
-}
-export const postApiPropertyImagesFn = async ({ body }: UsePostApiPropertyImagesArgs) => {
+export type UseCreatePropertyImageArgs = { body: CreatePropertyImageModel }
+export const createPropertyImageFn = async ({ body }: UseCreatePropertyImageArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -122,12 +83,12 @@ export const postApiPropertyImagesFn = async ({ body }: UsePostApiPropertyImages
 
   return z.void().parse(data)
 }
-export const usePostApiPropertyImages = () => {
+export const useCreatePropertyImage = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiPropertyImagesFn,
+    mutationFn: createPropertyImageFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -149,25 +110,7 @@ export const getApiPropertyImagesIdFn = async ({ id, embed }: UseGetApiPropertyI
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      propertyId: z.string().nullable().optional(),
-      url: z.string().nullable().optional(),
-      caption: z.string().nullable().optional(),
-      type: z.string().nullable().optional(),
-      order: z.number().int().nullable().optional(),
-      fromArchive: z.boolean().nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return propertyImageModel.parse(data)
 }
 export const useGetApiPropertyImagesId = (args: UseGetApiPropertyImagesIdArgs) => {
   const result = useQuery({
@@ -209,15 +152,7 @@ export const useDeleteApiPropertyImagesId = () => {
     },
   })
 }
-export type UsePatchApiPropertyImagesIdArgs = {
-  'If-Match'?: string
-  id: string
-  body: /** Request body used to update an existing property image */
-  {
-    caption?: /** The image caption */ string | undefined
-    type?: /** The type of image (photograph/floorPlan/epc/map) */ string | undefined
-  }
-}
+export type UsePatchApiPropertyImagesIdArgs = { 'If-Match'?: string; id: string; body: UpdatePropertyImageModel }
 export const patchApiPropertyImagesIdFn = async ({
   'If-Match': IfMatch,
   id,
@@ -253,11 +188,8 @@ export const usePatchApiPropertyImagesId = () => {
     },
   })
 }
-export type UsePostApiPropertyImagesSignedUrlArgs = {
-  body: /** Request body used to create pre signed urls to upload files between 6MB and 30MB */
-  { amount: /** The number of pre signed urls to create */ number }
-}
-export const postApiPropertyImagesSignedUrlFn = async ({ body }: UsePostApiPropertyImagesSignedUrlArgs) => {
+export type UseCreatePropertyImageSignedUrlArgs = { body: CreatePreSignedUrlsModel }
+export const createPropertyImageSignedUrlFn = async ({ body }: UseCreatePropertyImageSignedUrlArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -273,14 +205,14 @@ export const postApiPropertyImagesSignedUrlFn = async ({ body }: UsePostApiPrope
 
   const data = await res.json()
 
-  return z.object({ amount: z.number().int() }).parse(data)
+  return createPreSignedUrlsModel.parse(data)
 }
-export const usePostApiPropertyImagesSignedUrl = () => {
+export const useCreatePropertyImageSignedUrl = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiPropertyImagesSignedUrlFn,
+    mutationFn: createPropertyImageSignedUrlFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -288,16 +220,8 @@ export const usePostApiPropertyImagesSignedUrl = () => {
     },
   })
 }
-export type UsePostApiPropertyImagesReindexArgs = {
-  body: /** Request body used to reindex property images */
-  {
-    propertyId?: /** The unique identifier of the property to update */ string | undefined
-    imageOrder?: /** Ordered collection of image identifiers for the property.
-The first image in the collection will be set as the properties primary image. */
-    Array<string> | undefined
-  }
-}
-export const postApiPropertyImagesReindexFn = async ({ body }: UsePostApiPropertyImagesReindexArgs) => {
+export type UseReindexPropertyImagesArgs = { body: ReindexPropertyImagesModel }
+export const reindexPropertyImagesFn = async ({ body }: UseReindexPropertyImagesArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/reindex${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -315,12 +239,12 @@ export const postApiPropertyImagesReindexFn = async ({ body }: UsePostApiPropert
 
   return z.void().parse(data)
 }
-export const usePostApiPropertyImagesReindex = () => {
+export const useReindexPropertyImages = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiPropertyImagesReindexFn,
+    mutationFn: reindexPropertyImagesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

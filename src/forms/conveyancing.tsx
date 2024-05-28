@@ -1,10 +1,10 @@
-import { conveyancingModel, ConveyancingModel } from '@/index.generated.ts'
+import { conveyancingModel, ConveyancingModel } from '@/models/conveyancingModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiConveyancingIdDownward, usePostApiConveyancingIdUpward } from '@/services/conveyancing.ts'
+import { useCreateDownwardChain, useCreateUpwardChain } from '@/services/conveyancing.ts'
 
 export type CreateConveyancingIdDownwardProps = {
   id: string
@@ -20,7 +20,7 @@ export const CreateConveyancingIdDownward = (props: CreateConveyancingIdDownward
     resolver: zodResolver(conveyancingModel),
   })
 
-  const mutator = usePostApiConveyancingIdDownward()
+  const mutator = useCreateDownwardChain()
 
   return (
     <Box
@@ -55,7 +55,7 @@ export const CreateConveyancingIdUpward = (props: CreateConveyancingIdUpwardProp
     resolver: zodResolver(conveyancingModel),
   })
 
-  const mutator = usePostApiConveyancingIdUpward()
+  const mutator = useCreateUpwardChain()
 
   return (
     <Box

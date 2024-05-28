@@ -1,10 +1,10 @@
-import { createSourceModel, CreateSourceModel } from '@/index.generated.ts'
+import { createSourceModel, CreateSourceModel } from '@/models/createSourceModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiSources } from '@/services/sources.ts'
+import { useCreateSource } from '@/services/sources.ts'
 
 export type CreateSourcesProps = { children: (control: Control<CreateSourceModel>) => ReactNode }
 
@@ -13,7 +13,7 @@ export const CreateSources = (props: CreateSourcesProps) => {
     resolver: zodResolver(createSourceModel),
   })
 
-  const mutator = usePostApiSources()
+  const mutator = useCreateSource()
 
   return (
     <Box

@@ -1,56 +1,11 @@
-import { z } from 'zod'
+import { negotiatorModel, NegotiatorModel } from '@/models/negotiatorModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiNegotiators } from '@/services/negotiators.ts'
 
-export const negotiatorsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  jobTitle: z.string().nullable().optional(),
-  officeId: z.string().nullable().optional(),
-  workPhone: z.string().nullable().optional(),
-  mobilePhone: z.string().nullable().optional(),
-  email: z.string().nullable().optional(),
-  profileImageUrl: z.string().nullable().optional(),
-  active: z.boolean().nullable().optional(),
-  diaryNegotiatorIds: z.array(z.string()).nullable().optional(),
-  diaryOfficeIds: z.array(z.string()).nullable().optional(),
-  additionalContactDetails: z
-    .array(z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type NegotiatorsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  name?: string | undefined
-  jobTitle?: string | undefined
-  officeId?: string | undefined
-  workPhone?: string | undefined
-  mobilePhone?: string | undefined
-  email?: string | undefined
-  profileImageUrl?: string | undefined
-  active?: boolean | undefined
-  diaryNegotiatorIds?: Array<string> | undefined
-  diaryOfficeIds?: Array<string> | undefined
-  additionalContactDetails?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-}
 export type NegotiatorsArgs = {
   sortBy?: string | undefined
   embed?: Array<'office'> | undefined
@@ -64,12 +19,12 @@ export type NegotiatorsArgs = {
   modifiedTo?: string | undefined
   active?: boolean | undefined
   metadata?: Array<string> | undefined
-  columns: ColumnsList<NegotiatorsBody>
+  columns: ColumnsList<NegotiatorModel>
 }
 
-export const negotiatorsColumnHelper = createColumnHelper<NegotiatorsBody>()
+export const negotiatorsColumnHelper = createColumnHelper<NegotiatorModel>()
 
-export const getNegotiatorsColumn = (property: string, modelConfig: ModelConfig<NegotiatorsBody>) => {
+export const getNegotiatorsColumn = (property: string, modelConfig: ModelConfig<NegotiatorModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

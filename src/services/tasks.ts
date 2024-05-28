@@ -1,7 +1,11 @@
-import { z } from 'zod'
+import { taskModelPagedResult } from '@/models/taskModelPagedResult.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateTaskModel } from '@/models/createTaskModel.ts'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { taskModel } from '@/models/taskModel.ts'
+import { UpdateTaskModel } from '@/models/updateTaskModel.ts'
 
 export type UseGetApiTasksArgs = {
   pageSize?: number | undefined
@@ -63,48 +67,7 @@ export const getApiTasksFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            activates: z.string().nullable().optional(),
-            completed: z.string().nullable().optional(),
-            typeId: z.string().nullable().optional(),
-            senderId: z.string().nullable().optional(),
-            text: z.string().nullable().optional(),
-            landlordId: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            applicantId: z.string().nullable().optional(),
-            tenancyId: z.string().nullable().optional(),
-            contactId: z.string().nullable().optional(),
-            recipientId: z.string().nullable().optional(),
-            recipientType: z.string().nullable().optional(),
-            metadata: z.record(z.string(), z.object({})).nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return taskModelPagedResult.parse(data)
 }
 export const useGetApiTasks = (args: UseGetApiTasksArgs) => {
   const result = useQuery({
@@ -115,26 +78,8 @@ export const useGetApiTasks = (args: UseGetApiTasksArgs) => {
 
   return result
 }
-export type UsePostApiTasksArgs = {
-  body: /** Request body used to create a new task, which can also be an internal message */
-  {
-    activates?: /** The date the task becomes active (Required when 'TypeId' is given) */ string | undefined
-    completed?: /** The date the task was completed */ string | undefined
-    typeId?: /** The unique identifier of the task type */ string | undefined
-    senderId: /** The unique identifer of the negotiator that created the task */ string
-    text: /** The textual contents of the task or message */ string
-    landlordId?: /** The unique identifier of the landlord the task is associated to */ string | undefined
-    propertyId?: /** The unique identifier of the property the task is associated to */ string | undefined
-    applicantId?: /** The unique identifier of the applicant the task is associated to */ string | undefined
-    tenancyId?: /** The unique identifier of the tenancy the task is associated to */ string | undefined
-    contactId?: /** The unique identifier of the contact the task is associated to */ string | undefined
-    recipientId: /** The unique identifier of the negotiator or office the task is being sent to */ string
-    recipientType: /** The type of the recipient (office/negotiator) */ string
-    metadata?: /** App specific metadata that has been set against the task */
-    Record<string, Record<string, never>> | undefined
-  }
-}
-export const postApiTasksFn = async ({ body }: UsePostApiTasksArgs) => {
+export type UseCreateTaskArgs = { body: CreateTaskModel }
+export const createTaskFn = async ({ body }: UseCreateTaskArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tasks/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -152,12 +97,12 @@ export const postApiTasksFn = async ({ body }: UsePostApiTasksArgs) => {
 
   return z.void().parse(data)
 }
-export const usePostApiTasks = () => {
+export const useCreateTask = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiTasksFn,
+    mutationFn: createTaskFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -182,32 +127,7 @@ export const getApiTasksIdFn = async ({ id, embed }: UseGetApiTasksIdArgs) => {
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      activates: z.string().nullable().optional(),
-      completed: z.string().nullable().optional(),
-      typeId: z.string().nullable().optional(),
-      senderId: z.string().nullable().optional(),
-      text: z.string().nullable().optional(),
-      landlordId: z.string().nullable().optional(),
-      propertyId: z.string().nullable().optional(),
-      applicantId: z.string().nullable().optional(),
-      tenancyId: z.string().nullable().optional(),
-      contactId: z.string().nullable().optional(),
-      recipientId: z.string().nullable().optional(),
-      recipientType: z.string().nullable().optional(),
-      metadata: z.record(z.string(), z.object({})).nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return taskModel.parse(data)
 }
 export const useGetApiTasksId = (args: UseGetApiTasksIdArgs) => {
   const result = useQuery({
@@ -217,27 +137,7 @@ export const useGetApiTasksId = (args: UseGetApiTasksIdArgs) => {
 
   return result
 }
-export type UsePatchApiTasksIdArgs = {
-  'If-Match'?: string
-  id: string
-  body: /** Request body used to update an existing task, which can also be an internal message */
-  {
-    activates?: /** The date the task becomes active (Required when 'TypeId' is given) */ string | undefined
-    completed?: /** The date the task was completed */ string | undefined
-    typeId?: /** The unique identifier of the task type */ string | undefined
-    senderId?: /** The unique identifer of the negotiator that created the task */ string | undefined
-    text?: /** The textual contents of the task or message */ string | undefined
-    landlordId?: /** The unique identifier of the landlord the task is associated to */ string | undefined
-    propertyId?: /** The unique identifier of the property the task is associated to */ string | undefined
-    applicantId?: /** The unique identifier of the applicant the task is associated to */ string | undefined
-    tenancyId?: /** The unique identifier of the tenancy the task is associated to */ string | undefined
-    contactId?: /** The unique identifier of the contact the task is associated to */ string | undefined
-    recipientId?: /** The unique identifier of the negotiator or office the task is being sent to */ string | undefined
-    recipientType?: /** The type of the recipient (office/negotiator) */ string | undefined
-    metadata?: /** App specific metadata that has been set against the task */
-    Record<string, Record<string, never>> | undefined
-  }
-}
+export type UsePatchApiTasksIdArgs = { 'If-Match'?: string; id: string; body: UpdateTaskModel }
 export const patchApiTasksIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiTasksIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tasks/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,

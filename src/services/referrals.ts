@@ -1,7 +1,13 @@
-import { z } from 'zod'
+import { referralModelPagedResult } from '@/models/referralModelPagedResult.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateReferralModel } from '@/models/createReferralModel.ts'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { referralModel } from '@/models/referralModel.ts'
+import { UpdateReferralModel } from '@/models/updateReferralModel.ts'
+import { referralTypeModelPagedResult } from '@/models/referralTypeModelPagedResult.ts'
+import { referralTypeModel } from '@/models/referralTypeModel.ts'
 
 export type UseGetApiReferralsArgs = {
   id?: Array<string> | undefined
@@ -51,57 +57,7 @@ export const getApiReferralsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            referralTypeId: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            applicantId: z.string().nullable().optional(),
-            contactId: z.string().nullable().optional(),
-            status: z.string().nullable().optional(),
-            amount: z.number().nullable().optional(),
-            paid: z.string().nullable().optional(),
-            accepted: z.string().nullable().optional(),
-            related: z
-              .object({
-                id: z.string().nullable().optional(),
-                title: z.string().nullable().optional(),
-                forename: z.string().nullable().optional(),
-                surname: z.string().nullable().optional(),
-                mobilePhone: z.string().nullable().optional(),
-                email: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            metadata: z.record(z.string(), z.object({})).nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return referralModelPagedResult.parse(data)
 }
 export const useGetApiReferrals = (args: UseGetApiReferralsArgs) => {
   const result = useQuery({
@@ -112,18 +68,8 @@ export const useGetApiReferrals = (args: UseGetApiReferralsArgs) => {
 
   return result
 }
-export type UsePostApiReferralsArgs = {
-  body: /** Create Referral Model */
-  {
-    referralTypeId: /** The unique identifier of the referral type */ string
-    negotiatorId?: /** The unique identifier of the negotiator creating the referral */ string | undefined
-    propertyId?: /** The unique identifier of the property */ string | undefined
-    applicantId?: /** The unique identifier of the applicant */ string | undefined
-    contactId: /** The unique identifier of the contact that has been referred */ string
-    amount?: /** The amount paid to the agent for the referral */ number | undefined
-  }
-}
-export const postApiReferralsFn = async ({ body }: UsePostApiReferralsArgs) => {
+export type UseCreateReferralArgs = { body: CreateReferralModel }
+export const createReferralFn = async ({ body }: UseCreateReferralArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/referrals/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -141,12 +87,12 @@ export const postApiReferralsFn = async ({ body }: UsePostApiReferralsArgs) => {
 
   return z.void().parse(data)
 }
-export const usePostApiReferrals = () => {
+export const useCreateReferral = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiReferralsFn,
+    mutationFn: createReferralFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -171,41 +117,7 @@ export const getApiReferralsIdFn = async ({ id, embed }: UseGetApiReferralsIdArg
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      referralTypeId: z.string().nullable().optional(),
-      type: z.string().nullable().optional(),
-      negotiatorId: z.string().nullable().optional(),
-      propertyId: z.string().nullable().optional(),
-      applicantId: z.string().nullable().optional(),
-      contactId: z.string().nullable().optional(),
-      status: z.string().nullable().optional(),
-      amount: z.number().nullable().optional(),
-      paid: z.string().nullable().optional(),
-      accepted: z.string().nullable().optional(),
-      related: z
-        .object({
-          id: z.string().nullable().optional(),
-          title: z.string().nullable().optional(),
-          forename: z.string().nullable().optional(),
-          surname: z.string().nullable().optional(),
-          mobilePhone: z.string().nullable().optional(),
-          email: z.string().nullable().optional(),
-        })
-        .nullable()
-        .optional(),
-      metadata: z.record(z.string(), z.object({})).nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return referralModel.parse(data)
 }
 export const useGetApiReferralsId = (args: UseGetApiReferralsIdArgs) => {
   const result = useQuery({
@@ -215,18 +127,7 @@ export const useGetApiReferralsId = (args: UseGetApiReferralsIdArgs) => {
 
   return result
 }
-export type UsePatchApiReferralsIdArgs = {
-  'If-Match'?: string
-  id: string
-  body: /** Update Referral Model */
-  {
-    status?: /** The status of the referral (sent/succeeded/cancelled/failed/paid/declined/inProgress) */
-    string | undefined
-    amount?: /** The amount paid to the agent for the referral */ number | undefined
-    metadata?: /** App specific metadata to set against the referral */
-    Record<string, Record<string, never>> | undefined
-  }
-}
+export type UsePatchApiReferralsIdArgs = { 'If-Match'?: string; id: string; body: UpdateReferralModel }
 export const patchApiReferralsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiReferralsIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/referrals/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
@@ -279,33 +180,7 @@ export const getApiReferralsTypesFn = async ({ id, pageSize, pageNumber, sortBy 
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            name: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return referralTypeModelPagedResult.parse(data)
 }
 export const useGetApiReferralsTypes = (args: UseGetApiReferralsTypesArgs) => {
   const result = useQuery({
@@ -330,17 +205,7 @@ export const getApiReferralsTypesIdFn = async ({ id }: UseGetApiReferralsTypesId
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      name: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return referralTypeModel.parse(data)
 }
 export const useGetApiReferralsTypesId = (args: UseGetApiReferralsTypesIdArgs) => {
   const result = useQuery({

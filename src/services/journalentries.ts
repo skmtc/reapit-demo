@@ -1,7 +1,11 @@
-import { z } from 'zod'
+import { journalEntryModelPagedResult } from '@/models/journalEntryModelPagedResult.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateJournalEntryModel } from '@/models/createJournalEntryModel.ts'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { landlordJournalEntryModelPagedResult } from '@/models/landlordJournalEntryModelPagedResult.ts'
+import { CreateBulkJournalEntryModel } from '@/models/createBulkJournalEntryModel.ts'
 
 export type UseGetApiJournalEntriesArgs = {
   pageSize?: number | undefined
@@ -43,38 +47,7 @@ export const getApiJournalEntriesFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            created: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            associatedType: z.string().nullable().optional(),
-            associatedId: z.string().nullable().optional(),
-            typeId: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return journalEntryModelPagedResult.parse(data)
 }
 export const useGetApiJournalEntries = (args: UseGetApiJournalEntriesArgs) => {
   const result = useQuery({
@@ -85,24 +58,8 @@ export const useGetApiJournalEntries = (args: UseGetApiJournalEntriesArgs) => {
 
   return result
 }
-export type UsePostApiJournalEntriesArgs = {
-  body: /** Request body to create a journal entry */
-  {
-    typeId?: /** The unique identifier of the type the journal entry is related to.
-Default value set to MI */
-    string | undefined
-    propertyId?: /** The unique identifier of the property the journal entry is related to. Can additionally be associated to another type (Required when 'associatedId' is not given) */
-    string | undefined
-    associatedType?: /** The entity type the journal entry has been raised against (applicant/contact/company/landlord/tenancy/worksOrder) (Required when 'associatedId' is given)
-TypeId must be set to WO when passing worksOrder */
-    string | undefined
-    associatedId?: /** The unique identifier of the entity the journal entry has been raised against. Can additionally be associated to a property (Required when 'propertyId' is not given) */
-    string | undefined
-    description: /** The textual description of the journal entry event */ string
-    negotiatorId?: /** The identifier of the negotiator recording the journal entry */ string | undefined
-  }
-}
-export const postApiJournalEntriesFn = async ({ body }: UsePostApiJournalEntriesArgs) => {
+export type UseCreateJournalEntryArgs = { body: CreateJournalEntryModel }
+export const createJournalEntryFn = async ({ body }: UseCreateJournalEntryArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/journalEntries/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -120,12 +77,12 @@ export const postApiJournalEntriesFn = async ({ body }: UsePostApiJournalEntries
 
   return z.void().parse(data)
 }
-export const usePostApiJournalEntries = () => {
+export const useCreateJournalEntry = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiJournalEntriesFn,
+    mutationFn: createJournalEntryFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -169,37 +126,7 @@ export const getApiJournalEntriesLandlordsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            created: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            landlordId: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return landlordJournalEntryModelPagedResult.parse(data)
 }
 export const useGetApiJournalEntriesLandlords = (args: UseGetApiJournalEntriesLandlordsArgs) => {
   const result = useQuery({
@@ -210,29 +137,8 @@ export const useGetApiJournalEntriesLandlords = (args: UseGetApiJournalEntriesLa
 
   return result
 }
-export type UsePostApiJournalEntriesBulkArgs = {
-  body: /** Request body to create bulk journal entry */
-  {
-    createJournalEntry?: /** Collection of journal entries */
-    | Array</** Request body to create a journal entry */
-        {
-          typeId?: /** The unique identifier of the type the journal entry is related to.
-Default value set to MI */
-          string | undefined
-          propertyId?: /** The unique identifier of the property the journal entry is related to. Can additionally be associated to another type (Required when 'associatedId' is not given) */
-          string | undefined
-          associatedType?: /** The entity type the journal entry has been raised against (applicant/contact/company/landlord/tenancy/worksOrder) (Required when 'associatedId' is given)
-TypeId must be set to WO when passing worksOrder */
-          string | undefined
-          associatedId?: /** The unique identifier of the entity the journal entry has been raised against. Can additionally be associated to a property (Required when 'propertyId' is not given) */
-          string | undefined
-          description: /** The textual description of the journal entry event */ string
-          negotiatorId?: /** The identifier of the negotiator recording the journal entry */ string | undefined
-        }>
-      | undefined
-  }
-}
-export const postApiJournalEntriesBulkFn = async ({ body }: UsePostApiJournalEntriesBulkArgs) => {
+export type UseCreateBulkJournalEntryArgs = { body: CreateBulkJournalEntryModel }
+export const createBulkJournalEntryFn = async ({ body }: UseCreateBulkJournalEntryArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/journalEntries/bulk${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -250,12 +156,12 @@ export const postApiJournalEntriesBulkFn = async ({ body }: UsePostApiJournalEnt
 
   return z.void().parse(data)
 }
-export const usePostApiJournalEntriesBulk = () => {
+export const useCreateBulkJournalEntry = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiJournalEntriesBulkFn,
+    mutationFn: createBulkJournalEntryFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

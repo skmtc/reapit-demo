@@ -1,7 +1,15 @@
-import { z } from 'zod'
+import { worksOrderModelPagedResult } from '@/models/worksOrderModelPagedResult.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateWorksOrderModel } from '@/models/createWorksOrderModel.ts'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { worksOrderModel } from '@/models/worksOrderModel.ts'
+import { UpdateWorksOrderModel } from '@/models/updateWorksOrderModel.ts'
+import { worksOrderItemModelPagedResult } from '@/models/worksOrderItemModelPagedResult.ts'
+import { CreateWorksOrderItemModel } from '@/models/createWorksOrderItemModel.ts'
+import { worksOrderItemModel } from '@/models/worksOrderItemModel.ts'
+import { UpdateWorksOrderItemModel } from '@/models/updateWorksOrderItemModel.ts'
 
 export type UseGetApiWorksOrdersArgs = {
   pageSize?: number | undefined
@@ -74,78 +82,7 @@ export const getApiWorksOrdersFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            companyId: z.string().nullable().optional(),
-            propertyId: z.string().nullable().optional(),
-            tenancyId: z.string().nullable().optional(),
-            negotiatorId: z.string().nullable().optional(),
-            typeId: z.string().nullable().optional(),
-            status: z.string().nullable().optional(),
-            description: z.string().nullable().optional(),
-            reporter: z.string().nullable().optional(),
-            priority: z.string().nullable().optional(),
-            booked: z.string().nullable().optional(),
-            required: z.string().nullable().optional(),
-            completed: z.string().nullable().optional(),
-            totalNetAmount: z.number().nullable().optional(),
-            totalVatAmount: z.number().nullable().optional(),
-            totalGrossAmount: z.number().nullable().optional(),
-            items: z
-              .array(
-                z.object({
-                  _links: z
-                    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-                    .nullable()
-                    .optional(),
-                  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-                  id: z.string().nullable().optional(),
-                  worksOrderId: z.string().nullable().optional(),
-                  created: z.string().nullable().optional(),
-                  modified: z.string().nullable().optional(),
-                  notes: z.string().nullable().optional(),
-                  chargeTo: z.string().nullable().optional(),
-                  estimate: z.number().nullable().optional(),
-                  estimateType: z.string().nullable().optional(),
-                  netAmount: z.number().nullable().optional(),
-                  vatAmount: z.number().nullable().optional(),
-                  grossAmount: z.number().nullable().optional(),
-                  reserveAmount: z.number().nullable().optional(),
-                  nominalAccountId: z.string().nullable().optional(),
-                  _eTag: z.string().nullable().optional(),
-                }),
-              )
-              .nullable()
-              .optional(),
-            metadata: z.record(z.string(), z.object({})).nullable().optional(),
-            extrasField: z.record(z.string(), z.object({})).nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return worksOrderModelPagedResult.parse(data)
 }
 export const useGetApiWorksOrders = (args: UseGetApiWorksOrdersArgs) => {
   const result = useQuery({
@@ -156,41 +93,8 @@ export const useGetApiWorksOrders = (args: UseGetApiWorksOrdersArgs) => {
 
   return result
 }
-export type UsePostApiWorksOrdersArgs = {
-  body: /** Request body used to create a new works order */
-  {
-    companyId?: /** The unique identifier of the company that has been selected to perform the work */
-    string | undefined
-    propertyId: /** The unique identifier of the property where the work is to be carried out */ string
-    tenancyId?: /** The unique identifier of the tenancy that the works order originated from */ string | undefined
-    negotiatorId: /** The unique identifier of the negotiator that booked the works order */ string
-    typeId?: /** The unique id of the type of work that needs to be carried out */ string | undefined
-    status: /** The current status of the works order (pendingApproval/pendingQuote/raised/raisedToChase/landlordToComplete/complete/cancelled/quoteAccepted) */
-    string
-    description: /** A free text description of the work required */ string
-    reporter: /** The party requesting the work to be carried out (landlord/tenant/other) */ string
-    priority?: /** The priority level of the works order (low/medium/high) */ string | undefined
-    booked?: /** The date when the works order was booked */ string | undefined
-    required?: /** The date when the work is required to be completed by */ string | undefined
-    completed?: /** The date when the work was completed */ string | undefined
-    items: /** Individual work items to attach to the works order */
-    Array</** Representation of a works order item */
-    {
-      notes: /** The notes attached to the works order item */ string
-      chargeTo: /** The party to be charged for the work being carried out (landlord/tenant) */ string
-      estimate?: /** The estimate of any costs associated with the work being carried out given to the party to be charged for the work */
-      number | undefined
-      estimateType?: /** The type of estimate supplied (agent/verbal/written) */ string | undefined
-      netAmount?: /** The net cost of the work to be carried out */ number | undefined
-      vatAmount?: /** The cost of the vat associated with the work */ number | undefined
-      reserveAmount?: /** The amount of funds to be held back by the agent in landlord payment runs to cover the cost of any works required by the works order item */
-      number | undefined
-    }>
-    metadata?: /** App specific metadata to set against the works order */
-    Record<string, Record<string, never>> | undefined
-  }
-}
-export const postApiWorksOrdersFn = async ({ body }: UsePostApiWorksOrdersArgs) => {
+export type UseCreateWorksOrderArgs = { body: CreateWorksOrderModel }
+export const createWorksOrderFn = async ({ body }: UseCreateWorksOrderArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -208,12 +112,12 @@ export const postApiWorksOrdersFn = async ({ body }: UsePostApiWorksOrdersArgs) 
 
   return z.void().parse(data)
 }
-export const usePostApiWorksOrders = () => {
+export const useCreateWorksOrder = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiWorksOrdersFn,
+    mutationFn: createWorksOrderFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -239,62 +143,7 @@ export const getApiWorksOrdersIdFn = async ({ id, embed, extrasField }: UseGetAp
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      companyId: z.string().nullable().optional(),
-      propertyId: z.string().nullable().optional(),
-      tenancyId: z.string().nullable().optional(),
-      negotiatorId: z.string().nullable().optional(),
-      typeId: z.string().nullable().optional(),
-      status: z.string().nullable().optional(),
-      description: z.string().nullable().optional(),
-      reporter: z.string().nullable().optional(),
-      priority: z.string().nullable().optional(),
-      booked: z.string().nullable().optional(),
-      required: z.string().nullable().optional(),
-      completed: z.string().nullable().optional(),
-      totalNetAmount: z.number().nullable().optional(),
-      totalVatAmount: z.number().nullable().optional(),
-      totalGrossAmount: z.number().nullable().optional(),
-      items: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            worksOrderId: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            notes: z.string().nullable().optional(),
-            chargeTo: z.string().nullable().optional(),
-            estimate: z.number().nullable().optional(),
-            estimateType: z.string().nullable().optional(),
-            netAmount: z.number().nullable().optional(),
-            vatAmount: z.number().nullable().optional(),
-            grossAmount: z.number().nullable().optional(),
-            reserveAmount: z.number().nullable().optional(),
-            nominalAccountId: z.string().nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      metadata: z.record(z.string(), z.object({})).nullable().optional(),
-      extrasField: z.record(z.string(), z.object({})).nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return worksOrderModel.parse(data)
 }
 export const useGetApiWorksOrdersId = (args: UseGetApiWorksOrdersIdArgs) => {
   const result = useQuery({
@@ -304,29 +153,7 @@ export const useGetApiWorksOrdersId = (args: UseGetApiWorksOrdersIdArgs) => {
 
   return result
 }
-export type UsePatchApiWorksOrdersIdArgs = {
-  'If-Match'?: string
-  id: string
-  body: /** Request body used to update an existing works order */
-  {
-    companyId?: /** The unique identifier of the company that has been selected to perform the work */
-    string | undefined
-    propertyId?: /** The unique identifier of the property where the work is to be carried out */ string | undefined
-    tenancyId?: /** The unique identifier of the tenancy that the works order originated from */ string | undefined
-    negotiatorId?: /** The unique identifier of the negotiator that booked the works order */ string | undefined
-    typeId?: /** The unique id of the type of work that needs to be carried out */ string | undefined
-    status?: /** The current status of the works order (pendingApproval/pendingQuote/raised/raisedToChase/landlordToComplete/complete/cancelled/quoteAccepted) */
-    string | undefined
-    description?: /** A free text description of the work required */ string | undefined
-    reporter?: /** The party requesting the work to be carried out (landlord/tenant/other) */ string | undefined
-    priority?: /** The priority level of the works order (low/medium/high) */ string | undefined
-    booked?: /** The date when the works order was booked */ string | undefined
-    required?: /** The date when the work is required to be completed by */ string | undefined
-    completed?: /** The date when the work was completed */ string | undefined
-    metadata?: /** App specific metadata to set against the works order */
-    Record<string, Record<string, never>> | undefined
-  }
-}
+export type UsePatchApiWorksOrdersIdArgs = { 'If-Match'?: string; id: string; body: UpdateWorksOrderModel }
 export const patchApiWorksOrdersIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiWorksOrdersIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
@@ -378,45 +205,7 @@ export const getApiWorksOrdersIdItemsFn = async ({ pageSize, pageNumber, id }: U
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            worksOrderId: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            notes: z.string().nullable().optional(),
-            chargeTo: z.string().nullable().optional(),
-            estimate: z.number().nullable().optional(),
-            estimateType: z.string().nullable().optional(),
-            netAmount: z.number().nullable().optional(),
-            vatAmount: z.number().nullable().optional(),
-            grossAmount: z.number().nullable().optional(),
-            reserveAmount: z.number().nullable().optional(),
-            nominalAccountId: z.string().nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return worksOrderItemModelPagedResult.parse(data)
 }
 export const useGetApiWorksOrdersIdItems = (args: UseGetApiWorksOrdersIdItemsArgs) => {
   const result = useQuery({
@@ -427,22 +216,8 @@ export const useGetApiWorksOrdersIdItems = (args: UseGetApiWorksOrdersIdItemsArg
 
   return result
 }
-export type UsePostApiWorksOrdersIdItemsArgs = {
-  id: string
-  body: /** Representation of a works order item */
-  {
-    notes: /** The notes attached to the works order item */ string
-    chargeTo: /** The party to be charged for the work being carried out (landlord/tenant) */ string
-    estimate?: /** The estimate of any costs associated with the work being carried out given to the party to be charged for the work */
-    number | undefined
-    estimateType?: /** The type of estimate supplied (agent/verbal/written) */ string | undefined
-    netAmount?: /** The net cost of the work to be carried out */ number | undefined
-    vatAmount?: /** The cost of the vat associated with the work */ number | undefined
-    reserveAmount?: /** The amount of funds to be held back by the agent in landlord payment runs to cover the cost of any works required by the works order item */
-    number | undefined
-  }
-}
-export const postApiWorksOrdersIdItemsFn = async ({ id, body }: UsePostApiWorksOrdersIdItemsArgs) => {
+export type UseCreateWorksOrderItemArgs = { id: string; body: CreateWorksOrderItemModel }
+export const createWorksOrderItemFn = async ({ id, body }: UseCreateWorksOrderItemArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${id}/items${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -460,12 +235,12 @@ export const postApiWorksOrdersIdItemsFn = async ({ id, body }: UsePostApiWorksO
 
   return z.void().parse(data)
 }
-export const usePostApiWorksOrdersIdItems = () => {
+export const useCreateWorksOrderItem = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiWorksOrdersIdItemsFn,
+    mutationFn: createWorksOrderItemFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -487,29 +262,7 @@ export const getApiWorksOrdersIdItemsItemIdFn = async ({ id, itemId }: UseGetApi
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      worksOrderId: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      notes: z.string().nullable().optional(),
-      chargeTo: z.string().nullable().optional(),
-      estimate: z.number().nullable().optional(),
-      estimateType: z.string().nullable().optional(),
-      netAmount: z.number().nullable().optional(),
-      vatAmount: z.number().nullable().optional(),
-      grossAmount: z.number().nullable().optional(),
-      reserveAmount: z.number().nullable().optional(),
-      nominalAccountId: z.string().nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return worksOrderItemModel.parse(data)
 }
 export const useGetApiWorksOrdersIdItemsItemId = (args: UseGetApiWorksOrdersIdItemsItemIdArgs) => {
   const result = useQuery({
@@ -555,18 +308,7 @@ export type UsePatchApiWorksOrdersIdItemsItemIdArgs = {
   'If-Match'?: string
   id: string
   itemId: string
-  body: /** Representation of a works order item */
-  {
-    notes?: /** The notes attached to the works order item */ string | undefined
-    chargeTo?: /** The party to be charged for the work being carried out (landlord/tenant) */ string | undefined
-    estimate?: /** The estimate of any costs associated with the work being carried out given to the party to be charged for the work */
-    number | undefined
-    estimateType?: /** The type of estimate supplied (agent/verbal/written) */ string | undefined
-    netAmount?: /** The net cost of the work to be carried out */ number | undefined
-    vatAmount?: /** The cost of the vat associated with the work */ number | undefined
-    reserveAmount?: /** The amount of funds to be held back by the agent in landlord payment runs to cover the cost of any works required by the works order item */
-    number | undefined
-  }
+  body: UpdateWorksOrderItemModel
 }
 export const patchApiWorksOrdersIdItemsItemIdFn = async ({
   'If-Match': IfMatch,

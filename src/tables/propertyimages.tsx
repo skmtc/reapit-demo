@@ -1,41 +1,11 @@
-import { z } from 'zod'
+import { propertyImageModel, PropertyImageModel } from '@/models/propertyImageModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiPropertyImages } from '@/services/propertyimages.ts'
 
-export const propertyImagesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  url: z.string().nullable().optional(),
-  caption: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  order: z.number().int().nullable().optional(),
-  fromArchive: z.boolean().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type PropertyImagesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  propertyId?: string | undefined
-  url?: string | undefined
-  caption?: string | undefined
-  type?: string | undefined
-  order?: number | undefined
-  fromArchive?: boolean | undefined
-  _eTag?: string | undefined
-}
 export type PropertyImagesArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
@@ -48,12 +18,12 @@ export type PropertyImagesArgs = {
   modifiedTo?: string | undefined
   fromArchive?: boolean | undefined
   metadata?: Array<string> | undefined
-  columns: ColumnsList<PropertyImagesBody>
+  columns: ColumnsList<PropertyImageModel>
 }
 
-export const propertyImagesColumnHelper = createColumnHelper<PropertyImagesBody>()
+export const propertyImagesColumnHelper = createColumnHelper<PropertyImageModel>()
 
-export const getPropertyImagesColumn = (property: string, modelConfig: ModelConfig<PropertyImagesBody>) => {
+export const getPropertyImagesColumn = (property: string, modelConfig: ModelConfig<PropertyImageModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

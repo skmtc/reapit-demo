@@ -1,41 +1,11 @@
-import { z } from 'zod'
+import { documentModel, DocumentModel } from '@/models/documentModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiDocuments } from '@/services/documents.ts'
 
-export const documentsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  associatedType: z.string().nullable().optional(),
-  isPrivate: z.boolean().nullable().optional(),
-  associatedId: z.string().nullable().optional(),
-  typeId: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type DocumentsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  associatedType?: string | undefined
-  isPrivate?: boolean | undefined
-  associatedId?: string | undefined
-  typeId?: string | undefined
-  name?: string | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-}
 export type DocumentsArgs = {
   sortBy?: string | undefined
   embed?: Array<'documentType'> | undefined
@@ -70,12 +40,12 @@ export type DocumentsArgs = {
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
   metadata?: Array<string> | undefined
-  columns: ColumnsList<DocumentsBody>
+  columns: ColumnsList<DocumentModel>
 }
 
-export const documentsColumnHelper = createColumnHelper<DocumentsBody>()
+export const documentsColumnHelper = createColumnHelper<DocumentModel>()
 
-export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<DocumentsBody>) => {
+export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<DocumentModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

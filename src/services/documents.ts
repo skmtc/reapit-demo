@@ -1,7 +1,12 @@
-import { z } from 'zod'
+import { documentModelPagedResult } from '@/models/documentModelPagedResult.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateDocumentModel } from '@/models/createDocumentModel.ts'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { documentModel } from '@/models/documentModel.ts'
+import { UpdateDocumentModel } from '@/models/updateDocumentModel.ts'
+import { CreatePreSignedUrlsModel, createPreSignedUrlsModel } from '@/models/createPreSignedUrlsModel.ts'
 
 export type UseGetApiDocumentsArgs = {
   pageSize?: number | undefined
@@ -70,41 +75,7 @@ export const getApiDocumentsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            associatedType: z.string().nullable().optional(),
-            isPrivate: z.boolean().nullable().optional(),
-            associatedId: z.string().nullable().optional(),
-            typeId: z.string().nullable().optional(),
-            name: z.string().nullable().optional(),
-            metadata: z.record(z.string(), z.object({})).nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return documentModelPagedResult.parse(data)
 }
 export const useGetApiDocuments = (args: UseGetApiDocumentsArgs) => {
   const result = useQuery({
@@ -115,25 +86,8 @@ export const useGetApiDocuments = (args: UseGetApiDocumentsArgs) => {
 
   return result
 }
-export type UsePostApiDocumentsArgs = {
-  body: /** Request body used to create a new document */
-  {
-    associatedType: /** The type of entity that the document is associated with (appliance/applicant/bankStatement/batch/certificate/contact/depositCertificate/estate/estateUnit/idCheck/keySet/landlord/nominalTransaction/property/supplierInvoice/tenancy/tenancyCheck/tenancyRenewal/worksOrder/renewalNegotiation) */
-    string
-    associatedId: /** The unique identifier of the entity that the document is associated with */ string
-    typeId: /** The unique identifier of the type of document */ string
-    name: /** The filename of the document */ string
-    isPrivate?: /** A flag denoting whether or not the document is private */ boolean | undefined
-    fileData?: /** The base64 encoded document content, prefixed with the content type (eg. data:text/plain;base64,VGVzdCBmaWxl)
-This supports upto 6MB */
-    string | undefined
-    fileUrl?: /** The presigned s3 url which a document has been uploaded to (This supports files up to 30MB) */
-    string | undefined
-    metadata?: /** App specific metadata to set against the document */
-    Record<string, Record<string, never>> | undefined
-  }
-}
-export const postApiDocumentsFn = async ({ body }: UsePostApiDocumentsArgs) => {
+export type UseCreateDocumentArgs = { body: CreateDocumentModel }
+export const createDocumentFn = async ({ body }: UseCreateDocumentArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/documents/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -151,12 +105,12 @@ export const postApiDocumentsFn = async ({ body }: UsePostApiDocumentsArgs) => {
 
   return z.void().parse(data)
 }
-export const usePostApiDocuments = () => {
+export const useCreateDocument = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiDocumentsFn,
+    mutationFn: createDocumentFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -178,25 +132,7 @@ export const getApiDocumentsIdFn = async ({ id, embed }: UseGetApiDocumentsIdArg
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      associatedType: z.string().nullable().optional(),
-      isPrivate: z.boolean().nullable().optional(),
-      associatedId: z.string().nullable().optional(),
-      typeId: z.string().nullable().optional(),
-      name: z.string().nullable().optional(),
-      metadata: z.record(z.string(), z.object({})).nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return documentModel.parse(data)
 }
 export const useGetApiDocumentsId = (args: UseGetApiDocumentsIdArgs) => {
   const result = useQuery({
@@ -238,18 +174,7 @@ export const useDeleteApiDocumentsId = () => {
     },
   })
 }
-export type UsePatchApiDocumentsIdArgs = {
-  'If-Match'?: string
-  id: string
-  body: /** Request body used to update an existing document */
-  {
-    typeId?: /** The unique identifier of the type of document */ string | undefined
-    name?: /** The filename of the document */ string | undefined
-    isPrivate?: /** A flag denoting whether or not the document is private */ boolean | undefined
-    metadata?: /** App specific metadata to set against the document */
-    Record<string, Record<string, never>> | undefined
-  }
-}
+export type UsePatchApiDocumentsIdArgs = { 'If-Match'?: string; id: string; body: UpdateDocumentModel }
 export const patchApiDocumentsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiDocumentsIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/documents/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
@@ -305,11 +230,8 @@ export const useGetApiDocumentsIdDownload = (args: UseGetApiDocumentsIdDownloadA
 
   return result
 }
-export type UsePostApiDocumentsSignedUrlArgs = {
-  body: /** Request body used to create pre signed urls to upload files between 6MB and 30MB */
-  { amount: /** The number of pre signed urls to create */ number }
-}
-export const postApiDocumentsSignedUrlFn = async ({ body }: UsePostApiDocumentsSignedUrlArgs) => {
+export type UseCreateSignedUrlArgs = { body: CreatePreSignedUrlsModel }
+export const createSignedUrlFn = async ({ body }: UseCreateSignedUrlArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/documents/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -325,14 +247,14 @@ export const postApiDocumentsSignedUrlFn = async ({ body }: UsePostApiDocumentsS
 
   const data = await res.json()
 
-  return z.object({ amount: z.number().int() }).parse(data)
+  return createPreSignedUrlsModel.parse(data)
 }
-export const usePostApiDocumentsSignedUrl = () => {
+export const useCreateSignedUrl = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiDocumentsSignedUrlFn,
+    mutationFn: createSignedUrlFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

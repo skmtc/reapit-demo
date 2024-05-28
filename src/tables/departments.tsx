@@ -1,72 +1,20 @@
-import { z } from 'zod'
+import { departmentModel, DepartmentModel } from '@/models/departmentModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiDepartments } from '@/services/departments.ts'
 
-export const departmentsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  typeOptions: z.array(z.string()).nullable().optional(),
-  styleOptions: z.array(z.string()).nullable().optional(),
-  situationOptions: z.array(z.string()).nullable().optional(),
-  parkingOptions: z.array(z.string()).nullable().optional(),
-  ageOptions: z.array(z.string()).nullable().optional(),
-  localityOptions: z.array(z.string()).nullable().optional(),
-  specialFeaturesOptions: z.array(z.string()).nullable().optional(),
-  commercialUseClassOptions: z.array(z.string()).nullable().optional(),
-  commercialFloorLevelOptions: z.array(z.string()).nullable().optional(),
-  hasBedrooms: z.boolean().nullable().optional(),
-  hasBathrooms: z.boolean().nullable().optional(),
-  hasReceptionRooms: z.boolean().nullable().optional(),
-  hasParkingSpaces: z.boolean().nullable().optional(),
-  hasFloorLevelEnabled: z.boolean().nullable().optional(),
-  hasInternalFloorsEnabled: z.boolean().nullable().optional(),
-  hasTotalFloorsEnabled: z.boolean().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type DepartmentsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  name?: string | undefined
-  typeOptions?: Array<string> | undefined
-  styleOptions?: Array<string> | undefined
-  situationOptions?: Array<string> | undefined
-  parkingOptions?: Array<string> | undefined
-  ageOptions?: Array<string> | undefined
-  localityOptions?: Array<string> | undefined
-  specialFeaturesOptions?: Array<string> | undefined
-  commercialUseClassOptions?: Array<string> | undefined
-  commercialFloorLevelOptions?: Array<string> | undefined
-  hasBedrooms?: boolean | undefined
-  hasBathrooms?: boolean | undefined
-  hasReceptionRooms?: boolean | undefined
-  hasParkingSpaces?: boolean | undefined
-  hasFloorLevelEnabled?: boolean | undefined
-  hasInternalFloorsEnabled?: boolean | undefined
-  hasTotalFloorsEnabled?: boolean | undefined
-  _eTag?: string | undefined
-}
 export type DepartmentsArgs = {
   id?: Array<string> | undefined
   name?: string | undefined
-  columns: ColumnsList<DepartmentsBody>
+  columns: ColumnsList<DepartmentModel>
 }
 
-export const departmentsColumnHelper = createColumnHelper<DepartmentsBody>()
+export const departmentsColumnHelper = createColumnHelper<DepartmentModel>()
 
-export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<DepartmentsBody>) => {
+export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<DepartmentModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

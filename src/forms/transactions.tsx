@@ -1,10 +1,10 @@
-import { createSupplierInvoiceModel, CreateSupplierInvoiceModel } from '@/index.generated.ts'
+import { createSupplierInvoiceModel, CreateSupplierInvoiceModel } from '@/models/createSupplierInvoiceModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiTransactionsSupplierInvoices } from '@/services/transactions.ts'
+import { useCreateSupplierInvoice } from '@/services/transactions.ts'
 
 export type CreateTransactionsSupplierInvoicesProps = {
   children: (control: Control<CreateSupplierInvoiceModel>) => ReactNode
@@ -15,7 +15,7 @@ export const CreateTransactionsSupplierInvoices = (props: CreateTransactionsSupp
     resolver: zodResolver(createSupplierInvoiceModel),
   })
 
-  const mutator = usePostApiTransactionsSupplierInvoices()
+  const mutator = useCreateSupplierInvoice()
 
   return (
     <Box

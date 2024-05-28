@@ -1,10 +1,10 @@
-import { createReferralModel, CreateReferralModel } from '@/index.generated.ts'
+import { createReferralModel, CreateReferralModel } from '@/models/createReferralModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiReferrals } from '@/services/referrals.ts'
+import { useCreateReferral } from '@/services/referrals.ts'
 
 export type CreateReferralsProps = { children: (control: Control<CreateReferralModel>) => ReactNode }
 
@@ -13,7 +13,7 @@ export const CreateReferrals = (props: CreateReferralsProps) => {
     resolver: zodResolver(createReferralModel),
   })
 
-  const mutator = usePostApiReferrals()
+  const mutator = useCreateReferral()
 
   return (
     <Box

@@ -1,10 +1,10 @@
-import { createCompanyModel, CreateCompanyModel } from '@/index.generated.ts'
+import { createCompanyModel, CreateCompanyModel } from '@/models/createCompanyModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiCompanies } from '@/services/companies.ts'
+import { useCreateCompany } from '@/services/companies.ts'
 
 export type CreateCompaniesProps = { children: (control: Control<CreateCompanyModel>) => ReactNode }
 
@@ -13,7 +13,7 @@ export const CreateCompanies = (props: CreateCompaniesProps) => {
     resolver: zodResolver(createCompanyModel),
   })
 
-  const mutator = usePostApiCompanies()
+  const mutator = useCreateCompany()
 
   return (
     <Box

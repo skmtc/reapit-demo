@@ -1,7 +1,11 @@
-import { z } from 'zod'
+import { areaModelPagedResult } from '@/models/areaModelPagedResult.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateAreaModel } from '@/models/createAreaModel.ts'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { areaModel } from '@/models/areaModel.ts'
+import { UpdateAreaModel } from '@/models/updateAreaModel.ts'
 
 export type UseGetApiAreasArgs = {
   pageSize?: number | undefined
@@ -45,42 +49,7 @@ export const getApiAreasFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            name: z.string().nullable().optional(),
-            active: z.boolean().nullable().optional(),
-            type: z.string().nullable().optional(),
-            area: z.array(z.string()).nullable().optional(),
-            departmentIds: z.array(z.string()).nullable().optional(),
-            officeIds: z.array(z.string()).nullable().optional(),
-            parentIds: z.array(z.string()).nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return areaModelPagedResult.parse(data)
 }
 export const useGetApiAreas = (args: UseGetApiAreasArgs) => {
   const result = useQuery({
@@ -91,22 +60,8 @@ export const useGetApiAreas = (args: UseGetApiAreasArgs) => {
 
   return result
 }
-export type UsePostApiAreasArgs = {
-  body: /** Request body used to create a new area */
-  {
-    name: /** The name of the area */ string
-    type: /** The type of area (postcodes/polygon/group) */ string
-    area: /** The location details (comma delimited list of postcodes, group ids or lat/long coordinate groups) */
-    Array<string>
-    departmentIds?: /** A collection of unique identifiers of departments associated to the area */
-    Array<string> | undefined
-    officeIds?: /** A collection of unique identifiers of offices attached to the area. The first item in the collection is considered the primary office */
-    Array<string> | undefined
-    parentId?: /** The unique identifier of the parent area, if the area should be registered as a child area/group in an existing area group */
-    string | undefined
-  }
-}
-export const postApiAreasFn = async ({ body }: UsePostApiAreasArgs) => {
+export type UseCreateAreaArgs = { body: CreateAreaModel }
+export const createAreaFn = async ({ body }: UseCreateAreaArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/areas/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -124,12 +79,12 @@ export const postApiAreasFn = async ({ body }: UsePostApiAreasArgs) => {
 
   return z.void().parse(data)
 }
-export const usePostApiAreas = () => {
+export const useCreateArea = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiAreasFn,
+    mutationFn: createAreaFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -151,26 +106,7 @@ export const getApiAreasIdFn = async ({ id }: UseGetApiAreasIdArgs) => {
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      name: z.string().nullable().optional(),
-      active: z.boolean().nullable().optional(),
-      type: z.string().nullable().optional(),
-      area: z.array(z.string()).nullable().optional(),
-      departmentIds: z.array(z.string()).nullable().optional(),
-      officeIds: z.array(z.string()).nullable().optional(),
-      parentIds: z.array(z.string()).nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return areaModel.parse(data)
 }
 export const useGetApiAreasId = (args: UseGetApiAreasIdArgs) => {
   const result = useQuery({
@@ -180,20 +116,7 @@ export const useGetApiAreasId = (args: UseGetApiAreasIdArgs) => {
 
   return result
 }
-export type UsePatchApiAreasIdArgs = {
-  'If-Match'?: string
-  id: string
-  body: /** Request body used to update an existing area */
-  {
-    name?: /** The name of the area */ string | undefined
-    area?: /** The location details (comma delimited list of postcodes, group ids or lat/long coordinate groups) */
-    Array<string> | undefined
-    departmentIds?: /** A collection of unique identifiers of departments associated to the area */
-    Array<string> | undefined
-    officeIds?: /** A collection of unique identifiers of offices attached to the area. The first item in the collection is considered the primary office */
-    Array<string> | undefined
-  }
-}
+export type UsePatchApiAreasIdArgs = { 'If-Match'?: string; id: string; body: UpdateAreaModel }
 export const patchApiAreasIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiAreasIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/areas/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,

@@ -1,4 +1,11 @@
 import { z } from 'zod'
+import { createTenancyLettingFeeModel, CreateTenancyLettingFeeModel } from '@/models/createTenancyLettingFeeModel.ts'
+import {
+  createTenancyManagementFeeModel,
+  CreateTenancyManagementFeeModel,
+} from '@/models/createTenancyManagementFeeModel.ts'
+import { createTenancyDepositModel, CreateTenancyDepositModel } from '@/models/createTenancyDepositModel.ts'
+import { createTenancySourceModel, CreateTenancySourceModel } from '@/models/createTenancySourceModel.ts'
 
 /** Request body used to create a new tenancy */
 export const createTenancyModel = z.object({
@@ -32,46 +39,10 @@ export const createTenancyModel = z.object({
   /** The unique identifier of the property that relates to the tenancy */ propertyId: z.string(),
   /** The unique identifier of the applicant who has applied to be a tenant */ applicantId: z.string(),
   /** Financial notes set against the tenancy */ feeNotes: z.string().nullable().optional(),
-  /** Request body used to set letting fees on a new tenancy */
-  lettingFee: z
-    .object({
-      /** The letting fee type (percentage/fixed) */ type: z.string().nullable().optional(),
-      /** The fee amount */ amount: z.number().nullable().optional(),
-      /** The frequency of when the fee is to be collected (upfront/upfrontOver2Months/monthly/quarterly/halfYearly/yearly/28days/other/notApplicable) */
-      frequency: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  /** Request body used to set management fees on a new tenancy */
-  managementFee: z
-    .object({
-      /** The management fee type (percentage/fixed) */ type: z.string().nullable().optional(),
-      /** The fee amount */ amount: z.number().nullable().optional(),
-      /** The frequency of when the fee is to be collected (monthly/quarterly/halfYearly/yearly/28days/sameAsLettingFee) */
-      frequency: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  /** Request body used to set the deposit of a new tenancy */
-  deposit: z
-    .object({
-      /** The deposit holder (depositProtectionScheme/stakeholder/landlordsAgent/landlord/notApplicable) */
-      heldBy: z.string().nullable().optional(),
-      /** The number of weeks or months rent collected as the deposit on the tenancy */
-      period: z.number().int().nullable().optional(),
-      /** The type of deposit (weeksRent/monthsRent/fixedSum/guarantee) */ type: z.string().nullable().optional(),
-      /** The amount of deposit held */ sum: z.number().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  /** Request body used to set the source of a new tenancy */
-  source: z
-    .object({
-      /** The unique identifier of the source for the tenancy */ id: z.string().nullable().optional(),
-      /** The source type (office/source) */ type: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
+  lettingFee: createTenancyLettingFeeModel.nullable().optional(),
+  managementFee: createTenancyManagementFeeModel.nullable().optional(),
+  deposit: createTenancyDepositModel.nullable().optional(),
+  source: createTenancySourceModel.nullable().optional(),
   /** App specific metadata to set against the tenancy */
   metadata: z.record(z.string(), z.object({})).nullable().optional(),
 })
@@ -102,36 +73,9 @@ export type CreateTenancyModel = {
   propertyId: /** The unique identifier of the property that relates to the tenancy */ string
   applicantId: /** The unique identifier of the applicant who has applied to be a tenant */ string
   feeNotes?: /** Financial notes set against the tenancy */ string | undefined
-  lettingFee?: /** Request body used to set letting fees on a new tenancy */
-  | {
-        type?: /** The letting fee type (percentage/fixed) */ string | undefined
-        amount?: /** The fee amount */ number | undefined
-        frequency?: /** The frequency of when the fee is to be collected (upfront/upfrontOver2Months/monthly/quarterly/halfYearly/yearly/28days/other/notApplicable) */
-        string | undefined
-      }
-    | undefined
-  managementFee?: /** Request body used to set management fees on a new tenancy */
-  | {
-        type?: /** The management fee type (percentage/fixed) */ string | undefined
-        amount?: /** The fee amount */ number | undefined
-        frequency?: /** The frequency of when the fee is to be collected (monthly/quarterly/halfYearly/yearly/28days/sameAsLettingFee) */
-        string | undefined
-      }
-    | undefined
-  deposit?: /** Request body used to set the deposit of a new tenancy */
-  | {
-        heldBy?: /** The deposit holder (depositProtectionScheme/stakeholder/landlordsAgent/landlord/notApplicable) */
-        string | undefined
-        period?: /** The number of weeks or months rent collected as the deposit on the tenancy */ number | undefined
-        type?: /** The type of deposit (weeksRent/monthsRent/fixedSum/guarantee) */ string | undefined
-        sum?: /** The amount of deposit held */ number | undefined
-      }
-    | undefined
-  source?: /** Request body used to set the source of a new tenancy */
-  | {
-        id?: /** The unique identifier of the source for the tenancy */ string | undefined
-        type?: /** The source type (office/source) */ string | undefined
-      }
-    | undefined
+  lettingFee?: CreateTenancyLettingFeeModel | undefined
+  managementFee?: CreateTenancyManagementFeeModel | undefined
+  deposit?: CreateTenancyDepositModel | undefined
+  source?: CreateTenancySourceModel | undefined
   metadata?: /** App specific metadata to set against the tenancy */ Record<string, Record<string, never>> | undefined
 }

@@ -1,8 +1,9 @@
-import { z } from 'zod'
+import { propertyModel, PropertyModel } from '@/models/propertyModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import {
   useGetApiProperties,
   useGetApiPropertiesIdCertificates,
@@ -12,559 +13,12 @@ import {
   useGetApiPropertiesCertificates,
   useGetApiPropertiesIdAppraisals,
 } from '@/services/properties.ts'
+import { certificateModel, CertificateModel } from '@/models/certificateModel.ts'
+import { keysModel, KeysModel } from '@/models/keysModel.ts'
+import { keyMovementModel, KeyMovementModel } from '@/models/keyMovementModel.ts'
+import { propertyCheckModel, PropertyCheckModel } from '@/models/propertyCheckModel.ts'
+import { propertyAppraisalModel, PropertyAppraisalModel } from '@/models/propertyAppraisalModel.ts'
 
-export const propertiesBody = z.object({
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  lastCall: z.string().nullable().optional(),
-  nextCall: z.string().nullable().optional(),
-  marketingMode: z.string().nullable().optional(),
-  currency: z.string().nullable().optional(),
-  alternateId: z.string().nullable().optional(),
-  address: z
-    .object({
-      buildingName: z.string().nullable().optional(),
-      buildingNumber: z.string().nullable().optional(),
-      line1: z.string().nullable().optional(),
-      line2: z.string().nullable().optional(),
-      line3: z.string().nullable().optional(),
-      line4: z.string().nullable().optional(),
-      postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
-      localTimeZone: z.string().nullable().optional(),
-      geolocation: z
-        .object({ latitude: z.number().nullable().optional(), longitude: z.number().nullable().optional() })
-        .nullable()
-        .optional(),
-    })
-    .nullable()
-    .optional(),
-  areaId: z.string().nullable().optional(),
-  strapline: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  longDescription: z.string().nullable().optional(),
-  localAuthorityCompanyId: z.string().nullable().optional(),
-  localAuthorityCompanyName: z.string().nullable().optional(),
-  summary: z.string().nullable().optional(),
-  departmentId: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  bedrooms: z.number().int().nullable().optional(),
-  bedroomsMax: z.number().int().nullable().optional(),
-  receptions: z.number().int().nullable().optional(),
-  receptionsMax: z.number().int().nullable().optional(),
-  bathrooms: z.number().int().nullable().optional(),
-  bathroomsMax: z.number().int().nullable().optional(),
-  numberOfUnits: z.number().int().nullable().optional(),
-  parkingSpaces: z.number().int().nullable().optional(),
-  councilTax: z.string().nullable().optional(),
-  disabledPortalIds: z.array(z.string()).nullable().optional(),
-  internetAdvertising: z.boolean().nullable().optional(),
-  isExternal: z.boolean().nullable().optional(),
-  viewingArrangements: z.string().nullable().optional(),
-  videoUrl: z.string().nullable().optional(),
-  videoCaption: z.string().nullable().optional(),
-  video2Url: z.string().nullable().optional(),
-  video2Caption: z.string().nullable().optional(),
-  notes: z.string().nullable().optional(),
-  boardStatus: z.string().nullable().optional(),
-  boardNotes: z.string().nullable().optional(),
-  featuredImageUrl: z.string().nullable().optional(),
-  url: z.string().nullable().optional(),
-  urlCaption: z.string().nullable().optional(),
-  groundRent: z.number().nullable().optional(),
-  groundRentComment: z.string().nullable().optional(),
-  groundRentReviewDate: z.string().nullable().optional(),
-  groundRentIncrease: z.number().nullable().optional(),
-  serviceCharge: z.number().nullable().optional(),
-  serviceChargeComment: z.string().nullable().optional(),
-  floorLevel: z.number().int().nullable().optional(),
-  internalFloors: z.number().int().nullable().optional(),
-  totalFloors: z.number().int().nullable().optional(),
-  boardUpdated: z.string().nullable().optional(),
-  valuation: z.string().nullable().optional(),
-  archivedOn: z.string().nullable().optional(),
-  fromArchive: z.boolean().nullable().optional(),
-  rural: z
-    .object({
-      tenureId: z.string().nullable().optional(),
-      buildingsDescription: z.string().nullable().optional(),
-      landDescription: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  externalArea: z
-    .object({
-      type: z.string().nullable().optional(),
-      min: z.number().nullable().optional(),
-      max: z.number().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  internalArea: z
-    .object({
-      type: z.string().nullable().optional(),
-      min: z.number().nullable().optional(),
-      max: z.number().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  epc: z
-    .object({
-      exempt: z.boolean().nullable().optional(),
-      eer: z.number().int().nullable().optional(),
-      eerRating: z.string().nullable().optional(),
-      eerPotential: z.number().int().nullable().optional(),
-      eerPotentialRating: z.string().nullable().optional(),
-      eir: z.number().int().nullable().optional(),
-      eirRating: z.string().nullable().optional(),
-      eirPotential: z.number().int().nullable().optional(),
-      eirPotentialRating: z.string().nullable().optional(),
-      fullDocumentUrl: z.string().nullable().optional(),
-      firstPageDocumentUrl: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  selling: z
-    .object({
-      instructed: z.string().nullable().optional(),
-      price: z.number().nullable().optional(),
-      priceTo: z.number().nullable().optional(),
-      reservationFee: z.number().int().nullable().optional(),
-      qualifier: z.string().nullable().optional(),
-      status: z.string().nullable().optional(),
-      disposal: z.string().nullable().optional(),
-      completed: z.string().nullable().optional(),
-      exchanged: z.string().nullable().optional(),
-      accountPaid: z.string().nullable().optional(),
-      tenure: z
-        .object({ type: z.string().nullable().optional(), expiry: z.string().nullable().optional() })
-        .nullable()
-        .optional(),
-      vendorId: z.string().nullable().optional(),
-      agency: z.string().nullable().optional(),
-      agencyId: z.string().nullable().optional(),
-      agreementExpiry: z.string().nullable().optional(),
-      fee: z
-        .object({ type: z.string().nullable().optional(), amount: z.number().nullable().optional() })
-        .nullable()
-        .optional(),
-      exchangedCompanyFee: z.number().nullable().optional(),
-      recommendedPrice: z.number().int().nullable().optional(),
-      valuationPrice: z.number().int().nullable().optional(),
-      brochureId: z.string().nullable().optional(),
-      publicBrochureUrl: z.string().nullable().optional(),
-      exchangedPrice: z.number().int().nullable().optional(),
-      exchangedOfficeId: z.string().nullable().optional(),
-      decoration: z.array(z.string()).nullable().optional(),
-      sharedOwnership: z
-        .object({
-          sharedPercentage: z.number().nullable().optional(),
-          rent: z.number().nullable().optional(),
-          rentFrequency: z.string().nullable().optional(),
-        })
-        .nullable()
-        .optional(),
-      subAgentTerms: z
-        .object({
-          feeAvailable: z.boolean().nullable().optional(),
-          type: z.string().nullable().optional(),
-          amount: z.number().nullable().optional(),
-        })
-        .nullable()
-        .optional(),
-    })
-    .nullable()
-    .optional(),
-  letting: z
-    .object({
-      instructed: z.string().nullable().optional(),
-      availableFrom: z.string().nullable().optional(),
-      availableTo: z.string().nullable().optional(),
-      agreementSigned: z.string().nullable().optional(),
-      rent: z.number().nullable().optional(),
-      rentFrequency: z.string().nullable().optional(),
-      rentIncludes: z.string().nullable().optional(),
-      furnishing: z.array(z.string()).nullable().optional(),
-      term: z.string().nullable().optional(),
-      status: z.string().nullable().optional(),
-      agentRole: z.string().nullable().optional(),
-      landlordId: z.string().nullable().optional(),
-      worksOrderNote: z.string().nullable().optional(),
-      minimumTerm: z.number().int().nullable().optional(),
-      propertyManagerId: z.string().nullable().optional(),
-      managementCompanyIds: z.array(z.string()).nullable().optional(),
-      brochureId: z.string().nullable().optional(),
-      publicBrochureUrl: z.string().nullable().optional(),
-      managementFee: z
-        .object({ type: z.string().nullable().optional(), amount: z.number().nullable().optional() })
-        .nullable()
-        .optional(),
-      lettingFee: z
-        .object({ type: z.string().nullable().optional(), amount: z.number().nullable().optional() })
-        .nullable()
-        .optional(),
-      qualifier: z.string().nullable().optional(),
-      utilities: z
-        .object({
-          hasGas: z.boolean().nullable().optional(),
-          gasCompanyId: z.string().nullable().optional(),
-          gasMeterPoint: z.string().nullable().optional(),
-          electricityCompanyId: z.string().nullable().optional(),
-          electricityMeterPoint: z.string().nullable().optional(),
-          waterCompanyId: z.string().nullable().optional(),
-          waterMeterPoint: z.string().nullable().optional(),
-          telephoneCompanyId: z.string().nullable().optional(),
-          internetCompanyId: z.string().nullable().optional(),
-          cableTvCompanyId: z.string().nullable().optional(),
-        })
-        .nullable()
-        .optional(),
-      deposit: z
-        .object({ type: z.string().nullable().optional(), amount: z.number().nullable().optional() })
-        .nullable()
-        .optional(),
-      rentInsurance: z
-        .object({
-          status: z.string().nullable().optional(),
-          referenceNumber: z.string().nullable().optional(),
-          start: z.string().nullable().optional(),
-          end: z.string().nullable().optional(),
-          cancelledReasonId: z.string().nullable().optional(),
-          cancelledComment: z.string().nullable().optional(),
-          autoRenew: z.boolean().nullable().optional(),
-        })
-        .nullable()
-        .optional(),
-      licencing: z
-        .object({
-          licenceRequired: z.boolean().nullable().optional(),
-          licenceType: z.string().nullable().optional(),
-          households: z.number().int().nullable().optional(),
-          occupants: z.number().int().nullable().optional(),
-          aboveCommercialPremises: z.boolean().nullable().optional(),
-          application: z
-            .object({
-              status: z.string().nullable().optional(),
-              referenceNumber: z.string().nullable().optional(),
-              date: z.string().nullable().optional(),
-              granted: z.string().nullable().optional(),
-              expiry: z.string().nullable().optional(),
-            })
-            .nullable()
-            .optional(),
-        })
-        .nullable()
-        .optional(),
-    })
-    .nullable()
-    .optional(),
-  commercial: z
-    .object({
-      useClass: z.array(z.string()).nullable().optional(),
-      floorLevel: z.array(z.string()).nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  regional: z
-    .object({
-      ggy: z
-        .object({ market: z.array(z.string()).nullable().optional() })
-        .nullable()
-        .optional(),
-      irl: z
-        .object({
-          buildingEnergyRating: z
-            .object({
-              exempt: z.boolean().nullable().optional(),
-              rating: z.string().nullable().optional(),
-              refNumber: z.string().nullable().optional(),
-              epi: z.string().nullable().optional(),
-            })
-            .nullable()
-            .optional(),
-        })
-        .nullable()
-        .optional(),
-    })
-    .nullable()
-    .optional(),
-  type: z.array(z.string()).nullable().optional(),
-  style: z.array(z.string()).nullable().optional(),
-  situation: z.array(z.string()).nullable().optional(),
-  parking: z.array(z.string()).nullable().optional(),
-  age: z.array(z.string()).nullable().optional(),
-  locality: z.array(z.string()).nullable().optional(),
-  specialFeatures: z.array(z.string()).nullable().optional(),
-  unmappedAttributes: z
-    .array(z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  availableServicesIds: z.array(z.string()).nullable().optional(),
-  rooms: z
-    .array(
-      z.object({
-        name: z.string().nullable().optional(),
-        dimensions: z.string().nullable().optional(),
-        dimensionsAlt: z.string().nullable().optional(),
-        description: z.string().nullable().optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-  roomDetailsApproved: z.boolean().nullable().optional(),
-  officeIds: z.array(z.string()).nullable().optional(),
-  lostInstructionDate: z.string().nullable().optional(),
-  lostInstructionNote: z.string().nullable().optional(),
-  developmentSiteType: z.string().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  keywords: z.array(z.string()).nullable().optional(),
-  extrasField: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-})
-export type PropertiesBody = {
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  lastCall?: string | undefined
-  nextCall?: string | undefined
-  marketingMode?: string | undefined
-  currency?: string | undefined
-  alternateId?: string | undefined
-  address?:
-    | {
-        buildingName?: string | undefined
-        buildingNumber?: string | undefined
-        line1?: string | undefined
-        line2?: string | undefined
-        line3?: string | undefined
-        line4?: string | undefined
-        postcode?: string | undefined
-        countryId?: string | undefined
-        localTimeZone?: string | undefined
-        geolocation?: { latitude?: number | undefined; longitude?: number | undefined } | undefined
-      }
-    | undefined
-  areaId?: string | undefined
-  strapline?: string | undefined
-  description?: string | undefined
-  longDescription?: string | undefined
-  localAuthorityCompanyId?: string | undefined
-  localAuthorityCompanyName?: string | undefined
-  summary?: string | undefined
-  departmentId?: string | undefined
-  negotiatorId?: string | undefined
-  bedrooms?: number | undefined
-  bedroomsMax?: number | undefined
-  receptions?: number | undefined
-  receptionsMax?: number | undefined
-  bathrooms?: number | undefined
-  bathroomsMax?: number | undefined
-  numberOfUnits?: number | undefined
-  parkingSpaces?: number | undefined
-  councilTax?: string | undefined
-  disabledPortalIds?: Array<string> | undefined
-  internetAdvertising?: boolean | undefined
-  isExternal?: boolean | undefined
-  viewingArrangements?: string | undefined
-  videoUrl?: string | undefined
-  videoCaption?: string | undefined
-  video2Url?: string | undefined
-  video2Caption?: string | undefined
-  notes?: string | undefined
-  boardStatus?: string | undefined
-  boardNotes?: string | undefined
-  featuredImageUrl?: string | undefined
-  url?: string | undefined
-  urlCaption?: string | undefined
-  groundRent?: number | undefined
-  groundRentComment?: string | undefined
-  groundRentReviewDate?: string | undefined
-  groundRentIncrease?: number | undefined
-  serviceCharge?: number | undefined
-  serviceChargeComment?: string | undefined
-  floorLevel?: number | undefined
-  internalFloors?: number | undefined
-  totalFloors?: number | undefined
-  boardUpdated?: string | undefined
-  valuation?: string | undefined
-  archivedOn?: string | undefined
-  fromArchive?: boolean | undefined
-  rural?:
-    | { tenureId?: string | undefined; buildingsDescription?: string | undefined; landDescription?: string | undefined }
-    | undefined
-  externalArea?: { type?: string | undefined; min?: number | undefined; max?: number | undefined } | undefined
-  internalArea?: { type?: string | undefined; min?: number | undefined; max?: number | undefined } | undefined
-  epc?:
-    | {
-        exempt?: boolean | undefined
-        eer?: number | undefined
-        eerRating?: string | undefined
-        eerPotential?: number | undefined
-        eerPotentialRating?: string | undefined
-        eir?: number | undefined
-        eirRating?: string | undefined
-        eirPotential?: number | undefined
-        eirPotentialRating?: string | undefined
-        fullDocumentUrl?: string | undefined
-        firstPageDocumentUrl?: string | undefined
-      }
-    | undefined
-  selling?:
-    | {
-        instructed?: string | undefined
-        price?: number | undefined
-        priceTo?: number | undefined
-        reservationFee?: number | undefined
-        qualifier?: string | undefined
-        status?: string | undefined
-        disposal?: string | undefined
-        completed?: string | undefined
-        exchanged?: string | undefined
-        accountPaid?: string | undefined
-        tenure?: { type?: string | undefined; expiry?: string | undefined } | undefined
-        vendorId?: string | undefined
-        agency?: string | undefined
-        agencyId?: string | undefined
-        agreementExpiry?: string | undefined
-        fee?: { type?: string | undefined; amount?: number | undefined } | undefined
-        exchangedCompanyFee?: number | undefined
-        recommendedPrice?: number | undefined
-        valuationPrice?: number | undefined
-        brochureId?: string | undefined
-        publicBrochureUrl?: string | undefined
-        exchangedPrice?: number | undefined
-        exchangedOfficeId?: string | undefined
-        decoration?: Array<string> | undefined
-        sharedOwnership?:
-          | { sharedPercentage?: number | undefined; rent?: number | undefined; rentFrequency?: string | undefined }
-          | undefined
-        subAgentTerms?:
-          | { feeAvailable?: boolean | undefined; type?: string | undefined; amount?: number | undefined }
-          | undefined
-      }
-    | undefined
-  letting?:
-    | {
-        instructed?: string | undefined
-        availableFrom?: string | undefined
-        availableTo?: string | undefined
-        agreementSigned?: string | undefined
-        rent?: number | undefined
-        rentFrequency?: string | undefined
-        rentIncludes?: string | undefined
-        furnishing?: Array<string> | undefined
-        term?: string | undefined
-        status?: string | undefined
-        agentRole?: string | undefined
-        landlordId?: string | undefined
-        worksOrderNote?: string | undefined
-        minimumTerm?: number | undefined
-        propertyManagerId?: string | undefined
-        managementCompanyIds?: Array<string> | undefined
-        brochureId?: string | undefined
-        publicBrochureUrl?: string | undefined
-        managementFee?: { type?: string | undefined; amount?: number | undefined } | undefined
-        lettingFee?: { type?: string | undefined; amount?: number | undefined } | undefined
-        qualifier?: string | undefined
-        utilities?:
-          | {
-              hasGas?: boolean | undefined
-              gasCompanyId?: string | undefined
-              gasMeterPoint?: string | undefined
-              electricityCompanyId?: string | undefined
-              electricityMeterPoint?: string | undefined
-              waterCompanyId?: string | undefined
-              waterMeterPoint?: string | undefined
-              telephoneCompanyId?: string | undefined
-              internetCompanyId?: string | undefined
-              cableTvCompanyId?: string | undefined
-            }
-          | undefined
-        deposit?: { type?: string | undefined; amount?: number | undefined } | undefined
-        rentInsurance?:
-          | {
-              status?: string | undefined
-              referenceNumber?: string | undefined
-              start?: string | undefined
-              end?: string | undefined
-              cancelledReasonId?: string | undefined
-              cancelledComment?: string | undefined
-              autoRenew?: boolean | undefined
-            }
-          | undefined
-        licencing?:
-          | {
-              licenceRequired?: boolean | undefined
-              licenceType?: string | undefined
-              households?: number | undefined
-              occupants?: number | undefined
-              aboveCommercialPremises?: boolean | undefined
-              application?:
-                | {
-                    status?: string | undefined
-                    referenceNumber?: string | undefined
-                    date?: string | undefined
-                    granted?: string | undefined
-                    expiry?: string | undefined
-                  }
-                | undefined
-            }
-          | undefined
-      }
-    | undefined
-  commercial?: { useClass?: Array<string> | undefined; floorLevel?: Array<string> | undefined } | undefined
-  regional?:
-    | {
-        ggy?: { market?: Array<string> | undefined } | undefined
-        irl?:
-          | {
-              buildingEnergyRating?:
-                | {
-                    exempt?: boolean | undefined
-                    rating?: string | undefined
-                    refNumber?: string | undefined
-                    epi?: string | undefined
-                  }
-                | undefined
-            }
-          | undefined
-      }
-    | undefined
-  type?: Array<string> | undefined
-  style?: Array<string> | undefined
-  situation?: Array<string> | undefined
-  parking?: Array<string> | undefined
-  age?: Array<string> | undefined
-  locality?: Array<string> | undefined
-  specialFeatures?: Array<string> | undefined
-  unmappedAttributes?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
-  availableServicesIds?: Array<string> | undefined
-  rooms?:
-    | Array<{
-        name?: string | undefined
-        dimensions?: string | undefined
-        dimensionsAlt?: string | undefined
-        description?: string | undefined
-      }>
-    | undefined
-  roomDetailsApproved?: boolean | undefined
-  officeIds?: Array<string> | undefined
-  lostInstructionDate?: string | undefined
-  lostInstructionNote?: string | undefined
-  developmentSiteType?: string | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  keywords?: Array<string> | undefined
-  extrasField?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-  _links?: Record<string, { href?: string | undefined }> | undefined
-}
 export type PropertiesArgs = {
   sortBy?: string | undefined
   embed?:
@@ -699,198 +153,16 @@ export type PropertiesArgs = {
   modifiedTo?: string | undefined
   metadata?: Array<string> | undefined
   extrasField?: Array<string> | undefined
-  columns: ColumnsList<PropertiesBody>
-}
-export const propertiesIdCertificatesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  category: z.string().nullable().optional(),
-  typeId: z.string().nullable().optional(),
-  start: z.string().nullable().optional(),
-  expiry: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  companyId: z.string().nullable().optional(),
-  statusId: z.string().nullable().optional(),
-  notes: z.string().nullable().optional(),
-  referenceNumber: z.string().nullable().optional(),
-  responsibleParty: z.string().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type PropertiesIdCertificatesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  category?: string | undefined
-  typeId?: string | undefined
-  start?: string | undefined
-  expiry?: string | undefined
-  propertyId?: string | undefined
-  companyId?: string | undefined
-  statusId?: string | undefined
-  notes?: string | undefined
-  referenceNumber?: string | undefined
-  responsibleParty?: string | undefined
-  _eTag?: string | undefined
+  columns: ColumnsList<PropertyModel>
 }
 export type PropertiesIdCertificatesArgs = {
   id: string
   category?: Array<'safetyCertificate' | 'insurancePolicy' | 'warranty'> | undefined
-  columns: ColumnsList<PropertiesIdCertificatesBody>
+  columns: ColumnsList<CertificateModel>
 }
-export const propertiesIdKeysBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  number: z.string().nullable().optional(),
-  typeId: z.string().nullable().optional(),
-  officeId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  keysInSet: z
-    .array(z.object({ name: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type PropertiesIdKeysBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  number?: string | undefined
-  typeId?: string | undefined
-  officeId?: string | undefined
-  propertyId?: string | undefined
-  status?: string | undefined
-  keysInSet?: Array<{ name?: string | undefined }> | undefined
-  _eTag?: string | undefined
-}
-export type PropertiesIdKeysArgs = { id: string; columns: ColumnsList<PropertiesIdKeysBody> }
-export const propertiesIdKeysKeyIdMovementsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  keyId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  checkOutToId: z.string().nullable().optional(),
-  checkOutToType: z.string().nullable().optional(),
-  checkOutAt: z.string().nullable().optional(),
-  checkOutNegotiatorId: z.string().nullable().optional(),
-  checkInAt: z.string().nullable().optional(),
-  checkInNegotiatorId: z.string().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type PropertiesIdKeysKeyIdMovementsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  keyId?: string | undefined
-  propertyId?: string | undefined
-  checkOutToId?: string | undefined
-  checkOutToType?: string | undefined
-  checkOutAt?: string | undefined
-  checkOutNegotiatorId?: string | undefined
-  checkInAt?: string | undefined
-  checkInNegotiatorId?: string | undefined
-  _eTag?: string | undefined
-}
-export type PropertiesIdKeysKeyIdMovementsArgs = {
-  id: string
-  keyId: string
-  columns: ColumnsList<PropertiesIdKeysKeyIdMovementsBody>
-}
-export const propertiesIdChecksBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type PropertiesIdChecksBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  description?: string | undefined
-  status?: string | undefined
-  type?: string | undefined
-  propertyId?: string | undefined
-  _eTag?: string | undefined
-}
-export type PropertiesIdChecksArgs = {
-  id: string
-  type?: string | undefined
-  columns: ColumnsList<PropertiesIdChecksBody>
-}
-export const propertiesCertificatesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  category: z.string().nullable().optional(),
-  typeId: z.string().nullable().optional(),
-  start: z.string().nullable().optional(),
-  expiry: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  companyId: z.string().nullable().optional(),
-  statusId: z.string().nullable().optional(),
-  notes: z.string().nullable().optional(),
-  referenceNumber: z.string().nullable().optional(),
-  responsibleParty: z.string().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type PropertiesCertificatesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  category?: string | undefined
-  typeId?: string | undefined
-  start?: string | undefined
-  expiry?: string | undefined
-  propertyId?: string | undefined
-  companyId?: string | undefined
-  statusId?: string | undefined
-  notes?: string | undefined
-  referenceNumber?: string | undefined
-  responsibleParty?: string | undefined
-  _eTag?: string | undefined
-}
+export type PropertiesIdKeysArgs = { id: string; columns: ColumnsList<KeysModel> }
+export type PropertiesIdKeysKeyIdMovementsArgs = { id: string; keyId: string; columns: ColumnsList<KeyMovementModel> }
+export type PropertiesIdChecksArgs = { id: string; type?: string | undefined; columns: ColumnsList<PropertyCheckModel> }
 export type PropertiesCertificatesArgs = {
   sortBy?: string | undefined
   expiryDateFrom?: string | undefined
@@ -903,40 +175,13 @@ export type PropertiesCertificatesArgs = {
   typeIds?: Array<string> | undefined
   propertyIds?: Array<string> | undefined
   embed?: Array<'property'> | undefined
-  columns: ColumnsList<PropertiesCertificatesBody>
+  columns: ColumnsList<CertificateModel>
 }
-export const propertiesIdAppraisalsBody = z.object({
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  companyId: z.string().nullable().optional(),
-  isExternal: z.boolean().nullable().optional(),
-  date: z.string().nullable().optional(),
-  price: z.number().int().nullable().optional(),
-  fee: z
-    .object({ type: z.string().nullable().optional(), amount: z.number().nullable().optional() })
-    .nullable()
-    .optional(),
-  notes: z.string().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type PropertiesIdAppraisalsBody = {
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  companyId?: string | undefined
-  isExternal?: boolean | undefined
-  date?: string | undefined
-  price?: number | undefined
-  fee?: { type?: string | undefined; amount?: number | undefined } | undefined
-  notes?: string | undefined
-  _eTag?: string | undefined
-}
-export type PropertiesIdAppraisalsArgs = { id: string; columns: ColumnsList<PropertiesIdAppraisalsBody> }
+export type PropertiesIdAppraisalsArgs = { id: string; columns: ColumnsList<PropertyAppraisalModel> }
 
-export const propertiesColumnHelper = createColumnHelper<PropertiesBody>()
+export const propertiesColumnHelper = createColumnHelper<PropertyModel>()
 
-export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<PropertiesBody>) => {
+export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<PropertyModel>) => {
   return match(property)
     .with('_embedded', () => {
       const { label: header, format } = modelConfig['_embedded']
@@ -1723,12 +968,9 @@ export const usePropertiesTable = (args: PropertiesArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const propertiesIdCertificatesColumnHelper = createColumnHelper<PropertiesIdCertificatesBody>()
+export const propertiesIdCertificatesColumnHelper = createColumnHelper<CertificateModel>()
 
-export const getPropertiesIdCertificatesColumn = (
-  property: string,
-  modelConfig: ModelConfig<PropertiesIdCertificatesBody>,
-) => {
+export const getPropertiesIdCertificatesColumn = (property: string, modelConfig: ModelConfig<CertificateModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -1912,9 +1154,9 @@ export const usePropertiesIdCertificatesTable = (args: PropertiesIdCertificatesA
 
   return { rerender, table, dataQuery }
 }
-export const propertiesIdKeysColumnHelper = createColumnHelper<PropertiesIdKeysBody>()
+export const propertiesIdKeysColumnHelper = createColumnHelper<KeysModel>()
 
-export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelConfig<PropertiesIdKeysBody>) => {
+export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelConfig<KeysModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -2062,11 +1304,11 @@ export const usePropertiesIdKeysTable = (args: PropertiesIdKeysArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const propertiesIdKeysKeyIdMovementsColumnHelper = createColumnHelper<PropertiesIdKeysKeyIdMovementsBody>()
+export const propertiesIdKeysKeyIdMovementsColumnHelper = createColumnHelper<KeyMovementModel>()
 
 export const getPropertiesIdKeysKeyIdMovementsColumn = (
   property: string,
-  modelConfig: ModelConfig<PropertiesIdKeysKeyIdMovementsBody>,
+  modelConfig: ModelConfig<KeyMovementModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -2233,9 +1475,9 @@ export const usePropertiesIdKeysKeyIdMovementsTable = (args: PropertiesIdKeysKey
 
   return { rerender, table, dataQuery }
 }
-export const propertiesIdChecksColumnHelper = createColumnHelper<PropertiesIdChecksBody>()
+export const propertiesIdChecksColumnHelper = createColumnHelper<PropertyCheckModel>()
 
-export const getPropertiesIdChecksColumn = (property: string, modelConfig: ModelConfig<PropertiesIdChecksBody>) => {
+export const getPropertiesIdChecksColumn = (property: string, modelConfig: ModelConfig<PropertyCheckModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -2365,12 +1607,9 @@ export const usePropertiesIdChecksTable = (args: PropertiesIdChecksArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const propertiesCertificatesColumnHelper = createColumnHelper<PropertiesCertificatesBody>()
+export const propertiesCertificatesColumnHelper = createColumnHelper<CertificateModel>()
 
-export const getPropertiesCertificatesColumn = (
-  property: string,
-  modelConfig: ModelConfig<PropertiesCertificatesBody>,
-) => {
+export const getPropertiesCertificatesColumn = (property: string, modelConfig: ModelConfig<CertificateModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -2554,12 +1793,9 @@ export const usePropertiesCertificatesTable = (args: PropertiesCertificatesArgs)
 
   return { rerender, table, dataQuery }
 }
-export const propertiesIdAppraisalsColumnHelper = createColumnHelper<PropertiesIdAppraisalsBody>()
+export const propertiesIdAppraisalsColumnHelper = createColumnHelper<PropertyAppraisalModel>()
 
-export const getPropertiesIdAppraisalsColumn = (
-  property: string,
-  modelConfig: ModelConfig<PropertiesIdAppraisalsBody>,
-) => {
+export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: ModelConfig<PropertyAppraisalModel>) => {
   return match(property)
     .with('id', () => {
       const { label: header, format } = modelConfig['id']

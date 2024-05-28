@@ -1,124 +1,11 @@
-import { z } from 'zod'
+import { conveyancingModel, ConveyancingModel } from '@/models/conveyancingModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiConveyancing, useGetApiConveyancingIdChain } from '@/services/conveyancing.ts'
 
-export const conveyancingBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  isExternal: z.boolean().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  propertyAddress: z.string().nullable().optional(),
-  vendor: z.string().nullable().optional(),
-  vendorId: z.string().nullable().optional(),
-  vendorSolicitorId: z.string().nullable().optional(),
-  buyer: z.string().nullable().optional(),
-  buyerId: z.string().nullable().optional(),
-  buyerSolicitorId: z.string().nullable().optional(),
-  externalAgent: z.string().nullable().optional(),
-  externalAgentId: z.string().nullable().optional(),
-  upwardChainId: z.string().nullable().optional(),
-  downwardChainId: z.string().nullable().optional(),
-  fixturesAndFittingsCompleted: z.string().nullable().optional(),
-  deedsRequested: z.string().nullable().optional(),
-  deedsReceived: z.string().nullable().optional(),
-  enquiriesSent: z.string().nullable().optional(),
-  enquiriesAnswered: z.string().nullable().optional(),
-  searchesPaid: z.string().nullable().optional(),
-  searchesApplied: z.string().nullable().optional(),
-  searchesReceived: z.string().nullable().optional(),
-  contractSent: z.string().nullable().optional(),
-  contractReceived: z.string().nullable().optional(),
-  contractApproved: z.string().nullable().optional(),
-  contractVendorSigned: z.string().nullable().optional(),
-  contractBuyerSigned: z.string().nullable().optional(),
-  mortgageRequired: z.string().nullable().optional(),
-  mortgageLoanPercentage: z.number().int().nullable().optional(),
-  mortgageSubmitted: z.string().nullable().optional(),
-  mortgageOfferReceived: z.string().nullable().optional(),
-  mortgageLenderId: z.string().nullable().optional(),
-  mortgageBrokerId: z.string().nullable().optional(),
-  mortgageSurveyDate: z.string().nullable().optional(),
-  mortgageSurveyorId: z.string().nullable().optional(),
-  additionalSurveyRequired: z.string().nullable().optional(),
-  additionalSurveyDate: z.string().nullable().optional(),
-  additionalSurveyorId: z.string().nullable().optional(),
-  exchangedVendor: z.string().nullable().optional(),
-  exchangedBuyer: z.string().nullable().optional(),
-  completion: z.string().nullable().optional(),
-  checkListItems: z
-    .array(
-      z.object({
-        name: z.string().nullable().optional(),
-        completed: z.boolean().nullable().optional(),
-        completedDate: z.string().nullable().optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-  _eTag: z.string().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-})
-export type ConveyancingBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  isExternal?: boolean | undefined
-  propertyId?: string | undefined
-  propertyAddress?: string | undefined
-  vendor?: string | undefined
-  vendorId?: string | undefined
-  vendorSolicitorId?: string | undefined
-  buyer?: string | undefined
-  buyerId?: string | undefined
-  buyerSolicitorId?: string | undefined
-  externalAgent?: string | undefined
-  externalAgentId?: string | undefined
-  upwardChainId?: string | undefined
-  downwardChainId?: string | undefined
-  fixturesAndFittingsCompleted?: string | undefined
-  deedsRequested?: string | undefined
-  deedsReceived?: string | undefined
-  enquiriesSent?: string | undefined
-  enquiriesAnswered?: string | undefined
-  searchesPaid?: string | undefined
-  searchesApplied?: string | undefined
-  searchesReceived?: string | undefined
-  contractSent?: string | undefined
-  contractReceived?: string | undefined
-  contractApproved?: string | undefined
-  contractVendorSigned?: string | undefined
-  contractBuyerSigned?: string | undefined
-  mortgageRequired?: string | undefined
-  mortgageLoanPercentage?: number | undefined
-  mortgageSubmitted?: string | undefined
-  mortgageOfferReceived?: string | undefined
-  mortgageLenderId?: string | undefined
-  mortgageBrokerId?: string | undefined
-  mortgageSurveyDate?: string | undefined
-  mortgageSurveyorId?: string | undefined
-  additionalSurveyRequired?: string | undefined
-  additionalSurveyDate?: string | undefined
-  additionalSurveyorId?: string | undefined
-  exchangedVendor?: string | undefined
-  exchangedBuyer?: string | undefined
-  completion?: string | undefined
-  checkListItems?:
-    | Array<{ name?: string | undefined; completed?: boolean | undefined; completedDate?: string | undefined }>
-    | undefined
-  _eTag?: string | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-}
 export type ConveyancingArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
@@ -130,131 +17,17 @@ export type ConveyancingArgs = {
   createdTo?: string | undefined
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
-  columns: ColumnsList<ConveyancingBody>
-}
-export const conveyancingIdChainBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  isExternal: z.boolean().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  propertyAddress: z.string().nullable().optional(),
-  vendor: z.string().nullable().optional(),
-  vendorId: z.string().nullable().optional(),
-  vendorSolicitorId: z.string().nullable().optional(),
-  buyer: z.string().nullable().optional(),
-  buyerId: z.string().nullable().optional(),
-  buyerSolicitorId: z.string().nullable().optional(),
-  externalAgent: z.string().nullable().optional(),
-  externalAgentId: z.string().nullable().optional(),
-  upwardChainId: z.string().nullable().optional(),
-  downwardChainId: z.string().nullable().optional(),
-  fixturesAndFittingsCompleted: z.string().nullable().optional(),
-  deedsRequested: z.string().nullable().optional(),
-  deedsReceived: z.string().nullable().optional(),
-  enquiriesSent: z.string().nullable().optional(),
-  enquiriesAnswered: z.string().nullable().optional(),
-  searchesPaid: z.string().nullable().optional(),
-  searchesApplied: z.string().nullable().optional(),
-  searchesReceived: z.string().nullable().optional(),
-  contractSent: z.string().nullable().optional(),
-  contractReceived: z.string().nullable().optional(),
-  contractApproved: z.string().nullable().optional(),
-  contractVendorSigned: z.string().nullable().optional(),
-  contractBuyerSigned: z.string().nullable().optional(),
-  mortgageRequired: z.string().nullable().optional(),
-  mortgageLoanPercentage: z.number().int().nullable().optional(),
-  mortgageSubmitted: z.string().nullable().optional(),
-  mortgageOfferReceived: z.string().nullable().optional(),
-  mortgageLenderId: z.string().nullable().optional(),
-  mortgageBrokerId: z.string().nullable().optional(),
-  mortgageSurveyDate: z.string().nullable().optional(),
-  mortgageSurveyorId: z.string().nullable().optional(),
-  additionalSurveyRequired: z.string().nullable().optional(),
-  additionalSurveyDate: z.string().nullable().optional(),
-  additionalSurveyorId: z.string().nullable().optional(),
-  exchangedVendor: z.string().nullable().optional(),
-  exchangedBuyer: z.string().nullable().optional(),
-  completion: z.string().nullable().optional(),
-  checkListItems: z
-    .array(
-      z.object({
-        name: z.string().nullable().optional(),
-        completed: z.boolean().nullable().optional(),
-        completedDate: z.string().nullable().optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-  _eTag: z.string().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-})
-export type ConveyancingIdChainBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  isExternal?: boolean | undefined
-  propertyId?: string | undefined
-  propertyAddress?: string | undefined
-  vendor?: string | undefined
-  vendorId?: string | undefined
-  vendorSolicitorId?: string | undefined
-  buyer?: string | undefined
-  buyerId?: string | undefined
-  buyerSolicitorId?: string | undefined
-  externalAgent?: string | undefined
-  externalAgentId?: string | undefined
-  upwardChainId?: string | undefined
-  downwardChainId?: string | undefined
-  fixturesAndFittingsCompleted?: string | undefined
-  deedsRequested?: string | undefined
-  deedsReceived?: string | undefined
-  enquiriesSent?: string | undefined
-  enquiriesAnswered?: string | undefined
-  searchesPaid?: string | undefined
-  searchesApplied?: string | undefined
-  searchesReceived?: string | undefined
-  contractSent?: string | undefined
-  contractReceived?: string | undefined
-  contractApproved?: string | undefined
-  contractVendorSigned?: string | undefined
-  contractBuyerSigned?: string | undefined
-  mortgageRequired?: string | undefined
-  mortgageLoanPercentage?: number | undefined
-  mortgageSubmitted?: string | undefined
-  mortgageOfferReceived?: string | undefined
-  mortgageLenderId?: string | undefined
-  mortgageBrokerId?: string | undefined
-  mortgageSurveyDate?: string | undefined
-  mortgageSurveyorId?: string | undefined
-  additionalSurveyRequired?: string | undefined
-  additionalSurveyDate?: string | undefined
-  additionalSurveyorId?: string | undefined
-  exchangedVendor?: string | undefined
-  exchangedBuyer?: string | undefined
-  completion?: string | undefined
-  checkListItems?:
-    | Array<{ name?: string | undefined; completed?: boolean | undefined; completedDate?: string | undefined }>
-    | undefined
-  _eTag?: string | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
+  columns: ColumnsList<ConveyancingModel>
 }
 export type ConveyancingIdChainArgs = {
   id: string
   sortBy?: string | undefined
-  columns: ColumnsList<ConveyancingIdChainBody>
+  columns: ColumnsList<ConveyancingModel>
 }
 
-export const conveyancingColumnHelper = createColumnHelper<ConveyancingBody>()
+export const conveyancingColumnHelper = createColumnHelper<ConveyancingModel>()
 
-export const getConveyancingColumn = (property: string, modelConfig: ModelConfig<ConveyancingBody>) => {
+export const getConveyancingColumn = (property: string, modelConfig: ModelConfig<ConveyancingModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -726,9 +499,9 @@ export const useConveyancingTable = (args: ConveyancingArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const conveyancingIdChainColumnHelper = createColumnHelper<ConveyancingIdChainBody>()
+export const conveyancingIdChainColumnHelper = createColumnHelper<ConveyancingModel>()
 
-export const getConveyancingIdChainColumn = (property: string, modelConfig: ModelConfig<ConveyancingIdChainBody>) => {
+export const getConveyancingIdChainColumn = (property: string, modelConfig: ModelConfig<ConveyancingModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

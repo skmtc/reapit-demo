@@ -1,31 +1,16 @@
-import { z } from 'zod'
+import { schemaModel, SchemaModel } from '@/models/schemaModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiMetadataMetadataSchema } from '@/services/metadataschema.ts'
 
-export const metadataMetadataSchemaBody = z.object({
-  id: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  schema: z.string().nullable().optional(),
-})
-export type MetadataMetadataSchemaBody = {
-  id?: string | undefined
-  modified?: string | undefined
-  schema?: string | undefined
-}
-export type MetadataMetadataSchemaArgs = {
-  entityType?: string | undefined
-  columns: ColumnsList<MetadataMetadataSchemaBody>
-}
+export type MetadataMetadataSchemaArgs = { entityType?: string | undefined; columns: ColumnsList<SchemaModel> }
 
-export const metadataMetadataSchemaColumnHelper = createColumnHelper<MetadataMetadataSchemaBody>()
+export const metadataMetadataSchemaColumnHelper = createColumnHelper<SchemaModel>()
 
-export const getMetadataMetadataSchemaColumn = (
-  property: string,
-  modelConfig: ModelConfig<MetadataMetadataSchemaBody>,
-) => {
+export const getMetadataMetadataSchemaColumn = (property: string, modelConfig: ModelConfig<SchemaModel>) => {
   return match(property)
     .with('id', () => {
       const { label: header, format } = modelConfig['id']

@@ -1,10 +1,10 @@
-import { createNegotiatorModel, CreateNegotiatorModel } from '@/index.generated.ts'
+import { createNegotiatorModel, CreateNegotiatorModel } from '@/models/createNegotiatorModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiNegotiators } from '@/services/negotiators.ts'
+import { useCreateNegotiator } from '@/services/negotiators.ts'
 
 export type CreateNegotiatorsProps = { children: (control: Control<CreateNegotiatorModel>) => ReactNode }
 
@@ -13,7 +13,7 @@ export const CreateNegotiators = (props: CreateNegotiatorsProps) => {
     resolver: zodResolver(createNegotiatorModel),
   })
 
-  const mutator = usePostApiNegotiators()
+  const mutator = useCreateNegotiator()
 
   return (
     <Box

@@ -1,15 +1,11 @@
-import {
-  createJournalEntryModel,
-  CreateJournalEntryModel,
-  createBulkJournalEntryModel,
-  CreateBulkJournalEntryModel,
-} from '@/index.generated.ts'
+import { createJournalEntryModel, CreateJournalEntryModel } from '@/models/createJournalEntryModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiJournalEntries, usePostApiJournalEntriesBulk } from '@/services/journalentries.ts'
+import { useCreateJournalEntry, useCreateBulkJournalEntry } from '@/services/journalentries.ts'
+import { createBulkJournalEntryModel, CreateBulkJournalEntryModel } from '@/models/createBulkJournalEntryModel.ts'
 
 export type CreateJournalEntriesProps = { children: (control: Control<CreateJournalEntryModel>) => ReactNode }
 export type CreateJournalEntriesBulkProps = { children: (control: Control<CreateBulkJournalEntryModel>) => ReactNode }
@@ -19,7 +15,7 @@ export const CreateJournalEntries = (props: CreateJournalEntriesProps) => {
     resolver: zodResolver(createJournalEntryModel),
   })
 
-  const mutator = usePostApiJournalEntries()
+  const mutator = useCreateJournalEntry()
 
   return (
     <Box
@@ -54,7 +50,7 @@ export const CreateJournalEntriesBulk = (props: CreateJournalEntriesBulkProps) =
     resolver: zodResolver(createBulkJournalEntryModel),
   })
 
-  const mutator = usePostApiJournalEntriesBulk()
+  const mutator = useCreateBulkJournalEntry()
 
   return (
     <Box

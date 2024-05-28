@@ -1,21 +1,16 @@
-import {
-  createPropertyImageModel,
-  CreatePropertyImageModel,
-  createPreSignedUrlsModel,
-  CreatePreSignedUrlsModel,
-  reindexPropertyImagesModel,
-  ReindexPropertyImagesModel,
-} from '@/index.generated.ts'
+import { createPropertyImageModel, CreatePropertyImageModel } from '@/models/createPropertyImageModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import {
-  usePostApiPropertyImages,
-  usePostApiPropertyImagesSignedUrl,
-  usePostApiPropertyImagesReindex,
+  useCreatePropertyImage,
+  useCreatePropertyImageSignedUrl,
+  useReindexPropertyImages,
 } from '@/services/propertyimages.ts'
+import { createPreSignedUrlsModel, CreatePreSignedUrlsModel } from '@/models/createPreSignedUrlsModel.ts'
+import { reindexPropertyImagesModel, ReindexPropertyImagesModel } from '@/models/reindexPropertyImagesModel.ts'
 
 export type CreatePropertyImagesProps = { children: (control: Control<CreatePropertyImageModel>) => ReactNode }
 export type CreatePropertyImagesSignedUrlProps = { children: (control: Control<CreatePreSignedUrlsModel>) => ReactNode }
@@ -26,7 +21,7 @@ export const CreatePropertyImages = (props: CreatePropertyImagesProps) => {
     resolver: zodResolver(createPropertyImageModel),
   })
 
-  const mutator = usePostApiPropertyImages()
+  const mutator = useCreatePropertyImage()
 
   return (
     <Box
@@ -61,7 +56,7 @@ export const CreatePropertyImagesSignedUrl = (props: CreatePropertyImagesSignedU
     resolver: zodResolver(createPreSignedUrlsModel),
   })
 
-  const mutator = usePostApiPropertyImagesSignedUrl()
+  const mutator = useCreatePropertyImageSignedUrl()
 
   return (
     <Box
@@ -96,7 +91,7 @@ export const CreatePropertyImagesReindex = (props: CreatePropertyImagesReindexPr
     resolver: zodResolver(reindexPropertyImagesModel),
   })
 
-  const mutator = usePostApiPropertyImagesReindex()
+  const mutator = useReindexPropertyImages()
 
   return (
     <Box

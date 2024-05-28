@@ -1,10 +1,13 @@
-import { insertVendorContactRelationshipModel, InsertVendorContactRelationshipModel } from '@/index.generated.ts'
+import {
+  insertVendorContactRelationshipModel,
+  InsertVendorContactRelationshipModel,
+} from '@/models/insertVendorContactRelationshipModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiVendorsIdRelationships } from '@/services/vendors.ts'
+import { useCreateVendorRelationship } from '@/services/vendors.ts'
 
 export type CreateVendorsIdRelationshipsProps = {
   id: string
@@ -16,7 +19,7 @@ export const CreateVendorsIdRelationships = (props: CreateVendorsIdRelationships
     resolver: zodResolver(insertVendorContactRelationshipModel),
   })
 
-  const mutator = usePostApiVendorsIdRelationships()
+  const mutator = useCreateVendorRelationship()
 
   return (
     <Box

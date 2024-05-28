@@ -1,10 +1,10 @@
-import { createNotificationModel, CreateNotificationModel } from '@/index.generated.ts'
+import { createNotificationModel, CreateNotificationModel } from '@/models/createNotificationModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiNotifications } from '@/services/notifications.ts'
+import { useCreateNotification } from '@/services/notifications.ts'
 
 export type CreateNotificationsProps = { children: (control: Control<CreateNotificationModel>) => ReactNode }
 
@@ -13,7 +13,7 @@ export const CreateNotifications = (props: CreateNotificationsProps) => {
     resolver: zodResolver(createNotificationModel),
   })
 
-  const mutator = usePostApiNotifications()
+  const mutator = useCreateNotification()
 
   return (
     <Box

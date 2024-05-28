@@ -1,43 +1,11 @@
-import { z } from 'zod'
+import { areaModel, AreaModel } from '@/models/areaModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiAreas } from '@/services/areas.ts'
 
-export const areasBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  active: z.boolean().nullable().optional(),
-  type: z.string().nullable().optional(),
-  area: z.array(z.string()).nullable().optional(),
-  departmentIds: z.array(z.string()).nullable().optional(),
-  officeIds: z.array(z.string()).nullable().optional(),
-  parentIds: z.array(z.string()).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type AreasBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  name?: string | undefined
-  active?: boolean | undefined
-  type?: string | undefined
-  area?: Array<string> | undefined
-  departmentIds?: Array<string> | undefined
-  officeIds?: Array<string> | undefined
-  parentIds?: Array<string> | undefined
-  _eTag?: string | undefined
-}
 export type AreasArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
@@ -49,12 +17,12 @@ export type AreasArgs = {
   createdTo?: string | undefined
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
-  columns: ColumnsList<AreasBody>
+  columns: ColumnsList<AreaModel>
 }
 
-export const areasColumnHelper = createColumnHelper<AreasBody>()
+export const areasColumnHelper = createColumnHelper<AreaModel>()
 
-export const getAreasColumn = (property: string, modelConfig: ModelConfig<AreasBody>) => {
+export const getAreasColumn = (property: string, modelConfig: ModelConfig<AreaModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

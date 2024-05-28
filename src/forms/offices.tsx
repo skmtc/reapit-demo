@@ -1,10 +1,10 @@
-import { createOfficeModel, CreateOfficeModel } from '@/index.generated.ts'
+import { createOfficeModel, CreateOfficeModel } from '@/models/createOfficeModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { usePostApiOffices } from '@/services/offices.ts'
+import { useCreateOffice } from '@/services/offices.ts'
 
 export type CreateOfficesProps = { children: (control: Control<CreateOfficeModel>) => ReactNode }
 
@@ -13,7 +13,7 @@ export const CreateOffices = (props: CreateOfficesProps) => {
     resolver: zodResolver(createOfficeModel),
   })
 
-  const mutator = usePostApiOffices()
+  const mutator = useCreateOffice()
 
   return (
     <Box

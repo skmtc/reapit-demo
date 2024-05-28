@@ -1,73 +1,11 @@
-import { z } from 'zod'
+import { identityCheckModel, IdentityCheckModel } from '@/models/identityCheckModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiIdentityChecks } from '@/services/identitychecks.ts'
 
-export const identityChecksBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  contactId: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  checkDate: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  identityDocument1: z
-    .object({
-      documentId: z.string().nullable().optional(),
-      typeId: z.string().nullable().optional(),
-      expiry: z.string().nullable().optional(),
-      details: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  identityDocument2: z
-    .object({
-      documentId: z.string().nullable().optional(),
-      typeId: z.string().nullable().optional(),
-      expiry: z.string().nullable().optional(),
-      details: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type IdentityChecksBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  contactId?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  checkDate?: string | undefined
-  status?: string | undefined
-  negotiatorId?: string | undefined
-  identityDocument1?:
-    | {
-        documentId?: string | undefined
-        typeId?: string | undefined
-        expiry?: string | undefined
-        details?: string | undefined
-      }
-    | undefined
-  identityDocument2?:
-    | {
-        documentId?: string | undefined
-        typeId?: string | undefined
-        expiry?: string | undefined
-        details?: string | undefined
-      }
-    | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-}
 export type IdentityChecksArgs = {
   sortBy?: string | undefined
   embed?: Array<'contact' | 'document1' | 'document2' | 'documentType1' | 'documentType2'> | undefined
@@ -82,12 +20,12 @@ export type IdentityChecksArgs = {
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
   metadata?: Array<string> | undefined
-  columns: ColumnsList<IdentityChecksBody>
+  columns: ColumnsList<IdentityCheckModel>
 }
 
-export const identityChecksColumnHelper = createColumnHelper<IdentityChecksBody>()
+export const identityChecksColumnHelper = createColumnHelper<IdentityCheckModel>()
 
-export const getIdentityChecksColumn = (property: string, modelConfig: ModelConfig<IdentityChecksBody>) => {
+export const getIdentityChecksColumn = (property: string, modelConfig: ModelConfig<IdentityCheckModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

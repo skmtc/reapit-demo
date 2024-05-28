@@ -1,80 +1,11 @@
-import { z } from 'zod'
+import { officeModel, OfficeModel } from '@/models/officeModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiOffices } from '@/services/offices.ts'
 
-export const officesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  manager: z.string().nullable().optional(),
-  active: z.boolean().nullable().optional(),
-  region: z.string().nullable().optional(),
-  address: z
-    .object({
-      buildingName: z.string().nullable().optional(),
-      buildingNumber: z.string().nullable().optional(),
-      line1: z.string().nullable().optional(),
-      line2: z.string().nullable().optional(),
-      line3: z.string().nullable().optional(),
-      line4: z.string().nullable().optional(),
-      postcode: z.string().nullable().optional(),
-      countryId: z.string().nullable().optional(),
-      geolocation: z
-        .object({ latitude: z.number().nullable().optional(), longitude: z.number().nullable().optional() })
-        .nullable()
-        .optional(),
-    })
-    .nullable()
-    .optional(),
-  additionalContactDetails: z
-    .array(z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  workPhone: z.string().nullable().optional(),
-  email: z.string().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-  extrasField: z.record(z.string(), z.object({})).nullable().optional(),
-})
-export type OfficesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  name?: string | undefined
-  manager?: string | undefined
-  active?: boolean | undefined
-  region?: string | undefined
-  address?:
-    | {
-        buildingName?: string | undefined
-        buildingNumber?: string | undefined
-        line1?: string | undefined
-        line2?: string | undefined
-        line3?: string | undefined
-        line4?: string | undefined
-        postcode?: string | undefined
-        countryId?: string | undefined
-        geolocation?: { latitude?: number | undefined; longitude?: number | undefined } | undefined
-      }
-    | undefined
-  additionalContactDetails?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
-  workPhone?: string | undefined
-  email?: string | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-  extrasField?: Record<string, Record<string, never>> | undefined
-}
 export type OfficesArgs = {
   sortBy?: string | undefined
   embed?: Array<'negotiators'> | undefined
@@ -89,12 +20,12 @@ export type OfficesArgs = {
   modifiedTo?: string | undefined
   metadata?: Array<string> | undefined
   extrasField?: Array<string> | undefined
-  columns: ColumnsList<OfficesBody>
+  columns: ColumnsList<OfficeModel>
 }
 
-export const officesColumnHelper = createColumnHelper<OfficesBody>()
+export const officesColumnHelper = createColumnHelper<OfficeModel>()
 
-export const getOfficesColumn = (property: string, modelConfig: ModelConfig<OfficesBody>) => {
+export const getOfficesColumn = (property: string, modelConfig: ModelConfig<OfficeModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

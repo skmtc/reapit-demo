@@ -1,37 +1,11 @@
-import { z } from 'zod'
+import { sourceModel, SourceModel } from '@/models/sourceModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import { useGetApiSources } from '@/services/sources.ts'
 
-export const sourcesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  officeIds: z.array(z.string()).nullable().optional(),
-  departmentIds: z.array(z.string()).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type SourcesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  name?: string | undefined
-  type?: string | undefined
-  officeIds?: Array<string> | undefined
-  departmentIds?: Array<string> | undefined
-  _eTag?: string | undefined
-}
 export type SourcesArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
@@ -43,12 +17,12 @@ export type SourcesArgs = {
   createdTo?: string | undefined
   modifiedFrom?: string | undefined
   modifiedTo?: string | undefined
-  columns: ColumnsList<SourcesBody>
+  columns: ColumnsList<SourceModel>
 }
 
-export const sourcesColumnHelper = createColumnHelper<SourcesBody>()
+export const sourcesColumnHelper = createColumnHelper<SourceModel>()
 
-export const getSourcesColumn = (property: string, modelConfig: ModelConfig<SourcesBody>) => {
+export const getSourcesColumn = (property: string, modelConfig: ModelConfig<SourceModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

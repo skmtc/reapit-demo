@@ -1,33 +1,30 @@
-import {
-  createTenancyModel,
-  CreateTenancyModel,
-  createTenancyCheckModel,
-  CreateTenancyCheckModel,
-  createTenancyBreakClauseModel,
-  CreateTenancyBreakClauseModel,
-  createTenancyAllowanceModel,
-  CreateTenancyAllowanceModel,
-  createTenancyResponsibilityModel,
-  CreateTenancyResponsibilityModel,
-  createTenancyRenewalModel,
-  CreateTenancyRenewalModel,
-  createTenancyRenewalCheckModel,
-  CreateTenancyRenewalCheckModel,
-} from '@/index.generated.ts'
+import { createTenancyModel, CreateTenancyModel } from '@/models/createTenancyModel.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import {
-  usePostApiTenancies,
-  usePostApiTenanciesIdChecks,
-  usePostApiTenanciesIdBreakClauses,
-  usePostApiTenanciesIdAllowances,
-  usePostApiTenanciesIdResponsibilities,
-  usePostApiTenanciesIdRenewalNegotiations,
-  usePostApiTenanciesIdRenewalNegotiationsRenewalIdChecks,
+  useCreateTenancy,
+  useCreateTenancyCheck,
+  useCreateTenancyBreakClause,
+  useCreateTenancyAllowance,
+  useCreateTenancyResponsibility,
+  useCreateTenancyRenewalNegotiation,
+  useCreateTenancyRenewalNegotiationCheck,
 } from '@/services/tenancies.ts'
+import { createTenancyCheckModel, CreateTenancyCheckModel } from '@/models/createTenancyCheckModel.ts'
+import { createTenancyBreakClauseModel, CreateTenancyBreakClauseModel } from '@/models/createTenancyBreakClauseModel.ts'
+import { createTenancyAllowanceModel, CreateTenancyAllowanceModel } from '@/models/createTenancyAllowanceModel.ts'
+import {
+  createTenancyResponsibilityModel,
+  CreateTenancyResponsibilityModel,
+} from '@/models/createTenancyResponsibilityModel.ts'
+import { createTenancyRenewalModel, CreateTenancyRenewalModel } from '@/models/createTenancyRenewalModel.ts'
+import {
+  createTenancyRenewalCheckModel,
+  CreateTenancyRenewalCheckModel,
+} from '@/models/createTenancyRenewalCheckModel.ts'
 
 export type CreateTenanciesProps = { children: (control: Control<CreateTenancyModel>) => ReactNode }
 export type CreateTenanciesIdChecksProps = {
@@ -61,7 +58,7 @@ export const CreateTenancies = (props: CreateTenanciesProps) => {
     resolver: zodResolver(createTenancyModel),
   })
 
-  const mutator = usePostApiTenancies()
+  const mutator = useCreateTenancy()
 
   return (
     <Box
@@ -96,7 +93,7 @@ export const CreateTenanciesIdChecks = (props: CreateTenanciesIdChecksProps) => 
     resolver: zodResolver(createTenancyCheckModel),
   })
 
-  const mutator = usePostApiTenanciesIdChecks()
+  const mutator = useCreateTenancyCheck()
 
   return (
     <Box
@@ -131,7 +128,7 @@ export const CreateTenanciesIdBreakClauses = (props: CreateTenanciesIdBreakClaus
     resolver: zodResolver(createTenancyBreakClauseModel),
   })
 
-  const mutator = usePostApiTenanciesIdBreakClauses()
+  const mutator = useCreateTenancyBreakClause()
 
   return (
     <Box
@@ -166,7 +163,7 @@ export const CreateTenanciesIdAllowances = (props: CreateTenanciesIdAllowancesPr
     resolver: zodResolver(createTenancyAllowanceModel),
   })
 
-  const mutator = usePostApiTenanciesIdAllowances()
+  const mutator = useCreateTenancyAllowance()
 
   return (
     <Box
@@ -201,7 +198,7 @@ export const CreateTenanciesIdResponsibilities = (props: CreateTenanciesIdRespon
     resolver: zodResolver(createTenancyResponsibilityModel),
   })
 
-  const mutator = usePostApiTenanciesIdResponsibilities()
+  const mutator = useCreateTenancyResponsibility()
 
   return (
     <Box
@@ -236,7 +233,7 @@ export const CreateTenanciesIdRenewalNegotiations = (props: CreateTenanciesIdRen
     resolver: zodResolver(createTenancyRenewalModel),
   })
 
-  const mutator = usePostApiTenanciesIdRenewalNegotiations()
+  const mutator = useCreateTenancyRenewalNegotiation()
 
   return (
     <Box
@@ -273,7 +270,7 @@ export const CreateTenanciesIdRenewalNegotiationsRenewalIdChecks = (
     resolver: zodResolver(createTenancyRenewalCheckModel),
   })
 
-  const mutator = usePostApiTenanciesIdRenewalNegotiationsRenewalIdChecks()
+  const mutator = useCreateTenancyRenewalNegotiationCheck()
 
   return (
     <Box

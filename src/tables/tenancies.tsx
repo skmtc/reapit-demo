@@ -1,8 +1,9 @@
-import { z } from 'zod'
+import { tenancyModel, TenancyModel } from '@/models/tenancyModel.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
+import { z } from 'zod'
 import {
   useGetApiTenancies,
   useGetApiTenanciesIdRelationships,
@@ -14,210 +15,21 @@ import {
   useGetApiTenanciesIdExtensions,
   useGetApiTenanciesIdRenewalNegotiationsRenewalIdChecks,
 } from '@/services/tenancies.ts'
+import {
+  tenancyContactRelationshipModel,
+  TenancyContactRelationshipModel,
+} from '@/models/tenancyContactRelationshipModel.ts'
+import { tenancyCheckModel, TenancyCheckModel } from '@/models/tenancyCheckModel.ts'
+import { tenancyBreakClauseModel, TenancyBreakClauseModel } from '@/models/tenancyBreakClauseModel.ts'
+import { tenancyAllowanceModel, TenancyAllowanceModel } from '@/models/tenancyAllowanceModel.ts'
+import { tenancyResponsibilityModel, TenancyResponsibilityModel } from '@/models/tenancyResponsibilityModel.ts'
+import { tenancyRenewalModel, TenancyRenewalModel } from '@/models/tenancyRenewalModel.ts'
+import {
+  tenancyExtensionAlterationModel,
+  TenancyExtensionAlterationModel,
+} from '@/models/tenancyExtensionAlterationModel.ts'
+import { tenancyRenewalCheckModel, TenancyRenewalCheckModel } from '@/models/tenancyRenewalCheckModel.ts'
 
-export const tenanciesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  startDate: z.string().nullable().optional(),
-  endDate: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  agentRole: z.string().nullable().optional(),
-  rent: z.number().nullable().optional(),
-  rentFrequency: z.string().nullable().optional(),
-  endDateConfirmed: z.boolean().nullable().optional(),
-  isPeriodic: z.boolean().nullable().optional(),
-  rentInstalmentsFrequency: z.string().nullable().optional(),
-  rentInstalmentsAmount: z.number().nullable().optional(),
-  rentInstalmentsStart: z.string().nullable().optional(),
-  meterReadingGas: z.string().nullable().optional(),
-  meterReadingGasLastRead: z.string().nullable().optional(),
-  meterReadingElectricity: z.string().nullable().optional(),
-  meterReadingElectricityLastRead: z.string().nullable().optional(),
-  meterReadingWater: z.string().nullable().optional(),
-  meterReadingWaterLastRead: z.string().nullable().optional(),
-  typeId: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  propertyId: z.string().nullable().optional(),
-  applicantId: z.string().nullable().optional(),
-  managerId: z.string().nullable().optional(),
-  groupPaymentReference: z.string().nullable().optional(),
-  lettingFee: z
-    .object({
-      type: z.string().nullable().optional(),
-      amount: z.number().nullable().optional(),
-      frequency: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  managementFee: z
-    .object({
-      type: z.string().nullable().optional(),
-      amount: z.number().nullable().optional(),
-      frequency: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  source: z
-    .object({ id: z.string().nullable().optional(), type: z.string().nullable().optional() })
-    .nullable()
-    .optional(),
-  deposit: z
-    .object({
-      heldBy: z.string().nullable().optional(),
-      period: z.number().int().nullable().optional(),
-      type: z.string().nullable().optional(),
-      sum: z.number().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  related: z
-    .array(
-      z.object({
-        id: z.string().nullable().optional(),
-        name: z.string().nullable().optional(),
-        title: z.string().nullable().optional(),
-        forename: z.string().nullable().optional(),
-        surname: z.string().nullable().optional(),
-        dateOfBirth: z.string().nullable().optional(),
-        type: z.string().nullable().optional(),
-        homePhone: z.string().nullable().optional(),
-        workPhone: z.string().nullable().optional(),
-        mobilePhone: z.string().nullable().optional(),
-        email: z.string().nullable().optional(),
-        paymentReference: z.string().nullable().optional(),
-        fromArchive: z.boolean().nullable().optional(),
-        marketingConsent: z.string().nullable().optional(),
-        primaryAddress: z
-          .object({
-            buildingName: z.string().nullable().optional(),
-            buildingNumber: z.string().nullable().optional(),
-            line1: z.string().nullable().optional(),
-            line2: z.string().nullable().optional(),
-            line3: z.string().nullable().optional(),
-            line4: z.string().nullable().optional(),
-            postcode: z.string().nullable().optional(),
-            countryId: z.string().nullable().optional(),
-          })
-          .nullable()
-          .optional(),
-        occupyOn: z.string().nullable().optional(),
-        vacateOn: z.string().nullable().optional(),
-        additionalContactDetails: z
-          .array(z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-          .nullable()
-          .optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-  fromArchive: z.boolean().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  feeNotes: z.string().nullable().optional(),
-  legalStatusId: z.string().nullable().optional(),
-  renewalOptions: z
-    .object({
-      optionId: z.string().nullable().optional(),
-      optionText: z.string().nullable().optional(),
-      expiry: z.string().nullable().optional(),
-      conditionIds: z.array(z.string()).nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  arrears: z
-    .object({ chaseArrears: z.boolean().nullable().optional(), paymentPlan: z.string().nullable().optional() })
-    .nullable()
-    .optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type TenanciesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  startDate?: string | undefined
-  endDate?: string | undefined
-  status?: string | undefined
-  agentRole?: string | undefined
-  rent?: number | undefined
-  rentFrequency?: string | undefined
-  endDateConfirmed?: boolean | undefined
-  isPeriodic?: boolean | undefined
-  rentInstalmentsFrequency?: string | undefined
-  rentInstalmentsAmount?: number | undefined
-  rentInstalmentsStart?: string | undefined
-  meterReadingGas?: string | undefined
-  meterReadingGasLastRead?: string | undefined
-  meterReadingElectricity?: string | undefined
-  meterReadingElectricityLastRead?: string | undefined
-  meterReadingWater?: string | undefined
-  meterReadingWaterLastRead?: string | undefined
-  typeId?: string | undefined
-  negotiatorId?: string | undefined
-  propertyId?: string | undefined
-  applicantId?: string | undefined
-  managerId?: string | undefined
-  groupPaymentReference?: string | undefined
-  lettingFee?: { type?: string | undefined; amount?: number | undefined; frequency?: string | undefined } | undefined
-  managementFee?: { type?: string | undefined; amount?: number | undefined; frequency?: string | undefined } | undefined
-  source?: { id?: string | undefined; type?: string | undefined } | undefined
-  deposit?:
-    | { heldBy?: string | undefined; period?: number | undefined; type?: string | undefined; sum?: number | undefined }
-    | undefined
-  related?:
-    | Array<{
-        id?: string | undefined
-        name?: string | undefined
-        title?: string | undefined
-        forename?: string | undefined
-        surname?: string | undefined
-        dateOfBirth?: string | undefined
-        type?: string | undefined
-        homePhone?: string | undefined
-        workPhone?: string | undefined
-        mobilePhone?: string | undefined
-        email?: string | undefined
-        paymentReference?: string | undefined
-        fromArchive?: boolean | undefined
-        marketingConsent?: string | undefined
-        primaryAddress?:
-          | {
-              buildingName?: string | undefined
-              buildingNumber?: string | undefined
-              line1?: string | undefined
-              line2?: string | undefined
-              line3?: string | undefined
-              line4?: string | undefined
-              postcode?: string | undefined
-              countryId?: string | undefined
-            }
-          | undefined
-        occupyOn?: string | undefined
-        vacateOn?: string | undefined
-        additionalContactDetails?: Array<{ type?: string | undefined; value?: string | undefined }> | undefined
-      }>
-    | undefined
-  fromArchive?: boolean | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  feeNotes?: string | undefined
-  legalStatusId?: string | undefined
-  renewalOptions?:
-    | {
-        optionId?: string | undefined
-        optionText?: string | undefined
-        expiry?: string | undefined
-        conditionIds?: Array<string> | undefined
-      }
-    | undefined
-  arrears?: { chaseArrears?: boolean | undefined; paymentPlan?: string | undefined } | undefined
-  _eTag?: string | undefined
-}
 export type TenanciesArgs = {
   sortBy?: string | undefined
   fromArchive?: boolean | undefined
@@ -253,373 +65,29 @@ export type TenanciesArgs = {
   startDateFrom?: string | undefined
   startDateTo?: string | undefined
   metadata?: Array<string> | undefined
-  columns: ColumnsList<TenanciesBody>
+  columns: ColumnsList<TenancyModel>
 }
-export const tenanciesIdRelationshipsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  tenancyId: z.string().nullable().optional(),
-  associatedType: z.string().nullable().optional(),
-  associatedId: z.string().nullable().optional(),
-  isMain: z.boolean().nullable().optional(),
-  fromArchive: z.boolean().nullable().optional(),
-  guarantors: z
-    .array(
-      z.object({
-        id: z.string().nullable().optional(),
-        guarantorAssociatedId: z.string().nullable().optional(),
-        type: z.string().nullable().optional(),
-        referenceStatus: z.string().nullable().optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-  references: z
-    .array(
-      z.object({
-        id: z.string().nullable().optional(),
-        referenceAssociatedId: z.string().nullable().optional(),
-        type: z.string().nullable().optional(),
-        referenceStatus: z.string().nullable().optional(),
-        referenceType: z.string().nullable().optional(),
-      }),
-    )
-    .nullable()
-    .optional(),
-})
-export type TenanciesIdRelationshipsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  tenancyId?: string | undefined
-  associatedType?: string | undefined
-  associatedId?: string | undefined
-  isMain?: boolean | undefined
-  fromArchive?: boolean | undefined
-  guarantors?:
-    | Array<{
-        id?: string | undefined
-        guarantorAssociatedId?: string | undefined
-        type?: string | undefined
-        referenceStatus?: string | undefined
-      }>
-    | undefined
-  references?:
-    | Array<{
-        id?: string | undefined
-        referenceAssociatedId?: string | undefined
-        type?: string | undefined
-        referenceStatus?: string | undefined
-        referenceType?: string | undefined
-      }>
-    | undefined
-}
-export type TenanciesIdRelationshipsArgs = { id: string; columns: ColumnsList<TenanciesIdRelationshipsBody> }
-export const tenanciesIdChecksBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  checkTypeId: z.string().nullable().optional(),
-  tenancyId: z.string().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type TenanciesIdChecksBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  description?: string | undefined
-  status?: string | undefined
-  type?: string | undefined
-  checkTypeId?: string | undefined
-  tenancyId?: string | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-}
+export type TenanciesIdRelationshipsArgs = { id: string; columns: ColumnsList<TenancyContactRelationshipModel> }
 export type TenanciesIdChecksArgs = {
   id: string
   type?: string | undefined
   status?: Array<'needed' | 'notNeeded' | 'arranged' | 'completed'> | undefined
-  columns: ColumnsList<TenanciesIdChecksBody>
+  columns: ColumnsList<TenancyCheckModel>
 }
-export const tenanciesIdBreakClausesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  clauseTypeId: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  active: z.string().nullable().optional(),
-  appliesTo: z.string().nullable().optional(),
-  letterText: z.string().nullable().optional(),
-  breakFrom: z
-    .object({ date: z.string().nullable().optional(), minTermMonths: z.number().int().nullable().optional() })
-    .nullable()
-    .optional(),
-  noticeRequired: z
-    .object({ date: z.string().nullable().optional(), beforeBreakMonths: z.number().int().nullable().optional() })
-    .nullable()
-    .optional(),
-  agreements: z
-    .object({ landlord: z.boolean().nullable().optional(), tenant: z.boolean().nullable().optional() })
-    .nullable()
-    .optional(),
-  tenancyId: z.string().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type TenanciesIdBreakClausesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  clauseTypeId?: string | undefined
-  description?: string | undefined
-  active?: string | undefined
-  appliesTo?: string | undefined
-  letterText?: string | undefined
-  breakFrom?: { date?: string | undefined; minTermMonths?: number | undefined } | undefined
-  noticeRequired?: { date?: string | undefined; beforeBreakMonths?: number | undefined } | undefined
-  agreements?: { landlord?: boolean | undefined; tenant?: boolean | undefined } | undefined
-  tenancyId?: string | undefined
-  _eTag?: string | undefined
-}
-export type TenanciesIdBreakClausesArgs = { id: string; columns: ColumnsList<TenanciesIdBreakClausesBody> }
-export const tenanciesIdAllowancesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  typeId: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  state: z.string().nullable().optional(),
-  agreements: z
-    .object({ landlord: z.boolean().nullable().optional(), tenant: z.boolean().nullable().optional() })
-    .nullable()
-    .optional(),
-  letterText: z.string().nullable().optional(),
-  tenancyId: z.string().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type TenanciesIdAllowancesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  typeId?: string | undefined
-  description?: string | undefined
-  state?: string | undefined
-  agreements?: { landlord?: boolean | undefined; tenant?: boolean | undefined } | undefined
-  letterText?: string | undefined
-  tenancyId?: string | undefined
-  _eTag?: string | undefined
-}
-export type TenanciesIdAllowancesArgs = { id: string; columns: ColumnsList<TenanciesIdAllowancesBody> }
-export const tenanciesIdResponsibilitiesBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  typeId: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  appliesTo: z.string().nullable().optional(),
-  agreements: z
-    .object({ landlord: z.boolean().nullable().optional(), tenant: z.boolean().nullable().optional() })
-    .nullable()
-    .optional(),
-  letterText: z.string().nullable().optional(),
-  tenancyId: z.string().nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type TenanciesIdResponsibilitiesBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  typeId?: string | undefined
-  description?: string | undefined
-  appliesTo?: string | undefined
-  agreements?: { landlord?: boolean | undefined; tenant?: boolean | undefined } | undefined
-  letterText?: string | undefined
-  tenancyId?: string | undefined
-  _eTag?: string | undefined
-}
-export type TenanciesIdResponsibilitiesArgs = { id: string; columns: ColumnsList<TenanciesIdResponsibilitiesBody> }
-export const tenanciesIdRenewalNegotiationsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  startDate: z.string().nullable().optional(),
-  endDate: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  rent: z.number().nullable().optional(),
-  rentFrequency: z.string().nullable().optional(),
-  rentChange: z
-    .object({ amount: z.number().nullable().optional(), percentage: z.number().nullable().optional() })
-    .nullable()
-    .optional(),
-  tenancyId: z.string().nullable().optional(),
-  lettingFee: z
-    .object({
-      type: z.string().nullable().optional(),
-      amount: z.number().nullable().optional(),
-      frequency: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  managementFee: z
-    .object({
-      type: z.string().nullable().optional(),
-      amount: z.number().nullable().optional(),
-      frequency: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type TenanciesIdRenewalNegotiationsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  startDate?: string | undefined
-  endDate?: string | undefined
-  status?: string | undefined
-  negotiatorId?: string | undefined
-  rent?: number | undefined
-  rentFrequency?: string | undefined
-  rentChange?: { amount?: number | undefined; percentage?: number | undefined } | undefined
-  tenancyId?: string | undefined
-  lettingFee?: { type?: string | undefined; amount?: number | undefined; frequency?: string | undefined } | undefined
-  managementFee?: { type?: string | undefined; amount?: number | undefined; frequency?: string | undefined } | undefined
-  _eTag?: string | undefined
-}
-export type TenanciesIdRenewalNegotiationsArgs = {
-  id: string
-  columns: ColumnsList<TenanciesIdRenewalNegotiationsBody>
-}
-export const tenanciesIdExtensionsBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  startDate: z.string().nullable().optional(),
-  endDate: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  negotiatorId: z.string().nullable().optional(),
-  rent: z.number().nullable().optional(),
-  rentFrequency: z.string().nullable().optional(),
-  tenancyId: z.string().nullable().optional(),
-  fee: z
-    .object({
-      amount: z.number().nullable().optional(),
-      summary: z.string().nullable().optional(),
-      type: z.string().nullable().optional(),
-    })
-    .nullable()
-    .optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type TenanciesIdExtensionsBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  startDate?: string | undefined
-  endDate?: string | undefined
-  type?: string | undefined
-  negotiatorId?: string | undefined
-  rent?: number | undefined
-  rentFrequency?: string | undefined
-  tenancyId?: string | undefined
-  fee?: { amount?: number | undefined; summary?: string | undefined; type?: string | undefined } | undefined
-  _eTag?: string | undefined
-}
-export type TenanciesIdExtensionsArgs = { id: string; columns: ColumnsList<TenanciesIdExtensionsBody> }
-export const tenanciesIdRenewalNegotiationsRenewalIdChecksBody = z.object({
-  _links: z
-    .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-    .nullable()
-    .optional(),
-  _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-  id: z.string().nullable().optional(),
-  created: z.string().nullable().optional(),
-  modified: z.string().nullable().optional(),
-  status: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  checkTypeId: z.string().nullable().optional(),
-  tenancyId: z.string().nullable().optional(),
-  renewalId: z.string().nullable().optional(),
-  metadata: z.record(z.string(), z.object({})).nullable().optional(),
-  _eTag: z.string().nullable().optional(),
-})
-export type TenanciesIdRenewalNegotiationsRenewalIdChecksBody = {
-  _links?: Record<string, { href?: string | undefined }> | undefined
-  _embedded?: Record<string, Record<string, never>> | undefined
-  id?: string | undefined
-  created?: string | undefined
-  modified?: string | undefined
-  status?: string | undefined
-  description?: string | undefined
-  checkTypeId?: string | undefined
-  tenancyId?: string | undefined
-  renewalId?: string | undefined
-  metadata?: Record<string, Record<string, never>> | undefined
-  _eTag?: string | undefined
-}
+export type TenanciesIdBreakClausesArgs = { id: string; columns: ColumnsList<TenancyBreakClauseModel> }
+export type TenanciesIdAllowancesArgs = { id: string; columns: ColumnsList<TenancyAllowanceModel> }
+export type TenanciesIdResponsibilitiesArgs = { id: string; columns: ColumnsList<TenancyResponsibilityModel> }
+export type TenanciesIdRenewalNegotiationsArgs = { id: string; columns: ColumnsList<TenancyRenewalModel> }
+export type TenanciesIdExtensionsArgs = { id: string; columns: ColumnsList<TenancyExtensionAlterationModel> }
 export type TenanciesIdRenewalNegotiationsRenewalIdChecksArgs = {
   id: string
   renewalId: string
-  columns: ColumnsList<TenanciesIdRenewalNegotiationsRenewalIdChecksBody>
+  columns: ColumnsList<TenancyRenewalCheckModel>
 }
 
-export const tenanciesColumnHelper = createColumnHelper<TenanciesBody>()
+export const tenanciesColumnHelper = createColumnHelper<TenancyModel>()
 
-export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<TenanciesBody>) => {
+export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<TenancyModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -1019,11 +487,11 @@ export const useTenanciesTable = (args: TenanciesArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdRelationshipsColumnHelper = createColumnHelper<TenanciesIdRelationshipsBody>()
+export const tenanciesIdRelationshipsColumnHelper = createColumnHelper<TenancyContactRelationshipModel>()
 
 export const getTenanciesIdRelationshipsColumn = (
   property: string,
-  modelConfig: ModelConfig<TenanciesIdRelationshipsBody>,
+  modelConfig: ModelConfig<TenancyContactRelationshipModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -1172,9 +640,9 @@ export const useTenanciesIdRelationshipsTable = (args: TenanciesIdRelationshipsA
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdChecksColumnHelper = createColumnHelper<TenanciesIdChecksBody>()
+export const tenanciesIdChecksColumnHelper = createColumnHelper<TenancyCheckModel>()
 
-export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelConfig<TenanciesIdChecksBody>) => {
+export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelConfig<TenancyCheckModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -1322,11 +790,11 @@ export const useTenanciesIdChecksTable = (args: TenanciesIdChecksArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdBreakClausesColumnHelper = createColumnHelper<TenanciesIdBreakClausesBody>()
+export const tenanciesIdBreakClausesColumnHelper = createColumnHelper<TenancyBreakClauseModel>()
 
 export const getTenanciesIdBreakClausesColumn = (
   property: string,
-  modelConfig: ModelConfig<TenanciesIdBreakClausesBody>,
+  modelConfig: ModelConfig<TenancyBreakClauseModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -1502,12 +970,9 @@ export const useTenanciesIdBreakClausesTable = (args: TenanciesIdBreakClausesArg
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdAllowancesColumnHelper = createColumnHelper<TenanciesIdAllowancesBody>()
+export const tenanciesIdAllowancesColumnHelper = createColumnHelper<TenancyAllowanceModel>()
 
-export const getTenanciesIdAllowancesColumn = (
-  property: string,
-  modelConfig: ModelConfig<TenanciesIdAllowancesBody>,
-) => {
+export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: ModelConfig<TenancyAllowanceModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -1655,11 +1120,11 @@ export const useTenanciesIdAllowancesTable = (args: TenanciesIdAllowancesArgs) =
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdResponsibilitiesColumnHelper = createColumnHelper<TenanciesIdResponsibilitiesBody>()
+export const tenanciesIdResponsibilitiesColumnHelper = createColumnHelper<TenancyResponsibilityModel>()
 
 export const getTenanciesIdResponsibilitiesColumn = (
   property: string,
-  modelConfig: ModelConfig<TenanciesIdResponsibilitiesBody>,
+  modelConfig: ModelConfig<TenancyResponsibilityModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -1808,11 +1273,11 @@ export const useTenanciesIdResponsibilitiesTable = (args: TenanciesIdResponsibil
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdRenewalNegotiationsColumnHelper = createColumnHelper<TenanciesIdRenewalNegotiationsBody>()
+export const tenanciesIdRenewalNegotiationsColumnHelper = createColumnHelper<TenancyRenewalModel>()
 
 export const getTenanciesIdRenewalNegotiationsColumn = (
   property: string,
-  modelConfig: ModelConfig<TenanciesIdRenewalNegotiationsBody>,
+  modelConfig: ModelConfig<TenancyRenewalModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -1997,11 +1462,11 @@ export const useTenanciesIdRenewalNegotiationsTable = (args: TenanciesIdRenewalN
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdExtensionsColumnHelper = createColumnHelper<TenanciesIdExtensionsBody>()
+export const tenanciesIdExtensionsColumnHelper = createColumnHelper<TenancyExtensionAlterationModel>()
 
 export const getTenanciesIdExtensionsColumn = (
   property: string,
-  modelConfig: ModelConfig<TenanciesIdExtensionsBody>,
+  modelConfig: ModelConfig<TenancyExtensionAlterationModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -2168,12 +1633,11 @@ export const useTenanciesIdExtensionsTable = (args: TenanciesIdExtensionsArgs) =
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper =
-  createColumnHelper<TenanciesIdRenewalNegotiationsRenewalIdChecksBody>()
+export const tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper = createColumnHelper<TenancyRenewalCheckModel>()
 
 export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
   property: string,
-  modelConfig: ModelConfig<TenanciesIdRenewalNegotiationsRenewalIdChecksBody>,
+  modelConfig: ModelConfig<TenancyRenewalCheckModel>,
 ) => {
   return match(property)
     .with('_links', () => {

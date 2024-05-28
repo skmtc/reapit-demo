@@ -1,7 +1,14 @@
-import { z } from 'zod'
+import { landlordModelPagedResult } from '@/models/landlordModelPagedResult.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateLandlordModel } from '@/models/createLandlordModel.ts'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { landlordModel } from '@/models/landlordModel.ts'
+import { UpdateLandlordModel } from '@/models/updateLandlordModel.ts'
+import { landlordContactRelationshipModelPagedResult } from '@/models/landlordContactRelationshipModelPagedResult.ts'
+import { InsertLandlordContactRelationshipModel } from '@/models/insertLandlordContactRelationshipModel.ts'
+import { landlordContactRelationshipModel } from '@/models/landlordContactRelationshipModel.ts'
 
 export type UseGetApiLandlordsArgs = {
   pageSize?: number | undefined
@@ -53,82 +60,7 @@ export const getApiLandlordsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            active: z.boolean().nullable().optional(),
-            solicitorId: z.string().nullable().optional(),
-            officeId: z.string().nullable().optional(),
-            source: z
-              .object({ id: z.string().nullable().optional(), type: z.string().nullable().optional() })
-              .nullable()
-              .optional(),
-            related: z
-              .array(
-                z.object({
-                  id: z.string().nullable().optional(),
-                  name: z.string().nullable().optional(),
-                  title: z.string().nullable().optional(),
-                  forename: z.string().nullable().optional(),
-                  surname: z.string().nullable().optional(),
-                  dateOfBirth: z.string().nullable().optional(),
-                  type: z.string().nullable().optional(),
-                  homePhone: z.string().nullable().optional(),
-                  workPhone: z.string().nullable().optional(),
-                  mobilePhone: z.string().nullable().optional(),
-                  email: z.string().nullable().optional(),
-                  marketingConsent: z.string().nullable().optional(),
-                  primaryAddress: z
-                    .object({
-                      buildingName: z.string().nullable().optional(),
-                      buildingNumber: z.string().nullable().optional(),
-                      line1: z.string().nullable().optional(),
-                      line2: z.string().nullable().optional(),
-                      line3: z.string().nullable().optional(),
-                      line4: z.string().nullable().optional(),
-                      postcode: z.string().nullable().optional(),
-                      countryId: z.string().nullable().optional(),
-                    })
-                    .nullable()
-                    .optional(),
-                  additionalContactDetails: z
-                    .array(
-                      z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }),
-                    )
-                    .nullable()
-                    .optional(),
-                }),
-              )
-              .nullable()
-              .optional(),
-            metadata: z.record(z.string(), z.object({})).nullable().optional(),
-            extrasField: z.record(z.string(), z.object({})).nullable().optional(),
-            _eTag: z.string().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return landlordModelPagedResult.parse(data)
 }
 export const useGetApiLandlords = (args: UseGetApiLandlordsArgs) => {
   const result = useQuery({
@@ -139,30 +71,8 @@ export const useGetApiLandlords = (args: UseGetApiLandlordsArgs) => {
 
   return result
 }
-export type UsePostApiLandlordsArgs = {
-  body: /** Request body used to create a new landlord */
-  {
-    active?: /** A flag determining whether or not the landlord is currently active */ boolean | undefined
-    solicitorId?: /** The unique identifier of the company acting as the landlord's solicitor */ string | undefined
-    officeId: /** The unique identifier of the office that is associated to the landlord */ string
-    source?: /** Request body used to set the source of a new landlord */
-    | {
-          id?: /** The unique identifier of the source of the landlord */ string | undefined
-          type?: /** The source type (office/source) */ string | undefined
-        }
-      | undefined
-    related: /** A collection of contacts and/or companies associated to the landlord. The first item in the collection is considered the primary relationship */
-    Array</** Request body used to create a new relationship between a landlord and a contact or company */
-    {
-      associatedId?: /** The unique identifier of the contact or company to create a relationship with */
-      string | undefined
-      associatedType?: /** The type of relationship to create (contact/company) */ string | undefined
-    }>
-    metadata?: /** App specific metadata that to set against the landlord */
-    Record<string, Record<string, never>> | undefined
-  }
-}
-export const postApiLandlordsFn = async ({ body }: UsePostApiLandlordsArgs) => {
+export type UseCreateLandlordArgs = { body: CreateLandlordModel }
+export const createLandlordFn = async ({ body }: UseCreateLandlordArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -180,12 +90,12 @@ export const postApiLandlordsFn = async ({ body }: UsePostApiLandlordsArgs) => {
 
   return z.void().parse(data)
 }
-export const usePostApiLandlords = () => {
+export const useCreateLandlord = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiLandlordsFn,
+    mutationFn: createLandlordFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -211,64 +121,7 @@ export const getApiLandlordsIdFn = async ({ id, embed, extrasField }: UseGetApiL
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      active: z.boolean().nullable().optional(),
-      solicitorId: z.string().nullable().optional(),
-      officeId: z.string().nullable().optional(),
-      source: z
-        .object({ id: z.string().nullable().optional(), type: z.string().nullable().optional() })
-        .nullable()
-        .optional(),
-      related: z
-        .array(
-          z.object({
-            id: z.string().nullable().optional(),
-            name: z.string().nullable().optional(),
-            title: z.string().nullable().optional(),
-            forename: z.string().nullable().optional(),
-            surname: z.string().nullable().optional(),
-            dateOfBirth: z.string().nullable().optional(),
-            type: z.string().nullable().optional(),
-            homePhone: z.string().nullable().optional(),
-            workPhone: z.string().nullable().optional(),
-            mobilePhone: z.string().nullable().optional(),
-            email: z.string().nullable().optional(),
-            marketingConsent: z.string().nullable().optional(),
-            primaryAddress: z
-              .object({
-                buildingName: z.string().nullable().optional(),
-                buildingNumber: z.string().nullable().optional(),
-                line1: z.string().nullable().optional(),
-                line2: z.string().nullable().optional(),
-                line3: z.string().nullable().optional(),
-                line4: z.string().nullable().optional(),
-                postcode: z.string().nullable().optional(),
-                countryId: z.string().nullable().optional(),
-              })
-              .nullable()
-              .optional(),
-            additionalContactDetails: z
-              .array(z.object({ type: z.string().nullable().optional(), value: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      metadata: z.record(z.string(), z.object({})).nullable().optional(),
-      extrasField: z.record(z.string(), z.object({})).nullable().optional(),
-      _eTag: z.string().nullable().optional(),
-    })
-    .parse(data)
+  return landlordModel.parse(data)
 }
 export const useGetApiLandlordsId = (args: UseGetApiLandlordsIdArgs) => {
   const result = useQuery({
@@ -278,24 +131,7 @@ export const useGetApiLandlordsId = (args: UseGetApiLandlordsIdArgs) => {
 
   return result
 }
-export type UsePatchApiLandlordsIdArgs = {
-  'If-Match'?: string
-  id: string
-  body: /** Request body used to update an existing landlord */
-  {
-    active?: /** A flag determining whether or not the landlord is currently active */ boolean | undefined
-    solicitorId?: /** The unique identifier of the company acting as the landlord's solicitor */ string | undefined
-    officeId?: /** The unique identifier of the office that is associated to the landlord */ string | undefined
-    source?: /** Request body used to update the source of an existing landlord */
-    | {
-          id?: /** The unique identifier of the source of the landlord */ string | undefined
-          type?: /** The source type (office/source) */ string | undefined
-        }
-      | undefined
-    metadata?: /** App specific metadata that to set against the landlord */
-    Record<string, Record<string, never>> | undefined
-  }
-}
+export type UsePatchApiLandlordsIdArgs = { 'If-Match'?: string; id: string; body: UpdateLandlordModel }
 export const patchApiLandlordsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiLandlordsIdArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
@@ -351,38 +187,7 @@ export const getApiLandlordsIdRelationshipsFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _embedded: z
-        .array(
-          z.object({
-            _links: z
-              .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-              .nullable()
-              .optional(),
-            _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-            id: z.string().nullable().optional(),
-            landlordId: z.string().nullable().optional(),
-            created: z.string().nullable().optional(),
-            modified: z.string().nullable().optional(),
-            associatedType: z.string().nullable().optional(),
-            associatedId: z.string().nullable().optional(),
-            isMain: z.boolean().nullable().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      pageNumber: z.number().int().nullable().optional(),
-      pageSize: z.number().int().nullable().optional(),
-      pageCount: z.number().int().nullable().optional(),
-      totalPageCount: z.number().int().nullable().optional(),
-      totalCount: z.number().int().nullable().optional(),
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-    })
-    .parse(data)
+  return landlordContactRelationshipModelPagedResult.parse(data)
 }
 export const useGetApiLandlordsIdRelationships = (args: UseGetApiLandlordsIdRelationshipsArgs) => {
   const result = useQuery({
@@ -393,17 +198,8 @@ export const useGetApiLandlordsIdRelationships = (args: UseGetApiLandlordsIdRela
 
   return result
 }
-export type UsePostApiLandlordsIdRelationshipsArgs = {
-  id: string
-  body: /** Request body used to create or update a relationship between a landlord and a contact or company */
-  {
-    associatedId: /** The unique identifier of the contact or company to create a relationship with */ string
-    associatedType: /** The type of relationship to create (contact/company) */ string
-    isMain: /** Flag denoting whether or not this relationship should be considered to be the main/primary relationship. Setting to true will automatically demote the existing primary relationship */
-    boolean
-  }
-}
-export const postApiLandlordsIdRelationshipsFn = async ({ id, body }: UsePostApiLandlordsIdRelationshipsArgs) => {
+export type UseCreateLandlordRelationshipArgs = { id: string; body: InsertLandlordContactRelationshipModel }
+export const createLandlordRelationshipFn = async ({ id, body }: UseCreateLandlordRelationshipArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -421,12 +217,12 @@ export const postApiLandlordsIdRelationshipsFn = async ({ id, body }: UsePostApi
 
   return z.void().parse(data)
 }
-export const usePostApiLandlordsIdRelationships = () => {
+export const useCreateLandlordRelationship = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiLandlordsIdRelationshipsFn,
+    mutationFn: createLandlordRelationshipFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -451,22 +247,7 @@ export const getApiLandlordsIdRelationshipsRelationshipIdFn = async ({
 
   const data = await res.json()
 
-  return z
-    .object({
-      _links: z
-        .record(z.string(), z.object({ href: z.string().nullable().optional() }))
-        .nullable()
-        .optional(),
-      _embedded: z.record(z.string(), z.object({})).nullable().optional(),
-      id: z.string().nullable().optional(),
-      landlordId: z.string().nullable().optional(),
-      created: z.string().nullable().optional(),
-      modified: z.string().nullable().optional(),
-      associatedType: z.string().nullable().optional(),
-      associatedId: z.string().nullable().optional(),
-      isMain: z.boolean().nullable().optional(),
-    })
-    .parse(data)
+  return landlordContactRelationshipModel.parse(data)
 }
 export const useGetApiLandlordsIdRelationshipsRelationshipId = (
   args: UseGetApiLandlordsIdRelationshipsRelationshipIdArgs,
