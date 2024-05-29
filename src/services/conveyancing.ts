@@ -1,12 +1,14 @@
-import { conveyancingModelPagedResult } from '@/models/conveyancingModelPagedResult.ts'
+import {
+  conveyancingModelPagedResult,
+  conveyancingModel,
+  UpdateConveyancingModel,
+  CreateDownwardLinkModel,
+  CreateUpwardLinkModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { conveyancingModel } from '@/models/conveyancingModel.ts'
-import { UpdateConveyancingModel } from '@/models/updateConveyancingModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { CreateDownwardLinkModel } from '@/models/createDownwardLinkModel.ts'
-import { CreateUpwardLinkModel } from '@/models/createUpwardLinkModel.ts'
 
 export type UseGetApiConveyancingArgs = {
   pageSize?: number | undefined

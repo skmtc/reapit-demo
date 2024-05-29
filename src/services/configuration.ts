@@ -1,11 +1,13 @@
-import { typeModel } from '@/models/typeModel.ts'
+import {
+  typeModel,
+  listItemModel,
+  certificateTypeModel,
+  listItemDetailModel,
+  terminologyModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery } from '@tanstack/react-query'
 import { z } from 'zod'
-import { listItemModel } from '@/models/listItemModel.ts'
-import { certificateTypeModel } from '@/models/certificateTypeModel.ts'
-import { listItemDetailModel } from '@/models/listItemDetailModel.ts'
-import { terminologyModel } from '@/models/terminologyModel.ts'
 
 export type UseGetApiConfigurationTypesArgs = {
   type?:

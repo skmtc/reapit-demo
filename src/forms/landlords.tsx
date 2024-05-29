@@ -1,14 +1,15 @@
-import { createLandlordModel, CreateLandlordModel } from '@/models/createLandlordModel.ts'
+import {
+  createLandlordModel,
+  CreateLandlordModel,
+  createLandlordContactRelationshipModel,
+  CreateLandlordContactRelationshipModel,
+} from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { useCreateLandlord, useCreateLandlordRelationship } from '@/services/landlords.ts'
-import {
-  createLandlordContactRelationshipModel,
-  CreateLandlordContactRelationshipModel,
-} from '@/models/createLandlordContactRelationshipModel.ts'
 
 export type CreateLandlordsProps = { children: (control: Control<CreateLandlordModel>) => ReactNode }
 export type CreateLandlordsIdRelationshipsProps = {

@@ -1,12 +1,15 @@
-import { identityCheckModelPagedResult } from '@/models/identityCheckModelPagedResult.ts'
+import {
+  identityCheckModelPagedResult,
+  CreateIdentityCheckModel,
+  identityCheckModel,
+  UpdateIdentityCheckModel,
+  CreatePreSignedUrlsModel,
+  createPreSignedUrlsModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateIdentityCheckModel } from '@/models/createIdentityCheckModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { identityCheckModel } from '@/models/identityCheckModel.ts'
-import { UpdateIdentityCheckModel } from '@/models/updateIdentityCheckModel.ts'
-import { CreatePreSignedUrlsModel, createPreSignedUrlsModel } from '@/models/createPreSignedUrlsModel.ts'
 
 export type UseGetApiIdentityChecksArgs = {
   pageSize?: number | undefined

@@ -1,4 +1,4 @@
-import { areaModel, AreaModel } from '@/models/areaModel.ts'
+import { areaModel, AreaModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'

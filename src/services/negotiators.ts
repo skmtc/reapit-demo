@@ -1,11 +1,13 @@
-import { negotiatorModelPagedResult } from '@/models/negotiatorModelPagedResult.ts'
+import {
+  negotiatorModelPagedResult,
+  CreateNegotiatorModel,
+  negotiatorModel,
+  UpdateNegotiatorModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateNegotiatorModel } from '@/models/createNegotiatorModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { negotiatorModel } from '@/models/negotiatorModel.ts'
-import { UpdateNegotiatorModel } from '@/models/updateNegotiatorModel.ts'
 
 export type UseGetApiNegotiatorsArgs = {
   pageSize?: number | undefined

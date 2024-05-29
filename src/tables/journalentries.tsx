@@ -1,11 +1,15 @@
-import { journalEntryModel, JournalEntryModel } from '@/models/journalEntryModel.ts'
+import {
+  journalEntryModel,
+  JournalEntryModel,
+  landlordJournalEntryModel,
+  LandlordJournalEntryModel,
+} from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { z } from 'zod'
 import { useGetApiJournalEntries, useGetApiJournalEntriesLandlords } from '@/services/journalentries.ts'
-import { landlordJournalEntryModel, LandlordJournalEntryModel } from '@/models/landlordJournalEntryModel.ts'
 
 export type JournalEntriesArgs = {
   sortBy?: string | undefined

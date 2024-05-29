@@ -1,13 +1,15 @@
-import { invoiceModelPagedResult } from '@/models/invoiceModelPagedResult.ts'
+import {
+  invoiceModelPagedResult,
+  invoiceDetailModel,
+  paymentModelPagedResult,
+  paymentModel,
+  creditModelPagedResult,
+  creditModel,
+  chargeModelPagedResult,
+  chargeModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
-import { invoiceDetailModel } from '@/models/invoiceDetailModel.ts'
-import { paymentModelPagedResult } from '@/models/paymentModelPagedResult.ts'
-import { paymentModel } from '@/models/paymentModel.ts'
-import { creditModelPagedResult } from '@/models/creditModelPagedResult.ts'
-import { creditModel } from '@/models/creditModel.ts'
-import { chargeModelPagedResult } from '@/models/chargeModelPagedResult.ts'
-import { chargeModel } from '@/models/chargeModel.ts'
 
 export type UseGetApiInvoicesArgs = {
   pageNumber?: number | undefined

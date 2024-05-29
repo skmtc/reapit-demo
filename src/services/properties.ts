@@ -1,32 +1,34 @@
-import { propertyModelPagedResult } from '@/models/propertyModelPagedResult.ts'
+import {
+  propertyModelPagedResult,
+  CreatePropertyModel,
+  propertyModel,
+  UpdatePropertyModel,
+  certificateModelPagedResult,
+  CreateCertificateModel,
+  certificateModel,
+  UpdateCertificateModel,
+  propertyCertificateResponsibilitiesModel,
+  UpdateCertificateResponsibilitiesModel,
+  keysModelPagedResult,
+  CreateKeyModel,
+  keysModel,
+  keyMovementModelPagedResult,
+  CreateKeyMovementModel,
+  keyMovementModel,
+  CheckInKeyModel,
+  propertyCheckModelPagedResult,
+  CreatePropertyCheckModel,
+  propertyCheckModel,
+  UpdatePropertyCheckModel,
+  propertyAppraisalModelPagedResult,
+  CreatePropertyAppraisalModel,
+  propertyAppraisalModel,
+  UpdatePropertyAppraisalModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreatePropertyModel } from '@/models/createPropertyModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { propertyModel } from '@/models/propertyModel.ts'
-import { UpdatePropertyModel } from '@/models/updatePropertyModel.ts'
-import { certificateModelPagedResult } from '@/models/certificateModelPagedResult.ts'
-import { CreateCertificateModel } from '@/models/createCertificateModel.ts'
-import { certificateModel } from '@/models/certificateModel.ts'
-import { UpdateCertificateModel } from '@/models/updateCertificateModel.ts'
-import { propertyCertificateResponsibilitiesModel } from '@/models/propertyCertificateResponsibilitiesModel.ts'
-import { UpdateCertificateResponsibilitiesModel } from '@/models/updateCertificateResponsibilitiesModel.ts'
-import { keysModelPagedResult } from '@/models/keysModelPagedResult.ts'
-import { CreateKeyModel } from '@/models/createKeyModel.ts'
-import { keysModel } from '@/models/keysModel.ts'
-import { keyMovementModelPagedResult } from '@/models/keyMovementModelPagedResult.ts'
-import { CreateKeyMovementModel } from '@/models/createKeyMovementModel.ts'
-import { keyMovementModel } from '@/models/keyMovementModel.ts'
-import { CheckInKeyModel } from '@/models/checkInKeyModel.ts'
-import { propertyCheckModelPagedResult } from '@/models/propertyCheckModelPagedResult.ts'
-import { CreatePropertyCheckModel } from '@/models/createPropertyCheckModel.ts'
-import { propertyCheckModel } from '@/models/propertyCheckModel.ts'
-import { UpdatePropertyCheckModel } from '@/models/updatePropertyCheckModel.ts'
-import { propertyAppraisalModelPagedResult } from '@/models/propertyAppraisalModelPagedResult.ts'
-import { CreatePropertyAppraisalModel } from '@/models/createPropertyAppraisalModel.ts'
-import { propertyAppraisalModel } from '@/models/propertyAppraisalModel.ts'
-import { UpdatePropertyAppraisalModel } from '@/models/updatePropertyAppraisalModel.ts'
 
 export type UseGetApiPropertiesArgs = {
   pageSize?: number | undefined

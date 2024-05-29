@@ -1,15 +1,17 @@
-import { appointmentModelPagedResult } from '@/models/appointmentModelPagedResult.ts'
+import {
+  appointmentModelPagedResult,
+  CreateAppointmentModel,
+  appointmentModel,
+  UpdateAppointmentModel,
+  openHouseAttendeeModelPagedResult,
+  CreateOpenHouseAttendeeModel,
+  openHouseAttendeeModel,
+  UpdateOpenHouseAttendeeModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateAppointmentModel } from '@/models/createAppointmentModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { appointmentModel } from '@/models/appointmentModel.ts'
-import { UpdateAppointmentModel } from '@/models/updateAppointmentModel.ts'
-import { openHouseAttendeeModelPagedResult } from '@/models/openHouseAttendeeModelPagedResult.ts'
-import { CreateOpenHouseAttendeeModel } from '@/models/createOpenHouseAttendeeModel.ts'
-import { openHouseAttendeeModel } from '@/models/openHouseAttendeeModel.ts'
-import { UpdateOpenHouseAttendeeModel } from '@/models/updateOpenHouseAttendeeModel.ts'
 
 export type UseGetApiAppointmentsArgs = {
   pageSize?: number | undefined

@@ -1,4 +1,4 @@
-import { createAreaModel, CreateAreaModel } from '@/models/createAreaModel.ts'
+import { createAreaModel, CreateAreaModel } from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

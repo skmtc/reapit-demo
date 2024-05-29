@@ -1,11 +1,10 @@
-import { appointmentModel, AppointmentModel } from '@/models/appointmentModel.ts'
+import { appointmentModel, AppointmentModel, openHouseAttendeeModel, OpenHouseAttendeeModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { z } from 'zod'
 import { useGetApiAppointments, useGetApiAppointmentsIdOpenHouseAttendees } from '@/services/appointments.ts'
-import { openHouseAttendeeModel, OpenHouseAttendeeModel } from '@/models/openHouseAttendeeModel.ts'
 
 export type AppointmentsArgs = {
   sortBy?: string | undefined

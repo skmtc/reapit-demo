@@ -1,4 +1,19 @@
-import { createPropertyModel, CreatePropertyModel } from '@/models/createPropertyModel.ts'
+import {
+  createPropertyModel,
+  CreatePropertyModel,
+  createCertificateModel,
+  CreateCertificateModel,
+  createKeyModel,
+  CreateKeyModel,
+  createKeyMovementModel,
+  CreateKeyMovementModel,
+  keyMovementModel,
+  KeyMovementModel,
+  createPropertyCheckModel,
+  CreatePropertyCheckModel,
+  createPropertyAppraisalModel,
+  CreatePropertyAppraisalModel,
+} from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,12 +28,6 @@ import {
   useCreatePropertyCheck,
   useCreatePropertyAppraisal,
 } from '@/services/properties.ts'
-import { createCertificateModel, CreateCertificateModel } from '@/models/createCertificateModel.ts'
-import { createKeyModel, CreateKeyModel } from '@/models/createKeyModel.ts'
-import { createKeyMovementModel, CreateKeyMovementModel } from '@/models/createKeyMovementModel.ts'
-import { keyMovementModel, KeyMovementModel } from '@/models/keyMovementModel.ts'
-import { createPropertyCheckModel, CreatePropertyCheckModel } from '@/models/createPropertyCheckModel.ts'
-import { createPropertyAppraisalModel, CreatePropertyAppraisalModel } from '@/models/createPropertyAppraisalModel.ts'
 
 export type CreatePropertiesProps = { children: (control: Control<CreatePropertyModel>) => ReactNode }
 export type CreatePropertiesIdCertificatesProps = {

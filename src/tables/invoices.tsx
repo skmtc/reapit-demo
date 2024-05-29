@@ -1,4 +1,13 @@
-import { invoiceModel, InvoiceModel } from '@/models/invoiceModel.ts'
+import {
+  invoiceModel,
+  InvoiceModel,
+  paymentModel,
+  PaymentModel,
+  creditModel,
+  CreditModel,
+  chargeModel,
+  ChargeModel,
+} from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
@@ -10,9 +19,6 @@ import {
   useGetApiInvoicesCredits,
   useGetApiInvoicesCharges,
 } from '@/services/invoices.ts'
-import { paymentModel, PaymentModel } from '@/models/paymentModel.ts'
-import { creditModel, CreditModel } from '@/models/creditModel.ts'
-import { chargeModel, ChargeModel } from '@/models/chargeModel.ts'
 
 export type InvoicesArgs = {
   sortBy?: string | undefined

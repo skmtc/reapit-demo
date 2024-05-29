@@ -1,11 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
-import {
-  type FieldValues,
-  type FieldPath,
-  type ControllerRenderProps,
-  Controller,
-  Control
-} from 'react-hook-form'
+import { type FieldValues, type FieldPath, type ControllerRenderProps, Controller, Control } from 'react-hook-form'
 import { FC, ReactNode } from 'react'
 import FormControl from '@mui/joy/FormControl'
 import FormLabel from '@mui/joy/FormLabel'
@@ -29,10 +23,10 @@ export type ModelConfig<Model extends FieldValues> = {
 
 export const createConfig = <Model extends FieldValues>(
   displayConfig: ModelConfig<Model>,
-  modelConfig: ModelConfig<Model>
+  modelConfig: ModelConfig<Model>,
 ) => {
   return Object.fromEntries(
-    Object.keys(displayConfig).map(k => {
+    Object.keys(displayConfig).map((k) => {
       invariant(k in modelConfig, 'Unknown key')
 
       const key = k as KeyPath<Model>
@@ -43,53 +37,44 @@ export const createConfig = <Model extends FieldValues>(
           key,
           label: displayConfig[key]?.label ?? modelConfig[key]?.label,
           format: displayConfig[key]?.format ?? modelConfig[key]?.format,
-          Input: displayConfig[key]?.Input ?? modelConfig[key].Input
-        }
+          Input: displayConfig[key]?.Input ?? modelConfig[key].Input,
+        },
       ]
-    })
+    }),
   ) as unknown as ModelConfig<Model>
 }
 
 export type KeysOf<T> = (keyof T)[]
 
-type OptionalKeys<T> = keyof {
+export type OptionalKeys<T> = keyof {
   [P in keyof T as T[P] extends Required<T>[P] ? never : P]: T[P]
 }
 
-type RequiredKeys<T> = keyof {
+export type RequiredKeys<T> = keyof {
   [P in keyof T as T[P] extends Required<T>[P] ? P : never]: T[P]
 }
 
-type ConfigValue<Model extends FieldValues, FormPath extends KeyPath<Model>> = {
+export type ConfigValue<Model extends FieldValues, FormPath extends KeyPath<Model>> = {
   key: FormPath
   label: string
   Input: FC<ControllerRenderProps<Model, FormPath>>
   format: (value: Model[FormPath]) => ReactNode
 }
 
-export type RestoreOptional<T, KeySource> = Partial<
-  Pick<T, OptionalKeys<KeySource>>
-> &
-  Pick<T, RequiredKeys<KeySource>>
+export type RestoreOptional<T, KeySource> = Partial<Pick<T, OptionalKeys<KeySource>>> & Pick<T, RequiredKeys<KeySource>>
 
 export type KeyPath<T extends FieldValues> = Extract<FieldPath<T>, keyof T>
 
-type FieldControllerProps<
-  Model extends FieldValues,
-  Key extends KeyPath<Model>
-> = {
+type FieldControllerProps<Model extends FieldValues, Key extends KeyPath<Model>> = {
   fieldName: Key
-  config: ModelConfig<Model>[Key]
+  fieldConfig: ModelConfig<Model>[Key]
   control: Control<Model, any>
 }
 
-export const FieldController = <
-  Model extends FieldValues,
-  Key extends KeyPath<Model>
->({
+export const FieldController = <Model extends FieldValues, Key extends KeyPath<Model>>({
   fieldName,
-  config: { label, Input },
-  control
+  fieldConfig: { label, Input },
+  control,
 }: FieldControllerProps<Model, Key>) => (
   <Controller
     key={fieldName}
@@ -100,9 +85,7 @@ export const FieldController = <
         <FormLabel>{label}</FormLabel>
         <Input {...field} />
 
-        {fieldState.error?.message ? (
-          <FormHelperText>{fieldState.error?.message}</FormHelperText>
-        ) : null}
+        {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
       </FormControl>
     )}
   />

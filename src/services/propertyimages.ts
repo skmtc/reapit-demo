@@ -1,13 +1,16 @@
-import { propertyImageModelPagedResult } from '@/models/propertyImageModelPagedResult.ts'
+import {
+  propertyImageModelPagedResult,
+  CreatePropertyImageModel,
+  propertyImageModel,
+  UpdatePropertyImageModel,
+  CreatePreSignedUrlsModel,
+  createPreSignedUrlsModel,
+  ReindexPropertyImagesModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreatePropertyImageModel } from '@/models/createPropertyImageModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { propertyImageModel } from '@/models/propertyImageModel.ts'
-import { UpdatePropertyImageModel } from '@/models/updatePropertyImageModel.ts'
-import { CreatePreSignedUrlsModel, createPreSignedUrlsModel } from '@/models/createPreSignedUrlsModel.ts'
-import { ReindexPropertyImagesModel } from '@/models/reindexPropertyImagesModel.ts'
 
 export type UseGetApiPropertyImagesArgs = {
   pageSize?: number | undefined

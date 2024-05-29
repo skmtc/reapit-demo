@@ -1,11 +1,15 @@
-import { createDocumentModel, CreateDocumentModel } from '@/models/createDocumentModel.ts'
+import {
+  createDocumentModel,
+  CreateDocumentModel,
+  createPreSignedUrlsModel,
+  CreatePreSignedUrlsModel,
+} from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { useCreateDocument, useCreateSignedUrl } from '@/services/documents.ts'
-import { createPreSignedUrlsModel, CreatePreSignedUrlsModel } from '@/models/createPreSignedUrlsModel.ts'
 
 export type CreateDocumentsProps = { children: (control: Control<CreateDocumentModel>) => ReactNode }
 export type CreateDocumentsSignedUrlProps = { children: (control: Control<CreatePreSignedUrlsModel>) => ReactNode }

@@ -1,11 +1,10 @@
-import { companyModel, CompanyModel } from '@/models/companyModel.ts'
+import { companyModel, CompanyModel, companyRoleModel, CompanyRoleModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { z } from 'zod'
 import { useGetApiCompanies, useGetApiCompaniesIdRelationships } from '@/services/companies.ts'
-import { companyRoleModel, CompanyRoleModel } from '@/models/companyRoleModel.ts'
 
 export type CompaniesArgs = {
   sortBy?: string | undefined

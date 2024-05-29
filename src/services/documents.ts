@@ -1,12 +1,15 @@
-import { documentModelPagedResult } from '@/models/documentModelPagedResult.ts'
+import {
+  documentModelPagedResult,
+  CreateDocumentModel,
+  documentModel,
+  UpdateDocumentModel,
+  CreatePreSignedUrlsModel,
+  createPreSignedUrlsModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateDocumentModel } from '@/models/createDocumentModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { documentModel } from '@/models/documentModel.ts'
-import { UpdateDocumentModel } from '@/models/updateDocumentModel.ts'
-import { CreatePreSignedUrlsModel, createPreSignedUrlsModel } from '@/models/createPreSignedUrlsModel.ts'
 
 export type UseGetApiDocumentsArgs = {
   pageSize?: number | undefined

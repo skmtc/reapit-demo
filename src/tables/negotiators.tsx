@@ -1,4 +1,4 @@
-import { negotiatorModel, NegotiatorModel } from '@/models/negotiatorModel.ts'
+import { negotiatorModel, NegotiatorModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'

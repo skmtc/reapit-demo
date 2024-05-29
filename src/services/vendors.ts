@@ -1,13 +1,15 @@
-import { vendorModel } from '@/models/vendorModel.ts'
+import {
+  vendorModel,
+  UpdateVendorModel,
+  vendorModelPagedResult,
+  vendorContactRelationshipModelPagedResult,
+  InsertVendorContactRelationshipModel,
+  vendorContactRelationshipModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
-import { UpdateVendorModel } from '@/models/updateVendorModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { vendorModelPagedResult } from '@/models/vendorModelPagedResult.ts'
-import { vendorContactRelationshipModelPagedResult } from '@/models/vendorContactRelationshipModelPagedResult.ts'
-import { InsertVendorContactRelationshipModel } from '@/models/insertVendorContactRelationshipModel.ts'
-import { vendorContactRelationshipModel } from '@/models/vendorContactRelationshipModel.ts'
 
 export type UseGetApiVendorsIdArgs = {
   id: string

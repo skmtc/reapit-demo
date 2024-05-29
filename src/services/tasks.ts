@@ -1,11 +1,8 @@
-import { taskModelPagedResult } from '@/models/taskModelPagedResult.ts'
+import { taskModelPagedResult, CreateTaskModel, taskModel, UpdateTaskModel } from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateTaskModel } from '@/models/createTaskModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { taskModel } from '@/models/taskModel.ts'
-import { UpdateTaskModel } from '@/models/updateTaskModel.ts'
 
 export type UseGetApiTasksArgs = {
   pageSize?: number | undefined

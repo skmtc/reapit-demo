@@ -1,4 +1,4 @@
-import { CreateNotificationModel } from '@/models/createNotificationModel.ts'
+import { CreateNotificationModel } from '@/schemas/index.ts'
 import { z } from 'zod'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useMutation, useQueryClient } from '@tanstack/react-query'

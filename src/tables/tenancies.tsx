@@ -1,4 +1,23 @@
-import { tenancyModel, TenancyModel } from '@/models/tenancyModel.ts'
+import {
+  tenancyModel,
+  TenancyModel,
+  tenancyContactRelationshipModel,
+  TenancyContactRelationshipModel,
+  tenancyCheckModel,
+  TenancyCheckModel,
+  tenancyBreakClauseModel,
+  TenancyBreakClauseModel,
+  tenancyAllowanceModel,
+  TenancyAllowanceModel,
+  tenancyResponsibilityModel,
+  TenancyResponsibilityModel,
+  tenancyRenewalModel,
+  TenancyRenewalModel,
+  tenancyExtensionAlterationModel,
+  TenancyExtensionAlterationModel,
+  tenancyRenewalCheckModel,
+  TenancyRenewalCheckModel,
+} from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
@@ -15,20 +34,6 @@ import {
   useGetApiTenanciesIdExtensions,
   useGetApiTenanciesIdRenewalNegotiationsRenewalIdChecks,
 } from '@/services/tenancies.ts'
-import {
-  tenancyContactRelationshipModel,
-  TenancyContactRelationshipModel,
-} from '@/models/tenancyContactRelationshipModel.ts'
-import { tenancyCheckModel, TenancyCheckModel } from '@/models/tenancyCheckModel.ts'
-import { tenancyBreakClauseModel, TenancyBreakClauseModel } from '@/models/tenancyBreakClauseModel.ts'
-import { tenancyAllowanceModel, TenancyAllowanceModel } from '@/models/tenancyAllowanceModel.ts'
-import { tenancyResponsibilityModel, TenancyResponsibilityModel } from '@/models/tenancyResponsibilityModel.ts'
-import { tenancyRenewalModel, TenancyRenewalModel } from '@/models/tenancyRenewalModel.ts'
-import {
-  tenancyExtensionAlterationModel,
-  TenancyExtensionAlterationModel,
-} from '@/models/tenancyExtensionAlterationModel.ts'
-import { tenancyRenewalCheckModel, TenancyRenewalCheckModel } from '@/models/tenancyRenewalCheckModel.ts'
 
 export type TenanciesArgs = {
   sortBy?: string | undefined

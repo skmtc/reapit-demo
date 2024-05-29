@@ -1,10 +1,12 @@
-import { transactionModelPagedResult } from '@/models/transactionModelPagedResult.ts'
+import {
+  transactionModelPagedResult,
+  transactionModel,
+  nominalAccountModelPagedResult,
+  nominalAccountModel,
+  CreateSupplierInvoiceModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { transactionModel } from '@/models/transactionModel.ts'
-import { nominalAccountModelPagedResult } from '@/models/nominalAccountModelPagedResult.ts'
-import { nominalAccountModel } from '@/models/nominalAccountModel.ts'
-import { CreateSupplierInvoiceModel } from '@/models/createSupplierInvoiceModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 

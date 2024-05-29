@@ -1,4 +1,4 @@
-import { createSupplierInvoiceModel, CreateSupplierInvoiceModel } from '@/models/createSupplierInvoiceModel.ts'
+import { createSupplierInvoiceModel, CreateSupplierInvoiceModel } from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

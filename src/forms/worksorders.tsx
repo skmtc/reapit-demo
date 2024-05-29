@@ -1,11 +1,15 @@
-import { createWorksOrderModel, CreateWorksOrderModel } from '@/models/createWorksOrderModel.ts'
+import {
+  createWorksOrderModel,
+  CreateWorksOrderModel,
+  createWorksOrderItemModel,
+  CreateWorksOrderItemModel,
+} from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { useCreateWorksOrder, useCreateWorksOrderItem } from '@/services/worksorders.ts'
-import { createWorksOrderItemModel, CreateWorksOrderItemModel } from '@/models/createWorksOrderItemModel.ts'
 
 export type CreateWorksOrdersProps = { children: (control: Control<CreateWorksOrderModel>) => ReactNode }
 export type CreateWorksOrdersIdItemsProps = {

@@ -1,14 +1,15 @@
-import { vendorModel, VendorModel } from '@/models/vendorModel.ts'
+import {
+  vendorModel,
+  VendorModel,
+  vendorContactRelationshipModel,
+  VendorContactRelationshipModel,
+} from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { z } from 'zod'
 import { useGetApiVendors, useGetApiVendorsIdRelationships } from '@/services/vendors.ts'
-import {
-  vendorContactRelationshipModel,
-  VendorContactRelationshipModel,
-} from '@/models/vendorContactRelationshipModel.ts'
 
 export type VendorsArgs = {
   sortBy?: string | undefined

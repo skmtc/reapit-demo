@@ -1,11 +1,15 @@
-import { createIdentityCheckModel, CreateIdentityCheckModel } from '@/models/createIdentityCheckModel.ts'
+import {
+  createIdentityCheckModel,
+  CreateIdentityCheckModel,
+  createPreSignedUrlsModel,
+  CreatePreSignedUrlsModel,
+} from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { useCreateIdentityCheck, useCreateIdentityCheckSignedUrl } from '@/services/identitychecks.ts'
-import { createPreSignedUrlsModel, CreatePreSignedUrlsModel } from '@/models/createPreSignedUrlsModel.ts'
 
 export type CreateIdentityChecksProps = { children: (control: Control<CreateIdentityCheckModel>) => ReactNode }
 export type CreateIdentityChecksSignedUrlProps = { children: (control: Control<CreatePreSignedUrlsModel>) => ReactNode }

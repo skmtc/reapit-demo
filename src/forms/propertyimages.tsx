@@ -1,4 +1,11 @@
-import { createPropertyImageModel, CreatePropertyImageModel } from '@/models/createPropertyImageModel.ts'
+import {
+  createPropertyImageModel,
+  CreatePropertyImageModel,
+  createPreSignedUrlsModel,
+  CreatePreSignedUrlsModel,
+  reindexPropertyImagesModel,
+  ReindexPropertyImagesModel,
+} from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,8 +16,6 @@ import {
   useCreatePropertyImageSignedUrl,
   useReindexPropertyImages,
 } from '@/services/propertyimages.ts'
-import { createPreSignedUrlsModel, CreatePreSignedUrlsModel } from '@/models/createPreSignedUrlsModel.ts'
-import { reindexPropertyImagesModel, ReindexPropertyImagesModel } from '@/models/reindexPropertyImagesModel.ts'
 
 export type CreatePropertyImagesProps = { children: (control: Control<CreatePropertyImageModel>) => ReactNode }
 export type CreatePropertyImagesSignedUrlProps = { children: (control: Control<CreatePreSignedUrlsModel>) => ReactNode }

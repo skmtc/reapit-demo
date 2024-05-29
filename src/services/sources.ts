@@ -1,11 +1,8 @@
-import { sourceModelPagedResult } from '@/models/sourceModelPagedResult.ts'
+import { sourceModelPagedResult, CreateSourceModel, sourceModel, UpdateSourceModel } from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateSourceModel } from '@/models/createSourceModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { sourceModel } from '@/models/sourceModel.ts'
-import { UpdateSourceModel } from '@/models/updateSourceModel.ts'
 
 export type UseGetApiSourcesArgs = {
   pageSize?: number | undefined

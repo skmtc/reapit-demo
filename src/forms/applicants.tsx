@@ -1,14 +1,15 @@
-import { createApplicantModel, CreateApplicantModel } from '@/models/createApplicantModel.ts'
+import {
+  createApplicantModel,
+  CreateApplicantModel,
+  createApplicantContactRelationshipModel,
+  CreateApplicantContactRelationshipModel,
+} from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { useCreateApplicant, useCreateApplicantRelationship } from '@/services/applicants.ts'
-import {
-  createApplicantContactRelationshipModel,
-  CreateApplicantContactRelationshipModel,
-} from '@/models/createApplicantContactRelationshipModel.ts'
 
 export type CreateApplicantsProps = { children: (control: Control<CreateApplicantModel>) => ReactNode }
 export type CreateApplicantsIdRelationshipsProps = {

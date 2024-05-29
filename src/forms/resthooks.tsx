@@ -1,11 +1,10 @@
-import { createWebhookModel, CreateWebhookModel } from '@/models/createWebhookModel.ts'
+import { createWebhookModel, CreateWebhookModel, updateWebhookModel, UpdateWebhookModel } from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { useCreateResthook, useUpdateResthook } from '@/services/resthooks.ts'
-import { updateWebhookModel, UpdateWebhookModel } from '@/models/updateWebhookModel.ts'
 
 export type CreateResthooksProps = { children: (control: Control<CreateWebhookModel>) => ReactNode }
 export type UpdateResthooksIdProps = { id: string; children: (control: Control<UpdateWebhookModel>) => ReactNode }

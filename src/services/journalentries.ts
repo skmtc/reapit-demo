@@ -1,11 +1,13 @@
-import { journalEntryModelPagedResult } from '@/models/journalEntryModelPagedResult.ts'
+import {
+  journalEntryModelPagedResult,
+  CreateJournalEntryModel,
+  landlordJournalEntryModelPagedResult,
+  CreateBulkJournalEntryModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateJournalEntryModel } from '@/models/createJournalEntryModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { landlordJournalEntryModelPagedResult } from '@/models/landlordJournalEntryModelPagedResult.ts'
-import { CreateBulkJournalEntryModel } from '@/models/createBulkJournalEntryModel.ts'
 
 export type UseGetApiJournalEntriesArgs = {
   pageSize?: number | undefined

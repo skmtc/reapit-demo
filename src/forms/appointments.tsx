@@ -1,11 +1,15 @@
-import { createAppointmentModel, CreateAppointmentModel } from '@/models/createAppointmentModel.ts'
+import {
+  createAppointmentModel,
+  CreateAppointmentModel,
+  createOpenHouseAttendeeModel,
+  CreateOpenHouseAttendeeModel,
+} from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { useCreateAppointment, useCreateOpenHouseAttendee } from '@/services/appointments.ts'
-import { createOpenHouseAttendeeModel, CreateOpenHouseAttendeeModel } from '@/models/createOpenHouseAttendeeModel.ts'
 
 export type CreateAppointmentsProps = { children: (control: Control<CreateAppointmentModel>) => ReactNode }
 export type CreateAppointmentsIdOpenHouseAttendeesProps = {

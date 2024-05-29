@@ -1,4 +1,4 @@
-import { officeModel, OfficeModel } from '@/models/officeModel.ts'
+import { officeModel, OfficeModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'

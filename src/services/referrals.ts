@@ -1,13 +1,15 @@
-import { referralModelPagedResult } from '@/models/referralModelPagedResult.ts'
+import {
+  referralModelPagedResult,
+  CreateReferralModel,
+  referralModel,
+  UpdateReferralModel,
+  referralTypeModelPagedResult,
+  referralTypeModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateReferralModel } from '@/models/createReferralModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { referralModel } from '@/models/referralModel.ts'
-import { UpdateReferralModel } from '@/models/updateReferralModel.ts'
-import { referralTypeModelPagedResult } from '@/models/referralTypeModelPagedResult.ts'
-import { referralTypeModel } from '@/models/referralTypeModel.ts'
 
 export type UseGetApiReferralsArgs = {
   id?: Array<string> | undefined

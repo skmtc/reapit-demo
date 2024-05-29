@@ -1,13 +1,15 @@
-import { companyModelPagedResult } from '@/models/companyModelPagedResult.ts'
+import {
+  companyModelPagedResult,
+  CreateCompanyModel,
+  companyModel,
+  UpdateCompanyModel,
+  companyRoleModelPagedResult,
+  staffModelPagedResult,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateCompanyModel } from '@/models/createCompanyModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { companyModel } from '@/models/companyModel.ts'
-import { UpdateCompanyModel } from '@/models/updateCompanyModel.ts'
-import { companyRoleModelPagedResult } from '@/models/companyRoleModelPagedResult.ts'
-import { staffModelPagedResult } from '@/models/staffModelPagedResult.ts'
 
 export type UseGetApiCompaniesArgs = {
   pageSize?: number | undefined

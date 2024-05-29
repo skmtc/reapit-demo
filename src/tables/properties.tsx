@@ -1,4 +1,17 @@
-import { propertyModel, PropertyModel } from '@/models/propertyModel.ts'
+import {
+  propertyModel,
+  PropertyModel,
+  certificateModel,
+  CertificateModel,
+  keysModel,
+  KeysModel,
+  keyMovementModel,
+  KeyMovementModel,
+  propertyCheckModel,
+  PropertyCheckModel,
+  propertyAppraisalModel,
+  PropertyAppraisalModel,
+} from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
@@ -13,11 +26,6 @@ import {
   useGetApiPropertiesCertificates,
   useGetApiPropertiesIdAppraisals,
 } from '@/services/properties.ts'
-import { certificateModel, CertificateModel } from '@/models/certificateModel.ts'
-import { keysModel, KeysModel } from '@/models/keysModel.ts'
-import { keyMovementModel, KeyMovementModel } from '@/models/keyMovementModel.ts'
-import { propertyCheckModel, PropertyCheckModel } from '@/models/propertyCheckModel.ts'
-import { propertyAppraisalModel, PropertyAppraisalModel } from '@/models/propertyAppraisalModel.ts'
 
 export type PropertiesArgs = {
   sortBy?: string | undefined

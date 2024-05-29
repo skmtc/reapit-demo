@@ -1,11 +1,8 @@
-import { schemaModel } from '@/models/schemaModel.ts'
+import { schemaModel, UpdateSchemaRequest, schemaModelPagedResult, CreateSchemaRequest } from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
-import { UpdateSchemaRequest } from '@/models/updateSchemaRequest.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { schemaModelPagedResult } from '@/models/schemaModelPagedResult.ts'
-import { CreateSchemaRequest } from '@/models/createSchemaRequest.ts'
 
 export type UseGetApiMetadataMetadataSchemaIdArgs = { id: string }
 export const getApiMetadataMetadataSchemaIdFn = async ({ id }: UseGetApiMetadataMetadataSchemaIdArgs) => {

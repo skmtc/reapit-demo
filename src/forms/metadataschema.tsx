@@ -1,11 +1,10 @@
-import { updateSchemaRequest, UpdateSchemaRequest } from '@/models/updateSchemaRequest.ts'
+import { updateSchemaRequest, UpdateSchemaRequest, createSchemaRequest, CreateSchemaRequest } from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { useUpdateMetadataSchema, useCreateMetadataSchema } from '@/services/metadataschema.ts'
-import { createSchemaRequest, CreateSchemaRequest } from '@/models/createSchemaRequest.ts'
 
 export type UpdateMetadataMetadataSchemaIdProps = {
   id: string

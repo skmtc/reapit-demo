@@ -1,15 +1,17 @@
-import { contactModelPagedResult } from '@/models/contactModelPagedResult.ts'
+import {
+  contactModelPagedResult,
+  CreateContactModel,
+  contactModel,
+  UpdateContactModel,
+  contactRoleModelPagedResult,
+  contactSubscriptionModelPagedResult,
+  contactSubscriptionModel,
+  UpdateContactSubscriptionModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateContactModel } from '@/models/createContactModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { contactModel } from '@/models/contactModel.ts'
-import { UpdateContactModel } from '@/models/updateContactModel.ts'
-import { contactRoleModelPagedResult } from '@/models/contactRoleModelPagedResult.ts'
-import { contactSubscriptionModelPagedResult } from '@/models/contactSubscriptionModelPagedResult.ts'
-import { contactSubscriptionModel } from '@/models/contactSubscriptionModel.ts'
-import { UpdateContactSubscriptionModel } from '@/models/updateContactSubscriptionModel.ts'
 
 export type UseGetApiContactsArgs = {
   pageSize?: number | undefined

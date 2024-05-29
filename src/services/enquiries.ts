@@ -1,11 +1,8 @@
-import { enquiryModelPagedResult } from '@/models/enquiryModelPagedResult.ts'
+import { enquiryModelPagedResult, CreateEnquiryModel, enquiryModel, UpdateEnquiryModel } from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateEnquiryModel } from '@/models/createEnquiryModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { enquiryModel } from '@/models/enquiryModel.ts'
-import { UpdateEnquiryModel } from '@/models/updateEnquiryModel.ts'
 
 export type UseGetApiEnquiriesArgs = {
   pageSize?: number | undefined

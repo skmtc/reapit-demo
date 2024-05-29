@@ -1,11 +1,8 @@
-import { offerModelPagedResult } from '@/models/offerModelPagedResult.ts'
+import { offerModelPagedResult, CreateOfferModel, offerModel, UpdateOfferModel } from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateOfferModel } from '@/models/createOfferModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { offerModel } from '@/models/offerModel.ts'
-import { UpdateOfferModel } from '@/models/updateOfferModel.ts'
 
 export type UseGetApiOffersArgs = {
   pageSize?: number | undefined

@@ -1,11 +1,8 @@
-import { areaModelPagedResult } from '@/models/areaModelPagedResult.ts'
+import { areaModelPagedResult, CreateAreaModel, areaModel, UpdateAreaModel } from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateAreaModel } from '@/models/createAreaModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { areaModel } from '@/models/areaModel.ts'
-import { UpdateAreaModel } from '@/models/updateAreaModel.ts'
 
 export type UseGetApiAreasArgs = {
   pageSize?: number | undefined

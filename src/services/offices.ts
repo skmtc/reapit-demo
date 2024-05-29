@@ -1,11 +1,8 @@
-import { officeModelPagedResult } from '@/models/officeModelPagedResult.ts'
+import { officeModelPagedResult, CreateOfficeModel, officeModel, UpdateOfficeModel } from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateOfficeModel } from '@/models/createOfficeModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { officeModel } from '@/models/officeModel.ts'
-import { UpdateOfficeModel } from '@/models/updateOfficeModel.ts'
 
 export type UseGetApiOfficesArgs = {
   pageSize?: number | undefined

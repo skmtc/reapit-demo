@@ -1,11 +1,10 @@
-import { worksOrderModel, WorksOrderModel } from '@/models/worksOrderModel.ts'
+import { worksOrderModel, WorksOrderModel, worksOrderItemModel, WorksOrderItemModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { z } from 'zod'
 import { useGetApiWorksOrders, useGetApiWorksOrdersIdItems } from '@/services/worksorders.ts'
-import { worksOrderItemModel, WorksOrderItemModel } from '@/models/worksOrderItemModel.ts'
 
 export type WorksOrdersArgs = {
   sortBy?: string | undefined

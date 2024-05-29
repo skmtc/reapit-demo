@@ -1,15 +1,17 @@
-import { worksOrderModelPagedResult } from '@/models/worksOrderModelPagedResult.ts'
+import {
+  worksOrderModelPagedResult,
+  CreateWorksOrderModel,
+  worksOrderModel,
+  UpdateWorksOrderModel,
+  worksOrderItemModelPagedResult,
+  CreateWorksOrderItemModel,
+  worksOrderItemModel,
+  UpdateWorksOrderItemModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateWorksOrderModel } from '@/models/createWorksOrderModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { worksOrderModel } from '@/models/worksOrderModel.ts'
-import { UpdateWorksOrderModel } from '@/models/updateWorksOrderModel.ts'
-import { worksOrderItemModelPagedResult } from '@/models/worksOrderItemModelPagedResult.ts'
-import { CreateWorksOrderItemModel } from '@/models/createWorksOrderItemModel.ts'
-import { worksOrderItemModel } from '@/models/worksOrderItemModel.ts'
-import { UpdateWorksOrderItemModel } from '@/models/updateWorksOrderItemModel.ts'
 
 export type UseGetApiWorksOrdersArgs = {
   pageSize?: number | undefined

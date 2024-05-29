@@ -1,14 +1,16 @@
-import { landlordModelPagedResult } from '@/models/landlordModelPagedResult.ts'
+import {
+  landlordModelPagedResult,
+  CreateLandlordModel,
+  landlordModel,
+  UpdateLandlordModel,
+  landlordContactRelationshipModelPagedResult,
+  InsertLandlordContactRelationshipModel,
+  landlordContactRelationshipModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateLandlordModel } from '@/models/createLandlordModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { landlordModel } from '@/models/landlordModel.ts'
-import { UpdateLandlordModel } from '@/models/updateLandlordModel.ts'
-import { landlordContactRelationshipModelPagedResult } from '@/models/landlordContactRelationshipModelPagedResult.ts'
-import { InsertLandlordContactRelationshipModel } from '@/models/insertLandlordContactRelationshipModel.ts'
-import { landlordContactRelationshipModel } from '@/models/landlordContactRelationshipModel.ts'
 
 export type UseGetApiLandlordsArgs = {
   pageSize?: number | undefined

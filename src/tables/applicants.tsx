@@ -1,14 +1,15 @@
-import { applicantModel, ApplicantModel } from '@/models/applicantModel.ts'
+import {
+  applicantModel,
+  ApplicantModel,
+  applicantContactRelationshipModel,
+  ApplicantContactRelationshipModel,
+} from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { z } from 'zod'
 import { useGetApiApplicants, useGetApiApplicantsIdRelationships } from '@/services/applicants.ts'
-import {
-  applicantContactRelationshipModel,
-  ApplicantContactRelationshipModel,
-} from '@/models/applicantContactRelationshipModel.ts'
 
 export type ApplicantsArgs = {
   sortBy?: string | undefined

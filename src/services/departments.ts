@@ -1,7 +1,6 @@
-import { departmentModelPagedResult } from '@/models/departmentModelPagedResult.ts'
+import { departmentModelPagedResult, departmentModel } from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
-import { departmentModel } from '@/models/departmentModel.ts'
 
 export type UseGetApiDepartmentsArgs = {
   pageSize?: number | undefined

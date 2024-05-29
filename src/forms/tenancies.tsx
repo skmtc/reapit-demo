@@ -1,4 +1,19 @@
-import { createTenancyModel, CreateTenancyModel } from '@/models/createTenancyModel.ts'
+import {
+  createTenancyModel,
+  CreateTenancyModel,
+  createTenancyCheckModel,
+  CreateTenancyCheckModel,
+  createTenancyBreakClauseModel,
+  CreateTenancyBreakClauseModel,
+  createTenancyAllowanceModel,
+  CreateTenancyAllowanceModel,
+  createTenancyResponsibilityModel,
+  CreateTenancyResponsibilityModel,
+  createTenancyRenewalModel,
+  CreateTenancyRenewalModel,
+  createTenancyRenewalCheckModel,
+  CreateTenancyRenewalCheckModel,
+} from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, Control } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,18 +28,6 @@ import {
   useCreateTenancyRenewalNegotiation,
   useCreateTenancyRenewalNegotiationCheck,
 } from '@/services/tenancies.ts'
-import { createTenancyCheckModel, CreateTenancyCheckModel } from '@/models/createTenancyCheckModel.ts'
-import { createTenancyBreakClauseModel, CreateTenancyBreakClauseModel } from '@/models/createTenancyBreakClauseModel.ts'
-import { createTenancyAllowanceModel, CreateTenancyAllowanceModel } from '@/models/createTenancyAllowanceModel.ts'
-import {
-  createTenancyResponsibilityModel,
-  CreateTenancyResponsibilityModel,
-} from '@/models/createTenancyResponsibilityModel.ts'
-import { createTenancyRenewalModel, CreateTenancyRenewalModel } from '@/models/createTenancyRenewalModel.ts'
-import {
-  createTenancyRenewalCheckModel,
-  CreateTenancyRenewalCheckModel,
-} from '@/models/createTenancyRenewalCheckModel.ts'
 
 export type CreateTenanciesProps = { children: (control: Control<CreateTenancyModel>) => ReactNode }
 export type CreateTenanciesIdChecksProps = {

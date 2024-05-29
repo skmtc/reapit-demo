@@ -1,37 +1,39 @@
-import { tenancyModelPagedResult } from '@/models/tenancyModelPagedResult.ts'
+import {
+  tenancyModelPagedResult,
+  CreateTenancyModel,
+  tenancyModel,
+  UpdateTenancyModel,
+  tenancyContactRelationshipModelPagedResult,
+  tenancyContactRelationshipModel,
+  tenancyCheckModelPagedResult,
+  CreateTenancyCheckModel,
+  tenancyCheckModel,
+  UpdateTenancyCheckModel,
+  tenancyBreakClauseModelPagedResult,
+  CreateTenancyBreakClauseModel,
+  tenancyBreakClauseModel,
+  UpdateTenancyBreakClauseModel,
+  tenancyAllowanceModelPagedResult,
+  CreateTenancyAllowanceModel,
+  tenancyAllowanceModel,
+  UpdateTenancyAllowanceModel,
+  tenancyResponsibilityModelPagedResult,
+  CreateTenancyResponsibilityModel,
+  tenancyResponsibilityModel,
+  UpdateTenancyResponsibilityModel,
+  tenancyRenewalModelPagedResult,
+  CreateTenancyRenewalModel,
+  UpdateTenancyRenewalModel,
+  tenancyExtensionAlterationModelPagedResult,
+  tenancyRenewalCheckModelPagedResult,
+  CreateTenancyRenewalCheckModel,
+  tenancyRenewalCheckModel,
+  UpdateTenancyRenewalCheckModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateTenancyModel } from '@/models/createTenancyModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { tenancyModel } from '@/models/tenancyModel.ts'
-import { UpdateTenancyModel } from '@/models/updateTenancyModel.ts'
-import { tenancyContactRelationshipModelPagedResult } from '@/models/tenancyContactRelationshipModelPagedResult.ts'
-import { tenancyContactRelationshipModel } from '@/models/tenancyContactRelationshipModel.ts'
-import { tenancyCheckModelPagedResult } from '@/models/tenancyCheckModelPagedResult.ts'
-import { CreateTenancyCheckModel } from '@/models/createTenancyCheckModel.ts'
-import { tenancyCheckModel } from '@/models/tenancyCheckModel.ts'
-import { UpdateTenancyCheckModel } from '@/models/updateTenancyCheckModel.ts'
-import { tenancyBreakClauseModelPagedResult } from '@/models/tenancyBreakClauseModelPagedResult.ts'
-import { CreateTenancyBreakClauseModel } from '@/models/createTenancyBreakClauseModel.ts'
-import { tenancyBreakClauseModel } from '@/models/tenancyBreakClauseModel.ts'
-import { UpdateTenancyBreakClauseModel } from '@/models/updateTenancyBreakClauseModel.ts'
-import { tenancyAllowanceModelPagedResult } from '@/models/tenancyAllowanceModelPagedResult.ts'
-import { CreateTenancyAllowanceModel } from '@/models/createTenancyAllowanceModel.ts'
-import { tenancyAllowanceModel } from '@/models/tenancyAllowanceModel.ts'
-import { UpdateTenancyAllowanceModel } from '@/models/updateTenancyAllowanceModel.ts'
-import { tenancyResponsibilityModelPagedResult } from '@/models/tenancyResponsibilityModelPagedResult.ts'
-import { CreateTenancyResponsibilityModel } from '@/models/createTenancyResponsibilityModel.ts'
-import { tenancyResponsibilityModel } from '@/models/tenancyResponsibilityModel.ts'
-import { UpdateTenancyResponsibilityModel } from '@/models/updateTenancyResponsibilityModel.ts'
-import { tenancyRenewalModelPagedResult } from '@/models/tenancyRenewalModelPagedResult.ts'
-import { CreateTenancyRenewalModel } from '@/models/createTenancyRenewalModel.ts'
-import { UpdateTenancyRenewalModel } from '@/models/updateTenancyRenewalModel.ts'
-import { tenancyExtensionAlterationModelPagedResult } from '@/models/tenancyExtensionAlterationModelPagedResult.ts'
-import { tenancyRenewalCheckModelPagedResult } from '@/models/tenancyRenewalCheckModelPagedResult.ts'
-import { CreateTenancyRenewalCheckModel } from '@/models/createTenancyRenewalCheckModel.ts'
-import { tenancyRenewalCheckModel } from '@/models/tenancyRenewalCheckModel.ts'
-import { UpdateTenancyRenewalCheckModel } from '@/models/updateTenancyRenewalCheckModel.ts'
 
 export type UseGetApiTenanciesArgs = {
   pageSize?: number | undefined

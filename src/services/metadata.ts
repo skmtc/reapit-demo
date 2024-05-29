@@ -1,11 +1,13 @@
-import { metadataModelPagedResult } from '@/models/metadataModelPagedResult.ts'
+import {
+  metadataModelPagedResult,
+  CreateMetadataRequest,
+  metadataModel,
+  UpdateMetadataRequest,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateMetadataRequest } from '@/models/createMetadataRequest.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { metadataModel } from '@/models/metadataModel.ts'
-import { UpdateMetadataRequest } from '@/models/updateMetadataRequest.ts'
 
 export type UseGetApiMetadataArgs = {
   pageSize?: number | undefined

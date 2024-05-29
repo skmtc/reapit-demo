@@ -1,4 +1,11 @@
-import { contactModel, ContactModel } from '@/models/contactModel.ts'
+import {
+  contactModel,
+  ContactModel,
+  contactRoleModel,
+  ContactRoleModel,
+  contactSubscriptionModel,
+  ContactSubscriptionModel,
+} from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
@@ -9,8 +16,6 @@ import {
   useGetApiContactsIdRelationships,
   useGetApiContactsIdSubscriptions,
 } from '@/services/contacts.ts'
-import { contactRoleModel, ContactRoleModel } from '@/models/contactRoleModel.ts'
-import { contactSubscriptionModel, ContactSubscriptionModel } from '@/models/contactSubscriptionModel.ts'
 
 export type ContactsArgs = {
   sortBy?: string | undefined

@@ -1,0 +1,192 @@
+import { default as Input } from '@mui/joy/Input'
+import { NotImplemented, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { AppointmentModel } from '@/schemas/index.ts'
+
+export const appointmentModelConfig: ModelConfig<AppointmentModel> = {
+  _links: {
+    key: '_links',
+    label: '_links',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  _embedded: {
+    key: '_embedded',
+    label: '_embedded',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  id: {
+    key: 'id',
+    label: 'id',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  created: {
+    key: 'created',
+    label: 'created',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  modified: {
+    key: 'modified',
+    label: 'modified',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  start: {
+    key: 'start',
+    label: 'start',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  end: {
+    key: 'end',
+    label: 'end',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  typeId: {
+    key: 'typeId',
+    label: 'typeId',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  description: {
+    key: 'description',
+    label: 'description',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  recurring: {
+    key: 'recurring',
+    label: 'recurring',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  recurrence: {
+    key: 'recurrence',
+    label: 'recurrence',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  cancelled: {
+    key: 'cancelled',
+    label: 'cancelled',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  followUp: {
+    key: 'followUp',
+    label: 'followUp',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  propertyId: {
+    key: 'propertyId',
+    label: 'propertyId',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  organiserId: {
+    key: 'organiserId',
+    label: 'organiserId',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  negotiatorIds: {
+    key: 'negotiatorIds',
+    label: 'negotiatorIds',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  officeIds: {
+    key: 'officeIds',
+    label: 'officeIds',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  attendee: {
+    key: 'attendee',
+    label: 'attendee',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  attended: {
+    key: 'attended',
+    label: 'attended',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  accompanied: {
+    key: 'accompanied',
+    label: 'accompanied',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  isRepeat: {
+    key: 'isRepeat',
+    label: 'isRepeat',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  virtual: {
+    key: 'virtual',
+    label: 'virtual',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  negotiatorConfirmed: {
+    key: 'negotiatorConfirmed',
+    label: 'negotiatorConfirmed',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  attendeeConfirmed: {
+    key: 'attendeeConfirmed',
+    label: 'attendeeConfirmed',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  propertyConfirmed: {
+    key: 'propertyConfirmed',
+    label: 'propertyConfirmed',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  fromArchive: {
+    key: 'fromArchive',
+    label: 'fromArchive',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  otherAgentId: {
+    key: 'otherAgentId',
+    label: 'otherAgentId',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  documents: {
+    key: 'documents',
+    label: 'documents',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  metadata: {
+    key: 'metadata',
+    label: 'metadata',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  extrasField: {
+    key: 'extrasField',
+    label: 'extrasField',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+  _eTag: {
+    key: '_eTag',
+    label: '_eTag',
+    format: (value) => `${value}`,
+    Input: (props) => <Input {...props} />,
+  },
+}

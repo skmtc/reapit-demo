@@ -1,14 +1,16 @@
-import { applicantModelPagedResult } from '@/models/applicantModelPagedResult.ts'
+import {
+  applicantModelPagedResult,
+  CreateApplicantModel,
+  applicantModel,
+  UpdateApplicantModel,
+  applicantContactRelationshipModelPagedResult,
+  InsertApplicantContactRelationshipModel,
+  applicantContactRelationshipModel,
+} from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateApplicantModel } from '@/models/createApplicantModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { applicantModel } from '@/models/applicantModel.ts'
-import { UpdateApplicantModel } from '@/models/updateApplicantModel.ts'
-import { applicantContactRelationshipModelPagedResult } from '@/models/applicantContactRelationshipModelPagedResult.ts'
-import { InsertApplicantContactRelationshipModel } from '@/models/insertApplicantContactRelationshipModel.ts'
-import { applicantContactRelationshipModel } from '@/models/applicantContactRelationshipModel.ts'
 
 export type UseGetApiApplicantsArgs = {
   pageSize?: number | undefined

@@ -1,11 +1,10 @@
-import { referralModel, ReferralModel } from '@/models/referralModel.ts'
+import { referralModel, ReferralModel, referralTypeModel, ReferralTypeModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
 import { z } from 'zod'
 import { useGetApiReferrals, useGetApiReferralsTypes } from '@/services/referrals.ts'
-import { referralTypeModel, ReferralTypeModel } from '@/models/referralTypeModel.ts'
 
 export type ReferralsArgs = {
   id?: Array<string> | undefined

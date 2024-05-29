@@ -1,11 +1,8 @@
-import { webhookModelPagedResult } from '@/models/webhookModelPagedResult.ts'
+import { webhookModelPagedResult, CreateWebhookModel, webhookModel, UpdateWebhookModel } from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
 import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateWebhookModel } from '@/models/createWebhookModel.ts'
 import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { webhookModel } from '@/models/webhookModel.ts'
-import { UpdateWebhookModel } from '@/models/updateWebhookModel.ts'
 
 export type UseGetApiResthooksArgs = {
   pageSize?: number | undefined
