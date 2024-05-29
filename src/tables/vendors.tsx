@@ -5,10 +5,9 @@ import {
   VendorContactRelationshipModel,
 } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiVendors, useGetApiVendorsIdRelationships } from '@/services/vendors.ts'
 
 export type VendorsArgs = {
@@ -36,7 +35,7 @@ export type VendorsIdRelationshipsArgs = { id: string; columns: ColumnsList<Vend
 
 export const vendorsColumnHelper = createColumnHelper<VendorModel>()
 
-export const getVendorsColumn = (property: string, modelConfig: ModelConfig<VendorModel>) => {
+export const getVendorsColumn = (property: string, modelConfig: ModelConfig2<VendorModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -260,7 +259,7 @@ export const vendorsIdRelationshipsColumnHelper = createColumnHelper<VendorConta
 
 export const getVendorsIdRelationshipsColumn = (
   property: string,
-  modelConfig: ModelConfig<VendorContactRelationshipModel>,
+  modelConfig: ModelConfig2<VendorContactRelationshipModel>,
 ) => {
   return match(property)
     .with('_links', () => {

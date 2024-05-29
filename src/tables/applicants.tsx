@@ -5,10 +5,9 @@ import {
   ApplicantContactRelationshipModel,
 } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiApplicants, useGetApiApplicantsIdRelationships } from '@/services/applicants.ts'
 
 export type ApplicantsArgs = {
@@ -109,7 +108,7 @@ export type ApplicantsIdRelationshipsArgs = { id: string; columns: ColumnsList<A
 
 export const applicantsColumnHelper = createColumnHelper<ApplicantModel>()
 
-export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<ApplicantModel>) => {
+export const getApplicantsColumn = (property: string, modelConfig: ModelConfig2<ApplicantModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -594,7 +593,7 @@ export const applicantsIdRelationshipsColumnHelper = createColumnHelper<Applican
 
 export const getApplicantsIdRelationshipsColumn = (
   property: string,
-  modelConfig: ModelConfig<ApplicantContactRelationshipModel>,
+  modelConfig: ModelConfig2<ApplicantContactRelationshipModel>,
 ) => {
   return match(property)
     .with('_links', () => {

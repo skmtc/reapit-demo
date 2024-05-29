@@ -1,9 +1,8 @@
 import { metadataModel, MetadataModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiMetadata } from '@/services/metadata.ts'
 
 export type MetadataArgs = {
@@ -16,7 +15,7 @@ export type MetadataArgs = {
 
 export const metadataColumnHelper = createColumnHelper<MetadataModel>()
 
-export const getMetadataColumn = (property: string, modelConfig: ModelConfig<MetadataModel>) => {
+export const getMetadataColumn = (property: string, modelConfig: ModelConfig2<MetadataModel>) => {
   return match(property)
     .with('id', () => {
       const { label: header, format } = modelConfig['id']

@@ -1,18 +1,17 @@
-import { default as Input } from '@mui/joy/Input'
-import { NotImplemented, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { ContextInput, ModelConfig2 } from '@/components/ModelRuntimeConfig'
 import { TenancyAgreementModel } from '@/schemas/index.ts'
 
-export const tenancyAgreementModelConfig: ModelConfig<TenancyAgreementModel> = {
+export const tenancyAgreementModelConfig: ModelConfig2<TenancyAgreementModel> = {
   landlord: {
     key: 'landlord',
     label: 'landlord',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
   tenant: {
     key: 'tenant',
     label: 'tenant',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
 }

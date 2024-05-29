@@ -1,9 +1,8 @@
 import { worksOrderModel, WorksOrderModel, worksOrderItemModel, WorksOrderItemModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiWorksOrders, useGetApiWorksOrdersIdItems } from '@/services/worksorders.ts'
 
 export type WorksOrdersArgs = {
@@ -43,7 +42,7 @@ export type WorksOrdersIdItemsArgs = { id: string; columns: ColumnsList<WorksOrd
 
 export const worksOrdersColumnHelper = createColumnHelper<WorksOrderModel>()
 
-export const getWorksOrdersColumn = (property: string, modelConfig: ModelConfig<WorksOrderModel>) => {
+export const getWorksOrdersColumn = (property: string, modelConfig: ModelConfig2<WorksOrderModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -301,7 +300,7 @@ export const useWorksOrdersTable = (args: WorksOrdersArgs) => {
 }
 export const worksOrdersIdItemsColumnHelper = createColumnHelper<WorksOrderItemModel>()
 
-export const getWorksOrdersIdItemsColumn = (property: string, modelConfig: ModelConfig<WorksOrderItemModel>) => {
+export const getWorksOrdersIdItemsColumn = (property: string, modelConfig: ModelConfig2<WorksOrderItemModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

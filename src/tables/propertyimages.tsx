@@ -1,9 +1,8 @@
 import { propertyImageModel, PropertyImageModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiPropertyImages } from '@/services/propertyimages.ts'
 
 export type PropertyImagesArgs = {
@@ -23,7 +22,7 @@ export type PropertyImagesArgs = {
 
 export const propertyImagesColumnHelper = createColumnHelper<PropertyImageModel>()
 
-export const getPropertyImagesColumn = (property: string, modelConfig: ModelConfig<PropertyImageModel>) => {
+export const getPropertyImagesColumn = (property: string, modelConfig: ModelConfig2<PropertyImageModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

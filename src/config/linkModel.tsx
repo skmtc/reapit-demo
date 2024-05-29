@@ -1,12 +1,11 @@
-import { default as Input } from '@mui/joy/Input'
-import { NotImplemented, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { ContextInput, ModelConfig2 } from '@/components/ModelRuntimeConfig'
 import { LinkModel } from '@/schemas/index.ts'
 
-export const linkModelConfig: ModelConfig<LinkModel> = {
+export const linkModelConfig: ModelConfig2<LinkModel> = {
   href: {
     key: 'href',
     label: 'href',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
 }

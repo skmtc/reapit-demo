@@ -1,9 +1,8 @@
 import { identityCheckModel, IdentityCheckModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiIdentityChecks } from '@/services/identitychecks.ts'
 
 export type IdentityChecksArgs = {
@@ -25,7 +24,7 @@ export type IdentityChecksArgs = {
 
 export const identityChecksColumnHelper = createColumnHelper<IdentityCheckModel>()
 
-export const getIdentityChecksColumn = (property: string, modelConfig: ModelConfig<IdentityCheckModel>) => {
+export const getIdentityChecksColumn = (property: string, modelConfig: ModelConfig2<IdentityCheckModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

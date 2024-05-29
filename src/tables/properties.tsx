@@ -13,10 +13,9 @@ import {
   PropertyAppraisalModel,
 } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import {
   useGetApiProperties,
   useGetApiPropertiesIdCertificates,
@@ -189,7 +188,7 @@ export type PropertiesIdAppraisalsArgs = { id: string; columns: ColumnsList<Prop
 
 export const propertiesColumnHelper = createColumnHelper<PropertyModel>()
 
-export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<PropertyModel>) => {
+export const getPropertiesColumn = (property: string, modelConfig: ModelConfig2<PropertyModel>) => {
   return match(property)
     .with('_embedded', () => {
       const { label: header, format } = modelConfig['_embedded']
@@ -978,7 +977,7 @@ export const usePropertiesTable = (args: PropertiesArgs) => {
 }
 export const propertiesIdCertificatesColumnHelper = createColumnHelper<CertificateModel>()
 
-export const getPropertiesIdCertificatesColumn = (property: string, modelConfig: ModelConfig<CertificateModel>) => {
+export const getPropertiesIdCertificatesColumn = (property: string, modelConfig: ModelConfig2<CertificateModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -1164,7 +1163,7 @@ export const usePropertiesIdCertificatesTable = (args: PropertiesIdCertificatesA
 }
 export const propertiesIdKeysColumnHelper = createColumnHelper<KeysModel>()
 
-export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelConfig<KeysModel>) => {
+export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelConfig2<KeysModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -1316,7 +1315,7 @@ export const propertiesIdKeysKeyIdMovementsColumnHelper = createColumnHelper<Key
 
 export const getPropertiesIdKeysKeyIdMovementsColumn = (
   property: string,
-  modelConfig: ModelConfig<KeyMovementModel>,
+  modelConfig: ModelConfig2<KeyMovementModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -1485,7 +1484,7 @@ export const usePropertiesIdKeysKeyIdMovementsTable = (args: PropertiesIdKeysKey
 }
 export const propertiesIdChecksColumnHelper = createColumnHelper<PropertyCheckModel>()
 
-export const getPropertiesIdChecksColumn = (property: string, modelConfig: ModelConfig<PropertyCheckModel>) => {
+export const getPropertiesIdChecksColumn = (property: string, modelConfig: ModelConfig2<PropertyCheckModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -1617,7 +1616,7 @@ export const usePropertiesIdChecksTable = (args: PropertiesIdChecksArgs) => {
 }
 export const propertiesCertificatesColumnHelper = createColumnHelper<CertificateModel>()
 
-export const getPropertiesCertificatesColumn = (property: string, modelConfig: ModelConfig<CertificateModel>) => {
+export const getPropertiesCertificatesColumn = (property: string, modelConfig: ModelConfig2<CertificateModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -1803,7 +1802,10 @@ export const usePropertiesCertificatesTable = (args: PropertiesCertificatesArgs)
 }
 export const propertiesIdAppraisalsColumnHelper = createColumnHelper<PropertyAppraisalModel>()
 
-export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: ModelConfig<PropertyAppraisalModel>) => {
+export const getPropertiesIdAppraisalsColumn = (
+  property: string,
+  modelConfig: ModelConfig2<PropertyAppraisalModel>,
+) => {
   return match(property)
     .with('id', () => {
       const { label: header, format } = modelConfig['id']

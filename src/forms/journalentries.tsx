@@ -5,81 +5,85 @@ import {
   CreateBulkJournalEntryModel,
 } from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
-import { useForm, Control } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { useCreateJournalEntry, useCreateBulkJournalEntry } from '@/services/journalentries.ts'
 
-export type CreateJournalEntriesProps = { children: (control: Control<CreateJournalEntryModel>) => ReactNode }
-export type CreateJournalEntriesBulkProps = { children: (control: Control<CreateBulkJournalEntryModel>) => ReactNode }
+export type CreateJournalEntriesProps = { children: ReactNode }
+export type CreateJournalEntriesBulkProps = { children: ReactNode }
 
 export const CreateJournalEntries = (props: CreateJournalEntriesProps) => {
-  const { control, handleSubmit } = useForm<CreateJournalEntryModel>({
+  const methods = useForm<CreateJournalEntryModel>({
     resolver: zodResolver(createJournalEntryModel),
   })
 
   const mutator = useCreateJournalEntry()
 
   return (
-    <Box
-      component="form"
-      display="flex"
-      flexDirection="column"
-      flex={1}
-      gap="16px"
-      onSubmit={handleSubmit((body) => {
-        mutator.mutate({ ...props, body })
-      })}
-    >
-      {props.children(control)}
+    <FormProvider {...methods}>
       <Box
+        component="form"
         display="flex"
         flexDirection="column"
-        sx={{
-          pt: '16px',
-          position: 'sticky',
-          bottom: 0,
-          bgColor: 'white',
-        }}
+        flex={1}
+        gap="16px"
+        onSubmit={methods.handleSubmit((body) => {
+          mutator.mutate({ ...props, body })
+        })}
       >
-        <Button type="submit">Submit</Button>
+        {props.children}
+        <Box
+          display="flex"
+          flexDirection="column"
+          sx={{
+            pt: '16px',
+            position: 'sticky',
+            bottom: 0,
+            bgColor: 'white',
+          }}
+        >
+          <Button type="submit">Submit</Button>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   )
 }
 
 export const CreateJournalEntriesBulk = (props: CreateJournalEntriesBulkProps) => {
-  const { control, handleSubmit } = useForm<CreateBulkJournalEntryModel>({
+  const methods = useForm<CreateBulkJournalEntryModel>({
     resolver: zodResolver(createBulkJournalEntryModel),
   })
 
   const mutator = useCreateBulkJournalEntry()
 
   return (
-    <Box
-      component="form"
-      display="flex"
-      flexDirection="column"
-      flex={1}
-      gap="16px"
-      onSubmit={handleSubmit((body) => {
-        mutator.mutate({ ...props, body })
-      })}
-    >
-      {props.children(control)}
+    <FormProvider {...methods}>
       <Box
+        component="form"
         display="flex"
         flexDirection="column"
-        sx={{
-          pt: '16px',
-          position: 'sticky',
-          bottom: 0,
-          bgColor: 'white',
-        }}
+        flex={1}
+        gap="16px"
+        onSubmit={methods.handleSubmit((body) => {
+          mutator.mutate({ ...props, body })
+        })}
       >
-        <Button type="submit">Submit</Button>
+        {props.children}
+        <Box
+          display="flex"
+          flexDirection="column"
+          sx={{
+            pt: '16px',
+            position: 'sticky',
+            bottom: 0,
+            bgColor: 'white',
+          }}
+        >
+          <Button type="submit">Submit</Button>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   )
 }

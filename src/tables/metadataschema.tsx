@@ -1,16 +1,15 @@
 import { schemaModel, SchemaModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiMetadataMetadataSchema } from '@/services/metadataschema.ts'
 
 export type MetadataMetadataSchemaArgs = { entityType?: string | undefined; columns: ColumnsList<SchemaModel> }
 
 export const metadataMetadataSchemaColumnHelper = createColumnHelper<SchemaModel>()
 
-export const getMetadataMetadataSchemaColumn = (property: string, modelConfig: ModelConfig<SchemaModel>) => {
+export const getMetadataMetadataSchemaColumn = (property: string, modelConfig: ModelConfig2<SchemaModel>) => {
   return match(property)
     .with('id', () => {
       const { label: header, format } = modelConfig['id']

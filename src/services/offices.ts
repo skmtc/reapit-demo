@@ -39,7 +39,26 @@ export const getApiOfficesFn = async ({
   extrasField,
 }: UseGetApiOfficesArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({ args: { pageSize, pageNumber, sortBy, embed, id, address, name, region, active, createdFrom, createdTo, modifiedFrom, modifiedTo, metadata, extrasField }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({
+      args: {
+        pageSize,
+        pageNumber,
+        sortBy,
+        embed,
+        id,
+        address,
+        name,
+        region,
+        active,
+        createdFrom,
+        createdTo,
+        modifiedFrom,
+        modifiedTo,
+        metadata,
+        extrasField,
+      },
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'GET',
       headers: {
@@ -66,10 +85,13 @@ export const useGetApiOffices = (args: UseGetApiOfficesArgs) => {
 export type UseCreateOfficeArgs = { body: CreateOfficeModel }
 export const createOfficeFn = async ({ body }: UseCreateOfficeArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({
+      args: {},
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'POST',
-      body: JSON.stringify({ body }),
+      body: JSON.stringify(body),
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -102,7 +124,10 @@ export type UseGetApiOfficesIdArgs = {
 }
 export const getApiOfficesIdFn = async ({ id, embed, extrasField }: UseGetApiOfficesIdArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${id}${querySerialiser({ args: { embed, extrasField }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${id}${querySerialiser({
+      args: { embed, extrasField },
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'GET',
       headers: {
@@ -126,7 +151,10 @@ export const useGetApiOfficesId = (args: UseGetApiOfficesIdArgs) => {
 export type UsePatchApiOfficesIdArgs = { 'If-Match'?: string; id: string; body: UpdateOfficeModel }
 export const patchApiOfficesIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiOfficesIdArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${id}${querySerialiser({
+      args: {},
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'PATCH',
       body: JSON.stringify({ 'If-Match': IfMatch, id, body }),

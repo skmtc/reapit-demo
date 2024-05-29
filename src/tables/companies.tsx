@@ -1,9 +1,8 @@
 import { companyModel, CompanyModel, companyRoleModel, CompanyRoleModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiCompanies, useGetApiCompaniesIdRelationships } from '@/services/companies.ts'
 
 export type CompaniesArgs = {
@@ -29,7 +28,7 @@ export type CompaniesIdRelationshipsArgs = { id: string; columns: ColumnsList<Co
 
 export const companiesColumnHelper = createColumnHelper<CompanyModel>()
 
-export const getCompaniesColumn = (property: string, modelConfig: ModelConfig<CompanyModel>) => {
+export const getCompaniesColumn = (property: string, modelConfig: ModelConfig2<CompanyModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -341,7 +340,7 @@ export const useCompaniesTable = (args: CompaniesArgs) => {
 }
 export const companiesIdRelationshipsColumnHelper = createColumnHelper<CompanyRoleModel>()
 
-export const getCompaniesIdRelationshipsColumn = (property: string, modelConfig: ModelConfig<CompanyRoleModel>) => {
+export const getCompaniesIdRelationshipsColumn = (property: string, modelConfig: ModelConfig2<CompanyRoleModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

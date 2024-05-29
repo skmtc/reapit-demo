@@ -9,10 +9,9 @@ import {
   ChargeModel,
 } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import {
   useGetApiInvoices,
   useGetApiInvoicesPayments,
@@ -76,7 +75,7 @@ export type InvoicesChargesArgs = {
 
 export const invoicesColumnHelper = createColumnHelper<InvoiceModel>()
 
-export const getInvoicesColumn = (property: string, modelConfig: ModelConfig<InvoiceModel>) => {
+export const getInvoicesColumn = (property: string, modelConfig: ModelConfig2<InvoiceModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -262,7 +261,7 @@ export const useInvoicesTable = (args: InvoicesArgs) => {
 }
 export const invoicesPaymentsColumnHelper = createColumnHelper<PaymentModel>()
 
-export const getInvoicesPaymentsColumn = (property: string, modelConfig: ModelConfig<PaymentModel>) => {
+export const getInvoicesPaymentsColumn = (property: string, modelConfig: ModelConfig2<PaymentModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -421,7 +420,7 @@ export const useInvoicesPaymentsTable = (args: InvoicesPaymentsArgs) => {
 }
 export const invoicesCreditsColumnHelper = createColumnHelper<CreditModel>()
 
-export const getInvoicesCreditsColumn = (property: string, modelConfig: ModelConfig<CreditModel>) => {
+export const getInvoicesCreditsColumn = (property: string, modelConfig: ModelConfig2<CreditModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -571,7 +570,7 @@ export const useInvoicesCreditsTable = (args: InvoicesCreditsArgs) => {
 }
 export const invoicesChargesColumnHelper = createColumnHelper<ChargeModel>()
 
-export const getInvoicesChargesColumn = (property: string, modelConfig: ModelConfig<ChargeModel>) => {
+export const getInvoicesChargesColumn = (property: string, modelConfig: ModelConfig2<ChargeModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

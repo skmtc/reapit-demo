@@ -1,9 +1,8 @@
 import { officeModel, OfficeModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiOffices } from '@/services/offices.ts'
 
 export type OfficesArgs = {
@@ -25,7 +24,7 @@ export type OfficesArgs = {
 
 export const officesColumnHelper = createColumnHelper<OfficeModel>()
 
-export const getOfficesColumn = (property: string, modelConfig: ModelConfig<OfficeModel>) => {
+export const getOfficesColumn = (property: string, modelConfig: ModelConfig2<OfficeModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

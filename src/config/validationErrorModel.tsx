@@ -1,30 +1,29 @@
-import { default as Input } from '@mui/joy/Input'
-import { NotImplemented, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { ContextInput, ModelConfig2 } from '@/components/ModelRuntimeConfig'
 import { ValidationErrorModel } from '@/schemas/index.ts'
 
-export const validationErrorModelConfig: ModelConfig<ValidationErrorModel> = {
+export const validationErrorModelConfig: ModelConfig2<ValidationErrorModel> = {
   statusCode: {
     key: 'statusCode',
     label: 'statusCode',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
   dateTime: {
     key: 'dateTime',
     label: 'dateTime',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
   description: {
     key: 'description',
     label: 'description',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
   errors: {
     key: 'errors',
     label: 'errors',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
 }

@@ -1,9 +1,8 @@
 import { appointmentModel, AppointmentModel, openHouseAttendeeModel, OpenHouseAttendeeModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiAppointments, useGetApiAppointmentsIdOpenHouseAttendees } from '@/services/appointments.ts'
 
 export type AppointmentsArgs = {
@@ -35,7 +34,7 @@ export type AppointmentsIdOpenHouseAttendeesArgs = { id: string; columns: Column
 
 export const appointmentsColumnHelper = createColumnHelper<AppointmentModel>()
 
-export const getAppointmentsColumn = (property: string, modelConfig: ModelConfig<AppointmentModel>) => {
+export const getAppointmentsColumn = (property: string, modelConfig: ModelConfig2<AppointmentModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -358,7 +357,7 @@ export const appointmentsIdOpenHouseAttendeesColumnHelper = createColumnHelper<O
 
 export const getAppointmentsIdOpenHouseAttendeesColumn = (
   property: string,
-  modelConfig: ModelConfig<OpenHouseAttendeeModel>,
+  modelConfig: ModelConfig2<OpenHouseAttendeeModel>,
 ) => {
   return match(property)
     .with('_links', () => {

@@ -5,10 +5,9 @@ import {
   LandlordJournalEntryModel,
 } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiJournalEntries, useGetApiJournalEntriesLandlords } from '@/services/journalentries.ts'
 
 export type JournalEntriesArgs = {
@@ -36,7 +35,7 @@ export type JournalEntriesLandlordsArgs = {
 
 export const journalEntriesColumnHelper = createColumnHelper<JournalEntryModel>()
 
-export const getJournalEntriesColumn = (property: string, modelConfig: ModelConfig<JournalEntryModel>) => {
+export const getJournalEntriesColumn = (property: string, modelConfig: ModelConfig2<JournalEntryModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -161,7 +160,7 @@ export const journalEntriesLandlordsColumnHelper = createColumnHelper<LandlordJo
 
 export const getJournalEntriesLandlordsColumn = (
   property: string,
-  modelConfig: ModelConfig<LandlordJournalEntryModel>,
+  modelConfig: ModelConfig2<LandlordJournalEntryModel>,
 ) => {
   return match(property)
     .with('_links', () => {

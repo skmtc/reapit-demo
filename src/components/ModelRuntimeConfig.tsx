@@ -215,17 +215,20 @@ type FieldParentProps<Model extends FieldValues, Key extends KeyPath<Model>> = {
 
 export const FieldParent = <Model extends FieldValues, Key extends KeyPath<Model>>({
   fieldName,
-  fieldConfig: { label, Input },
-}: FieldParentProps<Model, Key>) => <Input fieldName={fieldName} label={label} />
+  fieldConfig,
+}: FieldParentProps<Model, Key>) => {
+  const { Input } = fieldConfig
+  return <Input fieldName={fieldName} fieldConfig={fieldConfig} />
+}
 
-type ContextInputProps<Model extends FieldValues, Key extends KeyPath<Model>> = {
+export type ContextInputProps<Model extends FieldValues, Key extends KeyPath<Model>> = {
   fieldName: Key
-  label: string
+  fieldConfig: ModelConfig2<Model>[Key]
 }
 
 export const ContextInput = <Model extends FieldValues, Key extends KeyPath<Model>>({
   fieldName,
-  label,
+  fieldConfig,
 }: ContextInputProps<Model, Key>) => {
   const { control } = useFormContext()
 
@@ -236,13 +239,53 @@ export const ContextInput = <Model extends FieldValues, Key extends KeyPath<Mode
       control={control}
       render={({ field, fieldState }) => (
         <FormControl error={Boolean(fieldState.error?.message)}>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel>{fieldConfig.label}</FormLabel>
           <JoyInput {...field} />
 
           {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
         </FormControl>
       )}
     />
+  )
+}
+
+// We want to receive the config here so we can render address object recursively
+export const AddressInput = <Model extends FieldValues, Key extends KeyPath<Model>>({
+  fieldName,
+  fieldConfig,
+}: ContextInputProps<Model, Key>) => {
+  const { control } = useFormContext()
+
+  return (
+    <>
+      <Controller
+        key={`${fieldName}.line1`}
+        name={`${fieldName}.line1`}
+        control={control}
+        render={({ field, fieldState }) => (
+          <FormControl error={Boolean(fieldState.error?.message)}>
+            <FormLabel>{label}</FormLabel>
+            <JoyInput {...field} />
+
+            {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+          </FormControl>
+        )}
+      />
+
+      <Controller
+        key={`${fieldName}.line2`}
+        name={`${fieldName}.line2`}
+        control={control}
+        render={({ field, fieldState }) => (
+          <FormControl error={Boolean(fieldState.error?.message)}>
+            <FormLabel>{label}</FormLabel>
+            <JoyInput {...field} />
+
+            {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
+          </FormControl>
+        )}
+      />
+    </>
   )
 }
 

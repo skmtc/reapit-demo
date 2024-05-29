@@ -1,24 +1,23 @@
-import { default as Input } from '@mui/joy/Input'
-import { NotImplemented, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { ContextInput, ModelConfig2 } from '@/components/ModelRuntimeConfig'
 import { InsertVendorContactRelationshipModel } from '@/schemas/index.ts'
 
-export const insertVendorContactRelationshipModelConfig: ModelConfig<InsertVendorContactRelationshipModel> = {
+export const insertVendorContactRelationshipModelConfig: ModelConfig2<InsertVendorContactRelationshipModel> = {
   associatedId: {
     key: 'associatedId',
     label: 'associatedId',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
   associatedType: {
     key: 'associatedType',
     label: 'associatedType',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
   isMain: {
     key: 'isMain',
     label: 'isMain',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
 }

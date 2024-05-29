@@ -1,9 +1,8 @@
 import { taskModel, TaskModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiTasks } from '@/services/tasks.ts'
 
 export type TasksArgs = {
@@ -31,7 +30,7 @@ export type TasksArgs = {
 
 export const tasksColumnHelper = createColumnHelper<TaskModel>()
 
-export const getTasksColumn = (property: string, modelConfig: ModelConfig<TaskModel>) => {
+export const getTasksColumn = (property: string, modelConfig: ModelConfig2<TaskModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

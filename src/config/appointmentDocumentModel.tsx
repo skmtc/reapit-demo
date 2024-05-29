@@ -1,18 +1,17 @@
-import { default as Input } from '@mui/joy/Input'
-import { NotImplemented, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { ContextInput, ModelConfig2 } from '@/components/ModelRuntimeConfig'
 import { AppointmentDocumentModel } from '@/schemas/index.ts'
 
-export const appointmentDocumentModelConfig: ModelConfig<AppointmentDocumentModel> = {
+export const appointmentDocumentModelConfig: ModelConfig2<AppointmentDocumentModel> = {
   draftPropertyInspectionReportId: {
     key: 'draftPropertyInspectionReportId',
     label: 'draftPropertyInspectionReportId',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
   finalPropertyInspectionReportId: {
     key: 'finalPropertyInspectionReportId',
     label: 'finalPropertyInspectionReportId',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
 }

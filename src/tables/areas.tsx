@@ -1,9 +1,8 @@
 import { areaModel, AreaModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiAreas } from '@/services/areas.ts'
 
 export type AreasArgs = {
@@ -22,7 +21,7 @@ export type AreasArgs = {
 
 export const areasColumnHelper = createColumnHelper<AreaModel>()
 
-export const getAreasColumn = (property: string, modelConfig: ModelConfig<AreaModel>) => {
+export const getAreasColumn = (property: string, modelConfig: ModelConfig2<AreaModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

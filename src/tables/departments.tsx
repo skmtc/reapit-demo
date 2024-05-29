@@ -1,9 +1,8 @@
 import { departmentModel, DepartmentModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiDepartments } from '@/services/departments.ts'
 
 export type DepartmentsArgs = {
@@ -14,7 +13,7 @@ export type DepartmentsArgs = {
 
 export const departmentsColumnHelper = createColumnHelper<DepartmentModel>()
 
-export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<DepartmentModel>) => {
+export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig2<DepartmentModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

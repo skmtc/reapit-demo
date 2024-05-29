@@ -1,9 +1,8 @@
 import { offerModel, OfferModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiOffers } from '@/services/offers.ts'
 
 export type OffersArgs = {
@@ -31,7 +30,7 @@ export type OffersArgs = {
 
 export const offersColumnHelper = createColumnHelper<OfferModel>()
 
-export const getOffersColumn = (property: string, modelConfig: ModelConfig<OfferModel>) => {
+export const getOffersColumn = (property: string, modelConfig: ModelConfig2<OfferModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

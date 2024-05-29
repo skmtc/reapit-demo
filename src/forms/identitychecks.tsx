@@ -5,81 +5,85 @@ import {
   CreatePreSignedUrlsModel,
 } from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
-import { useForm, Control } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { useCreateIdentityCheck, useCreateIdentityCheckSignedUrl } from '@/services/identitychecks.ts'
 
-export type CreateIdentityChecksProps = { children: (control: Control<CreateIdentityCheckModel>) => ReactNode }
-export type CreateIdentityChecksSignedUrlProps = { children: (control: Control<CreatePreSignedUrlsModel>) => ReactNode }
+export type CreateIdentityChecksProps = { children: ReactNode }
+export type CreateIdentityChecksSignedUrlProps = { children: ReactNode }
 
 export const CreateIdentityChecks = (props: CreateIdentityChecksProps) => {
-  const { control, handleSubmit } = useForm<CreateIdentityCheckModel>({
+  const methods = useForm<CreateIdentityCheckModel>({
     resolver: zodResolver(createIdentityCheckModel),
   })
 
   const mutator = useCreateIdentityCheck()
 
   return (
-    <Box
-      component="form"
-      display="flex"
-      flexDirection="column"
-      flex={1}
-      gap="16px"
-      onSubmit={handleSubmit((body) => {
-        mutator.mutate({ ...props, body })
-      })}
-    >
-      {props.children(control)}
+    <FormProvider {...methods}>
       <Box
+        component="form"
         display="flex"
         flexDirection="column"
-        sx={{
-          pt: '16px',
-          position: 'sticky',
-          bottom: 0,
-          bgColor: 'white',
-        }}
+        flex={1}
+        gap="16px"
+        onSubmit={methods.handleSubmit((body) => {
+          mutator.mutate({ ...props, body })
+        })}
       >
-        <Button type="submit">Submit</Button>
+        {props.children}
+        <Box
+          display="flex"
+          flexDirection="column"
+          sx={{
+            pt: '16px',
+            position: 'sticky',
+            bottom: 0,
+            bgColor: 'white',
+          }}
+        >
+          <Button type="submit">Submit</Button>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   )
 }
 
 export const CreateIdentityChecksSignedUrl = (props: CreateIdentityChecksSignedUrlProps) => {
-  const { control, handleSubmit } = useForm<CreatePreSignedUrlsModel>({
+  const methods = useForm<CreatePreSignedUrlsModel>({
     resolver: zodResolver(createPreSignedUrlsModel),
   })
 
   const mutator = useCreateIdentityCheckSignedUrl()
 
   return (
-    <Box
-      component="form"
-      display="flex"
-      flexDirection="column"
-      flex={1}
-      gap="16px"
-      onSubmit={handleSubmit((body) => {
-        mutator.mutate({ ...props, body })
-      })}
-    >
-      {props.children(control)}
+    <FormProvider {...methods}>
       <Box
+        component="form"
         display="flex"
         flexDirection="column"
-        sx={{
-          pt: '16px',
-          position: 'sticky',
-          bottom: 0,
-          bgColor: 'white',
-        }}
+        flex={1}
+        gap="16px"
+        onSubmit={methods.handleSubmit((body) => {
+          mutator.mutate({ ...props, body })
+        })}
       >
-        <Button type="submit">Submit</Button>
+        {props.children}
+        <Box
+          display="flex"
+          flexDirection="column"
+          sx={{
+            pt: '16px',
+            position: 'sticky',
+            bottom: 0,
+            bgColor: 'white',
+          }}
+        >
+          <Button type="submit">Submit</Button>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   )
 }

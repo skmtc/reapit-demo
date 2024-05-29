@@ -7,10 +7,9 @@ import {
   ContactSubscriptionModel,
 } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import {
   useGetApiContacts,
   useGetApiContactsIdRelationships,
@@ -51,7 +50,7 @@ export type ContactsIdSubscriptionsArgs = {
 
 export const contactsColumnHelper = createColumnHelper<ContactModel>()
 
-export const getContactsColumn = (property: string, modelConfig: ModelConfig<ContactModel>) => {
+export const getContactsColumn = (property: string, modelConfig: ModelConfig2<ContactModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -399,7 +398,7 @@ export const useContactsTable = (args: ContactsArgs) => {
 }
 export const contactsIdRelationshipsColumnHelper = createColumnHelper<ContactRoleModel>()
 
-export const getContactsIdRelationshipsColumn = (property: string, modelConfig: ModelConfig<ContactRoleModel>) => {
+export const getContactsIdRelationshipsColumn = (property: string, modelConfig: ModelConfig2<ContactRoleModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -524,7 +523,7 @@ export const contactsIdSubscriptionsColumnHelper = createColumnHelper<ContactSub
 
 export const getContactsIdSubscriptionsColumn = (
   property: string,
-  modelConfig: ModelConfig<ContactSubscriptionModel>,
+  modelConfig: ModelConfig2<ContactSubscriptionModel>,
 ) => {
   return match(property)
     .with('_links', () => {

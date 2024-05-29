@@ -1,9 +1,8 @@
 import { negotiatorModel, NegotiatorModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiNegotiators } from '@/services/negotiators.ts'
 
 export type NegotiatorsArgs = {
@@ -24,7 +23,7 @@ export type NegotiatorsArgs = {
 
 export const negotiatorsColumnHelper = createColumnHelper<NegotiatorModel>()
 
-export const getNegotiatorsColumn = (property: string, modelConfig: ModelConfig<NegotiatorModel>) => {
+export const getNegotiatorsColumn = (property: string, modelConfig: ModelConfig2<NegotiatorModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

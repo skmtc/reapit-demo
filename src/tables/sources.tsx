@@ -1,9 +1,8 @@
 import { sourceModel, SourceModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiSources } from '@/services/sources.ts'
 
 export type SourcesArgs = {
@@ -22,7 +21,7 @@ export type SourcesArgs = {
 
 export const sourcesColumnHelper = createColumnHelper<SourceModel>()
 
-export const getSourcesColumn = (property: string, modelConfig: ModelConfig<SourceModel>) => {
+export const getSourcesColumn = (property: string, modelConfig: ModelConfig2<SourceModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']

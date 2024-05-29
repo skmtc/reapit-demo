@@ -19,10 +19,9 @@ import {
   TenancyRenewalCheckModel,
 } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import {
   useGetApiTenancies,
   useGetApiTenanciesIdRelationships,
@@ -92,7 +91,7 @@ export type TenanciesIdRenewalNegotiationsRenewalIdChecksArgs = {
 
 export const tenanciesColumnHelper = createColumnHelper<TenancyModel>()
 
-export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<TenancyModel>) => {
+export const getTenanciesColumn = (property: string, modelConfig: ModelConfig2<TenancyModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -496,7 +495,7 @@ export const tenanciesIdRelationshipsColumnHelper = createColumnHelper<TenancyCo
 
 export const getTenanciesIdRelationshipsColumn = (
   property: string,
-  modelConfig: ModelConfig<TenancyContactRelationshipModel>,
+  modelConfig: ModelConfig2<TenancyContactRelationshipModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -647,7 +646,7 @@ export const useTenanciesIdRelationshipsTable = (args: TenanciesIdRelationshipsA
 }
 export const tenanciesIdChecksColumnHelper = createColumnHelper<TenancyCheckModel>()
 
-export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelConfig<TenancyCheckModel>) => {
+export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelConfig2<TenancyCheckModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -799,7 +798,7 @@ export const tenanciesIdBreakClausesColumnHelper = createColumnHelper<TenancyBre
 
 export const getTenanciesIdBreakClausesColumn = (
   property: string,
-  modelConfig: ModelConfig<TenancyBreakClauseModel>,
+  modelConfig: ModelConfig2<TenancyBreakClauseModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -977,7 +976,7 @@ export const useTenanciesIdBreakClausesTable = (args: TenanciesIdBreakClausesArg
 }
 export const tenanciesIdAllowancesColumnHelper = createColumnHelper<TenancyAllowanceModel>()
 
-export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: ModelConfig<TenancyAllowanceModel>) => {
+export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: ModelConfig2<TenancyAllowanceModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -1129,7 +1128,7 @@ export const tenanciesIdResponsibilitiesColumnHelper = createColumnHelper<Tenanc
 
 export const getTenanciesIdResponsibilitiesColumn = (
   property: string,
-  modelConfig: ModelConfig<TenancyResponsibilityModel>,
+  modelConfig: ModelConfig2<TenancyResponsibilityModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -1282,7 +1281,7 @@ export const tenanciesIdRenewalNegotiationsColumnHelper = createColumnHelper<Ten
 
 export const getTenanciesIdRenewalNegotiationsColumn = (
   property: string,
-  modelConfig: ModelConfig<TenancyRenewalModel>,
+  modelConfig: ModelConfig2<TenancyRenewalModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -1471,7 +1470,7 @@ export const tenanciesIdExtensionsColumnHelper = createColumnHelper<TenancyExten
 
 export const getTenanciesIdExtensionsColumn = (
   property: string,
-  modelConfig: ModelConfig<TenancyExtensionAlterationModel>,
+  modelConfig: ModelConfig2<TenancyExtensionAlterationModel>,
 ) => {
   return match(property)
     .with('_links', () => {
@@ -1642,7 +1641,7 @@ export const tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper = createC
 
 export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
   property: string,
-  modelConfig: ModelConfig<TenancyRenewalCheckModel>,
+  modelConfig: ModelConfig2<TenancyRenewalCheckModel>,
 ) => {
   return match(property)
     .with('_links', () => {

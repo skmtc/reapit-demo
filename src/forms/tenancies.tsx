@@ -15,7 +15,7 @@ import {
   CreateTenancyRenewalCheckModel,
 } from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
-import { useForm, Control } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
@@ -29,276 +29,275 @@ import {
   useCreateTenancyRenewalNegotiationCheck,
 } from '@/services/tenancies.ts'
 
-export type CreateTenanciesProps = { children: (control: Control<CreateTenancyModel>) => ReactNode }
-export type CreateTenanciesIdChecksProps = {
-  id: string
-  children: (control: Control<CreateTenancyCheckModel>) => ReactNode
-}
-export type CreateTenanciesIdBreakClausesProps = {
-  id: string
-  children: (control: Control<CreateTenancyBreakClauseModel>) => ReactNode
-}
-export type CreateTenanciesIdAllowancesProps = {
-  id: string
-  children: (control: Control<CreateTenancyAllowanceModel>) => ReactNode
-}
-export type CreateTenanciesIdResponsibilitiesProps = {
-  id: string
-  children: (control: Control<CreateTenancyResponsibilityModel>) => ReactNode
-}
-export type CreateTenanciesIdRenewalNegotiationsProps = {
-  id: string
-  children: (control: Control<CreateTenancyRenewalModel>) => ReactNode
-}
+export type CreateTenanciesProps = { children: ReactNode }
+export type CreateTenanciesIdChecksProps = { id: string; children: ReactNode }
+export type CreateTenanciesIdBreakClausesProps = { id: string; children: ReactNode }
+export type CreateTenanciesIdAllowancesProps = { id: string; children: ReactNode }
+export type CreateTenanciesIdResponsibilitiesProps = { id: string; children: ReactNode }
+export type CreateTenanciesIdRenewalNegotiationsProps = { id: string; children: ReactNode }
 export type CreateTenanciesIdRenewalNegotiationsRenewalIdChecksProps = {
   id: string
   renewalId: string
-  children: (control: Control<CreateTenancyRenewalCheckModel>) => ReactNode
+  children: ReactNode
 }
 
 export const CreateTenancies = (props: CreateTenanciesProps) => {
-  const { control, handleSubmit } = useForm<CreateTenancyModel>({
+  const methods = useForm<CreateTenancyModel>({
     resolver: zodResolver(createTenancyModel),
   })
 
   const mutator = useCreateTenancy()
 
   return (
-    <Box
-      component="form"
-      display="flex"
-      flexDirection="column"
-      flex={1}
-      gap="16px"
-      onSubmit={handleSubmit((body) => {
-        mutator.mutate({ ...props, body })
-      })}
-    >
-      {props.children(control)}
+    <FormProvider {...methods}>
       <Box
+        component="form"
         display="flex"
         flexDirection="column"
-        sx={{
-          pt: '16px',
-          position: 'sticky',
-          bottom: 0,
-          bgColor: 'white',
-        }}
+        flex={1}
+        gap="16px"
+        onSubmit={methods.handleSubmit((body) => {
+          mutator.mutate({ ...props, body })
+        })}
       >
-        <Button type="submit">Submit</Button>
+        {props.children}
+        <Box
+          display="flex"
+          flexDirection="column"
+          sx={{
+            pt: '16px',
+            position: 'sticky',
+            bottom: 0,
+            bgColor: 'white',
+          }}
+        >
+          <Button type="submit">Submit</Button>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   )
 }
 
 export const CreateTenanciesIdChecks = (props: CreateTenanciesIdChecksProps) => {
-  const { control, handleSubmit } = useForm<CreateTenancyCheckModel>({
+  const methods = useForm<CreateTenancyCheckModel>({
     resolver: zodResolver(createTenancyCheckModel),
   })
 
   const mutator = useCreateTenancyCheck()
 
   return (
-    <Box
-      component="form"
-      display="flex"
-      flexDirection="column"
-      flex={1}
-      gap="16px"
-      onSubmit={handleSubmit((body) => {
-        mutator.mutate({ ...props, body })
-      })}
-    >
-      {props.children(control)}
+    <FormProvider {...methods}>
       <Box
+        component="form"
         display="flex"
         flexDirection="column"
-        sx={{
-          pt: '16px',
-          position: 'sticky',
-          bottom: 0,
-          bgColor: 'white',
-        }}
+        flex={1}
+        gap="16px"
+        onSubmit={methods.handleSubmit((body) => {
+          mutator.mutate({ ...props, body })
+        })}
       >
-        <Button type="submit">Submit</Button>
+        {props.children}
+        <Box
+          display="flex"
+          flexDirection="column"
+          sx={{
+            pt: '16px',
+            position: 'sticky',
+            bottom: 0,
+            bgColor: 'white',
+          }}
+        >
+          <Button type="submit">Submit</Button>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   )
 }
 
 export const CreateTenanciesIdBreakClauses = (props: CreateTenanciesIdBreakClausesProps) => {
-  const { control, handleSubmit } = useForm<CreateTenancyBreakClauseModel>({
+  const methods = useForm<CreateTenancyBreakClauseModel>({
     resolver: zodResolver(createTenancyBreakClauseModel),
   })
 
   const mutator = useCreateTenancyBreakClause()
 
   return (
-    <Box
-      component="form"
-      display="flex"
-      flexDirection="column"
-      flex={1}
-      gap="16px"
-      onSubmit={handleSubmit((body) => {
-        mutator.mutate({ ...props, body })
-      })}
-    >
-      {props.children(control)}
+    <FormProvider {...methods}>
       <Box
+        component="form"
         display="flex"
         flexDirection="column"
-        sx={{
-          pt: '16px',
-          position: 'sticky',
-          bottom: 0,
-          bgColor: 'white',
-        }}
+        flex={1}
+        gap="16px"
+        onSubmit={methods.handleSubmit((body) => {
+          mutator.mutate({ ...props, body })
+        })}
       >
-        <Button type="submit">Submit</Button>
+        {props.children}
+        <Box
+          display="flex"
+          flexDirection="column"
+          sx={{
+            pt: '16px',
+            position: 'sticky',
+            bottom: 0,
+            bgColor: 'white',
+          }}
+        >
+          <Button type="submit">Submit</Button>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   )
 }
 
 export const CreateTenanciesIdAllowances = (props: CreateTenanciesIdAllowancesProps) => {
-  const { control, handleSubmit } = useForm<CreateTenancyAllowanceModel>({
+  const methods = useForm<CreateTenancyAllowanceModel>({
     resolver: zodResolver(createTenancyAllowanceModel),
   })
 
   const mutator = useCreateTenancyAllowance()
 
   return (
-    <Box
-      component="form"
-      display="flex"
-      flexDirection="column"
-      flex={1}
-      gap="16px"
-      onSubmit={handleSubmit((body) => {
-        mutator.mutate({ ...props, body })
-      })}
-    >
-      {props.children(control)}
+    <FormProvider {...methods}>
       <Box
+        component="form"
         display="flex"
         flexDirection="column"
-        sx={{
-          pt: '16px',
-          position: 'sticky',
-          bottom: 0,
-          bgColor: 'white',
-        }}
+        flex={1}
+        gap="16px"
+        onSubmit={methods.handleSubmit((body) => {
+          mutator.mutate({ ...props, body })
+        })}
       >
-        <Button type="submit">Submit</Button>
+        {props.children}
+        <Box
+          display="flex"
+          flexDirection="column"
+          sx={{
+            pt: '16px',
+            position: 'sticky',
+            bottom: 0,
+            bgColor: 'white',
+          }}
+        >
+          <Button type="submit">Submit</Button>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   )
 }
 
 export const CreateTenanciesIdResponsibilities = (props: CreateTenanciesIdResponsibilitiesProps) => {
-  const { control, handleSubmit } = useForm<CreateTenancyResponsibilityModel>({
+  const methods = useForm<CreateTenancyResponsibilityModel>({
     resolver: zodResolver(createTenancyResponsibilityModel),
   })
 
   const mutator = useCreateTenancyResponsibility()
 
   return (
-    <Box
-      component="form"
-      display="flex"
-      flexDirection="column"
-      flex={1}
-      gap="16px"
-      onSubmit={handleSubmit((body) => {
-        mutator.mutate({ ...props, body })
-      })}
-    >
-      {props.children(control)}
+    <FormProvider {...methods}>
       <Box
+        component="form"
         display="flex"
         flexDirection="column"
-        sx={{
-          pt: '16px',
-          position: 'sticky',
-          bottom: 0,
-          bgColor: 'white',
-        }}
+        flex={1}
+        gap="16px"
+        onSubmit={methods.handleSubmit((body) => {
+          mutator.mutate({ ...props, body })
+        })}
       >
-        <Button type="submit">Submit</Button>
+        {props.children}
+        <Box
+          display="flex"
+          flexDirection="column"
+          sx={{
+            pt: '16px',
+            position: 'sticky',
+            bottom: 0,
+            bgColor: 'white',
+          }}
+        >
+          <Button type="submit">Submit</Button>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   )
 }
 
 export const CreateTenanciesIdRenewalNegotiations = (props: CreateTenanciesIdRenewalNegotiationsProps) => {
-  const { control, handleSubmit } = useForm<CreateTenancyRenewalModel>({
+  const methods = useForm<CreateTenancyRenewalModel>({
     resolver: zodResolver(createTenancyRenewalModel),
   })
 
   const mutator = useCreateTenancyRenewalNegotiation()
 
   return (
-    <Box
-      component="form"
-      display="flex"
-      flexDirection="column"
-      flex={1}
-      gap="16px"
-      onSubmit={handleSubmit((body) => {
-        mutator.mutate({ ...props, body })
-      })}
-    >
-      {props.children(control)}
+    <FormProvider {...methods}>
       <Box
+        component="form"
         display="flex"
         flexDirection="column"
-        sx={{
-          pt: '16px',
-          position: 'sticky',
-          bottom: 0,
-          bgColor: 'white',
-        }}
+        flex={1}
+        gap="16px"
+        onSubmit={methods.handleSubmit((body) => {
+          mutator.mutate({ ...props, body })
+        })}
       >
-        <Button type="submit">Submit</Button>
+        {props.children}
+        <Box
+          display="flex"
+          flexDirection="column"
+          sx={{
+            pt: '16px',
+            position: 'sticky',
+            bottom: 0,
+            bgColor: 'white',
+          }}
+        >
+          <Button type="submit">Submit</Button>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   )
 }
 
 export const CreateTenanciesIdRenewalNegotiationsRenewalIdChecks = (
   props: CreateTenanciesIdRenewalNegotiationsRenewalIdChecksProps,
 ) => {
-  const { control, handleSubmit } = useForm<CreateTenancyRenewalCheckModel>({
+  const methods = useForm<CreateTenancyRenewalCheckModel>({
     resolver: zodResolver(createTenancyRenewalCheckModel),
   })
 
   const mutator = useCreateTenancyRenewalNegotiationCheck()
 
   return (
-    <Box
-      component="form"
-      display="flex"
-      flexDirection="column"
-      flex={1}
-      gap="16px"
-      onSubmit={handleSubmit((body) => {
-        mutator.mutate({ ...props, body })
-      })}
-    >
-      {props.children(control)}
+    <FormProvider {...methods}>
       <Box
+        component="form"
         display="flex"
         flexDirection="column"
-        sx={{
-          pt: '16px',
-          position: 'sticky',
-          bottom: 0,
-          bgColor: 'white',
-        }}
+        flex={1}
+        gap="16px"
+        onSubmit={methods.handleSubmit((body) => {
+          mutator.mutate({ ...props, body })
+        })}
       >
-        <Button type="submit">Submit</Button>
+        {props.children}
+        <Box
+          display="flex"
+          flexDirection="column"
+          sx={{
+            pt: '16px',
+            position: 'sticky',
+            bottom: 0,
+            bgColor: 'white',
+          }}
+        >
+          <Button type="submit">Submit</Button>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   )
 }

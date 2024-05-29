@@ -1,12 +1,11 @@
-import { default as Input } from '@mui/joy/Input'
-import { NotImplemented, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { ContextInput, ModelConfig2 } from '@/components/ModelRuntimeConfig'
 import { ApplicantGuernseyModel } from '@/schemas/index.ts'
 
-export const applicantGuernseyModelConfig: ModelConfig<ApplicantGuernseyModel> = {
+export const applicantGuernseyModelConfig: ModelConfig2<ApplicantGuernseyModel> = {
   market: {
     key: 'market',
     label: 'market',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
 }

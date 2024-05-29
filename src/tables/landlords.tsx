@@ -5,10 +5,9 @@ import {
   LandlordContactRelationshipModel,
 } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiLandlords, useGetApiLandlordsIdRelationships } from '@/services/landlords.ts'
 
 export type LandlordsArgs = {
@@ -32,7 +31,7 @@ export type LandlordsIdRelationshipsArgs = { id: string; columns: ColumnsList<La
 
 export const landlordsColumnHelper = createColumnHelper<LandlordModel>()
 
-export const getLandlordsColumn = (property: string, modelConfig: ModelConfig<LandlordModel>) => {
+export const getLandlordsColumn = (property: string, modelConfig: ModelConfig2<LandlordModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
@@ -193,7 +192,7 @@ export const landlordsIdRelationshipsColumnHelper = createColumnHelper<LandlordC
 
 export const getLandlordsIdRelationshipsColumn = (
   property: string,
-  modelConfig: ModelConfig<LandlordContactRelationshipModel>,
+  modelConfig: ModelConfig2<LandlordContactRelationshipModel>,
 ) => {
   return match(property)
     .with('_links', () => {

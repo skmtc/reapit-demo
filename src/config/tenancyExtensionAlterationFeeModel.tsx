@@ -1,24 +1,23 @@
-import { default as Input } from '@mui/joy/Input'
-import { NotImplemented, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { ContextInput, ModelConfig2 } from '@/components/ModelRuntimeConfig'
 import { TenancyExtensionAlterationFeeModel } from '@/schemas/index.ts'
 
-export const tenancyExtensionAlterationFeeModelConfig: ModelConfig<TenancyExtensionAlterationFeeModel> = {
+export const tenancyExtensionAlterationFeeModelConfig: ModelConfig2<TenancyExtensionAlterationFeeModel> = {
   amount: {
     key: 'amount',
     label: 'amount',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
   summary: {
     key: 'summary',
     label: 'summary',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
   type: {
     key: 'type',
     label: 'type',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
 }

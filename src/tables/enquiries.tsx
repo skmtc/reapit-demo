@@ -1,9 +1,8 @@
 import { enquiryModel, EnquiryModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig2, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
 import { useMemo, useReducer, useState } from 'react'
-import { z } from 'zod'
 import { useGetApiEnquiries } from '@/services/enquiries.ts'
 
 export type EnquiriesArgs = {
@@ -18,7 +17,7 @@ export type EnquiriesArgs = {
 
 export const enquiriesColumnHelper = createColumnHelper<EnquiryModel>()
 
-export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<EnquiryModel>) => {
+export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig2<EnquiryModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format } = modelConfig['_links']
