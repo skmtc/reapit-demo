@@ -1,13 +1,13 @@
 import { default as Input } from '@mui/joy/Input'
-import { NotImplemented, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { ContextInput, ModelConfig2 } from '@/components/ModelRuntimeConfig'
 import { ContactModel } from '@/schemas/index.ts'
 
-export const contactModelConfig: ModelConfig<ContactModel> = {
+export const contactModelConfig: ModelConfig2<ContactModel> = {
   _links: {
     key: '_links',
     label: '_links',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    Input: (props) => <ContextInput {...props} />,
   },
   _embedded: {
     key: '_embedded',
@@ -17,19 +17,19 @@ export const contactModelConfig: ModelConfig<ContactModel> = {
   },
   id: {
     key: 'id',
-    label: 'id',
+    label: 'Id',
     format: (value) => `${value}`,
     Input: (props) => <Input {...props} />,
   },
   created: {
     key: 'created',
-    label: 'created',
+    label: 'Created',
     format: (value) => `${value}`,
     Input: (props) => <Input {...props} />,
   },
   modified: {
     key: 'modified',
-    label: 'modified',
+    label: 'Modified',
     format: (value) => `${value}`,
     Input: (props) => <Input {...props} />,
   },
@@ -47,7 +47,7 @@ export const contactModelConfig: ModelConfig<ContactModel> = {
   },
   surname: {
     key: 'surname',
-    label: 'surname',
+    label: 'Surname',
     format: (value) => `${value}`,
     Input: (props) => <Input {...props} />,
   },
@@ -121,7 +121,7 @@ export const contactModelConfig: ModelConfig<ContactModel> = {
     key: 'primaryAddress',
     label: 'primaryAddress',
     format: (value) => `${value}`,
-    Input: (props) => <Input {...props} />,
+    // Input: (props) => <Input {...props} />,
   },
   secondaryAddress: {
     key: 'secondaryAddress',

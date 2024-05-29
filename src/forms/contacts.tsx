@@ -5,21 +5,21 @@ import {
   UpdateContactSubscriptionModel,
 } from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
-import { useForm, Control } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 import { useCreateContact, useUpdateContactSubscription } from '@/services/contacts.ts'
 
-export type CreateContactsProps = { children: (control: Control<CreateContactModel>) => ReactNode }
+export type CreateContactsProps = { children: ReactNode }
 export type UpdateContactsIdSubscriptionsSubscriptionIdProps = {
   id: string
   subscriptionId: string
-  children: (control: Control<UpdateContactSubscriptionModel, any>) => ReactNode
+  children: ReactNode
 }
 
 export const CreateContacts = (props: CreateContactsProps) => {
-  const { control, handleSubmit } = useForm<CreateContactModel>({
+  const { handleSubmit } = useForm<CreateContactModel>({
     resolver: zodResolver(createContactModel),
   })
 
@@ -36,7 +36,7 @@ export const CreateContacts = (props: CreateContactsProps) => {
         mutator.mutate({ ...props, body })
       })}
     >
-      {props.children(control)}
+      {props.children}
       <Box
         display="flex"
         flexDirection="column"
@@ -56,7 +56,7 @@ export const CreateContacts = (props: CreateContactsProps) => {
 export const UpdateContactsIdSubscriptionsSubscriptionId = (
   props: UpdateContactsIdSubscriptionsSubscriptionIdProps,
 ) => {
-  const { control, handleSubmit } = useForm<UpdateContactSubscriptionModel>({
+  const { handleSubmit } = useForm<UpdateContactSubscriptionModel>({
     resolver: zodResolver(updateContactSubscriptionModel),
   })
 
@@ -73,7 +73,7 @@ export const UpdateContactsIdSubscriptionsSubscriptionId = (
         mutator.mutate({ ...props, body })
       })}
     >
-      {props.children(control)}
+      {props.children}
       <Box
         display="flex"
         flexDirection="column"

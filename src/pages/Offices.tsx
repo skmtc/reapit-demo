@@ -4,29 +4,27 @@ import Box from '@mui/joy/Box'
 import Typography from '@mui/joy/Typography'
 import Button from '@mui/joy/Button'
 import { Link as RouterLink, Outlet } from 'react-router-dom'
-import { getContactsColumn, useContactsTable } from '@/tables/contacts'
-import { ContactModel } from '@/schemas'
-import { contactModelConfig } from '@/config/contactModel'
+import { OfficeModel } from '@/schemas'
+import { getOfficesColumn, useOfficesTable } from '@/tables/offices'
+import { officeModelConfig } from '@/config/officeModel'
 
-const fieldNames = fieldsConfig<ContactModel>({
-  surname: true,
-  marketingConsent: true,
-  officeIds: true,
-  negotiatorIds: true,
+const fieldNames = fieldsConfig<OfficeModel>({
+  id: true,
+  name: true,
 })
 
-export const Contacts = () => {
-  const columns: ColumnsList<ContactModel> = fieldNames.map((col) => getContactsColumn(col, contactModelConfig))
+export const Offices = () => {
+  const columns: ColumnsList<OfficeModel> = fieldNames.map((col) => getOfficesColumn(col, officeModelConfig))
 
-  const { table, dataQuery } = useContactsTable({ columns })
+  const { table, dataQuery } = useOfficesTable({ columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
-        <Typography level="h1">Contacts</Typography>
+        <Typography level="h1">Offices</Typography>
         <Button
           component={RouterLink}
-          to="/contacts/new"
+          to="/offices/new"
           sx={{
             color: 'white',
             ':hover': {
@@ -34,7 +32,7 @@ export const Contacts = () => {
             },
           }}
         >
-          Create contact
+          Create office
         </Button>
       </Box>
       <SharedTable table={table} dataQuery={dataQuery} />

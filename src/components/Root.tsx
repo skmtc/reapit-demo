@@ -15,25 +15,13 @@ export const Root = () => (
         display: 'flex',
         flexDirection: 'row',
         width: '100vw',
-        height: '100vh'
+        height: '100vh',
       }}
     >
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <NavItem
-          label="Contacts"
-          to="/contacts"
-          icon={<GlobeAltIcon width="24px" height="24px" />}
-        />
-        <NavItem
-          label="Properties"
-          to="/properties"
-          icon={<CubeIcon width="24px" height="24px" />}
-        />
-        <NavItem
-          label="Appointments"
-          to="/appointments"
-          icon={<CalendarDaysIcon width="24px" height="24px" />}
-        />
+        <NavItem label="Contacts" to="/contacts" icon={<GlobeAltIcon width="24px" height="24px" />} />
+        <NavItem label="Offices" to="/offices" icon={<CubeIcon width="24px" height="24px" />} />
+        <NavItem label="Appointments" to="/appointments" icon={<CalendarDaysIcon width="24px" height="24px" />} />
       </Box>
       <Outlet />
     </Sheet>
@@ -52,7 +40,7 @@ const NavItem = ({ icon, label, to }: NavItemProps) => (
       display: 'flex',
       flexDirection: 'column',
       p: '24px',
-      alignItems: 'center'
+      alignItems: 'center',
     }}
   >
     {icon}
