@@ -1,5 +1,5 @@
 import { Drawer } from '@/components/Drawer'
-import { FieldParent, ModelConfig2, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { officeModelConfig } from '@/config/officeModel'
 import { CreateOffices } from '@/forms/offices'
 import { CreateOfficeModel } from '@/schemas'
@@ -15,17 +15,25 @@ const fieldNames = fieldsConfig<CreateOfficeModel>({
 export const CreateOffice = () => {
   const navigate = useNavigate()
 
-  const formConfig = officeModelConfig as ModelConfig2<CreateOfficeModel>
-
   return (
     <Drawer title="Create new office" onClose={() => navigate('..')}>
       <DialogContent sx={{ p: '16px' }}>
         <CreateOffices>
-          {fieldNames.map((fieldName) => (
-            <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-          ))}
+          <CreateOfficeFields />
         </CreateOffices>
       </DialogContent>
     </Drawer>
+  )
+}
+
+export const CreateOfficeFields = () => {
+  const formConfig = officeModelConfig as ModelConfig<CreateOfficeModel>
+
+  return (
+    <>
+      {fieldNames.map((fieldName) => (
+        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
+      ))}
+    </>
   )
 }

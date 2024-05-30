@@ -1,5 +1,5 @@
 import { Drawer } from '@/components/Drawer'
-import { FieldParent, ModelConfig2, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { contactModelConfig } from '@/config/contactModel'
 import { CreateContacts } from '@/forms/contacts'
 import { CreateContactModel } from '@/schemas'
@@ -16,7 +16,7 @@ const fieldNames = fieldsConfig<CreateContactModel>({
 export const CreateContact = () => {
   const navigate = useNavigate()
 
-  const formConfig = contactModelConfig as ModelConfig2<CreateContactModel>
+  const formConfig = contactModelConfig as ModelConfig<CreateContactModel>
 
   return (
     <Drawer title="Create new contact" onClose={() => navigate('..')}>
