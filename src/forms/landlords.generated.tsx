@@ -1,8 +1,8 @@
 import {
   createLandlordModel,
   CreateLandlordModel,
-  createLandlordContactRelationshipModel,
-  CreateLandlordContactRelationshipModel,
+  insertLandlordContactRelationshipModel,
+  InsertLandlordContactRelationshipModel,
 } from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
@@ -52,8 +52,8 @@ export const CreateLandlords = (props: CreateLandlordsProps) => {
 }
 
 export const CreateLandlordsIdRelationships = (props: CreateLandlordsIdRelationshipsProps) => {
-  const methods = useForm<CreateLandlordContactRelationshipModel>({
-    resolver: zodResolver(createLandlordContactRelationshipModel),
+  const methods = useForm<InsertLandlordContactRelationshipModel>({
+    resolver: zodResolver(insertLandlordContactRelationshipModel),
   })
 
   const mutator = useCreateLandlordRelationship()

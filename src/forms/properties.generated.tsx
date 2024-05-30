@@ -7,8 +7,8 @@ import {
   CreateKeyModel,
   createKeyMovementModel,
   CreateKeyMovementModel,
-  keyMovementModel,
-  KeyMovementModel,
+  checkInKeyModel,
+  CheckInKeyModel,
   createPropertyCheckModel,
   CreatePropertyCheckModel,
   createPropertyAppraisalModel,
@@ -193,8 +193,8 @@ export const CreatePropertiesIdKeysKeyIdMovements = (props: CreatePropertiesIdKe
 export const UpdatePropertiesIdKeysKeyIdMovementsMovementId = (
   props: UpdatePropertiesIdKeysKeyIdMovementsMovementIdProps,
 ) => {
-  const methods = useForm<KeyMovementModel>({
-    resolver: zodResolver(keyMovementModel),
+  const methods = useForm<CheckInKeyModel>({
+    resolver: zodResolver(checkInKeyModel),
   })
 
   const mutator = useUpdatePropertyKeyMovement()

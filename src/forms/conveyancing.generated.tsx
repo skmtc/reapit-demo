@@ -1,4 +1,9 @@
-import { conveyancingModel, ConveyancingModel } from '@/schemas/index.ts'
+import {
+  createDownwardLinkModel,
+  CreateDownwardLinkModel,
+  createUpwardLinkModel,
+  CreateUpwardLinkModel,
+} from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -10,8 +15,8 @@ export type CreateConveyancingIdDownwardProps = { id: string; children: ReactNod
 export type CreateConveyancingIdUpwardProps = { id: string; children: ReactNode }
 
 export const CreateConveyancingIdDownward = (props: CreateConveyancingIdDownwardProps) => {
-  const methods = useForm<ConveyancingModel>({
-    resolver: zodResolver(conveyancingModel),
+  const methods = useForm<CreateDownwardLinkModel>({
+    resolver: zodResolver(createDownwardLinkModel),
   })
 
   const mutator = useCreateDownwardChain()
@@ -47,8 +52,8 @@ export const CreateConveyancingIdDownward = (props: CreateConveyancingIdDownward
 }
 
 export const CreateConveyancingIdUpward = (props: CreateConveyancingIdUpwardProps) => {
-  const methods = useForm<ConveyancingModel>({
-    resolver: zodResolver(conveyancingModel),
+  const methods = useForm<CreateUpwardLinkModel>({
+    resolver: zodResolver(createUpwardLinkModel),
   })
 
   const mutator = useCreateUpwardChain()

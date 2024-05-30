@@ -1,8 +1,8 @@
 import {
   createApplicantModel,
   CreateApplicantModel,
-  createApplicantContactRelationshipModel,
-  CreateApplicantContactRelationshipModel,
+  insertApplicantContactRelationshipModel,
+  InsertApplicantContactRelationshipModel,
 } from '@/schemas/index.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
@@ -52,8 +52,8 @@ export const CreateApplicants = (props: CreateApplicantsProps) => {
 }
 
 export const CreateApplicantsIdRelationships = (props: CreateApplicantsIdRelationshipsProps) => {
-  const methods = useForm<CreateApplicantContactRelationshipModel>({
-    resolver: zodResolver(createApplicantContactRelationshipModel),
+  const methods = useForm<InsertApplicantContactRelationshipModel>({
+    resolver: zodResolver(insertApplicantContactRelationshipModel),
   })
 
   const mutator = useCreateApplicantRelationship()
