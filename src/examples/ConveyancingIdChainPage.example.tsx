@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { useConveyancingIdChainTable, getConveyancingIdChainColumn } from '@/tables/conveyancing.generated.tsx'
 import { ConveyancingModel } from '@/schemas/index.ts'
 import { conveyancingModelConfig } from '@/config/conveyancingModel.example.tsx'
@@ -64,7 +65,11 @@ export const ConveyancingIdChain = () => {
     getConveyancingIdChainColumn(col, conveyancingModelConfig),
   )
 
-  const { table, dataQuery } = useConveyancingIdChainTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = useConveyancingIdChainTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -72,7 +77,7 @@ export const ConveyancingIdChain = () => {
         <Typography level="h1">ConveyancingIdChain</Typography>
         <Button
           component={RouterLink}
-          to="/conveyancing/{id}/chainnew"
+          to={`/conveyancing/${id}/chain/new`}
           sx={{
             color: 'white',
             ':hover': {

@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { useCompaniesIdRelationshipsTable, getCompaniesIdRelationshipsColumn } from '@/tables/companies.generated.tsx'
 import { CompanyRoleModel } from '@/schemas/index.ts'
 import { companyRoleModelConfig } from '@/config/companyRoleModel.example.tsx'
@@ -25,7 +26,11 @@ export const CompaniesIdRelationships = () => {
     getCompaniesIdRelationshipsColumn(col, companyRoleModelConfig),
   )
 
-  const { table, dataQuery } = useCompaniesIdRelationshipsTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = useCompaniesIdRelationshipsTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -33,7 +38,7 @@ export const CompaniesIdRelationships = () => {
         <Typography level="h1">CompaniesIdRelationships</Typography>
         <Button
           component={RouterLink}
-          to="/companies/{id}/relationshipsnew"
+          to={`/companies/${id}/relationships/new`}
           sx={{
             color: 'white',
             ':hover': {

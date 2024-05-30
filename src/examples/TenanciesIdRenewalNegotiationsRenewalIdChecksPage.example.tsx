@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import {
   useTenanciesIdRenewalNegotiationsRenewalIdChecksTable,
   getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn,
@@ -31,7 +32,12 @@ export const TenanciesIdRenewalNegotiationsRenewalIdChecks = () => {
     getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn(col, tenancyRenewalCheckModelConfig),
   )
 
-  const { table, dataQuery } = useTenanciesIdRenewalNegotiationsRenewalIdChecksTable({ columns })
+  const { id, renewalId } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+  invariant(renewalId, 'Expected renewalId to be defined')
+
+  const { table, dataQuery } = useTenanciesIdRenewalNegotiationsRenewalIdChecksTable({ id, renewalId, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -39,7 +45,7 @@ export const TenanciesIdRenewalNegotiationsRenewalIdChecks = () => {
         <Typography level="h1">TenanciesIdRenewalNegotiationsRenewalIdChecks</Typography>
         <Button
           component={RouterLink}
-          to="/tenancies/{id}/renewalNegotiations/{renewalId}/checksnew"
+          to={`/tenancies/${id}/renewalNegotiations/${renewalId}/checks/new`}
           sx={{
             color: 'white',
             ':hover': {

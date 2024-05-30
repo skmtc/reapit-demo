@@ -9,8 +9,8 @@ import { ContactModel } from '@/schemas/index.ts'
 import { contactModelConfig } from '@/config/contactModel.example.tsx'
 
 const fieldNames = fieldsConfig<ContactModel>({
-  _links: true,
-  _embedded: true,
+  _links: false,
+  _embedded: false,
   id: true,
   created: true,
   modified: true,
@@ -56,7 +56,7 @@ export const Contacts = () => {
         <Typography level="h1">Contacts</Typography>
         <Button
           component={RouterLink}
-          to="/contacts/new"
+          to={`/contacts/new`}
           sx={{
             color: 'white',
             ':hover': {

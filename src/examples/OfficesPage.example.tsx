@@ -38,7 +38,7 @@ export const Offices = () => {
         <Typography level="h1">Offices</Typography>
         <Button
           component={RouterLink}
-          to="/offices/new"
+          to={`/offices/new`}
           sx={{
             color: 'white',
             ':hover': {

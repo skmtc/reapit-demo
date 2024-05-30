@@ -35,7 +35,7 @@ export const Areas = () => {
         <Typography level="h1">Areas</Typography>
         <Button
           component={RouterLink}
-          to="/areas/new"
+          to={`/areas/new`}
           sx={{
             color: 'white',
             ':hover': {

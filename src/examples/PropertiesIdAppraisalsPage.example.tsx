@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { usePropertiesIdAppraisalsTable, getPropertiesIdAppraisalsColumn } from '@/tables/properties.generated.tsx'
 import { PropertyAppraisalModel } from '@/schemas/index.ts'
 import { propertyAppraisalModelConfig } from '@/config/propertyAppraisalModel.example.tsx'
@@ -26,7 +27,11 @@ export const PropertiesIdAppraisals = () => {
     getPropertiesIdAppraisalsColumn(col, propertyAppraisalModelConfig),
   )
 
-  const { table, dataQuery } = usePropertiesIdAppraisalsTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = usePropertiesIdAppraisalsTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -34,7 +39,7 @@ export const PropertiesIdAppraisals = () => {
         <Typography level="h1">PropertiesIdAppraisals</Typography>
         <Button
           component={RouterLink}
-          to="/properties/{id}/appraisalsnew"
+          to={`/properties/${id}/appraisals/new`}
           sx={{
             color: 'white',
             ':hover': {

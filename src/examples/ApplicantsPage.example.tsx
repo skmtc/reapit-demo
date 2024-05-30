@@ -71,7 +71,7 @@ export const Applicants = () => {
         <Typography level="h1">Applicants</Typography>
         <Button
           component={RouterLink}
-          to="/applicants/new"
+          to={`/applicants/new`}
           sx={{
             color: 'white',
             ':hover': {

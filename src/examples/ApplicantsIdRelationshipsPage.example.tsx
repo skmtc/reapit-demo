@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import {
   useApplicantsIdRelationshipsTable,
   getApplicantsIdRelationshipsColumn,
@@ -29,7 +30,11 @@ export const ApplicantsIdRelationships = () => {
     getApplicantsIdRelationshipsColumn(col, applicantContactRelationshipModelConfig),
   )
 
-  const { table, dataQuery } = useApplicantsIdRelationshipsTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = useApplicantsIdRelationshipsTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -37,7 +42,7 @@ export const ApplicantsIdRelationships = () => {
         <Typography level="h1">ApplicantsIdRelationships</Typography>
         <Button
           component={RouterLink}
-          to="/applicants/{id}/relationshipsnew"
+          to={`/applicants/${id}/relationships/new`}
           sx={{
             color: 'white',
             ':hover': {

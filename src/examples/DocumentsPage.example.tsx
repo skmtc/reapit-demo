@@ -34,7 +34,7 @@ export const Documents = () => {
         <Typography level="h1">Documents</Typography>
         <Button
           component={RouterLink}
-          to="/documents/new"
+          to={`/documents/new`}
           sx={{
             color: 'white',
             ':hover': {

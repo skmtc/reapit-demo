@@ -35,7 +35,7 @@ export const Landlords = () => {
         <Typography level="h1">Landlords</Typography>
         <Button
           component={RouterLink}
-          to="/landlords/new"
+          to={`/landlords/new`}
           sx={{
             color: 'white',
             ':hover': {

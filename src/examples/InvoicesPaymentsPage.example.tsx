@@ -35,7 +35,7 @@ export const InvoicesPayments = () => {
         <Typography level="h1">InvoicesPayments</Typography>
         <Button
           component={RouterLink}
-          to="/invoices/paymentsnew"
+          to={`/invoices/payments/new`}
           sx={{
             color: 'white',
             ':hover': {

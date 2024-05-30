@@ -37,7 +37,7 @@ export const IdentityChecks = () => {
         <Typography level="h1">IdentityChecks</Typography>
         <Button
           component={RouterLink}
-          to="/identityChecks/new"
+          to={`/identityChecks/new`}
           sx={{
             color: 'white',
             ':hover': {

@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Root } from '@/components/Root'
-import { Contacts } from '@/pages/Contacts'
-import { CreateContact } from '@/pages/CreateContact'
-import { Offices } from '@/pages/Offices'
-import { CreateOffice } from '@/pages/CreateOffice'
+import { Contacts } from '@/examples/ContactsPage.example'
+import { CreateContactsForm } from '@/examples/CreateContacts.example'
+import { Offices } from '@/examples/OfficesPage.example'
+import { CreateOfficesForm } from '@/examples/CreateOffices.example'
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'new',
-            element: <CreateContact />,
+            element: <CreateContactsForm />,
           },
         ],
       },
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'new',
-            element: <CreateOffice />,
+            element: <CreateOfficesForm />,
           },
         ],
       },

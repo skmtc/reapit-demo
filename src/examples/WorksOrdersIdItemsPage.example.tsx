@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { useWorksOrdersIdItemsTable, getWorksOrdersIdItemsColumn } from '@/tables/worksorders.generated.tsx'
 import { WorksOrderItemModel } from '@/schemas/index.ts'
 import { worksOrderItemModelConfig } from '@/config/worksOrderItemModel.example.tsx'
@@ -32,7 +33,11 @@ export const WorksOrdersIdItems = () => {
     getWorksOrdersIdItemsColumn(col, worksOrderItemModelConfig),
   )
 
-  const { table, dataQuery } = useWorksOrdersIdItemsTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = useWorksOrdersIdItemsTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -40,7 +45,7 @@ export const WorksOrdersIdItems = () => {
         <Typography level="h1">WorksOrdersIdItems</Typography>
         <Button
           component={RouterLink}
-          to="/worksOrders/{id}/itemsnew"
+          to={`/worksOrders/${id}/items/new`}
           sx={{
             color: 'white',
             ':hover': {

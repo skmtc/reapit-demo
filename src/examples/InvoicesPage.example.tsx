@@ -38,7 +38,7 @@ export const Invoices = () => {
         <Typography level="h1">Invoices</Typography>
         <Button
           component={RouterLink}
-          to="/invoices/new"
+          to={`/invoices/new`}
           sx={{
             color: 'white',
             ':hover': {

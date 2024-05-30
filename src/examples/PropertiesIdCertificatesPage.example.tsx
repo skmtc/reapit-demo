@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { usePropertiesIdCertificatesTable, getPropertiesIdCertificatesColumn } from '@/tables/properties.generated.tsx'
 import { CertificateModel } from '@/schemas/index.ts'
 import { certificateModelConfig } from '@/config/certificateModel.example.tsx'
@@ -32,7 +33,11 @@ export const PropertiesIdCertificates = () => {
     getPropertiesIdCertificatesColumn(col, certificateModelConfig),
   )
 
-  const { table, dataQuery } = usePropertiesIdCertificatesTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = usePropertiesIdCertificatesTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -40,7 +45,7 @@ export const PropertiesIdCertificates = () => {
         <Typography level="h1">PropertiesIdCertificates</Typography>
         <Button
           component={RouterLink}
-          to="/properties/{id}/certificatesnew"
+          to={`/properties/${id}/certificates/new`}
           sx={{
             color: 'white',
             ':hover': {

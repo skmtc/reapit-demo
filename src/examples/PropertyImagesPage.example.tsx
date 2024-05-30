@@ -36,7 +36,7 @@ export const PropertyImages = () => {
         <Typography level="h1">PropertyImages</Typography>
         <Button
           component={RouterLink}
-          to="/propertyImages/new"
+          to={`/propertyImages/new`}
           sx={{
             color: 'white',
             ':hover': {

@@ -34,7 +34,7 @@ export const TransactionsNominalAccounts = () => {
         <Typography level="h1">TransactionsNominalAccounts</Typography>
         <Button
           component={RouterLink}
-          to="/transactions/nominalAccountsnew"
+          to={`/transactions/nominalAccounts/new`}
           sx={{
             color: 'white',
             ':hover': {

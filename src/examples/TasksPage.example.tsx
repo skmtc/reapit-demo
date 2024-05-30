@@ -41,7 +41,7 @@ export const Tasks = () => {
         <Typography level="h1">Tasks</Typography>
         <Button
           component={RouterLink}
-          to="/tasks/new"
+          to={`/tasks/new`}
           sx={{
             color: 'white',
             ':hover': {

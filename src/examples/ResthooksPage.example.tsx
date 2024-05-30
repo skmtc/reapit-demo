@@ -30,7 +30,7 @@ export const Resthooks = () => {
         <Typography level="h1">Resthooks</Typography>
         <Button
           component={RouterLink}
-          to="/resthooks/new"
+          to={`/resthooks/new`}
           sx={{
             color: 'white',
             ':hover': {

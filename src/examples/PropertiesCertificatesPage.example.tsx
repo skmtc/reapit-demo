@@ -40,7 +40,7 @@ export const PropertiesCertificates = () => {
         <Typography level="h1">PropertiesCertificates</Typography>
         <Button
           component={RouterLink}
-          to="/properties/certificatesnew"
+          to={`/properties/certificates/new`}
           sx={{
             color: 'white',
             ':hover': {

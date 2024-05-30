@@ -105,7 +105,7 @@ export const Properties = () => {
         <Typography level="h1">Properties</Typography>
         <Button
           component={RouterLink}
-          to="/properties/new"
+          to={`/properties/new`}
           sx={{
             color: 'white',
             ':hover': {

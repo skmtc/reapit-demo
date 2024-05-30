@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { useTenanciesIdBreakClausesTable, getTenanciesIdBreakClausesColumn } from '@/tables/tenancies.generated.tsx'
 import { TenancyBreakClauseModel } from '@/schemas/index.ts'
 import { tenancyBreakClauseModelConfig } from '@/config/tenancyBreakClauseModel.example.tsx'
@@ -31,7 +32,11 @@ export const TenanciesIdBreakClauses = () => {
     getTenanciesIdBreakClausesColumn(col, tenancyBreakClauseModelConfig),
   )
 
-  const { table, dataQuery } = useTenanciesIdBreakClausesTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = useTenanciesIdBreakClausesTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -39,7 +44,7 @@ export const TenanciesIdBreakClauses = () => {
         <Typography level="h1">TenanciesIdBreakClauses</Typography>
         <Button
           component={RouterLink}
-          to="/tenancies/{id}/breakClausesnew"
+          to={`/tenancies/${id}/breakClauses/new`}
           sx={{
             color: 'white',
             ':hover': {

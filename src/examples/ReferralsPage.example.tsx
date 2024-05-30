@@ -40,7 +40,7 @@ export const Referrals = () => {
         <Typography level="h1">Referrals</Typography>
         <Button
           component={RouterLink}
-          to="/referrals/new"
+          to={`/referrals/new`}
           sx={{
             color: 'white',
             ':hover': {

@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { useContactsIdRelationshipsTable, getContactsIdRelationshipsColumn } from '@/tables/contacts.generated.tsx'
 import { ContactRoleModel } from '@/schemas/index.ts'
 import { contactRoleModelConfig } from '@/config/contactRoleModel.example.tsx'
@@ -25,7 +26,11 @@ export const ContactsIdRelationships = () => {
     getContactsIdRelationshipsColumn(col, contactRoleModelConfig),
   )
 
-  const { table, dataQuery } = useContactsIdRelationshipsTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = useContactsIdRelationshipsTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -33,7 +38,7 @@ export const ContactsIdRelationships = () => {
         <Typography level="h1">ContactsIdRelationships</Typography>
         <Button
           component={RouterLink}
-          to="/contacts/{id}/relationshipsnew"
+          to={`/contacts/${id}/relationships/new`}
           sx={{
             color: 'white',
             ':hover': {

@@ -28,7 +28,7 @@ export const ReferralsTypes = () => {
         <Typography level="h1">ReferralsTypes</Typography>
         <Button
           component={RouterLink}
-          to="/referrals/typesnew"
+          to={`/referrals/types/new`}
           sx={{
             color: 'white',
             ':hover': {

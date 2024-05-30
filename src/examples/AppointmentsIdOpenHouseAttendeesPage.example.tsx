@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import {
   useAppointmentsIdOpenHouseAttendeesTable,
   getAppointmentsIdOpenHouseAttendeesColumn,
@@ -29,7 +30,11 @@ export const AppointmentsIdOpenHouseAttendees = () => {
     getAppointmentsIdOpenHouseAttendeesColumn(col, openHouseAttendeeModelConfig),
   )
 
-  const { table, dataQuery } = useAppointmentsIdOpenHouseAttendeesTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = useAppointmentsIdOpenHouseAttendeesTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -37,7 +42,7 @@ export const AppointmentsIdOpenHouseAttendees = () => {
         <Typography level="h1">AppointmentsIdOpenHouseAttendees</Typography>
         <Button
           component={RouterLink}
-          to="/appointments/{id}/openHouseAttendeesnew"
+          to={`/appointments/${id}/openHouseAttendees/new`}
           sx={{
             color: 'white',
             ':hover': {

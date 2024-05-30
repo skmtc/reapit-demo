@@ -72,7 +72,7 @@ export const Conveyancing = () => {
         <Typography level="h1">Conveyancing</Typography>
         <Button
           component={RouterLink}
-          to="/conveyancing/new"
+          to={`/conveyancing/new`}
           sx={{
             color: 'white',
             ':hover': {

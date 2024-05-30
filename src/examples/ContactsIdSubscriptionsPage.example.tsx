@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { useContactsIdSubscriptionsTable, getContactsIdSubscriptionsColumn } from '@/tables/contacts.generated.tsx'
 import { ContactSubscriptionModel } from '@/schemas/index.ts'
 import { contactSubscriptionModelConfig } from '@/config/contactSubscriptionModel.example.tsx'
@@ -26,7 +27,11 @@ export const ContactsIdSubscriptions = () => {
     getContactsIdSubscriptionsColumn(col, contactSubscriptionModelConfig),
   )
 
-  const { table, dataQuery } = useContactsIdSubscriptionsTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = useContactsIdSubscriptionsTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -34,7 +39,7 @@ export const ContactsIdSubscriptions = () => {
         <Typography level="h1">ContactsIdSubscriptions</Typography>
         <Button
           component={RouterLink}
-          to="/contacts/{id}/subscriptionsnew"
+          to={`/contacts/${id}/subscriptions/new`}
           sx={{
             color: 'white',
             ':hover': {

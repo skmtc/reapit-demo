@@ -33,7 +33,7 @@ export const JournalEntries = () => {
         <Typography level="h1">JournalEntries</Typography>
         <Button
           component={RouterLink}
-          to="/journalEntries/new"
+          to={`/journalEntries/new`}
           sx={{
             color: 'white',
             ':hover': {

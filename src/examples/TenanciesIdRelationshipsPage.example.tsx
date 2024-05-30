@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { useTenanciesIdRelationshipsTable, getTenanciesIdRelationshipsColumn } from '@/tables/tenancies.generated.tsx'
 import { TenancyContactRelationshipModel } from '@/schemas/index.ts'
 import { tenancyContactRelationshipModelConfig } from '@/config/tenancyContactRelationshipModel.example.tsx'
@@ -28,7 +29,11 @@ export const TenanciesIdRelationships = () => {
     getTenanciesIdRelationshipsColumn(col, tenancyContactRelationshipModelConfig),
   )
 
-  const { table, dataQuery } = useTenanciesIdRelationshipsTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = useTenanciesIdRelationshipsTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -36,7 +41,7 @@ export const TenanciesIdRelationships = () => {
         <Typography level="h1">TenanciesIdRelationships</Typography>
         <Button
           component={RouterLink}
-          to="/tenancies/{id}/relationshipsnew"
+          to={`/tenancies/${id}/relationships/new`}
           sx={{
             color: 'white',
             ':hover': {

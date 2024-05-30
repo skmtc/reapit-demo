@@ -42,7 +42,7 @@ export const Vendors = () => {
         <Typography level="h1">Vendors</Typography>
         <Button
           component={RouterLink}
-          to="/vendors/new"
+          to={`/vendors/new`}
           sx={{
             color: 'white',
             ':hover': {

@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { useVendorsIdRelationshipsTable, getVendorsIdRelationshipsColumn } from '@/tables/vendors.generated.tsx'
 import { VendorContactRelationshipModel } from '@/schemas/index.ts'
 import { vendorContactRelationshipModelConfig } from '@/config/vendorContactRelationshipModel.example.tsx'
@@ -25,7 +26,11 @@ export const VendorsIdRelationships = () => {
     getVendorsIdRelationshipsColumn(col, vendorContactRelationshipModelConfig),
   )
 
-  const { table, dataQuery } = useVendorsIdRelationshipsTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = useVendorsIdRelationshipsTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -33,7 +38,7 @@ export const VendorsIdRelationships = () => {
         <Typography level="h1">VendorsIdRelationships</Typography>
         <Button
           component={RouterLink}
-          to="/vendors/{id}/relationshipsnew"
+          to={`/vendors/${id}/relationships/new`}
           sx={{
             color: 'white',
             ':hover': {

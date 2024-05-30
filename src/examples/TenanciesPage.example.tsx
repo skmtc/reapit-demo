@@ -62,7 +62,7 @@ export const Tenancies = () => {
         <Typography level="h1">Tenancies</Typography>
         <Button
           component={RouterLink}
-          to="/tenancies/new"
+          to={`/tenancies/new`}
           sx={{
             color: 'white',
             ':hover': {

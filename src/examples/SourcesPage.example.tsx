@@ -32,7 +32,7 @@ export const Sources = () => {
         <Typography level="h1">Sources</Typography>
         <Button
           component={RouterLink}
-          to="/sources/new"
+          to={`/sources/new`}
           sx={{
             color: 'white',
             ':hover': {

@@ -1,9 +1,10 @@
+import { useParams, Link as RouterLink, Outlet } from 'react-router-dom'
+import { default as invariant } from 'tiny-invariant'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
-import { Link as RouterLink, Outlet } from 'react-router-dom'
 import {
   useTenanciesIdResponsibilitiesTable,
   getTenanciesIdResponsibilitiesColumn,
@@ -31,7 +32,11 @@ export const TenanciesIdResponsibilities = () => {
     getTenanciesIdResponsibilitiesColumn(col, tenancyResponsibilityModelConfig),
   )
 
-  const { table, dataQuery } = useTenanciesIdResponsibilitiesTable({ columns })
+  const { id } = useParams()
+
+  invariant(id, 'Expected id to be defined')
+
+  const { table, dataQuery } = useTenanciesIdResponsibilitiesTable({ id, columns })
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -39,7 +44,7 @@ export const TenanciesIdResponsibilities = () => {
         <Typography level="h1">TenanciesIdResponsibilities</Typography>
         <Button
           component={RouterLink}
-          to="/tenancies/{id}/responsibilitiesnew"
+          to={`/tenancies/${id}/responsibilities/new`}
           sx={{
             color: 'white',
             ':hover': {

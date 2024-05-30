@@ -27,7 +27,7 @@ export const MetadataMetadataSchema = () => {
         <Typography level="h1">MetadataMetadataSchema</Typography>
         <Button
           component={RouterLink}
-          to="/metadata/metadataSchemanew"
+          to={`/metadata/metadataSchema/new`}
           sx={{
             color: 'white',
             ':hover': {
