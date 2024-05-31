@@ -73,6 +73,7 @@ export const getApiConveyancingIdFn = async ({ id, embed }: UseGetApiConveyancin
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -82,10 +83,10 @@ export const getApiConveyancingIdFn = async ({ id, embed }: UseGetApiConveyancin
 
   return conveyancingModel.parse(data)
 }
-export const useGetApiConveyancingId = (args: UseGetApiConveyancingIdArgs) => {
+export const useGetApiConveyancingId = ({ id, embed }: UseGetApiConveyancingIdArgs) => {
   const result = useQuery({
-    queryKey: ['Conveyancing'],
-    queryFn: () => getApiConveyancingIdFn(args),
+    queryKey: ['Conveyancing', id, embed],
+    queryFn: () => getApiConveyancingIdFn({ id, embed }),
   })
 
   return result

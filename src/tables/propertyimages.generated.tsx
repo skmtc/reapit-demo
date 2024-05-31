@@ -25,111 +25,135 @@ export const propertyImagesColumnHelper = createColumnHelper<PropertyImageModel>
 export const getPropertyImagesColumn = (property: string, modelConfig: ModelConfig<PropertyImageModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return propertyImagesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return propertyImagesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return propertyImagesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return propertyImagesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return propertyImagesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('propertyId', () => {
-      const { label: header, format } = modelConfig['propertyId']
+      const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
       return propertyImagesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('url', () => {
-      const { label: header, format } = modelConfig['url']
+      const { label: header, format, width, minWidth } = modelConfig['url']
 
       return propertyImagesColumnHelper.accessor((row) => row.url, {
         id: 'url',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('caption', () => {
-      const { label: header, format } = modelConfig['caption']
+      const { label: header, format, width, minWidth } = modelConfig['caption']
 
       return propertyImagesColumnHelper.accessor((row) => row.caption, {
         id: 'caption',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('type', () => {
-      const { label: header, format } = modelConfig['type']
+      const { label: header, format, width, minWidth } = modelConfig['type']
 
       return propertyImagesColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('order', () => {
-      const { label: header, format } = modelConfig['order']
+      const { label: header, format, width, minWidth } = modelConfig['order']
 
       return propertyImagesColumnHelper.accessor((row) => row.order, {
         id: 'order',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('fromArchive', () => {
-      const { label: header, format } = modelConfig['fromArchive']
+      const { label: header, format, width, minWidth } = modelConfig['fromArchive']
 
       return propertyImagesColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_eTag', () => {
-      const { label: header, format } = modelConfig['_eTag']
+      const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
       return propertyImagesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

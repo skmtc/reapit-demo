@@ -112,6 +112,7 @@ export const getApiReferralsIdFn = async ({ id, embed }: UseGetApiReferralsIdArg
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -121,10 +122,10 @@ export const getApiReferralsIdFn = async ({ id, embed }: UseGetApiReferralsIdArg
 
   return referralModel.parse(data)
 }
-export const useGetApiReferralsId = (args: UseGetApiReferralsIdArgs) => {
+export const useGetApiReferralsId = ({ id, embed }: UseGetApiReferralsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Referrals'],
-    queryFn: () => getApiReferralsIdFn(args),
+    queryKey: ['Referrals', id, embed],
+    queryFn: () => getApiReferralsIdFn({ id, embed }),
   })
 
   return result
@@ -200,6 +201,7 @@ export const getApiReferralsTypesIdFn = async ({ id }: UseGetApiReferralsTypesId
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -209,10 +211,10 @@ export const getApiReferralsTypesIdFn = async ({ id }: UseGetApiReferralsTypesId
 
   return referralTypeModel.parse(data)
 }
-export const useGetApiReferralsTypesId = (args: UseGetApiReferralsTypesIdArgs) => {
+export const useGetApiReferralsTypesId = ({ id }: UseGetApiReferralsTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Referrals'],
-    queryFn: () => getApiReferralsTypesIdFn(args),
+    queryKey: ['Referrals', id],
+    queryFn: () => getApiReferralsTypesIdFn({ id }),
   })
 
   return result

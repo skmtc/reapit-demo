@@ -106,6 +106,7 @@ export const getApiOfficesIdFn = async ({ id, embed, extrasField }: UseGetApiOff
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -115,10 +116,10 @@ export const getApiOfficesIdFn = async ({ id, embed, extrasField }: UseGetApiOff
 
   return officeModel.parse(data)
 }
-export const useGetApiOfficesId = (args: UseGetApiOfficesIdArgs) => {
+export const useGetApiOfficesId = ({ id, embed, extrasField }: UseGetApiOfficesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Offices'],
-    queryFn: () => getApiOfficesIdFn(args),
+    queryKey: ['Offices', id, embed, extrasField],
+    queryFn: () => getApiOfficesIdFn({ id, embed, extrasField }),
   })
 
   return result

@@ -112,6 +112,7 @@ export const getApiIdentityChecksIdFn = async ({ id, embed }: UseGetApiIdentityC
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -121,10 +122,10 @@ export const getApiIdentityChecksIdFn = async ({ id, embed }: UseGetApiIdentityC
 
   return identityCheckModel.parse(data)
 }
-export const useGetApiIdentityChecksId = (args: UseGetApiIdentityChecksIdArgs) => {
+export const useGetApiIdentityChecksId = ({ id, embed }: UseGetApiIdentityChecksIdArgs) => {
   const result = useQuery({
-    queryKey: ['IdentityChecks'],
-    queryFn: () => getApiIdentityChecksIdFn(args),
+    queryKey: ['IdentityChecks', id, embed],
+    queryFn: () => getApiIdentityChecksIdFn({ id, embed }),
   })
 
   return result

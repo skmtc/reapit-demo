@@ -75,6 +75,7 @@ export const getApiInvoicesIdFn = async ({ id }: UseGetApiInvoicesIdArgs) => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -84,10 +85,10 @@ export const getApiInvoicesIdFn = async ({ id }: UseGetApiInvoicesIdArgs) => {
 
   return invoiceDetailModel.parse(data)
 }
-export const useGetApiInvoicesId = (args: UseGetApiInvoicesIdArgs) => {
+export const useGetApiInvoicesId = ({ id }: UseGetApiInvoicesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Invoices'],
-    queryFn: () => getApiInvoicesIdFn(args),
+    queryKey: ['Invoices', id],
+    queryFn: () => getApiInvoicesIdFn({ id }),
   })
 
   return result
@@ -154,6 +155,7 @@ export const getApiInvoicesPaymentsIdFn = async ({ id }: UseGetApiInvoicesPaymen
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -163,10 +165,10 @@ export const getApiInvoicesPaymentsIdFn = async ({ id }: UseGetApiInvoicesPaymen
 
   return paymentModel.parse(data)
 }
-export const useGetApiInvoicesPaymentsId = (args: UseGetApiInvoicesPaymentsIdArgs) => {
+export const useGetApiInvoicesPaymentsId = ({ id }: UseGetApiInvoicesPaymentsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Invoices'],
-    queryFn: () => getApiInvoicesPaymentsIdFn(args),
+    queryKey: ['Invoices', id],
+    queryFn: () => getApiInvoicesPaymentsIdFn({ id }),
   })
 
   return result
@@ -231,6 +233,7 @@ export const getApiInvoicesCreditsIdFn = async ({ id }: UseGetApiInvoicesCredits
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -240,10 +243,10 @@ export const getApiInvoicesCreditsIdFn = async ({ id }: UseGetApiInvoicesCredits
 
   return creditModel.parse(data)
 }
-export const useGetApiInvoicesCreditsId = (args: UseGetApiInvoicesCreditsIdArgs) => {
+export const useGetApiInvoicesCreditsId = ({ id }: UseGetApiInvoicesCreditsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Invoices'],
-    queryFn: () => getApiInvoicesCreditsIdFn(args),
+    queryKey: ['Invoices', id],
+    queryFn: () => getApiInvoicesCreditsIdFn({ id }),
   })
 
   return result
@@ -304,6 +307,7 @@ export const getApiInvoicesChargesIdFn = async ({ id }: UseGetApiInvoicesCharges
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -313,10 +317,10 @@ export const getApiInvoicesChargesIdFn = async ({ id }: UseGetApiInvoicesCharges
 
   return chargeModel.parse(data)
 }
-export const useGetApiInvoicesChargesId = (args: UseGetApiInvoicesChargesIdArgs) => {
+export const useGetApiInvoicesChargesId = ({ id }: UseGetApiInvoicesChargesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Invoices'],
-    queryFn: () => getApiInvoicesChargesIdFn(args),
+    queryKey: ['Invoices', id],
+    queryFn: () => getApiInvoicesChargesIdFn({ id }),
   })
 
   return result

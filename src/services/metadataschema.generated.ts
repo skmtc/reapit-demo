@@ -11,6 +11,7 @@ export const getApiMetadataMetadataSchemaIdFn = async ({ id }: UseGetApiMetadata
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -20,10 +21,10 @@ export const getApiMetadataMetadataSchemaIdFn = async ({ id }: UseGetApiMetadata
 
   return schemaModel.parse(data)
 }
-export const useGetApiMetadataMetadataSchemaId = (args: UseGetApiMetadataMetadataSchemaIdArgs) => {
+export const useGetApiMetadataMetadataSchemaId = ({ id }: UseGetApiMetadataMetadataSchemaIdArgs) => {
   const result = useQuery({
-    queryKey: ['MetadataSchema'],
-    queryFn: () => getApiMetadataMetadataSchemaIdFn(args),
+    queryKey: ['MetadataSchema', id],
+    queryFn: () => getApiMetadataMetadataSchemaIdFn({ id }),
   })
 
   return result

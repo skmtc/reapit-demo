@@ -105,6 +105,7 @@ export const getApiNegotiatorsIdFn = async ({ id, embed }: UseGetApiNegotiatorsI
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -114,10 +115,10 @@ export const getApiNegotiatorsIdFn = async ({ id, embed }: UseGetApiNegotiatorsI
 
   return negotiatorModel.parse(data)
 }
-export const useGetApiNegotiatorsId = (args: UseGetApiNegotiatorsIdArgs) => {
+export const useGetApiNegotiatorsId = ({ id, embed }: UseGetApiNegotiatorsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Negotiators'],
-    queryFn: () => getApiNegotiatorsIdFn(args),
+    queryKey: ['Negotiators', id, embed],
+    queryFn: () => getApiNegotiatorsIdFn({ id, embed }),
   })
 
   return result

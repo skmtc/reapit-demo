@@ -96,6 +96,7 @@ export const getApiAreasIdFn = async ({ id }: UseGetApiAreasIdArgs) => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -105,10 +106,10 @@ export const getApiAreasIdFn = async ({ id }: UseGetApiAreasIdArgs) => {
 
   return areaModel.parse(data)
 }
-export const useGetApiAreasId = (args: UseGetApiAreasIdArgs) => {
+export const useGetApiAreasId = ({ id }: UseGetApiAreasIdArgs) => {
   const result = useQuery({
-    queryKey: ['Areas'],
-    queryFn: () => getApiAreasIdFn(args),
+    queryKey: ['Areas', id],
+    queryFn: () => getApiAreasIdFn({ id }),
   })
 
   return result

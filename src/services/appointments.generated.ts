@@ -133,6 +133,7 @@ export const getApiAppointmentsIdFn = async ({ id, embed, extrasField }: UseGetA
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -142,10 +143,10 @@ export const getApiAppointmentsIdFn = async ({ id, embed, extrasField }: UseGetA
 
   return appointmentModel.parse(data)
 }
-export const useGetApiAppointmentsId = (args: UseGetApiAppointmentsIdArgs) => {
+export const useGetApiAppointmentsId = ({ id, embed, extrasField }: UseGetApiAppointmentsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Appointments'],
-    queryFn: () => getApiAppointmentsIdFn(args),
+    queryKey: ['Appointments', id, embed, extrasField],
+    queryFn: () => getApiAppointmentsIdFn({ id, embed, extrasField }),
   })
 
   return result
@@ -262,6 +263,7 @@ export const getApiAppointmentsIdOpenHouseAttendeesOpenHouseAttendeeIdFn = async
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -271,12 +273,13 @@ export const getApiAppointmentsIdOpenHouseAttendeesOpenHouseAttendeeIdFn = async
 
   return openHouseAttendeeModel.parse(data)
 }
-export const useGetApiAppointmentsIdOpenHouseAttendeesOpenHouseAttendeeId = (
-  args: UseGetApiAppointmentsIdOpenHouseAttendeesOpenHouseAttendeeIdArgs,
-) => {
+export const useGetApiAppointmentsIdOpenHouseAttendeesOpenHouseAttendeeId = ({
+  id,
+  openHouseAttendeeId,
+}: UseGetApiAppointmentsIdOpenHouseAttendeesOpenHouseAttendeeIdArgs) => {
   const result = useQuery({
-    queryKey: ['Appointments'],
-    queryFn: () => getApiAppointmentsIdOpenHouseAttendeesOpenHouseAttendeeIdFn(args),
+    queryKey: ['Appointments', id, openHouseAttendeeId],
+    queryFn: () => getApiAppointmentsIdOpenHouseAttendeesOpenHouseAttendeeIdFn({ id, openHouseAttendeeId }),
   })
 
   return result

@@ -12,30 +12,36 @@ export const metadataMetadataSchemaColumnHelper = createColumnHelper<SchemaModel
 export const getMetadataMetadataSchemaColumn = (property: string, modelConfig: ModelConfig<SchemaModel>) => {
   return match(property)
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return metadataMetadataSchemaColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return metadataMetadataSchemaColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('schema', () => {
-      const { label: header, format } = modelConfig['schema']
+      const { label: header, format, width, minWidth } = modelConfig['schema']
 
       return metadataMetadataSchemaColumnHelper.accessor((row) => row.schema, {
         id: 'schema',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

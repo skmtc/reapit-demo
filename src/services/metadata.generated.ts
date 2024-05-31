@@ -89,6 +89,7 @@ export const getApiMetadataIdFn = async ({ id }: UseGetApiMetadataIdArgs) => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -98,10 +99,10 @@ export const getApiMetadataIdFn = async ({ id }: UseGetApiMetadataIdArgs) => {
 
   return metadataModel.parse(data)
 }
-export const useGetApiMetadataId = (args: UseGetApiMetadataIdArgs) => {
+export const useGetApiMetadataId = ({ id }: UseGetApiMetadataIdArgs) => {
   const result = useQuery({
-    queryKey: ['Metadata'],
-    queryFn: () => getApiMetadataIdFn(args),
+    queryKey: ['Metadata', id],
+    queryFn: () => getApiMetadataIdFn({ id }),
   })
 
   return result

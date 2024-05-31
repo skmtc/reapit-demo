@@ -32,165 +32,201 @@ export const referralsColumnHelper = createColumnHelper<ReferralModel>()
 export const getReferralsColumn = (property: string, modelConfig: ModelConfig<ReferralModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return referralsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return referralsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return referralsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return referralsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return referralsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('referralTypeId', () => {
-      const { label: header, format } = modelConfig['referralTypeId']
+      const { label: header, format, width, minWidth } = modelConfig['referralTypeId']
 
       return referralsColumnHelper.accessor((row) => row.referralTypeId, {
         id: 'referralTypeId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('type', () => {
-      const { label: header, format } = modelConfig['type']
+      const { label: header, format, width, minWidth } = modelConfig['type']
 
       return referralsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('negotiatorId', () => {
-      const { label: header, format } = modelConfig['negotiatorId']
+      const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
       return referralsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('propertyId', () => {
-      const { label: header, format } = modelConfig['propertyId']
+      const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
       return referralsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('applicantId', () => {
-      const { label: header, format } = modelConfig['applicantId']
+      const { label: header, format, width, minWidth } = modelConfig['applicantId']
 
       return referralsColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('contactId', () => {
-      const { label: header, format } = modelConfig['contactId']
+      const { label: header, format, width, minWidth } = modelConfig['contactId']
 
       return referralsColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('status', () => {
-      const { label: header, format } = modelConfig['status']
+      const { label: header, format, width, minWidth } = modelConfig['status']
 
       return referralsColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('amount', () => {
-      const { label: header, format } = modelConfig['amount']
+      const { label: header, format, width, minWidth } = modelConfig['amount']
 
       return referralsColumnHelper.accessor((row) => row.amount, {
         id: 'amount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('paid', () => {
-      const { label: header, format } = modelConfig['paid']
+      const { label: header, format, width, minWidth } = modelConfig['paid']
 
       return referralsColumnHelper.accessor((row) => row.paid, {
         id: 'paid',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('accepted', () => {
-      const { label: header, format } = modelConfig['accepted']
+      const { label: header, format, width, minWidth } = modelConfig['accepted']
 
       return referralsColumnHelper.accessor((row) => row.accepted, {
         id: 'accepted',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('related', () => {
-      const { label: header, format } = modelConfig['related']
+      const { label: header, format, width, minWidth } = modelConfig['related']
 
       return referralsColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('metadata', () => {
-      const { label: header, format } = modelConfig['metadata']
+      const { label: header, format, width, minWidth } = modelConfig['metadata']
 
       return referralsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_eTag', () => {
-      const { label: header, format } = modelConfig['_eTag']
+      const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
       return referralsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {
@@ -236,39 +272,47 @@ export const referralsTypesColumnHelper = createColumnHelper<ReferralTypeModel>(
 export const getReferralsTypesColumn = (property: string, modelConfig: ModelConfig<ReferralTypeModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return referralsTypesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return referralsTypesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return referralsTypesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('name', () => {
-      const { label: header, format } = modelConfig['name']
+      const { label: header, format, width, minWidth } = modelConfig['name']
 
       return referralsTypesColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

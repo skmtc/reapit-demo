@@ -116,6 +116,7 @@ export const getApiLandlordsIdFn = async ({ id, embed, extrasField }: UseGetApiL
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -125,10 +126,10 @@ export const getApiLandlordsIdFn = async ({ id, embed, extrasField }: UseGetApiL
 
   return landlordModel.parse(data)
 }
-export const useGetApiLandlordsId = (args: UseGetApiLandlordsIdArgs) => {
+export const useGetApiLandlordsId = ({ id, embed, extrasField }: UseGetApiLandlordsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Landlords'],
-    queryFn: () => getApiLandlordsIdFn(args),
+    queryKey: ['Landlords', id, embed, extrasField],
+    queryFn: () => getApiLandlordsIdFn({ id, embed, extrasField }),
   })
 
   return result
@@ -242,6 +243,7 @@ export const getApiLandlordsIdRelationshipsRelationshipIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -251,12 +253,13 @@ export const getApiLandlordsIdRelationshipsRelationshipIdFn = async ({
 
   return landlordContactRelationshipModel.parse(data)
 }
-export const useGetApiLandlordsIdRelationshipsRelationshipId = (
-  args: UseGetApiLandlordsIdRelationshipsRelationshipIdArgs,
-) => {
+export const useGetApiLandlordsIdRelationshipsRelationshipId = ({
+  id,
+  relationshipId,
+}: UseGetApiLandlordsIdRelationshipsRelationshipIdArgs) => {
   const result = useQuery({
-    queryKey: ['Landlords'],
-    queryFn: () => getApiLandlordsIdRelationshipsRelationshipIdFn(args),
+    queryKey: ['Landlords', id, relationshipId],
+    queryFn: () => getApiLandlordsIdRelationshipsRelationshipIdFn({ id, relationshipId }),
   })
 
   return result

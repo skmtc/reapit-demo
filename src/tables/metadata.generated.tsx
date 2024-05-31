@@ -18,48 +18,58 @@ export const metadataColumnHelper = createColumnHelper<MetadataModel>()
 export const getMetadataColumn = (property: string, modelConfig: ModelConfig<MetadataModel>) => {
   return match(property)
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return metadataColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return metadataColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('entityType', () => {
-      const { label: header, format } = modelConfig['entityType']
+      const { label: header, format, width, minWidth } = modelConfig['entityType']
 
       return metadataColumnHelper.accessor((row) => row.entityType, {
         id: 'entityType',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('entityId', () => {
-      const { label: header, format } = modelConfig['entityId']
+      const { label: header, format, width, minWidth } = modelConfig['entityId']
 
       return metadataColumnHelper.accessor((row) => row.entityId, {
         id: 'entityId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('metadata', () => {
-      const { label: header, format } = modelConfig['metadata']
+      const { label: header, format, width, minWidth } = modelConfig['metadata']
 
       return metadataColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

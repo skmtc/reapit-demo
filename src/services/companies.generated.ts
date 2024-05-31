@@ -115,6 +115,7 @@ export const getApiCompaniesIdFn = async ({ id, embed }: UseGetApiCompaniesIdArg
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -124,10 +125,10 @@ export const getApiCompaniesIdFn = async ({ id, embed }: UseGetApiCompaniesIdArg
 
   return companyModel.parse(data)
 }
-export const useGetApiCompaniesId = (args: UseGetApiCompaniesIdArgs) => {
+export const useGetApiCompaniesId = ({ id, embed }: UseGetApiCompaniesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Companies'],
-    queryFn: () => getApiCompaniesIdFn(args),
+    queryKey: ['Companies', id, embed],
+    queryFn: () => getApiCompaniesIdFn({ id, embed }),
   })
 
   return result
@@ -206,6 +207,7 @@ export const getApiCompaniesIdStaffMembersFn = async ({ id }: UseGetApiCompanies
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -215,10 +217,10 @@ export const getApiCompaniesIdStaffMembersFn = async ({ id }: UseGetApiCompanies
 
   return staffModelPagedResult.parse(data)
 }
-export const useGetApiCompaniesIdStaffMembers = (args: UseGetApiCompaniesIdStaffMembersArgs) => {
+export const useGetApiCompaniesIdStaffMembers = ({ id }: UseGetApiCompaniesIdStaffMembersArgs) => {
   const result = useQuery({
-    queryKey: ['Companies'],
-    queryFn: () => getApiCompaniesIdStaffMembersFn(args),
+    queryKey: ['Companies', id],
+    queryFn: () => getApiCompaniesIdStaffMembersFn({ id }),
   })
 
   return result

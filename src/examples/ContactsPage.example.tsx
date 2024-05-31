@@ -39,10 +39,10 @@ const fieldNames = fieldsConfig<ContactModel>({
   communicationPreferencePhone: true,
   communicationPreferenceSMS: true,
   additionalContactDetails: true,
-  metadata: true,
-  _eTag: true,
-  extrasField: true,
-  relationships: true,
+  metadata: false,
+  _eTag: false,
+  extrasField: false,
+  relationships: false,
 })
 
 export const Contacts = () => {
@@ -51,7 +51,7 @@ export const Contacts = () => {
   const { table, dataQuery } = useContactsTable({ columns })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">Contacts</Typography>
         <Button

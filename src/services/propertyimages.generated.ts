@@ -106,6 +106,7 @@ export const getApiPropertyImagesIdFn = async ({ id, embed }: UseGetApiPropertyI
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -115,10 +116,10 @@ export const getApiPropertyImagesIdFn = async ({ id, embed }: UseGetApiPropertyI
 
   return propertyImageModel.parse(data)
 }
-export const useGetApiPropertyImagesId = (args: UseGetApiPropertyImagesIdArgs) => {
+export const useGetApiPropertyImagesId = ({ id, embed }: UseGetApiPropertyImagesIdArgs) => {
   const result = useQuery({
-    queryKey: ['PropertyImages'],
-    queryFn: () => getApiPropertyImagesIdFn(args),
+    queryKey: ['PropertyImages', id, embed],
+    queryFn: () => getApiPropertyImagesIdFn({ id, embed }),
   })
 
   return result

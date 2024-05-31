@@ -9,7 +9,7 @@ import { appointmentModelConfig } from '@/config/appointmentModel.example.tsx'
 const fieldNames = fieldsConfig<CreateAppointmentModel>({
   start: true,
   end: true,
-  followUpOn: true,
+  followUpOn: false,
   typeId: true,
   description: true,
   organiserId: true,

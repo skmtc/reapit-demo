@@ -44,6 +44,7 @@ export const getApiConfigurationTypesFn = async ({ type }: UseGetApiConfiguratio
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -53,10 +54,10 @@ export const getApiConfigurationTypesFn = async ({ type }: UseGetApiConfiguratio
 
   return typeModel.parse(data)
 }
-export const useGetApiConfigurationTypes = (args: UseGetApiConfigurationTypesArgs) => {
+export const useGetApiConfigurationTypes = ({ type }: UseGetApiConfigurationTypesArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationTypesFn(args),
+    queryKey: ['Configuration', type],
+    queryFn: () => getApiConfigurationTypesFn({ type }),
   })
 
   return result
@@ -68,6 +69,7 @@ export const getApiConfigurationAgencyTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -92,6 +94,7 @@ export const getApiConfigurationAgencyTypesIdFn = async ({ id }: UseGetApiConfig
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -101,10 +104,10 @@ export const getApiConfigurationAgencyTypesIdFn = async ({ id }: UseGetApiConfig
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationAgencyTypesId = (args: UseGetApiConfigurationAgencyTypesIdArgs) => {
+export const useGetApiConfigurationAgencyTypesId = ({ id }: UseGetApiConfigurationAgencyTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationAgencyTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationAgencyTypesIdFn({ id }),
   })
 
   return result
@@ -118,6 +121,7 @@ export const getApiConfigurationApplicantStatusesIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -127,10 +131,10 @@ export const getApiConfigurationApplicantStatusesIdFn = async ({
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationApplicantStatusesId = (args: UseGetApiConfigurationApplicantStatusesIdArgs) => {
+export const useGetApiConfigurationApplicantStatusesId = ({ id }: UseGetApiConfigurationApplicantStatusesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationApplicantStatusesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationApplicantStatusesIdFn({ id }),
   })
 
   return result
@@ -142,6 +146,7 @@ export const getApiConfigurationApplicantStatusesFn = async ({ id }: UseGetApiCo
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -151,10 +156,10 @@ export const getApiConfigurationApplicantStatusesFn = async ({ id }: UseGetApiCo
 
   return z.array(listItemModel).parse(data)
 }
-export const useGetApiConfigurationApplicantStatuses = (args: UseGetApiConfigurationApplicantStatusesArgs) => {
+export const useGetApiConfigurationApplicantStatuses = ({ id }: UseGetApiConfigurationApplicantStatusesArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationApplicantStatusesFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationApplicantStatusesFn({ id }),
   })
 
   return result
@@ -166,6 +171,7 @@ export const getApiConfigurationAppointmentTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -190,6 +196,7 @@ export const getApiConfigurationAppointmentTypesIdFn = async ({ id }: UseGetApiC
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -199,10 +206,10 @@ export const getApiConfigurationAppointmentTypesIdFn = async ({ id }: UseGetApiC
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationAppointmentTypesId = (args: UseGetApiConfigurationAppointmentTypesIdArgs) => {
+export const useGetApiConfigurationAppointmentTypesId = ({ id }: UseGetApiConfigurationAppointmentTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationAppointmentTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationAppointmentTypesIdFn({ id }),
   })
 
   return result
@@ -214,6 +221,7 @@ export const getApiConfigurationBoardStatusesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -238,6 +246,7 @@ export const getApiConfigurationBoardStatusesIdFn = async ({ id }: UseGetApiConf
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -247,10 +256,10 @@ export const getApiConfigurationBoardStatusesIdFn = async ({ id }: UseGetApiConf
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationBoardStatusesId = (args: UseGetApiConfigurationBoardStatusesIdArgs) => {
+export const useGetApiConfigurationBoardStatusesId = ({ id }: UseGetApiConfigurationBoardStatusesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationBoardStatusesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationBoardStatusesIdFn({ id }),
   })
 
   return result
@@ -262,6 +271,7 @@ export const getApiConfigurationBuyingPositionsFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -286,6 +296,7 @@ export const getApiConfigurationBuyingPositionsIdFn = async ({ id }: UseGetApiCo
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -295,10 +306,10 @@ export const getApiConfigurationBuyingPositionsIdFn = async ({ id }: UseGetApiCo
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationBuyingPositionsId = (args: UseGetApiConfigurationBuyingPositionsIdArgs) => {
+export const useGetApiConfigurationBuyingPositionsId = ({ id }: UseGetApiConfigurationBuyingPositionsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationBuyingPositionsIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationBuyingPositionsIdFn({ id }),
   })
 
   return result
@@ -310,6 +321,7 @@ export const getApiConfigurationBuyingReasonsFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -334,6 +346,7 @@ export const getApiConfigurationCertificateTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -358,6 +371,7 @@ export const getApiConfigurationCertificateTypesIdFn = async ({ id }: UseGetApiC
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -367,10 +381,10 @@ export const getApiConfigurationCertificateTypesIdFn = async ({ id }: UseGetApiC
 
   return certificateTypeModel.parse(data)
 }
-export const useGetApiConfigurationCertificateTypesId = (args: UseGetApiConfigurationCertificateTypesIdArgs) => {
+export const useGetApiConfigurationCertificateTypesId = ({ id }: UseGetApiConfigurationCertificateTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationCertificateTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationCertificateTypesIdFn({ id }),
   })
 
   return result
@@ -382,6 +396,7 @@ export const getApiConfigurationCompanyTypesFn = async ({ id }: UseGetApiConfigu
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -391,10 +406,10 @@ export const getApiConfigurationCompanyTypesFn = async ({ id }: UseGetApiConfigu
 
   return z.array(listItemModel).parse(data)
 }
-export const useGetApiConfigurationCompanyTypes = (args: UseGetApiConfigurationCompanyTypesArgs) => {
+export const useGetApiConfigurationCompanyTypes = ({ id }: UseGetApiConfigurationCompanyTypesArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationCompanyTypesFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationCompanyTypesFn({ id }),
   })
 
   return result
@@ -406,6 +421,7 @@ export const getApiConfigurationCompanyTypesIdFn = async ({ id }: UseGetApiConfi
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -415,10 +431,10 @@ export const getApiConfigurationCompanyTypesIdFn = async ({ id }: UseGetApiConfi
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationCompanyTypesId = (args: UseGetApiConfigurationCompanyTypesIdArgs) => {
+export const useGetApiConfigurationCompanyTypesId = ({ id }: UseGetApiConfigurationCompanyTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationCompanyTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationCompanyTypesIdFn({ id }),
   })
 
   return result
@@ -432,6 +448,7 @@ export const getApiConfigurationContactCategoriesIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -441,10 +458,10 @@ export const getApiConfigurationContactCategoriesIdFn = async ({
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationContactCategoriesId = (args: UseGetApiConfigurationContactCategoriesIdArgs) => {
+export const useGetApiConfigurationContactCategoriesId = ({ id }: UseGetApiConfigurationContactCategoriesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationContactCategoriesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationContactCategoriesIdFn({ id }),
   })
 
   return result
@@ -456,6 +473,7 @@ export const getApiConfigurationContactCategoriesFn = async ({ id }: UseGetApiCo
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -465,10 +483,10 @@ export const getApiConfigurationContactCategoriesFn = async ({ id }: UseGetApiCo
 
   return z.array(listItemModel).parse(data)
 }
-export const useGetApiConfigurationContactCategories = (args: UseGetApiConfigurationContactCategoriesArgs) => {
+export const useGetApiConfigurationContactCategories = ({ id }: UseGetApiConfigurationContactCategoriesArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationContactCategoriesFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationContactCategoriesFn({ id }),
   })
 
   return result
@@ -480,6 +498,7 @@ export const getApiConfigurationDocumentTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -504,6 +523,7 @@ export const getApiConfigurationDocumentTypesIdFn = async ({ id }: UseGetApiConf
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -513,10 +533,10 @@ export const getApiConfigurationDocumentTypesIdFn = async ({ id }: UseGetApiConf
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationDocumentTypesId = (args: UseGetApiConfigurationDocumentTypesIdArgs) => {
+export const useGetApiConfigurationDocumentTypesId = ({ id }: UseGetApiConfigurationDocumentTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationDocumentTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationDocumentTypesIdFn({ id }),
   })
 
   return result
@@ -528,6 +548,7 @@ export const getApiConfigurationFollowUpResponsesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -554,6 +575,7 @@ export const getApiConfigurationFollowUpResponsesIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -563,10 +585,10 @@ export const getApiConfigurationFollowUpResponsesIdFn = async ({
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationFollowUpResponsesId = (args: UseGetApiConfigurationFollowUpResponsesIdArgs) => {
+export const useGetApiConfigurationFollowUpResponsesId = ({ id }: UseGetApiConfigurationFollowUpResponsesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationFollowUpResponsesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationFollowUpResponsesIdFn({ id }),
   })
 
   return result
@@ -578,6 +600,7 @@ export const getApiConfigurationIdentityDocumentTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -604,6 +627,7 @@ export const getApiConfigurationIdentityDocumentTypesIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -613,12 +637,12 @@ export const getApiConfigurationIdentityDocumentTypesIdFn = async ({
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationIdentityDocumentTypesId = (
-  args: UseGetApiConfigurationIdentityDocumentTypesIdArgs,
-) => {
+export const useGetApiConfigurationIdentityDocumentTypesId = ({
+  id,
+}: UseGetApiConfigurationIdentityDocumentTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationIdentityDocumentTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationIdentityDocumentTypesIdFn({ id }),
   })
 
   return result
@@ -630,6 +654,7 @@ export const getApiConfigurationJournalEntryTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -656,6 +681,7 @@ export const getApiConfigurationJournalEntryTypesIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -665,10 +691,10 @@ export const getApiConfigurationJournalEntryTypesIdFn = async ({
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationJournalEntryTypesId = (args: UseGetApiConfigurationJournalEntryTypesIdArgs) => {
+export const useGetApiConfigurationJournalEntryTypesId = ({ id }: UseGetApiConfigurationJournalEntryTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationJournalEntryTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationJournalEntryTypesIdFn({ id }),
   })
 
   return result
@@ -680,6 +706,7 @@ export const getApiConfigurationKeyTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -704,6 +731,7 @@ export const getApiConfigurationKeyTypesIdFn = async ({ id }: UseGetApiConfigura
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -713,10 +741,10 @@ export const getApiConfigurationKeyTypesIdFn = async ({ id }: UseGetApiConfigura
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationKeyTypesId = (args: UseGetApiConfigurationKeyTypesIdArgs) => {
+export const useGetApiConfigurationKeyTypesId = ({ id }: UseGetApiConfigurationKeyTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationKeyTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationKeyTypesIdFn({ id }),
   })
 
   return result
@@ -728,6 +756,7 @@ export const getApiConfigurationPortalTypesFn = async ({ id }: UseGetApiConfigur
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -737,10 +766,10 @@ export const getApiConfigurationPortalTypesFn = async ({ id }: UseGetApiConfigur
 
   return z.array(listItemModel).parse(data)
 }
-export const useGetApiConfigurationPortalTypes = (args: UseGetApiConfigurationPortalTypesArgs) => {
+export const useGetApiConfigurationPortalTypes = ({ id }: UseGetApiConfigurationPortalTypesArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationPortalTypesFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationPortalTypesFn({ id }),
   })
 
   return result
@@ -752,6 +781,7 @@ export const getApiConfigurationPortalTypesIdFn = async ({ id }: UseGetApiConfig
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -761,10 +791,10 @@ export const getApiConfigurationPortalTypesIdFn = async ({ id }: UseGetApiConfig
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationPortalTypesId = (args: UseGetApiConfigurationPortalTypesIdArgs) => {
+export const useGetApiConfigurationPortalTypesId = ({ id }: UseGetApiConfigurationPortalTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationPortalTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationPortalTypesIdFn({ id }),
   })
 
   return result
@@ -782,6 +812,7 @@ export const getApiConfigurationPreTenancyCheckTypesFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -791,10 +822,13 @@ export const getApiConfigurationPreTenancyCheckTypesFn = async ({
 
   return z.array(listItemDetailModel).parse(data)
 }
-export const useGetApiConfigurationPreTenancyCheckTypes = (args: UseGetApiConfigurationPreTenancyCheckTypesArgs) => {
+export const useGetApiConfigurationPreTenancyCheckTypes = ({
+  active,
+  officeId,
+}: UseGetApiConfigurationPreTenancyCheckTypesArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationPreTenancyCheckTypesFn(args),
+    queryKey: ['Configuration', active, officeId],
+    queryFn: () => getApiConfigurationPreTenancyCheckTypesFn({ active, officeId }),
   })
 
   return result
@@ -808,6 +842,7 @@ export const getApiConfigurationPreTenancyCheckTypesIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -817,12 +852,12 @@ export const getApiConfigurationPreTenancyCheckTypesIdFn = async ({
 
   return listItemDetailModel.parse(data)
 }
-export const useGetApiConfigurationPreTenancyCheckTypesId = (
-  args: UseGetApiConfigurationPreTenancyCheckTypesIdArgs,
-) => {
+export const useGetApiConfigurationPreTenancyCheckTypesId = ({
+  id,
+}: UseGetApiConfigurationPreTenancyCheckTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationPreTenancyCheckTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationPreTenancyCheckTypesIdFn({ id }),
   })
 
   return result
@@ -834,6 +869,7 @@ export const getApiConfigurationPropertyServiceTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -860,6 +896,7 @@ export const getApiConfigurationPropertyServiceTypesIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -869,12 +906,12 @@ export const getApiConfigurationPropertyServiceTypesIdFn = async ({
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationPropertyServiceTypesId = (
-  args: UseGetApiConfigurationPropertyServiceTypesIdArgs,
-) => {
+export const useGetApiConfigurationPropertyServiceTypesId = ({
+  id,
+}: UseGetApiConfigurationPropertyServiceTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationPropertyServiceTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationPropertyServiceTypesIdFn({ id }),
   })
 
   return result
@@ -892,6 +929,7 @@ export const getApiConfigurationRenewalCheckTypesFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -901,10 +939,13 @@ export const getApiConfigurationRenewalCheckTypesFn = async ({
 
   return z.array(listItemDetailModel).parse(data)
 }
-export const useGetApiConfigurationRenewalCheckTypes = (args: UseGetApiConfigurationRenewalCheckTypesArgs) => {
+export const useGetApiConfigurationRenewalCheckTypes = ({
+  active,
+  officeId,
+}: UseGetApiConfigurationRenewalCheckTypesArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationRenewalCheckTypesFn(args),
+    queryKey: ['Configuration', active, officeId],
+    queryFn: () => getApiConfigurationRenewalCheckTypesFn({ active, officeId }),
   })
 
   return result
@@ -918,6 +959,7 @@ export const getApiConfigurationRenewalCheckTypesIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -927,10 +969,10 @@ export const getApiConfigurationRenewalCheckTypesIdFn = async ({
 
   return listItemDetailModel.parse(data)
 }
-export const useGetApiConfigurationRenewalCheckTypesId = (args: UseGetApiConfigurationRenewalCheckTypesIdArgs) => {
+export const useGetApiConfigurationRenewalCheckTypesId = ({ id }: UseGetApiConfigurationRenewalCheckTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationRenewalCheckTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationRenewalCheckTypesIdFn({ id }),
   })
 
   return result
@@ -942,6 +984,7 @@ export const getApiConfigurationRentInsuranceCancellationReasonsFn = async () =>
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -968,6 +1011,7 @@ export const getApiConfigurationRentInsuranceCancellationReasonsIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -977,12 +1021,12 @@ export const getApiConfigurationRentInsuranceCancellationReasonsIdFn = async ({
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationRentInsuranceCancellationReasonsId = (
-  args: UseGetApiConfigurationRentInsuranceCancellationReasonsIdArgs,
-) => {
+export const useGetApiConfigurationRentInsuranceCancellationReasonsId = ({
+  id,
+}: UseGetApiConfigurationRentInsuranceCancellationReasonsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationRentInsuranceCancellationReasonsIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationRentInsuranceCancellationReasonsIdFn({ id }),
   })
 
   return result
@@ -994,6 +1038,7 @@ export const getApiConfigurationRentingPositionsFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1018,6 +1063,7 @@ export const getApiConfigurationRentingPositionsIdFn = async ({ id }: UseGetApiC
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1027,10 +1073,10 @@ export const getApiConfigurationRentingPositionsIdFn = async ({ id }: UseGetApiC
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationRentingPositionsId = (args: UseGetApiConfigurationRentingPositionsIdArgs) => {
+export const useGetApiConfigurationRentingPositionsId = ({ id }: UseGetApiConfigurationRentingPositionsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationRentingPositionsIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationRentingPositionsIdFn({ id }),
   })
 
   return result
@@ -1042,6 +1088,7 @@ export const getApiConfigurationRuralTenancyTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1068,6 +1115,7 @@ export const getApiConfigurationRuralTenancyTypesIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1077,10 +1125,10 @@ export const getApiConfigurationRuralTenancyTypesIdFn = async ({
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationRuralTenancyTypesId = (args: UseGetApiConfigurationRuralTenancyTypesIdArgs) => {
+export const useGetApiConfigurationRuralTenancyTypesId = ({ id }: UseGetApiConfigurationRuralTenancyTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationRuralTenancyTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationRuralTenancyTypesIdFn({ id }),
   })
 
   return result
@@ -1092,6 +1140,7 @@ export const getApiConfigurationSellingReasonsFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1116,6 +1165,7 @@ export const getApiConfigurationSellingReasonsIdFn = async ({ id }: UseGetApiCon
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1125,10 +1175,10 @@ export const getApiConfigurationSellingReasonsIdFn = async ({ id }: UseGetApiCon
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationSellingReasonsId = (args: UseGetApiConfigurationSellingReasonsIdArgs) => {
+export const useGetApiConfigurationSellingReasonsId = ({ id }: UseGetApiConfigurationSellingReasonsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationSellingReasonsIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationSellingReasonsIdFn({ id }),
   })
 
   return result
@@ -1140,6 +1190,7 @@ export const getApiConfigurationSupplierTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1164,6 +1215,7 @@ export const getApiConfigurationSupplierTypesIdFn = async ({ id }: UseGetApiConf
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1173,10 +1225,10 @@ export const getApiConfigurationSupplierTypesIdFn = async ({ id }: UseGetApiConf
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationSupplierTypesId = (args: UseGetApiConfigurationSupplierTypesIdArgs) => {
+export const useGetApiConfigurationSupplierTypesId = ({ id }: UseGetApiConfigurationSupplierTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationSupplierTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationSupplierTypesIdFn({ id }),
   })
 
   return result
@@ -1188,6 +1240,7 @@ export const getApiConfigurationTaskTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1212,6 +1265,7 @@ export const getApiConfigurationTaskTypesIdFn = async ({ id }: UseGetApiConfigur
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1221,10 +1275,10 @@ export const getApiConfigurationTaskTypesIdFn = async ({ id }: UseGetApiConfigur
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationTaskTypesId = (args: UseGetApiConfigurationTaskTypesIdArgs) => {
+export const useGetApiConfigurationTaskTypesId = ({ id }: UseGetApiConfigurationTaskTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationTaskTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationTaskTypesIdFn({ id }),
   })
 
   return result
@@ -1236,6 +1290,7 @@ export const getApiConfigurationTenancyLegalStatusesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1262,6 +1317,7 @@ export const getApiConfigurationTenancyLegalStatusesIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1271,12 +1327,12 @@ export const getApiConfigurationTenancyLegalStatusesIdFn = async ({
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationTenancyLegalStatusesId = (
-  args: UseGetApiConfigurationTenancyLegalStatusesIdArgs,
-) => {
+export const useGetApiConfigurationTenancyLegalStatusesId = ({
+  id,
+}: UseGetApiConfigurationTenancyLegalStatusesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationTenancyLegalStatusesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationTenancyLegalStatusesIdFn({ id }),
   })
 
   return result
@@ -1290,6 +1346,7 @@ export const getApiConfigurationTenancyRenewalOptionsFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1299,10 +1356,12 @@ export const getApiConfigurationTenancyRenewalOptionsFn = async ({
 
   return z.array(listItemModel).parse(data)
 }
-export const useGetApiConfigurationTenancyRenewalOptions = (args: UseGetApiConfigurationTenancyRenewalOptionsArgs) => {
+export const useGetApiConfigurationTenancyRenewalOptions = ({
+  id,
+}: UseGetApiConfigurationTenancyRenewalOptionsArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationTenancyRenewalOptionsFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationTenancyRenewalOptionsFn({ id }),
   })
 
   return result
@@ -1316,6 +1375,7 @@ export const getApiConfigurationTenancyRenewalOptionsIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1325,12 +1385,12 @@ export const getApiConfigurationTenancyRenewalOptionsIdFn = async ({
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationTenancyRenewalOptionsId = (
-  args: UseGetApiConfigurationTenancyRenewalOptionsIdArgs,
-) => {
+export const useGetApiConfigurationTenancyRenewalOptionsId = ({
+  id,
+}: UseGetApiConfigurationTenancyRenewalOptionsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationTenancyRenewalOptionsIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationTenancyRenewalOptionsIdFn({ id }),
   })
 
   return result
@@ -1344,6 +1404,7 @@ export const getApiConfigurationTenancyRenewalOptionConditionsFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1353,12 +1414,12 @@ export const getApiConfigurationTenancyRenewalOptionConditionsFn = async ({
 
   return z.array(listItemModel).parse(data)
 }
-export const useGetApiConfigurationTenancyRenewalOptionConditions = (
-  args: UseGetApiConfigurationTenancyRenewalOptionConditionsArgs,
-) => {
+export const useGetApiConfigurationTenancyRenewalOptionConditions = ({
+  id,
+}: UseGetApiConfigurationTenancyRenewalOptionConditionsArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationTenancyRenewalOptionConditionsFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationTenancyRenewalOptionConditionsFn({ id }),
   })
 
   return result
@@ -1372,6 +1433,7 @@ export const getApiConfigurationTenancyRenewalOptionConditionsIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1381,12 +1443,12 @@ export const getApiConfigurationTenancyRenewalOptionConditionsIdFn = async ({
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationTenancyRenewalOptionConditionsId = (
-  args: UseGetApiConfigurationTenancyRenewalOptionConditionsIdArgs,
-) => {
+export const useGetApiConfigurationTenancyRenewalOptionConditionsId = ({
+  id,
+}: UseGetApiConfigurationTenancyRenewalOptionConditionsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationTenancyRenewalOptionConditionsIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationTenancyRenewalOptionConditionsIdFn({ id }),
   })
 
   return result
@@ -1398,6 +1460,7 @@ export const getApiConfigurationTenancyTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1422,6 +1485,7 @@ export const getApiConfigurationTenancyTypesIdFn = async ({ id }: UseGetApiConfi
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1431,10 +1495,10 @@ export const getApiConfigurationTenancyTypesIdFn = async ({ id }: UseGetApiConfi
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationTenancyTypesId = (args: UseGetApiConfigurationTenancyTypesIdArgs) => {
+export const useGetApiConfigurationTenancyTypesId = ({ id }: UseGetApiConfigurationTenancyTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationTenancyTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationTenancyTypesIdFn({ id }),
   })
 
   return result
@@ -1446,6 +1510,7 @@ export const getApiConfigurationVendorTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1470,6 +1535,7 @@ export const getApiConfigurationVendorTypesIdFn = async ({ id }: UseGetApiConfig
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1479,10 +1545,10 @@ export const getApiConfigurationVendorTypesIdFn = async ({ id }: UseGetApiConfig
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationVendorTypesId = (args: UseGetApiConfigurationVendorTypesIdArgs) => {
+export const useGetApiConfigurationVendorTypesId = ({ id }: UseGetApiConfigurationVendorTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationVendorTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationVendorTypesIdFn({ id }),
   })
 
   return result
@@ -1494,6 +1560,7 @@ export const getApiConfigurationWorksOrderTypesFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1518,6 +1585,7 @@ export const getApiConfigurationWorksOrderTypesIdFn = async ({ id }: UseGetApiCo
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1527,10 +1595,10 @@ export const getApiConfigurationWorksOrderTypesIdFn = async ({ id }: UseGetApiCo
 
   return listItemModel.parse(data)
 }
-export const useGetApiConfigurationWorksOrderTypesId = (args: UseGetApiConfigurationWorksOrderTypesIdArgs) => {
+export const useGetApiConfigurationWorksOrderTypesId = ({ id }: UseGetApiConfigurationWorksOrderTypesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Configuration'],
-    queryFn: () => getApiConfigurationWorksOrderTypesIdFn(args),
+    queryKey: ['Configuration', id],
+    queryFn: () => getApiConfigurationWorksOrderTypesIdFn({ id }),
   })
 
   return result
@@ -1542,6 +1610,7 @@ export const getApiConfigurationTerminologyFn = async () => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },

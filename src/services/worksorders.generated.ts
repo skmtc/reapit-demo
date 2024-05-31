@@ -138,6 +138,7 @@ export const getApiWorksOrdersIdFn = async ({ id, embed, extrasField }: UseGetAp
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -147,10 +148,10 @@ export const getApiWorksOrdersIdFn = async ({ id, embed, extrasField }: UseGetAp
 
   return worksOrderModel.parse(data)
 }
-export const useGetApiWorksOrdersId = (args: UseGetApiWorksOrdersIdArgs) => {
+export const useGetApiWorksOrdersId = ({ id, embed, extrasField }: UseGetApiWorksOrdersIdArgs) => {
   const result = useQuery({
-    queryKey: ['WorksOrders'],
-    queryFn: () => getApiWorksOrdersIdFn(args),
+    queryKey: ['WorksOrders', id, embed, extrasField],
+    queryFn: () => getApiWorksOrdersIdFn({ id, embed, extrasField }),
   })
 
   return result
@@ -257,6 +258,7 @@ export const getApiWorksOrdersIdItemsItemIdFn = async ({ id, itemId }: UseGetApi
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -266,10 +268,10 @@ export const getApiWorksOrdersIdItemsItemIdFn = async ({ id, itemId }: UseGetApi
 
   return worksOrderItemModel.parse(data)
 }
-export const useGetApiWorksOrdersIdItemsItemId = (args: UseGetApiWorksOrdersIdItemsItemIdArgs) => {
+export const useGetApiWorksOrdersIdItemsItemId = ({ id, itemId }: UseGetApiWorksOrdersIdItemsItemIdArgs) => {
   const result = useQuery({
-    queryKey: ['WorksOrders'],
-    queryFn: () => getApiWorksOrdersIdItemsItemIdFn(args),
+    queryKey: ['WorksOrders', id, itemId],
+    queryFn: () => getApiWorksOrdersIdItemsItemIdFn({ id, itemId }),
   })
 
   return result

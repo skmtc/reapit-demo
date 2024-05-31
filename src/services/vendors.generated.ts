@@ -21,6 +21,7 @@ export const getApiVendorsIdFn = async ({ id, embed }: UseGetApiVendorsIdArgs) =
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -30,10 +31,10 @@ export const getApiVendorsIdFn = async ({ id, embed }: UseGetApiVendorsIdArgs) =
 
   return vendorModel.parse(data)
 }
-export const useGetApiVendorsId = (args: UseGetApiVendorsIdArgs) => {
+export const useGetApiVendorsId = ({ id, embed }: UseGetApiVendorsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Vendors'],
-    queryFn: () => getApiVendorsIdFn(args),
+    queryKey: ['Vendors', id, embed],
+    queryFn: () => getApiVendorsIdFn({ id, embed }),
   })
 
   return result
@@ -216,6 +217,7 @@ export const getApiVendorsIdRelationshipsRelationshipIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -225,12 +227,13 @@ export const getApiVendorsIdRelationshipsRelationshipIdFn = async ({
 
   return vendorContactRelationshipModel.parse(data)
 }
-export const useGetApiVendorsIdRelationshipsRelationshipId = (
-  args: UseGetApiVendorsIdRelationshipsRelationshipIdArgs,
-) => {
+export const useGetApiVendorsIdRelationshipsRelationshipId = ({
+  id,
+  relationshipId,
+}: UseGetApiVendorsIdRelationshipsRelationshipIdArgs) => {
   const result = useQuery({
-    queryKey: ['Vendors'],
-    queryFn: () => getApiVendorsIdRelationshipsRelationshipIdFn(args),
+    queryKey: ['Vendors', id, relationshipId],
+    queryFn: () => getApiVendorsIdRelationshipsRelationshipIdFn({ id, relationshipId }),
   })
 
   return result

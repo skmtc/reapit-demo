@@ -33,183 +33,223 @@ export const offersColumnHelper = createColumnHelper<OfferModel>()
 export const getOffersColumn = (property: string, modelConfig: ModelConfig<OfferModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return offersColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return offersColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return offersColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return offersColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return offersColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('currency', () => {
-      const { label: header, format } = modelConfig['currency']
+      const { label: header, format, width, minWidth } = modelConfig['currency']
 
       return offersColumnHelper.accessor((row) => row.currency, {
         id: 'currency',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('applicantId', () => {
-      const { label: header, format } = modelConfig['applicantId']
+      const { label: header, format, width, minWidth } = modelConfig['applicantId']
 
       return offersColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('companyId', () => {
-      const { label: header, format } = modelConfig['companyId']
+      const { label: header, format, width, minWidth } = modelConfig['companyId']
 
       return offersColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('contactId', () => {
-      const { label: header, format } = modelConfig['contactId']
+      const { label: header, format, width, minWidth } = modelConfig['contactId']
 
       return offersColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('propertyId', () => {
-      const { label: header, format } = modelConfig['propertyId']
+      const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
       return offersColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('negotiatorId', () => {
-      const { label: header, format } = modelConfig['negotiatorId']
+      const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
       return offersColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('date', () => {
-      const { label: header, format } = modelConfig['date']
+      const { label: header, format, width, minWidth } = modelConfig['date']
 
       return offersColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('amount', () => {
-      const { label: header, format } = modelConfig['amount']
+      const { label: header, format, width, minWidth } = modelConfig['amount']
 
       return offersColumnHelper.accessor((row) => row.amount, {
         id: 'amount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('status', () => {
-      const { label: header, format } = modelConfig['status']
+      const { label: header, format, width, minWidth } = modelConfig['status']
 
       return offersColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('inclusions', () => {
-      const { label: header, format } = modelConfig['inclusions']
+      const { label: header, format, width, minWidth } = modelConfig['inclusions']
 
       return offersColumnHelper.accessor((row) => row.inclusions, {
         id: 'inclusions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('exclusions', () => {
-      const { label: header, format } = modelConfig['exclusions']
+      const { label: header, format, width, minWidth } = modelConfig['exclusions']
 
       return offersColumnHelper.accessor((row) => row.exclusions, {
         id: 'exclusions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('conditions', () => {
-      const { label: header, format } = modelConfig['conditions']
+      const { label: header, format, width, minWidth } = modelConfig['conditions']
 
       return offersColumnHelper.accessor((row) => row.conditions, {
         id: 'conditions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('related', () => {
-      const { label: header, format } = modelConfig['related']
+      const { label: header, format, width, minWidth } = modelConfig['related']
 
       return offersColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('metadata', () => {
-      const { label: header, format } = modelConfig['metadata']
+      const { label: header, format, width, minWidth } = modelConfig['metadata']
 
       return offersColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_eTag', () => {
-      const { label: header, format } = modelConfig['_eTag']
+      const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
       return offersColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

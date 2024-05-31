@@ -9,8 +9,8 @@ import { OfficeModel } from '@/schemas/index.ts'
 import { officeModelConfig } from '@/config/officeModel.example.tsx'
 
 const fieldNames = fieldsConfig<OfficeModel>({
-  _links: true,
-  _embedded: true,
+  _links: false,
+  _embedded: false,
   id: true,
   created: true,
   modified: true,
@@ -22,9 +22,9 @@ const fieldNames = fieldsConfig<OfficeModel>({
   additionalContactDetails: true,
   workPhone: true,
   email: true,
-  metadata: true,
-  _eTag: true,
-  extrasField: true,
+  metadata: false,
+  _eTag: false,
+  extrasField: false,
 })
 
 export const Offices = () => {
@@ -33,7 +33,7 @@ export const Offices = () => {
   const { table, dataQuery } = useOfficesTable({ columns })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">Offices</Typography>
         <Button

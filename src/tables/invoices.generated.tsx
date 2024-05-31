@@ -78,147 +78,179 @@ export const invoicesColumnHelper = createColumnHelper<InvoiceModel>()
 export const getInvoicesColumn = (property: string, modelConfig: ModelConfig<InvoiceModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return invoicesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return invoicesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return invoicesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return invoicesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return invoicesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('reference', () => {
-      const { label: header, format } = modelConfig['reference']
+      const { label: header, format, width, minWidth } = modelConfig['reference']
 
       return invoicesColumnHelper.accessor((row) => row.reference, {
         id: 'reference',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('negotiatorId', () => {
-      const { label: header, format } = modelConfig['negotiatorId']
+      const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
       return invoicesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('propertyId', () => {
-      const { label: header, format } = modelConfig['propertyId']
+      const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
       return invoicesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('description', () => {
-      const { label: header, format } = modelConfig['description']
+      const { label: header, format, width, minWidth } = modelConfig['description']
 
       return invoicesColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('status', () => {
-      const { label: header, format } = modelConfig['status']
+      const { label: header, format, width, minWidth } = modelConfig['status']
 
       return invoicesColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('date', () => {
-      const { label: header, format } = modelConfig['date']
+      const { label: header, format, width, minWidth } = modelConfig['date']
 
       return invoicesColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('dueDate', () => {
-      const { label: header, format } = modelConfig['dueDate']
+      const { label: header, format, width, minWidth } = modelConfig['dueDate']
 
       return invoicesColumnHelper.accessor((row) => row.dueDate, {
         id: 'dueDate',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('isRaised', () => {
-      const { label: header, format } = modelConfig['isRaised']
+      const { label: header, format, width, minWidth } = modelConfig['isRaised']
 
       return invoicesColumnHelper.accessor((row) => row.isRaised, {
         id: 'isRaised',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('netAmount', () => {
-      const { label: header, format } = modelConfig['netAmount']
+      const { label: header, format, width, minWidth } = modelConfig['netAmount']
 
       return invoicesColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('vatAmount', () => {
-      const { label: header, format } = modelConfig['vatAmount']
+      const { label: header, format, width, minWidth } = modelConfig['vatAmount']
 
       return invoicesColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('outstandingAmount', () => {
-      const { label: header, format } = modelConfig['outstandingAmount']
+      const { label: header, format, width, minWidth } = modelConfig['outstandingAmount']
 
       return invoicesColumnHelper.accessor((row) => row.outstandingAmount, {
         id: 'outstandingAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {
@@ -264,120 +296,146 @@ export const invoicesPaymentsColumnHelper = createColumnHelper<PaymentModel>()
 export const getInvoicesPaymentsColumn = (property: string, modelConfig: ModelConfig<PaymentModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('negotiatorId', () => {
-      const { label: header, format } = modelConfig['negotiatorId']
+      const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('propertyId', () => {
-      const { label: header, format } = modelConfig['propertyId']
+      const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('invoiceId', () => {
-      const { label: header, format } = modelConfig['invoiceId']
+      const { label: header, format, width, minWidth } = modelConfig['invoiceId']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('description', () => {
-      const { label: header, format } = modelConfig['description']
+      const { label: header, format, width, minWidth } = modelConfig['description']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('type', () => {
-      const { label: header, format } = modelConfig['type']
+      const { label: header, format, width, minWidth } = modelConfig['type']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('date', () => {
-      const { label: header, format } = modelConfig['date']
+      const { label: header, format, width, minWidth } = modelConfig['date']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('netAmount', () => {
-      const { label: header, format } = modelConfig['netAmount']
+      const { label: header, format, width, minWidth } = modelConfig['netAmount']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('vatAmount', () => {
-      const { label: header, format } = modelConfig['vatAmount']
+      const { label: header, format, width, minWidth } = modelConfig['vatAmount']
 
       return invoicesPaymentsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {
@@ -423,111 +481,135 @@ export const invoicesCreditsColumnHelper = createColumnHelper<CreditModel>()
 export const getInvoicesCreditsColumn = (property: string, modelConfig: ModelConfig<CreditModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return invoicesCreditsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return invoicesCreditsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return invoicesCreditsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return invoicesCreditsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return invoicesCreditsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('negotiatorId', () => {
-      const { label: header, format } = modelConfig['negotiatorId']
+      const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
       return invoicesCreditsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('propertyId', () => {
-      const { label: header, format } = modelConfig['propertyId']
+      const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
       return invoicesCreditsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('invoiceId', () => {
-      const { label: header, format } = modelConfig['invoiceId']
+      const { label: header, format, width, minWidth } = modelConfig['invoiceId']
 
       return invoicesCreditsColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('description', () => {
-      const { label: header, format } = modelConfig['description']
+      const { label: header, format, width, minWidth } = modelConfig['description']
 
       return invoicesCreditsColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('date', () => {
-      const { label: header, format } = modelConfig['date']
+      const { label: header, format, width, minWidth } = modelConfig['date']
 
       return invoicesCreditsColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('netAmount', () => {
-      const { label: header, format } = modelConfig['netAmount']
+      const { label: header, format, width, minWidth } = modelConfig['netAmount']
 
       return invoicesCreditsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('vatAmount', () => {
-      const { label: header, format } = modelConfig['vatAmount']
+      const { label: header, format, width, minWidth } = modelConfig['vatAmount']
 
       return invoicesCreditsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {
@@ -573,120 +655,146 @@ export const invoicesChargesColumnHelper = createColumnHelper<ChargeModel>()
 export const getInvoicesChargesColumn = (property: string, modelConfig: ModelConfig<ChargeModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return invoicesChargesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return invoicesChargesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return invoicesChargesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return invoicesChargesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return invoicesChargesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('type', () => {
-      const { label: header, format } = modelConfig['type']
+      const { label: header, format, width, minWidth } = modelConfig['type']
 
       return invoicesChargesColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('invoiceId', () => {
-      const { label: header, format } = modelConfig['invoiceId']
+      const { label: header, format, width, minWidth } = modelConfig['invoiceId']
 
       return invoicesChargesColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('propertyId', () => {
-      const { label: header, format } = modelConfig['propertyId']
+      const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
       return invoicesChargesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('negotiatorId', () => {
-      const { label: header, format } = modelConfig['negotiatorId']
+      const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
       return invoicesChargesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('vatCode', () => {
-      const { label: header, format } = modelConfig['vatCode']
+      const { label: header, format, width, minWidth } = modelConfig['vatCode']
 
       return invoicesChargesColumnHelper.accessor((row) => row.vatCode, {
         id: 'vatCode',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('description', () => {
-      const { label: header, format } = modelConfig['description']
+      const { label: header, format, width, minWidth } = modelConfig['description']
 
       return invoicesChargesColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('netAmount', () => {
-      const { label: header, format } = modelConfig['netAmount']
+      const { label: header, format, width, minWidth } = modelConfig['netAmount']
 
       return invoicesChargesColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('vatAmount', () => {
-      const { label: header, format } = modelConfig['vatAmount']
+      const { label: header, format, width, minWidth } = modelConfig['vatAmount']
 
       return invoicesChargesColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

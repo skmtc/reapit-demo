@@ -16,210 +16,256 @@ export const departmentsColumnHelper = createColumnHelper<DepartmentModel>()
 export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<DepartmentModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return departmentsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return departmentsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return departmentsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return departmentsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return departmentsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('name', () => {
-      const { label: header, format } = modelConfig['name']
+      const { label: header, format, width, minWidth } = modelConfig['name']
 
       return departmentsColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('typeOptions', () => {
-      const { label: header, format } = modelConfig['typeOptions']
+      const { label: header, format, width, minWidth } = modelConfig['typeOptions']
 
       return departmentsColumnHelper.accessor((row) => row.typeOptions, {
         id: 'typeOptions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('styleOptions', () => {
-      const { label: header, format } = modelConfig['styleOptions']
+      const { label: header, format, width, minWidth } = modelConfig['styleOptions']
 
       return departmentsColumnHelper.accessor((row) => row.styleOptions, {
         id: 'styleOptions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('situationOptions', () => {
-      const { label: header, format } = modelConfig['situationOptions']
+      const { label: header, format, width, minWidth } = modelConfig['situationOptions']
 
       return departmentsColumnHelper.accessor((row) => row.situationOptions, {
         id: 'situationOptions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('parkingOptions', () => {
-      const { label: header, format } = modelConfig['parkingOptions']
+      const { label: header, format, width, minWidth } = modelConfig['parkingOptions']
 
       return departmentsColumnHelper.accessor((row) => row.parkingOptions, {
         id: 'parkingOptions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('ageOptions', () => {
-      const { label: header, format } = modelConfig['ageOptions']
+      const { label: header, format, width, minWidth } = modelConfig['ageOptions']
 
       return departmentsColumnHelper.accessor((row) => row.ageOptions, {
         id: 'ageOptions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('localityOptions', () => {
-      const { label: header, format } = modelConfig['localityOptions']
+      const { label: header, format, width, minWidth } = modelConfig['localityOptions']
 
       return departmentsColumnHelper.accessor((row) => row.localityOptions, {
         id: 'localityOptions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('specialFeaturesOptions', () => {
-      const { label: header, format } = modelConfig['specialFeaturesOptions']
+      const { label: header, format, width, minWidth } = modelConfig['specialFeaturesOptions']
 
       return departmentsColumnHelper.accessor((row) => row.specialFeaturesOptions, {
         id: 'specialFeaturesOptions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('commercialUseClassOptions', () => {
-      const { label: header, format } = modelConfig['commercialUseClassOptions']
+      const { label: header, format, width, minWidth } = modelConfig['commercialUseClassOptions']
 
       return departmentsColumnHelper.accessor((row) => row.commercialUseClassOptions, {
         id: 'commercialUseClassOptions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('commercialFloorLevelOptions', () => {
-      const { label: header, format } = modelConfig['commercialFloorLevelOptions']
+      const { label: header, format, width, minWidth } = modelConfig['commercialFloorLevelOptions']
 
       return departmentsColumnHelper.accessor((row) => row.commercialFloorLevelOptions, {
         id: 'commercialFloorLevelOptions',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('hasBedrooms', () => {
-      const { label: header, format } = modelConfig['hasBedrooms']
+      const { label: header, format, width, minWidth } = modelConfig['hasBedrooms']
 
       return departmentsColumnHelper.accessor((row) => row.hasBedrooms, {
         id: 'hasBedrooms',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('hasBathrooms', () => {
-      const { label: header, format } = modelConfig['hasBathrooms']
+      const { label: header, format, width, minWidth } = modelConfig['hasBathrooms']
 
       return departmentsColumnHelper.accessor((row) => row.hasBathrooms, {
         id: 'hasBathrooms',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('hasReceptionRooms', () => {
-      const { label: header, format } = modelConfig['hasReceptionRooms']
+      const { label: header, format, width, minWidth } = modelConfig['hasReceptionRooms']
 
       return departmentsColumnHelper.accessor((row) => row.hasReceptionRooms, {
         id: 'hasReceptionRooms',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('hasParkingSpaces', () => {
-      const { label: header, format } = modelConfig['hasParkingSpaces']
+      const { label: header, format, width, minWidth } = modelConfig['hasParkingSpaces']
 
       return departmentsColumnHelper.accessor((row) => row.hasParkingSpaces, {
         id: 'hasParkingSpaces',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('hasFloorLevelEnabled', () => {
-      const { label: header, format } = modelConfig['hasFloorLevelEnabled']
+      const { label: header, format, width, minWidth } = modelConfig['hasFloorLevelEnabled']
 
       return departmentsColumnHelper.accessor((row) => row.hasFloorLevelEnabled, {
         id: 'hasFloorLevelEnabled',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('hasInternalFloorsEnabled', () => {
-      const { label: header, format } = modelConfig['hasInternalFloorsEnabled']
+      const { label: header, format, width, minWidth } = modelConfig['hasInternalFloorsEnabled']
 
       return departmentsColumnHelper.accessor((row) => row.hasInternalFloorsEnabled, {
         id: 'hasInternalFloorsEnabled',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('hasTotalFloorsEnabled', () => {
-      const { label: header, format } = modelConfig['hasTotalFloorsEnabled']
+      const { label: header, format, width, minWidth } = modelConfig['hasTotalFloorsEnabled']
 
       return departmentsColumnHelper.accessor((row) => row.hasTotalFloorsEnabled, {
         id: 'hasTotalFloorsEnabled',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_eTag', () => {
-      const { label: header, format } = modelConfig['_eTag']
+      const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
       return departmentsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

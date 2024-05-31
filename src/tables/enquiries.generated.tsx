@@ -20,246 +20,300 @@ export const enquiriesColumnHelper = createColumnHelper<EnquiryModel>()
 export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<EnquiryModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return enquiriesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return enquiriesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return enquiriesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return enquiriesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return enquiriesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('title', () => {
-      const { label: header, format } = modelConfig['title']
+      const { label: header, format, width, minWidth } = modelConfig['title']
 
       return enquiriesColumnHelper.accessor((row) => row.title, {
         id: 'title',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('forename', () => {
-      const { label: header, format } = modelConfig['forename']
+      const { label: header, format, width, minWidth } = modelConfig['forename']
 
       return enquiriesColumnHelper.accessor((row) => row.forename, {
         id: 'forename',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('surname', () => {
-      const { label: header, format } = modelConfig['surname']
+      const { label: header, format, width, minWidth } = modelConfig['surname']
 
       return enquiriesColumnHelper.accessor((row) => row.surname, {
         id: 'surname',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('enquiryType', () => {
-      const { label: header, format } = modelConfig['enquiryType']
+      const { label: header, format, width, minWidth } = modelConfig['enquiryType']
 
       return enquiriesColumnHelper.accessor((row) => row.enquiryType, {
         id: 'enquiryType',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('message', () => {
-      const { label: header, format } = modelConfig['message']
+      const { label: header, format, width, minWidth } = modelConfig['message']
 
       return enquiriesColumnHelper.accessor((row) => row.message, {
         id: 'message',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('status', () => {
-      const { label: header, format } = modelConfig['status']
+      const { label: header, format, width, minWidth } = modelConfig['status']
 
       return enquiriesColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('marketingConsent', () => {
-      const { label: header, format } = modelConfig['marketingConsent']
+      const { label: header, format, width, minWidth } = modelConfig['marketingConsent']
 
       return enquiriesColumnHelper.accessor((row) => row.marketingConsent, {
         id: 'marketingConsent',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('position', () => {
-      const { label: header, format } = modelConfig['position']
+      const { label: header, format, width, minWidth } = modelConfig['position']
 
       return enquiriesColumnHelper.accessor((row) => row.position, {
         id: 'position',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('officeId', () => {
-      const { label: header, format } = modelConfig['officeId']
+      const { label: header, format, width, minWidth } = modelConfig['officeId']
 
       return enquiriesColumnHelper.accessor((row) => row.officeId, {
         id: 'officeId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('applicantId', () => {
-      const { label: header, format } = modelConfig['applicantId']
+      const { label: header, format, width, minWidth } = modelConfig['applicantId']
 
       return enquiriesColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('negotiatorId', () => {
-      const { label: header, format } = modelConfig['negotiatorId']
+      const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
       return enquiriesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('sourceName', () => {
-      const { label: header, format } = modelConfig['sourceName']
+      const { label: header, format, width, minWidth } = modelConfig['sourceName']
 
       return enquiriesColumnHelper.accessor((row) => row.sourceName, {
         id: 'sourceName',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('homePhone', () => {
-      const { label: header, format } = modelConfig['homePhone']
+      const { label: header, format, width, minWidth } = modelConfig['homePhone']
 
       return enquiriesColumnHelper.accessor((row) => row.homePhone, {
         id: 'homePhone',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('workPhone', () => {
-      const { label: header, format } = modelConfig['workPhone']
+      const { label: header, format, width, minWidth } = modelConfig['workPhone']
 
       return enquiriesColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('mobilePhone', () => {
-      const { label: header, format } = modelConfig['mobilePhone']
+      const { label: header, format, width, minWidth } = modelConfig['mobilePhone']
 
       return enquiriesColumnHelper.accessor((row) => row.mobilePhone, {
         id: 'mobilePhone',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('email', () => {
-      const { label: header, format } = modelConfig['email']
+      const { label: header, format, width, minWidth } = modelConfig['email']
 
       return enquiriesColumnHelper.accessor((row) => row.email, {
         id: 'email',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('address', () => {
-      const { label: header, format } = modelConfig['address']
+      const { label: header, format, width, minWidth } = modelConfig['address']
 
       return enquiriesColumnHelper.accessor((row) => row.address, {
         id: 'address',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('buying', () => {
-      const { label: header, format } = modelConfig['buying']
+      const { label: header, format, width, minWidth } = modelConfig['buying']
 
       return enquiriesColumnHelper.accessor((row) => row.buying, {
         id: 'buying',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('renting', () => {
-      const { label: header, format } = modelConfig['renting']
+      const { label: header, format, width, minWidth } = modelConfig['renting']
 
       return enquiriesColumnHelper.accessor((row) => row.renting, {
         id: 'renting',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('bedrooms', () => {
-      const { label: header, format } = modelConfig['bedrooms']
+      const { label: header, format, width, minWidth } = modelConfig['bedrooms']
 
       return enquiriesColumnHelper.accessor((row) => row.bedrooms, {
         id: 'bedrooms',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('propertyIds', () => {
-      const { label: header, format } = modelConfig['propertyIds']
+      const { label: header, format, width, minWidth } = modelConfig['propertyIds']
 
       return enquiriesColumnHelper.accessor((row) => row.propertyIds, {
         id: 'propertyIds',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_eTag', () => {
-      const { label: header, format } = modelConfig['_eTag']
+      const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
       return enquiriesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

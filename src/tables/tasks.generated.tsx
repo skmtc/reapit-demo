@@ -33,174 +33,212 @@ export const tasksColumnHelper = createColumnHelper<TaskModel>()
 export const getTasksColumn = (property: string, modelConfig: ModelConfig<TaskModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return tasksColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return tasksColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return tasksColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return tasksColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return tasksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('activates', () => {
-      const { label: header, format } = modelConfig['activates']
+      const { label: header, format, width, minWidth } = modelConfig['activates']
 
       return tasksColumnHelper.accessor((row) => row.activates, {
         id: 'activates',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('completed', () => {
-      const { label: header, format } = modelConfig['completed']
+      const { label: header, format, width, minWidth } = modelConfig['completed']
 
       return tasksColumnHelper.accessor((row) => row.completed, {
         id: 'completed',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('typeId', () => {
-      const { label: header, format } = modelConfig['typeId']
+      const { label: header, format, width, minWidth } = modelConfig['typeId']
 
       return tasksColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('senderId', () => {
-      const { label: header, format } = modelConfig['senderId']
+      const { label: header, format, width, minWidth } = modelConfig['senderId']
 
       return tasksColumnHelper.accessor((row) => row.senderId, {
         id: 'senderId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('text', () => {
-      const { label: header, format } = modelConfig['text']
+      const { label: header, format, width, minWidth } = modelConfig['text']
 
       return tasksColumnHelper.accessor((row) => row.text, {
         id: 'text',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('landlordId', () => {
-      const { label: header, format } = modelConfig['landlordId']
+      const { label: header, format, width, minWidth } = modelConfig['landlordId']
 
       return tasksColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('propertyId', () => {
-      const { label: header, format } = modelConfig['propertyId']
+      const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
       return tasksColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('applicantId', () => {
-      const { label: header, format } = modelConfig['applicantId']
+      const { label: header, format, width, minWidth } = modelConfig['applicantId']
 
       return tasksColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('tenancyId', () => {
-      const { label: header, format } = modelConfig['tenancyId']
+      const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
       return tasksColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('contactId', () => {
-      const { label: header, format } = modelConfig['contactId']
+      const { label: header, format, width, minWidth } = modelConfig['contactId']
 
       return tasksColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('recipientId', () => {
-      const { label: header, format } = modelConfig['recipientId']
+      const { label: header, format, width, minWidth } = modelConfig['recipientId']
 
       return tasksColumnHelper.accessor((row) => row.recipientId, {
         id: 'recipientId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('recipientType', () => {
-      const { label: header, format } = modelConfig['recipientType']
+      const { label: header, format, width, minWidth } = modelConfig['recipientType']
 
       return tasksColumnHelper.accessor((row) => row.recipientType, {
         id: 'recipientType',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('metadata', () => {
-      const { label: header, format } = modelConfig['metadata']
+      const { label: header, format, width, minWidth } = modelConfig['metadata']
 
       return tasksColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_eTag', () => {
-      const { label: header, format } = modelConfig['_eTag']
+      const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
       return tasksColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

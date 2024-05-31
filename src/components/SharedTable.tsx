@@ -3,6 +3,8 @@ import { useReducer } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { default as MuiTable } from '@mui/joy/Table'
 import { Pagination, type Embedded } from '@/components/Pagination'
+import Box from '@mui/joy/Box'
+import { useNavigate } from 'react-router-dom'
 
 type SharedTableProps<Model, Response extends Embedded<Model>> = {
   table: Table<Model>
@@ -11,50 +13,51 @@ type SharedTableProps<Model, Response extends Embedded<Model>> = {
 
 export const SharedTable = <Model, Response extends Embedded<Model>>({
   table,
-  dataQuery
+  dataQuery,
 }: SharedTableProps<Model, Response>) => {
   const rerender = useReducer(() => ({}), {})[1]
+  const navigate = useNavigate()
 
   return (
-    <div>
-      <MuiTable aria-label="basic table">
+    <Box sx={{ overflowX: 'auto' }}>
+      <MuiTable aria-label="basic table" sx={{ tableLayout: 'fixed', width: 'auto' }}>
         <thead>
-          {table.getHeaderGroups().map(headerGroup => {
-            return (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map(({ id, colSpan, column }) => {
-                  const header = column.columnDef.header as string | undefined
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map(({ id, colSpan, column }) => {
+                const header = column.columnDef.header as string | undefined
+                const minWidth = column.columnDef.minSize
+                const width = column.columnDef.size
 
-                  return (
-                    <th key={id} colSpan={colSpan}>
-                      {header ?? id}
-                    </th>
-                  )
-                })}
-              </tr>
-            )
-          })}
+                return (
+                  <th key={id} colSpan={colSpan} style={{ minWidth, width }}>
+                    {header ?? id}
+                  </th>
+                )
+              })}
+            </tr>
+          ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map(row => {
-            return (
-              <tr key={row.id}>
-                {row.getVisibleCells().map(cell => {
-                  return (
-                    <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  )
-                })}
-              </tr>
-            )
-          })}
+          {table.getRowModel().rows.map((row) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <td
+                  key={cell.id}
+                  onClick={() => {
+                    if (row.original && typeof row.original === 'object' && 'id' in row.original) {
+                      return navigate(`./${row.original.id}`)
+                    }
+                  }}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </MuiTable>
       <Pagination table={table} dataQuery={dataQuery} rerender={rerender} />
-    </div>
+    </Box>
   )
 }

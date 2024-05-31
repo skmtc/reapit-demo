@@ -115,6 +115,7 @@ export const getApiOffersIdFn = async ({ id, embed }: UseGetApiOffersIdArgs) => 
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -124,10 +125,10 @@ export const getApiOffersIdFn = async ({ id, embed }: UseGetApiOffersIdArgs) => 
 
   return offerModel.parse(data)
 }
-export const useGetApiOffersId = (args: UseGetApiOffersIdArgs) => {
+export const useGetApiOffersId = ({ id, embed }: UseGetApiOffersIdArgs) => {
   const result = useQuery({
-    queryKey: ['Offers'],
-    queryFn: () => getApiOffersIdFn(args),
+    queryKey: ['Offers', id, embed],
+    queryFn: () => getApiOffersIdFn({ id, embed }),
   })
 
   return result

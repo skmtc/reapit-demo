@@ -128,6 +128,7 @@ export const getApiDocumentsIdFn = async ({ id, embed }: UseGetApiDocumentsIdArg
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -137,10 +138,10 @@ export const getApiDocumentsIdFn = async ({ id, embed }: UseGetApiDocumentsIdArg
 
   return documentModel.parse(data)
 }
-export const useGetApiDocumentsId = (args: UseGetApiDocumentsIdArgs) => {
+export const useGetApiDocumentsId = ({ id, embed }: UseGetApiDocumentsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Documents'],
-    queryFn: () => getApiDocumentsIdFn(args),
+    queryKey: ['Documents', id, embed],
+    queryFn: () => getApiDocumentsIdFn({ id, embed }),
   })
 
   return result
@@ -216,6 +217,7 @@ export const getApiDocumentsIdDownloadFn = async ({ id }: UseGetApiDocumentsIdDo
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -225,10 +227,10 @@ export const getApiDocumentsIdDownloadFn = async ({ id }: UseGetApiDocumentsIdDo
 
   return z.void().parse(data)
 }
-export const useGetApiDocumentsIdDownload = (args: UseGetApiDocumentsIdDownloadArgs) => {
+export const useGetApiDocumentsIdDownload = ({ id }: UseGetApiDocumentsIdDownloadArgs) => {
   const result = useQuery({
-    queryKey: ['Documents'],
-    queryFn: () => getApiDocumentsIdDownloadFn(args),
+    queryKey: ['Documents', id],
+    queryFn: () => getApiDocumentsIdDownloadFn({ id }),
   })
 
   return result

@@ -156,6 +156,7 @@ export const getApiTransactionsIdFn = async ({ id }: UseGetApiTransactionsIdArgs
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -165,10 +166,10 @@ export const getApiTransactionsIdFn = async ({ id }: UseGetApiTransactionsIdArgs
 
   return transactionModel.parse(data)
 }
-export const useGetApiTransactionsId = (args: UseGetApiTransactionsIdArgs) => {
+export const useGetApiTransactionsId = ({ id }: UseGetApiTransactionsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Transactions'],
-    queryFn: () => getApiTransactionsIdFn(args),
+    queryKey: ['Transactions', id],
+    queryFn: () => getApiTransactionsIdFn({ id }),
   })
 
   return result
@@ -219,6 +220,7 @@ export const getApiTransactionsNominalAccountsIdFn = async ({ id }: UseGetApiTra
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -228,10 +230,10 @@ export const getApiTransactionsNominalAccountsIdFn = async ({ id }: UseGetApiTra
 
   return nominalAccountModel.parse(data)
 }
-export const useGetApiTransactionsNominalAccountsId = (args: UseGetApiTransactionsNominalAccountsIdArgs) => {
+export const useGetApiTransactionsNominalAccountsId = ({ id }: UseGetApiTransactionsNominalAccountsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Transactions'],
-    queryFn: () => getApiTransactionsNominalAccountsIdFn(args),
+    queryKey: ['Transactions', id],
+    queryFn: () => getApiTransactionsNominalAccountsIdFn({ id }),
   })
 
   return result

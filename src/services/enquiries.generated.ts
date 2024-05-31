@@ -88,6 +88,7 @@ export const getApiEnquiriesIdFn = async ({ id }: UseGetApiEnquiriesIdArgs) => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -97,10 +98,10 @@ export const getApiEnquiriesIdFn = async ({ id }: UseGetApiEnquiriesIdArgs) => {
 
   return enquiryModel.parse(data)
 }
-export const useGetApiEnquiriesId = (args: UseGetApiEnquiriesIdArgs) => {
+export const useGetApiEnquiriesId = ({ id }: UseGetApiEnquiriesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Enquiries'],
-    queryFn: () => getApiEnquiriesIdFn(args),
+    queryKey: ['Enquiries', id],
+    queryFn: () => getApiEnquiriesIdFn({ id }),
   })
 
   return result

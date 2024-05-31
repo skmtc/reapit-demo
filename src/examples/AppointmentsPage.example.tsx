@@ -9,8 +9,8 @@ import { AppointmentModel } from '@/schemas/index.ts'
 import { appointmentModelConfig } from '@/config/appointmentModel.example.tsx'
 
 const fieldNames = fieldsConfig<AppointmentModel>({
-  _links: true,
-  _embedded: true,
+  // _links: true,
+  // _embedded: true,
   id: true,
   created: true,
   modified: true,
@@ -50,7 +50,7 @@ export const Appointments = () => {
   const { table, dataQuery } = useAppointmentsTable({ columns })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">Appointments</Typography>
         <Button

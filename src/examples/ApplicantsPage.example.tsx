@@ -66,7 +66,7 @@ export const Applicants = () => {
   const { table, dataQuery } = useApplicantsTable({ columns })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">Applicants</Typography>
         <Button

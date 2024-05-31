@@ -24,6 +24,7 @@ type UiConfig<Model extends FieldValues> = {
 export type FixedUiConfig<Model extends FieldValues> = RestoreOptional<UiConfig<Model>, Model>
 
 export const fieldsConfig = <Model extends FieldValues>(formFields: FixedUiConfig<Model>) => {
+  console.log('FormFields', formFields)
   return Object.keys(formFields)
     .filter((fieldName): fieldName is keyof FixedUiConfig<Model> => fieldName in formFields)
     .filter((fieldName) => formFields[fieldName])
@@ -48,6 +49,8 @@ export type ConfigValue<Model extends FieldValues, FormPath extends KeyPath<Mode
   label: string
   Input: ComponentType<ContextInputProps<Model, FormPath>>
   format: (value: Model[FormPath]) => ReactNode
+  width?: number
+  minWidth?: number
 }
 
 export type ModelConfig<Model extends FieldValues> = {
@@ -63,6 +66,8 @@ export const FieldParent = <Model extends FieldValues, Key extends KeyPath<Model
   fieldName,
   fieldConfig,
 }: FieldParentProps<Model, Key>) => {
+  console.log('FieldParent', fieldName, fieldConfig)
+
   const { Input } = fieldConfig
   return <Input fieldName={fieldName} fieldConfig={fieldConfig} />
 }

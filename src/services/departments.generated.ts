@@ -41,6 +41,7 @@ export const getApiDepartmentsIdFn = async ({ id }: UseGetApiDepartmentsIdArgs) 
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -50,10 +51,10 @@ export const getApiDepartmentsIdFn = async ({ id }: UseGetApiDepartmentsIdArgs) 
 
   return departmentModel.parse(data)
 }
-export const useGetApiDepartmentsId = (args: UseGetApiDepartmentsIdArgs) => {
+export const useGetApiDepartmentsId = ({ id }: UseGetApiDepartmentsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Departments'],
-    queryFn: () => getApiDepartmentsIdFn(args),
+    queryKey: ['Departments', id],
+    queryFn: () => getApiDepartmentsIdFn({ id }),
   })
 
   return result

@@ -3,9 +3,7 @@ import Sheet from '@mui/joy/Sheet'
 import { Link as RouterLink, Outlet } from 'react-router-dom'
 import Box from '@mui/joy/Box'
 import Link from '@mui/joy/Link'
-import { GlobeAltIcon } from '@heroicons/react/24/outline'
-import { CalendarDaysIcon } from '@heroicons/react/24/outline'
-import { CubeIcon } from '@heroicons/react/24/outline'
+import { NavLinks } from '@/components/Router'
 
 export const Root = () => (
   <CssVarsProvider>
@@ -19,9 +17,7 @@ export const Root = () => (
       }}
     >
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <NavItem label="Contacts" to="/contacts" icon={<GlobeAltIcon width="24px" height="24px" />} />
-        <NavItem label="Offices" to="/offices" icon={<CubeIcon width="24px" height="24px" />} />
-        <NavItem label="Appointments" to="/appointments" icon={<CalendarDaysIcon width="24px" height="24px" />} />
+        <NavLinks />
       </Box>
       <Outlet />
     </Sheet>
@@ -34,7 +30,7 @@ type NavItemProps = {
   to: string
 }
 
-const NavItem = ({ icon, label, to }: NavItemProps) => (
+export const NavItem = ({ icon, label, to }: NavItemProps) => (
   <Box
     sx={{
       display: 'flex',

@@ -131,6 +131,7 @@ export const getApiContactsIdFn = async ({ id, embed, extrasField }: UseGetApiCo
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -140,10 +141,10 @@ export const getApiContactsIdFn = async ({ id, embed, extrasField }: UseGetApiCo
 
   return contactModel.parse(data)
 }
-export const useGetApiContactsId = (args: UseGetApiContactsIdArgs) => {
+export const useGetApiContactsId = ({ id, embed, extrasField }: UseGetApiContactsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Contacts'],
-    queryFn: () => getApiContactsIdFn(args),
+    queryKey: ['Contacts', id, embed, extrasField],
+    queryFn: () => getApiContactsIdFn({ id, embed, extrasField }),
   })
 
   return result
@@ -264,6 +265,7 @@ export const getApiContactsIdSubscriptionsSubscriptionIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -273,12 +275,13 @@ export const getApiContactsIdSubscriptionsSubscriptionIdFn = async ({
 
   return contactSubscriptionModel.parse(data)
 }
-export const useGetApiContactsIdSubscriptionsSubscriptionId = (
-  args: UseGetApiContactsIdSubscriptionsSubscriptionIdArgs,
-) => {
+export const useGetApiContactsIdSubscriptionsSubscriptionId = ({
+  id,
+  subscriptionId,
+}: UseGetApiContactsIdSubscriptionsSubscriptionIdArgs) => {
   const result = useQuery({
-    queryKey: ['Contacts'],
-    queryFn: () => getApiContactsIdSubscriptionsSubscriptionIdFn(args),
+    queryKey: ['Contacts', id, subscriptionId],
+    queryFn: () => getApiContactsIdSubscriptionsSubscriptionIdFn({ id, subscriptionId }),
   })
 
   return result

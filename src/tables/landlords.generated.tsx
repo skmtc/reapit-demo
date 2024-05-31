@@ -34,120 +34,146 @@ export const landlordsColumnHelper = createColumnHelper<LandlordModel>()
 export const getLandlordsColumn = (property: string, modelConfig: ModelConfig<LandlordModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return landlordsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return landlordsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return landlordsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return landlordsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return landlordsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('active', () => {
-      const { label: header, format } = modelConfig['active']
+      const { label: header, format, width, minWidth } = modelConfig['active']
 
       return landlordsColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('solicitorId', () => {
-      const { label: header, format } = modelConfig['solicitorId']
+      const { label: header, format, width, minWidth } = modelConfig['solicitorId']
 
       return landlordsColumnHelper.accessor((row) => row.solicitorId, {
         id: 'solicitorId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('officeId', () => {
-      const { label: header, format } = modelConfig['officeId']
+      const { label: header, format, width, minWidth } = modelConfig['officeId']
 
       return landlordsColumnHelper.accessor((row) => row.officeId, {
         id: 'officeId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('source', () => {
-      const { label: header, format } = modelConfig['source']
+      const { label: header, format, width, minWidth } = modelConfig['source']
 
       return landlordsColumnHelper.accessor((row) => row.source, {
         id: 'source',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('related', () => {
-      const { label: header, format } = modelConfig['related']
+      const { label: header, format, width, minWidth } = modelConfig['related']
 
       return landlordsColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('metadata', () => {
-      const { label: header, format } = modelConfig['metadata']
+      const { label: header, format, width, minWidth } = modelConfig['metadata']
 
       return landlordsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('extrasField', () => {
-      const { label: header, format } = modelConfig['extrasField']
+      const { label: header, format, width, minWidth } = modelConfig['extrasField']
 
       return landlordsColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_eTag', () => {
-      const { label: header, format } = modelConfig['_eTag']
+      const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
       return landlordsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {
@@ -196,84 +222,102 @@ export const getLandlordsIdRelationshipsColumn = (
 ) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return landlordsIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return landlordsIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return landlordsIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('landlordId', () => {
-      const { label: header, format } = modelConfig['landlordId']
+      const { label: header, format, width, minWidth } = modelConfig['landlordId']
 
       return landlordsIdRelationshipsColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return landlordsIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return landlordsIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('associatedType', () => {
-      const { label: header, format } = modelConfig['associatedType']
+      const { label: header, format, width, minWidth } = modelConfig['associatedType']
 
       return landlordsIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('associatedId', () => {
-      const { label: header, format } = modelConfig['associatedId']
+      const { label: header, format, width, minWidth } = modelConfig['associatedId']
 
       return landlordsIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('isMain', () => {
-      const { label: header, format } = modelConfig['isMain']
+      const { label: header, format, width, minWidth } = modelConfig['isMain']
 
       return landlordsIdRelationshipsColumnHelper.accessor((row) => row.isMain, {
         id: 'isMain',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

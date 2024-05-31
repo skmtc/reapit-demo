@@ -96,6 +96,7 @@ export const getApiSourcesIdFn = async ({ id }: UseGetApiSourcesIdArgs) => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -105,10 +106,10 @@ export const getApiSourcesIdFn = async ({ id }: UseGetApiSourcesIdArgs) => {
 
   return sourceModel.parse(data)
 }
-export const useGetApiSourcesId = (args: UseGetApiSourcesIdArgs) => {
+export const useGetApiSourcesId = ({ id }: UseGetApiSourcesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Sources'],
-    queryFn: () => getApiSourcesIdFn(args),
+    queryKey: ['Sources', id],
+    queryFn: () => getApiSourcesIdFn({ id }),
   })
 
   return result

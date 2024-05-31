@@ -27,147 +27,179 @@ export const officesColumnHelper = createColumnHelper<OfficeModel>()
 export const getOfficesColumn = (property: string, modelConfig: ModelConfig<OfficeModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return officesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return officesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return officesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return officesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return officesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('name', () => {
-      const { label: header, format } = modelConfig['name']
+      const { label: header, format, width, minWidth } = modelConfig['name']
 
       return officesColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('manager', () => {
-      const { label: header, format } = modelConfig['manager']
+      const { label: header, format, width, minWidth } = modelConfig['manager']
 
       return officesColumnHelper.accessor((row) => row.manager, {
         id: 'manager',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('active', () => {
-      const { label: header, format } = modelConfig['active']
+      const { label: header, format, width, minWidth } = modelConfig['active']
 
       return officesColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('region', () => {
-      const { label: header, format } = modelConfig['region']
+      const { label: header, format, width, minWidth } = modelConfig['region']
 
       return officesColumnHelper.accessor((row) => row.region, {
         id: 'region',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('address', () => {
-      const { label: header, format } = modelConfig['address']
+      const { label: header, format, width, minWidth } = modelConfig['address']
 
       return officesColumnHelper.accessor((row) => row.address, {
         id: 'address',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('additionalContactDetails', () => {
-      const { label: header, format } = modelConfig['additionalContactDetails']
+      const { label: header, format, width, minWidth } = modelConfig['additionalContactDetails']
 
       return officesColumnHelper.accessor((row) => row.additionalContactDetails, {
         id: 'additionalContactDetails',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('workPhone', () => {
-      const { label: header, format } = modelConfig['workPhone']
+      const { label: header, format, width, minWidth } = modelConfig['workPhone']
 
       return officesColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('email', () => {
-      const { label: header, format } = modelConfig['email']
+      const { label: header, format, width, minWidth } = modelConfig['email']
 
       return officesColumnHelper.accessor((row) => row.email, {
         id: 'email',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('metadata', () => {
-      const { label: header, format } = modelConfig['metadata']
+      const { label: header, format, width, minWidth } = modelConfig['metadata']
 
       return officesColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_eTag', () => {
-      const { label: header, format } = modelConfig['_eTag']
+      const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
       return officesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('extrasField', () => {
-      const { label: header, format } = modelConfig['extrasField']
+      const { label: header, format, width, minWidth } = modelConfig['extrasField']
 
       return officesColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

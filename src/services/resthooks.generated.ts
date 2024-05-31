@@ -75,6 +75,7 @@ export const getApiResthooksIdFn = async ({ id }: UseGetApiResthooksIdArgs) => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -84,10 +85,10 @@ export const getApiResthooksIdFn = async ({ id }: UseGetApiResthooksIdArgs) => {
 
   return webhookModel.parse(data)
 }
-export const useGetApiResthooksId = (args: UseGetApiResthooksIdArgs) => {
+export const useGetApiResthooksId = ({ id }: UseGetApiResthooksIdArgs) => {
   const result = useQuery({
-    queryKey: ['RestHooks'],
-    queryFn: () => getApiResthooksIdFn(args),
+    queryKey: ['RestHooks', id],
+    queryFn: () => getApiResthooksIdFn({ id }),
   })
 
   return result

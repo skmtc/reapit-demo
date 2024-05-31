@@ -117,6 +117,7 @@ export const getApiTasksIdFn = async ({ id, embed }: UseGetApiTasksIdArgs) => {
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -126,10 +127,10 @@ export const getApiTasksIdFn = async ({ id, embed }: UseGetApiTasksIdArgs) => {
 
   return taskModel.parse(data)
 }
-export const useGetApiTasksId = (args: UseGetApiTasksIdArgs) => {
+export const useGetApiTasksId = ({ id, embed }: UseGetApiTasksIdArgs) => {
   const result = useQuery({
-    queryKey: ['Tasks'],
-    queryFn: () => getApiTasksIdFn(args),
+    queryKey: ['Tasks', id, embed],
+    queryFn: () => getApiTasksIdFn({ id, embed }),
   })
 
   return result

@@ -296,6 +296,7 @@ export const getApiPropertiesIdFn = async ({ id, embed, extrasField }: UseGetApi
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -305,10 +306,10 @@ export const getApiPropertiesIdFn = async ({ id, embed, extrasField }: UseGetApi
 
   return propertyModel.parse(data)
 }
-export const useGetApiPropertiesId = (args: UseGetApiPropertiesIdArgs) => {
+export const useGetApiPropertiesId = ({ id, embed, extrasField }: UseGetApiPropertiesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Properties'],
-    queryFn: () => getApiPropertiesIdFn(args),
+    queryKey: ['Properties', id, embed, extrasField],
+    queryFn: () => getApiPropertiesIdFn({ id, embed, extrasField }),
   })
 
   return result
@@ -424,6 +425,7 @@ export const getApiPropertiesIdCertificatesCertificateIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -433,12 +435,13 @@ export const getApiPropertiesIdCertificatesCertificateIdFn = async ({
 
   return certificateModel.parse(data)
 }
-export const useGetApiPropertiesIdCertificatesCertificateId = (
-  args: UseGetApiPropertiesIdCertificatesCertificateIdArgs,
-) => {
+export const useGetApiPropertiesIdCertificatesCertificateId = ({
+  id,
+  certificateId,
+}: UseGetApiPropertiesIdCertificatesCertificateIdArgs) => {
   const result = useQuery({
-    queryKey: ['Properties'],
-    queryFn: () => getApiPropertiesIdCertificatesCertificateIdFn(args),
+    queryKey: ['Properties', id, certificateId],
+    queryFn: () => getApiPropertiesIdCertificatesCertificateIdFn({ id, certificateId }),
   })
 
   return result
@@ -494,6 +497,7 @@ export const getApiPropertiesIdCertificatesResponsibilitiesFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -503,12 +507,12 @@ export const getApiPropertiesIdCertificatesResponsibilitiesFn = async ({
 
   return propertyCertificateResponsibilitiesModel.parse(data)
 }
-export const useGetApiPropertiesIdCertificatesResponsibilities = (
-  args: UseGetApiPropertiesIdCertificatesResponsibilitiesArgs,
-) => {
+export const useGetApiPropertiesIdCertificatesResponsibilities = ({
+  id,
+}: UseGetApiPropertiesIdCertificatesResponsibilitiesArgs) => {
   const result = useQuery({
-    queryKey: ['Properties'],
-    queryFn: () => getApiPropertiesIdCertificatesResponsibilitiesFn(args),
+    queryKey: ['Properties', id],
+    queryFn: () => getApiPropertiesIdCertificatesResponsibilitiesFn({ id }),
   })
 
   return result
@@ -623,6 +627,7 @@ export const getApiPropertiesIdKeysKeyIdFn = async ({ id, keyId }: UseGetApiProp
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -632,10 +637,10 @@ export const getApiPropertiesIdKeysKeyIdFn = async ({ id, keyId }: UseGetApiProp
 
   return keysModel.parse(data)
 }
-export const useGetApiPropertiesIdKeysKeyId = (args: UseGetApiPropertiesIdKeysKeyIdArgs) => {
+export const useGetApiPropertiesIdKeysKeyId = ({ id, keyId }: UseGetApiPropertiesIdKeysKeyIdArgs) => {
   const result = useQuery({
-    queryKey: ['Properties'],
-    queryFn: () => getApiPropertiesIdKeysKeyIdFn(args),
+    queryKey: ['Properties', id, keyId],
+    queryFn: () => getApiPropertiesIdKeysKeyIdFn({ id, keyId }),
   })
 
   return result
@@ -720,6 +725,7 @@ export const getApiPropertiesIdKeysKeyIdMovementsMovementIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -729,12 +735,14 @@ export const getApiPropertiesIdKeysKeyIdMovementsMovementIdFn = async ({
 
   return keyMovementModel.parse(data)
 }
-export const useGetApiPropertiesIdKeysKeyIdMovementsMovementId = (
-  args: UseGetApiPropertiesIdKeysKeyIdMovementsMovementIdArgs,
-) => {
+export const useGetApiPropertiesIdKeysKeyIdMovementsMovementId = ({
+  id,
+  keyId,
+  movementId,
+}: UseGetApiPropertiesIdKeysKeyIdMovementsMovementIdArgs) => {
   const result = useQuery({
-    queryKey: ['Properties'],
-    queryFn: () => getApiPropertiesIdKeysKeyIdMovementsMovementIdFn(args),
+    queryKey: ['Properties', id, keyId, movementId],
+    queryFn: () => getApiPropertiesIdKeysKeyIdMovementsMovementIdFn({ id, keyId, movementId }),
   })
 
   return result
@@ -852,6 +860,7 @@ export const getApiPropertiesIdChecksCheckIdFn = async ({ id, checkId }: UseGetA
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -861,10 +870,10 @@ export const getApiPropertiesIdChecksCheckIdFn = async ({ id, checkId }: UseGetA
 
   return propertyCheckModel.parse(data)
 }
-export const useGetApiPropertiesIdChecksCheckId = (args: UseGetApiPropertiesIdChecksCheckIdArgs) => {
+export const useGetApiPropertiesIdChecksCheckId = ({ id, checkId }: UseGetApiPropertiesIdChecksCheckIdArgs) => {
   const result = useQuery({
-    queryKey: ['Properties'],
-    queryFn: () => getApiPropertiesIdChecksCheckIdFn(args),
+    queryKey: ['Properties', id, checkId],
+    queryFn: () => getApiPropertiesIdChecksCheckIdFn({ id, checkId }),
   })
 
   return result
@@ -1078,6 +1087,7 @@ export const getApiPropertiesIdAppraisalsAppraisalIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1087,10 +1097,13 @@ export const getApiPropertiesIdAppraisalsAppraisalIdFn = async ({
 
   return propertyAppraisalModel.parse(data)
 }
-export const useGetApiPropertiesIdAppraisalsAppraisalId = (args: UseGetApiPropertiesIdAppraisalsAppraisalIdArgs) => {
+export const useGetApiPropertiesIdAppraisalsAppraisalId = ({
+  id,
+  appraisalId,
+}: UseGetApiPropertiesIdAppraisalsAppraisalIdArgs) => {
   const result = useQuery({
-    queryKey: ['Properties'],
-    queryFn: () => getApiPropertiesIdAppraisalsAppraisalIdFn(args),
+    queryKey: ['Properties', id, appraisalId],
+    queryFn: () => getApiPropertiesIdAppraisalsAppraisalIdFn({ id, appraisalId }),
   })
 
   return result

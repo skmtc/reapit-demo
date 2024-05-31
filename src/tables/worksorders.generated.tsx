@@ -45,219 +45,267 @@ export const worksOrdersColumnHelper = createColumnHelper<WorksOrderModel>()
 export const getWorksOrdersColumn = (property: string, modelConfig: ModelConfig<WorksOrderModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return worksOrdersColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return worksOrdersColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return worksOrdersColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return worksOrdersColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return worksOrdersColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('companyId', () => {
-      const { label: header, format } = modelConfig['companyId']
+      const { label: header, format, width, minWidth } = modelConfig['companyId']
 
       return worksOrdersColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('propertyId', () => {
-      const { label: header, format } = modelConfig['propertyId']
+      const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
       return worksOrdersColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('tenancyId', () => {
-      const { label: header, format } = modelConfig['tenancyId']
+      const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
       return worksOrdersColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('negotiatorId', () => {
-      const { label: header, format } = modelConfig['negotiatorId']
+      const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
       return worksOrdersColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('typeId', () => {
-      const { label: header, format } = modelConfig['typeId']
+      const { label: header, format, width, minWidth } = modelConfig['typeId']
 
       return worksOrdersColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('status', () => {
-      const { label: header, format } = modelConfig['status']
+      const { label: header, format, width, minWidth } = modelConfig['status']
 
       return worksOrdersColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('description', () => {
-      const { label: header, format } = modelConfig['description']
+      const { label: header, format, width, minWidth } = modelConfig['description']
 
       return worksOrdersColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('reporter', () => {
-      const { label: header, format } = modelConfig['reporter']
+      const { label: header, format, width, minWidth } = modelConfig['reporter']
 
       return worksOrdersColumnHelper.accessor((row) => row.reporter, {
         id: 'reporter',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('priority', () => {
-      const { label: header, format } = modelConfig['priority']
+      const { label: header, format, width, minWidth } = modelConfig['priority']
 
       return worksOrdersColumnHelper.accessor((row) => row.priority, {
         id: 'priority',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('booked', () => {
-      const { label: header, format } = modelConfig['booked']
+      const { label: header, format, width, minWidth } = modelConfig['booked']
 
       return worksOrdersColumnHelper.accessor((row) => row.booked, {
         id: 'booked',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('required', () => {
-      const { label: header, format } = modelConfig['required']
+      const { label: header, format, width, minWidth } = modelConfig['required']
 
       return worksOrdersColumnHelper.accessor((row) => row.required, {
         id: 'required',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('completed', () => {
-      const { label: header, format } = modelConfig['completed']
+      const { label: header, format, width, minWidth } = modelConfig['completed']
 
       return worksOrdersColumnHelper.accessor((row) => row.completed, {
         id: 'completed',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('totalNetAmount', () => {
-      const { label: header, format } = modelConfig['totalNetAmount']
+      const { label: header, format, width, minWidth } = modelConfig['totalNetAmount']
 
       return worksOrdersColumnHelper.accessor((row) => row.totalNetAmount, {
         id: 'totalNetAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('totalVatAmount', () => {
-      const { label: header, format } = modelConfig['totalVatAmount']
+      const { label: header, format, width, minWidth } = modelConfig['totalVatAmount']
 
       return worksOrdersColumnHelper.accessor((row) => row.totalVatAmount, {
         id: 'totalVatAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('totalGrossAmount', () => {
-      const { label: header, format } = modelConfig['totalGrossAmount']
+      const { label: header, format, width, minWidth } = modelConfig['totalGrossAmount']
 
       return worksOrdersColumnHelper.accessor((row) => row.totalGrossAmount, {
         id: 'totalGrossAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('items', () => {
-      const { label: header, format } = modelConfig['items']
+      const { label: header, format, width, minWidth } = modelConfig['items']
 
       return worksOrdersColumnHelper.accessor((row) => row.items, {
         id: 'items',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('metadata', () => {
-      const { label: header, format } = modelConfig['metadata']
+      const { label: header, format, width, minWidth } = modelConfig['metadata']
 
       return worksOrdersColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('extrasField', () => {
-      const { label: header, format } = modelConfig['extrasField']
+      const { label: header, format, width, minWidth } = modelConfig['extrasField']
 
       return worksOrdersColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_eTag', () => {
-      const { label: header, format } = modelConfig['_eTag']
+      const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
       return worksOrdersColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {
@@ -303,147 +351,179 @@ export const worksOrdersIdItemsColumnHelper = createColumnHelper<WorksOrderItemM
 export const getWorksOrdersIdItemsColumn = (property: string, modelConfig: ModelConfig<WorksOrderItemModel>) => {
   return match(property)
     .with('_links', () => {
-      const { label: header, format } = modelConfig['_links']
+      const { label: header, format, width, minWidth } = modelConfig['_links']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_embedded', () => {
-      const { label: header, format } = modelConfig['_embedded']
+      const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('id', () => {
-      const { label: header, format } = modelConfig['id']
+      const { label: header, format, width, minWidth } = modelConfig['id']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('worksOrderId', () => {
-      const { label: header, format } = modelConfig['worksOrderId']
+      const { label: header, format, width, minWidth } = modelConfig['worksOrderId']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.worksOrderId, {
         id: 'worksOrderId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('created', () => {
-      const { label: header, format } = modelConfig['created']
+      const { label: header, format, width, minWidth } = modelConfig['created']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('modified', () => {
-      const { label: header, format } = modelConfig['modified']
+      const { label: header, format, width, minWidth } = modelConfig['modified']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('notes', () => {
-      const { label: header, format } = modelConfig['notes']
+      const { label: header, format, width, minWidth } = modelConfig['notes']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('chargeTo', () => {
-      const { label: header, format } = modelConfig['chargeTo']
+      const { label: header, format, width, minWidth } = modelConfig['chargeTo']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.chargeTo, {
         id: 'chargeTo',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('estimate', () => {
-      const { label: header, format } = modelConfig['estimate']
+      const { label: header, format, width, minWidth } = modelConfig['estimate']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.estimate, {
         id: 'estimate',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('estimateType', () => {
-      const { label: header, format } = modelConfig['estimateType']
+      const { label: header, format, width, minWidth } = modelConfig['estimateType']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.estimateType, {
         id: 'estimateType',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('netAmount', () => {
-      const { label: header, format } = modelConfig['netAmount']
+      const { label: header, format, width, minWidth } = modelConfig['netAmount']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('vatAmount', () => {
-      const { label: header, format } = modelConfig['vatAmount']
+      const { label: header, format, width, minWidth } = modelConfig['vatAmount']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('grossAmount', () => {
-      const { label: header, format } = modelConfig['grossAmount']
+      const { label: header, format, width, minWidth } = modelConfig['grossAmount']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.grossAmount, {
         id: 'grossAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('reserveAmount', () => {
-      const { label: header, format } = modelConfig['reserveAmount']
+      const { label: header, format, width, minWidth } = modelConfig['reserveAmount']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.reserveAmount, {
         id: 'reserveAmount',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('nominalAccountId', () => {
-      const { label: header, format } = modelConfig['nominalAccountId']
+      const { label: header, format, width, minWidth } = modelConfig['nominalAccountId']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row.nominalAccountId, {
         id: 'nominalAccountId',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .with('_eTag', () => {
-      const { label: header, format } = modelConfig['_eTag']
+      const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
       return worksOrdersIdItemsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
+        size: width,
+        minSize: minWidth,
       })
     })
     .otherwise(() => {

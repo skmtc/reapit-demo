@@ -176,6 +176,7 @@ export const getApiTenanciesIdFn = async ({ id, embed }: UseGetApiTenanciesIdArg
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -185,10 +186,10 @@ export const getApiTenanciesIdFn = async ({ id, embed }: UseGetApiTenanciesIdArg
 
   return tenancyModel.parse(data)
 }
-export const useGetApiTenanciesId = (args: UseGetApiTenanciesIdArgs) => {
+export const useGetApiTenanciesId = ({ id, embed }: UseGetApiTenanciesIdArgs) => {
   const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdFn(args),
+    queryKey: ['Tenancies', id, embed],
+    queryFn: () => getApiTenanciesIdFn({ id, embed }),
   })
 
   return result
@@ -270,6 +271,7 @@ export const getApiTenanciesIdRelationshipsRelationshipIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -279,12 +281,13 @@ export const getApiTenanciesIdRelationshipsRelationshipIdFn = async ({
 
   return tenancyContactRelationshipModel.parse(data)
 }
-export const useGetApiTenanciesIdRelationshipsRelationshipId = (
-  args: UseGetApiTenanciesIdRelationshipsRelationshipIdArgs,
-) => {
+export const useGetApiTenanciesIdRelationshipsRelationshipId = ({
+  id,
+  relationshipId,
+}: UseGetApiTenanciesIdRelationshipsRelationshipIdArgs) => {
   const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdRelationshipsRelationshipIdFn(args),
+    queryKey: ['Tenancies', id, relationshipId],
+    queryFn: () => getApiTenanciesIdRelationshipsRelationshipIdFn({ id, relationshipId }),
   })
 
   return result
@@ -367,6 +370,7 @@ export const getApiTenanciesIdChecksCheckIdFn = async ({ id, checkId }: UseGetAp
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -376,10 +380,10 @@ export const getApiTenanciesIdChecksCheckIdFn = async ({ id, checkId }: UseGetAp
 
   return tenancyCheckModel.parse(data)
 }
-export const useGetApiTenanciesIdChecksCheckId = (args: UseGetApiTenanciesIdChecksCheckIdArgs) => {
+export const useGetApiTenanciesIdChecksCheckId = ({ id, checkId }: UseGetApiTenanciesIdChecksCheckIdArgs) => {
   const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdChecksCheckIdFn(args),
+    queryKey: ['Tenancies', id, checkId],
+    queryFn: () => getApiTenanciesIdChecksCheckIdFn({ id, checkId }),
   })
 
   return result
@@ -538,6 +542,7 @@ export const getApiTenanciesIdBreakClausesClauseIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -547,10 +552,13 @@ export const getApiTenanciesIdBreakClausesClauseIdFn = async ({
 
   return tenancyBreakClauseModel.parse(data)
 }
-export const useGetApiTenanciesIdBreakClausesClauseId = (args: UseGetApiTenanciesIdBreakClausesClauseIdArgs) => {
+export const useGetApiTenanciesIdBreakClausesClauseId = ({
+  id,
+  clauseId,
+}: UseGetApiTenanciesIdBreakClausesClauseIdArgs) => {
   const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdBreakClausesClauseIdFn(args),
+    queryKey: ['Tenancies', id, clauseId],
+    queryFn: () => getApiTenanciesIdBreakClausesClauseIdFn({ id, clauseId }),
   })
 
   return result
@@ -709,6 +717,7 @@ export const getApiTenanciesIdAllowancesAllowanceIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -718,10 +727,13 @@ export const getApiTenanciesIdAllowancesAllowanceIdFn = async ({
 
   return tenancyAllowanceModel.parse(data)
 }
-export const useGetApiTenanciesIdAllowancesAllowanceId = (args: UseGetApiTenanciesIdAllowancesAllowanceIdArgs) => {
+export const useGetApiTenanciesIdAllowancesAllowanceId = ({
+  id,
+  allowanceId,
+}: UseGetApiTenanciesIdAllowancesAllowanceIdArgs) => {
   const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdAllowancesAllowanceIdFn(args),
+    queryKey: ['Tenancies', id, allowanceId],
+    queryFn: () => getApiTenanciesIdAllowancesAllowanceIdFn({ id, allowanceId }),
   })
 
   return result
@@ -880,6 +892,7 @@ export const getApiTenanciesIdResponsibilitiesResponsibilityIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -889,12 +902,13 @@ export const getApiTenanciesIdResponsibilitiesResponsibilityIdFn = async ({
 
   return tenancyResponsibilityModel.parse(data)
 }
-export const useGetApiTenanciesIdResponsibilitiesResponsibilityId = (
-  args: UseGetApiTenanciesIdResponsibilitiesResponsibilityIdArgs,
-) => {
+export const useGetApiTenanciesIdResponsibilitiesResponsibilityId = ({
+  id,
+  responsibilityId,
+}: UseGetApiTenanciesIdResponsibilitiesResponsibilityIdArgs) => {
   const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdResponsibilitiesResponsibilityIdFn(args),
+    queryKey: ['Tenancies', id, responsibilityId],
+    queryFn: () => getApiTenanciesIdResponsibilitiesResponsibilityIdFn({ id, responsibilityId }),
   })
 
   return result
@@ -1053,6 +1067,7 @@ export const getApiTenanciesIdRenewalNegotiationsRenewalIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1062,12 +1077,13 @@ export const getApiTenanciesIdRenewalNegotiationsRenewalIdFn = async ({
 
   return tenancyRenewalModelPagedResult.parse(data)
 }
-export const useGetApiTenanciesIdRenewalNegotiationsRenewalId = (
-  args: UseGetApiTenanciesIdRenewalNegotiationsRenewalIdArgs,
-) => {
+export const useGetApiTenanciesIdRenewalNegotiationsRenewalId = ({
+  id,
+  renewalId,
+}: UseGetApiTenanciesIdRenewalNegotiationsRenewalIdArgs) => {
   const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdRenewalNegotiationsRenewalIdFn(args),
+    queryKey: ['Tenancies', id, renewalId],
+    queryFn: () => getApiTenanciesIdRenewalNegotiationsRenewalIdFn({ id, renewalId }),
   })
 
   return result
@@ -1159,6 +1175,7 @@ export const getApiTenanciesIdExtensionsExtensionIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1168,10 +1185,13 @@ export const getApiTenanciesIdExtensionsExtensionIdFn = async ({
 
   return tenancyExtensionAlterationModelPagedResult.parse(data)
 }
-export const useGetApiTenanciesIdExtensionsExtensionId = (args: UseGetApiTenanciesIdExtensionsExtensionIdArgs) => {
+export const useGetApiTenanciesIdExtensionsExtensionId = ({
+  id,
+  extensionId,
+}: UseGetApiTenanciesIdExtensionsExtensionIdArgs) => {
   const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdExtensionsExtensionIdFn(args),
+    queryKey: ['Tenancies', id, extensionId],
+    queryFn: () => getApiTenanciesIdExtensionsExtensionIdFn({ id, extensionId }),
   })
 
   return result
@@ -1270,6 +1290,7 @@ export const getApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdFn = asyn
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -1279,12 +1300,14 @@ export const getApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdFn = asyn
 
   return tenancyRenewalCheckModel.parse(data)
 }
-export const useGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckId = (
-  args: UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdArgs,
-) => {
+export const useGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckId = ({
+  id,
+  renewalId,
+  checkId,
+}: UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdArgs) => {
   const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdFn(args),
+    queryKey: ['Tenancies', id, renewalId, checkId],
+    queryFn: () => getApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdFn({ id, renewalId, checkId }),
   })
 
   return result

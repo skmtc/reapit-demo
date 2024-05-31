@@ -231,6 +231,7 @@ export const getApiApplicantsIdFn = async ({ id, embed }: UseGetApiApplicantsIdA
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -240,10 +241,10 @@ export const getApiApplicantsIdFn = async ({ id, embed }: UseGetApiApplicantsIdA
 
   return applicantModel.parse(data)
 }
-export const useGetApiApplicantsId = (args: UseGetApiApplicantsIdArgs) => {
+export const useGetApiApplicantsId = ({ id, embed }: UseGetApiApplicantsIdArgs) => {
   const result = useQuery({
-    queryKey: ['Applicants'],
-    queryFn: () => getApiApplicantsIdFn(args),
+    queryKey: ['Applicants', id, embed],
+    queryFn: () => getApiApplicantsIdFn({ id, embed }),
   })
 
   return result
@@ -357,6 +358,7 @@ export const getApiApplicantsIdRelationshipsRelationshipIdFn = async ({
     {
       method: 'GET',
       headers: {
+        'api-version': 'latest',
         Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       },
     },
@@ -366,12 +368,13 @@ export const getApiApplicantsIdRelationshipsRelationshipIdFn = async ({
 
   return applicantContactRelationshipModel.parse(data)
 }
-export const useGetApiApplicantsIdRelationshipsRelationshipId = (
-  args: UseGetApiApplicantsIdRelationshipsRelationshipIdArgs,
-) => {
+export const useGetApiApplicantsIdRelationshipsRelationshipId = ({
+  id,
+  relationshipId,
+}: UseGetApiApplicantsIdRelationshipsRelationshipIdArgs) => {
   const result = useQuery({
-    queryKey: ['Applicants'],
-    queryFn: () => getApiApplicantsIdRelationshipsRelationshipIdFn(args),
+    queryKey: ['Applicants', id, relationshipId],
+    queryFn: () => getApiApplicantsIdRelationshipsRelationshipIdFn({ id, relationshipId }),
   })
 
   return result
