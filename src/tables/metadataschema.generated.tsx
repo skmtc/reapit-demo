@@ -2,19 +2,19 @@ import { schemaModel, SchemaModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useMemo, useReducer, useState } from 'react'
 import { useGetApiMetadataMetadataSchema } from '@/services/metadataschema.generated.ts'
+import { useMemo, useReducer, useState } from 'react'
 
-export type MetadataMetadataSchemaArgs = { entityType?: string | undefined; columns: ColumnsList<SchemaModel> }
+export type UseMetadataMetadataSchemaTableArgs = { entityType?: string | undefined; columns: ColumnsList<SchemaModel> }
 
-export const metadataMetadataSchemaColumnHelper = createColumnHelper<SchemaModel>()
+export const useMetadataMetadataSchemaTableColumnHelper = createColumnHelper<SchemaModel>()
 
-export const getMetadataMetadataSchemaColumn = (property: string, modelConfig: ModelConfig<SchemaModel>) => {
+export const getuseMetadataMetadataSchemaTableColumn = (property: string, modelConfig: ModelConfig<SchemaModel>) => {
   return match(property)
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return metadataMetadataSchemaColumnHelper.accessor((row) => row.id, {
+      return useMetadataMetadataSchemaTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -25,7 +25,7 @@ export const getMetadataMetadataSchemaColumn = (property: string, modelConfig: M
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return metadataMetadataSchemaColumnHelper.accessor((row) => row.modified, {
+      return useMetadataMetadataSchemaTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -36,7 +36,7 @@ export const getMetadataMetadataSchemaColumn = (property: string, modelConfig: M
     .with('schema', () => {
       const { label: header, format, width, minWidth } = modelConfig['schema']
 
-      return metadataMetadataSchemaColumnHelper.accessor((row) => row.schema, {
+      return useMetadataMetadataSchemaTableColumnHelper.accessor((row) => row.schema, {
         id: 'schema',
         header,
         cell: (info) => format(info.getValue()),
@@ -49,7 +49,7 @@ export const getMetadataMetadataSchemaColumn = (property: string, modelConfig: M
     })
 }
 
-export const useMetadataMetadataSchemaTable = (args: MetadataMetadataSchemaArgs) => {
+export const useMetadataMetadataSchemaTable = (args: UseMetadataMetadataSchemaTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

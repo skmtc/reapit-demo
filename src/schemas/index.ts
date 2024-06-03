@@ -2675,6 +2675,16 @@ For information about how to interpret this data and how it maps back to AgencyC
   _eTag?: /** The ETag for the current version of the applicant. Used for managing update concurrency */
   string | undefined
 }
+export const pagingLinkModel = linkModel
+export const applicantModelPagedResult = z.object({
+  _embedded: z.array(applicantModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a relationship between an applicant and a contact or company */
 export const applicantContactRelationshipModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -2703,6 +2713,15 @@ export type ApplicantContactRelationshipModel = {
   boolean | undefined
   fromArchive?: /** A flag denoting whether or not this relationship is archived */ boolean | undefined
 }
+export const applicantContactRelationshipModelPagedResult = z.object({
+  _embedded: z.array(applicantContactRelationshipModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of an area that properties reside in, or applicants are looking to buy/rent in */
 export const areaModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -2748,6 +2767,15 @@ This information can be used to understand the area hierarchy in a customer's sy
   Array<string> | undefined
   _eTag?: /** The ETag for the current version of the area. Used for managing update concurrency */ string | undefined
 }
+export const areaModelPagedResult = z.object({
+  _embedded: z.array(areaModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of an appointments recurrence details */
 export const recurrenceModel = z.object({
   /** The recurrence interval */ interval: z.number().int().nullable().optional(),
@@ -2896,6 +2924,15 @@ export type AppointmentModel = {
   _eTag?: /** The ETag for the current version of the appointment. Used for managing update concurrency */
   string | undefined
 }
+export const appointmentModelPagedResult = z.object({
+  _embedded: z.array(appointmentModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a calendar appointment */
 export const openHouseAttendeeModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -2926,6 +2963,15 @@ export type OpenHouseAttendeeModel = {
   _eTag?: /** The ETag for the current version of the open house attendee. Used for managing update concurrency */
   string | undefined
 }
+export const openHouseAttendeeModelPagedResult = z.object({
+  _embedded: z.array(openHouseAttendeeModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of the physical address of a building or premise */
 export const companyAddressModel = z.object({
   /** The building name */ buildingName: z.string().nullable().optional(),
@@ -3075,6 +3121,24 @@ export type CompanyModel = {
   relationships?: /** A list of relationships belonging to the company. This is later removed from the response */
   Array<CompanyRoleModel> | undefined
 }
+export const companyModelPagedResult = z.object({
+  _embedded: z.array(companyModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
+export const companyRoleModelPagedResult = z.object({
+  _embedded: z.array(companyRoleModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a contact's source */
 export const contactSourceModel = z.object({
   /** The unique identifier of the source of the contact */ id: z.string().nullable().optional(),
@@ -3232,6 +3296,24 @@ export type ContactModel = {
   relationships?: /** A list of relationships belonging to the contact. This is later removed from the response */
   Array<ContactRoleModel> | undefined
 }
+export const contactModelPagedResult = z.object({
+  _embedded: z.array(contactModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
+export const contactRoleModelPagedResult = z.object({
+  _embedded: z.array(contactRoleModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of an individual contact subscription */
 export const contactSubscriptionModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -3263,6 +3345,15 @@ export type ContactSubscriptionModel = {
   unsubscribedOn?: /** The date and time when the subscription was terminated for the associated contact */
   string | undefined
 }
+export const contactSubscriptionModelPagedResult = z.object({
+  _embedded: z.array(contactSubscriptionModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a check list item */
 export const checkListItemModel = z.object({
   /** The name of the check list item */ name: z.string().nullable().optional(),
@@ -3418,6 +3509,15 @@ export type ConveyancingModel = {
   metadata?: /** App specific metadata that has been set against this conveyancing record */
   Record<string, Record<string, never>> | undefined
 }
+export const conveyancingModelPagedResult = z.object({
+  _embedded: z.array(conveyancingModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a department */
 export const departmentModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -3510,6 +3610,15 @@ For information about how to interpret this data and how it maps back to AgencyC
   _eTag?: /** The ETag for the current version of the department. Used for managing update concurrency */
   string | undefined
 }
+export const departmentModelPagedResult = z.object({
+  _embedded: z.array(departmentModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a document */
 export const documentModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -3545,6 +3654,15 @@ export type DocumentModel = {
   _eTag?: /** The ETag for the current version of the document. Used for managing update concurrency */
   string | undefined
 }
+export const documentModelPagedResult = z.object({
+  _embedded: z.array(documentModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of the physical address of a building or premise */
 export const enquiryAddressModel = z.object({
   /** The building name */ buildingName: z.string().nullable().optional(),
@@ -3665,6 +3783,15 @@ export type EnquiryModel = {
   _eTag?: /** The ETag for the current version of the enquiry. Used for managing update concurrency */
   string | undefined
 }
+export const enquiryModelPagedResult = z.object({
+  _embedded: z.array(enquiryModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a single identity document that was provided as part of a contact identity check (eg. passport) */
 export const identityDocumentModel = z.object({
   /** The unique identifier of the identity document */ documentId: z.string().nullable().optional(),
@@ -3721,6 +3848,15 @@ export type IdentityCheckModel = {
   _eTag?: /** The ETag for the current version of the identity check. Used for managing update concurrency */
   string | undefined
 }
+export const identityCheckModelPagedResult = z.object({
+  _embedded: z.array(identityCheckModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of an individual invoice */
 export const invoiceModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -3760,6 +3896,15 @@ export type InvoiceModel = {
   vatAmount?: /** The amount of VAT due for the invoice in the system base currency */ number | undefined
   outstandingAmount?: /** The value of the invoice outstanding in the system base currency */ number | undefined
 }
+export const invoiceModelPagedResult = z.object({
+  _embedded: z.array(invoiceModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of an individual payment */
 export const paymentModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -3792,6 +3937,15 @@ export type PaymentModel = {
   netAmount?: /** The net amount due for the payment in the system base currency */ number | undefined
   vatAmount?: /** The amount of VAT due for the payment in the system base currency */ number | undefined
 }
+export const paymentModelPagedResult = z.object({
+  _embedded: z.array(paymentModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of an individual credit */
 export const creditModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -3822,6 +3976,15 @@ export type CreditModel = {
   netAmount?: /** The net amount due for the credit in the system base currency */ number | undefined
   vatAmount?: /** The amount of VAT due for the credit in the system base currency */ number | undefined
 }
+export const creditModelPagedResult = z.object({
+  _embedded: z.array(creditModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of an invoice charge */
 export const chargeModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -3857,6 +4020,15 @@ export type ChargeModel = {
   netAmount?: /** The net amount */ number | undefined
   vatAmount?: /** The VAT amount */ number | undefined
 }
+export const chargeModelPagedResult = z.object({
+  _embedded: z.array(chargeModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a journal entry */
 export const journalEntryModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -3887,6 +4059,15 @@ export type JournalEntryModel = {
   negotiatorId?: /** The unique identifier of the negotiator that created the entry */ string | undefined
   description?: /** The textual description of the journal entry event */ string | undefined
 }
+export const journalEntryModelPagedResult = z.object({
+  _embedded: z.array(journalEntryModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a landlord related journal entry */
 export const landlordJournalEntryModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -3912,6 +4093,15 @@ export type LandlordJournalEntryModel = {
   negotiatorId?: /** The unique identifier of the negotiator that created the entry */ string | undefined
   description?: /** The textual description of the journal entry event */ string | undefined
 }
+export const landlordJournalEntryModelPagedResult = z.object({
+  _embedded: z.array(landlordJournalEntryModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a landlord's source */
 export const landlordSourceModel = z.object({
   /** The unique identifier of the source of the landlord */ id: z.string().nullable().optional(),
@@ -4022,6 +4212,15 @@ export type LandlordModel = {
   _eTag?: /** The ETag for the current version of the landlord. Used for managing update concurrency */
   string | undefined
 }
+export const landlordModelPagedResult = z.object({
+  _embedded: z.array(landlordModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of relationship between a landlord and a contact or company */
 export const landlordContactRelationshipModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -4048,6 +4247,15 @@ export type LandlordContactRelationshipModel = {
   isMain?: /** A flag denoting whether or not the relationship should be regarded as the main relationship for the parent landlord entity */
   boolean | undefined
 }
+export const landlordContactRelationshipModelPagedResult = z.object({
+  _embedded: z.array(landlordContactRelationshipModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Model representing the state of a metadata record for a given entity */
 export const metadataModel = z.object({
   /** The unique identifier of this metadata record */ id: z.string().nullable().optional(),
@@ -4066,6 +4274,15 @@ export type MetadataModel = {
   entityId?: /** The unique identifier of the the entity that this metadata is associated to */ string | undefined
   metadata?: /** The JSON document content */ string | undefined
 }
+export const metadataModelPagedResult = z.object({
+  _embedded: z.array(metadataModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Model representing a JSON schema used to validate a specific entity type */
 export const schemaModel = z.object({
   /** The unique identifier of this JSON schema */ id: z.string().nullable().optional(),
@@ -4078,6 +4295,15 @@ export type SchemaModel = {
   modified?: /** The date and time of when this JSON schema was last updated */ string | undefined
   schema?: /** The JSON schema document */ string | undefined
 }
+export const schemaModelPagedResult = z.object({
+  _embedded: z.array(schemaModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a negotiator */
 export const negotiatorModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -4131,6 +4357,15 @@ export type NegotiatorModel = {
   _eTag?: /** The ETag for the current version of the negotiator. Used for managing update concurrency */
   string | undefined
 }
+export const negotiatorModelPagedResult = z.object({
+  _embedded: z.array(negotiatorModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of the physical address of a building or premise */
 export const offerContactAddressModel = z.object({
   /** The building name */ buildingName: z.string().nullable().optional(),
@@ -4246,6 +4481,15 @@ export type OfferModel = {
   Record<string, Record<string, never>> | undefined
   _eTag?: /** The ETag for the current version of the offer. Used for managing update concurrency */ string | undefined
 }
+export const offerModelPagedResult = z.object({
+  _embedded: z.array(offerModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of the geographical location of an address using coordinates */
 export const officeAddressGeolocationModel = z.object({
   /** The latitude coordinate of the coordinate pair */ latitude: z.number().nullable().optional(),
@@ -4327,6 +4571,15 @@ export type OfficeModel = {
   _eTag?: /** The ETag for the current version of the office. Used for managing update concurrency */ string | undefined
   extrasField?: /** The requested extras fields */ Record<string, Record<string, never>> | undefined
 }
+export const officeModelPagedResult = z.object({
+  _embedded: z.array(officeModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 export const propertyGeolocationModel = officeAddressGeolocationModel
 /** Representation of the physical address of a building or premise */
 export const propertyAddressModel = z.object({
@@ -5026,6 +5279,15 @@ a _subPlots_ link will be included in the collection giving you access to all th
 development, a _master_ link will be included in the collection giving you access to the master record. */
   Record<string, LinkModel> | undefined
 }
+export const propertyModelPagedResult = z.object({
+  _embedded: z.array(propertyModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a cerificate */
 export const certificateModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -5069,6 +5331,15 @@ export type CertificateModel = {
   _eTag?: /** The ETag for the current version of the certificate. Used for managing update concurrency */
   string | undefined
 }
+export const certificateModelPagedResult = z.object({
+  _embedded: z.array(certificateModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of an individual key included in a key set */
 export const individualKeyModel = z.object({
   /** The name of the individual key in the set */ name: z.string().nullable().optional(),
@@ -5109,6 +5380,15 @@ export type KeysModel = {
   keysInSet?: /** A listing of the individual keys included in the set */ Array<IndividualKeyModel> | undefined
   _eTag?: /** The ETag for the current version of the keys. Used for managing update concurrency */ string | undefined
 }
+export const keysModelPagedResult = z.object({
+  _embedded: z.array(keysModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a key movement */
 export const keyMovementModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -5151,6 +5431,15 @@ export type KeyMovementModel = {
   _eTag?: /** The ETag for the current version of the key movement. Used for managing update concurrency */
   string | undefined
 }
+export const keyMovementModelPagedResult = z.object({
+  _embedded: z.array(keyMovementModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a check */
 export const propertyCheckModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -5178,6 +5467,15 @@ export type PropertyCheckModel = {
   propertyId?: /** The unique identifier of the property that this check relates to */ string | undefined
   _eTag?: /** The ETag for the current version of the check. Used for managing update concurrency */ string | undefined
 }
+export const propertyCheckModelPagedResult = z.object({
+  _embedded: z.array(propertyCheckModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a property appraisal */
 export const propertyAppraisalModel = z.object({
   /** Unique identifier of the appraisal */ id: z.string().nullable().optional(),
@@ -5204,6 +5502,15 @@ export type PropertyAppraisalModel = {
   notes?: /** Free-text notes associated with the appraisal */ string | undefined
   _eTag?: string | undefined
 }
+export const propertyAppraisalModelPagedResult = z.object({
+  _embedded: z.array(propertyAppraisalModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a property image */
 export const propertyImageModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -5241,6 +5548,15 @@ export type PropertyImageModel = {
   boolean | undefined
   _eTag?: /** The ETag for the current version of the image. Used for managing update concurrency */ string | undefined
 }
+export const propertyImageModelPagedResult = z.object({
+  _embedded: z.array(propertyImageModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a contact */
 export const referralContactModel = z.object({
   id: z.string().nullable().optional(),
@@ -5319,6 +5635,15 @@ export type ReferralModel = {
   _eTag?: /** The ETag for the current version of the referral. Used for managing update concurrency */
   string | undefined
 }
+export const referralModelPagedResult = z.object({
+  _embedded: z.array(referralModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a referral type */
 export const referralTypeModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -5333,6 +5658,15 @@ export type ReferralTypeModel = {
   id?: string | undefined
   name?: /** The name of the referral type */ string | undefined
 }
+export const referralTypeModelPagedResult = z.object({
+  _embedded: z.array(referralTypeModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a webhook subscription */
 export const webhookModel = z.object({
   /** The unique identifier of the webhook */ id: z.string().nullable().optional(),
@@ -5360,6 +5694,15 @@ export type WebhookModel = {
   ignoreEtagOnlyChanges?: /** Flag denoting whether or events that only contain changes to etags and/or modified dates are emitted */
   boolean | undefined
 }
+export const webhookModelPagedResult = z.object({
+  _embedded: z.array(webhookModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a source of business */
 export const sourceModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -5391,6 +5734,15 @@ export type SourceModel = {
   Array<string> | undefined
   _eTag?: /** The ETag for the current version of the source. Used for managing update concurrency */ string | undefined
 }
+export const sourceModelPagedResult = z.object({
+  _embedded: z.array(sourceModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a task, which can also be an internal message */
 export const taskModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -5439,6 +5791,15 @@ export type TaskModel = {
   Record<string, Record<string, never>> | undefined
   _eTag?: /** The ETag for the current version of the task. Used for managing update concurrency */ string | undefined
 }
+export const taskModelPagedResult = z.object({
+  _embedded: z.array(taskModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of the tenancy letting fee */
 export const tenancyLettingFeeModel = z.object({
   /** The letting fee type (percentage/fixed) */ type: z.string().nullable().optional(),
@@ -5709,6 +6070,15 @@ Note that this is the original rent set on the tenancy. For tenancies that have 
   _eTag?: /** The ETag for the current version of the tenancy. Used for managing update concurrency */
   string | undefined
 }
+export const tenancyModelPagedResult = z.object({
+  _embedded: z.array(tenancyModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Read model representing a Guarantor */
 export const guarantorModel = z.object({
   /** The identifier for the guarantor record */ id: z.string().nullable().optional(),
@@ -5781,6 +6151,15 @@ export type TenancyContactRelationshipModel = {
   guarantors?: /** Collection of guarantors recorded for this relationship */ Array<GuarantorModel> | undefined
   references?: /** Collection of references recorded for this relationship */ Array<ReferenceModel> | undefined
 }
+export const tenancyContactRelationshipModelPagedResult = z.object({
+  _embedded: z.array(tenancyContactRelationshipModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a tenancy check - a process that needs to happen before a tenancy can commence or ends */
 export const tenancyCheckModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -5820,6 +6199,15 @@ for pre-configured tenancy checks, and not for custom/ad-hoc checks added to ind
   _eTag?: /** The ETag for the current version of the teanncy check. Used for managing update concurrency */
   string | undefined
 }
+export const tenancyCheckModelPagedResult = z.object({
+  _embedded: z.array(tenancyCheckModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a tenancy break clauses break from details */
 export const tenancyBreakClauseBreakFromModel = z.object({
   /** The earliest date at which the tenant/landlord can end the tenancy agreement */
@@ -5896,6 +6284,15 @@ export type TenancyBreakClauseModel = {
   _eTag?: /** The ETag for the current version of the break clause. Used for managing update concurrency */
   string | undefined
 }
+export const tenancyBreakClauseModelPagedResult = z.object({
+  _embedded: z.array(tenancyBreakClauseModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a tenancy allowance */
 export const tenancyAllowanceModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -5928,6 +6325,15 @@ export type TenancyAllowanceModel = {
   _eTag?: /** The ETag for the current version of the allowance. Used for managing update concurrency */
   string | undefined
 }
+export const tenancyAllowanceModelPagedResult = z.object({
+  _embedded: z.array(tenancyAllowanceModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a tenancies responsibility */
 export const tenancyResponsibilityModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -5960,6 +6366,15 @@ export type TenancyResponsibilityModel = {
   _eTag?: /** The ETag for the current version of the responsibility. Used for managing update concurrency */
   string | undefined
 }
+export const tenancyResponsibilityModelPagedResult = z.object({
+  _embedded: z.array(tenancyResponsibilityModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Represents rent changes in a tenancies renewal */
 export const tenancyRentChangeModel = z.object({
   /** The amount the rent has changed in the renewal */ amount: z.number().nullable().optional(),
@@ -6013,6 +6428,15 @@ export type TenancyRenewalModel = {
   _eTag?: /** The ETag for the current version of the tenancy renewal. Used for managing update concurrency */
   string | undefined
 }
+export const tenancyRenewalModelPagedResult = z.object({
+  _embedded: z.array(tenancyRenewalModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Represents a one off fee associated with tenancy extension or alteration */
 export const tenancyExtensionAlterationFeeModel = z.object({
   /** The one fee amount */ amount: z.number().nullable().optional(),
@@ -6065,6 +6489,15 @@ export type TenancyExtensionAlterationModel = {
   _eTag?: /** The ETag for the current version of the tenancy extension or alteration. Used for managing update concurrency */
   string | undefined
 }
+export const tenancyExtensionAlterationModelPagedResult = z.object({
+  _embedded: z.array(tenancyExtensionAlterationModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a tenancy renewal check */
 export const tenancyRenewalCheckModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -6104,6 +6537,15 @@ for pre-configured tenancy checks, and not for custom/ad-hoc checks added to ind
   _eTag?: /** The ETag for the current version of the teanncy check. Used for managing update concurrency */
   string | undefined
 }
+export const tenancyRenewalCheckModelPagedResult = z.object({
+  _embedded: z.array(tenancyRenewalCheckModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Model representing a transaction */
 export const transactionModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -6166,6 +6608,15 @@ export type TransactionModel = {
   _eTag?: /** The ETag for the current version of the transaction. Used for managing update concurrency */
   string | undefined
 }
+export const transactionModelPagedResult = z.object({
+  _embedded: z.array(transactionModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Model representing a nominal account */
 export const nominalAccountModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -6188,6 +6639,15 @@ export type NominalAccountModel = {
   appliesToWorksOrders?: /** Flag indicating whether or not the nominal account can be associated with works orders */
   boolean | undefined
 }
+export const nominalAccountModelPagedResult = z.object({
+  _embedded: z.array(nominalAccountModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a vendor's source */
 export const vendorSourceModel = z.object({
   /** The unique identifier of the source of the vendor */ id: z.string().nullable().optional(),
@@ -6297,6 +6757,15 @@ When set to contact, any correspondence should be sent to the related contact's 
   Record<string, Record<string, never>> | undefined
   _eTag?: /** The ETag for the current version of the vendor. Used for managing update concurrency */ string | undefined
 }
+export const vendorModelPagedResult = z.object({
+  _embedded: z.array(vendorModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a relationship between a vendor and a contact or company */
 export const vendorContactRelationshipModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -6323,6 +6792,15 @@ export type VendorContactRelationshipModel = {
   isMain?: /** A flag denoting whether or not this relationship should be regarded as the main relationship for the parent vendor entity */
   boolean | undefined
 }
+export const vendorContactRelationshipModelPagedResult = z.object({
+  _embedded: z.array(vendorContactRelationshipModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
 /** Representation of a works order item */
 export const worksOrderItemModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
@@ -6442,9 +6920,17 @@ export type WorksOrderModel = {
   _eTag?: /** The ETag for the current version of the works order. Used for managing update concurrency */
   string | undefined
 }
-export const pagingLinkModel = linkModel
-export const applicantModelPagedResult = z.object({
-  _embedded: z.array(applicantModel).nullable().optional(),
+export const worksOrderModelPagedResult = z.object({
+  _embedded: z.array(worksOrderModel).nullable().optional(),
+  pageNumber: z.number().int().nullable().optional(),
+  pageSize: z.number().int().nullable().optional(),
+  pageCount: z.number().int().nullable().optional(),
+  totalPageCount: z.number().int().nullable().optional(),
+  totalCount: z.number().int().nullable().optional(),
+  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
+})
+export const worksOrderItemModelPagedResult = z.object({
+  _embedded: z.array(worksOrderItemModel).nullable().optional(),
   pageNumber: z.number().int().nullable().optional(),
   pageSize: z.number().int().nullable().optional(),
   pageCount: z.number().int().nullable().optional(),
@@ -6520,24 +7006,6 @@ Where not specified this will default to the customer's base currency */
   Array<string> | undefined
   metadata?: /** App specific metadata to set against the applicant */ Record<string, Record<string, never>> | undefined
 }
-export const applicantContactRelationshipModelPagedResult = z.object({
-  _embedded: z.array(applicantContactRelationshipModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const areaModelPagedResult = z.object({
-  _embedded: z.array(areaModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update an existing area */
 export type UpdateAreaModel = {
   name?: /** The name of the area */ string | undefined
@@ -6548,15 +7016,6 @@ export type UpdateAreaModel = {
   officeIds?: /** A collection of unique identifiers of offices attached to the area. The first item in the collection is considered the primary office */
   Array<string> | undefined
 }
-export const appointmentModelPagedResult = z.object({
-  _embedded: z.array(appointmentModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Represents an external attendee on an appointment */
 export type UpdateAppointmentAttendeeModel = {
   id?: /** The unique identifier of the attendee. To clear an attendee this can be passed as an empty string. */
@@ -6611,30 +7070,12 @@ export type UpdateAppointmentModel = {
   metadata?: /** App specific metadata to set against the appointment */
   Record<string, Record<string, never>> | undefined
 }
-export const openHouseAttendeeModelPagedResult = z.object({
-  _embedded: z.array(openHouseAttendeeModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to upda te a new open house attendee */
 export type UpdateOpenHouseAttendeeModel = {
   interestLevel?: /** The interest level of the open house attendee (veryInterested/mightBeInterested/notInterested/notSet) */
   string | undefined
   notes?: /** Notes on this open house attendee */ string | undefined
 }
-export const companyModelPagedResult = z.object({
-  _embedded: z.array(companyModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body to set the address of an existing company */
 export type UpdateCompanyAddressModel = {
   type?: /** The type of address (primary/secondary/home/work/forwarding/company/previous) */ string | undefined
@@ -6673,15 +7114,6 @@ export type UpdateCompanyModel = {
   boolean | undefined
   metadata?: /** App specific metadata to set against the company */ Record<string, Record<string, never>> | undefined
 }
-export const companyRoleModelPagedResult = z.object({
-  _embedded: z.array(companyRoleModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Representation of a staff member */
 export const staffModel = z.object({
   /** The staff member's name */ name: z.string().nullable().optional(),
@@ -6759,15 +7191,6 @@ export const propertyTerminologyModel = z.object({
 })
 /** Representation of the configuration settings for terminology */
 export const terminologyModel = z.object({ properties: propertyTerminologyModel.nullable().optional() })
-export const contactModelPagedResult = z.object({
-  _embedded: z.array(contactModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update the source of an existing contact */
 export type UpdateContactSourceModel = {
   id?: /** The unique identifier of the source of the contact */ string | undefined
@@ -6818,33 +7241,6 @@ export type UpdateContactModel = {
   metadata?: /** App specific metadata to set against the contact */ Record<string, Record<string, never>> | undefined
   additionalContactDetails?: /** A collection of additional contact details */ Record<string, string> | undefined
 }
-export const contactRoleModelPagedResult = z.object({
-  _embedded: z.array(contactRoleModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const contactSubscriptionModelPagedResult = z.object({
-  _embedded: z.array(contactSubscriptionModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const conveyancingModelPagedResult = z.object({
-  _embedded: z.array(conveyancingModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body for updating sales progression information on an existing offer */
 export type UpdateConveyancingModel = {
   vendorSolicitorId?: /** The unique identifier of the vendor that this offer is associated to. Empty if the offer is external and relates to a property not instructed to the agent */
@@ -6887,24 +7283,6 @@ export type UpdateConveyancingModel = {
   metadata?: /** App specific metadata to set against this conveyancing record */
   Record<string, Record<string, never>> | undefined
 }
-export const departmentModelPagedResult = z.object({
-  _embedded: z.array(departmentModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const documentModelPagedResult = z.object({
-  _embedded: z.array(documentModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update an existing document */
 export type UpdateDocumentModel = {
   typeId?: /** The unique identifier of the type of document */ string | undefined
@@ -6912,30 +7290,12 @@ export type UpdateDocumentModel = {
   isPrivate?: /** A flag denoting whether or not the document is private */ boolean | undefined
   metadata?: /** App specific metadata to set against the document */ Record<string, Record<string, never>> | undefined
 }
-export const enquiryModelPagedResult = z.object({
-  _embedded: z.array(enquiryModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update an existing enquiry */
 export type UpdateEnquiryModel = {
   applicantId?: /** The unique identifier of the applicant associated to the enquiry */ string | undefined
   status?: /** The status of the enquiry (added/alreadyExists/duplicateEntry/pending/rejected/spam) */
   string | undefined
 }
-export const identityCheckModelPagedResult = z.object({
-  _embedded: z.array(identityCheckModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body to update an identity document attached to an existing contact identity check */
 export type UpdateIdentityDocumentModel = {
   typeId?: /** The unique identifier of the type of identity document provided */ string | undefined
@@ -6960,15 +7320,6 @@ export type UpdateIdentityCheckModel = {
   metadata?: /** App specific metadata to set against the identity check */
   Record<string, Record<string, never>> | undefined
 }
-export const invoiceModelPagedResult = z.object({
-  _embedded: z.array(invoiceModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Detailed representation of an individual invoice */
 export const invoiceDetailModel = z.object({
   /** Unique identifier of the invoice */ id: z.string().nullable().optional(),
@@ -6992,60 +7343,6 @@ export const invoiceDetailModel = z.object({
   _links: z.record(z.string(), linkModel).nullable().optional(),
   _embedded: z.record(z.string(), z.object({})).nullable().optional(),
 })
-export const paymentModelPagedResult = z.object({
-  _embedded: z.array(paymentModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const creditModelPagedResult = z.object({
-  _embedded: z.array(creditModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const chargeModelPagedResult = z.object({
-  _embedded: z.array(chargeModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const journalEntryModelPagedResult = z.object({
-  _embedded: z.array(journalEntryModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const landlordJournalEntryModelPagedResult = z.object({
-  _embedded: z.array(landlordJournalEntryModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const landlordModelPagedResult = z.object({
-  _embedded: z.array(landlordModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update the source of an existing landlord */
 export type UpdateLandlordSourceModel = {
   id?: /** The unique identifier of the source of the landlord */ string | undefined
@@ -7060,42 +7357,6 @@ export type UpdateLandlordModel = {
   metadata?: /** App specific metadata that to set against the landlord */
   Record<string, Record<string, never>> | undefined
 }
-export const landlordContactRelationshipModelPagedResult = z.object({
-  _embedded: z.array(landlordContactRelationshipModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const metadataModelPagedResult = z.object({
-  _embedded: z.array(metadataModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const schemaModelPagedResult = z.object({
-  _embedded: z.array(schemaModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const negotiatorModelPagedResult = z.object({
-  _embedded: z.array(negotiatorModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update an existing negotiator */
 export type UpdateNegotiatorModel = {
   name?: /** The name of the negotiator */ string | undefined
@@ -7111,15 +7372,6 @@ export type UpdateNegotiatorModel = {
   metadata?: /** App specific metadata to set against the negotiator */
   Record<string, Record<string, never>> | undefined
 }
-export const offerModelPagedResult = z.object({
-  _embedded: z.array(offerModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update an existing offer */
 export type UpdateOfferModel = {
   negotiatorId?: /** The unique identifier of the negotiator associated to the offer */ string | undefined
@@ -7133,15 +7385,6 @@ export type UpdateOfferModel = {
   string | undefined
   metadata?: /** App specific metadata to set against the offer */ Record<string, Record<string, never>> | undefined
 }
-export const officeModelPagedResult = z.object({
-  _embedded: z.array(officeModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to set the geolocation coordinates of an existing address */
 export type UpdateOfficeAddressGeolocationModel = {
   latitude?: /** The latitude coordinate of the coordinate pair */ number | undefined
@@ -7169,15 +7412,6 @@ export type UpdateOfficeModel = {
   email?: /** The email address of the office */ string | undefined
   metadata?: /** App specific metadata to set against the office */ Record<string, Record<string, never>> | undefined
 }
-export const propertyModelPagedResult = z.object({
-  _embedded: z.array(propertyModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update the geolocation coordinates of an existing property's address */
 export type UpdatePropertyGeolocationModel = {
   latitude?: /** The latitude coordinate of the coordinate pair */ number | undefined
@@ -7415,15 +7649,6 @@ export type UpdatePropertyModel = {
   availableServicesIds?: /** Identifiers of any services connected at the property */ Array<string> | undefined
   metadata?: /** App specific metadata to set against the property */ Record<string, Record<string, never>> | undefined
 }
-export const certificateModelPagedResult = z.object({
-  _embedded: z.array(certificateModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update an existing certificate */
 export type UpdateCertificateModel = {
   start?: /** The certificate's start date */ string | undefined
@@ -7462,46 +7687,10 @@ export type UpdateCertificateResponsibilitiesModel = {
   responsibleParties?: /** A collection of certificate type to responsible party mappings */
   Array<UpdateCertificateResponsiblePartyModel> | undefined
 }
-export const keysModelPagedResult = z.object({
-  _embedded: z.array(keysModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const keyMovementModelPagedResult = z.object({
-  _embedded: z.array(keyMovementModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const propertyCheckModelPagedResult = z.object({
-  _embedded: z.array(propertyCheckModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Model for the update of an existing check */
 export type UpdatePropertyCheckModel = {
   status?: /** The status of the check (needed/notNeeded/arranging/completed) */ string | undefined
 }
-export const propertyAppraisalModelPagedResult = z.object({
-  _embedded: z.array(propertyAppraisalModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Model for the creation of a new property appraisal */
 export type UpdatePropertyAppraisalModel = {
   companyId?: /** Unique identifier of the appraising company */ string | undefined
@@ -7510,29 +7699,11 @@ export type UpdatePropertyAppraisalModel = {
   fee?: PropertyCommissionFeeModel | undefined
   notes?: /** Free-text notes associated with the appraisal */ string | undefined
 }
-export const propertyImageModelPagedResult = z.object({
-  _embedded: z.array(propertyImageModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update an existing property image */
 export type UpdatePropertyImageModel = {
   caption?: /** The image caption */ string | undefined
   type?: /** The type of image (photograph/floorPlan/epc/map) */ string | undefined
 }
-export const referralModelPagedResult = z.object({
-  _embedded: z.array(referralModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Update Referral Model */
 export type UpdateReferralModel = {
   status?: /** The status of the referral (sent/succeeded/cancelled/failed/paid/declined/inProgress) */
@@ -7540,33 +7711,6 @@ export type UpdateReferralModel = {
   amount?: /** The amount paid to the agent for the referral */ number | undefined
   metadata?: /** App specific metadata to set against the referral */ Record<string, Record<string, never>> | undefined
 }
-export const referralTypeModelPagedResult = z.object({
-  _embedded: z.array(referralTypeModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const webhookModelPagedResult = z.object({
-  _embedded: z.array(webhookModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const sourceModelPagedResult = z.object({
-  _embedded: z.array(sourceModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update an existing source of business */
 export type UpdateSourceModel = {
   name?: /** The name of the source or advertising publication */ string | undefined
@@ -7576,15 +7720,6 @@ export type UpdateSourceModel = {
   departmentIds?: /** A collection of unique identifiers of departments that regularly get business from the source */
   Array<string> | undefined
 }
-export const taskModelPagedResult = z.object({
-  _embedded: z.array(taskModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update an existing task, which can also be an internal message */
 export type UpdateTaskModel = {
   activates?: /** The date the task becomes active (Required when 'TypeId' is given) */ string | undefined
@@ -7602,15 +7737,6 @@ export type UpdateTaskModel = {
   metadata?: /** App specific metadata that has been set against the task */
   Record<string, Record<string, never>> | undefined
 }
-export const tenancyModelPagedResult = z.object({
-  _embedded: z.array(tenancyModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 export type UpdateTenancySourceModel = CreateTenancySourceModel
 /** Request body used to set the deposit of a tenancy */
 export type UpdateTenancyDepositModel = {
@@ -7667,39 +7793,12 @@ export type UpdateTenancyModel = {
   managementFee?: UpdateTenancyManagementFeeModel | undefined
   metadata?: /** App specific metadata to set against the tenancy */ Record<string, Record<string, never>> | undefined
 }
-export const tenancyContactRelationshipModelPagedResult = z.object({
-  _embedded: z.array(tenancyContactRelationshipModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const tenancyCheckModelPagedResult = z.object({
-  _embedded: z.array(tenancyCheckModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Model for updat of an existing tenancy check */
 export type UpdateTenancyCheckModel = {
   status?: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string | undefined
   metadata?: /** App specific metadata to set against the tenancy check */
   Record<string, Record<string, never>> | undefined
 }
-export const tenancyBreakClauseModelPagedResult = z.object({
-  _embedded: z.array(tenancyBreakClauseModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 export type UpdateTenancyAgreementModel = CreateTenancyAgreementModel
 export type UpdateTenancyBreakFromModel = CreateTenancyBreakFromModel
 export type UpdateTenancyNoticeRequiredModel = CreateTenancyNoticeRequiredModel
@@ -7711,43 +7810,16 @@ export type UpdateTenancyBreakClauseModel = {
   breakFrom?: UpdateTenancyBreakFromModel | undefined
   noticeRequired?: UpdateTenancyNoticeRequiredModel | undefined
 }
-export const tenancyAllowanceModelPagedResult = z.object({
-  _embedded: z.array(tenancyAllowanceModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update tenancy allowance */
 export type UpdateTenancyAllowanceModel = {
   state?: /** The state of the allowance (allowed/notAllowed) */ string | undefined
   agreements?: UpdateTenancyAgreementModel | undefined
 }
-export const tenancyResponsibilityModelPagedResult = z.object({
-  _embedded: z.array(tenancyResponsibilityModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update tenancy responsibility */
 export type UpdateTenancyResponsibilityModel = {
   appliesTo?: /** The responsible party (landlord/tenant) */ string | undefined
   agreements?: UpdateTenancyAgreementModel | undefined
 }
-export const tenancyRenewalModelPagedResult = z.object({
-  _embedded: z.array(tenancyRenewalModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update a tenancy renewals letting fee */
 export type UpdateLettingFeeRenewalModel = {
   type?: /** The letting fee type (fixed/perentage) */ string | undefined
@@ -7772,48 +7844,12 @@ export type UpdateTenancyRenewalModel = {
   lettingFee?: UpdateLettingFeeRenewalModel | undefined
   managementFee?: UpdateManagementFeeRenewalModel | undefined
 }
-export const tenancyExtensionAlterationModelPagedResult = z.object({
-  _embedded: z.array(tenancyExtensionAlterationModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const tenancyRenewalCheckModelPagedResult = z.object({
-  _embedded: z.array(tenancyRenewalCheckModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update a tenancy renewal check */
 export type UpdateTenancyRenewalCheckModel = {
   status?: /** The status of the tenancy check (needed/notNeeded/arranging/completed) */ string | undefined
   metadata?: /** App specific metadata to set against the tenancy renewal check */
   Record<string, Record<string, never>> | undefined
 }
-export const transactionModelPagedResult = z.object({
-  _embedded: z.array(transactionModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const nominalAccountModelPagedResult = z.object({
-  _embedded: z.array(nominalAccountModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 export type VendorUpdateSourceModel = VendorSourceModel
 /** Request body used to update an existing vendor */
 export type UpdateVendorModel = {
@@ -7828,33 +7864,6 @@ export type UpdateVendorModel = {
   metadata?: /** App specific metadata that has been set against the vendor */
   Record<string, Record<string, never>> | undefined
 }
-export const vendorModelPagedResult = z.object({
-  _embedded: z.array(vendorModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const vendorContactRelationshipModelPagedResult = z.object({
-  _embedded: z.array(vendorContactRelationshipModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
-export const worksOrderModelPagedResult = z.object({
-  _embedded: z.array(worksOrderModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Request body used to update an existing works order */
 export type UpdateWorksOrderModel = {
   companyId?: /** The unique identifier of the company that has been selected to perform the work */ string | undefined
@@ -7873,15 +7882,6 @@ export type UpdateWorksOrderModel = {
   metadata?: /** App specific metadata to set against the works order */
   Record<string, Record<string, never>> | undefined
 }
-export const worksOrderItemModelPagedResult = z.object({
-  _embedded: z.array(worksOrderItemModel).nullable().optional(),
-  pageNumber: z.number().int().nullable().optional(),
-  pageSize: z.number().int().nullable().optional(),
-  pageCount: z.number().int().nullable().optional(),
-  totalPageCount: z.number().int().nullable().optional(),
-  totalCount: z.number().int().nullable().optional(),
-  _links: z.record(z.string(), pagingLinkModel).nullable().optional(),
-})
 /** Representation of a works order item */
 export type UpdateWorksOrderItemModel = {
   notes?: /** The notes attached to the works order item */ string | undefined

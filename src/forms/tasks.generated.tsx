@@ -1,10 +1,10 @@
 import { createTaskModel, CreateTaskModel } from '@/schemas/index.ts'
+import { useCreateTask } from '@/services/tasks.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { useCreateTask } from '@/services/tasks.generated.ts'
 
 export type CreateTasksProps = { children: ReactNode }
 

@@ -2,10 +2,10 @@ import { officeModel, OfficeModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useMemo, useReducer, useState } from 'react'
 import { useGetApiOffices } from '@/services/offices.generated.ts'
+import { useMemo, useReducer, useState } from 'react'
 
-export type OfficesArgs = {
+export type UseOfficesTableArgs = {
   sortBy?: string | undefined
   embed?: Array<'negotiators'> | undefined
   id?: Array<string> | undefined
@@ -22,14 +22,14 @@ export type OfficesArgs = {
   columns: ColumnsList<OfficeModel>
 }
 
-export const officesColumnHelper = createColumnHelper<OfficeModel>()
+export const useOfficesTableColumnHelper = createColumnHelper<OfficeModel>()
 
-export const getOfficesColumn = (property: string, modelConfig: ModelConfig<OfficeModel>) => {
+export const getuseOfficesTableColumn = (property: string, modelConfig: ModelConfig<OfficeModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return officesColumnHelper.accessor((row) => row._links, {
+      return useOfficesTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -40,7 +40,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return officesColumnHelper.accessor((row) => row._embedded, {
+      return useOfficesTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -51,7 +51,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return officesColumnHelper.accessor((row) => row.id, {
+      return useOfficesTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -62,7 +62,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return officesColumnHelper.accessor((row) => row.created, {
+      return useOfficesTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -73,7 +73,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return officesColumnHelper.accessor((row) => row.modified, {
+      return useOfficesTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -84,7 +84,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('name', () => {
       const { label: header, format, width, minWidth } = modelConfig['name']
 
-      return officesColumnHelper.accessor((row) => row.name, {
+      return useOfficesTableColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header,
         cell: (info) => format(info.getValue()),
@@ -95,7 +95,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('manager', () => {
       const { label: header, format, width, minWidth } = modelConfig['manager']
 
-      return officesColumnHelper.accessor((row) => row.manager, {
+      return useOfficesTableColumnHelper.accessor((row) => row.manager, {
         id: 'manager',
         header,
         cell: (info) => format(info.getValue()),
@@ -106,7 +106,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('active', () => {
       const { label: header, format, width, minWidth } = modelConfig['active']
 
-      return officesColumnHelper.accessor((row) => row.active, {
+      return useOfficesTableColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header,
         cell: (info) => format(info.getValue()),
@@ -117,7 +117,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('region', () => {
       const { label: header, format, width, minWidth } = modelConfig['region']
 
-      return officesColumnHelper.accessor((row) => row.region, {
+      return useOfficesTableColumnHelper.accessor((row) => row.region, {
         id: 'region',
         header,
         cell: (info) => format(info.getValue()),
@@ -128,7 +128,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('address', () => {
       const { label: header, format, width, minWidth } = modelConfig['address']
 
-      return officesColumnHelper.accessor((row) => row.address, {
+      return useOfficesTableColumnHelper.accessor((row) => row.address, {
         id: 'address',
         header,
         cell: (info) => format(info.getValue()),
@@ -139,7 +139,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('additionalContactDetails', () => {
       const { label: header, format, width, minWidth } = modelConfig['additionalContactDetails']
 
-      return officesColumnHelper.accessor((row) => row.additionalContactDetails, {
+      return useOfficesTableColumnHelper.accessor((row) => row.additionalContactDetails, {
         id: 'additionalContactDetails',
         header,
         cell: (info) => format(info.getValue()),
@@ -150,7 +150,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('workPhone', () => {
       const { label: header, format, width, minWidth } = modelConfig['workPhone']
 
-      return officesColumnHelper.accessor((row) => row.workPhone, {
+      return useOfficesTableColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
         header,
         cell: (info) => format(info.getValue()),
@@ -161,7 +161,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('email', () => {
       const { label: header, format, width, minWidth } = modelConfig['email']
 
-      return officesColumnHelper.accessor((row) => row.email, {
+      return useOfficesTableColumnHelper.accessor((row) => row.email, {
         id: 'email',
         header,
         cell: (info) => format(info.getValue()),
@@ -172,7 +172,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return officesColumnHelper.accessor((row) => row.metadata, {
+      return useOfficesTableColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -183,7 +183,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return officesColumnHelper.accessor((row) => row._eTag, {
+      return useOfficesTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -194,7 +194,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     .with('extrasField', () => {
       const { label: header, format, width, minWidth } = modelConfig['extrasField']
 
-      return officesColumnHelper.accessor((row) => row.extrasField, {
+      return useOfficesTableColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
         header,
         cell: (info) => format(info.getValue()),
@@ -207,7 +207,7 @@ export const getOfficesColumn = (property: string, modelConfig: ModelConfig<Offi
     })
 }
 
-export const useOfficesTable = (args: OfficesArgs) => {
+export const useOfficesTable = (args: UseOfficesTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

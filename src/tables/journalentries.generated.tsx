@@ -7,10 +7,10 @@ import {
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useMemo, useReducer, useState } from 'react'
 import { useGetApiJournalEntries, useGetApiJournalEntriesLandlords } from '@/services/journalentries.generated.ts'
+import { useMemo, useReducer, useState } from 'react'
 
-export type JournalEntriesArgs = {
+export type UseJournalEntriesTableArgs = {
   sortBy?: string | undefined
   embed?: Array<'property' | 'negotiator' | 'type'> | undefined
   associatedType?: string | undefined
@@ -22,7 +22,7 @@ export type JournalEntriesArgs = {
   createdTo?: string | undefined
   columns: ColumnsList<JournalEntryModel>
 }
-export type JournalEntriesLandlordsArgs = {
+export type UseJournalEntriesLandlordsTableArgs = {
   sortBy?: string | undefined
   landlordId?: Array<string> | undefined
   negotiatorId?: Array<string> | undefined
@@ -33,14 +33,14 @@ export type JournalEntriesLandlordsArgs = {
   columns: ColumnsList<LandlordJournalEntryModel>
 }
 
-export const journalEntriesColumnHelper = createColumnHelper<JournalEntryModel>()
+export const useJournalEntriesTableColumnHelper = createColumnHelper<JournalEntryModel>()
 
-export const getJournalEntriesColumn = (property: string, modelConfig: ModelConfig<JournalEntryModel>) => {
+export const getuseJournalEntriesTableColumn = (property: string, modelConfig: ModelConfig<JournalEntryModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return journalEntriesColumnHelper.accessor((row) => row._links, {
+      return useJournalEntriesTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -51,7 +51,7 @@ export const getJournalEntriesColumn = (property: string, modelConfig: ModelConf
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return journalEntriesColumnHelper.accessor((row) => row._embedded, {
+      return useJournalEntriesTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -62,7 +62,7 @@ export const getJournalEntriesColumn = (property: string, modelConfig: ModelConf
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return journalEntriesColumnHelper.accessor((row) => row.created, {
+      return useJournalEntriesTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -73,7 +73,7 @@ export const getJournalEntriesColumn = (property: string, modelConfig: ModelConf
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return journalEntriesColumnHelper.accessor((row) => row.propertyId, {
+      return useJournalEntriesTableColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -84,7 +84,7 @@ export const getJournalEntriesColumn = (property: string, modelConfig: ModelConf
     .with('associatedType', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedType']
 
-      return journalEntriesColumnHelper.accessor((row) => row.associatedType, {
+      return useJournalEntriesTableColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header,
         cell: (info) => format(info.getValue()),
@@ -95,7 +95,7 @@ export const getJournalEntriesColumn = (property: string, modelConfig: ModelConf
     .with('associatedId', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedId']
 
-      return journalEntriesColumnHelper.accessor((row) => row.associatedId, {
+      return useJournalEntriesTableColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header,
         cell: (info) => format(info.getValue()),
@@ -106,7 +106,7 @@ export const getJournalEntriesColumn = (property: string, modelConfig: ModelConf
     .with('typeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeId']
 
-      return journalEntriesColumnHelper.accessor((row) => row.typeId, {
+      return useJournalEntriesTableColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -117,7 +117,7 @@ export const getJournalEntriesColumn = (property: string, modelConfig: ModelConf
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return journalEntriesColumnHelper.accessor((row) => row.negotiatorId, {
+      return useJournalEntriesTableColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -128,7 +128,7 @@ export const getJournalEntriesColumn = (property: string, modelConfig: ModelConf
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return journalEntriesColumnHelper.accessor((row) => row.description, {
+      return useJournalEntriesTableColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -141,7 +141,7 @@ export const getJournalEntriesColumn = (property: string, modelConfig: ModelConf
     })
 }
 
-export const useJournalEntriesTable = (args: JournalEntriesArgs) => {
+export const useJournalEntriesTable = (args: UseJournalEntriesTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -174,9 +174,9 @@ export const useJournalEntriesTable = (args: JournalEntriesArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const journalEntriesLandlordsColumnHelper = createColumnHelper<LandlordJournalEntryModel>()
+export const useJournalEntriesLandlordsTableColumnHelper = createColumnHelper<LandlordJournalEntryModel>()
 
-export const getJournalEntriesLandlordsColumn = (
+export const getuseJournalEntriesLandlordsTableColumn = (
   property: string,
   modelConfig: ModelConfig<LandlordJournalEntryModel>,
 ) => {
@@ -184,7 +184,7 @@ export const getJournalEntriesLandlordsColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return journalEntriesLandlordsColumnHelper.accessor((row) => row._links, {
+      return useJournalEntriesLandlordsTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -195,7 +195,7 @@ export const getJournalEntriesLandlordsColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return journalEntriesLandlordsColumnHelper.accessor((row) => row._embedded, {
+      return useJournalEntriesLandlordsTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -206,7 +206,7 @@ export const getJournalEntriesLandlordsColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return journalEntriesLandlordsColumnHelper.accessor((row) => row.created, {
+      return useJournalEntriesLandlordsTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -217,7 +217,7 @@ export const getJournalEntriesLandlordsColumn = (
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return journalEntriesLandlordsColumnHelper.accessor((row) => row.propertyId, {
+      return useJournalEntriesLandlordsTableColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -228,7 +228,7 @@ export const getJournalEntriesLandlordsColumn = (
     .with('landlordId', () => {
       const { label: header, format, width, minWidth } = modelConfig['landlordId']
 
-      return journalEntriesLandlordsColumnHelper.accessor((row) => row.landlordId, {
+      return useJournalEntriesLandlordsTableColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
         header,
         cell: (info) => format(info.getValue()),
@@ -239,7 +239,7 @@ export const getJournalEntriesLandlordsColumn = (
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return journalEntriesLandlordsColumnHelper.accessor((row) => row.type, {
+      return useJournalEntriesLandlordsTableColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -250,7 +250,7 @@ export const getJournalEntriesLandlordsColumn = (
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return journalEntriesLandlordsColumnHelper.accessor((row) => row.negotiatorId, {
+      return useJournalEntriesLandlordsTableColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -261,7 +261,7 @@ export const getJournalEntriesLandlordsColumn = (
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return journalEntriesLandlordsColumnHelper.accessor((row) => row.description, {
+      return useJournalEntriesLandlordsTableColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -274,7 +274,7 @@ export const getJournalEntriesLandlordsColumn = (
     })
 }
 
-export const useJournalEntriesLandlordsTable = (args: JournalEntriesLandlordsArgs) => {
+export const useJournalEntriesLandlordsTable = (args: UseJournalEntriesLandlordsTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

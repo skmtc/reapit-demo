@@ -1,9 +1,41 @@
-import { officeModelPagedResult, CreateOfficeModel, officeModel, UpdateOfficeModel } from '@/schemas/index.ts'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateOfficeModel, officeModelPagedResult, officeModel, UpdateOfficeModel } from '@/schemas/index.ts'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
+export type UseCreateOfficeArgs = { body: CreateOfficeModel }
+export const createOfficeFn = async ({ body }: UseCreateOfficeArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateOffice = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createOfficeFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Offices'] })
+    },
+  })
+}
 export type UseGetApiOfficesArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -62,38 +94,6 @@ export const useGetApiOffices = (args: UseGetApiOfficesArgs) => {
   })
 
   return result
-}
-export type UseCreateOfficeArgs = { body: CreateOfficeModel }
-export const createOfficeFn = async ({ body }: UseCreateOfficeArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateOffice = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createOfficeFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Offices'] })
-    },
-  })
 }
 export type UseGetApiOfficesIdArgs = {
   id: string

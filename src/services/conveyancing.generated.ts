@@ -1,15 +1,79 @@
 import {
+  CreateDownwardLinkModel,
+  CreateUpwardLinkModel,
   conveyancingModelPagedResult,
   conveyancingModel,
   UpdateConveyancingModel,
-  CreateDownwardLinkModel,
-  CreateUpwardLinkModel,
 } from '@/schemas/index.ts'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
+export type UseCreateDownwardChainArgs = { id: string; body: CreateDownwardLinkModel }
+export const createDownwardChainFn = async ({ id, body }: UseCreateDownwardChainArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/conveyancing/${id}/downward${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateDownwardChain = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createDownwardChainFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Conveyancing'] })
+    },
+  })
+}
+export type UseCreateUpwardChainArgs = { id: string; body: CreateUpwardLinkModel }
+export const createUpwardChainFn = async ({ id, body }: UseCreateUpwardChainArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/conveyancing/${id}/upward${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateUpwardChain = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createUpwardChainFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Conveyancing'] })
+    },
+  })
+}
 export type UseGetApiConveyancingArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -58,6 +122,43 @@ export const useGetApiConveyancing = (args: UseGetApiConveyancingArgs) => {
   const result = useQuery({
     queryKey: ['Conveyancing'],
     queryFn: () => getApiConveyancingFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type UseGetApiConveyancingIdChainArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+}
+export const getApiConveyancingIdChainFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+  sortBy,
+}: UseGetApiConveyancingIdChainArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/conveyancing/${id}/chain${querySerialiser({ args: { pageSize, pageNumber, sortBy }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return conveyancingModelPagedResult.parse(data)
+}
+export const useGetApiConveyancingIdChain = (args: UseGetApiConveyancingIdChainArgs) => {
+  const result = useQuery({
+    queryKey: ['Conveyancing'],
+    queryFn: () => getApiConveyancingIdChainFn(args),
     placeholderData: keepPreviousData,
   })
 
@@ -123,75 +224,6 @@ export const usePatchApiConveyancingId = () => {
     },
   })
 }
-export type UseGetApiConveyancingIdChainArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-}
-export const getApiConveyancingIdChainFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-  sortBy,
-}: UseGetApiConveyancingIdChainArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/conveyancing/${id}/chain${querySerialiser({ args: { pageSize, pageNumber, sortBy }, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return conveyancingModelPagedResult.parse(data)
-}
-export const useGetApiConveyancingIdChain = (args: UseGetApiConveyancingIdChainArgs) => {
-  const result = useQuery({
-    queryKey: ['Conveyancing'],
-    queryFn: () => getApiConveyancingIdChainFn(args),
-    placeholderData: keepPreviousData,
-  })
-
-  return result
-}
-export type UseCreateDownwardChainArgs = { id: string; body: CreateDownwardLinkModel }
-export const createDownwardChainFn = async ({ id, body }: UseCreateDownwardChainArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/conveyancing/${id}/downward${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateDownwardChain = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createDownwardChainFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Conveyancing'] })
-    },
-  })
-}
 export type UseDeleteApiConveyancingIdDownwardArgs = { id: string }
 export const deleteApiConveyancingIdDownwardFn = async ({ id }: UseDeleteApiConveyancingIdDownwardArgs) => {
   const res = await fetch(
@@ -217,38 +249,6 @@ export const useDeleteApiConveyancingIdDownward = () => {
 
   return useMutation({
     mutationFn: deleteApiConveyancingIdDownwardFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Conveyancing'] })
-    },
-  })
-}
-export type UseCreateUpwardChainArgs = { id: string; body: CreateUpwardLinkModel }
-export const createUpwardChainFn = async ({ id, body }: UseCreateUpwardChainArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/conveyancing/${id}/upward${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateUpwardChain = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createUpwardChainFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

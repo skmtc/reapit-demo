@@ -1,14 +1,78 @@
 import {
-  metadataModelPagedResult,
   CreateMetadataRequest,
-  metadataModel,
   UpdateMetadataRequest,
+  metadataModelPagedResult,
+  metadataModel,
 } from '@/schemas/index.ts'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
+export type UseCreateMetadataArgs = { body: CreateMetadataRequest }
+export const createMetadataFn = async ({ body }: UseCreateMetadataArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/metadata/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateMetadata = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createMetadataFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Metadata'] })
+    },
+  })
+}
+export type UseUpdateMetadataArgs = { id: string; body: UpdateMetadataRequest }
+export const updateMetadataFn = async ({ id, body }: UseUpdateMetadataArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/metadata/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useUpdateMetadata = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: updateMetadataFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Metadata'] })
+    },
+  })
+}
 export type UseGetApiMetadataArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -50,38 +114,6 @@ export const useGetApiMetadata = (args: UseGetApiMetadataArgs) => {
 
   return result
 }
-export type UseCreateMetadataArgs = { body: CreateMetadataRequest }
-export const createMetadataFn = async ({ body }: UseCreateMetadataArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/metadata/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateMetadata = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createMetadataFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Metadata'] })
-    },
-  })
-}
 export type UseGetApiMetadataIdArgs = { id: string }
 export const getApiMetadataIdFn = async ({ id }: UseGetApiMetadataIdArgs) => {
   const res = await fetch(
@@ -106,38 +138,6 @@ export const useGetApiMetadataId = ({ id }: UseGetApiMetadataIdArgs) => {
   })
 
   return result
-}
-export type UseUpdateMetadataArgs = { id: string; body: UpdateMetadataRequest }
-export const updateMetadataFn = async ({ id, body }: UseUpdateMetadataArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/metadata/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'PUT',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useUpdateMetadata = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: updateMetadataFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Metadata'] })
-    },
-  })
 }
 export type UseDeleteApiMetadataIdArgs = { id: string }
 export const deleteApiMetadataIdFn = async ({ id }: UseDeleteApiMetadataIdArgs) => {

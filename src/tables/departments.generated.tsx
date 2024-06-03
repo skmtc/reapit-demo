@@ -2,23 +2,23 @@ import { departmentModel, DepartmentModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useMemo, useReducer, useState } from 'react'
 import { useGetApiDepartments } from '@/services/departments.generated.ts'
+import { useMemo, useReducer, useState } from 'react'
 
-export type DepartmentsArgs = {
+export type UseDepartmentsTableArgs = {
   id?: Array<string> | undefined
   name?: string | undefined
   columns: ColumnsList<DepartmentModel>
 }
 
-export const departmentsColumnHelper = createColumnHelper<DepartmentModel>()
+export const useDepartmentsTableColumnHelper = createColumnHelper<DepartmentModel>()
 
-export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<DepartmentModel>) => {
+export const getuseDepartmentsTableColumn = (property: string, modelConfig: ModelConfig<DepartmentModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return departmentsColumnHelper.accessor((row) => row._links, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -29,7 +29,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return departmentsColumnHelper.accessor((row) => row._embedded, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -40,7 +40,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return departmentsColumnHelper.accessor((row) => row.id, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -51,7 +51,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return departmentsColumnHelper.accessor((row) => row.created, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -62,7 +62,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return departmentsColumnHelper.accessor((row) => row.modified, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -73,7 +73,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('name', () => {
       const { label: header, format, width, minWidth } = modelConfig['name']
 
-      return departmentsColumnHelper.accessor((row) => row.name, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header,
         cell: (info) => format(info.getValue()),
@@ -84,7 +84,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('typeOptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeOptions']
 
-      return departmentsColumnHelper.accessor((row) => row.typeOptions, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.typeOptions, {
         id: 'typeOptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -95,7 +95,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('styleOptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['styleOptions']
 
-      return departmentsColumnHelper.accessor((row) => row.styleOptions, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.styleOptions, {
         id: 'styleOptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -106,7 +106,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('situationOptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['situationOptions']
 
-      return departmentsColumnHelper.accessor((row) => row.situationOptions, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.situationOptions, {
         id: 'situationOptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -117,7 +117,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('parkingOptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['parkingOptions']
 
-      return departmentsColumnHelper.accessor((row) => row.parkingOptions, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.parkingOptions, {
         id: 'parkingOptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -128,7 +128,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('ageOptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['ageOptions']
 
-      return departmentsColumnHelper.accessor((row) => row.ageOptions, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.ageOptions, {
         id: 'ageOptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -139,7 +139,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('localityOptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['localityOptions']
 
-      return departmentsColumnHelper.accessor((row) => row.localityOptions, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.localityOptions, {
         id: 'localityOptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -150,7 +150,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('specialFeaturesOptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['specialFeaturesOptions']
 
-      return departmentsColumnHelper.accessor((row) => row.specialFeaturesOptions, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.specialFeaturesOptions, {
         id: 'specialFeaturesOptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -161,7 +161,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('commercialUseClassOptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['commercialUseClassOptions']
 
-      return departmentsColumnHelper.accessor((row) => row.commercialUseClassOptions, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.commercialUseClassOptions, {
         id: 'commercialUseClassOptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -172,7 +172,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('commercialFloorLevelOptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['commercialFloorLevelOptions']
 
-      return departmentsColumnHelper.accessor((row) => row.commercialFloorLevelOptions, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.commercialFloorLevelOptions, {
         id: 'commercialFloorLevelOptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -183,7 +183,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('hasBedrooms', () => {
       const { label: header, format, width, minWidth } = modelConfig['hasBedrooms']
 
-      return departmentsColumnHelper.accessor((row) => row.hasBedrooms, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.hasBedrooms, {
         id: 'hasBedrooms',
         header,
         cell: (info) => format(info.getValue()),
@@ -194,7 +194,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('hasBathrooms', () => {
       const { label: header, format, width, minWidth } = modelConfig['hasBathrooms']
 
-      return departmentsColumnHelper.accessor((row) => row.hasBathrooms, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.hasBathrooms, {
         id: 'hasBathrooms',
         header,
         cell: (info) => format(info.getValue()),
@@ -205,7 +205,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('hasReceptionRooms', () => {
       const { label: header, format, width, minWidth } = modelConfig['hasReceptionRooms']
 
-      return departmentsColumnHelper.accessor((row) => row.hasReceptionRooms, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.hasReceptionRooms, {
         id: 'hasReceptionRooms',
         header,
         cell: (info) => format(info.getValue()),
@@ -216,7 +216,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('hasParkingSpaces', () => {
       const { label: header, format, width, minWidth } = modelConfig['hasParkingSpaces']
 
-      return departmentsColumnHelper.accessor((row) => row.hasParkingSpaces, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.hasParkingSpaces, {
         id: 'hasParkingSpaces',
         header,
         cell: (info) => format(info.getValue()),
@@ -227,7 +227,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('hasFloorLevelEnabled', () => {
       const { label: header, format, width, minWidth } = modelConfig['hasFloorLevelEnabled']
 
-      return departmentsColumnHelper.accessor((row) => row.hasFloorLevelEnabled, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.hasFloorLevelEnabled, {
         id: 'hasFloorLevelEnabled',
         header,
         cell: (info) => format(info.getValue()),
@@ -238,7 +238,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('hasInternalFloorsEnabled', () => {
       const { label: header, format, width, minWidth } = modelConfig['hasInternalFloorsEnabled']
 
-      return departmentsColumnHelper.accessor((row) => row.hasInternalFloorsEnabled, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.hasInternalFloorsEnabled, {
         id: 'hasInternalFloorsEnabled',
         header,
         cell: (info) => format(info.getValue()),
@@ -249,7 +249,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('hasTotalFloorsEnabled', () => {
       const { label: header, format, width, minWidth } = modelConfig['hasTotalFloorsEnabled']
 
-      return departmentsColumnHelper.accessor((row) => row.hasTotalFloorsEnabled, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row.hasTotalFloorsEnabled, {
         id: 'hasTotalFloorsEnabled',
         header,
         cell: (info) => format(info.getValue()),
@@ -260,7 +260,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return departmentsColumnHelper.accessor((row) => row._eTag, {
+      return useDepartmentsTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -273,7 +273,7 @@ export const getDepartmentsColumn = (property: string, modelConfig: ModelConfig<
     })
 }
 
-export const useDepartmentsTable = (args: DepartmentsArgs) => {
+export const useDepartmentsTable = (args: UseDepartmentsTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

@@ -4,12 +4,12 @@ import {
   updateMetadataRequest,
   UpdateMetadataRequest,
 } from '@/schemas/index.ts'
+import { useCreateMetadata, useUpdateMetadata } from '@/services/metadata.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { useCreateMetadata, useUpdateMetadata } from '@/services/metadata.generated.ts'
 
 export type CreateMetadataProps = { children: ReactNode }
 export type UpdateMetadataIdProps = { id: string; children: ReactNode }

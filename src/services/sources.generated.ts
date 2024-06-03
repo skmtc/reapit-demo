@@ -1,9 +1,41 @@
-import { sourceModelPagedResult, CreateSourceModel, sourceModel, UpdateSourceModel } from '@/schemas/index.ts'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateSourceModel, sourceModelPagedResult, sourceModel, UpdateSourceModel } from '@/schemas/index.ts'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
+export type UseCreateSourceArgs = { body: CreateSourceModel }
+export const createSourceFn = async ({ body }: UseCreateSourceArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/sources/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateSource = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createSourceFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Sources'] })
+    },
+  })
+}
 export type UseGetApiSourcesArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -56,38 +88,6 @@ export const useGetApiSources = (args: UseGetApiSourcesArgs) => {
   })
 
   return result
-}
-export type UseCreateSourceArgs = { body: CreateSourceModel }
-export const createSourceFn = async ({ body }: UseCreateSourceArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/sources/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateSource = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createSourceFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Sources'] })
-    },
-  })
 }
 export type UseGetApiSourcesIdArgs = { id: string }
 export const getApiSourcesIdFn = async ({ id }: UseGetApiSourcesIdArgs) => {

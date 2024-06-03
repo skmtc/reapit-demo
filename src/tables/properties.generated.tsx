@@ -15,7 +15,6 @@ import {
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useMemo, useReducer, useState } from 'react'
 import {
   useGetApiProperties,
   useGetApiPropertiesIdCertificates,
@@ -25,8 +24,9 @@ import {
   useGetApiPropertiesCertificates,
   useGetApiPropertiesIdAppraisals,
 } from '@/services/properties.generated.ts'
+import { useMemo, useReducer, useState } from 'react'
 
-export type PropertiesArgs = {
+export type UsePropertiesTableArgs = {
   sortBy?: string | undefined
   embed?:
     | Array<
@@ -162,15 +162,23 @@ export type PropertiesArgs = {
   extrasField?: Array<string> | undefined
   columns: ColumnsList<PropertyModel>
 }
-export type PropertiesIdCertificatesArgs = {
+export type UsePropertiesIdCertificatesTableArgs = {
   id: string
   category?: Array<'safetyCertificate' | 'insurancePolicy' | 'warranty'> | undefined
   columns: ColumnsList<CertificateModel>
 }
-export type PropertiesIdKeysArgs = { id: string; columns: ColumnsList<KeysModel> }
-export type PropertiesIdKeysKeyIdMovementsArgs = { id: string; keyId: string; columns: ColumnsList<KeyMovementModel> }
-export type PropertiesIdChecksArgs = { id: string; type?: string | undefined; columns: ColumnsList<PropertyCheckModel> }
-export type PropertiesCertificatesArgs = {
+export type UsePropertiesIdKeysTableArgs = { id: string; columns: ColumnsList<KeysModel> }
+export type UsePropertiesIdKeysKeyIdMovementsTableArgs = {
+  id: string
+  keyId: string
+  columns: ColumnsList<KeyMovementModel>
+}
+export type UsePropertiesIdChecksTableArgs = {
+  id: string
+  type?: string | undefined
+  columns: ColumnsList<PropertyCheckModel>
+}
+export type UsePropertiesCertificatesTableArgs = {
   sortBy?: string | undefined
   expiryDateFrom?: string | undefined
   expiryDateTo?: string | undefined
@@ -184,16 +192,16 @@ export type PropertiesCertificatesArgs = {
   embed?: Array<'property'> | undefined
   columns: ColumnsList<CertificateModel>
 }
-export type PropertiesIdAppraisalsArgs = { id: string; columns: ColumnsList<PropertyAppraisalModel> }
+export type UsePropertiesIdAppraisalsTableArgs = { id: string; columns: ColumnsList<PropertyAppraisalModel> }
 
-export const propertiesColumnHelper = createColumnHelper<PropertyModel>()
+export const usePropertiesTableColumnHelper = createColumnHelper<PropertyModel>()
 
-export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<PropertyModel>) => {
+export const getusePropertiesTableColumn = (property: string, modelConfig: ModelConfig<PropertyModel>) => {
   return match(property)
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return propertiesColumnHelper.accessor((row) => row._embedded, {
+      return usePropertiesTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -204,7 +212,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return propertiesColumnHelper.accessor((row) => row.id, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -215,7 +223,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return propertiesColumnHelper.accessor((row) => row.created, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -226,7 +234,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return propertiesColumnHelper.accessor((row) => row.modified, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -237,7 +245,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('lastCall', () => {
       const { label: header, format, width, minWidth } = modelConfig['lastCall']
 
-      return propertiesColumnHelper.accessor((row) => row.lastCall, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.lastCall, {
         id: 'lastCall',
         header,
         cell: (info) => format(info.getValue()),
@@ -248,7 +256,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('nextCall', () => {
       const { label: header, format, width, minWidth } = modelConfig['nextCall']
 
-      return propertiesColumnHelper.accessor((row) => row.nextCall, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.nextCall, {
         id: 'nextCall',
         header,
         cell: (info) => format(info.getValue()),
@@ -259,7 +267,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('marketingMode', () => {
       const { label: header, format, width, minWidth } = modelConfig['marketingMode']
 
-      return propertiesColumnHelper.accessor((row) => row.marketingMode, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.marketingMode, {
         id: 'marketingMode',
         header,
         cell: (info) => format(info.getValue()),
@@ -270,7 +278,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('currency', () => {
       const { label: header, format, width, minWidth } = modelConfig['currency']
 
-      return propertiesColumnHelper.accessor((row) => row.currency, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.currency, {
         id: 'currency',
         header,
         cell: (info) => format(info.getValue()),
@@ -281,7 +289,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('alternateId', () => {
       const { label: header, format, width, minWidth } = modelConfig['alternateId']
 
-      return propertiesColumnHelper.accessor((row) => row.alternateId, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.alternateId, {
         id: 'alternateId',
         header,
         cell: (info) => format(info.getValue()),
@@ -292,7 +300,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('address', () => {
       const { label: header, format, width, minWidth } = modelConfig['address']
 
-      return propertiesColumnHelper.accessor((row) => row.address, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.address, {
         id: 'address',
         header,
         cell: (info) => format(info.getValue()),
@@ -303,7 +311,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('areaId', () => {
       const { label: header, format, width, minWidth } = modelConfig['areaId']
 
-      return propertiesColumnHelper.accessor((row) => row.areaId, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.areaId, {
         id: 'areaId',
         header,
         cell: (info) => format(info.getValue()),
@@ -314,7 +322,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('strapline', () => {
       const { label: header, format, width, minWidth } = modelConfig['strapline']
 
-      return propertiesColumnHelper.accessor((row) => row.strapline, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.strapline, {
         id: 'strapline',
         header,
         cell: (info) => format(info.getValue()),
@@ -325,7 +333,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return propertiesColumnHelper.accessor((row) => row.description, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -336,7 +344,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('longDescription', () => {
       const { label: header, format, width, minWidth } = modelConfig['longDescription']
 
-      return propertiesColumnHelper.accessor((row) => row.longDescription, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.longDescription, {
         id: 'longDescription',
         header,
         cell: (info) => format(info.getValue()),
@@ -347,7 +355,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('localAuthorityCompanyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['localAuthorityCompanyId']
 
-      return propertiesColumnHelper.accessor((row) => row.localAuthorityCompanyId, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.localAuthorityCompanyId, {
         id: 'localAuthorityCompanyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -358,7 +366,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('localAuthorityCompanyName', () => {
       const { label: header, format, width, minWidth } = modelConfig['localAuthorityCompanyName']
 
-      return propertiesColumnHelper.accessor((row) => row.localAuthorityCompanyName, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.localAuthorityCompanyName, {
         id: 'localAuthorityCompanyName',
         header,
         cell: (info) => format(info.getValue()),
@@ -369,7 +377,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('summary', () => {
       const { label: header, format, width, minWidth } = modelConfig['summary']
 
-      return propertiesColumnHelper.accessor((row) => row.summary, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.summary, {
         id: 'summary',
         header,
         cell: (info) => format(info.getValue()),
@@ -380,7 +388,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('departmentId', () => {
       const { label: header, format, width, minWidth } = modelConfig['departmentId']
 
-      return propertiesColumnHelper.accessor((row) => row.departmentId, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.departmentId, {
         id: 'departmentId',
         header,
         cell: (info) => format(info.getValue()),
@@ -391,7 +399,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return propertiesColumnHelper.accessor((row) => row.negotiatorId, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -402,7 +410,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('bedrooms', () => {
       const { label: header, format, width, minWidth } = modelConfig['bedrooms']
 
-      return propertiesColumnHelper.accessor((row) => row.bedrooms, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.bedrooms, {
         id: 'bedrooms',
         header,
         cell: (info) => format(info.getValue()),
@@ -413,7 +421,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('bedroomsMax', () => {
       const { label: header, format, width, minWidth } = modelConfig['bedroomsMax']
 
-      return propertiesColumnHelper.accessor((row) => row.bedroomsMax, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.bedroomsMax, {
         id: 'bedroomsMax',
         header,
         cell: (info) => format(info.getValue()),
@@ -424,7 +432,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('receptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['receptions']
 
-      return propertiesColumnHelper.accessor((row) => row.receptions, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.receptions, {
         id: 'receptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -435,7 +443,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('receptionsMax', () => {
       const { label: header, format, width, minWidth } = modelConfig['receptionsMax']
 
-      return propertiesColumnHelper.accessor((row) => row.receptionsMax, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.receptionsMax, {
         id: 'receptionsMax',
         header,
         cell: (info) => format(info.getValue()),
@@ -446,7 +454,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('bathrooms', () => {
       const { label: header, format, width, minWidth } = modelConfig['bathrooms']
 
-      return propertiesColumnHelper.accessor((row) => row.bathrooms, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.bathrooms, {
         id: 'bathrooms',
         header,
         cell: (info) => format(info.getValue()),
@@ -457,7 +465,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('bathroomsMax', () => {
       const { label: header, format, width, minWidth } = modelConfig['bathroomsMax']
 
-      return propertiesColumnHelper.accessor((row) => row.bathroomsMax, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.bathroomsMax, {
         id: 'bathroomsMax',
         header,
         cell: (info) => format(info.getValue()),
@@ -468,7 +476,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('numberOfUnits', () => {
       const { label: header, format, width, minWidth } = modelConfig['numberOfUnits']
 
-      return propertiesColumnHelper.accessor((row) => row.numberOfUnits, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.numberOfUnits, {
         id: 'numberOfUnits',
         header,
         cell: (info) => format(info.getValue()),
@@ -479,7 +487,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('parkingSpaces', () => {
       const { label: header, format, width, minWidth } = modelConfig['parkingSpaces']
 
-      return propertiesColumnHelper.accessor((row) => row.parkingSpaces, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.parkingSpaces, {
         id: 'parkingSpaces',
         header,
         cell: (info) => format(info.getValue()),
@@ -490,7 +498,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('councilTax', () => {
       const { label: header, format, width, minWidth } = modelConfig['councilTax']
 
-      return propertiesColumnHelper.accessor((row) => row.councilTax, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.councilTax, {
         id: 'councilTax',
         header,
         cell: (info) => format(info.getValue()),
@@ -501,7 +509,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('disabledPortalIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['disabledPortalIds']
 
-      return propertiesColumnHelper.accessor((row) => row.disabledPortalIds, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.disabledPortalIds, {
         id: 'disabledPortalIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -512,7 +520,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('internetAdvertising', () => {
       const { label: header, format, width, minWidth } = modelConfig['internetAdvertising']
 
-      return propertiesColumnHelper.accessor((row) => row.internetAdvertising, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.internetAdvertising, {
         id: 'internetAdvertising',
         header,
         cell: (info) => format(info.getValue()),
@@ -523,7 +531,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('isExternal', () => {
       const { label: header, format, width, minWidth } = modelConfig['isExternal']
 
-      return propertiesColumnHelper.accessor((row) => row.isExternal, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.isExternal, {
         id: 'isExternal',
         header,
         cell: (info) => format(info.getValue()),
@@ -534,7 +542,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('viewingArrangements', () => {
       const { label: header, format, width, minWidth } = modelConfig['viewingArrangements']
 
-      return propertiesColumnHelper.accessor((row) => row.viewingArrangements, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.viewingArrangements, {
         id: 'viewingArrangements',
         header,
         cell: (info) => format(info.getValue()),
@@ -545,7 +553,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('videoUrl', () => {
       const { label: header, format, width, minWidth } = modelConfig['videoUrl']
 
-      return propertiesColumnHelper.accessor((row) => row.videoUrl, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.videoUrl, {
         id: 'videoUrl',
         header,
         cell: (info) => format(info.getValue()),
@@ -556,7 +564,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('videoCaption', () => {
       const { label: header, format, width, minWidth } = modelConfig['videoCaption']
 
-      return propertiesColumnHelper.accessor((row) => row.videoCaption, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.videoCaption, {
         id: 'videoCaption',
         header,
         cell: (info) => format(info.getValue()),
@@ -567,7 +575,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('video2Url', () => {
       const { label: header, format, width, minWidth } = modelConfig['video2Url']
 
-      return propertiesColumnHelper.accessor((row) => row.video2Url, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.video2Url, {
         id: 'video2Url',
         header,
         cell: (info) => format(info.getValue()),
@@ -578,7 +586,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('video2Caption', () => {
       const { label: header, format, width, minWidth } = modelConfig['video2Caption']
 
-      return propertiesColumnHelper.accessor((row) => row.video2Caption, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.video2Caption, {
         id: 'video2Caption',
         header,
         cell: (info) => format(info.getValue()),
@@ -589,7 +597,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('notes', () => {
       const { label: header, format, width, minWidth } = modelConfig['notes']
 
-      return propertiesColumnHelper.accessor((row) => row.notes, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
         header,
         cell: (info) => format(info.getValue()),
@@ -600,7 +608,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('boardStatus', () => {
       const { label: header, format, width, minWidth } = modelConfig['boardStatus']
 
-      return propertiesColumnHelper.accessor((row) => row.boardStatus, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.boardStatus, {
         id: 'boardStatus',
         header,
         cell: (info) => format(info.getValue()),
@@ -611,7 +619,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('boardNotes', () => {
       const { label: header, format, width, minWidth } = modelConfig['boardNotes']
 
-      return propertiesColumnHelper.accessor((row) => row.boardNotes, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.boardNotes, {
         id: 'boardNotes',
         header,
         cell: (info) => format(info.getValue()),
@@ -622,7 +630,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('featuredImageUrl', () => {
       const { label: header, format, width, minWidth } = modelConfig['featuredImageUrl']
 
-      return propertiesColumnHelper.accessor((row) => row.featuredImageUrl, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.featuredImageUrl, {
         id: 'featuredImageUrl',
         header,
         cell: (info) => format(info.getValue()),
@@ -633,7 +641,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('url', () => {
       const { label: header, format, width, minWidth } = modelConfig['url']
 
-      return propertiesColumnHelper.accessor((row) => row.url, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.url, {
         id: 'url',
         header,
         cell: (info) => format(info.getValue()),
@@ -644,7 +652,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('urlCaption', () => {
       const { label: header, format, width, minWidth } = modelConfig['urlCaption']
 
-      return propertiesColumnHelper.accessor((row) => row.urlCaption, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.urlCaption, {
         id: 'urlCaption',
         header,
         cell: (info) => format(info.getValue()),
@@ -655,7 +663,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('groundRent', () => {
       const { label: header, format, width, minWidth } = modelConfig['groundRent']
 
-      return propertiesColumnHelper.accessor((row) => row.groundRent, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.groundRent, {
         id: 'groundRent',
         header,
         cell: (info) => format(info.getValue()),
@@ -666,7 +674,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('groundRentComment', () => {
       const { label: header, format, width, minWidth } = modelConfig['groundRentComment']
 
-      return propertiesColumnHelper.accessor((row) => row.groundRentComment, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.groundRentComment, {
         id: 'groundRentComment',
         header,
         cell: (info) => format(info.getValue()),
@@ -677,7 +685,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('groundRentReviewDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['groundRentReviewDate']
 
-      return propertiesColumnHelper.accessor((row) => row.groundRentReviewDate, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.groundRentReviewDate, {
         id: 'groundRentReviewDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -688,7 +696,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('groundRentIncrease', () => {
       const { label: header, format, width, minWidth } = modelConfig['groundRentIncrease']
 
-      return propertiesColumnHelper.accessor((row) => row.groundRentIncrease, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.groundRentIncrease, {
         id: 'groundRentIncrease',
         header,
         cell: (info) => format(info.getValue()),
@@ -699,7 +707,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('serviceCharge', () => {
       const { label: header, format, width, minWidth } = modelConfig['serviceCharge']
 
-      return propertiesColumnHelper.accessor((row) => row.serviceCharge, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.serviceCharge, {
         id: 'serviceCharge',
         header,
         cell: (info) => format(info.getValue()),
@@ -710,7 +718,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('serviceChargeComment', () => {
       const { label: header, format, width, minWidth } = modelConfig['serviceChargeComment']
 
-      return propertiesColumnHelper.accessor((row) => row.serviceChargeComment, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.serviceChargeComment, {
         id: 'serviceChargeComment',
         header,
         cell: (info) => format(info.getValue()),
@@ -721,7 +729,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('floorLevel', () => {
       const { label: header, format, width, minWidth } = modelConfig['floorLevel']
 
-      return propertiesColumnHelper.accessor((row) => row.floorLevel, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.floorLevel, {
         id: 'floorLevel',
         header,
         cell: (info) => format(info.getValue()),
@@ -732,7 +740,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('internalFloors', () => {
       const { label: header, format, width, minWidth } = modelConfig['internalFloors']
 
-      return propertiesColumnHelper.accessor((row) => row.internalFloors, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.internalFloors, {
         id: 'internalFloors',
         header,
         cell: (info) => format(info.getValue()),
@@ -743,7 +751,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('totalFloors', () => {
       const { label: header, format, width, minWidth } = modelConfig['totalFloors']
 
-      return propertiesColumnHelper.accessor((row) => row.totalFloors, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.totalFloors, {
         id: 'totalFloors',
         header,
         cell: (info) => format(info.getValue()),
@@ -754,7 +762,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('boardUpdated', () => {
       const { label: header, format, width, minWidth } = modelConfig['boardUpdated']
 
-      return propertiesColumnHelper.accessor((row) => row.boardUpdated, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.boardUpdated, {
         id: 'boardUpdated',
         header,
         cell: (info) => format(info.getValue()),
@@ -765,7 +773,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('valuation', () => {
       const { label: header, format, width, minWidth } = modelConfig['valuation']
 
-      return propertiesColumnHelper.accessor((row) => row.valuation, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.valuation, {
         id: 'valuation',
         header,
         cell: (info) => format(info.getValue()),
@@ -776,7 +784,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('archivedOn', () => {
       const { label: header, format, width, minWidth } = modelConfig['archivedOn']
 
-      return propertiesColumnHelper.accessor((row) => row.archivedOn, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.archivedOn, {
         id: 'archivedOn',
         header,
         cell: (info) => format(info.getValue()),
@@ -787,7 +795,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('fromArchive', () => {
       const { label: header, format, width, minWidth } = modelConfig['fromArchive']
 
-      return propertiesColumnHelper.accessor((row) => row.fromArchive, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header,
         cell: (info) => format(info.getValue()),
@@ -798,7 +806,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('rural', () => {
       const { label: header, format, width, minWidth } = modelConfig['rural']
 
-      return propertiesColumnHelper.accessor((row) => row.rural, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.rural, {
         id: 'rural',
         header,
         cell: (info) => format(info.getValue()),
@@ -809,7 +817,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('externalArea', () => {
       const { label: header, format, width, minWidth } = modelConfig['externalArea']
 
-      return propertiesColumnHelper.accessor((row) => row.externalArea, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.externalArea, {
         id: 'externalArea',
         header,
         cell: (info) => format(info.getValue()),
@@ -820,7 +828,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('internalArea', () => {
       const { label: header, format, width, minWidth } = modelConfig['internalArea']
 
-      return propertiesColumnHelper.accessor((row) => row.internalArea, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.internalArea, {
         id: 'internalArea',
         header,
         cell: (info) => format(info.getValue()),
@@ -831,7 +839,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('epc', () => {
       const { label: header, format, width, minWidth } = modelConfig['epc']
 
-      return propertiesColumnHelper.accessor((row) => row.epc, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.epc, {
         id: 'epc',
         header,
         cell: (info) => format(info.getValue()),
@@ -842,7 +850,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('selling', () => {
       const { label: header, format, width, minWidth } = modelConfig['selling']
 
-      return propertiesColumnHelper.accessor((row) => row.selling, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.selling, {
         id: 'selling',
         header,
         cell: (info) => format(info.getValue()),
@@ -853,7 +861,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('letting', () => {
       const { label: header, format, width, minWidth } = modelConfig['letting']
 
-      return propertiesColumnHelper.accessor((row) => row.letting, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.letting, {
         id: 'letting',
         header,
         cell: (info) => format(info.getValue()),
@@ -864,7 +872,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('commercial', () => {
       const { label: header, format, width, minWidth } = modelConfig['commercial']
 
-      return propertiesColumnHelper.accessor((row) => row.commercial, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.commercial, {
         id: 'commercial',
         header,
         cell: (info) => format(info.getValue()),
@@ -875,7 +883,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('regional', () => {
       const { label: header, format, width, minWidth } = modelConfig['regional']
 
-      return propertiesColumnHelper.accessor((row) => row.regional, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.regional, {
         id: 'regional',
         header,
         cell: (info) => format(info.getValue()),
@@ -886,7 +894,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return propertiesColumnHelper.accessor((row) => row.type, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -897,7 +905,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('style', () => {
       const { label: header, format, width, minWidth } = modelConfig['style']
 
-      return propertiesColumnHelper.accessor((row) => row.style, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.style, {
         id: 'style',
         header,
         cell: (info) => format(info.getValue()),
@@ -908,7 +916,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('situation', () => {
       const { label: header, format, width, minWidth } = modelConfig['situation']
 
-      return propertiesColumnHelper.accessor((row) => row.situation, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.situation, {
         id: 'situation',
         header,
         cell: (info) => format(info.getValue()),
@@ -919,7 +927,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('parking', () => {
       const { label: header, format, width, minWidth } = modelConfig['parking']
 
-      return propertiesColumnHelper.accessor((row) => row.parking, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.parking, {
         id: 'parking',
         header,
         cell: (info) => format(info.getValue()),
@@ -930,7 +938,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('age', () => {
       const { label: header, format, width, minWidth } = modelConfig['age']
 
-      return propertiesColumnHelper.accessor((row) => row.age, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.age, {
         id: 'age',
         header,
         cell: (info) => format(info.getValue()),
@@ -941,7 +949,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('locality', () => {
       const { label: header, format, width, minWidth } = modelConfig['locality']
 
-      return propertiesColumnHelper.accessor((row) => row.locality, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.locality, {
         id: 'locality',
         header,
         cell: (info) => format(info.getValue()),
@@ -952,7 +960,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('specialFeatures', () => {
       const { label: header, format, width, minWidth } = modelConfig['specialFeatures']
 
-      return propertiesColumnHelper.accessor((row) => row.specialFeatures, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.specialFeatures, {
         id: 'specialFeatures',
         header,
         cell: (info) => format(info.getValue()),
@@ -963,7 +971,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('unmappedAttributes', () => {
       const { label: header, format, width, minWidth } = modelConfig['unmappedAttributes']
 
-      return propertiesColumnHelper.accessor((row) => row.unmappedAttributes, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.unmappedAttributes, {
         id: 'unmappedAttributes',
         header,
         cell: (info) => format(info.getValue()),
@@ -974,7 +982,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('availableServicesIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['availableServicesIds']
 
-      return propertiesColumnHelper.accessor((row) => row.availableServicesIds, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.availableServicesIds, {
         id: 'availableServicesIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -985,7 +993,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('rooms', () => {
       const { label: header, format, width, minWidth } = modelConfig['rooms']
 
-      return propertiesColumnHelper.accessor((row) => row.rooms, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.rooms, {
         id: 'rooms',
         header,
         cell: (info) => format(info.getValue()),
@@ -996,7 +1004,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('roomDetailsApproved', () => {
       const { label: header, format, width, minWidth } = modelConfig['roomDetailsApproved']
 
-      return propertiesColumnHelper.accessor((row) => row.roomDetailsApproved, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.roomDetailsApproved, {
         id: 'roomDetailsApproved',
         header,
         cell: (info) => format(info.getValue()),
@@ -1007,7 +1015,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('officeIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['officeIds']
 
-      return propertiesColumnHelper.accessor((row) => row.officeIds, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -1018,7 +1026,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('lostInstructionDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['lostInstructionDate']
 
-      return propertiesColumnHelper.accessor((row) => row.lostInstructionDate, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.lostInstructionDate, {
         id: 'lostInstructionDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -1029,7 +1037,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('lostInstructionNote', () => {
       const { label: header, format, width, minWidth } = modelConfig['lostInstructionNote']
 
-      return propertiesColumnHelper.accessor((row) => row.lostInstructionNote, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.lostInstructionNote, {
         id: 'lostInstructionNote',
         header,
         cell: (info) => format(info.getValue()),
@@ -1040,7 +1048,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('developmentSiteType', () => {
       const { label: header, format, width, minWidth } = modelConfig['developmentSiteType']
 
-      return propertiesColumnHelper.accessor((row) => row.developmentSiteType, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.developmentSiteType, {
         id: 'developmentSiteType',
         header,
         cell: (info) => format(info.getValue()),
@@ -1051,7 +1059,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return propertiesColumnHelper.accessor((row) => row.metadata, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -1062,7 +1070,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('keywords', () => {
       const { label: header, format, width, minWidth } = modelConfig['keywords']
 
-      return propertiesColumnHelper.accessor((row) => row.keywords, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.keywords, {
         id: 'keywords',
         header,
         cell: (info) => format(info.getValue()),
@@ -1073,7 +1081,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('extrasField', () => {
       const { label: header, format, width, minWidth } = modelConfig['extrasField']
 
-      return propertiesColumnHelper.accessor((row) => row.extrasField, {
+      return usePropertiesTableColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
         header,
         cell: (info) => format(info.getValue()),
@@ -1084,7 +1092,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return propertiesColumnHelper.accessor((row) => row._eTag, {
+      return usePropertiesTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -1095,7 +1103,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return propertiesColumnHelper.accessor((row) => row._links, {
+      return usePropertiesTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -1108,7 +1116,7 @@ export const getPropertiesColumn = (property: string, modelConfig: ModelConfig<P
     })
 }
 
-export const usePropertiesTable = (args: PropertiesArgs) => {
+export const usePropertiesTable = (args: UsePropertiesTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -1141,14 +1149,17 @@ export const usePropertiesTable = (args: PropertiesArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const propertiesIdCertificatesColumnHelper = createColumnHelper<CertificateModel>()
+export const usePropertiesIdCertificatesTableColumnHelper = createColumnHelper<CertificateModel>()
 
-export const getPropertiesIdCertificatesColumn = (property: string, modelConfig: ModelConfig<CertificateModel>) => {
+export const getusePropertiesIdCertificatesTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<CertificateModel>,
+) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row._links, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -1159,7 +1170,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row._embedded, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -1170,7 +1181,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.id, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -1181,7 +1192,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.created, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -1192,7 +1203,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.modified, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -1203,7 +1214,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('category', () => {
       const { label: header, format, width, minWidth } = modelConfig['category']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.category, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.category, {
         id: 'category',
         header,
         cell: (info) => format(info.getValue()),
@@ -1214,7 +1225,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('typeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeId']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.typeId, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1225,7 +1236,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('start', () => {
       const { label: header, format, width, minWidth } = modelConfig['start']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.start, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.start, {
         id: 'start',
         header,
         cell: (info) => format(info.getValue()),
@@ -1236,7 +1247,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('expiry', () => {
       const { label: header, format, width, minWidth } = modelConfig['expiry']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.expiry, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.expiry, {
         id: 'expiry',
         header,
         cell: (info) => format(info.getValue()),
@@ -1247,7 +1258,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.propertyId, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1258,7 +1269,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('companyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['companyId']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.companyId, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1269,7 +1280,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('statusId', () => {
       const { label: header, format, width, minWidth } = modelConfig['statusId']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.statusId, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.statusId, {
         id: 'statusId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1280,7 +1291,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('notes', () => {
       const { label: header, format, width, minWidth } = modelConfig['notes']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.notes, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
         header,
         cell: (info) => format(info.getValue()),
@@ -1291,7 +1302,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('referenceNumber', () => {
       const { label: header, format, width, minWidth } = modelConfig['referenceNumber']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.referenceNumber, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.referenceNumber, {
         id: 'referenceNumber',
         header,
         cell: (info) => format(info.getValue()),
@@ -1302,7 +1313,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('responsibleParty', () => {
       const { label: header, format, width, minWidth } = modelConfig['responsibleParty']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row.responsibleParty, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row.responsibleParty, {
         id: 'responsibleParty',
         header,
         cell: (info) => format(info.getValue()),
@@ -1313,7 +1324,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return propertiesIdCertificatesColumnHelper.accessor((row) => row._eTag, {
+      return usePropertiesIdCertificatesTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -1326,7 +1337,7 @@ export const getPropertiesIdCertificatesColumn = (property: string, modelConfig:
     })
 }
 
-export const usePropertiesIdCertificatesTable = (args: PropertiesIdCertificatesArgs) => {
+export const usePropertiesIdCertificatesTable = (args: UsePropertiesIdCertificatesTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -1359,14 +1370,14 @@ export const usePropertiesIdCertificatesTable = (args: PropertiesIdCertificatesA
 
   return { rerender, table, dataQuery }
 }
-export const propertiesIdKeysColumnHelper = createColumnHelper<KeysModel>()
+export const usePropertiesIdKeysTableColumnHelper = createColumnHelper<KeysModel>()
 
-export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelConfig<KeysModel>) => {
+export const getusePropertiesIdKeysTableColumn = (property: string, modelConfig: ModelConfig<KeysModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row._links, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -1377,7 +1388,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row._embedded, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -1388,7 +1399,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row.id, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -1399,7 +1410,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row.created, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -1410,7 +1421,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row.modified, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -1421,7 +1432,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     .with('number', () => {
       const { label: header, format, width, minWidth } = modelConfig['number']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row.number, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row.number, {
         id: 'number',
         header,
         cell: (info) => format(info.getValue()),
@@ -1432,7 +1443,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     .with('typeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeId']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row.typeId, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1443,7 +1454,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     .with('officeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['officeId']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row.officeId, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row.officeId, {
         id: 'officeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1454,7 +1465,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row.propertyId, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1465,7 +1476,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     .with('status', () => {
       const { label: header, format, width, minWidth } = modelConfig['status']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row.status, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
@@ -1476,7 +1487,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     .with('keysInSet', () => {
       const { label: header, format, width, minWidth } = modelConfig['keysInSet']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row.keysInSet, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row.keysInSet, {
         id: 'keysInSet',
         header,
         cell: (info) => format(info.getValue()),
@@ -1487,7 +1498,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return propertiesIdKeysColumnHelper.accessor((row) => row._eTag, {
+      return usePropertiesIdKeysTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -1500,7 +1511,7 @@ export const getPropertiesIdKeysColumn = (property: string, modelConfig: ModelCo
     })
 }
 
-export const usePropertiesIdKeysTable = (args: PropertiesIdKeysArgs) => {
+export const usePropertiesIdKeysTable = (args: UsePropertiesIdKeysTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -1533,9 +1544,9 @@ export const usePropertiesIdKeysTable = (args: PropertiesIdKeysArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const propertiesIdKeysKeyIdMovementsColumnHelper = createColumnHelper<KeyMovementModel>()
+export const usePropertiesIdKeysKeyIdMovementsTableColumnHelper = createColumnHelper<KeyMovementModel>()
 
-export const getPropertiesIdKeysKeyIdMovementsColumn = (
+export const getusePropertiesIdKeysKeyIdMovementsTableColumn = (
   property: string,
   modelConfig: ModelConfig<KeyMovementModel>,
 ) => {
@@ -1543,7 +1554,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row._links, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -1554,7 +1565,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row._embedded, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -1565,7 +1576,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.id, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -1576,7 +1587,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.created, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -1587,7 +1598,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.modified, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -1598,7 +1609,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('keyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['keyId']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.keyId, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row.keyId, {
         id: 'keyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1609,7 +1620,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.propertyId, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1620,7 +1631,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('checkOutToId', () => {
       const { label: header, format, width, minWidth } = modelConfig['checkOutToId']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkOutToId, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row.checkOutToId, {
         id: 'checkOutToId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1631,7 +1642,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('checkOutToType', () => {
       const { label: header, format, width, minWidth } = modelConfig['checkOutToType']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkOutToType, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row.checkOutToType, {
         id: 'checkOutToType',
         header,
         cell: (info) => format(info.getValue()),
@@ -1642,7 +1653,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('checkOutAt', () => {
       const { label: header, format, width, minWidth } = modelConfig['checkOutAt']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkOutAt, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row.checkOutAt, {
         id: 'checkOutAt',
         header,
         cell: (info) => format(info.getValue()),
@@ -1653,7 +1664,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('checkOutNegotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['checkOutNegotiatorId']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkOutNegotiatorId, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row.checkOutNegotiatorId, {
         id: 'checkOutNegotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1664,7 +1675,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('checkInAt', () => {
       const { label: header, format, width, minWidth } = modelConfig['checkInAt']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkInAt, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row.checkInAt, {
         id: 'checkInAt',
         header,
         cell: (info) => format(info.getValue()),
@@ -1675,7 +1686,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('checkInNegotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['checkInNegotiatorId']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row.checkInNegotiatorId, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row.checkInNegotiatorId, {
         id: 'checkInNegotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1686,7 +1697,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return propertiesIdKeysKeyIdMovementsColumnHelper.accessor((row) => row._eTag, {
+      return usePropertiesIdKeysKeyIdMovementsTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -1699,7 +1710,7 @@ export const getPropertiesIdKeysKeyIdMovementsColumn = (
     })
 }
 
-export const usePropertiesIdKeysKeyIdMovementsTable = (args: PropertiesIdKeysKeyIdMovementsArgs) => {
+export const usePropertiesIdKeysKeyIdMovementsTable = (args: UsePropertiesIdKeysKeyIdMovementsTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -1732,14 +1743,14 @@ export const usePropertiesIdKeysKeyIdMovementsTable = (args: PropertiesIdKeysKey
 
   return { rerender, table, dataQuery }
 }
-export const propertiesIdChecksColumnHelper = createColumnHelper<PropertyCheckModel>()
+export const usePropertiesIdChecksTableColumnHelper = createColumnHelper<PropertyCheckModel>()
 
-export const getPropertiesIdChecksColumn = (property: string, modelConfig: ModelConfig<PropertyCheckModel>) => {
+export const getusePropertiesIdChecksTableColumn = (property: string, modelConfig: ModelConfig<PropertyCheckModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return propertiesIdChecksColumnHelper.accessor((row) => row._links, {
+      return usePropertiesIdChecksTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -1750,7 +1761,7 @@ export const getPropertiesIdChecksColumn = (property: string, modelConfig: Model
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return propertiesIdChecksColumnHelper.accessor((row) => row._embedded, {
+      return usePropertiesIdChecksTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -1761,7 +1772,7 @@ export const getPropertiesIdChecksColumn = (property: string, modelConfig: Model
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return propertiesIdChecksColumnHelper.accessor((row) => row.id, {
+      return usePropertiesIdChecksTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -1772,7 +1783,7 @@ export const getPropertiesIdChecksColumn = (property: string, modelConfig: Model
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return propertiesIdChecksColumnHelper.accessor((row) => row.created, {
+      return usePropertiesIdChecksTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -1783,7 +1794,7 @@ export const getPropertiesIdChecksColumn = (property: string, modelConfig: Model
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return propertiesIdChecksColumnHelper.accessor((row) => row.modified, {
+      return usePropertiesIdChecksTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -1794,7 +1805,7 @@ export const getPropertiesIdChecksColumn = (property: string, modelConfig: Model
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return propertiesIdChecksColumnHelper.accessor((row) => row.description, {
+      return usePropertiesIdChecksTableColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -1805,7 +1816,7 @@ export const getPropertiesIdChecksColumn = (property: string, modelConfig: Model
     .with('status', () => {
       const { label: header, format, width, minWidth } = modelConfig['status']
 
-      return propertiesIdChecksColumnHelper.accessor((row) => row.status, {
+      return usePropertiesIdChecksTableColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
@@ -1816,7 +1827,7 @@ export const getPropertiesIdChecksColumn = (property: string, modelConfig: Model
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return propertiesIdChecksColumnHelper.accessor((row) => row.type, {
+      return usePropertiesIdChecksTableColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -1827,7 +1838,7 @@ export const getPropertiesIdChecksColumn = (property: string, modelConfig: Model
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return propertiesIdChecksColumnHelper.accessor((row) => row.propertyId, {
+      return usePropertiesIdChecksTableColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1838,7 +1849,7 @@ export const getPropertiesIdChecksColumn = (property: string, modelConfig: Model
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return propertiesIdChecksColumnHelper.accessor((row) => row._eTag, {
+      return usePropertiesIdChecksTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -1851,7 +1862,7 @@ export const getPropertiesIdChecksColumn = (property: string, modelConfig: Model
     })
 }
 
-export const usePropertiesIdChecksTable = (args: PropertiesIdChecksArgs) => {
+export const usePropertiesIdChecksTable = (args: UsePropertiesIdChecksTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -1884,14 +1895,17 @@ export const usePropertiesIdChecksTable = (args: PropertiesIdChecksArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const propertiesCertificatesColumnHelper = createColumnHelper<CertificateModel>()
+export const usePropertiesCertificatesTableColumnHelper = createColumnHelper<CertificateModel>()
 
-export const getPropertiesCertificatesColumn = (property: string, modelConfig: ModelConfig<CertificateModel>) => {
+export const getusePropertiesCertificatesTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<CertificateModel>,
+) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row._links, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -1902,7 +1916,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row._embedded, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -1913,7 +1927,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.id, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -1924,7 +1938,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.created, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -1935,7 +1949,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.modified, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -1946,7 +1960,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('category', () => {
       const { label: header, format, width, minWidth } = modelConfig['category']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.category, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.category, {
         id: 'category',
         header,
         cell: (info) => format(info.getValue()),
@@ -1957,7 +1971,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('typeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeId']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.typeId, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1968,7 +1982,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('start', () => {
       const { label: header, format, width, minWidth } = modelConfig['start']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.start, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.start, {
         id: 'start',
         header,
         cell: (info) => format(info.getValue()),
@@ -1979,7 +1993,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('expiry', () => {
       const { label: header, format, width, minWidth } = modelConfig['expiry']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.expiry, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.expiry, {
         id: 'expiry',
         header,
         cell: (info) => format(info.getValue()),
@@ -1990,7 +2004,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.propertyId, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -2001,7 +2015,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('companyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['companyId']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.companyId, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -2012,7 +2026,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('statusId', () => {
       const { label: header, format, width, minWidth } = modelConfig['statusId']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.statusId, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.statusId, {
         id: 'statusId',
         header,
         cell: (info) => format(info.getValue()),
@@ -2023,7 +2037,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('notes', () => {
       const { label: header, format, width, minWidth } = modelConfig['notes']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.notes, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
         header,
         cell: (info) => format(info.getValue()),
@@ -2034,7 +2048,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('referenceNumber', () => {
       const { label: header, format, width, minWidth } = modelConfig['referenceNumber']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.referenceNumber, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.referenceNumber, {
         id: 'referenceNumber',
         header,
         cell: (info) => format(info.getValue()),
@@ -2045,7 +2059,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('responsibleParty', () => {
       const { label: header, format, width, minWidth } = modelConfig['responsibleParty']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row.responsibleParty, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row.responsibleParty, {
         id: 'responsibleParty',
         header,
         cell: (info) => format(info.getValue()),
@@ -2056,7 +2070,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return propertiesCertificatesColumnHelper.accessor((row) => row._eTag, {
+      return usePropertiesCertificatesTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -2069,7 +2083,7 @@ export const getPropertiesCertificatesColumn = (property: string, modelConfig: M
     })
 }
 
-export const usePropertiesCertificatesTable = (args: PropertiesCertificatesArgs) => {
+export const usePropertiesCertificatesTable = (args: UsePropertiesCertificatesTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -2102,14 +2116,17 @@ export const usePropertiesCertificatesTable = (args: PropertiesCertificatesArgs)
 
   return { rerender, table, dataQuery }
 }
-export const propertiesIdAppraisalsColumnHelper = createColumnHelper<PropertyAppraisalModel>()
+export const usePropertiesIdAppraisalsTableColumnHelper = createColumnHelper<PropertyAppraisalModel>()
 
-export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: ModelConfig<PropertyAppraisalModel>) => {
+export const getusePropertiesIdAppraisalsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<PropertyAppraisalModel>,
+) => {
   return match(property)
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return propertiesIdAppraisalsColumnHelper.accessor((row) => row.id, {
+      return usePropertiesIdAppraisalsTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -2120,7 +2137,7 @@ export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: M
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return propertiesIdAppraisalsColumnHelper.accessor((row) => row.created, {
+      return usePropertiesIdAppraisalsTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -2131,7 +2148,7 @@ export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: M
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return propertiesIdAppraisalsColumnHelper.accessor((row) => row.modified, {
+      return usePropertiesIdAppraisalsTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -2142,7 +2159,7 @@ export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: M
     .with('companyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['companyId']
 
-      return propertiesIdAppraisalsColumnHelper.accessor((row) => row.companyId, {
+      return usePropertiesIdAppraisalsTableColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -2153,7 +2170,7 @@ export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: M
     .with('isExternal', () => {
       const { label: header, format, width, minWidth } = modelConfig['isExternal']
 
-      return propertiesIdAppraisalsColumnHelper.accessor((row) => row.isExternal, {
+      return usePropertiesIdAppraisalsTableColumnHelper.accessor((row) => row.isExternal, {
         id: 'isExternal',
         header,
         cell: (info) => format(info.getValue()),
@@ -2164,7 +2181,7 @@ export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: M
     .with('date', () => {
       const { label: header, format, width, minWidth } = modelConfig['date']
 
-      return propertiesIdAppraisalsColumnHelper.accessor((row) => row.date, {
+      return usePropertiesIdAppraisalsTableColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header,
         cell: (info) => format(info.getValue()),
@@ -2175,7 +2192,7 @@ export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: M
     .with('price', () => {
       const { label: header, format, width, minWidth } = modelConfig['price']
 
-      return propertiesIdAppraisalsColumnHelper.accessor((row) => row.price, {
+      return usePropertiesIdAppraisalsTableColumnHelper.accessor((row) => row.price, {
         id: 'price',
         header,
         cell: (info) => format(info.getValue()),
@@ -2186,7 +2203,7 @@ export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: M
     .with('fee', () => {
       const { label: header, format, width, minWidth } = modelConfig['fee']
 
-      return propertiesIdAppraisalsColumnHelper.accessor((row) => row.fee, {
+      return usePropertiesIdAppraisalsTableColumnHelper.accessor((row) => row.fee, {
         id: 'fee',
         header,
         cell: (info) => format(info.getValue()),
@@ -2197,7 +2214,7 @@ export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: M
     .with('notes', () => {
       const { label: header, format, width, minWidth } = modelConfig['notes']
 
-      return propertiesIdAppraisalsColumnHelper.accessor((row) => row.notes, {
+      return usePropertiesIdAppraisalsTableColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
         header,
         cell: (info) => format(info.getValue()),
@@ -2208,7 +2225,7 @@ export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: M
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return propertiesIdAppraisalsColumnHelper.accessor((row) => row._eTag, {
+      return usePropertiesIdAppraisalsTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -2221,7 +2238,7 @@ export const getPropertiesIdAppraisalsColumn = (property: string, modelConfig: M
     })
 }
 
-export const usePropertiesIdAppraisalsTable = (args: PropertiesIdAppraisalsArgs) => {
+export const usePropertiesIdAppraisalsTable = (args: UsePropertiesIdAppraisalsTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

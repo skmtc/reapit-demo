@@ -1,16 +1,48 @@
 import {
-  referralModelPagedResult,
   CreateReferralModel,
+  referralModelPagedResult,
+  referralTypeModelPagedResult,
   referralModel,
   UpdateReferralModel,
-  referralTypeModelPagedResult,
   referralTypeModel,
 } from '@/schemas/index.ts'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
+export type UseCreateReferralArgs = { body: CreateReferralModel }
+export const createReferralFn = async ({ body }: UseCreateReferralArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/referrals/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateReferral = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createReferralFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Referrals'] })
+    },
+  })
+}
 export type UseGetApiReferralsArgs = {
   id?: Array<string> | undefined
   propertyId?: Array<string> | undefined
@@ -70,13 +102,17 @@ export const useGetApiReferrals = (args: UseGetApiReferralsArgs) => {
 
   return result
 }
-export type UseCreateReferralArgs = { body: CreateReferralModel }
-export const createReferralFn = async ({ body }: UseCreateReferralArgs) => {
+export type UseGetApiReferralsTypesArgs = {
+  id?: Array<string> | undefined
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+}
+export const getApiReferralsTypesFn = async ({ id, pageSize, pageNumber, sortBy }: UseGetApiReferralsTypesArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/referrals/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/referrals/types${querySerialiser({ args: { id, pageSize, pageNumber, sortBy }, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'POST',
-      body: JSON.stringify(body),
+      method: 'GET',
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -87,20 +123,16 @@ export const createReferralFn = async ({ body }: UseCreateReferralArgs) => {
 
   const data = await res.json()
 
-  return z.void().parse(data)
+  return referralTypeModelPagedResult.parse(data)
 }
-export const useCreateReferral = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createReferralFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Referrals'] })
-    },
+export const useGetApiReferralsTypes = (args: UseGetApiReferralsTypesArgs) => {
+  const result = useQuery({
+    queryKey: ['Referrals'],
+    queryFn: () => getApiReferralsTypesFn(args),
+    placeholderData: keepPreviousData,
   })
+
+  return result
 }
 export type UseGetApiReferralsIdArgs = {
   id: string
@@ -161,38 +193,6 @@ export const usePatchApiReferralsId = () => {
       void queryClient.invalidateQueries({ queryKey: ['Referrals'] })
     },
   })
-}
-export type UseGetApiReferralsTypesArgs = {
-  id?: Array<string> | undefined
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-}
-export const getApiReferralsTypesFn = async ({ id, pageSize, pageNumber, sortBy }: UseGetApiReferralsTypesArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/referrals/types${querySerialiser({ args: { id, pageSize, pageNumber, sortBy }, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return referralTypeModelPagedResult.parse(data)
-}
-export const useGetApiReferralsTypes = (args: UseGetApiReferralsTypesArgs) => {
-  const result = useQuery({
-    queryKey: ['Referrals'],
-    queryFn: () => getApiReferralsTypesFn(args),
-    placeholderData: keepPreviousData,
-  })
-
-  return result
 }
 export type UseGetApiReferralsTypesIdArgs = { id: string }
 export const getApiReferralsTypesIdFn = async ({ id }: UseGetApiReferralsTypesIdArgs) => {

@@ -2,10 +2,10 @@ import { documentModel, DocumentModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useMemo, useReducer, useState } from 'react'
 import { useGetApiDocuments } from '@/services/documents.generated.ts'
+import { useMemo, useReducer, useState } from 'react'
 
-export type DocumentsArgs = {
+export type UseDocumentsTableArgs = {
   sortBy?: string | undefined
   embed?: Array<'documentType'> | undefined
   id?: Array<string> | undefined
@@ -42,14 +42,14 @@ export type DocumentsArgs = {
   columns: ColumnsList<DocumentModel>
 }
 
-export const documentsColumnHelper = createColumnHelper<DocumentModel>()
+export const useDocumentsTableColumnHelper = createColumnHelper<DocumentModel>()
 
-export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<DocumentModel>) => {
+export const getuseDocumentsTableColumn = (property: string, modelConfig: ModelConfig<DocumentModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return documentsColumnHelper.accessor((row) => row._links, {
+      return useDocumentsTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -60,7 +60,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return documentsColumnHelper.accessor((row) => row._embedded, {
+      return useDocumentsTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -71,7 +71,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return documentsColumnHelper.accessor((row) => row.id, {
+      return useDocumentsTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -82,7 +82,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return documentsColumnHelper.accessor((row) => row.created, {
+      return useDocumentsTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -93,7 +93,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return documentsColumnHelper.accessor((row) => row.modified, {
+      return useDocumentsTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -104,7 +104,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     .with('associatedType', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedType']
 
-      return documentsColumnHelper.accessor((row) => row.associatedType, {
+      return useDocumentsTableColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header,
         cell: (info) => format(info.getValue()),
@@ -115,7 +115,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     .with('isPrivate', () => {
       const { label: header, format, width, minWidth } = modelConfig['isPrivate']
 
-      return documentsColumnHelper.accessor((row) => row.isPrivate, {
+      return useDocumentsTableColumnHelper.accessor((row) => row.isPrivate, {
         id: 'isPrivate',
         header,
         cell: (info) => format(info.getValue()),
@@ -126,7 +126,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     .with('associatedId', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedId']
 
-      return documentsColumnHelper.accessor((row) => row.associatedId, {
+      return useDocumentsTableColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header,
         cell: (info) => format(info.getValue()),
@@ -137,7 +137,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     .with('typeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeId']
 
-      return documentsColumnHelper.accessor((row) => row.typeId, {
+      return useDocumentsTableColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -148,7 +148,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     .with('name', () => {
       const { label: header, format, width, minWidth } = modelConfig['name']
 
-      return documentsColumnHelper.accessor((row) => row.name, {
+      return useDocumentsTableColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header,
         cell: (info) => format(info.getValue()),
@@ -159,7 +159,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return documentsColumnHelper.accessor((row) => row.metadata, {
+      return useDocumentsTableColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -170,7 +170,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return documentsColumnHelper.accessor((row) => row._eTag, {
+      return useDocumentsTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -183,7 +183,7 @@ export const getDocumentsColumn = (property: string, modelConfig: ModelConfig<Do
     })
 }
 
-export const useDocumentsTable = (args: DocumentsArgs) => {
+export const useDocumentsTable = (args: UseDocumentsTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

@@ -7,10 +7,10 @@ import {
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useMemo, useReducer, useState } from 'react'
 import { useGetApiApplicants, useGetApiApplicantsIdRelationships } from '@/services/applicants.generated.ts'
+import { useMemo, useReducer, useState } from 'react'
 
-export type ApplicantsArgs = {
+export type UseApplicantsTableArgs = {
   sortBy?: string | undefined
   embed?:
     | Array<
@@ -104,16 +104,19 @@ export type ApplicantsArgs = {
   locationOptions?: string | undefined
   columns: ColumnsList<ApplicantModel>
 }
-export type ApplicantsIdRelationshipsArgs = { id: string; columns: ColumnsList<ApplicantContactRelationshipModel> }
+export type UseApplicantsIdRelationshipsTableArgs = {
+  id: string
+  columns: ColumnsList<ApplicantContactRelationshipModel>
+}
 
-export const applicantsColumnHelper = createColumnHelper<ApplicantModel>()
+export const useApplicantsTableColumnHelper = createColumnHelper<ApplicantModel>()
 
-export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<ApplicantModel>) => {
+export const getuseApplicantsTableColumn = (property: string, modelConfig: ModelConfig<ApplicantModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return applicantsColumnHelper.accessor((row) => row._links, {
+      return useApplicantsTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -124,7 +127,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return applicantsColumnHelper.accessor((row) => row._embedded, {
+      return useApplicantsTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -135,7 +138,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return applicantsColumnHelper.accessor((row) => row.id, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -146,7 +149,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return applicantsColumnHelper.accessor((row) => row.created, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -157,7 +160,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return applicantsColumnHelper.accessor((row) => row.modified, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -168,7 +171,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('marketingMode', () => {
       const { label: header, format, width, minWidth } = modelConfig['marketingMode']
 
-      return applicantsColumnHelper.accessor((row) => row.marketingMode, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.marketingMode, {
         id: 'marketingMode',
         header,
         cell: (info) => format(info.getValue()),
@@ -179,7 +182,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('currency', () => {
       const { label: header, format, width, minWidth } = modelConfig['currency']
 
-      return applicantsColumnHelper.accessor((row) => row.currency, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.currency, {
         id: 'currency',
         header,
         cell: (info) => format(info.getValue()),
@@ -190,7 +193,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('active', () => {
       const { label: header, format, width, minWidth } = modelConfig['active']
 
-      return applicantsColumnHelper.accessor((row) => row.active, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header,
         cell: (info) => format(info.getValue()),
@@ -201,7 +204,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('notes', () => {
       const { label: header, format, width, minWidth } = modelConfig['notes']
 
-      return applicantsColumnHelper.accessor((row) => row.notes, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
         header,
         cell: (info) => format(info.getValue()),
@@ -212,7 +215,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('sellingStatus', () => {
       const { label: header, format, width, minWidth } = modelConfig['sellingStatus']
 
-      return applicantsColumnHelper.accessor((row) => row.sellingStatus, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.sellingStatus, {
         id: 'sellingStatus',
         header,
         cell: (info) => format(info.getValue()),
@@ -223,7 +226,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('sellingPosition', () => {
       const { label: header, format, width, minWidth } = modelConfig['sellingPosition']
 
-      return applicantsColumnHelper.accessor((row) => row.sellingPosition, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.sellingPosition, {
         id: 'sellingPosition',
         header,
         cell: (info) => format(info.getValue()),
@@ -234,7 +237,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('statusId', () => {
       const { label: header, format, width, minWidth } = modelConfig['statusId']
 
-      return applicantsColumnHelper.accessor((row) => row.statusId, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.statusId, {
         id: 'statusId',
         header,
         cell: (info) => format(info.getValue()),
@@ -245,7 +248,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('lastCall', () => {
       const { label: header, format, width, minWidth } = modelConfig['lastCall']
 
-      return applicantsColumnHelper.accessor((row) => row.lastCall, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.lastCall, {
         id: 'lastCall',
         header,
         cell: (info) => format(info.getValue()),
@@ -256,7 +259,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('nextCall', () => {
       const { label: header, format, width, minWidth } = modelConfig['nextCall']
 
-      return applicantsColumnHelper.accessor((row) => row.nextCall, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.nextCall, {
         id: 'nextCall',
         header,
         cell: (info) => format(info.getValue()),
@@ -267,7 +270,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('departmentId', () => {
       const { label: header, format, width, minWidth } = modelConfig['departmentId']
 
-      return applicantsColumnHelper.accessor((row) => row.departmentId, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.departmentId, {
         id: 'departmentId',
         header,
         cell: (info) => format(info.getValue()),
@@ -278,7 +281,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('solicitorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['solicitorId']
 
-      return applicantsColumnHelper.accessor((row) => row.solicitorId, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.solicitorId, {
         id: 'solicitorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -289,7 +292,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('potentialClient', () => {
       const { label: header, format, width, minWidth } = modelConfig['potentialClient']
 
-      return applicantsColumnHelper.accessor((row) => row.potentialClient, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.potentialClient, {
         id: 'potentialClient',
         header,
         cell: (info) => format(info.getValue()),
@@ -300,7 +303,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return applicantsColumnHelper.accessor((row) => row.type, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -311,7 +314,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('style', () => {
       const { label: header, format, width, minWidth } = modelConfig['style']
 
-      return applicantsColumnHelper.accessor((row) => row.style, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.style, {
         id: 'style',
         header,
         cell: (info) => format(info.getValue()),
@@ -322,7 +325,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('situation', () => {
       const { label: header, format, width, minWidth } = modelConfig['situation']
 
-      return applicantsColumnHelper.accessor((row) => row.situation, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.situation, {
         id: 'situation',
         header,
         cell: (info) => format(info.getValue()),
@@ -333,7 +336,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('parking', () => {
       const { label: header, format, width, minWidth } = modelConfig['parking']
 
-      return applicantsColumnHelper.accessor((row) => row.parking, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.parking, {
         id: 'parking',
         header,
         cell: (info) => format(info.getValue()),
@@ -344,7 +347,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('age', () => {
       const { label: header, format, width, minWidth } = modelConfig['age']
 
-      return applicantsColumnHelper.accessor((row) => row.age, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.age, {
         id: 'age',
         header,
         cell: (info) => format(info.getValue()),
@@ -355,7 +358,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('locality', () => {
       const { label: header, format, width, minWidth } = modelConfig['locality']
 
-      return applicantsColumnHelper.accessor((row) => row.locality, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.locality, {
         id: 'locality',
         header,
         cell: (info) => format(info.getValue()),
@@ -366,7 +369,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('specialFeatures', () => {
       const { label: header, format, width, minWidth } = modelConfig['specialFeatures']
 
-      return applicantsColumnHelper.accessor((row) => row.specialFeatures, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.specialFeatures, {
         id: 'specialFeatures',
         header,
         cell: (info) => format(info.getValue()),
@@ -377,7 +380,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('unmappedRequirements', () => {
       const { label: header, format, width, minWidth } = modelConfig['unmappedRequirements']
 
-      return applicantsColumnHelper.accessor((row) => row.unmappedRequirements, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.unmappedRequirements, {
         id: 'unmappedRequirements',
         header,
         cell: (info) => format(info.getValue()),
@@ -388,7 +391,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('bedroomsMin', () => {
       const { label: header, format, width, minWidth } = modelConfig['bedroomsMin']
 
-      return applicantsColumnHelper.accessor((row) => row.bedroomsMin, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.bedroomsMin, {
         id: 'bedroomsMin',
         header,
         cell: (info) => format(info.getValue()),
@@ -399,7 +402,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('bedroomsMax', () => {
       const { label: header, format, width, minWidth } = modelConfig['bedroomsMax']
 
-      return applicantsColumnHelper.accessor((row) => row.bedroomsMax, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.bedroomsMax, {
         id: 'bedroomsMax',
         header,
         cell: (info) => format(info.getValue()),
@@ -410,7 +413,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('receptionsMin', () => {
       const { label: header, format, width, minWidth } = modelConfig['receptionsMin']
 
-      return applicantsColumnHelper.accessor((row) => row.receptionsMin, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.receptionsMin, {
         id: 'receptionsMin',
         header,
         cell: (info) => format(info.getValue()),
@@ -421,7 +424,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('receptionsMax', () => {
       const { label: header, format, width, minWidth } = modelConfig['receptionsMax']
 
-      return applicantsColumnHelper.accessor((row) => row.receptionsMax, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.receptionsMax, {
         id: 'receptionsMax',
         header,
         cell: (info) => format(info.getValue()),
@@ -432,7 +435,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('bathroomsMin', () => {
       const { label: header, format, width, minWidth } = modelConfig['bathroomsMin']
 
-      return applicantsColumnHelper.accessor((row) => row.bathroomsMin, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.bathroomsMin, {
         id: 'bathroomsMin',
         header,
         cell: (info) => format(info.getValue()),
@@ -443,7 +446,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('bathroomsMax', () => {
       const { label: header, format, width, minWidth } = modelConfig['bathroomsMax']
 
-      return applicantsColumnHelper.accessor((row) => row.bathroomsMax, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.bathroomsMax, {
         id: 'bathroomsMax',
         header,
         cell: (info) => format(info.getValue()),
@@ -454,7 +457,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('parkingSpacesMin', () => {
       const { label: header, format, width, minWidth } = modelConfig['parkingSpacesMin']
 
-      return applicantsColumnHelper.accessor((row) => row.parkingSpacesMin, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.parkingSpacesMin, {
         id: 'parkingSpacesMin',
         header,
         cell: (info) => format(info.getValue()),
@@ -465,7 +468,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('parkingSpacesMax', () => {
       const { label: header, format, width, minWidth } = modelConfig['parkingSpacesMax']
 
-      return applicantsColumnHelper.accessor((row) => row.parkingSpacesMax, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.parkingSpacesMax, {
         id: 'parkingSpacesMax',
         header,
         cell: (info) => format(info.getValue()),
@@ -476,7 +479,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('locationType', () => {
       const { label: header, format, width, minWidth } = modelConfig['locationType']
 
-      return applicantsColumnHelper.accessor((row) => row.locationType, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.locationType, {
         id: 'locationType',
         header,
         cell: (info) => format(info.getValue()),
@@ -487,7 +490,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('locationOptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['locationOptions']
 
-      return applicantsColumnHelper.accessor((row) => row.locationOptions, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.locationOptions, {
         id: 'locationOptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -498,7 +501,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('archivedOn', () => {
       const { label: header, format, width, minWidth } = modelConfig['archivedOn']
 
-      return applicantsColumnHelper.accessor((row) => row.archivedOn, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.archivedOn, {
         id: 'archivedOn',
         header,
         cell: (info) => format(info.getValue()),
@@ -509,7 +512,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('fromArchive', () => {
       const { label: header, format, width, minWidth } = modelConfig['fromArchive']
 
-      return applicantsColumnHelper.accessor((row) => row.fromArchive, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header,
         cell: (info) => format(info.getValue()),
@@ -520,7 +523,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('buying', () => {
       const { label: header, format, width, minWidth } = modelConfig['buying']
 
-      return applicantsColumnHelper.accessor((row) => row.buying, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.buying, {
         id: 'buying',
         header,
         cell: (info) => format(info.getValue()),
@@ -531,7 +534,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('renting', () => {
       const { label: header, format, width, minWidth } = modelConfig['renting']
 
-      return applicantsColumnHelper.accessor((row) => row.renting, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.renting, {
         id: 'renting',
         header,
         cell: (info) => format(info.getValue()),
@@ -542,7 +545,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('externalArea', () => {
       const { label: header, format, width, minWidth } = modelConfig['externalArea']
 
-      return applicantsColumnHelper.accessor((row) => row.externalArea, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.externalArea, {
         id: 'externalArea',
         header,
         cell: (info) => format(info.getValue()),
@@ -553,7 +556,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('internalArea', () => {
       const { label: header, format, width, minWidth } = modelConfig['internalArea']
 
-      return applicantsColumnHelper.accessor((row) => row.internalArea, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.internalArea, {
         id: 'internalArea',
         header,
         cell: (info) => format(info.getValue()),
@@ -564,7 +567,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('source', () => {
       const { label: header, format, width, minWidth } = modelConfig['source']
 
-      return applicantsColumnHelper.accessor((row) => row.source, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.source, {
         id: 'source',
         header,
         cell: (info) => format(info.getValue()),
@@ -575,7 +578,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('commercial', () => {
       const { label: header, format, width, minWidth } = modelConfig['commercial']
 
-      return applicantsColumnHelper.accessor((row) => row.commercial, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.commercial, {
         id: 'commercial',
         header,
         cell: (info) => format(info.getValue()),
@@ -586,7 +589,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('regional', () => {
       const { label: header, format, width, minWidth } = modelConfig['regional']
 
-      return applicantsColumnHelper.accessor((row) => row.regional, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.regional, {
         id: 'regional',
         header,
         cell: (info) => format(info.getValue()),
@@ -597,7 +600,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('officeIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['officeIds']
 
-      return applicantsColumnHelper.accessor((row) => row.officeIds, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -608,7 +611,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('negotiatorIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorIds']
 
-      return applicantsColumnHelper.accessor((row) => row.negotiatorIds, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.negotiatorIds, {
         id: 'negotiatorIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -619,7 +622,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('related', () => {
       const { label: header, format, width, minWidth } = modelConfig['related']
 
-      return applicantsColumnHelper.accessor((row) => row.related, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header,
         cell: (info) => format(info.getValue()),
@@ -630,7 +633,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return applicantsColumnHelper.accessor((row) => row.metadata, {
+      return useApplicantsTableColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -641,7 +644,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return applicantsColumnHelper.accessor((row) => row._eTag, {
+      return useApplicantsTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -654,7 +657,7 @@ export const getApplicantsColumn = (property: string, modelConfig: ModelConfig<A
     })
 }
 
-export const useApplicantsTable = (args: ApplicantsArgs) => {
+export const useApplicantsTable = (args: UseApplicantsTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -687,9 +690,9 @@ export const useApplicantsTable = (args: ApplicantsArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const applicantsIdRelationshipsColumnHelper = createColumnHelper<ApplicantContactRelationshipModel>()
+export const useApplicantsIdRelationshipsTableColumnHelper = createColumnHelper<ApplicantContactRelationshipModel>()
 
-export const getApplicantsIdRelationshipsColumn = (
+export const getuseApplicantsIdRelationshipsTableColumn = (
   property: string,
   modelConfig: ModelConfig<ApplicantContactRelationshipModel>,
 ) => {
@@ -697,7 +700,7 @@ export const getApplicantsIdRelationshipsColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return applicantsIdRelationshipsColumnHelper.accessor((row) => row._links, {
+      return useApplicantsIdRelationshipsTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -708,7 +711,7 @@ export const getApplicantsIdRelationshipsColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return applicantsIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
+      return useApplicantsIdRelationshipsTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -719,7 +722,7 @@ export const getApplicantsIdRelationshipsColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return applicantsIdRelationshipsColumnHelper.accessor((row) => row.id, {
+      return useApplicantsIdRelationshipsTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -730,7 +733,7 @@ export const getApplicantsIdRelationshipsColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return applicantsIdRelationshipsColumnHelper.accessor((row) => row.created, {
+      return useApplicantsIdRelationshipsTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -741,7 +744,7 @@ export const getApplicantsIdRelationshipsColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return applicantsIdRelationshipsColumnHelper.accessor((row) => row.modified, {
+      return useApplicantsIdRelationshipsTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -752,7 +755,7 @@ export const getApplicantsIdRelationshipsColumn = (
     .with('applicantId', () => {
       const { label: header, format, width, minWidth } = modelConfig['applicantId']
 
-      return applicantsIdRelationshipsColumnHelper.accessor((row) => row.applicantId, {
+      return useApplicantsIdRelationshipsTableColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header,
         cell: (info) => format(info.getValue()),
@@ -763,7 +766,7 @@ export const getApplicantsIdRelationshipsColumn = (
     .with('associatedType', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedType']
 
-      return applicantsIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
+      return useApplicantsIdRelationshipsTableColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header,
         cell: (info) => format(info.getValue()),
@@ -774,7 +777,7 @@ export const getApplicantsIdRelationshipsColumn = (
     .with('associatedId', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedId']
 
-      return applicantsIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
+      return useApplicantsIdRelationshipsTableColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header,
         cell: (info) => format(info.getValue()),
@@ -785,7 +788,7 @@ export const getApplicantsIdRelationshipsColumn = (
     .with('isMain', () => {
       const { label: header, format, width, minWidth } = modelConfig['isMain']
 
-      return applicantsIdRelationshipsColumnHelper.accessor((row) => row.isMain, {
+      return useApplicantsIdRelationshipsTableColumnHelper.accessor((row) => row.isMain, {
         id: 'isMain',
         header,
         cell: (info) => format(info.getValue()),
@@ -796,7 +799,7 @@ export const getApplicantsIdRelationshipsColumn = (
     .with('fromArchive', () => {
       const { label: header, format, width, minWidth } = modelConfig['fromArchive']
 
-      return applicantsIdRelationshipsColumnHelper.accessor((row) => row.fromArchive, {
+      return useApplicantsIdRelationshipsTableColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header,
         cell: (info) => format(info.getValue()),
@@ -809,7 +812,7 @@ export const getApplicantsIdRelationshipsColumn = (
     })
 }
 
-export const useApplicantsIdRelationshipsTable = (args: ApplicantsIdRelationshipsArgs) => {
+export const useApplicantsIdRelationshipsTable = (args: UseApplicantsIdRelationshipsTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

@@ -4,12 +4,12 @@ import {
   createBulkJournalEntryModel,
   CreateBulkJournalEntryModel,
 } from '@/schemas/index.ts'
+import { useCreateJournalEntry, useCreateBulkJournalEntry } from '@/services/journalentries.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { useCreateJournalEntry, useCreateBulkJournalEntry } from '@/services/journalentries.generated.ts'
 
 export type CreateJournalEntriesProps = { children: ReactNode }
 export type CreateJournalEntriesBulkProps = { children: ReactNode }

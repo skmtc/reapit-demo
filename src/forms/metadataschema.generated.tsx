@@ -1,10 +1,10 @@
 import { updateSchemaRequest, UpdateSchemaRequest, createSchemaRequest, CreateSchemaRequest } from '@/schemas/index.ts'
+import { useUpdateMetadataSchema, useCreateMetadataSchema } from '@/services/metadataschema.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { useUpdateMetadataSchema, useCreateMetadataSchema } from '@/services/metadataschema.generated.ts'
 
 export type UpdateMetadataMetadataSchemaIdProps = { id: string; children: ReactNode }
 export type CreateMetadataMetadataSchemaProps = { children: ReactNode }

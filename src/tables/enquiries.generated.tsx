@@ -2,10 +2,10 @@ import { enquiryModel, EnquiryModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useMemo, useReducer, useState } from 'react'
 import { useGetApiEnquiries } from '@/services/enquiries.generated.ts'
+import { useMemo, useReducer, useState } from 'react'
 
-export type EnquiriesArgs = {
+export type UseEnquiriesTableArgs = {
   sortBy?: string | undefined
   enquiryType?: string | undefined
   createdFrom?: string | undefined
@@ -15,14 +15,14 @@ export type EnquiriesArgs = {
   columns: ColumnsList<EnquiryModel>
 }
 
-export const enquiriesColumnHelper = createColumnHelper<EnquiryModel>()
+export const useEnquiriesTableColumnHelper = createColumnHelper<EnquiryModel>()
 
-export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<EnquiryModel>) => {
+export const getuseEnquiriesTableColumn = (property: string, modelConfig: ModelConfig<EnquiryModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return enquiriesColumnHelper.accessor((row) => row._links, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -33,7 +33,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return enquiriesColumnHelper.accessor((row) => row._embedded, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -44,7 +44,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return enquiriesColumnHelper.accessor((row) => row.id, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -55,7 +55,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return enquiriesColumnHelper.accessor((row) => row.created, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -66,7 +66,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return enquiriesColumnHelper.accessor((row) => row.modified, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -77,7 +77,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('title', () => {
       const { label: header, format, width, minWidth } = modelConfig['title']
 
-      return enquiriesColumnHelper.accessor((row) => row.title, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.title, {
         id: 'title',
         header,
         cell: (info) => format(info.getValue()),
@@ -88,7 +88,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('forename', () => {
       const { label: header, format, width, minWidth } = modelConfig['forename']
 
-      return enquiriesColumnHelper.accessor((row) => row.forename, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.forename, {
         id: 'forename',
         header,
         cell: (info) => format(info.getValue()),
@@ -99,7 +99,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('surname', () => {
       const { label: header, format, width, minWidth } = modelConfig['surname']
 
-      return enquiriesColumnHelper.accessor((row) => row.surname, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.surname, {
         id: 'surname',
         header,
         cell: (info) => format(info.getValue()),
@@ -110,7 +110,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('enquiryType', () => {
       const { label: header, format, width, minWidth } = modelConfig['enquiryType']
 
-      return enquiriesColumnHelper.accessor((row) => row.enquiryType, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.enquiryType, {
         id: 'enquiryType',
         header,
         cell: (info) => format(info.getValue()),
@@ -121,7 +121,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('message', () => {
       const { label: header, format, width, minWidth } = modelConfig['message']
 
-      return enquiriesColumnHelper.accessor((row) => row.message, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.message, {
         id: 'message',
         header,
         cell: (info) => format(info.getValue()),
@@ -132,7 +132,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('status', () => {
       const { label: header, format, width, minWidth } = modelConfig['status']
 
-      return enquiriesColumnHelper.accessor((row) => row.status, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
@@ -143,7 +143,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('marketingConsent', () => {
       const { label: header, format, width, minWidth } = modelConfig['marketingConsent']
 
-      return enquiriesColumnHelper.accessor((row) => row.marketingConsent, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.marketingConsent, {
         id: 'marketingConsent',
         header,
         cell: (info) => format(info.getValue()),
@@ -154,7 +154,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('position', () => {
       const { label: header, format, width, minWidth } = modelConfig['position']
 
-      return enquiriesColumnHelper.accessor((row) => row.position, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.position, {
         id: 'position',
         header,
         cell: (info) => format(info.getValue()),
@@ -165,7 +165,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('officeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['officeId']
 
-      return enquiriesColumnHelper.accessor((row) => row.officeId, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.officeId, {
         id: 'officeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -176,7 +176,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('applicantId', () => {
       const { label: header, format, width, minWidth } = modelConfig['applicantId']
 
-      return enquiriesColumnHelper.accessor((row) => row.applicantId, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header,
         cell: (info) => format(info.getValue()),
@@ -187,7 +187,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return enquiriesColumnHelper.accessor((row) => row.negotiatorId, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -198,7 +198,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('sourceName', () => {
       const { label: header, format, width, minWidth } = modelConfig['sourceName']
 
-      return enquiriesColumnHelper.accessor((row) => row.sourceName, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.sourceName, {
         id: 'sourceName',
         header,
         cell: (info) => format(info.getValue()),
@@ -209,7 +209,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('homePhone', () => {
       const { label: header, format, width, minWidth } = modelConfig['homePhone']
 
-      return enquiriesColumnHelper.accessor((row) => row.homePhone, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.homePhone, {
         id: 'homePhone',
         header,
         cell: (info) => format(info.getValue()),
@@ -220,7 +220,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('workPhone', () => {
       const { label: header, format, width, minWidth } = modelConfig['workPhone']
 
-      return enquiriesColumnHelper.accessor((row) => row.workPhone, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
         header,
         cell: (info) => format(info.getValue()),
@@ -231,7 +231,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('mobilePhone', () => {
       const { label: header, format, width, minWidth } = modelConfig['mobilePhone']
 
-      return enquiriesColumnHelper.accessor((row) => row.mobilePhone, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.mobilePhone, {
         id: 'mobilePhone',
         header,
         cell: (info) => format(info.getValue()),
@@ -242,7 +242,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('email', () => {
       const { label: header, format, width, minWidth } = modelConfig['email']
 
-      return enquiriesColumnHelper.accessor((row) => row.email, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.email, {
         id: 'email',
         header,
         cell: (info) => format(info.getValue()),
@@ -253,7 +253,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('address', () => {
       const { label: header, format, width, minWidth } = modelConfig['address']
 
-      return enquiriesColumnHelper.accessor((row) => row.address, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.address, {
         id: 'address',
         header,
         cell: (info) => format(info.getValue()),
@@ -264,7 +264,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('buying', () => {
       const { label: header, format, width, minWidth } = modelConfig['buying']
 
-      return enquiriesColumnHelper.accessor((row) => row.buying, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.buying, {
         id: 'buying',
         header,
         cell: (info) => format(info.getValue()),
@@ -275,7 +275,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('renting', () => {
       const { label: header, format, width, minWidth } = modelConfig['renting']
 
-      return enquiriesColumnHelper.accessor((row) => row.renting, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.renting, {
         id: 'renting',
         header,
         cell: (info) => format(info.getValue()),
@@ -286,7 +286,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('bedrooms', () => {
       const { label: header, format, width, minWidth } = modelConfig['bedrooms']
 
-      return enquiriesColumnHelper.accessor((row) => row.bedrooms, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.bedrooms, {
         id: 'bedrooms',
         header,
         cell: (info) => format(info.getValue()),
@@ -297,7 +297,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('propertyIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyIds']
 
-      return enquiriesColumnHelper.accessor((row) => row.propertyIds, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row.propertyIds, {
         id: 'propertyIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -308,7 +308,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return enquiriesColumnHelper.accessor((row) => row._eTag, {
+      return useEnquiriesTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -321,7 +321,7 @@ export const getEnquiriesColumn = (property: string, modelConfig: ModelConfig<En
     })
 }
 
-export const useEnquiriesTable = (args: EnquiriesArgs) => {
+export const useEnquiriesTable = (args: UseEnquiriesTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

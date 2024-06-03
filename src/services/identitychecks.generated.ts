@@ -1,16 +1,80 @@
 import {
-  identityCheckModelPagedResult,
   CreateIdentityCheckModel,
-  identityCheckModel,
-  UpdateIdentityCheckModel,
   CreatePreSignedUrlsModel,
   createPreSignedUrlsModel,
+  identityCheckModelPagedResult,
+  identityCheckModel,
+  UpdateIdentityCheckModel,
 } from '@/schemas/index.ts'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
+export type UseCreateIdentityCheckArgs = { body: CreateIdentityCheckModel }
+export const createIdentityCheckFn = async ({ body }: UseCreateIdentityCheckArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/identityChecks/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateIdentityCheck = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createIdentityCheckFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['IdentityChecks'] })
+    },
+  })
+}
+export type UseCreateIdentityCheckSignedUrlArgs = { body: CreatePreSignedUrlsModel }
+export const createIdentityCheckSignedUrlFn = async ({ body }: UseCreateIdentityCheckSignedUrlArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/identityChecks/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return createPreSignedUrlsModel.parse(data)
+}
+export const useCreateIdentityCheckSignedUrl = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createIdentityCheckSignedUrlFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['IdentityChecks'] })
+    },
+  })
+}
 export type UseGetApiIdentityChecksArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -70,38 +134,6 @@ export const useGetApiIdentityChecks = (args: UseGetApiIdentityChecksArgs) => {
 
   return result
 }
-export type UseCreateIdentityCheckArgs = { body: CreateIdentityCheckModel }
-export const createIdentityCheckFn = async ({ body }: UseCreateIdentityCheckArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/identityChecks/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateIdentityCheck = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createIdentityCheckFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['IdentityChecks'] })
-    },
-  })
-}
 export type UseGetApiIdentityChecksIdArgs = {
   id: string
   embed?: Array<'contact' | 'document1' | 'document2' | 'documentType1' | 'documentType2'> | undefined
@@ -159,38 +191,6 @@ export const usePatchApiIdentityChecksId = () => {
 
   return useMutation({
     mutationFn: patchApiIdentityChecksIdFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['IdentityChecks'] })
-    },
-  })
-}
-export type UseCreateIdentityCheckSignedUrlArgs = { body: CreatePreSignedUrlsModel }
-export const createIdentityCheckSignedUrlFn = async ({ body }: UseCreateIdentityCheckSignedUrlArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/identityChecks/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return createPreSignedUrlsModel.parse(data)
-}
-export const useCreateIdentityCheckSignedUrl = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createIdentityCheckSignedUrlFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

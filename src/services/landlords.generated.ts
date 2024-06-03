@@ -1,17 +1,81 @@
 import {
-  landlordModelPagedResult,
   CreateLandlordModel,
+  InsertLandlordContactRelationshipModel,
+  landlordModelPagedResult,
+  landlordContactRelationshipModelPagedResult,
   landlordModel,
   UpdateLandlordModel,
-  landlordContactRelationshipModelPagedResult,
-  InsertLandlordContactRelationshipModel,
   landlordContactRelationshipModel,
 } from '@/schemas/index.ts'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
+export type UseCreateLandlordArgs = { body: CreateLandlordModel }
+export const createLandlordFn = async ({ body }: UseCreateLandlordArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateLandlord = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createLandlordFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Landlords'] })
+    },
+  })
+}
+export type UseCreateLandlordRelationshipArgs = { id: string; body: InsertLandlordContactRelationshipModel }
+export const createLandlordRelationshipFn = async ({ id, body }: UseCreateLandlordRelationshipArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateLandlordRelationship = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createLandlordRelationshipFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Landlords'] })
+    },
+  })
+}
 export type UseGetApiLandlordsArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -73,13 +137,20 @@ export const useGetApiLandlords = (args: UseGetApiLandlordsArgs) => {
 
   return result
 }
-export type UseCreateLandlordArgs = { body: CreateLandlordModel }
-export const createLandlordFn = async ({ body }: UseCreateLandlordArgs) => {
+export type UseGetApiLandlordsIdRelationshipsArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+}
+export const getApiLandlordsIdRelationshipsFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: UseGetApiLandlordsIdRelationshipsArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'POST',
-      body: JSON.stringify(body),
+      method: 'GET',
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -90,20 +161,16 @@ export const createLandlordFn = async ({ body }: UseCreateLandlordArgs) => {
 
   const data = await res.json()
 
-  return z.void().parse(data)
+  return landlordContactRelationshipModelPagedResult.parse(data)
 }
-export const useCreateLandlord = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createLandlordFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Landlords'] })
-    },
+export const useGetApiLandlordsIdRelationships = (args: UseGetApiLandlordsIdRelationshipsArgs) => {
+  const result = useQuery({
+    queryKey: ['Landlords'],
+    queryFn: () => getApiLandlordsIdRelationshipsFn(args),
+    placeholderData: keepPreviousData,
   })
+
+  return result
 }
 export type UseGetApiLandlordsIdArgs = {
   id: string
@@ -159,73 +226,6 @@ export const usePatchApiLandlordsId = () => {
 
   return useMutation({
     mutationFn: patchApiLandlordsIdFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Landlords'] })
-    },
-  })
-}
-export type UseGetApiLandlordsIdRelationshipsArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-}
-export const getApiLandlordsIdRelationshipsFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-}: UseGetApiLandlordsIdRelationshipsArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return landlordContactRelationshipModelPagedResult.parse(data)
-}
-export const useGetApiLandlordsIdRelationships = (args: UseGetApiLandlordsIdRelationshipsArgs) => {
-  const result = useQuery({
-    queryKey: ['Landlords'],
-    queryFn: () => getApiLandlordsIdRelationshipsFn(args),
-    placeholderData: keepPreviousData,
-  })
-
-  return result
-}
-export type UseCreateLandlordRelationshipArgs = { id: string; body: InsertLandlordContactRelationshipModel }
-export const createLandlordRelationshipFn = async ({ id, body }: UseCreateLandlordRelationshipArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateLandlordRelationship = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createLandlordRelationshipFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

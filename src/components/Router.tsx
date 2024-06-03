@@ -1,43 +1,45 @@
-import { Applicants } from '@/examples/ApplicantsPage.example.tsx'
+import { ApplicantsTable } from '@/examples/ApplicantsTable.example.tsx'
 import { CreateApplicantsForm } from '@/examples/CreateApplicants.example.tsx'
-import { Areas } from '@/examples/AreasPage.example.tsx'
+import { AreasTable } from '@/examples/AreasTable.example.tsx'
 import { CreateAreasForm } from '@/examples/CreateAreas.example.tsx'
-import { Appointments } from '@/examples/AppointmentsPage.example.tsx'
+import { AppointmentsTable } from '@/examples/AppointmentsTable.example.tsx'
 import { CreateAppointmentsForm } from '@/examples/CreateAppointments.example.tsx'
-import { Companies } from '@/examples/CompaniesPage.example.tsx'
+import { CompaniesTable } from '@/examples/CompaniesTable.example.tsx'
 import { CreateCompaniesForm } from '@/examples/CreateCompanies.example.tsx'
-import { Contacts } from '@/examples/ContactsPage.example.tsx'
+import { ContactsTable } from '@/examples/ContactsTable.example.tsx'
 import { CreateContactsForm } from '@/examples/CreateContacts.example.tsx'
-import { Conveyancing } from '@/examples/ConveyancingPage.example.tsx'
-import { Departments } from '@/examples/DepartmentsPage.example.tsx'
-import { Documents } from '@/examples/DocumentsPage.example.tsx'
+import { ConveyancingTable } from '@/examples/ConveyancingTable.example.tsx'
+import { DepartmentsTable } from '@/examples/DepartmentsTable.example.tsx'
+import { DocumentsTable } from '@/examples/DocumentsTable.example.tsx'
 import { CreateDocumentsForm } from '@/examples/CreateDocuments.example.tsx'
-import { Enquiries } from '@/examples/EnquiriesPage.example.tsx'
+import { EnquiriesTable } from '@/examples/EnquiriesTable.example.tsx'
 import { CreateEnquiriesForm } from '@/examples/CreateEnquiries.example.tsx'
-import { Invoices } from '@/examples/InvoicesPage.example.tsx'
-import { Landlords } from '@/examples/LandlordsPage.example.tsx'
+import { InvoicesTable } from '@/examples/InvoicesTable.example.tsx'
+import { LandlordsTable } from '@/examples/LandlordsTable.example.tsx'
 import { CreateLandlordsForm } from '@/examples/CreateLandlords.example.tsx'
-import { Negotiators } from '@/examples/NegotiatorsPage.example.tsx'
+import { MetadataTable } from '@/examples/MetadataTable.example.tsx'
+import { CreateMetadataForm } from '@/examples/CreateMetadata.example.tsx'
+import { NegotiatorsTable } from '@/examples/NegotiatorsTable.example.tsx'
 import { CreateNegotiatorsForm } from '@/examples/CreateNegotiators.example.tsx'
 import { CreateNotificationsForm } from '@/examples/CreateNotifications.example.tsx'
-import { Offers } from '@/examples/OffersPage.example.tsx'
+import { OffersTable } from '@/examples/OffersTable.example.tsx'
 import { CreateOffersForm } from '@/examples/CreateOffers.example.tsx'
-import { Offices } from '@/examples/OfficesPage.example.tsx'
+import { OfficesTable } from '@/examples/OfficesTable.example.tsx'
 import { CreateOfficesForm } from '@/examples/CreateOffices.example.tsx'
-import { Properties } from '@/examples/PropertiesPage.example.tsx'
+import { PropertiesTable } from '@/examples/PropertiesTable.example.tsx'
 import { CreatePropertiesForm } from '@/examples/CreateProperties.example.tsx'
-import { Referrals } from '@/examples/ReferralsPage.example.tsx'
+import { ReferralsTable } from '@/examples/ReferralsTable.example.tsx'
 import { CreateReferralsForm } from '@/examples/CreateReferrals.example.tsx'
-import { Resthooks } from '@/examples/ResthooksPage.example.tsx'
+import { ResthooksTable } from '@/examples/ResthooksTable.example.tsx'
 import { CreateResthooksForm } from '@/examples/CreateResthooks.example.tsx'
-import { Sources } from '@/examples/SourcesPage.example.tsx'
+import { SourcesTable } from '@/examples/SourcesTable.example.tsx'
 import { CreateSourcesForm } from '@/examples/CreateSources.example.tsx'
-import { Tasks } from '@/examples/TasksPage.example.tsx'
+import { TasksTable } from '@/examples/TasksTable.example.tsx'
 import { CreateTasksForm } from '@/examples/CreateTasks.example.tsx'
-import { Tenancies } from '@/examples/TenanciesPage.example.tsx'
+import { TenanciesTable } from '@/examples/TenanciesTable.example.tsx'
 import { CreateTenanciesForm } from '@/examples/CreateTenancies.example.tsx'
-import { Transactions } from '@/examples/TransactionsPage.example.tsx'
-import { Vendors } from '@/examples/VendorsPage.example.tsx'
+import { TransactionsTable } from '@/examples/TransactionsTable.example.tsx'
+import { VendorsTable } from '@/examples/VendorsTable.example.tsx'
 import { RouteObject } from 'react-router-dom'
 import { GlobeAltIcon } from '@heroicons/react/24/outline'
 import { NavItem } from '@/components/Root'
@@ -45,7 +47,7 @@ import { NavItem } from '@/components/Root'
 export const Routes: RouteObject[] = [
   {
     path: 'applicants',
-    element: <Applicants />,
+    element: <ApplicantsTable />,
     children: [
       {
         path: 'new',
@@ -55,7 +57,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'areas',
-    element: <Areas />,
+    element: <AreasTable />,
     children: [
       {
         path: 'new',
@@ -65,7 +67,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'appointments',
-    element: <Appointments />,
+    element: <AppointmentsTable />,
     children: [
       {
         path: 'new',
@@ -75,7 +77,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'companies',
-    element: <Companies />,
+    element: <CompaniesTable />,
     children: [
       {
         path: 'new',
@@ -85,7 +87,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'contacts',
-    element: <Contacts />,
+    element: <ContactsTable />,
     children: [
       {
         path: 'new',
@@ -95,15 +97,15 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'conveyancing',
-    element: <Conveyancing />,
+    element: <ConveyancingTable />,
   },
   {
     path: 'departments',
-    element: <Departments />,
+    element: <DepartmentsTable />,
   },
   {
     path: 'documents',
-    element: <Documents />,
+    element: <DocumentsTable />,
     children: [
       {
         path: 'new',
@@ -113,7 +115,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'enquiries',
-    element: <Enquiries />,
+    element: <EnquiriesTable />,
     children: [
       {
         path: 'new',
@@ -123,11 +125,11 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'invoices',
-    element: <Invoices />,
+    element: <InvoicesTable />,
   },
   {
     path: 'landlords',
-    element: <Landlords />,
+    element: <LandlordsTable />,
     children: [
       {
         path: 'new',
@@ -136,8 +138,18 @@ export const Routes: RouteObject[] = [
     ],
   },
   {
+    path: 'metadata',
+    element: <MetadataTable />,
+    children: [
+      {
+        path: 'new',
+        element: <CreateMetadataForm />,
+      },
+    ],
+  },
+  {
     path: 'negotiators',
-    element: <Negotiators />,
+    element: <NegotiatorsTable />,
     children: [
       {
         path: 'new',
@@ -147,7 +159,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'offers',
-    element: <Offers />,
+    element: <OffersTable />,
     children: [
       {
         path: 'new',
@@ -157,7 +169,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'offices',
-    element: <Offices />,
+    element: <OfficesTable />,
     children: [
       {
         path: 'new',
@@ -167,7 +179,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'properties',
-    element: <Properties />,
+    element: <PropertiesTable />,
     children: [
       {
         path: 'new',
@@ -177,7 +189,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'referrals',
-    element: <Referrals />,
+    element: <ReferralsTable />,
     children: [
       {
         path: 'new',
@@ -187,7 +199,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'resthooks',
-    element: <Resthooks />,
+    element: <ResthooksTable />,
     children: [
       {
         path: 'new',
@@ -197,7 +209,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'sources',
-    element: <Sources />,
+    element: <SourcesTable />,
     children: [
       {
         path: 'new',
@@ -207,7 +219,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'tasks',
-    element: <Tasks />,
+    element: <TasksTable />,
     children: [
       {
         path: 'new',
@@ -217,7 +229,7 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'tenancies',
-    element: <Tenancies />,
+    element: <TenanciesTable />,
     children: [
       {
         path: 'new',
@@ -227,40 +239,40 @@ export const Routes: RouteObject[] = [
   },
   {
     path: 'transactions',
-    element: <Transactions />,
+    element: <TransactionsTable />,
   },
   {
     path: 'vendors',
-    element: <Vendors />,
+    element: <VendorsTable />,
   },
 ]
 
 export const NavLinks = () => {
   return (
     <>
-      <NavItem label="Applicants" to="/Applicants" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Areas" to="/Areas" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Appointments" to="/Appointments" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Companies" to="/Companies" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Contacts" to="/Contacts" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Conveyancing" to="/Conveyancing" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Departments" to="/Departments" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Documents" to="/Documents" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Enquiries" to="/Enquiries" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Invoices" to="/Invoices" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Landlords" to="/Landlords" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Metadata" to="/Metadata" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Negotiators" to="/Negotiators" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Offers" to="/Offers" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Offices" to="/Offices" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Properties" to="/Properties" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Referrals" to="/Referrals" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Resthooks" to="/Resthooks" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Sources" to="/Sources" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Tasks" to="/Tasks" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Tenancies" to="/Tenancies" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Transactions" to="/Transactions" icon={<GlobeAltIcon width="24px" height="24px" />} />
-      <NavItem label="Vendors" to="/Vendors" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="ApplicantsTable" to="/ApplicantsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="AreasTable" to="/AreasTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="AppointmentsTable" to="/AppointmentsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="CompaniesTable" to="/CompaniesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="ContactsTable" to="/ContactsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="ConveyancingTable" to="/ConveyancingTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="DepartmentsTable" to="/DepartmentsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="DocumentsTable" to="/DocumentsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="EnquiriesTable" to="/EnquiriesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="InvoicesTable" to="/InvoicesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="LandlordsTable" to="/LandlordsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="MetadataTable" to="/MetadataTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="NegotiatorsTable" to="/NegotiatorsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="OffersTable" to="/OffersTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="OfficesTable" to="/OfficesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="PropertiesTable" to="/PropertiesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="ReferralsTable" to="/ReferralsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="ResthooksTable" to="/ResthooksTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="SourcesTable" to="/SourcesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="TasksTable" to="/TasksTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="TenanciesTable" to="/TenanciesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="TransactionsTable" to="/TransactionsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+      <NavItem label="VendorsTable" to="/VendorsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
     </>
   )
 }

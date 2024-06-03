@@ -1,17 +1,81 @@
 import {
-  applicantModelPagedResult,
   CreateApplicantModel,
+  InsertApplicantContactRelationshipModel,
+  applicantModelPagedResult,
+  applicantContactRelationshipModelPagedResult,
   applicantModel,
   UpdateApplicantModel,
-  applicantContactRelationshipModelPagedResult,
-  InsertApplicantContactRelationshipModel,
   applicantContactRelationshipModel,
 } from '@/schemas/index.ts'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
+export type UseCreateApplicantArgs = { body: CreateApplicantModel }
+export const createApplicantFn = async ({ body }: UseCreateApplicantArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateApplicant = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createApplicantFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Applicants'] })
+    },
+  })
+}
+export type UseCreateApplicantRelationshipArgs = { id: string; body: InsertApplicantContactRelationshipModel }
+export const createApplicantRelationshipFn = async ({ id, body }: UseCreateApplicantRelationshipArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateApplicantRelationship = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createApplicantRelationshipFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Applicants'] })
+    },
+  })
+}
 export type UseGetApiApplicantsArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -177,13 +241,20 @@ export const useGetApiApplicants = (args: UseGetApiApplicantsArgs) => {
 
   return result
 }
-export type UseCreateApplicantArgs = { body: CreateApplicantModel }
-export const createApplicantFn = async ({ body }: UseCreateApplicantArgs) => {
+export type UseGetApiApplicantsIdRelationshipsArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+}
+export const getApiApplicantsIdRelationshipsFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: UseGetApiApplicantsIdRelationshipsArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'POST',
-      body: JSON.stringify(body),
+      method: 'GET',
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -194,20 +265,16 @@ export const createApplicantFn = async ({ body }: UseCreateApplicantArgs) => {
 
   const data = await res.json()
 
-  return z.void().parse(data)
+  return applicantContactRelationshipModelPagedResult.parse(data)
 }
-export const useCreateApplicant = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createApplicantFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Applicants'] })
-    },
+export const useGetApiApplicantsIdRelationships = (args: UseGetApiApplicantsIdRelationshipsArgs) => {
+  const result = useQuery({
+    queryKey: ['Applicants'],
+    queryFn: () => getApiApplicantsIdRelationshipsFn(args),
+    placeholderData: keepPreviousData,
   })
+
+  return result
 }
 export type UseGetApiApplicantsIdArgs = {
   id: string
@@ -274,73 +341,6 @@ export const usePatchApiApplicantsId = () => {
 
   return useMutation({
     mutationFn: patchApiApplicantsIdFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Applicants'] })
-    },
-  })
-}
-export type UseGetApiApplicantsIdRelationshipsArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-}
-export const getApiApplicantsIdRelationshipsFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-}: UseGetApiApplicantsIdRelationshipsArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return applicantContactRelationshipModelPagedResult.parse(data)
-}
-export const useGetApiApplicantsIdRelationships = (args: UseGetApiApplicantsIdRelationshipsArgs) => {
-  const result = useQuery({
-    queryKey: ['Applicants'],
-    queryFn: () => getApiApplicantsIdRelationshipsFn(args),
-    placeholderData: keepPreviousData,
-  })
-
-  return result
-}
-export type UseCreateApplicantRelationshipArgs = { id: string; body: InsertApplicantContactRelationshipModel }
-export const createApplicantRelationshipFn = async ({ id, body }: UseCreateApplicantRelationshipArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateApplicantRelationship = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createApplicantRelationshipFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

@@ -21,7 +21,6 @@ import {
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useMemo, useReducer, useState } from 'react'
 import {
   useGetApiTenancies,
   useGetApiTenanciesIdRelationships,
@@ -33,8 +32,9 @@ import {
   useGetApiTenanciesIdExtensions,
   useGetApiTenanciesIdRenewalNegotiationsRenewalIdChecks,
 } from '@/services/tenancies.generated.ts'
+import { useMemo, useReducer, useState } from 'react'
 
-export type TenanciesArgs = {
+export type UseTenanciesTableArgs = {
   sortBy?: string | undefined
   fromArchive?: boolean | undefined
   embed?:
@@ -71,32 +71,32 @@ export type TenanciesArgs = {
   metadata?: Array<string> | undefined
   columns: ColumnsList<TenancyModel>
 }
-export type TenanciesIdRelationshipsArgs = { id: string; columns: ColumnsList<TenancyContactRelationshipModel> }
-export type TenanciesIdChecksArgs = {
+export type UseTenanciesIdRelationshipsTableArgs = { id: string; columns: ColumnsList<TenancyContactRelationshipModel> }
+export type UseTenanciesIdChecksTableArgs = {
   id: string
   type?: string | undefined
   status?: Array<'needed' | 'notNeeded' | 'arranged' | 'completed'> | undefined
   columns: ColumnsList<TenancyCheckModel>
 }
-export type TenanciesIdBreakClausesArgs = { id: string; columns: ColumnsList<TenancyBreakClauseModel> }
-export type TenanciesIdAllowancesArgs = { id: string; columns: ColumnsList<TenancyAllowanceModel> }
-export type TenanciesIdResponsibilitiesArgs = { id: string; columns: ColumnsList<TenancyResponsibilityModel> }
-export type TenanciesIdRenewalNegotiationsArgs = { id: string; columns: ColumnsList<TenancyRenewalModel> }
-export type TenanciesIdExtensionsArgs = { id: string; columns: ColumnsList<TenancyExtensionAlterationModel> }
-export type TenanciesIdRenewalNegotiationsRenewalIdChecksArgs = {
+export type UseTenanciesIdBreakClausesTableArgs = { id: string; columns: ColumnsList<TenancyBreakClauseModel> }
+export type UseTenanciesIdAllowancesTableArgs = { id: string; columns: ColumnsList<TenancyAllowanceModel> }
+export type UseTenanciesIdResponsibilitiesTableArgs = { id: string; columns: ColumnsList<TenancyResponsibilityModel> }
+export type UseTenanciesIdRenewalNegotiationsTableArgs = { id: string; columns: ColumnsList<TenancyRenewalModel> }
+export type UseTenanciesIdExtensionsTableArgs = { id: string; columns: ColumnsList<TenancyExtensionAlterationModel> }
+export type UseTenanciesIdRenewalNegotiationsRenewalIdChecksTableArgs = {
   id: string
   renewalId: string
   columns: ColumnsList<TenancyRenewalCheckModel>
 }
 
-export const tenanciesColumnHelper = createColumnHelper<TenancyModel>()
+export const useTenanciesTableColumnHelper = createColumnHelper<TenancyModel>()
 
-export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<TenancyModel>) => {
+export const getuseTenanciesTableColumn = (property: string, modelConfig: ModelConfig<TenancyModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return tenanciesColumnHelper.accessor((row) => row._links, {
+      return useTenanciesTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -107,7 +107,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return tenanciesColumnHelper.accessor((row) => row._embedded, {
+      return useTenanciesTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -118,7 +118,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return tenanciesColumnHelper.accessor((row) => row.id, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -129,7 +129,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return tenanciesColumnHelper.accessor((row) => row.created, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -140,7 +140,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return tenanciesColumnHelper.accessor((row) => row.modified, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -151,7 +151,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('startDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['startDate']
 
-      return tenanciesColumnHelper.accessor((row) => row.startDate, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.startDate, {
         id: 'startDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -162,7 +162,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('endDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['endDate']
 
-      return tenanciesColumnHelper.accessor((row) => row.endDate, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.endDate, {
         id: 'endDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -173,7 +173,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('status', () => {
       const { label: header, format, width, minWidth } = modelConfig['status']
 
-      return tenanciesColumnHelper.accessor((row) => row.status, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
@@ -184,7 +184,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('agentRole', () => {
       const { label: header, format, width, minWidth } = modelConfig['agentRole']
 
-      return tenanciesColumnHelper.accessor((row) => row.agentRole, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.agentRole, {
         id: 'agentRole',
         header,
         cell: (info) => format(info.getValue()),
@@ -195,7 +195,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('rent', () => {
       const { label: header, format, width, minWidth } = modelConfig['rent']
 
-      return tenanciesColumnHelper.accessor((row) => row.rent, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.rent, {
         id: 'rent',
         header,
         cell: (info) => format(info.getValue()),
@@ -206,7 +206,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('rentFrequency', () => {
       const { label: header, format, width, minWidth } = modelConfig['rentFrequency']
 
-      return tenanciesColumnHelper.accessor((row) => row.rentFrequency, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.rentFrequency, {
         id: 'rentFrequency',
         header,
         cell: (info) => format(info.getValue()),
@@ -217,7 +217,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('endDateConfirmed', () => {
       const { label: header, format, width, minWidth } = modelConfig['endDateConfirmed']
 
-      return tenanciesColumnHelper.accessor((row) => row.endDateConfirmed, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.endDateConfirmed, {
         id: 'endDateConfirmed',
         header,
         cell: (info) => format(info.getValue()),
@@ -228,7 +228,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('isPeriodic', () => {
       const { label: header, format, width, minWidth } = modelConfig['isPeriodic']
 
-      return tenanciesColumnHelper.accessor((row) => row.isPeriodic, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.isPeriodic, {
         id: 'isPeriodic',
         header,
         cell: (info) => format(info.getValue()),
@@ -239,7 +239,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('rentInstalmentsFrequency', () => {
       const { label: header, format, width, minWidth } = modelConfig['rentInstalmentsFrequency']
 
-      return tenanciesColumnHelper.accessor((row) => row.rentInstalmentsFrequency, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.rentInstalmentsFrequency, {
         id: 'rentInstalmentsFrequency',
         header,
         cell: (info) => format(info.getValue()),
@@ -250,7 +250,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('rentInstalmentsAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['rentInstalmentsAmount']
 
-      return tenanciesColumnHelper.accessor((row) => row.rentInstalmentsAmount, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.rentInstalmentsAmount, {
         id: 'rentInstalmentsAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -261,7 +261,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('rentInstalmentsStart', () => {
       const { label: header, format, width, minWidth } = modelConfig['rentInstalmentsStart']
 
-      return tenanciesColumnHelper.accessor((row) => row.rentInstalmentsStart, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.rentInstalmentsStart, {
         id: 'rentInstalmentsStart',
         header,
         cell: (info) => format(info.getValue()),
@@ -272,7 +272,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('meterReadingGas', () => {
       const { label: header, format, width, minWidth } = modelConfig['meterReadingGas']
 
-      return tenanciesColumnHelper.accessor((row) => row.meterReadingGas, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.meterReadingGas, {
         id: 'meterReadingGas',
         header,
         cell: (info) => format(info.getValue()),
@@ -283,7 +283,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('meterReadingGasLastRead', () => {
       const { label: header, format, width, minWidth } = modelConfig['meterReadingGasLastRead']
 
-      return tenanciesColumnHelper.accessor((row) => row.meterReadingGasLastRead, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.meterReadingGasLastRead, {
         id: 'meterReadingGasLastRead',
         header,
         cell: (info) => format(info.getValue()),
@@ -294,7 +294,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('meterReadingElectricity', () => {
       const { label: header, format, width, minWidth } = modelConfig['meterReadingElectricity']
 
-      return tenanciesColumnHelper.accessor((row) => row.meterReadingElectricity, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.meterReadingElectricity, {
         id: 'meterReadingElectricity',
         header,
         cell: (info) => format(info.getValue()),
@@ -305,7 +305,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('meterReadingElectricityLastRead', () => {
       const { label: header, format, width, minWidth } = modelConfig['meterReadingElectricityLastRead']
 
-      return tenanciesColumnHelper.accessor((row) => row.meterReadingElectricityLastRead, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.meterReadingElectricityLastRead, {
         id: 'meterReadingElectricityLastRead',
         header,
         cell: (info) => format(info.getValue()),
@@ -316,7 +316,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('meterReadingWater', () => {
       const { label: header, format, width, minWidth } = modelConfig['meterReadingWater']
 
-      return tenanciesColumnHelper.accessor((row) => row.meterReadingWater, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.meterReadingWater, {
         id: 'meterReadingWater',
         header,
         cell: (info) => format(info.getValue()),
@@ -327,7 +327,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('meterReadingWaterLastRead', () => {
       const { label: header, format, width, minWidth } = modelConfig['meterReadingWaterLastRead']
 
-      return tenanciesColumnHelper.accessor((row) => row.meterReadingWaterLastRead, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.meterReadingWaterLastRead, {
         id: 'meterReadingWaterLastRead',
         header,
         cell: (info) => format(info.getValue()),
@@ -338,7 +338,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('typeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeId']
 
-      return tenanciesColumnHelper.accessor((row) => row.typeId, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -349,7 +349,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return tenanciesColumnHelper.accessor((row) => row.negotiatorId, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -360,7 +360,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return tenanciesColumnHelper.accessor((row) => row.propertyId, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -371,7 +371,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('applicantId', () => {
       const { label: header, format, width, minWidth } = modelConfig['applicantId']
 
-      return tenanciesColumnHelper.accessor((row) => row.applicantId, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header,
         cell: (info) => format(info.getValue()),
@@ -382,7 +382,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('managerId', () => {
       const { label: header, format, width, minWidth } = modelConfig['managerId']
 
-      return tenanciesColumnHelper.accessor((row) => row.managerId, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.managerId, {
         id: 'managerId',
         header,
         cell: (info) => format(info.getValue()),
@@ -393,7 +393,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('groupPaymentReference', () => {
       const { label: header, format, width, minWidth } = modelConfig['groupPaymentReference']
 
-      return tenanciesColumnHelper.accessor((row) => row.groupPaymentReference, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.groupPaymentReference, {
         id: 'groupPaymentReference',
         header,
         cell: (info) => format(info.getValue()),
@@ -404,7 +404,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('lettingFee', () => {
       const { label: header, format, width, minWidth } = modelConfig['lettingFee']
 
-      return tenanciesColumnHelper.accessor((row) => row.lettingFee, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.lettingFee, {
         id: 'lettingFee',
         header,
         cell: (info) => format(info.getValue()),
@@ -415,7 +415,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('managementFee', () => {
       const { label: header, format, width, minWidth } = modelConfig['managementFee']
 
-      return tenanciesColumnHelper.accessor((row) => row.managementFee, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.managementFee, {
         id: 'managementFee',
         header,
         cell: (info) => format(info.getValue()),
@@ -426,7 +426,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('source', () => {
       const { label: header, format, width, minWidth } = modelConfig['source']
 
-      return tenanciesColumnHelper.accessor((row) => row.source, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.source, {
         id: 'source',
         header,
         cell: (info) => format(info.getValue()),
@@ -437,7 +437,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('deposit', () => {
       const { label: header, format, width, minWidth } = modelConfig['deposit']
 
-      return tenanciesColumnHelper.accessor((row) => row.deposit, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.deposit, {
         id: 'deposit',
         header,
         cell: (info) => format(info.getValue()),
@@ -448,7 +448,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('related', () => {
       const { label: header, format, width, minWidth } = modelConfig['related']
 
-      return tenanciesColumnHelper.accessor((row) => row.related, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header,
         cell: (info) => format(info.getValue()),
@@ -459,7 +459,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('fromArchive', () => {
       const { label: header, format, width, minWidth } = modelConfig['fromArchive']
 
-      return tenanciesColumnHelper.accessor((row) => row.fromArchive, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header,
         cell: (info) => format(info.getValue()),
@@ -470,7 +470,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return tenanciesColumnHelper.accessor((row) => row.metadata, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -481,7 +481,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('feeNotes', () => {
       const { label: header, format, width, minWidth } = modelConfig['feeNotes']
 
-      return tenanciesColumnHelper.accessor((row) => row.feeNotes, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.feeNotes, {
         id: 'feeNotes',
         header,
         cell: (info) => format(info.getValue()),
@@ -492,7 +492,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('legalStatusId', () => {
       const { label: header, format, width, minWidth } = modelConfig['legalStatusId']
 
-      return tenanciesColumnHelper.accessor((row) => row.legalStatusId, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.legalStatusId, {
         id: 'legalStatusId',
         header,
         cell: (info) => format(info.getValue()),
@@ -503,7 +503,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('renewalOptions', () => {
       const { label: header, format, width, minWidth } = modelConfig['renewalOptions']
 
-      return tenanciesColumnHelper.accessor((row) => row.renewalOptions, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.renewalOptions, {
         id: 'renewalOptions',
         header,
         cell: (info) => format(info.getValue()),
@@ -514,7 +514,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('arrears', () => {
       const { label: header, format, width, minWidth } = modelConfig['arrears']
 
-      return tenanciesColumnHelper.accessor((row) => row.arrears, {
+      return useTenanciesTableColumnHelper.accessor((row) => row.arrears, {
         id: 'arrears',
         header,
         cell: (info) => format(info.getValue()),
@@ -525,7 +525,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return tenanciesColumnHelper.accessor((row) => row._eTag, {
+      return useTenanciesTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -538,7 +538,7 @@ export const getTenanciesColumn = (property: string, modelConfig: ModelConfig<Te
     })
 }
 
-export const useTenanciesTable = (args: TenanciesArgs) => {
+export const useTenanciesTable = (args: UseTenanciesTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -571,9 +571,9 @@ export const useTenanciesTable = (args: TenanciesArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdRelationshipsColumnHelper = createColumnHelper<TenancyContactRelationshipModel>()
+export const useTenanciesIdRelationshipsTableColumnHelper = createColumnHelper<TenancyContactRelationshipModel>()
 
-export const getTenanciesIdRelationshipsColumn = (
+export const getuseTenanciesIdRelationshipsTableColumn = (
   property: string,
   modelConfig: ModelConfig<TenancyContactRelationshipModel>,
 ) => {
@@ -581,7 +581,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row._links, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -592,7 +592,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -603,7 +603,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.id, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -614,7 +614,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.created, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -625,7 +625,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.modified, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -636,7 +636,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('tenancyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.tenancyId, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -647,7 +647,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('associatedType', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedType']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header,
         cell: (info) => format(info.getValue()),
@@ -658,7 +658,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('associatedId', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedId']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header,
         cell: (info) => format(info.getValue()),
@@ -669,7 +669,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('isMain', () => {
       const { label: header, format, width, minWidth } = modelConfig['isMain']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.isMain, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row.isMain, {
         id: 'isMain',
         header,
         cell: (info) => format(info.getValue()),
@@ -680,7 +680,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('fromArchive', () => {
       const { label: header, format, width, minWidth } = modelConfig['fromArchive']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.fromArchive, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header,
         cell: (info) => format(info.getValue()),
@@ -691,7 +691,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('guarantors', () => {
       const { label: header, format, width, minWidth } = modelConfig['guarantors']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.guarantors, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row.guarantors, {
         id: 'guarantors',
         header,
         cell: (info) => format(info.getValue()),
@@ -702,7 +702,7 @@ export const getTenanciesIdRelationshipsColumn = (
     .with('references', () => {
       const { label: header, format, width, minWidth } = modelConfig['references']
 
-      return tenanciesIdRelationshipsColumnHelper.accessor((row) => row.references, {
+      return useTenanciesIdRelationshipsTableColumnHelper.accessor((row) => row.references, {
         id: 'references',
         header,
         cell: (info) => format(info.getValue()),
@@ -715,7 +715,7 @@ export const getTenanciesIdRelationshipsColumn = (
     })
 }
 
-export const useTenanciesIdRelationshipsTable = (args: TenanciesIdRelationshipsArgs) => {
+export const useTenanciesIdRelationshipsTable = (args: UseTenanciesIdRelationshipsTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -748,14 +748,14 @@ export const useTenanciesIdRelationshipsTable = (args: TenanciesIdRelationshipsA
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdChecksColumnHelper = createColumnHelper<TenancyCheckModel>()
+export const useTenanciesIdChecksTableColumnHelper = createColumnHelper<TenancyCheckModel>()
 
-export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelConfig<TenancyCheckModel>) => {
+export const getuseTenanciesIdChecksTableColumn = (property: string, modelConfig: ModelConfig<TenancyCheckModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row._links, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -766,7 +766,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row._embedded, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -777,7 +777,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row.id, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -788,7 +788,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row.created, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -799,7 +799,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row.modified, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -810,7 +810,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row.description, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -821,7 +821,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     .with('status', () => {
       const { label: header, format, width, minWidth } = modelConfig['status']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row.status, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
@@ -832,7 +832,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row.type, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -843,7 +843,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     .with('checkTypeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['checkTypeId']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row.checkTypeId, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row.checkTypeId, {
         id: 'checkTypeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -854,7 +854,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     .with('tenancyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row.tenancyId, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -865,7 +865,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row.metadata, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -876,7 +876,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return tenanciesIdChecksColumnHelper.accessor((row) => row._eTag, {
+      return useTenanciesIdChecksTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -889,7 +889,7 @@ export const getTenanciesIdChecksColumn = (property: string, modelConfig: ModelC
     })
 }
 
-export const useTenanciesIdChecksTable = (args: TenanciesIdChecksArgs) => {
+export const useTenanciesIdChecksTable = (args: UseTenanciesIdChecksTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -922,9 +922,9 @@ export const useTenanciesIdChecksTable = (args: TenanciesIdChecksArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdBreakClausesColumnHelper = createColumnHelper<TenancyBreakClauseModel>()
+export const useTenanciesIdBreakClausesTableColumnHelper = createColumnHelper<TenancyBreakClauseModel>()
 
-export const getTenanciesIdBreakClausesColumn = (
+export const getuseTenanciesIdBreakClausesTableColumn = (
   property: string,
   modelConfig: ModelConfig<TenancyBreakClauseModel>,
 ) => {
@@ -932,7 +932,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row._links, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -943,7 +943,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row._embedded, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -954,7 +954,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.id, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -965,7 +965,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.created, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -976,7 +976,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.modified, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -987,7 +987,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('clauseTypeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['clauseTypeId']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.clauseTypeId, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.clauseTypeId, {
         id: 'clauseTypeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -998,7 +998,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.description, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -1009,7 +1009,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('active', () => {
       const { label: header, format, width, minWidth } = modelConfig['active']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.active, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header,
         cell: (info) => format(info.getValue()),
@@ -1020,7 +1020,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('appliesTo', () => {
       const { label: header, format, width, minWidth } = modelConfig['appliesTo']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.appliesTo, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.appliesTo, {
         id: 'appliesTo',
         header,
         cell: (info) => format(info.getValue()),
@@ -1031,7 +1031,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('letterText', () => {
       const { label: header, format, width, minWidth } = modelConfig['letterText']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.letterText, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.letterText, {
         id: 'letterText',
         header,
         cell: (info) => format(info.getValue()),
@@ -1042,7 +1042,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('breakFrom', () => {
       const { label: header, format, width, minWidth } = modelConfig['breakFrom']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.breakFrom, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.breakFrom, {
         id: 'breakFrom',
         header,
         cell: (info) => format(info.getValue()),
@@ -1053,7 +1053,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('noticeRequired', () => {
       const { label: header, format, width, minWidth } = modelConfig['noticeRequired']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.noticeRequired, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.noticeRequired, {
         id: 'noticeRequired',
         header,
         cell: (info) => format(info.getValue()),
@@ -1064,7 +1064,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('agreements', () => {
       const { label: header, format, width, minWidth } = modelConfig['agreements']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.agreements, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.agreements, {
         id: 'agreements',
         header,
         cell: (info) => format(info.getValue()),
@@ -1075,7 +1075,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('tenancyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row.tenancyId, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1086,7 +1086,7 @@ export const getTenanciesIdBreakClausesColumn = (
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return tenanciesIdBreakClausesColumnHelper.accessor((row) => row._eTag, {
+      return useTenanciesIdBreakClausesTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -1099,7 +1099,7 @@ export const getTenanciesIdBreakClausesColumn = (
     })
 }
 
-export const useTenanciesIdBreakClausesTable = (args: TenanciesIdBreakClausesArgs) => {
+export const useTenanciesIdBreakClausesTable = (args: UseTenanciesIdBreakClausesTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -1132,14 +1132,17 @@ export const useTenanciesIdBreakClausesTable = (args: TenanciesIdBreakClausesArg
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdAllowancesColumnHelper = createColumnHelper<TenancyAllowanceModel>()
+export const useTenanciesIdAllowancesTableColumnHelper = createColumnHelper<TenancyAllowanceModel>()
 
-export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: ModelConfig<TenancyAllowanceModel>) => {
+export const getuseTenanciesIdAllowancesTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<TenancyAllowanceModel>,
+) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row._links, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -1150,7 +1153,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row._embedded, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -1161,7 +1164,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row.id, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -1172,7 +1175,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row.created, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -1183,7 +1186,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row.modified, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -1194,7 +1197,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     .with('typeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeId']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row.typeId, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1205,7 +1208,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row.description, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -1216,7 +1219,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     .with('state', () => {
       const { label: header, format, width, minWidth } = modelConfig['state']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row.state, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row.state, {
         id: 'state',
         header,
         cell: (info) => format(info.getValue()),
@@ -1227,7 +1230,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     .with('agreements', () => {
       const { label: header, format, width, minWidth } = modelConfig['agreements']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row.agreements, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row.agreements, {
         id: 'agreements',
         header,
         cell: (info) => format(info.getValue()),
@@ -1238,7 +1241,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     .with('letterText', () => {
       const { label: header, format, width, minWidth } = modelConfig['letterText']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row.letterText, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row.letterText, {
         id: 'letterText',
         header,
         cell: (info) => format(info.getValue()),
@@ -1249,7 +1252,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     .with('tenancyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row.tenancyId, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1260,7 +1263,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return tenanciesIdAllowancesColumnHelper.accessor((row) => row._eTag, {
+      return useTenanciesIdAllowancesTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -1273,7 +1276,7 @@ export const getTenanciesIdAllowancesColumn = (property: string, modelConfig: Mo
     })
 }
 
-export const useTenanciesIdAllowancesTable = (args: TenanciesIdAllowancesArgs) => {
+export const useTenanciesIdAllowancesTable = (args: UseTenanciesIdAllowancesTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -1306,9 +1309,9 @@ export const useTenanciesIdAllowancesTable = (args: TenanciesIdAllowancesArgs) =
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdResponsibilitiesColumnHelper = createColumnHelper<TenancyResponsibilityModel>()
+export const useTenanciesIdResponsibilitiesTableColumnHelper = createColumnHelper<TenancyResponsibilityModel>()
 
-export const getTenanciesIdResponsibilitiesColumn = (
+export const getuseTenanciesIdResponsibilitiesTableColumn = (
   property: string,
   modelConfig: ModelConfig<TenancyResponsibilityModel>,
 ) => {
@@ -1316,7 +1319,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row._links, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -1327,7 +1330,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row._embedded, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -1338,7 +1341,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.id, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -1349,7 +1352,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.created, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -1360,7 +1363,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.modified, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -1371,7 +1374,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('typeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeId']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.typeId, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1382,7 +1385,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.description, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -1393,7 +1396,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('appliesTo', () => {
       const { label: header, format, width, minWidth } = modelConfig['appliesTo']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.appliesTo, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row.appliesTo, {
         id: 'appliesTo',
         header,
         cell: (info) => format(info.getValue()),
@@ -1404,7 +1407,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('agreements', () => {
       const { label: header, format, width, minWidth } = modelConfig['agreements']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.agreements, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row.agreements, {
         id: 'agreements',
         header,
         cell: (info) => format(info.getValue()),
@@ -1415,7 +1418,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('letterText', () => {
       const { label: header, format, width, minWidth } = modelConfig['letterText']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.letterText, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row.letterText, {
         id: 'letterText',
         header,
         cell: (info) => format(info.getValue()),
@@ -1426,7 +1429,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('tenancyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row.tenancyId, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1437,7 +1440,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return tenanciesIdResponsibilitiesColumnHelper.accessor((row) => row._eTag, {
+      return useTenanciesIdResponsibilitiesTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -1450,7 +1453,7 @@ export const getTenanciesIdResponsibilitiesColumn = (
     })
 }
 
-export const useTenanciesIdResponsibilitiesTable = (args: TenanciesIdResponsibilitiesArgs) => {
+export const useTenanciesIdResponsibilitiesTable = (args: UseTenanciesIdResponsibilitiesTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -1483,9 +1486,9 @@ export const useTenanciesIdResponsibilitiesTable = (args: TenanciesIdResponsibil
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdRenewalNegotiationsColumnHelper = createColumnHelper<TenancyRenewalModel>()
+export const useTenanciesIdRenewalNegotiationsTableColumnHelper = createColumnHelper<TenancyRenewalModel>()
 
-export const getTenanciesIdRenewalNegotiationsColumn = (
+export const getuseTenanciesIdRenewalNegotiationsTableColumn = (
   property: string,
   modelConfig: ModelConfig<TenancyRenewalModel>,
 ) => {
@@ -1493,7 +1496,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row._links, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -1504,7 +1507,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row._embedded, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -1515,7 +1518,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.id, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -1526,7 +1529,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.created, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -1537,7 +1540,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.modified, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -1548,7 +1551,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('startDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['startDate']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.startDate, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.startDate, {
         id: 'startDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -1559,7 +1562,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('endDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['endDate']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.endDate, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.endDate, {
         id: 'endDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -1570,7 +1573,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('status', () => {
       const { label: header, format, width, minWidth } = modelConfig['status']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.status, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
@@ -1581,7 +1584,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.negotiatorId, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1592,7 +1595,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('rent', () => {
       const { label: header, format, width, minWidth } = modelConfig['rent']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.rent, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.rent, {
         id: 'rent',
         header,
         cell: (info) => format(info.getValue()),
@@ -1603,7 +1606,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('rentFrequency', () => {
       const { label: header, format, width, minWidth } = modelConfig['rentFrequency']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.rentFrequency, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.rentFrequency, {
         id: 'rentFrequency',
         header,
         cell: (info) => format(info.getValue()),
@@ -1614,7 +1617,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('rentChange', () => {
       const { label: header, format, width, minWidth } = modelConfig['rentChange']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.rentChange, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.rentChange, {
         id: 'rentChange',
         header,
         cell: (info) => format(info.getValue()),
@@ -1625,7 +1628,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('tenancyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.tenancyId, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1636,7 +1639,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('lettingFee', () => {
       const { label: header, format, width, minWidth } = modelConfig['lettingFee']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.lettingFee, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.lettingFee, {
         id: 'lettingFee',
         header,
         cell: (info) => format(info.getValue()),
@@ -1647,7 +1650,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('managementFee', () => {
       const { label: header, format, width, minWidth } = modelConfig['managementFee']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row.managementFee, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row.managementFee, {
         id: 'managementFee',
         header,
         cell: (info) => format(info.getValue()),
@@ -1658,7 +1661,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return tenanciesIdRenewalNegotiationsColumnHelper.accessor((row) => row._eTag, {
+      return useTenanciesIdRenewalNegotiationsTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -1671,7 +1674,7 @@ export const getTenanciesIdRenewalNegotiationsColumn = (
     })
 }
 
-export const useTenanciesIdRenewalNegotiationsTable = (args: TenanciesIdRenewalNegotiationsArgs) => {
+export const useTenanciesIdRenewalNegotiationsTable = (args: UseTenanciesIdRenewalNegotiationsTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -1704,9 +1707,9 @@ export const useTenanciesIdRenewalNegotiationsTable = (args: TenanciesIdRenewalN
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdExtensionsColumnHelper = createColumnHelper<TenancyExtensionAlterationModel>()
+export const useTenanciesIdExtensionsTableColumnHelper = createColumnHelper<TenancyExtensionAlterationModel>()
 
-export const getTenanciesIdExtensionsColumn = (
+export const getuseTenanciesIdExtensionsTableColumn = (
   property: string,
   modelConfig: ModelConfig<TenancyExtensionAlterationModel>,
 ) => {
@@ -1714,7 +1717,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row._links, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -1725,7 +1728,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row._embedded, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -1736,7 +1739,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row.id, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -1747,7 +1750,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row.created, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -1758,7 +1761,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row.modified, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -1769,7 +1772,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('startDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['startDate']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row.startDate, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row.startDate, {
         id: 'startDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -1780,7 +1783,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('endDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['endDate']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row.endDate, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row.endDate, {
         id: 'endDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -1791,7 +1794,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row.type, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -1802,7 +1805,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row.negotiatorId, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1813,7 +1816,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('rent', () => {
       const { label: header, format, width, minWidth } = modelConfig['rent']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row.rent, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row.rent, {
         id: 'rent',
         header,
         cell: (info) => format(info.getValue()),
@@ -1824,7 +1827,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('rentFrequency', () => {
       const { label: header, format, width, minWidth } = modelConfig['rentFrequency']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row.rentFrequency, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row.rentFrequency, {
         id: 'rentFrequency',
         header,
         cell: (info) => format(info.getValue()),
@@ -1835,7 +1838,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('tenancyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row.tenancyId, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1846,7 +1849,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('fee', () => {
       const { label: header, format, width, minWidth } = modelConfig['fee']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row.fee, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row.fee, {
         id: 'fee',
         header,
         cell: (info) => format(info.getValue()),
@@ -1857,7 +1860,7 @@ export const getTenanciesIdExtensionsColumn = (
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return tenanciesIdExtensionsColumnHelper.accessor((row) => row._eTag, {
+      return useTenanciesIdExtensionsTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -1870,7 +1873,7 @@ export const getTenanciesIdExtensionsColumn = (
     })
 }
 
-export const useTenanciesIdExtensionsTable = (args: TenanciesIdExtensionsArgs) => {
+export const useTenanciesIdExtensionsTable = (args: UseTenanciesIdExtensionsTableArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -1903,9 +1906,10 @@ export const useTenanciesIdExtensionsTable = (args: TenanciesIdExtensionsArgs) =
 
   return { rerender, table, dataQuery }
 }
-export const tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper = createColumnHelper<TenancyRenewalCheckModel>()
+export const useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper =
+  createColumnHelper<TenancyRenewalCheckModel>()
 
-export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
+export const getuseTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumn = (
   property: string,
   modelConfig: ModelConfig<TenancyRenewalCheckModel>,
 ) => {
@@ -1913,7 +1917,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row._links, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -1924,7 +1928,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row._embedded, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -1935,7 +1939,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.id, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -1946,7 +1950,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.created, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -1957,7 +1961,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.modified, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -1968,7 +1972,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('status', () => {
       const { label: header, format, width, minWidth } = modelConfig['status']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.status, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
@@ -1979,7 +1983,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.description, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -1990,7 +1994,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('checkTypeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['checkTypeId']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.checkTypeId, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row.checkTypeId, {
         id: 'checkTypeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -2001,7 +2005,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('tenancyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.tenancyId, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -2012,7 +2016,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('renewalId', () => {
       const { label: header, format, width, minWidth } = modelConfig['renewalId']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.renewalId, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row.renewalId, {
         id: 'renewalId',
         header,
         cell: (info) => format(info.getValue()),
@@ -2023,7 +2027,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row.metadata, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -2034,7 +2038,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return tenanciesIdRenewalNegotiationsRenewalIdChecksColumnHelper.accessor((row) => row._eTag, {
+      return useTenanciesIdRenewalNegotiationsRenewalIdChecksTableColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -2048,7 +2052,7 @@ export const getTenanciesIdRenewalNegotiationsRenewalIdChecksColumn = (
 }
 
 export const useTenanciesIdRenewalNegotiationsRenewalIdChecksTable = (
-  args: TenanciesIdRenewalNegotiationsRenewalIdChecksArgs,
+  args: UseTenanciesIdRenewalNegotiationsRenewalIdChecksTableArgs,
 ) => {
   const rerender = useReducer(() => ({}), {})[1]
 

@@ -7,9 +7,11 @@ import { CreateContactModel } from '@/schemas/index.ts'
 import { contactModelConfig } from '@/config/contactModel.example.tsx'
 
 const fieldNames = fieldsConfig<CreateContactModel>({
-  surname: true,
+  title: true,
   forename: true,
-
+  surname: true,
+  dateOfBirth: true,
+  active: true,
   marketingConsent: true,
   source: true,
   homePhone: true,

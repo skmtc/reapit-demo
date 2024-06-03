@@ -4,12 +4,12 @@ import {
   updateContactSubscriptionModel,
   UpdateContactSubscriptionModel,
 } from '@/schemas/index.ts'
+import { useCreateContact, useUpdateContactSubscription } from '@/services/contacts.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { useCreateContact, useUpdateContactSubscription } from '@/services/contacts.generated.ts'
 
 export type CreateContactsProps = { children: ReactNode }
 export type UpdateContactsIdSubscriptionsSubscriptionIdProps = {

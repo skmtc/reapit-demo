@@ -1,10 +1,10 @@
 import { createNegotiatorModel, CreateNegotiatorModel } from '@/schemas/index.ts'
+import { useCreateNegotiator } from '@/services/negotiators.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
-import { useCreateNegotiator } from '@/services/negotiators.generated.ts'
 
 export type CreateNegotiatorsProps = { children: ReactNode }
 
