@@ -7,10 +7,10 @@ import {
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiLandlords, useGetApiLandlordsIdRelationships } from '@/services/landlords.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { useGetApiLandlords, useGetApiLandlordsIdRelationships } from '@/services/landlords.generated.ts'
 
-export type UseLandlordsTableArgs = {
+export type LandlordsArgs = {
   sortBy?: string | undefined
   embed?: Array<'appointments' | 'documents' | 'office' | 'properties' | 'solicitor' | 'source'> | undefined
   id?: Array<string> | undefined
@@ -27,19 +27,16 @@ export type UseLandlordsTableArgs = {
   metadata?: Array<string> | undefined
   columns: ColumnsList<LandlordModel>
 }
-export type UseLandlordsIdRelationshipsTableArgs = {
-  id: string
-  columns: ColumnsList<LandlordContactRelationshipModel>
-}
+export type LandlordsIdRelationshipsArgs = { id: string; columns: ColumnsList<LandlordContactRelationshipModel> }
 
-export const useLandlordsTableColumnHelper = createColumnHelper<LandlordModel>()
+export const landlordsColumnHelper = createColumnHelper<LandlordModel>()
 
-export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelConfig<LandlordModel>) => {
+export const getLandlordsColumn = (property: string, modelConfig: ModelConfig<LandlordModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row._links, {
+      return landlordsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -50,7 +47,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row._embedded, {
+      return landlordsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -61,7 +58,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row.id, {
+      return landlordsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -72,7 +69,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row.created, {
+      return landlordsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -83,7 +80,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row.modified, {
+      return landlordsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -94,7 +91,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('active', () => {
       const { label: header, format, width, minWidth } = modelConfig['active']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row.active, {
+      return landlordsColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header,
         cell: (info) => format(info.getValue()),
@@ -105,7 +102,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('solicitorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['solicitorId']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row.solicitorId, {
+      return landlordsColumnHelper.accessor((row) => row.solicitorId, {
         id: 'solicitorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -116,7 +113,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('officeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['officeId']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row.officeId, {
+      return landlordsColumnHelper.accessor((row) => row.officeId, {
         id: 'officeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -127,7 +124,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('source', () => {
       const { label: header, format, width, minWidth } = modelConfig['source']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row.source, {
+      return landlordsColumnHelper.accessor((row) => row.source, {
         id: 'source',
         header,
         cell: (info) => format(info.getValue()),
@@ -138,7 +135,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('related', () => {
       const { label: header, format, width, minWidth } = modelConfig['related']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row.related, {
+      return landlordsColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header,
         cell: (info) => format(info.getValue()),
@@ -149,7 +146,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row.metadata, {
+      return landlordsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -160,7 +157,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('extrasField', () => {
       const { label: header, format, width, minWidth } = modelConfig['extrasField']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row.extrasField, {
+      return landlordsColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
         header,
         cell: (info) => format(info.getValue()),
@@ -171,7 +168,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useLandlordsTableColumnHelper.accessor((row) => row._eTag, {
+      return landlordsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -184,7 +181,7 @@ export const getuseLandlordsTableColumn = (property: string, modelConfig: ModelC
     })
 }
 
-export const useLandlordsTable = (args: UseLandlordsTableArgs) => {
+export const useLandlordsTable = (args: LandlordsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -217,9 +214,9 @@ export const useLandlordsTable = (args: UseLandlordsTableArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const useLandlordsIdRelationshipsTableColumnHelper = createColumnHelper<LandlordContactRelationshipModel>()
+export const landlordsIdRelationshipsColumnHelper = createColumnHelper<LandlordContactRelationshipModel>()
 
-export const getuseLandlordsIdRelationshipsTableColumn = (
+export const getLandlordsIdRelationshipsColumn = (
   property: string,
   modelConfig: ModelConfig<LandlordContactRelationshipModel>,
 ) => {
@@ -227,7 +224,7 @@ export const getuseLandlordsIdRelationshipsTableColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useLandlordsIdRelationshipsTableColumnHelper.accessor((row) => row._links, {
+      return landlordsIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -238,7 +235,7 @@ export const getuseLandlordsIdRelationshipsTableColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useLandlordsIdRelationshipsTableColumnHelper.accessor((row) => row._embedded, {
+      return landlordsIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -249,7 +246,7 @@ export const getuseLandlordsIdRelationshipsTableColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useLandlordsIdRelationshipsTableColumnHelper.accessor((row) => row.id, {
+      return landlordsIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -260,7 +257,7 @@ export const getuseLandlordsIdRelationshipsTableColumn = (
     .with('landlordId', () => {
       const { label: header, format, width, minWidth } = modelConfig['landlordId']
 
-      return useLandlordsIdRelationshipsTableColumnHelper.accessor((row) => row.landlordId, {
+      return landlordsIdRelationshipsColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
         header,
         cell: (info) => format(info.getValue()),
@@ -271,7 +268,7 @@ export const getuseLandlordsIdRelationshipsTableColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useLandlordsIdRelationshipsTableColumnHelper.accessor((row) => row.created, {
+      return landlordsIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -282,7 +279,7 @@ export const getuseLandlordsIdRelationshipsTableColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useLandlordsIdRelationshipsTableColumnHelper.accessor((row) => row.modified, {
+      return landlordsIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -293,7 +290,7 @@ export const getuseLandlordsIdRelationshipsTableColumn = (
     .with('associatedType', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedType']
 
-      return useLandlordsIdRelationshipsTableColumnHelper.accessor((row) => row.associatedType, {
+      return landlordsIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header,
         cell: (info) => format(info.getValue()),
@@ -304,7 +301,7 @@ export const getuseLandlordsIdRelationshipsTableColumn = (
     .with('associatedId', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedId']
 
-      return useLandlordsIdRelationshipsTableColumnHelper.accessor((row) => row.associatedId, {
+      return landlordsIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header,
         cell: (info) => format(info.getValue()),
@@ -315,7 +312,7 @@ export const getuseLandlordsIdRelationshipsTableColumn = (
     .with('isMain', () => {
       const { label: header, format, width, minWidth } = modelConfig['isMain']
 
-      return useLandlordsIdRelationshipsTableColumnHelper.accessor((row) => row.isMain, {
+      return landlordsIdRelationshipsColumnHelper.accessor((row) => row.isMain, {
         id: 'isMain',
         header,
         cell: (info) => format(info.getValue()),
@@ -328,7 +325,7 @@ export const getuseLandlordsIdRelationshipsTableColumn = (
     })
 }
 
-export const useLandlordsIdRelationshipsTable = (args: UseLandlordsIdRelationshipsTableArgs) => {
+export const useLandlordsIdRelationshipsTable = (args: LandlordsIdRelationshipsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

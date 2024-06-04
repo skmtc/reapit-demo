@@ -11,15 +11,15 @@ import {
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { useMemo, useReducer, useState } from 'react'
 import {
   useGetApiInvoices,
   useGetApiInvoicesPayments,
   useGetApiInvoicesCredits,
   useGetApiInvoicesCharges,
 } from '@/services/invoices.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
 
-export type UseInvoicesTableArgs = {
+export type InvoicesArgs = {
   sortBy?: string | undefined
   negotiatorId?: Array<string> | undefined
   propertyId?: Array<string> | undefined
@@ -34,7 +34,7 @@ export type UseInvoicesTableArgs = {
   modifiedTo?: string | undefined
   columns: ColumnsList<InvoiceModel>
 }
-export type UseInvoicesPaymentsTableArgs = {
+export type InvoicesPaymentsArgs = {
   sortBy?: string | undefined
   negotiatorId?: Array<string> | undefined
   propertyId?: Array<string> | undefined
@@ -48,7 +48,7 @@ export type UseInvoicesPaymentsTableArgs = {
   modifiedTo?: string | undefined
   columns: ColumnsList<PaymentModel>
 }
-export type UseInvoicesCreditsTableArgs = {
+export type InvoicesCreditsArgs = {
   sortBy?: string | undefined
   negotiatorId?: Array<string> | undefined
   propertyId?: Array<string> | undefined
@@ -61,7 +61,7 @@ export type UseInvoicesCreditsTableArgs = {
   modifiedTo?: string | undefined
   columns: ColumnsList<CreditModel>
 }
-export type UseInvoicesChargesTableArgs = {
+export type InvoicesChargesArgs = {
   sortBy?: string | undefined
   negotiatorId?: Array<string> | undefined
   propertyId?: Array<string> | undefined
@@ -73,14 +73,14 @@ export type UseInvoicesChargesTableArgs = {
   columns: ColumnsList<ChargeModel>
 }
 
-export const useInvoicesTableColumnHelper = createColumnHelper<InvoiceModel>()
+export const invoicesColumnHelper = createColumnHelper<InvoiceModel>()
 
-export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelConfig<InvoiceModel>) => {
+export const getInvoicesColumn = (property: string, modelConfig: ModelConfig<InvoiceModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row._links, {
+      return invoicesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -91,7 +91,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row._embedded, {
+      return invoicesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -102,7 +102,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.id, {
+      return invoicesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -113,7 +113,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.created, {
+      return invoicesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -124,7 +124,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.modified, {
+      return invoicesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -135,7 +135,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('reference', () => {
       const { label: header, format, width, minWidth } = modelConfig['reference']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.reference, {
+      return invoicesColumnHelper.accessor((row) => row.reference, {
         id: 'reference',
         header,
         cell: (info) => format(info.getValue()),
@@ -146,7 +146,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.negotiatorId, {
+      return invoicesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -157,7 +157,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.propertyId, {
+      return invoicesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -168,7 +168,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.description, {
+      return invoicesColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -179,7 +179,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('status', () => {
       const { label: header, format, width, minWidth } = modelConfig['status']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.status, {
+      return invoicesColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
@@ -190,7 +190,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('date', () => {
       const { label: header, format, width, minWidth } = modelConfig['date']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.date, {
+      return invoicesColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header,
         cell: (info) => format(info.getValue()),
@@ -201,7 +201,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('dueDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['dueDate']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.dueDate, {
+      return invoicesColumnHelper.accessor((row) => row.dueDate, {
         id: 'dueDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -212,7 +212,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('isRaised', () => {
       const { label: header, format, width, minWidth } = modelConfig['isRaised']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.isRaised, {
+      return invoicesColumnHelper.accessor((row) => row.isRaised, {
         id: 'isRaised',
         header,
         cell: (info) => format(info.getValue()),
@@ -223,7 +223,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('netAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['netAmount']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.netAmount, {
+      return invoicesColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -234,7 +234,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('vatAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['vatAmount']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.vatAmount, {
+      return invoicesColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -245,7 +245,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     .with('outstandingAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['outstandingAmount']
 
-      return useInvoicesTableColumnHelper.accessor((row) => row.outstandingAmount, {
+      return invoicesColumnHelper.accessor((row) => row.outstandingAmount, {
         id: 'outstandingAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -258,7 +258,7 @@ export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelCo
     })
 }
 
-export const useInvoicesTable = (args: UseInvoicesTableArgs) => {
+export const useInvoicesTable = (args: InvoicesArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -291,14 +291,14 @@ export const useInvoicesTable = (args: UseInvoicesTableArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const useInvoicesPaymentsTableColumnHelper = createColumnHelper<PaymentModel>()
+export const invoicesPaymentsColumnHelper = createColumnHelper<PaymentModel>()
 
-export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig: ModelConfig<PaymentModel>) => {
+export const getInvoicesPaymentsColumn = (property: string, modelConfig: ModelConfig<PaymentModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row._links, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -309,7 +309,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row._embedded, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -320,7 +320,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row.id, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -331,7 +331,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row.created, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -342,7 +342,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row.modified, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -353,7 +353,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row.negotiatorId, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -364,7 +364,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row.propertyId, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -375,7 +375,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('invoiceId', () => {
       const { label: header, format, width, minWidth } = modelConfig['invoiceId']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row.invoiceId, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
         header,
         cell: (info) => format(info.getValue()),
@@ -386,7 +386,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row.description, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -397,7 +397,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row.type, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -408,7 +408,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('date', () => {
       const { label: header, format, width, minWidth } = modelConfig['date']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row.date, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header,
         cell: (info) => format(info.getValue()),
@@ -419,7 +419,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('netAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['netAmount']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row.netAmount, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -430,7 +430,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     .with('vatAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['vatAmount']
 
-      return useInvoicesPaymentsTableColumnHelper.accessor((row) => row.vatAmount, {
+      return invoicesPaymentsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -443,7 +443,7 @@ export const getuseInvoicesPaymentsTableColumn = (property: string, modelConfig:
     })
 }
 
-export const useInvoicesPaymentsTable = (args: UseInvoicesPaymentsTableArgs) => {
+export const useInvoicesPaymentsTable = (args: InvoicesPaymentsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -476,14 +476,14 @@ export const useInvoicesPaymentsTable = (args: UseInvoicesPaymentsTableArgs) => 
 
   return { rerender, table, dataQuery }
 }
-export const useInvoicesCreditsTableColumnHelper = createColumnHelper<CreditModel>()
+export const invoicesCreditsColumnHelper = createColumnHelper<CreditModel>()
 
-export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: ModelConfig<CreditModel>) => {
+export const getInvoicesCreditsColumn = (property: string, modelConfig: ModelConfig<CreditModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row._links, {
+      return invoicesCreditsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -494,7 +494,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row._embedded, {
+      return invoicesCreditsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -505,7 +505,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row.id, {
+      return invoicesCreditsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -516,7 +516,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row.created, {
+      return invoicesCreditsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -527,7 +527,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row.modified, {
+      return invoicesCreditsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -538,7 +538,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row.negotiatorId, {
+      return invoicesCreditsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -549,7 +549,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row.propertyId, {
+      return invoicesCreditsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -560,7 +560,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     .with('invoiceId', () => {
       const { label: header, format, width, minWidth } = modelConfig['invoiceId']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row.invoiceId, {
+      return invoicesCreditsColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
         header,
         cell: (info) => format(info.getValue()),
@@ -571,7 +571,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row.description, {
+      return invoicesCreditsColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -582,7 +582,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     .with('date', () => {
       const { label: header, format, width, minWidth } = modelConfig['date']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row.date, {
+      return invoicesCreditsColumnHelper.accessor((row) => row.date, {
         id: 'date',
         header,
         cell: (info) => format(info.getValue()),
@@ -593,7 +593,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     .with('netAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['netAmount']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row.netAmount, {
+      return invoicesCreditsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -604,7 +604,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     .with('vatAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['vatAmount']
 
-      return useInvoicesCreditsTableColumnHelper.accessor((row) => row.vatAmount, {
+      return invoicesCreditsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -617,7 +617,7 @@ export const getuseInvoicesCreditsTableColumn = (property: string, modelConfig: 
     })
 }
 
-export const useInvoicesCreditsTable = (args: UseInvoicesCreditsTableArgs) => {
+export const useInvoicesCreditsTable = (args: InvoicesCreditsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -650,14 +650,14 @@ export const useInvoicesCreditsTable = (args: UseInvoicesCreditsTableArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const useInvoicesChargesTableColumnHelper = createColumnHelper<ChargeModel>()
+export const invoicesChargesColumnHelper = createColumnHelper<ChargeModel>()
 
-export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: ModelConfig<ChargeModel>) => {
+export const getInvoicesChargesColumn = (property: string, modelConfig: ModelConfig<ChargeModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row._links, {
+      return invoicesChargesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -668,7 +668,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row._embedded, {
+      return invoicesChargesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -679,7 +679,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row.id, {
+      return invoicesChargesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -690,7 +690,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row.created, {
+      return invoicesChargesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -701,7 +701,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row.modified, {
+      return invoicesChargesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -712,7 +712,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row.type, {
+      return invoicesChargesColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -723,7 +723,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('invoiceId', () => {
       const { label: header, format, width, minWidth } = modelConfig['invoiceId']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row.invoiceId, {
+      return invoicesChargesColumnHelper.accessor((row) => row.invoiceId, {
         id: 'invoiceId',
         header,
         cell: (info) => format(info.getValue()),
@@ -734,7 +734,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row.propertyId, {
+      return invoicesChargesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -745,7 +745,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row.negotiatorId, {
+      return invoicesChargesColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -756,7 +756,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('vatCode', () => {
       const { label: header, format, width, minWidth } = modelConfig['vatCode']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row.vatCode, {
+      return invoicesChargesColumnHelper.accessor((row) => row.vatCode, {
         id: 'vatCode',
         header,
         cell: (info) => format(info.getValue()),
@@ -767,7 +767,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row.description, {
+      return invoicesChargesColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -778,7 +778,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('netAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['netAmount']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row.netAmount, {
+      return invoicesChargesColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -789,7 +789,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     .with('vatAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['vatAmount']
 
-      return useInvoicesChargesTableColumnHelper.accessor((row) => row.vatAmount, {
+      return invoicesChargesColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -802,7 +802,7 @@ export const getuseInvoicesChargesTableColumn = (property: string, modelConfig: 
     })
 }
 
-export const useInvoicesChargesTable = (args: UseInvoicesChargesTableArgs) => {
+export const useInvoicesChargesTable = (args: InvoicesChargesArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

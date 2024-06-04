@@ -1,113 +1,17 @@
 import {
+  propertyImageModelPagedResult,
   CreatePropertyImageModel,
+  propertyImageModel,
+  UpdatePropertyImageModel,
   CreatePreSignedUrlsModel,
   createPreSignedUrlsModel,
   ReindexPropertyImagesModel,
-  propertyImageModelPagedResult,
-  propertyImageModel,
-  UpdatePropertyImageModel,
 } from '@/schemas/index.ts'
-import { z } from 'zod'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
-export type UseCreatePropertyImageArgs = { body: CreatePropertyImageModel }
-export const createPropertyImageFn = async ({ body }: UseCreatePropertyImageArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreatePropertyImage = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createPropertyImageFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['PropertyImages'] })
-    },
-  })
-}
-export type UseCreatePropertyImageSignedUrlArgs = { body: CreatePreSignedUrlsModel }
-export const createPropertyImageSignedUrlFn = async ({ body }: UseCreatePropertyImageSignedUrlArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return createPreSignedUrlsModel.parse(data)
-}
-export const useCreatePropertyImageSignedUrl = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createPropertyImageSignedUrlFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['PropertyImages'] })
-    },
-  })
-}
-export type UseReindexPropertyImagesArgs = { body: ReindexPropertyImagesModel }
-export const reindexPropertyImagesFn = async ({ body }: UseReindexPropertyImagesArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/reindex${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useReindexPropertyImages = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: reindexPropertyImagesFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['PropertyImages'] })
-    },
-  })
-}
 export type UseGetApiPropertyImagesArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -162,6 +66,38 @@ export const useGetApiPropertyImages = (args: UseGetApiPropertyImagesArgs) => {
   })
 
   return result
+}
+export type UseCreatePropertyImageArgs = { body: CreatePropertyImageModel }
+export const createPropertyImageFn = async ({ body }: UseCreatePropertyImageArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreatePropertyImage = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createPropertyImageFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['PropertyImages'] })
+    },
+  })
 }
 export type UseGetApiPropertyImagesIdArgs = { id: string; embed?: Array<'property'> | undefined }
 export const getApiPropertyImagesIdFn = async ({ id, embed }: UseGetApiPropertyImagesIdArgs) => {
@@ -249,6 +185,70 @@ export const usePatchApiPropertyImagesId = () => {
 
   return useMutation({
     mutationFn: patchApiPropertyImagesIdFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['PropertyImages'] })
+    },
+  })
+}
+export type UseCreatePropertyImageSignedUrlArgs = { body: CreatePreSignedUrlsModel }
+export const createPropertyImageSignedUrlFn = async ({ body }: UseCreatePropertyImageSignedUrlArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return createPreSignedUrlsModel.parse(data)
+}
+export const useCreatePropertyImageSignedUrl = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createPropertyImageSignedUrlFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['PropertyImages'] })
+    },
+  })
+}
+export type UseReindexPropertyImagesArgs = { body: ReindexPropertyImagesModel }
+export const reindexPropertyImagesFn = async ({ body }: UseReindexPropertyImagesArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/reindex${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useReindexPropertyImages = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: reindexPropertyImagesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

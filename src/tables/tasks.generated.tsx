@@ -2,10 +2,10 @@ import { taskModel, TaskModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiTasks } from '@/services/tasks.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { useGetApiTasks } from '@/services/tasks.generated.ts'
 
-export type UseTasksTableArgs = {
+export type TasksArgs = {
   sortBy?: string | undefined
   embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | undefined
   id?: Array<string> | undefined
@@ -28,14 +28,14 @@ export type UseTasksTableArgs = {
   columns: ColumnsList<TaskModel>
 }
 
-export const useTasksTableColumnHelper = createColumnHelper<TaskModel>()
+export const tasksColumnHelper = createColumnHelper<TaskModel>()
 
-export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfig<TaskModel>) => {
+export const getTasksColumn = (property: string, modelConfig: ModelConfig<TaskModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useTasksTableColumnHelper.accessor((row) => row._links, {
+      return tasksColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -46,7 +46,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useTasksTableColumnHelper.accessor((row) => row._embedded, {
+      return tasksColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -57,7 +57,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useTasksTableColumnHelper.accessor((row) => row.id, {
+      return tasksColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -68,7 +68,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useTasksTableColumnHelper.accessor((row) => row.created, {
+      return tasksColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -79,7 +79,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useTasksTableColumnHelper.accessor((row) => row.modified, {
+      return tasksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -90,7 +90,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('activates', () => {
       const { label: header, format, width, minWidth } = modelConfig['activates']
 
-      return useTasksTableColumnHelper.accessor((row) => row.activates, {
+      return tasksColumnHelper.accessor((row) => row.activates, {
         id: 'activates',
         header,
         cell: (info) => format(info.getValue()),
@@ -101,7 +101,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('completed', () => {
       const { label: header, format, width, minWidth } = modelConfig['completed']
 
-      return useTasksTableColumnHelper.accessor((row) => row.completed, {
+      return tasksColumnHelper.accessor((row) => row.completed, {
         id: 'completed',
         header,
         cell: (info) => format(info.getValue()),
@@ -112,7 +112,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('typeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeId']
 
-      return useTasksTableColumnHelper.accessor((row) => row.typeId, {
+      return tasksColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -123,7 +123,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('senderId', () => {
       const { label: header, format, width, minWidth } = modelConfig['senderId']
 
-      return useTasksTableColumnHelper.accessor((row) => row.senderId, {
+      return tasksColumnHelper.accessor((row) => row.senderId, {
         id: 'senderId',
         header,
         cell: (info) => format(info.getValue()),
@@ -134,7 +134,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('text', () => {
       const { label: header, format, width, minWidth } = modelConfig['text']
 
-      return useTasksTableColumnHelper.accessor((row) => row.text, {
+      return tasksColumnHelper.accessor((row) => row.text, {
         id: 'text',
         header,
         cell: (info) => format(info.getValue()),
@@ -145,7 +145,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('landlordId', () => {
       const { label: header, format, width, minWidth } = modelConfig['landlordId']
 
-      return useTasksTableColumnHelper.accessor((row) => row.landlordId, {
+      return tasksColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
         header,
         cell: (info) => format(info.getValue()),
@@ -156,7 +156,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return useTasksTableColumnHelper.accessor((row) => row.propertyId, {
+      return tasksColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -167,7 +167,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('applicantId', () => {
       const { label: header, format, width, minWidth } = modelConfig['applicantId']
 
-      return useTasksTableColumnHelper.accessor((row) => row.applicantId, {
+      return tasksColumnHelper.accessor((row) => row.applicantId, {
         id: 'applicantId',
         header,
         cell: (info) => format(info.getValue()),
@@ -178,7 +178,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('tenancyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
-      return useTasksTableColumnHelper.accessor((row) => row.tenancyId, {
+      return tasksColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -189,7 +189,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('contactId', () => {
       const { label: header, format, width, minWidth } = modelConfig['contactId']
 
-      return useTasksTableColumnHelper.accessor((row) => row.contactId, {
+      return tasksColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header,
         cell: (info) => format(info.getValue()),
@@ -200,7 +200,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('recipientId', () => {
       const { label: header, format, width, minWidth } = modelConfig['recipientId']
 
-      return useTasksTableColumnHelper.accessor((row) => row.recipientId, {
+      return tasksColumnHelper.accessor((row) => row.recipientId, {
         id: 'recipientId',
         header,
         cell: (info) => format(info.getValue()),
@@ -211,7 +211,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('recipientType', () => {
       const { label: header, format, width, minWidth } = modelConfig['recipientType']
 
-      return useTasksTableColumnHelper.accessor((row) => row.recipientType, {
+      return tasksColumnHelper.accessor((row) => row.recipientType, {
         id: 'recipientType',
         header,
         cell: (info) => format(info.getValue()),
@@ -222,7 +222,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return useTasksTableColumnHelper.accessor((row) => row.metadata, {
+      return tasksColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -233,7 +233,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useTasksTableColumnHelper.accessor((row) => row._eTag, {
+      return tasksColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -246,7 +246,7 @@ export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfi
     })
 }
 
-export const useTasksTable = (args: UseTasksTableArgs) => {
+export const useTasksTable = (args: TasksArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

@@ -2,10 +2,10 @@ import { propertyImageModel, PropertyImageModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiPropertyImages } from '@/services/propertyimages.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { useGetApiPropertyImages } from '@/services/propertyimages.generated.ts'
 
-export type UsePropertyImagesTableArgs = {
+export type PropertyImagesArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
   embed?: Array<'property'> | undefined
@@ -20,14 +20,14 @@ export type UsePropertyImagesTableArgs = {
   columns: ColumnsList<PropertyImageModel>
 }
 
-export const usePropertyImagesTableColumnHelper = createColumnHelper<PropertyImageModel>()
+export const propertyImagesColumnHelper = createColumnHelper<PropertyImageModel>()
 
-export const getusePropertyImagesTableColumn = (property: string, modelConfig: ModelConfig<PropertyImageModel>) => {
+export const getPropertyImagesColumn = (property: string, modelConfig: ModelConfig<PropertyImageModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row._links, {
+      return propertyImagesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -38,7 +38,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row._embedded, {
+      return propertyImagesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -49,7 +49,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row.id, {
+      return propertyImagesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -60,7 +60,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row.created, {
+      return propertyImagesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -71,7 +71,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row.modified, {
+      return propertyImagesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -82,7 +82,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row.propertyId, {
+      return propertyImagesColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -93,7 +93,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     .with('url', () => {
       const { label: header, format, width, minWidth } = modelConfig['url']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row.url, {
+      return propertyImagesColumnHelper.accessor((row) => row.url, {
         id: 'url',
         header,
         cell: (info) => format(info.getValue()),
@@ -104,7 +104,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     .with('caption', () => {
       const { label: header, format, width, minWidth } = modelConfig['caption']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row.caption, {
+      return propertyImagesColumnHelper.accessor((row) => row.caption, {
         id: 'caption',
         header,
         cell: (info) => format(info.getValue()),
@@ -115,7 +115,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row.type, {
+      return propertyImagesColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -126,7 +126,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     .with('order', () => {
       const { label: header, format, width, minWidth } = modelConfig['order']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row.order, {
+      return propertyImagesColumnHelper.accessor((row) => row.order, {
         id: 'order',
         header,
         cell: (info) => format(info.getValue()),
@@ -137,7 +137,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     .with('fromArchive', () => {
       const { label: header, format, width, minWidth } = modelConfig['fromArchive']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row.fromArchive, {
+      return propertyImagesColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header,
         cell: (info) => format(info.getValue()),
@@ -148,7 +148,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return usePropertyImagesTableColumnHelper.accessor((row) => row._eTag, {
+      return propertyImagesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -161,7 +161,7 @@ export const getusePropertyImagesTableColumn = (property: string, modelConfig: M
     })
 }
 
-export const usePropertyImagesTable = (args: UsePropertyImagesTableArgs) => {
+export const usePropertyImagesTable = (args: PropertyImagesArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

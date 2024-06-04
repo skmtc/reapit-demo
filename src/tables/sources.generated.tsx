@@ -2,10 +2,10 @@ import { sourceModel, SourceModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiSources } from '@/services/sources.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { useGetApiSources } from '@/services/sources.generated.ts'
 
-export type UseSourcesTableArgs = {
+export type SourcesArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
   officeId?: Array<string> | undefined
@@ -19,14 +19,14 @@ export type UseSourcesTableArgs = {
   columns: ColumnsList<SourceModel>
 }
 
-export const useSourcesTableColumnHelper = createColumnHelper<SourceModel>()
+export const sourcesColumnHelper = createColumnHelper<SourceModel>()
 
-export const getuseSourcesTableColumn = (property: string, modelConfig: ModelConfig<SourceModel>) => {
+export const getSourcesColumn = (property: string, modelConfig: ModelConfig<SourceModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useSourcesTableColumnHelper.accessor((row) => row._links, {
+      return sourcesColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -37,7 +37,7 @@ export const getuseSourcesTableColumn = (property: string, modelConfig: ModelCon
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useSourcesTableColumnHelper.accessor((row) => row._embedded, {
+      return sourcesColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -48,7 +48,7 @@ export const getuseSourcesTableColumn = (property: string, modelConfig: ModelCon
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useSourcesTableColumnHelper.accessor((row) => row.id, {
+      return sourcesColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -59,7 +59,7 @@ export const getuseSourcesTableColumn = (property: string, modelConfig: ModelCon
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useSourcesTableColumnHelper.accessor((row) => row.created, {
+      return sourcesColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -70,7 +70,7 @@ export const getuseSourcesTableColumn = (property: string, modelConfig: ModelCon
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useSourcesTableColumnHelper.accessor((row) => row.modified, {
+      return sourcesColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -81,7 +81,7 @@ export const getuseSourcesTableColumn = (property: string, modelConfig: ModelCon
     .with('name', () => {
       const { label: header, format, width, minWidth } = modelConfig['name']
 
-      return useSourcesTableColumnHelper.accessor((row) => row.name, {
+      return sourcesColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header,
         cell: (info) => format(info.getValue()),
@@ -92,7 +92,7 @@ export const getuseSourcesTableColumn = (property: string, modelConfig: ModelCon
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return useSourcesTableColumnHelper.accessor((row) => row.type, {
+      return sourcesColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -103,7 +103,7 @@ export const getuseSourcesTableColumn = (property: string, modelConfig: ModelCon
     .with('officeIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['officeIds']
 
-      return useSourcesTableColumnHelper.accessor((row) => row.officeIds, {
+      return sourcesColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -114,7 +114,7 @@ export const getuseSourcesTableColumn = (property: string, modelConfig: ModelCon
     .with('departmentIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['departmentIds']
 
-      return useSourcesTableColumnHelper.accessor((row) => row.departmentIds, {
+      return sourcesColumnHelper.accessor((row) => row.departmentIds, {
         id: 'departmentIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -125,7 +125,7 @@ export const getuseSourcesTableColumn = (property: string, modelConfig: ModelCon
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useSourcesTableColumnHelper.accessor((row) => row._eTag, {
+      return sourcesColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -138,7 +138,7 @@ export const getuseSourcesTableColumn = (property: string, modelConfig: ModelCon
     })
 }
 
-export const useSourcesTable = (args: UseSourcesTableArgs) => {
+export const useSourcesTable = (args: SourcesArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

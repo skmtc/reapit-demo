@@ -1,82 +1,18 @@
 import {
-  CreateAppointmentModel,
-  CreateOpenHouseAttendeeModel,
   appointmentModelPagedResult,
-  openHouseAttendeeModelPagedResult,
+  CreateAppointmentModel,
   appointmentModel,
   UpdateAppointmentModel,
+  openHouseAttendeeModelPagedResult,
+  CreateOpenHouseAttendeeModel,
   openHouseAttendeeModel,
   UpdateOpenHouseAttendeeModel,
 } from '@/schemas/index.ts'
-import { z } from 'zod'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
-export type UseCreateAppointmentArgs = { body: CreateAppointmentModel }
-export const createAppointmentFn = async ({ body }: UseCreateAppointmentArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateAppointment = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createAppointmentFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Appointments'] })
-    },
-  })
-}
-export type UseCreateOpenHouseAttendeeArgs = { id: string; body: CreateOpenHouseAttendeeModel }
-export const createOpenHouseAttendeeFn = async ({ id, body }: UseCreateOpenHouseAttendeeArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${id}/openHouseAttendees${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateOpenHouseAttendee = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createOpenHouseAttendeeFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Appointments'] })
-    },
-  })
-}
 export type UseGetApiAppointmentsArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -154,20 +90,13 @@ export const useGetApiAppointments = (args: UseGetApiAppointmentsArgs) => {
 
   return result
 }
-export type UseGetApiAppointmentsIdOpenHouseAttendeesArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-}
-export const getApiAppointmentsIdOpenHouseAttendeesFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-}: UseGetApiAppointmentsIdOpenHouseAttendeesArgs) => {
+export type UseCreateAppointmentArgs = { body: CreateAppointmentModel }
+export const createAppointmentFn = async ({ body }: UseCreateAppointmentArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${id}/openHouseAttendees${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'GET',
+      method: 'POST',
+      body: JSON.stringify(body),
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -178,16 +107,20 @@ export const getApiAppointmentsIdOpenHouseAttendeesFn = async ({
 
   const data = await res.json()
 
-  return openHouseAttendeeModelPagedResult.parse(data)
+  return z.void().parse(data)
 }
-export const useGetApiAppointmentsIdOpenHouseAttendees = (args: UseGetApiAppointmentsIdOpenHouseAttendeesArgs) => {
-  const result = useQuery({
-    queryKey: ['Appointments'],
-    queryFn: () => getApiAppointmentsIdOpenHouseAttendeesFn(args),
-    placeholderData: keepPreviousData,
-  })
+export const useCreateAppointment = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
 
-  return result
+  return useMutation({
+    mutationFn: createAppointmentFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Appointments'] })
+    },
+  })
 }
 export type UseGetApiAppointmentsIdArgs = {
   id: string
@@ -243,6 +176,73 @@ export const usePatchApiAppointmentsId = () => {
 
   return useMutation({
     mutationFn: patchApiAppointmentsIdFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Appointments'] })
+    },
+  })
+}
+export type UseGetApiAppointmentsIdOpenHouseAttendeesArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+}
+export const getApiAppointmentsIdOpenHouseAttendeesFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: UseGetApiAppointmentsIdOpenHouseAttendeesArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${id}/openHouseAttendees${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return openHouseAttendeeModelPagedResult.parse(data)
+}
+export const useGetApiAppointmentsIdOpenHouseAttendees = (args: UseGetApiAppointmentsIdOpenHouseAttendeesArgs) => {
+  const result = useQuery({
+    queryKey: ['Appointments'],
+    queryFn: () => getApiAppointmentsIdOpenHouseAttendeesFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type UseCreateOpenHouseAttendeeArgs = { id: string; body: CreateOpenHouseAttendeeModel }
+export const createOpenHouseAttendeeFn = async ({ id, body }: UseCreateOpenHouseAttendeeArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${id}/openHouseAttendees${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateOpenHouseAttendee = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createOpenHouseAttendeeFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

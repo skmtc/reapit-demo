@@ -7,10 +7,10 @@ import {
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiVendors, useGetApiVendorsIdRelationships } from '@/services/vendors.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { useGetApiVendors, useGetApiVendorsIdRelationships } from '@/services/vendors.generated.ts'
 
-export type UseVendorsTableArgs = {
+export type VendorsArgs = {
   sortBy?: string | undefined
   embed?: Array<'negotiator' | 'offices' | 'property' | 'sellingReason' | 'solicitor' | 'source' | 'type'> | undefined
   id?: Array<string> | undefined
@@ -31,16 +31,16 @@ export type UseVendorsTableArgs = {
   metadata?: Array<string> | undefined
   columns: ColumnsList<VendorModel>
 }
-export type UseVendorsIdRelationshipsTableArgs = { id: string; columns: ColumnsList<VendorContactRelationshipModel> }
+export type VendorsIdRelationshipsArgs = { id: string; columns: ColumnsList<VendorContactRelationshipModel> }
 
-export const useVendorsTableColumnHelper = createColumnHelper<VendorModel>()
+export const vendorsColumnHelper = createColumnHelper<VendorModel>()
 
-export const getuseVendorsTableColumn = (property: string, modelConfig: ModelConfig<VendorModel>) => {
+export const getVendorsColumn = (property: string, modelConfig: ModelConfig<VendorModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useVendorsTableColumnHelper.accessor((row) => row._links, {
+      return vendorsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -51,7 +51,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useVendorsTableColumnHelper.accessor((row) => row._embedded, {
+      return vendorsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -62,7 +62,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.id, {
+      return vendorsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -73,7 +73,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.created, {
+      return vendorsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -84,7 +84,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.modified, {
+      return vendorsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -95,7 +95,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('lastCall', () => {
       const { label: header, format, width, minWidth } = modelConfig['lastCall']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.lastCall, {
+      return vendorsColumnHelper.accessor((row) => row.lastCall, {
         id: 'lastCall',
         header,
         cell: (info) => format(info.getValue()),
@@ -106,7 +106,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('nextCall', () => {
       const { label: header, format, width, minWidth } = modelConfig['nextCall']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.nextCall, {
+      return vendorsColumnHelper.accessor((row) => row.nextCall, {
         id: 'nextCall',
         header,
         cell: (info) => format(info.getValue()),
@@ -117,7 +117,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('typeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeId']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.typeId, {
+      return vendorsColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -128,7 +128,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('sellingReasonId', () => {
       const { label: header, format, width, minWidth } = modelConfig['sellingReasonId']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.sellingReasonId, {
+      return vendorsColumnHelper.accessor((row) => row.sellingReasonId, {
         id: 'sellingReasonId',
         header,
         cell: (info) => format(info.getValue()),
@@ -139,7 +139,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('solicitorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['solicitorId']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.solicitorId, {
+      return vendorsColumnHelper.accessor((row) => row.solicitorId, {
         id: 'solicitorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -150,7 +150,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.propertyId, {
+      return vendorsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -161,7 +161,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('source', () => {
       const { label: header, format, width, minWidth } = modelConfig['source']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.source, {
+      return vendorsColumnHelper.accessor((row) => row.source, {
         id: 'source',
         header,
         cell: (info) => format(info.getValue()),
@@ -172,7 +172,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('related', () => {
       const { label: header, format, width, minWidth } = modelConfig['related']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.related, {
+      return vendorsColumnHelper.accessor((row) => row.related, {
         id: 'related',
         header,
         cell: (info) => format(info.getValue()),
@@ -183,7 +183,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('correspondenceAddressType', () => {
       const { label: header, format, width, minWidth } = modelConfig['correspondenceAddressType']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.correspondenceAddressType, {
+      return vendorsColumnHelper.accessor((row) => row.correspondenceAddressType, {
         id: 'correspondenceAddressType',
         header,
         cell: (info) => format(info.getValue()),
@@ -194,7 +194,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.negotiatorId, {
+      return vendorsColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -205,7 +205,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('officeIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['officeIds']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.officeIds, {
+      return vendorsColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -216,7 +216,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('archivedOn', () => {
       const { label: header, format, width, minWidth } = modelConfig['archivedOn']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.archivedOn, {
+      return vendorsColumnHelper.accessor((row) => row.archivedOn, {
         id: 'archivedOn',
         header,
         cell: (info) => format(info.getValue()),
@@ -227,7 +227,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('fromArchive', () => {
       const { label: header, format, width, minWidth } = modelConfig['fromArchive']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.fromArchive, {
+      return vendorsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header,
         cell: (info) => format(info.getValue()),
@@ -238,7 +238,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return useVendorsTableColumnHelper.accessor((row) => row.metadata, {
+      return vendorsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -249,7 +249,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useVendorsTableColumnHelper.accessor((row) => row._eTag, {
+      return vendorsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -262,7 +262,7 @@ export const getuseVendorsTableColumn = (property: string, modelConfig: ModelCon
     })
 }
 
-export const useVendorsTable = (args: UseVendorsTableArgs) => {
+export const useVendorsTable = (args: VendorsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -295,9 +295,9 @@ export const useVendorsTable = (args: UseVendorsTableArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const useVendorsIdRelationshipsTableColumnHelper = createColumnHelper<VendorContactRelationshipModel>()
+export const vendorsIdRelationshipsColumnHelper = createColumnHelper<VendorContactRelationshipModel>()
 
-export const getuseVendorsIdRelationshipsTableColumn = (
+export const getVendorsIdRelationshipsColumn = (
   property: string,
   modelConfig: ModelConfig<VendorContactRelationshipModel>,
 ) => {
@@ -305,7 +305,7 @@ export const getuseVendorsIdRelationshipsTableColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useVendorsIdRelationshipsTableColumnHelper.accessor((row) => row._links, {
+      return vendorsIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -316,7 +316,7 @@ export const getuseVendorsIdRelationshipsTableColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useVendorsIdRelationshipsTableColumnHelper.accessor((row) => row._embedded, {
+      return vendorsIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -327,7 +327,7 @@ export const getuseVendorsIdRelationshipsTableColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useVendorsIdRelationshipsTableColumnHelper.accessor((row) => row.id, {
+      return vendorsIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -338,7 +338,7 @@ export const getuseVendorsIdRelationshipsTableColumn = (
     .with('vendorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['vendorId']
 
-      return useVendorsIdRelationshipsTableColumnHelper.accessor((row) => row.vendorId, {
+      return vendorsIdRelationshipsColumnHelper.accessor((row) => row.vendorId, {
         id: 'vendorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -349,7 +349,7 @@ export const getuseVendorsIdRelationshipsTableColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useVendorsIdRelationshipsTableColumnHelper.accessor((row) => row.created, {
+      return vendorsIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -360,7 +360,7 @@ export const getuseVendorsIdRelationshipsTableColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useVendorsIdRelationshipsTableColumnHelper.accessor((row) => row.modified, {
+      return vendorsIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -371,7 +371,7 @@ export const getuseVendorsIdRelationshipsTableColumn = (
     .with('associatedType', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedType']
 
-      return useVendorsIdRelationshipsTableColumnHelper.accessor((row) => row.associatedType, {
+      return vendorsIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header,
         cell: (info) => format(info.getValue()),
@@ -382,7 +382,7 @@ export const getuseVendorsIdRelationshipsTableColumn = (
     .with('associatedId', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedId']
 
-      return useVendorsIdRelationshipsTableColumnHelper.accessor((row) => row.associatedId, {
+      return vendorsIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header,
         cell: (info) => format(info.getValue()),
@@ -393,7 +393,7 @@ export const getuseVendorsIdRelationshipsTableColumn = (
     .with('isMain', () => {
       const { label: header, format, width, minWidth } = modelConfig['isMain']
 
-      return useVendorsIdRelationshipsTableColumnHelper.accessor((row) => row.isMain, {
+      return vendorsIdRelationshipsColumnHelper.accessor((row) => row.isMain, {
         id: 'isMain',
         header,
         cell: (info) => format(info.getValue()),
@@ -406,7 +406,7 @@ export const getuseVendorsIdRelationshipsTableColumn = (
     })
 }
 
-export const useVendorsIdRelationshipsTable = (args: UseVendorsIdRelationshipsTableArgs) => {
+export const useVendorsIdRelationshipsTable = (args: VendorsIdRelationshipsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

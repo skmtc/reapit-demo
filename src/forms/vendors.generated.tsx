@@ -1,10 +1,10 @@
 import { insertVendorContactRelationshipModel, InsertVendorContactRelationshipModel } from '@/schemas/index.ts'
-import { useCreateVendorRelationship } from '@/services/vendors.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
+import { useCreateVendorRelationship } from '@/services/vendors.generated.ts'
 
 export type CreateVendorsIdRelationshipsProps = { id: string; children: ReactNode }
 

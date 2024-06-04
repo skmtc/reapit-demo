@@ -1,80 +1,16 @@
 import {
-  CreateDocumentModel,
-  CreatePreSignedUrlsModel,
-  createPreSignedUrlsModel,
   documentModelPagedResult,
+  CreateDocumentModel,
   documentModel,
   UpdateDocumentModel,
+  CreatePreSignedUrlsModel,
+  createPreSignedUrlsModel,
 } from '@/schemas/index.ts'
-import { z } from 'zod'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
-export type UseCreateDocumentArgs = { body: CreateDocumentModel }
-export const createDocumentFn = async ({ body }: UseCreateDocumentArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/documents/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateDocument = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createDocumentFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Documents'] })
-    },
-  })
-}
-export type UseCreateSignedUrlArgs = { body: CreatePreSignedUrlsModel }
-export const createSignedUrlFn = async ({ body }: UseCreateSignedUrlArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/documents/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return createPreSignedUrlsModel.parse(data)
-}
-export const useCreateSignedUrl = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createSignedUrlFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Documents'] })
-    },
-  })
-}
 export type UseGetApiDocumentsArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -152,6 +88,38 @@ export const useGetApiDocuments = (args: UseGetApiDocumentsArgs) => {
   })
 
   return result
+}
+export type UseCreateDocumentArgs = { body: CreateDocumentModel }
+export const createDocumentFn = async ({ body }: UseCreateDocumentArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/documents/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateDocument = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createDocumentFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Documents'] })
+    },
+  })
 }
 export type UseGetApiDocumentsIdArgs = { id: string; embed?: Array<'documentType'> | undefined }
 export const getApiDocumentsIdFn = async ({ id, embed }: UseGetApiDocumentsIdArgs) => {
@@ -266,4 +234,36 @@ export const useGetApiDocumentsIdDownload = ({ id }: UseGetApiDocumentsIdDownloa
   })
 
   return result
+}
+export type UseCreateSignedUrlArgs = { body: CreatePreSignedUrlsModel }
+export const createSignedUrlFn = async ({ body }: UseCreateSignedUrlArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/documents/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return createPreSignedUrlsModel.parse(data)
+}
+export const useCreateSignedUrl = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createSignedUrlFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Documents'] })
+    },
+  })
 }

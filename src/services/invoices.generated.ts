@@ -1,11 +1,11 @@
 import {
   invoiceModelPagedResult,
-  paymentModelPagedResult,
-  creditModelPagedResult,
-  chargeModelPagedResult,
   invoiceDetailModel,
+  paymentModelPagedResult,
   paymentModel,
+  creditModelPagedResult,
   creditModel,
+  chargeModelPagedResult,
   chargeModel,
 } from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
@@ -68,6 +68,31 @@ export const useGetApiInvoices = (args: UseGetApiInvoicesArgs) => {
 
   return result
 }
+export type UseGetApiInvoicesIdArgs = { id: string }
+export const getApiInvoicesIdFn = async ({ id }: UseGetApiInvoicesIdArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/invoices/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return invoiceDetailModel.parse(data)
+}
+export const useGetApiInvoicesId = ({ id }: UseGetApiInvoicesIdArgs) => {
+  const result = useQuery({
+    queryKey: ['Invoices', id],
+    queryFn: () => getApiInvoicesIdFn({ id }),
+  })
+
+  return result
+}
 export type UseGetApiInvoicesPaymentsArgs = {
   pageNumber?: number | undefined
   pageSize?: number | undefined
@@ -119,6 +144,31 @@ export const useGetApiInvoicesPayments = (args: UseGetApiInvoicesPaymentsArgs) =
     queryKey: ['Invoices'],
     queryFn: () => getApiInvoicesPaymentsFn(args),
     placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type UseGetApiInvoicesPaymentsIdArgs = { id: string }
+export const getApiInvoicesPaymentsIdFn = async ({ id }: UseGetApiInvoicesPaymentsIdArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/invoices/payments/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return paymentModel.parse(data)
+}
+export const useGetApiInvoicesPaymentsId = ({ id }: UseGetApiInvoicesPaymentsIdArgs) => {
+  const result = useQuery({
+    queryKey: ['Invoices', id],
+    queryFn: () => getApiInvoicesPaymentsIdFn({ id }),
   })
 
   return result
@@ -176,6 +226,31 @@ export const useGetApiInvoicesCredits = (args: UseGetApiInvoicesCreditsArgs) => 
 
   return result
 }
+export type UseGetApiInvoicesCreditsIdArgs = { id: string }
+export const getApiInvoicesCreditsIdFn = async ({ id }: UseGetApiInvoicesCreditsIdArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/invoices/credits/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return creditModel.parse(data)
+}
+export const useGetApiInvoicesCreditsId = ({ id }: UseGetApiInvoicesCreditsIdArgs) => {
+  const result = useQuery({
+    queryKey: ['Invoices', id],
+    queryFn: () => getApiInvoicesCreditsIdFn({ id }),
+  })
+
+  return result
+}
 export type UseGetApiInvoicesChargesArgs = {
   pageNumber?: number | undefined
   pageSize?: number | undefined
@@ -221,81 +296,6 @@ export const useGetApiInvoicesCharges = (args: UseGetApiInvoicesChargesArgs) => 
     queryKey: ['Invoices'],
     queryFn: () => getApiInvoicesChargesFn(args),
     placeholderData: keepPreviousData,
-  })
-
-  return result
-}
-export type UseGetApiInvoicesIdArgs = { id: string }
-export const getApiInvoicesIdFn = async ({ id }: UseGetApiInvoicesIdArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/invoices/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return invoiceDetailModel.parse(data)
-}
-export const useGetApiInvoicesId = ({ id }: UseGetApiInvoicesIdArgs) => {
-  const result = useQuery({
-    queryKey: ['Invoices', id],
-    queryFn: () => getApiInvoicesIdFn({ id }),
-  })
-
-  return result
-}
-export type UseGetApiInvoicesPaymentsIdArgs = { id: string }
-export const getApiInvoicesPaymentsIdFn = async ({ id }: UseGetApiInvoicesPaymentsIdArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/invoices/payments/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return paymentModel.parse(data)
-}
-export const useGetApiInvoicesPaymentsId = ({ id }: UseGetApiInvoicesPaymentsIdArgs) => {
-  const result = useQuery({
-    queryKey: ['Invoices', id],
-    queryFn: () => getApiInvoicesPaymentsIdFn({ id }),
-  })
-
-  return result
-}
-export type UseGetApiInvoicesCreditsIdArgs = { id: string }
-export const getApiInvoicesCreditsIdFn = async ({ id }: UseGetApiInvoicesCreditsIdArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/invoices/credits/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return creditModel.parse(data)
-}
-export const useGetApiInvoicesCreditsId = ({ id }: UseGetApiInvoicesCreditsIdArgs) => {
-  const result = useQuery({
-    queryKey: ['Invoices', id],
-    queryFn: () => getApiInvoicesCreditsIdFn({ id }),
   })
 
   return result

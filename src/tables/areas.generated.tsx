@@ -2,10 +2,10 @@ import { areaModel, AreaModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiAreas } from '@/services/areas.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { useGetApiAreas } from '@/services/areas.generated.ts'
 
-export type UseAreasTableArgs = {
+export type AreasArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
   departmentId?: Array<string> | undefined
@@ -19,14 +19,14 @@ export type UseAreasTableArgs = {
   columns: ColumnsList<AreaModel>
 }
 
-export const useAreasTableColumnHelper = createColumnHelper<AreaModel>()
+export const areasColumnHelper = createColumnHelper<AreaModel>()
 
-export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfig<AreaModel>) => {
+export const getAreasColumn = (property: string, modelConfig: ModelConfig<AreaModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useAreasTableColumnHelper.accessor((row) => row._links, {
+      return areasColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -37,7 +37,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useAreasTableColumnHelper.accessor((row) => row._embedded, {
+      return areasColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -48,7 +48,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useAreasTableColumnHelper.accessor((row) => row.id, {
+      return areasColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -59,7 +59,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useAreasTableColumnHelper.accessor((row) => row.created, {
+      return areasColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -70,7 +70,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useAreasTableColumnHelper.accessor((row) => row.modified, {
+      return areasColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -81,7 +81,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('name', () => {
       const { label: header, format, width, minWidth } = modelConfig['name']
 
-      return useAreasTableColumnHelper.accessor((row) => row.name, {
+      return areasColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header,
         cell: (info) => format(info.getValue()),
@@ -92,7 +92,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('active', () => {
       const { label: header, format, width, minWidth } = modelConfig['active']
 
-      return useAreasTableColumnHelper.accessor((row) => row.active, {
+      return areasColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header,
         cell: (info) => format(info.getValue()),
@@ -103,7 +103,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return useAreasTableColumnHelper.accessor((row) => row.type, {
+      return areasColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -114,7 +114,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('area', () => {
       const { label: header, format, width, minWidth } = modelConfig['area']
 
-      return useAreasTableColumnHelper.accessor((row) => row.area, {
+      return areasColumnHelper.accessor((row) => row.area, {
         id: 'area',
         header,
         cell: (info) => format(info.getValue()),
@@ -125,7 +125,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('departmentIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['departmentIds']
 
-      return useAreasTableColumnHelper.accessor((row) => row.departmentIds, {
+      return areasColumnHelper.accessor((row) => row.departmentIds, {
         id: 'departmentIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -136,7 +136,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('officeIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['officeIds']
 
-      return useAreasTableColumnHelper.accessor((row) => row.officeIds, {
+      return areasColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -147,7 +147,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('parentIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['parentIds']
 
-      return useAreasTableColumnHelper.accessor((row) => row.parentIds, {
+      return areasColumnHelper.accessor((row) => row.parentIds, {
         id: 'parentIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -158,7 +158,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useAreasTableColumnHelper.accessor((row) => row._eTag, {
+      return areasColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -171,7 +171,7 @@ export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfi
     })
 }
 
-export const useAreasTable = (args: UseAreasTableArgs) => {
+export const useAreasTable = (args: AreasArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

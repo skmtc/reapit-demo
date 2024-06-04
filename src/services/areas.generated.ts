@@ -1,41 +1,9 @@
-import { CreateAreaModel, areaModelPagedResult, areaModel, UpdateAreaModel } from '@/schemas/index.ts'
-import { z } from 'zod'
+import { areaModelPagedResult, CreateAreaModel, areaModel, UpdateAreaModel } from '@/schemas/index.ts'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
-export type UseCreateAreaArgs = { body: CreateAreaModel }
-export const createAreaFn = async ({ body }: UseCreateAreaArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/areas/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateArea = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createAreaFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Areas'] })
-    },
-  })
-}
 export type UseGetApiAreasArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -88,6 +56,38 @@ export const useGetApiAreas = (args: UseGetApiAreasArgs) => {
   })
 
   return result
+}
+export type UseCreateAreaArgs = { body: CreateAreaModel }
+export const createAreaFn = async ({ body }: UseCreateAreaArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/areas/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateArea = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createAreaFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Areas'] })
+    },
+  })
 }
 export type UseGetApiAreasIdArgs = { id: string }
 export const getApiAreasIdFn = async ({ id }: UseGetApiAreasIdArgs) => {

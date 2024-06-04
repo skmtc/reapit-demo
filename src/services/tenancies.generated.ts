@@ -1,272 +1,40 @@
 import {
-  CreateTenancyModel,
-  CreateTenancyCheckModel,
-  CreateTenancyBreakClauseModel,
-  CreateTenancyAllowanceModel,
-  CreateTenancyResponsibilityModel,
-  CreateTenancyRenewalModel,
-  CreateTenancyRenewalCheckModel,
   tenancyModelPagedResult,
-  tenancyContactRelationshipModelPagedResult,
-  tenancyCheckModelPagedResult,
-  tenancyBreakClauseModelPagedResult,
-  tenancyAllowanceModelPagedResult,
-  tenancyResponsibilityModelPagedResult,
-  tenancyRenewalModelPagedResult,
-  tenancyExtensionAlterationModelPagedResult,
-  tenancyRenewalCheckModelPagedResult,
+  CreateTenancyModel,
   tenancyModel,
   UpdateTenancyModel,
+  tenancyContactRelationshipModelPagedResult,
   tenancyContactRelationshipModel,
+  tenancyCheckModelPagedResult,
+  CreateTenancyCheckModel,
   tenancyCheckModel,
   UpdateTenancyCheckModel,
+  tenancyBreakClauseModelPagedResult,
+  CreateTenancyBreakClauseModel,
   tenancyBreakClauseModel,
   UpdateTenancyBreakClauseModel,
+  tenancyAllowanceModelPagedResult,
+  CreateTenancyAllowanceModel,
   tenancyAllowanceModel,
   UpdateTenancyAllowanceModel,
+  tenancyResponsibilityModelPagedResult,
+  CreateTenancyResponsibilityModel,
   tenancyResponsibilityModel,
   UpdateTenancyResponsibilityModel,
+  tenancyRenewalModelPagedResult,
+  CreateTenancyRenewalModel,
   UpdateTenancyRenewalModel,
+  tenancyExtensionAlterationModelPagedResult,
+  tenancyRenewalCheckModelPagedResult,
+  CreateTenancyRenewalCheckModel,
   tenancyRenewalCheckModel,
   UpdateTenancyRenewalCheckModel,
 } from '@/schemas/index.ts'
-import { z } from 'zod'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
-export type UseCreateTenancyArgs = { body: CreateTenancyModel }
-export const createTenancyFn = async ({ body }: UseCreateTenancyArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateTenancy = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createTenancyFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
-    },
-  })
-}
-export type UseCreateTenancyCheckArgs = { id: string; body: CreateTenancyCheckModel }
-export const createTenancyCheckFn = async ({ id, body }: UseCreateTenancyCheckArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateTenancyCheck = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createTenancyCheckFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
-    },
-  })
-}
-export type UseCreateTenancyBreakClauseArgs = { id: string; body: CreateTenancyBreakClauseModel }
-export const createTenancyBreakClauseFn = async ({ id, body }: UseCreateTenancyBreakClauseArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/breakClauses${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateTenancyBreakClause = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createTenancyBreakClauseFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
-    },
-  })
-}
-export type UseCreateTenancyAllowanceArgs = { id: string; body: CreateTenancyAllowanceModel }
-export const createTenancyAllowanceFn = async ({ id, body }: UseCreateTenancyAllowanceArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/allowances${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateTenancyAllowance = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createTenancyAllowanceFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
-    },
-  })
-}
-export type UseCreateTenancyResponsibilityArgs = { id: string; body: CreateTenancyResponsibilityModel }
-export const createTenancyResponsibilityFn = async ({ id, body }: UseCreateTenancyResponsibilityArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/responsibilities${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateTenancyResponsibility = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createTenancyResponsibilityFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
-    },
-  })
-}
-export type UseCreateTenancyRenewalNegotiationArgs = { id: string; body: CreateTenancyRenewalModel }
-export const createTenancyRenewalNegotiationFn = async ({ id, body }: UseCreateTenancyRenewalNegotiationArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateTenancyRenewalNegotiation = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createTenancyRenewalNegotiationFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
-    },
-  })
-}
-export type UseCreateTenancyRenewalNegotiationCheckArgs = {
-  id: string
-  renewalId: string
-  body: CreateTenancyRenewalCheckModel
-}
-export const createTenancyRenewalNegotiationCheckFn = async ({
-  id,
-  renewalId,
-  body,
-}: UseCreateTenancyRenewalNegotiationCheckArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations/${renewalId}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateTenancyRenewalNegotiationCheck = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createTenancyRenewalNegotiationCheckFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
-    },
-  })
-}
 export type UseGetApiTenanciesArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -354,20 +122,13 @@ export const useGetApiTenancies = (args: UseGetApiTenanciesArgs) => {
 
   return result
 }
-export type UseGetApiTenanciesIdRelationshipsArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-}
-export const getApiTenanciesIdRelationshipsFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-}: UseGetApiTenanciesIdRelationshipsArgs) => {
+export type UseCreateTenancyArgs = { body: CreateTenancyModel }
+export const createTenancyFn = async ({ body }: UseCreateTenancyArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'GET',
+      method: 'POST',
+      body: JSON.stringify(body),
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -378,269 +139,20 @@ export const getApiTenanciesIdRelationshipsFn = async ({
 
   const data = await res.json()
 
-  return tenancyContactRelationshipModelPagedResult.parse(data)
+  return z.void().parse(data)
 }
-export const useGetApiTenanciesIdRelationships = (args: UseGetApiTenanciesIdRelationshipsArgs) => {
-  const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdRelationshipsFn(args),
-    placeholderData: keepPreviousData,
-  })
+export const useCreateTenancy = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
 
-  return result
-}
-export type UseGetApiTenanciesIdChecksArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  type?: string | undefined
-  status?: Array<'needed' | 'notNeeded' | 'arranged' | 'completed'> | undefined
-}
-export const getApiTenanciesIdChecksFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-  type,
-  status,
-}: UseGetApiTenanciesIdChecksArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/checks${querySerialiser({ args: { pageSize, pageNumber, type, status }, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
+  return useMutation({
+    mutationFn: createTenancyFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
     },
-  )
-
-  const data = await res.json()
-
-  return tenancyCheckModelPagedResult.parse(data)
-}
-export const useGetApiTenanciesIdChecks = (args: UseGetApiTenanciesIdChecksArgs) => {
-  const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdChecksFn(args),
-    placeholderData: keepPreviousData,
   })
-
-  return result
-}
-export type UseGetApiTenanciesIdBreakClausesArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-}
-export const getApiTenanciesIdBreakClausesFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-}: UseGetApiTenanciesIdBreakClausesArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/breakClauses${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return tenancyBreakClauseModelPagedResult.parse(data)
-}
-export const useGetApiTenanciesIdBreakClauses = (args: UseGetApiTenanciesIdBreakClausesArgs) => {
-  const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdBreakClausesFn(args),
-    placeholderData: keepPreviousData,
-  })
-
-  return result
-}
-export type UseGetApiTenanciesIdAllowancesArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-}
-export const getApiTenanciesIdAllowancesFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-}: UseGetApiTenanciesIdAllowancesArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/allowances${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return tenancyAllowanceModelPagedResult.parse(data)
-}
-export const useGetApiTenanciesIdAllowances = (args: UseGetApiTenanciesIdAllowancesArgs) => {
-  const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdAllowancesFn(args),
-    placeholderData: keepPreviousData,
-  })
-
-  return result
-}
-export type UseGetApiTenanciesIdResponsibilitiesArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-}
-export const getApiTenanciesIdResponsibilitiesFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-}: UseGetApiTenanciesIdResponsibilitiesArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/responsibilities${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return tenancyResponsibilityModelPagedResult.parse(data)
-}
-export const useGetApiTenanciesIdResponsibilities = (args: UseGetApiTenanciesIdResponsibilitiesArgs) => {
-  const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdResponsibilitiesFn(args),
-    placeholderData: keepPreviousData,
-  })
-
-  return result
-}
-export type UseGetApiTenanciesIdRenewalNegotiationsArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-}
-export const getApiTenanciesIdRenewalNegotiationsFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-}: UseGetApiTenanciesIdRenewalNegotiationsArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return tenancyRenewalModelPagedResult.parse(data)
-}
-export const useGetApiTenanciesIdRenewalNegotiations = (args: UseGetApiTenanciesIdRenewalNegotiationsArgs) => {
-  const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdRenewalNegotiationsFn(args),
-    placeholderData: keepPreviousData,
-  })
-
-  return result
-}
-export type UseGetApiTenanciesIdExtensionsArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-}
-export const getApiTenanciesIdExtensionsFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-}: UseGetApiTenanciesIdExtensionsArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/extensions${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return tenancyExtensionAlterationModelPagedResult.parse(data)
-}
-export const useGetApiTenanciesIdExtensions = (args: UseGetApiTenanciesIdExtensionsArgs) => {
-  const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdExtensionsFn(args),
-    placeholderData: keepPreviousData,
-  })
-
-  return result
-}
-export type UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs = {
-  id: string
-  renewalId: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-}
-export const getApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn = async ({
-  id,
-  renewalId,
-  pageSize,
-  pageNumber,
-}: UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations/${renewalId}/checks${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return tenancyRenewalCheckModelPagedResult.parse(data)
-}
-export const useGetApiTenanciesIdRenewalNegotiationsRenewalIdChecks = (
-  args: UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs,
-) => {
-  const result = useQuery({
-    queryKey: ['Tenancies'],
-    queryFn: () => getApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn(args),
-    placeholderData: keepPreviousData,
-  })
-
-  return result
 }
 export type UseGetApiTenanciesIdArgs = {
   id: string
@@ -714,6 +226,41 @@ export const usePatchApiTenanciesId = () => {
     },
   })
 }
+export type UseGetApiTenanciesIdRelationshipsArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+}
+export const getApiTenanciesIdRelationshipsFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: UseGetApiTenanciesIdRelationshipsArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return tenancyContactRelationshipModelPagedResult.parse(data)
+}
+export const useGetApiTenanciesIdRelationships = (args: UseGetApiTenanciesIdRelationshipsArgs) => {
+  const result = useQuery({
+    queryKey: ['Tenancies'],
+    queryFn: () => getApiTenanciesIdRelationshipsFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
 export type UseGetApiTenanciesIdRelationshipsRelationshipIdArgs = { id: string; relationshipId: string }
 export const getApiTenanciesIdRelationshipsRelationshipIdFn = async ({
   id,
@@ -744,6 +291,77 @@ export const useGetApiTenanciesIdRelationshipsRelationshipId = ({
   })
 
   return result
+}
+export type UseGetApiTenanciesIdChecksArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  type?: string | undefined
+  status?: Array<'needed' | 'notNeeded' | 'arranged' | 'completed'> | undefined
+}
+export const getApiTenanciesIdChecksFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+  type,
+  status,
+}: UseGetApiTenanciesIdChecksArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/checks${querySerialiser({ args: { pageSize, pageNumber, type, status }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return tenancyCheckModelPagedResult.parse(data)
+}
+export const useGetApiTenanciesIdChecks = (args: UseGetApiTenanciesIdChecksArgs) => {
+  const result = useQuery({
+    queryKey: ['Tenancies'],
+    queryFn: () => getApiTenanciesIdChecksFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type UseCreateTenancyCheckArgs = { id: string; body: CreateTenancyCheckModel }
+export const createTenancyCheckFn = async ({ id, body }: UseCreateTenancyCheckArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateTenancyCheck = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createTenancyCheckFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
+    },
+  })
 }
 export type UseGetApiTenanciesIdChecksCheckIdArgs = { id: string; checkId: string }
 export const getApiTenanciesIdChecksCheckIdFn = async ({ id, checkId }: UseGetApiTenanciesIdChecksCheckIdArgs) => {
@@ -840,6 +458,73 @@ export const usePatchApiTenanciesIdChecksCheckId = () => {
 
   return useMutation({
     mutationFn: patchApiTenanciesIdChecksCheckIdFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
+    },
+  })
+}
+export type UseGetApiTenanciesIdBreakClausesArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+}
+export const getApiTenanciesIdBreakClausesFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: UseGetApiTenanciesIdBreakClausesArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/breakClauses${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return tenancyBreakClauseModelPagedResult.parse(data)
+}
+export const useGetApiTenanciesIdBreakClauses = (args: UseGetApiTenanciesIdBreakClausesArgs) => {
+  const result = useQuery({
+    queryKey: ['Tenancies'],
+    queryFn: () => getApiTenanciesIdBreakClausesFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type UseCreateTenancyBreakClauseArgs = { id: string; body: CreateTenancyBreakClauseModel }
+export const createTenancyBreakClauseFn = async ({ id, body }: UseCreateTenancyBreakClauseArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/breakClauses${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateTenancyBreakClause = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createTenancyBreakClauseFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -955,6 +640,73 @@ export const usePatchApiTenanciesIdBreakClausesClauseId = () => {
     },
   })
 }
+export type UseGetApiTenanciesIdAllowancesArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+}
+export const getApiTenanciesIdAllowancesFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: UseGetApiTenanciesIdAllowancesArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/allowances${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return tenancyAllowanceModelPagedResult.parse(data)
+}
+export const useGetApiTenanciesIdAllowances = (args: UseGetApiTenanciesIdAllowancesArgs) => {
+  const result = useQuery({
+    queryKey: ['Tenancies'],
+    queryFn: () => getApiTenanciesIdAllowancesFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type UseCreateTenancyAllowanceArgs = { id: string; body: CreateTenancyAllowanceModel }
+export const createTenancyAllowanceFn = async ({ id, body }: UseCreateTenancyAllowanceArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/allowances${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateTenancyAllowance = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createTenancyAllowanceFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
+    },
+  })
+}
 export type UseGetApiTenanciesIdAllowancesAllowanceIdArgs = { id: string; allowanceId: string }
 export const getApiTenanciesIdAllowancesAllowanceIdFn = async ({
   id,
@@ -1056,6 +808,73 @@ export const usePatchApiTenanciesIdAllowancesAllowanceId = () => {
 
   return useMutation({
     mutationFn: patchApiTenanciesIdAllowancesAllowanceIdFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
+    },
+  })
+}
+export type UseGetApiTenanciesIdResponsibilitiesArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+}
+export const getApiTenanciesIdResponsibilitiesFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: UseGetApiTenanciesIdResponsibilitiesArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/responsibilities${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return tenancyResponsibilityModelPagedResult.parse(data)
+}
+export const useGetApiTenanciesIdResponsibilities = (args: UseGetApiTenanciesIdResponsibilitiesArgs) => {
+  const result = useQuery({
+    queryKey: ['Tenancies'],
+    queryFn: () => getApiTenanciesIdResponsibilitiesFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type UseCreateTenancyResponsibilityArgs = { id: string; body: CreateTenancyResponsibilityModel }
+export const createTenancyResponsibilityFn = async ({ id, body }: UseCreateTenancyResponsibilityArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/responsibilities${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateTenancyResponsibility = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createTenancyResponsibilityFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -1171,6 +990,73 @@ export const usePatchApiTenanciesIdResponsibilitiesResponsibilityId = () => {
     },
   })
 }
+export type UseGetApiTenanciesIdRenewalNegotiationsArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+}
+export const getApiTenanciesIdRenewalNegotiationsFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: UseGetApiTenanciesIdRenewalNegotiationsArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return tenancyRenewalModelPagedResult.parse(data)
+}
+export const useGetApiTenanciesIdRenewalNegotiations = (args: UseGetApiTenanciesIdRenewalNegotiationsArgs) => {
+  const result = useQuery({
+    queryKey: ['Tenancies'],
+    queryFn: () => getApiTenanciesIdRenewalNegotiationsFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type UseCreateTenancyRenewalNegotiationArgs = { id: string; body: CreateTenancyRenewalModel }
+export const createTenancyRenewalNegotiationFn = async ({ id, body }: UseCreateTenancyRenewalNegotiationArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateTenancyRenewalNegotiation = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createTenancyRenewalNegotiationFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
+    },
+  })
+}
 export type UseGetApiTenanciesIdRenewalNegotiationsRenewalIdArgs = { id: string; renewalId: string }
 export const getApiTenanciesIdRenewalNegotiationsRenewalIdFn = async ({
   id,
@@ -1244,6 +1130,41 @@ export const usePatchApiTenanciesIdRenewalNegotiationsRenewalId = () => {
     },
   })
 }
+export type UseGetApiTenanciesIdExtensionsArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+}
+export const getApiTenanciesIdExtensionsFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: UseGetApiTenanciesIdExtensionsArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/extensions${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return tenancyExtensionAlterationModelPagedResult.parse(data)
+}
+export const useGetApiTenanciesIdExtensions = (args: UseGetApiTenanciesIdExtensionsArgs) => {
+  const result = useQuery({
+    queryKey: ['Tenancies'],
+    queryFn: () => getApiTenanciesIdExtensionsFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
 export type UseGetApiTenanciesIdExtensionsExtensionIdArgs = { id: string; extensionId: string }
 export const getApiTenanciesIdExtensionsExtensionIdFn = async ({
   id,
@@ -1274,6 +1195,85 @@ export const useGetApiTenanciesIdExtensionsExtensionId = ({
   })
 
   return result
+}
+export type UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs = {
+  id: string
+  renewalId: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+}
+export const getApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn = async ({
+  id,
+  renewalId,
+  pageSize,
+  pageNumber,
+}: UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations/${renewalId}/checks${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return tenancyRenewalCheckModelPagedResult.parse(data)
+}
+export const useGetApiTenanciesIdRenewalNegotiationsRenewalIdChecks = (
+  args: UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksArgs,
+) => {
+  const result = useQuery({
+    queryKey: ['Tenancies'],
+    queryFn: () => getApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type UseCreateTenancyRenewalNegotiationCheckArgs = {
+  id: string
+  renewalId: string
+  body: CreateTenancyRenewalCheckModel
+}
+export const createTenancyRenewalNegotiationCheckFn = async ({
+  id,
+  renewalId,
+  body,
+}: UseCreateTenancyRenewalNegotiationCheckArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations/${renewalId}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateTenancyRenewalNegotiationCheck = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createTenancyRenewalNegotiationCheckFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Tenancies'] })
+    },
+  })
 }
 export type UseGetApiTenanciesIdRenewalNegotiationsRenewalIdChecksCheckIdArgs = {
   id: string

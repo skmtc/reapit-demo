@@ -2,10 +2,10 @@ import { transactionModel, TransactionModel, nominalAccountModel, NominalAccount
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiTransactions, useGetApiTransactionsNominalAccounts } from '@/services/transactions.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { useGetApiTransactions, useGetApiTransactionsNominalAccounts } from '@/services/transactions.generated.ts'
 
-export type UseTransactionsTableArgs = {
+export type TransactionsArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
   propertyId?: Array<string> | undefined
@@ -99,21 +99,21 @@ export type UseTransactionsTableArgs = {
   outstandingTo?: number | undefined
   columns: ColumnsList<TransactionModel>
 }
-export type UseTransactionsNominalAccountsTableArgs = {
+export type TransactionsNominalAccountsArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
   appliesToWorksOrders?: boolean | undefined
   columns: ColumnsList<NominalAccountModel>
 }
 
-export const useTransactionsTableColumnHelper = createColumnHelper<TransactionModel>()
+export const transactionsColumnHelper = createColumnHelper<TransactionModel>()
 
-export const getuseTransactionsTableColumn = (property: string, modelConfig: ModelConfig<TransactionModel>) => {
+export const getTransactionsColumn = (property: string, modelConfig: ModelConfig<TransactionModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row._links, {
+      return transactionsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -124,7 +124,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row._embedded, {
+      return transactionsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -135,7 +135,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.id, {
+      return transactionsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -146,7 +146,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.created, {
+      return transactionsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -157,7 +157,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.modified, {
+      return transactionsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -168,7 +168,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('category', () => {
       const { label: header, format, width, minWidth } = modelConfig['category']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.category, {
+      return transactionsColumnHelper.accessor((row) => row.category, {
         id: 'category',
         header,
         cell: (info) => format(info.getValue()),
@@ -179,7 +179,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.type, {
+      return transactionsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -190,7 +190,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('transactionType', () => {
       const { label: header, format, width, minWidth } = modelConfig['transactionType']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.transactionType, {
+      return transactionsColumnHelper.accessor((row) => row.transactionType, {
         id: 'transactionType',
         header,
         cell: (info) => format(info.getValue()),
@@ -201,7 +201,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.description, {
+      return transactionsColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -212,7 +212,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('status', () => {
       const { label: header, format, width, minWidth } = modelConfig['status']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.status, {
+      return transactionsColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
@@ -223,7 +223,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('ledger', () => {
       const { label: header, format, width, minWidth } = modelConfig['ledger']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.ledger, {
+      return transactionsColumnHelper.accessor((row) => row.ledger, {
         id: 'ledger',
         header,
         cell: (info) => format(info.getValue()),
@@ -234,7 +234,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('netAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['netAmount']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.netAmount, {
+      return transactionsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -245,7 +245,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('taxAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['taxAmount']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.taxAmount, {
+      return transactionsColumnHelper.accessor((row) => row.taxAmount, {
         id: 'taxAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -256,7 +256,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('grossAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['grossAmount']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.grossAmount, {
+      return transactionsColumnHelper.accessor((row) => row.grossAmount, {
         id: 'grossAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -267,7 +267,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('outstanding', () => {
       const { label: header, format, width, minWidth } = modelConfig['outstanding']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.outstanding, {
+      return transactionsColumnHelper.accessor((row) => row.outstanding, {
         id: 'outstanding',
         header,
         cell: (info) => format(info.getValue()),
@@ -278,7 +278,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('companyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['companyId']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.companyId, {
+      return transactionsColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -289,7 +289,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('landlordId', () => {
       const { label: header, format, width, minWidth } = modelConfig['landlordId']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.landlordId, {
+      return transactionsColumnHelper.accessor((row) => row.landlordId, {
         id: 'landlordId',
         header,
         cell: (info) => format(info.getValue()),
@@ -300,7 +300,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.propertyId, {
+      return transactionsColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -311,7 +311,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('tenancyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row.tenancyId, {
+      return transactionsColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -322,7 +322,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useTransactionsTableColumnHelper.accessor((row) => row._eTag, {
+      return transactionsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -335,7 +335,7 @@ export const getuseTransactionsTableColumn = (property: string, modelConfig: Mod
     })
 }
 
-export const useTransactionsTable = (args: UseTransactionsTableArgs) => {
+export const useTransactionsTable = (args: TransactionsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -368,9 +368,9 @@ export const useTransactionsTable = (args: UseTransactionsTableArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const useTransactionsNominalAccountsTableColumnHelper = createColumnHelper<NominalAccountModel>()
+export const transactionsNominalAccountsColumnHelper = createColumnHelper<NominalAccountModel>()
 
-export const getuseTransactionsNominalAccountsTableColumn = (
+export const getTransactionsNominalAccountsColumn = (
   property: string,
   modelConfig: ModelConfig<NominalAccountModel>,
 ) => {
@@ -378,7 +378,7 @@ export const getuseTransactionsNominalAccountsTableColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useTransactionsNominalAccountsTableColumnHelper.accessor((row) => row._links, {
+      return transactionsNominalAccountsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -389,7 +389,7 @@ export const getuseTransactionsNominalAccountsTableColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useTransactionsNominalAccountsTableColumnHelper.accessor((row) => row._embedded, {
+      return transactionsNominalAccountsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -400,7 +400,7 @@ export const getuseTransactionsNominalAccountsTableColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useTransactionsNominalAccountsTableColumnHelper.accessor((row) => row.id, {
+      return transactionsNominalAccountsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -411,7 +411,7 @@ export const getuseTransactionsNominalAccountsTableColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useTransactionsNominalAccountsTableColumnHelper.accessor((row) => row.created, {
+      return transactionsNominalAccountsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -422,7 +422,7 @@ export const getuseTransactionsNominalAccountsTableColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useTransactionsNominalAccountsTableColumnHelper.accessor((row) => row.modified, {
+      return transactionsNominalAccountsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -433,7 +433,7 @@ export const getuseTransactionsNominalAccountsTableColumn = (
     .with('name', () => {
       const { label: header, format, width, minWidth } = modelConfig['name']
 
-      return useTransactionsNominalAccountsTableColumnHelper.accessor((row) => row.name, {
+      return transactionsNominalAccountsColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header,
         cell: (info) => format(info.getValue()),
@@ -444,7 +444,7 @@ export const getuseTransactionsNominalAccountsTableColumn = (
     .with('appliesToWorksOrders', () => {
       const { label: header, format, width, minWidth } = modelConfig['appliesToWorksOrders']
 
-      return useTransactionsNominalAccountsTableColumnHelper.accessor((row) => row.appliesToWorksOrders, {
+      return transactionsNominalAccountsColumnHelper.accessor((row) => row.appliesToWorksOrders, {
         id: 'appliesToWorksOrders',
         header,
         cell: (info) => format(info.getValue()),
@@ -457,7 +457,7 @@ export const getuseTransactionsNominalAccountsTableColumn = (
     })
 }
 
-export const useTransactionsNominalAccountsTable = (args: UseTransactionsNominalAccountsTableArgs) => {
+export const useTransactionsNominalAccountsTable = (args: TransactionsNominalAccountsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

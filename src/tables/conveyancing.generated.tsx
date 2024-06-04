@@ -2,10 +2,10 @@ import { conveyancingModel, ConveyancingModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiConveyancing, useGetApiConveyancingIdChain } from '@/services/conveyancing.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { useGetApiConveyancing, useGetApiConveyancingIdChain } from '@/services/conveyancing.generated.ts'
 
-export type UseConveyancingTableArgs = {
+export type ConveyancingArgs = {
   sortBy?: string | undefined
   id?: Array<string> | undefined
   propertyId?: Array<string> | undefined
@@ -18,20 +18,20 @@ export type UseConveyancingTableArgs = {
   modifiedTo?: string | undefined
   columns: ColumnsList<ConveyancingModel>
 }
-export type UseConveyancingIdChainTableArgs = {
+export type ConveyancingIdChainArgs = {
   id: string
   sortBy?: string | undefined
   columns: ColumnsList<ConveyancingModel>
 }
 
-export const useConveyancingTableColumnHelper = createColumnHelper<ConveyancingModel>()
+export const conveyancingColumnHelper = createColumnHelper<ConveyancingModel>()
 
-export const getuseConveyancingTableColumn = (property: string, modelConfig: ModelConfig<ConveyancingModel>) => {
+export const getConveyancingColumn = (property: string, modelConfig: ModelConfig<ConveyancingModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row._links, {
+      return conveyancingColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -42,7 +42,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row._embedded, {
+      return conveyancingColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -53,7 +53,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.id, {
+      return conveyancingColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -64,7 +64,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.created, {
+      return conveyancingColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -75,7 +75,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.modified, {
+      return conveyancingColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -86,7 +86,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('isExternal', () => {
       const { label: header, format, width, minWidth } = modelConfig['isExternal']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.isExternal, {
+      return conveyancingColumnHelper.accessor((row) => row.isExternal, {
         id: 'isExternal',
         header,
         cell: (info) => format(info.getValue()),
@@ -97,7 +97,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.propertyId, {
+      return conveyancingColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -108,7 +108,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('propertyAddress', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyAddress']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.propertyAddress, {
+      return conveyancingColumnHelper.accessor((row) => row.propertyAddress, {
         id: 'propertyAddress',
         header,
         cell: (info) => format(info.getValue()),
@@ -119,7 +119,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('vendor', () => {
       const { label: header, format, width, minWidth } = modelConfig['vendor']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.vendor, {
+      return conveyancingColumnHelper.accessor((row) => row.vendor, {
         id: 'vendor',
         header,
         cell: (info) => format(info.getValue()),
@@ -130,7 +130,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('vendorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['vendorId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.vendorId, {
+      return conveyancingColumnHelper.accessor((row) => row.vendorId, {
         id: 'vendorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -141,7 +141,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('vendorSolicitorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['vendorSolicitorId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.vendorSolicitorId, {
+      return conveyancingColumnHelper.accessor((row) => row.vendorSolicitorId, {
         id: 'vendorSolicitorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -152,7 +152,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('buyer', () => {
       const { label: header, format, width, minWidth } = modelConfig['buyer']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.buyer, {
+      return conveyancingColumnHelper.accessor((row) => row.buyer, {
         id: 'buyer',
         header,
         cell: (info) => format(info.getValue()),
@@ -163,7 +163,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('buyerId', () => {
       const { label: header, format, width, minWidth } = modelConfig['buyerId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.buyerId, {
+      return conveyancingColumnHelper.accessor((row) => row.buyerId, {
         id: 'buyerId',
         header,
         cell: (info) => format(info.getValue()),
@@ -174,7 +174,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('buyerSolicitorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['buyerSolicitorId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.buyerSolicitorId, {
+      return conveyancingColumnHelper.accessor((row) => row.buyerSolicitorId, {
         id: 'buyerSolicitorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -185,7 +185,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('externalAgent', () => {
       const { label: header, format, width, minWidth } = modelConfig['externalAgent']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.externalAgent, {
+      return conveyancingColumnHelper.accessor((row) => row.externalAgent, {
         id: 'externalAgent',
         header,
         cell: (info) => format(info.getValue()),
@@ -196,7 +196,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('externalAgentId', () => {
       const { label: header, format, width, minWidth } = modelConfig['externalAgentId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.externalAgentId, {
+      return conveyancingColumnHelper.accessor((row) => row.externalAgentId, {
         id: 'externalAgentId',
         header,
         cell: (info) => format(info.getValue()),
@@ -207,7 +207,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('upwardChainId', () => {
       const { label: header, format, width, minWidth } = modelConfig['upwardChainId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.upwardChainId, {
+      return conveyancingColumnHelper.accessor((row) => row.upwardChainId, {
         id: 'upwardChainId',
         header,
         cell: (info) => format(info.getValue()),
@@ -218,7 +218,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('downwardChainId', () => {
       const { label: header, format, width, minWidth } = modelConfig['downwardChainId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.downwardChainId, {
+      return conveyancingColumnHelper.accessor((row) => row.downwardChainId, {
         id: 'downwardChainId',
         header,
         cell: (info) => format(info.getValue()),
@@ -229,7 +229,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('fixturesAndFittingsCompleted', () => {
       const { label: header, format, width, minWidth } = modelConfig['fixturesAndFittingsCompleted']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.fixturesAndFittingsCompleted, {
+      return conveyancingColumnHelper.accessor((row) => row.fixturesAndFittingsCompleted, {
         id: 'fixturesAndFittingsCompleted',
         header,
         cell: (info) => format(info.getValue()),
@@ -240,7 +240,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('deedsRequested', () => {
       const { label: header, format, width, minWidth } = modelConfig['deedsRequested']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.deedsRequested, {
+      return conveyancingColumnHelper.accessor((row) => row.deedsRequested, {
         id: 'deedsRequested',
         header,
         cell: (info) => format(info.getValue()),
@@ -251,7 +251,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('deedsReceived', () => {
       const { label: header, format, width, minWidth } = modelConfig['deedsReceived']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.deedsReceived, {
+      return conveyancingColumnHelper.accessor((row) => row.deedsReceived, {
         id: 'deedsReceived',
         header,
         cell: (info) => format(info.getValue()),
@@ -262,7 +262,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('enquiriesSent', () => {
       const { label: header, format, width, minWidth } = modelConfig['enquiriesSent']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.enquiriesSent, {
+      return conveyancingColumnHelper.accessor((row) => row.enquiriesSent, {
         id: 'enquiriesSent',
         header,
         cell: (info) => format(info.getValue()),
@@ -273,7 +273,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('enquiriesAnswered', () => {
       const { label: header, format, width, minWidth } = modelConfig['enquiriesAnswered']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.enquiriesAnswered, {
+      return conveyancingColumnHelper.accessor((row) => row.enquiriesAnswered, {
         id: 'enquiriesAnswered',
         header,
         cell: (info) => format(info.getValue()),
@@ -284,7 +284,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('searchesPaid', () => {
       const { label: header, format, width, minWidth } = modelConfig['searchesPaid']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.searchesPaid, {
+      return conveyancingColumnHelper.accessor((row) => row.searchesPaid, {
         id: 'searchesPaid',
         header,
         cell: (info) => format(info.getValue()),
@@ -295,7 +295,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('searchesApplied', () => {
       const { label: header, format, width, minWidth } = modelConfig['searchesApplied']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.searchesApplied, {
+      return conveyancingColumnHelper.accessor((row) => row.searchesApplied, {
         id: 'searchesApplied',
         header,
         cell: (info) => format(info.getValue()),
@@ -306,7 +306,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('searchesReceived', () => {
       const { label: header, format, width, minWidth } = modelConfig['searchesReceived']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.searchesReceived, {
+      return conveyancingColumnHelper.accessor((row) => row.searchesReceived, {
         id: 'searchesReceived',
         header,
         cell: (info) => format(info.getValue()),
@@ -317,7 +317,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('contractSent', () => {
       const { label: header, format, width, minWidth } = modelConfig['contractSent']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.contractSent, {
+      return conveyancingColumnHelper.accessor((row) => row.contractSent, {
         id: 'contractSent',
         header,
         cell: (info) => format(info.getValue()),
@@ -328,7 +328,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('contractReceived', () => {
       const { label: header, format, width, minWidth } = modelConfig['contractReceived']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.contractReceived, {
+      return conveyancingColumnHelper.accessor((row) => row.contractReceived, {
         id: 'contractReceived',
         header,
         cell: (info) => format(info.getValue()),
@@ -339,7 +339,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('contractApproved', () => {
       const { label: header, format, width, minWidth } = modelConfig['contractApproved']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.contractApproved, {
+      return conveyancingColumnHelper.accessor((row) => row.contractApproved, {
         id: 'contractApproved',
         header,
         cell: (info) => format(info.getValue()),
@@ -350,7 +350,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('contractVendorSigned', () => {
       const { label: header, format, width, minWidth } = modelConfig['contractVendorSigned']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.contractVendorSigned, {
+      return conveyancingColumnHelper.accessor((row) => row.contractVendorSigned, {
         id: 'contractVendorSigned',
         header,
         cell: (info) => format(info.getValue()),
@@ -361,7 +361,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('contractBuyerSigned', () => {
       const { label: header, format, width, minWidth } = modelConfig['contractBuyerSigned']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.contractBuyerSigned, {
+      return conveyancingColumnHelper.accessor((row) => row.contractBuyerSigned, {
         id: 'contractBuyerSigned',
         header,
         cell: (info) => format(info.getValue()),
@@ -372,7 +372,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('mortgageRequired', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageRequired']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageRequired, {
+      return conveyancingColumnHelper.accessor((row) => row.mortgageRequired, {
         id: 'mortgageRequired',
         header,
         cell: (info) => format(info.getValue()),
@@ -383,7 +383,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('mortgageLoanPercentage', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageLoanPercentage']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageLoanPercentage, {
+      return conveyancingColumnHelper.accessor((row) => row.mortgageLoanPercentage, {
         id: 'mortgageLoanPercentage',
         header,
         cell: (info) => format(info.getValue()),
@@ -394,7 +394,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('mortgageSubmitted', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageSubmitted']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageSubmitted, {
+      return conveyancingColumnHelper.accessor((row) => row.mortgageSubmitted, {
         id: 'mortgageSubmitted',
         header,
         cell: (info) => format(info.getValue()),
@@ -405,7 +405,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('mortgageOfferReceived', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageOfferReceived']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageOfferReceived, {
+      return conveyancingColumnHelper.accessor((row) => row.mortgageOfferReceived, {
         id: 'mortgageOfferReceived',
         header,
         cell: (info) => format(info.getValue()),
@@ -416,7 +416,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('mortgageLenderId', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageLenderId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageLenderId, {
+      return conveyancingColumnHelper.accessor((row) => row.mortgageLenderId, {
         id: 'mortgageLenderId',
         header,
         cell: (info) => format(info.getValue()),
@@ -427,7 +427,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('mortgageBrokerId', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageBrokerId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageBrokerId, {
+      return conveyancingColumnHelper.accessor((row) => row.mortgageBrokerId, {
         id: 'mortgageBrokerId',
         header,
         cell: (info) => format(info.getValue()),
@@ -438,7 +438,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('mortgageSurveyDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageSurveyDate']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageSurveyDate, {
+      return conveyancingColumnHelper.accessor((row) => row.mortgageSurveyDate, {
         id: 'mortgageSurveyDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -449,7 +449,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('mortgageSurveyorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageSurveyorId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageSurveyorId, {
+      return conveyancingColumnHelper.accessor((row) => row.mortgageSurveyorId, {
         id: 'mortgageSurveyorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -460,7 +460,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('additionalSurveyRequired', () => {
       const { label: header, format, width, minWidth } = modelConfig['additionalSurveyRequired']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.additionalSurveyRequired, {
+      return conveyancingColumnHelper.accessor((row) => row.additionalSurveyRequired, {
         id: 'additionalSurveyRequired',
         header,
         cell: (info) => format(info.getValue()),
@@ -471,7 +471,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('additionalSurveyDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['additionalSurveyDate']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.additionalSurveyDate, {
+      return conveyancingColumnHelper.accessor((row) => row.additionalSurveyDate, {
         id: 'additionalSurveyDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -482,7 +482,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('additionalSurveyorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['additionalSurveyorId']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.additionalSurveyorId, {
+      return conveyancingColumnHelper.accessor((row) => row.additionalSurveyorId, {
         id: 'additionalSurveyorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -493,7 +493,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('exchangedVendor', () => {
       const { label: header, format, width, minWidth } = modelConfig['exchangedVendor']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.exchangedVendor, {
+      return conveyancingColumnHelper.accessor((row) => row.exchangedVendor, {
         id: 'exchangedVendor',
         header,
         cell: (info) => format(info.getValue()),
@@ -504,7 +504,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('exchangedBuyer', () => {
       const { label: header, format, width, minWidth } = modelConfig['exchangedBuyer']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.exchangedBuyer, {
+      return conveyancingColumnHelper.accessor((row) => row.exchangedBuyer, {
         id: 'exchangedBuyer',
         header,
         cell: (info) => format(info.getValue()),
@@ -515,7 +515,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('completion', () => {
       const { label: header, format, width, minWidth } = modelConfig['completion']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.completion, {
+      return conveyancingColumnHelper.accessor((row) => row.completion, {
         id: 'completion',
         header,
         cell: (info) => format(info.getValue()),
@@ -526,7 +526,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('checkListItems', () => {
       const { label: header, format, width, minWidth } = modelConfig['checkListItems']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.checkListItems, {
+      return conveyancingColumnHelper.accessor((row) => row.checkListItems, {
         id: 'checkListItems',
         header,
         cell: (info) => format(info.getValue()),
@@ -537,7 +537,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row._eTag, {
+      return conveyancingColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -548,7 +548,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return useConveyancingTableColumnHelper.accessor((row) => row.metadata, {
+      return conveyancingColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -561,7 +561,7 @@ export const getuseConveyancingTableColumn = (property: string, modelConfig: Mod
     })
 }
 
-export const useConveyancingTable = (args: UseConveyancingTableArgs) => {
+export const useConveyancingTable = (args: ConveyancingArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -594,14 +594,14 @@ export const useConveyancingTable = (args: UseConveyancingTableArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const useConveyancingIdChainTableColumnHelper = createColumnHelper<ConveyancingModel>()
+export const conveyancingIdChainColumnHelper = createColumnHelper<ConveyancingModel>()
 
-export const getuseConveyancingIdChainTableColumn = (property: string, modelConfig: ModelConfig<ConveyancingModel>) => {
+export const getConveyancingIdChainColumn = (property: string, modelConfig: ModelConfig<ConveyancingModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row._links, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -612,7 +612,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row._embedded, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -623,7 +623,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.id, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -634,7 +634,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.created, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -645,7 +645,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.modified, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -656,7 +656,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('isExternal', () => {
       const { label: header, format, width, minWidth } = modelConfig['isExternal']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.isExternal, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.isExternal, {
         id: 'isExternal',
         header,
         cell: (info) => format(info.getValue()),
@@ -667,7 +667,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.propertyId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -678,7 +678,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('propertyAddress', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyAddress']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.propertyAddress, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.propertyAddress, {
         id: 'propertyAddress',
         header,
         cell: (info) => format(info.getValue()),
@@ -689,7 +689,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('vendor', () => {
       const { label: header, format, width, minWidth } = modelConfig['vendor']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.vendor, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.vendor, {
         id: 'vendor',
         header,
         cell: (info) => format(info.getValue()),
@@ -700,7 +700,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('vendorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['vendorId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.vendorId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.vendorId, {
         id: 'vendorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -711,7 +711,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('vendorSolicitorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['vendorSolicitorId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.vendorSolicitorId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.vendorSolicitorId, {
         id: 'vendorSolicitorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -722,7 +722,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('buyer', () => {
       const { label: header, format, width, minWidth } = modelConfig['buyer']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.buyer, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.buyer, {
         id: 'buyer',
         header,
         cell: (info) => format(info.getValue()),
@@ -733,7 +733,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('buyerId', () => {
       const { label: header, format, width, minWidth } = modelConfig['buyerId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.buyerId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.buyerId, {
         id: 'buyerId',
         header,
         cell: (info) => format(info.getValue()),
@@ -744,7 +744,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('buyerSolicitorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['buyerSolicitorId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.buyerSolicitorId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.buyerSolicitorId, {
         id: 'buyerSolicitorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -755,7 +755,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('externalAgent', () => {
       const { label: header, format, width, minWidth } = modelConfig['externalAgent']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.externalAgent, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.externalAgent, {
         id: 'externalAgent',
         header,
         cell: (info) => format(info.getValue()),
@@ -766,7 +766,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('externalAgentId', () => {
       const { label: header, format, width, minWidth } = modelConfig['externalAgentId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.externalAgentId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.externalAgentId, {
         id: 'externalAgentId',
         header,
         cell: (info) => format(info.getValue()),
@@ -777,7 +777,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('upwardChainId', () => {
       const { label: header, format, width, minWidth } = modelConfig['upwardChainId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.upwardChainId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.upwardChainId, {
         id: 'upwardChainId',
         header,
         cell: (info) => format(info.getValue()),
@@ -788,7 +788,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('downwardChainId', () => {
       const { label: header, format, width, minWidth } = modelConfig['downwardChainId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.downwardChainId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.downwardChainId, {
         id: 'downwardChainId',
         header,
         cell: (info) => format(info.getValue()),
@@ -799,7 +799,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('fixturesAndFittingsCompleted', () => {
       const { label: header, format, width, minWidth } = modelConfig['fixturesAndFittingsCompleted']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.fixturesAndFittingsCompleted, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.fixturesAndFittingsCompleted, {
         id: 'fixturesAndFittingsCompleted',
         header,
         cell: (info) => format(info.getValue()),
@@ -810,7 +810,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('deedsRequested', () => {
       const { label: header, format, width, minWidth } = modelConfig['deedsRequested']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.deedsRequested, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.deedsRequested, {
         id: 'deedsRequested',
         header,
         cell: (info) => format(info.getValue()),
@@ -821,7 +821,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('deedsReceived', () => {
       const { label: header, format, width, minWidth } = modelConfig['deedsReceived']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.deedsReceived, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.deedsReceived, {
         id: 'deedsReceived',
         header,
         cell: (info) => format(info.getValue()),
@@ -832,7 +832,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('enquiriesSent', () => {
       const { label: header, format, width, minWidth } = modelConfig['enquiriesSent']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.enquiriesSent, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.enquiriesSent, {
         id: 'enquiriesSent',
         header,
         cell: (info) => format(info.getValue()),
@@ -843,7 +843,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('enquiriesAnswered', () => {
       const { label: header, format, width, minWidth } = modelConfig['enquiriesAnswered']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.enquiriesAnswered, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.enquiriesAnswered, {
         id: 'enquiriesAnswered',
         header,
         cell: (info) => format(info.getValue()),
@@ -854,7 +854,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('searchesPaid', () => {
       const { label: header, format, width, minWidth } = modelConfig['searchesPaid']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.searchesPaid, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.searchesPaid, {
         id: 'searchesPaid',
         header,
         cell: (info) => format(info.getValue()),
@@ -865,7 +865,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('searchesApplied', () => {
       const { label: header, format, width, minWidth } = modelConfig['searchesApplied']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.searchesApplied, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.searchesApplied, {
         id: 'searchesApplied',
         header,
         cell: (info) => format(info.getValue()),
@@ -876,7 +876,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('searchesReceived', () => {
       const { label: header, format, width, minWidth } = modelConfig['searchesReceived']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.searchesReceived, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.searchesReceived, {
         id: 'searchesReceived',
         header,
         cell: (info) => format(info.getValue()),
@@ -887,7 +887,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('contractSent', () => {
       const { label: header, format, width, minWidth } = modelConfig['contractSent']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.contractSent, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.contractSent, {
         id: 'contractSent',
         header,
         cell: (info) => format(info.getValue()),
@@ -898,7 +898,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('contractReceived', () => {
       const { label: header, format, width, minWidth } = modelConfig['contractReceived']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.contractReceived, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.contractReceived, {
         id: 'contractReceived',
         header,
         cell: (info) => format(info.getValue()),
@@ -909,7 +909,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('contractApproved', () => {
       const { label: header, format, width, minWidth } = modelConfig['contractApproved']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.contractApproved, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.contractApproved, {
         id: 'contractApproved',
         header,
         cell: (info) => format(info.getValue()),
@@ -920,7 +920,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('contractVendorSigned', () => {
       const { label: header, format, width, minWidth } = modelConfig['contractVendorSigned']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.contractVendorSigned, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.contractVendorSigned, {
         id: 'contractVendorSigned',
         header,
         cell: (info) => format(info.getValue()),
@@ -931,7 +931,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('contractBuyerSigned', () => {
       const { label: header, format, width, minWidth } = modelConfig['contractBuyerSigned']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.contractBuyerSigned, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.contractBuyerSigned, {
         id: 'contractBuyerSigned',
         header,
         cell: (info) => format(info.getValue()),
@@ -942,7 +942,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('mortgageRequired', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageRequired']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.mortgageRequired, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageRequired, {
         id: 'mortgageRequired',
         header,
         cell: (info) => format(info.getValue()),
@@ -953,7 +953,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('mortgageLoanPercentage', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageLoanPercentage']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.mortgageLoanPercentage, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageLoanPercentage, {
         id: 'mortgageLoanPercentage',
         header,
         cell: (info) => format(info.getValue()),
@@ -964,7 +964,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('mortgageSubmitted', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageSubmitted']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.mortgageSubmitted, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageSubmitted, {
         id: 'mortgageSubmitted',
         header,
         cell: (info) => format(info.getValue()),
@@ -975,7 +975,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('mortgageOfferReceived', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageOfferReceived']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.mortgageOfferReceived, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageOfferReceived, {
         id: 'mortgageOfferReceived',
         header,
         cell: (info) => format(info.getValue()),
@@ -986,7 +986,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('mortgageLenderId', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageLenderId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.mortgageLenderId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageLenderId, {
         id: 'mortgageLenderId',
         header,
         cell: (info) => format(info.getValue()),
@@ -997,7 +997,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('mortgageBrokerId', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageBrokerId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.mortgageBrokerId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageBrokerId, {
         id: 'mortgageBrokerId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1008,7 +1008,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('mortgageSurveyDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageSurveyDate']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.mortgageSurveyDate, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageSurveyDate, {
         id: 'mortgageSurveyDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -1019,7 +1019,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('mortgageSurveyorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['mortgageSurveyorId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.mortgageSurveyorId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.mortgageSurveyorId, {
         id: 'mortgageSurveyorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1030,7 +1030,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('additionalSurveyRequired', () => {
       const { label: header, format, width, minWidth } = modelConfig['additionalSurveyRequired']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.additionalSurveyRequired, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.additionalSurveyRequired, {
         id: 'additionalSurveyRequired',
         header,
         cell: (info) => format(info.getValue()),
@@ -1041,7 +1041,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('additionalSurveyDate', () => {
       const { label: header, format, width, minWidth } = modelConfig['additionalSurveyDate']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.additionalSurveyDate, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.additionalSurveyDate, {
         id: 'additionalSurveyDate',
         header,
         cell: (info) => format(info.getValue()),
@@ -1052,7 +1052,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('additionalSurveyorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['additionalSurveyorId']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.additionalSurveyorId, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.additionalSurveyorId, {
         id: 'additionalSurveyorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -1063,7 +1063,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('exchangedVendor', () => {
       const { label: header, format, width, minWidth } = modelConfig['exchangedVendor']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.exchangedVendor, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.exchangedVendor, {
         id: 'exchangedVendor',
         header,
         cell: (info) => format(info.getValue()),
@@ -1074,7 +1074,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('exchangedBuyer', () => {
       const { label: header, format, width, minWidth } = modelConfig['exchangedBuyer']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.exchangedBuyer, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.exchangedBuyer, {
         id: 'exchangedBuyer',
         header,
         cell: (info) => format(info.getValue()),
@@ -1085,7 +1085,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('completion', () => {
       const { label: header, format, width, minWidth } = modelConfig['completion']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.completion, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.completion, {
         id: 'completion',
         header,
         cell: (info) => format(info.getValue()),
@@ -1096,7 +1096,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('checkListItems', () => {
       const { label: header, format, width, minWidth } = modelConfig['checkListItems']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.checkListItems, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.checkListItems, {
         id: 'checkListItems',
         header,
         cell: (info) => format(info.getValue()),
@@ -1107,7 +1107,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row._eTag, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -1118,7 +1118,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return useConveyancingIdChainTableColumnHelper.accessor((row) => row.metadata, {
+      return conveyancingIdChainColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -1131,7 +1131,7 @@ export const getuseConveyancingIdChainTableColumn = (property: string, modelConf
     })
 }
 
-export const useConveyancingIdChainTable = (args: UseConveyancingIdChainTableArgs) => {
+export const useConveyancingIdChainTable = (args: ConveyancingIdChainArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

@@ -2,23 +2,23 @@ import { webhookModel, WebhookModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiResthooks } from '@/services/resthooks.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { useGetApiResthooks } from '@/services/resthooks.generated.ts'
 
-export type UseResthooksTableArgs = {
+export type ResthooksArgs = {
   sortBy?: string | undefined
   active?: boolean | undefined
   columns: ColumnsList<WebhookModel>
 }
 
-export const useResthooksTableColumnHelper = createColumnHelper<WebhookModel>()
+export const resthooksColumnHelper = createColumnHelper<WebhookModel>()
 
-export const getuseResthooksTableColumn = (property: string, modelConfig: ModelConfig<WebhookModel>) => {
+export const getResthooksColumn = (property: string, modelConfig: ModelConfig<WebhookModel>) => {
   return match(property)
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useResthooksTableColumnHelper.accessor((row) => row.id, {
+      return resthooksColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -29,7 +29,7 @@ export const getuseResthooksTableColumn = (property: string, modelConfig: ModelC
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useResthooksTableColumnHelper.accessor((row) => row.created, {
+      return resthooksColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -40,7 +40,7 @@ export const getuseResthooksTableColumn = (property: string, modelConfig: ModelC
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useResthooksTableColumnHelper.accessor((row) => row.modified, {
+      return resthooksColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -51,7 +51,7 @@ export const getuseResthooksTableColumn = (property: string, modelConfig: ModelC
     .with('url', () => {
       const { label: header, format, width, minWidth } = modelConfig['url']
 
-      return useResthooksTableColumnHelper.accessor((row) => row.url, {
+      return resthooksColumnHelper.accessor((row) => row.url, {
         id: 'url',
         header,
         cell: (info) => format(info.getValue()),
@@ -62,7 +62,7 @@ export const getuseResthooksTableColumn = (property: string, modelConfig: ModelC
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return useResthooksTableColumnHelper.accessor((row) => row.description, {
+      return resthooksColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -73,7 +73,7 @@ export const getuseResthooksTableColumn = (property: string, modelConfig: ModelC
     .with('topicIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['topicIds']
 
-      return useResthooksTableColumnHelper.accessor((row) => row.topicIds, {
+      return resthooksColumnHelper.accessor((row) => row.topicIds, {
         id: 'topicIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -84,7 +84,7 @@ export const getuseResthooksTableColumn = (property: string, modelConfig: ModelC
     .with('active', () => {
       const { label: header, format, width, minWidth } = modelConfig['active']
 
-      return useResthooksTableColumnHelper.accessor((row) => row.active, {
+      return resthooksColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header,
         cell: (info) => format(info.getValue()),
@@ -95,7 +95,7 @@ export const getuseResthooksTableColumn = (property: string, modelConfig: ModelC
     .with('ignoreEtagOnlyChanges', () => {
       const { label: header, format, width, minWidth } = modelConfig['ignoreEtagOnlyChanges']
 
-      return useResthooksTableColumnHelper.accessor((row) => row.ignoreEtagOnlyChanges, {
+      return resthooksColumnHelper.accessor((row) => row.ignoreEtagOnlyChanges, {
         id: 'ignoreEtagOnlyChanges',
         header,
         cell: (info) => format(info.getValue()),
@@ -108,7 +108,7 @@ export const getuseResthooksTableColumn = (property: string, modelConfig: ModelC
     })
 }
 
-export const useResthooksTable = (args: UseResthooksTableArgs) => {
+export const useResthooksTable = (args: ResthooksArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

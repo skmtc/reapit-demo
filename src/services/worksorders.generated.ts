@@ -1,82 +1,18 @@
 import {
-  CreateWorksOrderModel,
-  CreateWorksOrderItemModel,
   worksOrderModelPagedResult,
-  worksOrderItemModelPagedResult,
+  CreateWorksOrderModel,
   worksOrderModel,
   UpdateWorksOrderModel,
+  worksOrderItemModelPagedResult,
+  CreateWorksOrderItemModel,
   worksOrderItemModel,
   UpdateWorksOrderItemModel,
 } from '@/schemas/index.ts'
-import { z } from 'zod'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
-export type UseCreateWorksOrderArgs = { body: CreateWorksOrderModel }
-export const createWorksOrderFn = async ({ body }: UseCreateWorksOrderArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateWorksOrder = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createWorksOrderFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['WorksOrders'] })
-    },
-  })
-}
-export type UseCreateWorksOrderItemArgs = { id: string; body: CreateWorksOrderItemModel }
-export const createWorksOrderItemFn = async ({ id, body }: UseCreateWorksOrderItemArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${id}/items${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateWorksOrderItem = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createWorksOrderItemFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['WorksOrders'] })
-    },
-  })
-}
 export type UseGetApiWorksOrdersArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -159,16 +95,13 @@ export const useGetApiWorksOrders = (args: UseGetApiWorksOrdersArgs) => {
 
   return result
 }
-export type UseGetApiWorksOrdersIdItemsArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  id: string
-}
-export const getApiWorksOrdersIdItemsFn = async ({ pageSize, pageNumber, id }: UseGetApiWorksOrdersIdItemsArgs) => {
+export type UseCreateWorksOrderArgs = { body: CreateWorksOrderModel }
+export const createWorksOrderFn = async ({ body }: UseCreateWorksOrderArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${id}/items${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'GET',
+      method: 'POST',
+      body: JSON.stringify(body),
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -179,16 +112,20 @@ export const getApiWorksOrdersIdItemsFn = async ({ pageSize, pageNumber, id }: U
 
   const data = await res.json()
 
-  return worksOrderItemModelPagedResult.parse(data)
+  return z.void().parse(data)
 }
-export const useGetApiWorksOrdersIdItems = (args: UseGetApiWorksOrdersIdItemsArgs) => {
-  const result = useQuery({
-    queryKey: ['WorksOrders'],
-    queryFn: () => getApiWorksOrdersIdItemsFn(args),
-    placeholderData: keepPreviousData,
-  })
+export const useCreateWorksOrder = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
 
-  return result
+  return useMutation({
+    mutationFn: createWorksOrderFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['WorksOrders'] })
+    },
+  })
 }
 export type UseGetApiWorksOrdersIdArgs = {
   id: string
@@ -244,6 +181,69 @@ export const usePatchApiWorksOrdersId = () => {
 
   return useMutation({
     mutationFn: patchApiWorksOrdersIdFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['WorksOrders'] })
+    },
+  })
+}
+export type UseGetApiWorksOrdersIdItemsArgs = {
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  id: string
+}
+export const getApiWorksOrdersIdItemsFn = async ({ pageSize, pageNumber, id }: UseGetApiWorksOrdersIdItemsArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${id}/items${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return worksOrderItemModelPagedResult.parse(data)
+}
+export const useGetApiWorksOrdersIdItems = (args: UseGetApiWorksOrdersIdItemsArgs) => {
+  const result = useQuery({
+    queryKey: ['WorksOrders'],
+    queryFn: () => getApiWorksOrdersIdItemsFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type UseCreateWorksOrderItemArgs = { id: string; body: CreateWorksOrderItemModel }
+export const createWorksOrderItemFn = async ({ id, body }: UseCreateWorksOrderItemArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${id}/items${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateWorksOrderItem = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createWorksOrderItemFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

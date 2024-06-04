@@ -2,10 +2,10 @@ import { negotiatorModel, NegotiatorModel } from '@/schemas/index.ts'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiNegotiators } from '@/services/negotiators.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { useGetApiNegotiators } from '@/services/negotiators.generated.ts'
 
-export type UseNegotiatorsTableArgs = {
+export type NegotiatorsArgs = {
   sortBy?: string | undefined
   embed?: Array<'office'> | undefined
   id?: Array<string> | undefined
@@ -21,14 +21,14 @@ export type UseNegotiatorsTableArgs = {
   columns: ColumnsList<NegotiatorModel>
 }
 
-export const useNegotiatorsTableColumnHelper = createColumnHelper<NegotiatorModel>()
+export const negotiatorsColumnHelper = createColumnHelper<NegotiatorModel>()
 
-export const getuseNegotiatorsTableColumn = (property: string, modelConfig: ModelConfig<NegotiatorModel>) => {
+export const getNegotiatorsColumn = (property: string, modelConfig: ModelConfig<NegotiatorModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row._links, {
+      return negotiatorsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -39,7 +39,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row._embedded, {
+      return negotiatorsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -50,7 +50,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.id, {
+      return negotiatorsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -61,7 +61,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.created, {
+      return negotiatorsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -72,7 +72,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.modified, {
+      return negotiatorsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -83,7 +83,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('name', () => {
       const { label: header, format, width, minWidth } = modelConfig['name']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.name, {
+      return negotiatorsColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header,
         cell: (info) => format(info.getValue()),
@@ -94,7 +94,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('jobTitle', () => {
       const { label: header, format, width, minWidth } = modelConfig['jobTitle']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.jobTitle, {
+      return negotiatorsColumnHelper.accessor((row) => row.jobTitle, {
         id: 'jobTitle',
         header,
         cell: (info) => format(info.getValue()),
@@ -105,7 +105,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('officeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['officeId']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.officeId, {
+      return negotiatorsColumnHelper.accessor((row) => row.officeId, {
         id: 'officeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -116,7 +116,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('workPhone', () => {
       const { label: header, format, width, minWidth } = modelConfig['workPhone']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.workPhone, {
+      return negotiatorsColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
         header,
         cell: (info) => format(info.getValue()),
@@ -127,7 +127,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('mobilePhone', () => {
       const { label: header, format, width, minWidth } = modelConfig['mobilePhone']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.mobilePhone, {
+      return negotiatorsColumnHelper.accessor((row) => row.mobilePhone, {
         id: 'mobilePhone',
         header,
         cell: (info) => format(info.getValue()),
@@ -138,7 +138,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('email', () => {
       const { label: header, format, width, minWidth } = modelConfig['email']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.email, {
+      return negotiatorsColumnHelper.accessor((row) => row.email, {
         id: 'email',
         header,
         cell: (info) => format(info.getValue()),
@@ -149,7 +149,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('profileImageUrl', () => {
       const { label: header, format, width, minWidth } = modelConfig['profileImageUrl']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.profileImageUrl, {
+      return negotiatorsColumnHelper.accessor((row) => row.profileImageUrl, {
         id: 'profileImageUrl',
         header,
         cell: (info) => format(info.getValue()),
@@ -160,7 +160,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('active', () => {
       const { label: header, format, width, minWidth } = modelConfig['active']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.active, {
+      return negotiatorsColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header,
         cell: (info) => format(info.getValue()),
@@ -171,7 +171,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('diaryNegotiatorIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['diaryNegotiatorIds']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.diaryNegotiatorIds, {
+      return negotiatorsColumnHelper.accessor((row) => row.diaryNegotiatorIds, {
         id: 'diaryNegotiatorIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -182,7 +182,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('diaryOfficeIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['diaryOfficeIds']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.diaryOfficeIds, {
+      return negotiatorsColumnHelper.accessor((row) => row.diaryOfficeIds, {
         id: 'diaryOfficeIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -193,7 +193,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('additionalContactDetails', () => {
       const { label: header, format, width, minWidth } = modelConfig['additionalContactDetails']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.additionalContactDetails, {
+      return negotiatorsColumnHelper.accessor((row) => row.additionalContactDetails, {
         id: 'additionalContactDetails',
         header,
         cell: (info) => format(info.getValue()),
@@ -204,7 +204,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row.metadata, {
+      return negotiatorsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -215,7 +215,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useNegotiatorsTableColumnHelper.accessor((row) => row._eTag, {
+      return negotiatorsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -228,7 +228,7 @@ export const getuseNegotiatorsTableColumn = (property: string, modelConfig: Mode
     })
 }
 
-export const useNegotiatorsTable = (args: UseNegotiatorsTableArgs) => {
+export const useNegotiatorsTable = (args: NegotiatorsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

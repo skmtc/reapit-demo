@@ -1,22 +1,50 @@
 import {
-  InsertVendorContactRelationshipModel,
-  vendorModelPagedResult,
-  vendorContactRelationshipModelPagedResult,
   vendorModel,
   UpdateVendorModel,
+  vendorModelPagedResult,
+  vendorContactRelationshipModelPagedResult,
+  InsertVendorContactRelationshipModel,
   vendorContactRelationshipModel,
 } from '@/schemas/index.ts'
-import { z } from 'zod'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
-export type UseCreateVendorRelationshipArgs = { id: string; body: InsertVendorContactRelationshipModel }
-export const createVendorRelationshipFn = async ({ id, body }: UseCreateVendorRelationshipArgs) => {
+export type UseGetApiVendorsIdArgs = {
+  id: string
+  embed?: Array<'negotiator' | 'offices' | 'property' | 'sellingReason' | 'solicitor' | 'source' | 'type'> | undefined
+}
+export const getApiVendorsIdFn = async ({ id, embed }: UseGetApiVendorsIdArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/vendors/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/vendors/${id}${querySerialiser({ args: { embed }, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'POST',
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return vendorModel.parse(data)
+}
+export const useGetApiVendorsId = ({ id, embed }: UseGetApiVendorsIdArgs) => {
+  const result = useQuery({
+    queryKey: ['Vendors', id, embed],
+    queryFn: () => getApiVendorsIdFn({ id, embed }),
+  })
+
+  return result
+}
+export type UsePatchApiVendorsIdArgs = { 'If-Match'?: string; id: string; body: UpdateVendorModel }
+export const patchApiVendorsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiVendorsIdArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/vendors/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'PATCH',
       body: JSON.stringify(body),
       headers: {
         'api-version': 'latest',
@@ -30,12 +58,12 @@ export const createVendorRelationshipFn = async ({ id, body }: UseCreateVendorRe
 
   return z.void().parse(data)
 }
-export const useCreateVendorRelationship = () => {
+export const usePatchApiVendorsId = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createVendorRelationshipFn,
+    mutationFn: patchApiVendorsIdFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -147,40 +175,12 @@ export const useGetApiVendorsIdRelationships = (args: UseGetApiVendorsIdRelation
 
   return result
 }
-export type UseGetApiVendorsIdArgs = {
-  id: string
-  embed?: Array<'negotiator' | 'offices' | 'property' | 'sellingReason' | 'solicitor' | 'source' | 'type'> | undefined
-}
-export const getApiVendorsIdFn = async ({ id, embed }: UseGetApiVendorsIdArgs) => {
+export type UseCreateVendorRelationshipArgs = { id: string; body: InsertVendorContactRelationshipModel }
+export const createVendorRelationshipFn = async ({ id, body }: UseCreateVendorRelationshipArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/vendors/${id}${querySerialiser({ args: { embed }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/vendors/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'GET',
-      headers: {
-        'api-version': 'latest',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return vendorModel.parse(data)
-}
-export const useGetApiVendorsId = ({ id, embed }: UseGetApiVendorsIdArgs) => {
-  const result = useQuery({
-    queryKey: ['Vendors', id, embed],
-    queryFn: () => getApiVendorsIdFn({ id, embed }),
-  })
-
-  return result
-}
-export type UsePatchApiVendorsIdArgs = { 'If-Match'?: string; id: string; body: UpdateVendorModel }
-export const patchApiVendorsIdFn = async ({ 'If-Match': IfMatch, id, body }: UsePatchApiVendorsIdArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/vendors/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'PATCH',
+      method: 'POST',
       body: JSON.stringify(body),
       headers: {
         'api-version': 'latest',
@@ -194,12 +194,12 @@ export const patchApiVendorsIdFn = async ({ 'If-Match': IfMatch, id, body }: Use
 
   return z.void().parse(data)
 }
-export const usePatchApiVendorsId = () => {
+export const useCreateVendorRelationship = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: patchApiVendorsIdFn,
+    mutationFn: createVendorRelationshipFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

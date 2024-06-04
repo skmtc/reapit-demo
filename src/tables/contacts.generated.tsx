@@ -9,14 +9,14 @@ import {
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { useMemo, useReducer, useState } from 'react'
 import {
   useGetApiContacts,
   useGetApiContactsIdRelationships,
   useGetApiContactsIdSubscriptions,
 } from '@/services/contacts.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
 
-export type UseContactsTableArgs = {
+export type ContactsArgs = {
   sortBy?: string | undefined
   embed?: Array<'documents' | 'identityChecks' | 'negotiators' | 'offices' | 'relationships' | 'source'> | undefined
   id?: Array<string> | undefined
@@ -40,22 +40,22 @@ export type UseContactsTableArgs = {
   extrasField?: Array<string> | undefined
   columns: ColumnsList<ContactModel>
 }
-export type UseContactsIdRelationshipsTableArgs = { id: string; columns: ColumnsList<ContactRoleModel> }
-export type UseContactsIdSubscriptionsTableArgs = {
+export type ContactsIdRelationshipsArgs = { id: string; columns: ColumnsList<ContactRoleModel> }
+export type ContactsIdSubscriptionsArgs = {
   id: string
   type?: string | undefined
   status?: string | undefined
   columns: ColumnsList<ContactSubscriptionModel>
 }
 
-export const useContactsTableColumnHelper = createColumnHelper<ContactModel>()
+export const contactsColumnHelper = createColumnHelper<ContactModel>()
 
-export const getuseContactsTableColumn = (property: string, modelConfig: ModelConfig<ContactModel>) => {
+export const getContactsColumn = (property: string, modelConfig: ModelConfig<ContactModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useContactsTableColumnHelper.accessor((row) => row._links, {
+      return contactsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -66,7 +66,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useContactsTableColumnHelper.accessor((row) => row._embedded, {
+      return contactsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -77,7 +77,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useContactsTableColumnHelper.accessor((row) => row.id, {
+      return contactsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -88,7 +88,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useContactsTableColumnHelper.accessor((row) => row.created, {
+      return contactsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -99,7 +99,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useContactsTableColumnHelper.accessor((row) => row.modified, {
+      return contactsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -110,7 +110,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('title', () => {
       const { label: header, format, width, minWidth } = modelConfig['title']
 
-      return useContactsTableColumnHelper.accessor((row) => row.title, {
+      return contactsColumnHelper.accessor((row) => row.title, {
         id: 'title',
         header,
         cell: (info) => format(info.getValue()),
@@ -121,7 +121,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('forename', () => {
       const { label: header, format, width, minWidth } = modelConfig['forename']
 
-      return useContactsTableColumnHelper.accessor((row) => row.forename, {
+      return contactsColumnHelper.accessor((row) => row.forename, {
         id: 'forename',
         header,
         cell: (info) => format(info.getValue()),
@@ -132,7 +132,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('surname', () => {
       const { label: header, format, width, minWidth } = modelConfig['surname']
 
-      return useContactsTableColumnHelper.accessor((row) => row.surname, {
+      return contactsColumnHelper.accessor((row) => row.surname, {
         id: 'surname',
         header,
         cell: (info) => format(info.getValue()),
@@ -143,7 +143,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('dateOfBirth', () => {
       const { label: header, format, width, minWidth } = modelConfig['dateOfBirth']
 
-      return useContactsTableColumnHelper.accessor((row) => row.dateOfBirth, {
+      return contactsColumnHelper.accessor((row) => row.dateOfBirth, {
         id: 'dateOfBirth',
         header,
         cell: (info) => format(info.getValue()),
@@ -154,7 +154,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('active', () => {
       const { label: header, format, width, minWidth } = modelConfig['active']
 
-      return useContactsTableColumnHelper.accessor((row) => row.active, {
+      return contactsColumnHelper.accessor((row) => row.active, {
         id: 'active',
         header,
         cell: (info) => format(info.getValue()),
@@ -165,7 +165,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('marketingConsent', () => {
       const { label: header, format, width, minWidth } = modelConfig['marketingConsent']
 
-      return useContactsTableColumnHelper.accessor((row) => row.marketingConsent, {
+      return contactsColumnHelper.accessor((row) => row.marketingConsent, {
         id: 'marketingConsent',
         header,
         cell: (info) => format(info.getValue()),
@@ -176,7 +176,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('identityCheck', () => {
       const { label: header, format, width, minWidth } = modelConfig['identityCheck']
 
-      return useContactsTableColumnHelper.accessor((row) => row.identityCheck, {
+      return contactsColumnHelper.accessor((row) => row.identityCheck, {
         id: 'identityCheck',
         header,
         cell: (info) => format(info.getValue()),
@@ -187,7 +187,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('source', () => {
       const { label: header, format, width, minWidth } = modelConfig['source']
 
-      return useContactsTableColumnHelper.accessor((row) => row.source, {
+      return contactsColumnHelper.accessor((row) => row.source, {
         id: 'source',
         header,
         cell: (info) => format(info.getValue()),
@@ -198,7 +198,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('homePhone', () => {
       const { label: header, format, width, minWidth } = modelConfig['homePhone']
 
-      return useContactsTableColumnHelper.accessor((row) => row.homePhone, {
+      return contactsColumnHelper.accessor((row) => row.homePhone, {
         id: 'homePhone',
         header,
         cell: (info) => format(info.getValue()),
@@ -209,7 +209,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('workPhone', () => {
       const { label: header, format, width, minWidth } = modelConfig['workPhone']
 
-      return useContactsTableColumnHelper.accessor((row) => row.workPhone, {
+      return contactsColumnHelper.accessor((row) => row.workPhone, {
         id: 'workPhone',
         header,
         cell: (info) => format(info.getValue()),
@@ -220,7 +220,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('mobilePhone', () => {
       const { label: header, format, width, minWidth } = modelConfig['mobilePhone']
 
-      return useContactsTableColumnHelper.accessor((row) => row.mobilePhone, {
+      return contactsColumnHelper.accessor((row) => row.mobilePhone, {
         id: 'mobilePhone',
         header,
         cell: (info) => format(info.getValue()),
@@ -231,7 +231,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('email', () => {
       const { label: header, format, width, minWidth } = modelConfig['email']
 
-      return useContactsTableColumnHelper.accessor((row) => row.email, {
+      return contactsColumnHelper.accessor((row) => row.email, {
         id: 'email',
         header,
         cell: (info) => format(info.getValue()),
@@ -242,7 +242,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('archivedOn', () => {
       const { label: header, format, width, minWidth } = modelConfig['archivedOn']
 
-      return useContactsTableColumnHelper.accessor((row) => row.archivedOn, {
+      return contactsColumnHelper.accessor((row) => row.archivedOn, {
         id: 'archivedOn',
         header,
         cell: (info) => format(info.getValue()),
@@ -253,7 +253,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('fromArchive', () => {
       const { label: header, format, width, minWidth } = modelConfig['fromArchive']
 
-      return useContactsTableColumnHelper.accessor((row) => row.fromArchive, {
+      return contactsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header,
         cell: (info) => format(info.getValue()),
@@ -264,7 +264,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('primaryAddress', () => {
       const { label: header, format, width, minWidth } = modelConfig['primaryAddress']
 
-      return useContactsTableColumnHelper.accessor((row) => row.primaryAddress, {
+      return contactsColumnHelper.accessor((row) => row.primaryAddress, {
         id: 'primaryAddress',
         header,
         cell: (info) => format(info.getValue()),
@@ -275,7 +275,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('secondaryAddress', () => {
       const { label: header, format, width, minWidth } = modelConfig['secondaryAddress']
 
-      return useContactsTableColumnHelper.accessor((row) => row.secondaryAddress, {
+      return contactsColumnHelper.accessor((row) => row.secondaryAddress, {
         id: 'secondaryAddress',
         header,
         cell: (info) => format(info.getValue()),
@@ -286,7 +286,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('workAddress', () => {
       const { label: header, format, width, minWidth } = modelConfig['workAddress']
 
-      return useContactsTableColumnHelper.accessor((row) => row.workAddress, {
+      return contactsColumnHelper.accessor((row) => row.workAddress, {
         id: 'workAddress',
         header,
         cell: (info) => format(info.getValue()),
@@ -297,7 +297,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('officeIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['officeIds']
 
-      return useContactsTableColumnHelper.accessor((row) => row.officeIds, {
+      return contactsColumnHelper.accessor((row) => row.officeIds, {
         id: 'officeIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -308,7 +308,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('negotiatorIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorIds']
 
-      return useContactsTableColumnHelper.accessor((row) => row.negotiatorIds, {
+      return contactsColumnHelper.accessor((row) => row.negotiatorIds, {
         id: 'negotiatorIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -319,7 +319,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('categoryIds', () => {
       const { label: header, format, width, minWidth } = modelConfig['categoryIds']
 
-      return useContactsTableColumnHelper.accessor((row) => row.categoryIds, {
+      return contactsColumnHelper.accessor((row) => row.categoryIds, {
         id: 'categoryIds',
         header,
         cell: (info) => format(info.getValue()),
@@ -330,7 +330,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('communicationPreferenceLetter', () => {
       const { label: header, format, width, minWidth } = modelConfig['communicationPreferenceLetter']
 
-      return useContactsTableColumnHelper.accessor((row) => row.communicationPreferenceLetter, {
+      return contactsColumnHelper.accessor((row) => row.communicationPreferenceLetter, {
         id: 'communicationPreferenceLetter',
         header,
         cell: (info) => format(info.getValue()),
@@ -341,7 +341,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('communicationPreferenceEmail', () => {
       const { label: header, format, width, minWidth } = modelConfig['communicationPreferenceEmail']
 
-      return useContactsTableColumnHelper.accessor((row) => row.communicationPreferenceEmail, {
+      return contactsColumnHelper.accessor((row) => row.communicationPreferenceEmail, {
         id: 'communicationPreferenceEmail',
         header,
         cell: (info) => format(info.getValue()),
@@ -352,7 +352,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('communicationPreferencePhone', () => {
       const { label: header, format, width, minWidth } = modelConfig['communicationPreferencePhone']
 
-      return useContactsTableColumnHelper.accessor((row) => row.communicationPreferencePhone, {
+      return contactsColumnHelper.accessor((row) => row.communicationPreferencePhone, {
         id: 'communicationPreferencePhone',
         header,
         cell: (info) => format(info.getValue()),
@@ -363,7 +363,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('communicationPreferenceSMS', () => {
       const { label: header, format, width, minWidth } = modelConfig['communicationPreferenceSMS']
 
-      return useContactsTableColumnHelper.accessor((row) => row.communicationPreferenceSMS, {
+      return contactsColumnHelper.accessor((row) => row.communicationPreferenceSMS, {
         id: 'communicationPreferenceSMS',
         header,
         cell: (info) => format(info.getValue()),
@@ -374,7 +374,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('additionalContactDetails', () => {
       const { label: header, format, width, minWidth } = modelConfig['additionalContactDetails']
 
-      return useContactsTableColumnHelper.accessor((row) => row.additionalContactDetails, {
+      return contactsColumnHelper.accessor((row) => row.additionalContactDetails, {
         id: 'additionalContactDetails',
         header,
         cell: (info) => format(info.getValue()),
@@ -385,7 +385,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return useContactsTableColumnHelper.accessor((row) => row.metadata, {
+      return contactsColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -396,7 +396,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useContactsTableColumnHelper.accessor((row) => row._eTag, {
+      return contactsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -407,7 +407,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('extrasField', () => {
       const { label: header, format, width, minWidth } = modelConfig['extrasField']
 
-      return useContactsTableColumnHelper.accessor((row) => row.extrasField, {
+      return contactsColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
         header,
         cell: (info) => format(info.getValue()),
@@ -418,7 +418,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     .with('relationships', () => {
       const { label: header, format, width, minWidth } = modelConfig['relationships']
 
-      return useContactsTableColumnHelper.accessor((row) => row.relationships, {
+      return contactsColumnHelper.accessor((row) => row.relationships, {
         id: 'relationships',
         header,
         cell: (info) => format(info.getValue()),
@@ -431,7 +431,7 @@ export const getuseContactsTableColumn = (property: string, modelConfig: ModelCo
     })
 }
 
-export const useContactsTable = (args: UseContactsTableArgs) => {
+export const useContactsTable = (args: ContactsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -464,17 +464,14 @@ export const useContactsTable = (args: UseContactsTableArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const useContactsIdRelationshipsTableColumnHelper = createColumnHelper<ContactRoleModel>()
+export const contactsIdRelationshipsColumnHelper = createColumnHelper<ContactRoleModel>()
 
-export const getuseContactsIdRelationshipsTableColumn = (
-  property: string,
-  modelConfig: ModelConfig<ContactRoleModel>,
-) => {
+export const getContactsIdRelationshipsColumn = (property: string, modelConfig: ModelConfig<ContactRoleModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useContactsIdRelationshipsTableColumnHelper.accessor((row) => row._links, {
+      return contactsIdRelationshipsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -485,7 +482,7 @@ export const getuseContactsIdRelationshipsTableColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useContactsIdRelationshipsTableColumnHelper.accessor((row) => row._embedded, {
+      return contactsIdRelationshipsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -496,7 +493,7 @@ export const getuseContactsIdRelationshipsTableColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useContactsIdRelationshipsTableColumnHelper.accessor((row) => row.id, {
+      return contactsIdRelationshipsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -507,7 +504,7 @@ export const getuseContactsIdRelationshipsTableColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useContactsIdRelationshipsTableColumnHelper.accessor((row) => row.created, {
+      return contactsIdRelationshipsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -518,7 +515,7 @@ export const getuseContactsIdRelationshipsTableColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useContactsIdRelationshipsTableColumnHelper.accessor((row) => row.modified, {
+      return contactsIdRelationshipsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -529,7 +526,7 @@ export const getuseContactsIdRelationshipsTableColumn = (
     .with('contactId', () => {
       const { label: header, format, width, minWidth } = modelConfig['contactId']
 
-      return useContactsIdRelationshipsTableColumnHelper.accessor((row) => row.contactId, {
+      return contactsIdRelationshipsColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header,
         cell: (info) => format(info.getValue()),
@@ -540,7 +537,7 @@ export const getuseContactsIdRelationshipsTableColumn = (
     .with('associatedType', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedType']
 
-      return useContactsIdRelationshipsTableColumnHelper.accessor((row) => row.associatedType, {
+      return contactsIdRelationshipsColumnHelper.accessor((row) => row.associatedType, {
         id: 'associatedType',
         header,
         cell: (info) => format(info.getValue()),
@@ -551,7 +548,7 @@ export const getuseContactsIdRelationshipsTableColumn = (
     .with('associatedId', () => {
       const { label: header, format, width, minWidth } = modelConfig['associatedId']
 
-      return useContactsIdRelationshipsTableColumnHelper.accessor((row) => row.associatedId, {
+      return contactsIdRelationshipsColumnHelper.accessor((row) => row.associatedId, {
         id: 'associatedId',
         header,
         cell: (info) => format(info.getValue()),
@@ -562,7 +559,7 @@ export const getuseContactsIdRelationshipsTableColumn = (
     .with('fromArchive', () => {
       const { label: header, format, width, minWidth } = modelConfig['fromArchive']
 
-      return useContactsIdRelationshipsTableColumnHelper.accessor((row) => row.fromArchive, {
+      return contactsIdRelationshipsColumnHelper.accessor((row) => row.fromArchive, {
         id: 'fromArchive',
         header,
         cell: (info) => format(info.getValue()),
@@ -575,7 +572,7 @@ export const getuseContactsIdRelationshipsTableColumn = (
     })
 }
 
-export const useContactsIdRelationshipsTable = (args: UseContactsIdRelationshipsTableArgs) => {
+export const useContactsIdRelationshipsTable = (args: ContactsIdRelationshipsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -608,9 +605,9 @@ export const useContactsIdRelationshipsTable = (args: UseContactsIdRelationships
 
   return { rerender, table, dataQuery }
 }
-export const useContactsIdSubscriptionsTableColumnHelper = createColumnHelper<ContactSubscriptionModel>()
+export const contactsIdSubscriptionsColumnHelper = createColumnHelper<ContactSubscriptionModel>()
 
-export const getuseContactsIdSubscriptionsTableColumn = (
+export const getContactsIdSubscriptionsColumn = (
   property: string,
   modelConfig: ModelConfig<ContactSubscriptionModel>,
 ) => {
@@ -618,7 +615,7 @@ export const getuseContactsIdSubscriptionsTableColumn = (
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useContactsIdSubscriptionsTableColumnHelper.accessor((row) => row._links, {
+      return contactsIdSubscriptionsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -629,7 +626,7 @@ export const getuseContactsIdSubscriptionsTableColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useContactsIdSubscriptionsTableColumnHelper.accessor((row) => row._embedded, {
+      return contactsIdSubscriptionsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -640,7 +637,7 @@ export const getuseContactsIdSubscriptionsTableColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useContactsIdSubscriptionsTableColumnHelper.accessor((row) => row.id, {
+      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -651,7 +648,7 @@ export const getuseContactsIdSubscriptionsTableColumn = (
     .with('contactId', () => {
       const { label: header, format, width, minWidth } = modelConfig['contactId']
 
-      return useContactsIdSubscriptionsTableColumnHelper.accessor((row) => row.contactId, {
+      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.contactId, {
         id: 'contactId',
         header,
         cell: (info) => format(info.getValue()),
@@ -662,7 +659,7 @@ export const getuseContactsIdSubscriptionsTableColumn = (
     .with('name', () => {
       const { label: header, format, width, minWidth } = modelConfig['name']
 
-      return useContactsIdSubscriptionsTableColumnHelper.accessor((row) => row.name, {
+      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.name, {
         id: 'name',
         header,
         cell: (info) => format(info.getValue()),
@@ -673,7 +670,7 @@ export const getuseContactsIdSubscriptionsTableColumn = (
     .with('group', () => {
       const { label: header, format, width, minWidth } = modelConfig['group']
 
-      return useContactsIdSubscriptionsTableColumnHelper.accessor((row) => row.group, {
+      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.group, {
         id: 'group',
         header,
         cell: (info) => format(info.getValue()),
@@ -684,7 +681,7 @@ export const getuseContactsIdSubscriptionsTableColumn = (
     .with('status', () => {
       const { label: header, format, width, minWidth } = modelConfig['status']
 
-      return useContactsIdSubscriptionsTableColumnHelper.accessor((row) => row.status, {
+      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
@@ -695,7 +692,7 @@ export const getuseContactsIdSubscriptionsTableColumn = (
     .with('type', () => {
       const { label: header, format, width, minWidth } = modelConfig['type']
 
-      return useContactsIdSubscriptionsTableColumnHelper.accessor((row) => row.type, {
+      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.type, {
         id: 'type',
         header,
         cell: (info) => format(info.getValue()),
@@ -706,7 +703,7 @@ export const getuseContactsIdSubscriptionsTableColumn = (
     .with('subscribedOn', () => {
       const { label: header, format, width, minWidth } = modelConfig['subscribedOn']
 
-      return useContactsIdSubscriptionsTableColumnHelper.accessor((row) => row.subscribedOn, {
+      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.subscribedOn, {
         id: 'subscribedOn',
         header,
         cell: (info) => format(info.getValue()),
@@ -717,7 +714,7 @@ export const getuseContactsIdSubscriptionsTableColumn = (
     .with('unsubscribedOn', () => {
       const { label: header, format, width, minWidth } = modelConfig['unsubscribedOn']
 
-      return useContactsIdSubscriptionsTableColumnHelper.accessor((row) => row.unsubscribedOn, {
+      return contactsIdSubscriptionsColumnHelper.accessor((row) => row.unsubscribedOn, {
         id: 'unsubscribedOn',
         header,
         cell: (info) => format(info.getValue()),
@@ -730,7 +727,7 @@ export const getuseContactsIdSubscriptionsTableColumn = (
     })
 }
 
-export const useContactsIdSubscriptionsTable = (args: UseContactsIdSubscriptionsTableArgs) => {
+export const useContactsIdSubscriptionsTable = (args: ContactsIdSubscriptionsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

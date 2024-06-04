@@ -1,78 +1,14 @@
 import {
-  CreateJournalEntryModel,
-  CreateBulkJournalEntryModel,
   journalEntryModelPagedResult,
+  CreateJournalEntryModel,
   landlordJournalEntryModelPagedResult,
+  CreateBulkJournalEntryModel,
 } from '@/schemas/index.ts'
-import { z } from 'zod'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
-export type UseCreateJournalEntryArgs = { body: CreateJournalEntryModel }
-export const createJournalEntryFn = async ({ body }: UseCreateJournalEntryArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/journalEntries/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateJournalEntry = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createJournalEntryFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['JournalEntries'] })
-    },
-  })
-}
-export type UseCreateBulkJournalEntryArgs = { body: CreateBulkJournalEntryModel }
-export const createBulkJournalEntryFn = async ({ body }: UseCreateBulkJournalEntryArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/journalEntries/bulk${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateBulkJournalEntry = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createBulkJournalEntryFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['JournalEntries'] })
-    },
-  })
-}
 export type UseGetApiJournalEntriesArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -124,6 +60,38 @@ export const useGetApiJournalEntries = (args: UseGetApiJournalEntriesArgs) => {
 
   return result
 }
+export type UseCreateJournalEntryArgs = { body: CreateJournalEntryModel }
+export const createJournalEntryFn = async ({ body }: UseCreateJournalEntryArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/journalEntries/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateJournalEntry = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createJournalEntryFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['JournalEntries'] })
+    },
+  })
+}
 export type UseGetApiJournalEntriesLandlordsArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -170,4 +138,36 @@ export const useGetApiJournalEntriesLandlords = (args: UseGetApiJournalEntriesLa
   })
 
   return result
+}
+export type UseCreateBulkJournalEntryArgs = { body: CreateBulkJournalEntryModel }
+export const createBulkJournalEntryFn = async ({ body }: UseCreateBulkJournalEntryArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/journalEntries/bulk${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateBulkJournalEntry = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createBulkJournalEntryFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['JournalEntries'] })
+    },
+  })
 }

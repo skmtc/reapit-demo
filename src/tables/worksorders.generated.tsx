@@ -2,10 +2,10 @@ import { worksOrderModel, WorksOrderModel, worksOrderItemModel, WorksOrderItemMo
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiWorksOrders, useGetApiWorksOrdersIdItems } from '@/services/worksorders.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { useGetApiWorksOrders, useGetApiWorksOrdersIdItems } from '@/services/worksorders.generated.ts'
 
-export type UseWorksOrdersTableArgs = {
+export type WorksOrdersArgs = {
   sortBy?: string | undefined
   embed?: Array<'company' | 'documents' | 'negotiator' | 'property' | 'tenancy' | 'type'> | undefined
   id?: Array<string> | undefined
@@ -38,16 +38,16 @@ export type UseWorksOrdersTableArgs = {
   metadata?: Array<string> | undefined
   columns: ColumnsList<WorksOrderModel>
 }
-export type UseWorksOrdersIdItemsTableArgs = { id: string; columns: ColumnsList<WorksOrderItemModel> }
+export type WorksOrdersIdItemsArgs = { id: string; columns: ColumnsList<WorksOrderItemModel> }
 
-export const useWorksOrdersTableColumnHelper = createColumnHelper<WorksOrderModel>()
+export const worksOrdersColumnHelper = createColumnHelper<WorksOrderModel>()
 
-export const getuseWorksOrdersTableColumn = (property: string, modelConfig: ModelConfig<WorksOrderModel>) => {
+export const getWorksOrdersColumn = (property: string, modelConfig: ModelConfig<WorksOrderModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row._links, {
+      return worksOrdersColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -58,7 +58,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row._embedded, {
+      return worksOrdersColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -69,7 +69,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.id, {
+      return worksOrdersColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -80,7 +80,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.created, {
+      return worksOrdersColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -91,7 +91,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.modified, {
+      return worksOrdersColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -102,7 +102,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('companyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['companyId']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.companyId, {
+      return worksOrdersColumnHelper.accessor((row) => row.companyId, {
         id: 'companyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -113,7 +113,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('propertyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['propertyId']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.propertyId, {
+      return worksOrdersColumnHelper.accessor((row) => row.propertyId, {
         id: 'propertyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -124,7 +124,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('tenancyId', () => {
       const { label: header, format, width, minWidth } = modelConfig['tenancyId']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.tenancyId, {
+      return worksOrdersColumnHelper.accessor((row) => row.tenancyId, {
         id: 'tenancyId',
         header,
         cell: (info) => format(info.getValue()),
@@ -135,7 +135,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('negotiatorId', () => {
       const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.negotiatorId, {
+      return worksOrdersColumnHelper.accessor((row) => row.negotiatorId, {
         id: 'negotiatorId',
         header,
         cell: (info) => format(info.getValue()),
@@ -146,7 +146,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('typeId', () => {
       const { label: header, format, width, minWidth } = modelConfig['typeId']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.typeId, {
+      return worksOrdersColumnHelper.accessor((row) => row.typeId, {
         id: 'typeId',
         header,
         cell: (info) => format(info.getValue()),
@@ -157,7 +157,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('status', () => {
       const { label: header, format, width, minWidth } = modelConfig['status']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.status, {
+      return worksOrdersColumnHelper.accessor((row) => row.status, {
         id: 'status',
         header,
         cell: (info) => format(info.getValue()),
@@ -168,7 +168,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('description', () => {
       const { label: header, format, width, minWidth } = modelConfig['description']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.description, {
+      return worksOrdersColumnHelper.accessor((row) => row.description, {
         id: 'description',
         header,
         cell: (info) => format(info.getValue()),
@@ -179,7 +179,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('reporter', () => {
       const { label: header, format, width, minWidth } = modelConfig['reporter']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.reporter, {
+      return worksOrdersColumnHelper.accessor((row) => row.reporter, {
         id: 'reporter',
         header,
         cell: (info) => format(info.getValue()),
@@ -190,7 +190,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('priority', () => {
       const { label: header, format, width, minWidth } = modelConfig['priority']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.priority, {
+      return worksOrdersColumnHelper.accessor((row) => row.priority, {
         id: 'priority',
         header,
         cell: (info) => format(info.getValue()),
@@ -201,7 +201,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('booked', () => {
       const { label: header, format, width, minWidth } = modelConfig['booked']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.booked, {
+      return worksOrdersColumnHelper.accessor((row) => row.booked, {
         id: 'booked',
         header,
         cell: (info) => format(info.getValue()),
@@ -212,7 +212,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('required', () => {
       const { label: header, format, width, minWidth } = modelConfig['required']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.required, {
+      return worksOrdersColumnHelper.accessor((row) => row.required, {
         id: 'required',
         header,
         cell: (info) => format(info.getValue()),
@@ -223,7 +223,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('completed', () => {
       const { label: header, format, width, minWidth } = modelConfig['completed']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.completed, {
+      return worksOrdersColumnHelper.accessor((row) => row.completed, {
         id: 'completed',
         header,
         cell: (info) => format(info.getValue()),
@@ -234,7 +234,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('totalNetAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['totalNetAmount']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.totalNetAmount, {
+      return worksOrdersColumnHelper.accessor((row) => row.totalNetAmount, {
         id: 'totalNetAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -245,7 +245,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('totalVatAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['totalVatAmount']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.totalVatAmount, {
+      return worksOrdersColumnHelper.accessor((row) => row.totalVatAmount, {
         id: 'totalVatAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -256,7 +256,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('totalGrossAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['totalGrossAmount']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.totalGrossAmount, {
+      return worksOrdersColumnHelper.accessor((row) => row.totalGrossAmount, {
         id: 'totalGrossAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -267,7 +267,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('items', () => {
       const { label: header, format, width, minWidth } = modelConfig['items']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.items, {
+      return worksOrdersColumnHelper.accessor((row) => row.items, {
         id: 'items',
         header,
         cell: (info) => format(info.getValue()),
@@ -278,7 +278,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('metadata', () => {
       const { label: header, format, width, minWidth } = modelConfig['metadata']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.metadata, {
+      return worksOrdersColumnHelper.accessor((row) => row.metadata, {
         id: 'metadata',
         header,
         cell: (info) => format(info.getValue()),
@@ -289,7 +289,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('extrasField', () => {
       const { label: header, format, width, minWidth } = modelConfig['extrasField']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row.extrasField, {
+      return worksOrdersColumnHelper.accessor((row) => row.extrasField, {
         id: 'extrasField',
         header,
         cell: (info) => format(info.getValue()),
@@ -300,7 +300,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useWorksOrdersTableColumnHelper.accessor((row) => row._eTag, {
+      return worksOrdersColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -313,7 +313,7 @@ export const getuseWorksOrdersTableColumn = (property: string, modelConfig: Mode
     })
 }
 
-export const useWorksOrdersTable = (args: UseWorksOrdersTableArgs) => {
+export const useWorksOrdersTable = (args: WorksOrdersArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({
@@ -346,17 +346,14 @@ export const useWorksOrdersTable = (args: UseWorksOrdersTableArgs) => {
 
   return { rerender, table, dataQuery }
 }
-export const useWorksOrdersIdItemsTableColumnHelper = createColumnHelper<WorksOrderItemModel>()
+export const worksOrdersIdItemsColumnHelper = createColumnHelper<WorksOrderItemModel>()
 
-export const getuseWorksOrdersIdItemsTableColumn = (
-  property: string,
-  modelConfig: ModelConfig<WorksOrderItemModel>,
-) => {
+export const getWorksOrdersIdItemsColumn = (property: string, modelConfig: ModelConfig<WorksOrderItemModel>) => {
   return match(property)
     .with('_links', () => {
       const { label: header, format, width, minWidth } = modelConfig['_links']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row._links, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row._links, {
         id: '_links',
         header,
         cell: (info) => format(info.getValue()),
@@ -367,7 +364,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('_embedded', () => {
       const { label: header, format, width, minWidth } = modelConfig['_embedded']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row._embedded, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row._embedded, {
         id: '_embedded',
         header,
         cell: (info) => format(info.getValue()),
@@ -378,7 +375,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('id', () => {
       const { label: header, format, width, minWidth } = modelConfig['id']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.id, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.id, {
         id: 'id',
         header,
         cell: (info) => format(info.getValue()),
@@ -389,7 +386,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('worksOrderId', () => {
       const { label: header, format, width, minWidth } = modelConfig['worksOrderId']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.worksOrderId, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.worksOrderId, {
         id: 'worksOrderId',
         header,
         cell: (info) => format(info.getValue()),
@@ -400,7 +397,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('created', () => {
       const { label: header, format, width, minWidth } = modelConfig['created']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.created, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.created, {
         id: 'created',
         header,
         cell: (info) => format(info.getValue()),
@@ -411,7 +408,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('modified', () => {
       const { label: header, format, width, minWidth } = modelConfig['modified']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.modified, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.modified, {
         id: 'modified',
         header,
         cell: (info) => format(info.getValue()),
@@ -422,7 +419,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('notes', () => {
       const { label: header, format, width, minWidth } = modelConfig['notes']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.notes, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.notes, {
         id: 'notes',
         header,
         cell: (info) => format(info.getValue()),
@@ -433,7 +430,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('chargeTo', () => {
       const { label: header, format, width, minWidth } = modelConfig['chargeTo']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.chargeTo, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.chargeTo, {
         id: 'chargeTo',
         header,
         cell: (info) => format(info.getValue()),
@@ -444,7 +441,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('estimate', () => {
       const { label: header, format, width, minWidth } = modelConfig['estimate']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.estimate, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.estimate, {
         id: 'estimate',
         header,
         cell: (info) => format(info.getValue()),
@@ -455,7 +452,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('estimateType', () => {
       const { label: header, format, width, minWidth } = modelConfig['estimateType']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.estimateType, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.estimateType, {
         id: 'estimateType',
         header,
         cell: (info) => format(info.getValue()),
@@ -466,7 +463,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('netAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['netAmount']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.netAmount, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.netAmount, {
         id: 'netAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -477,7 +474,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('vatAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['vatAmount']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.vatAmount, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.vatAmount, {
         id: 'vatAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -488,7 +485,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('grossAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['grossAmount']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.grossAmount, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.grossAmount, {
         id: 'grossAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -499,7 +496,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('reserveAmount', () => {
       const { label: header, format, width, minWidth } = modelConfig['reserveAmount']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.reserveAmount, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.reserveAmount, {
         id: 'reserveAmount',
         header,
         cell: (info) => format(info.getValue()),
@@ -510,7 +507,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('nominalAccountId', () => {
       const { label: header, format, width, minWidth } = modelConfig['nominalAccountId']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row.nominalAccountId, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row.nominalAccountId, {
         id: 'nominalAccountId',
         header,
         cell: (info) => format(info.getValue()),
@@ -521,7 +518,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     .with('_eTag', () => {
       const { label: header, format, width, minWidth } = modelConfig['_eTag']
 
-      return useWorksOrdersIdItemsTableColumnHelper.accessor((row) => row._eTag, {
+      return worksOrdersIdItemsColumnHelper.accessor((row) => row._eTag, {
         id: '_eTag',
         header,
         cell: (info) => format(info.getValue()),
@@ -534,7 +531,7 @@ export const getuseWorksOrdersIdItemsTableColumn = (
     })
 }
 
-export const useWorksOrdersIdItemsTable = (args: UseWorksOrdersIdItemsTableArgs) => {
+export const useWorksOrdersIdItemsTable = (args: WorksOrdersIdItemsArgs) => {
   const rerender = useReducer(() => ({}), {})[1]
 
   const [pagination, setPagination] = useState<PaginationState>({

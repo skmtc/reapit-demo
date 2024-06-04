@@ -4,12 +4,12 @@ import {
   createOpenHouseAttendeeModel,
   CreateOpenHouseAttendeeModel,
 } from '@/schemas/index.ts'
-import { useCreateAppointment, useCreateOpenHouseAttendee } from '@/services/appointments.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
+import { useCreateAppointment, useCreateOpenHouseAttendee } from '@/services/appointments.generated.ts'
 
 export type CreateAppointmentsProps = { children: ReactNode }
 export type CreateAppointmentsIdOpenHouseAttendeesProps = { id: string; children: ReactNode }

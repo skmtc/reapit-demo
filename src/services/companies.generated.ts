@@ -1,48 +1,16 @@
 import {
-  CreateCompanyModel,
   companyModelPagedResult,
-  companyRoleModelPagedResult,
+  CreateCompanyModel,
   companyModel,
   UpdateCompanyModel,
+  companyRoleModelPagedResult,
   staffModelPagedResult,
 } from '@/schemas/index.ts'
-import { z } from 'zod'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
-export type UseCreateCompanyArgs = { body: CreateCompanyModel }
-export const createCompanyFn = async ({ body }: UseCreateCompanyArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/companies/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const useCreateCompany = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: createCompanyFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Companies'] })
-    },
-  })
-}
 export type UseGetApiCompaniesArgs = {
   pageSize?: number | undefined
   pageNumber?: number | undefined
@@ -108,20 +76,13 @@ export const useGetApiCompanies = (args: UseGetApiCompaniesArgs) => {
 
   return result
 }
-export type UseGetApiCompaniesIdRelationshipsArgs = {
-  id: string
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-}
-export const getApiCompaniesIdRelationshipsFn = async ({
-  id,
-  pageSize,
-  pageNumber,
-}: UseGetApiCompaniesIdRelationshipsArgs) => {
+export type UseCreateCompanyArgs = { body: CreateCompanyModel }
+export const createCompanyFn = async ({ body }: UseCreateCompanyArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/companies/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/companies/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'GET',
+      method: 'POST',
+      body: JSON.stringify(body),
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -132,16 +93,20 @@ export const getApiCompaniesIdRelationshipsFn = async ({
 
   const data = await res.json()
 
-  return companyRoleModelPagedResult.parse(data)
+  return z.void().parse(data)
 }
-export const useGetApiCompaniesIdRelationships = (args: UseGetApiCompaniesIdRelationshipsArgs) => {
-  const result = useQuery({
-    queryKey: ['Companies'],
-    queryFn: () => getApiCompaniesIdRelationshipsFn(args),
-    placeholderData: keepPreviousData,
-  })
+export const useCreateCompany = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
 
-  return result
+  return useMutation({
+    mutationFn: createCompanyFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Companies'] })
+    },
+  })
 }
 export type UseGetApiCompaniesIdArgs = { id: string; embed?: Array<'companyTypes' | 'relationships'> | undefined }
 export const getApiCompaniesIdFn = async ({ id, embed }: UseGetApiCompaniesIdArgs) => {
@@ -199,6 +164,41 @@ export const usePatchApiCompaniesId = () => {
       void queryClient.invalidateQueries({ queryKey: ['Companies'] })
     },
   })
+}
+export type UseGetApiCompaniesIdRelationshipsArgs = {
+  id: string
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+}
+export const getApiCompaniesIdRelationshipsFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: UseGetApiCompaniesIdRelationshipsArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/companies/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return companyRoleModelPagedResult.parse(data)
+}
+export const useGetApiCompaniesIdRelationships = (args: UseGetApiCompaniesIdRelationshipsArgs) => {
+  const result = useQuery({
+    queryKey: ['Companies'],
+    queryFn: () => getApiCompaniesIdRelationshipsFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
 }
 export type UseGetApiCompaniesIdStaffMembersArgs = { id: string }
 export const getApiCompaniesIdStaffMembersFn = async ({ id }: UseGetApiCompaniesIdStaffMembersArgs) => {
