@@ -6,7 +6,7 @@ import Button from '@mui/joy/Button'
 import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { OfficeModel } from '@/schemas'
 import { getOfficesColumn, useOfficesTable } from '@/tables/offices'
-import { officeModelConfig } from '@/config/officeModel'
+import { officeModelConfig } from '@/config/officeModel.example.ts'
 
 const fieldNames = fieldsConfig<OfficeModel>({
   id: true,
