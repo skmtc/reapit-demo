@@ -1,0 +1,56 @@
+import { usePropertyImagesTable, getusePropertyImagesTableColumn } from '@/tables/PropertyImages.generated.tsx'
+import { propertyImageModelConfig } from '@/config/propertyImageModelConfigConfig.example.tsx'
+import { SharedTable } from '@/components/SharedTable'
+import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { default as Box } from '@mui/joy/Box'
+import { default as Typography } from '@mui/joy/Typography'
+import { default as Button } from '@mui/joy/Button'
+import { Link as RouterLink, Outlet } from 'react-router-dom'
+import { PropertyImageModel } from '@/schemas/propertyImageModel.generated.tsx'
+
+export const fieldNames = fieldsConfig<PropertyImageModel>({
+        _links: true,
+_embedded: true,
+id: true,
+created: true,
+modified: true,
+propertyId: true,
+url: true,
+caption: true,
+type: true,
+order: true,
+fromArchive: true,
+_eTag: true
+      });
+export const PropertyImagesTable = () => {
+  const columns: ColumnsList<PropertyImageModel> = fieldNames.map((col) => getusePropertyImagesTableColumn(col, propertyImageModelConfig))
+
+  
+
+  
+
+  const { table, dataQuery } = usePropertyImagesTable({ columns })
+
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+      <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
+        <Typography level="h1">usePropertyImagesTable</Typography>
+        <Button
+          component={RouterLink}
+          to={`/propertyImages/new`}
+          sx={{
+            color: 'white',
+            ':hover': {
+              color: 'white',
+            },
+          }}
+        >
+          Create propertyImage
+        </Button>
+      </Box>
+      <SharedTable table={table} dataQuery={dataQuery} />
+      <Outlet />
+    </Box>
+  )
+}
+;

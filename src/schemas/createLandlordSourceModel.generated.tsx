@@ -1,0 +1,12 @@
+import { z } from 'zod'
+
+/** Request body used to set the source of a new landlord */
+export const createLandlordSourceModel = /** Request body used to set the source of a new landlord */
+z.object({id: /** The unique identifier of the source of the landlord */
+z.string().optional(), type: /** The source type (office/source) */
+z.string().optional()});
+/** Request body used to set the source of a new landlord */
+export type CreateLandlordSourceModel = /** Request body used to set the source of a new landlord */
+{id?: /** The unique identifier of the source of the landlord */
+string | undefined, type?: /** The source type (office/source) */
+string | undefined};

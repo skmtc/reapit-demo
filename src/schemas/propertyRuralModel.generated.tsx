@@ -1,0 +1,14 @@
+import { z } from 'zod'
+
+/** Details specific to rural properties */
+export const propertyRuralModel = /** Details specific to rural properties */
+z.object({tenureId: /** Details of the rural tenure associated with the property. */
+z.string().optional(), buildingsDescription: /** Details of the buildings associated with the property. */
+z.string().optional(), landDescription: /** Details of the land associated with the property. */
+z.string().optional()});
+/** Details specific to rural properties */
+export type PropertyRuralModel = /** Details specific to rural properties */
+{tenureId?: /** Details of the rural tenure associated with the property. */
+string | undefined, buildingsDescription?: /** Details of the buildings associated with the property. */
+string | undefined, landDescription?: /** Details of the land associated with the property. */
+string | undefined};
