@@ -1,5 +1,5 @@
-import { useMetadataTable, getuseMetadataTableColumn } from '@/tables/Metadata.generated.tsx'
-import { metadataModelConfig } from '@/config/metadataModelConfigConfig.example.tsx'
+import { useMetadataTable, getuseMetadataTableColumn } from '@/tables/MetadataTable.generated.tsx'
+import { metadataModelConfig } from '@/config/metadataModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,18 +9,16 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { MetadataModel } from '@/schemas/metadataModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<MetadataModel>({
-        id: true,
-modified: true,
-entityType: true,
-entityId: true,
-metadata: true
-      });
+  id: true,
+  modified: true,
+  entityType: true,
+  entityId: true,
+  metadata: true,
+})
 export const MetadataTable = () => {
-  const columns: ColumnsList<MetadataModel> = fieldNames.map((col) => getuseMetadataTableColumn(col, metadataModelConfig))
-
-  
-
-  
+  const columns: ColumnsList<MetadataModel> = fieldNames.map((col) =>
+    getuseMetadataTableColumn(col, metadataModelConfig),
+  )
 
   const { table, dataQuery } = useMetadataTable({ columns })
 
@@ -46,4 +44,3 @@ export const MetadataTable = () => {
     </Box>
   )
 }
-;

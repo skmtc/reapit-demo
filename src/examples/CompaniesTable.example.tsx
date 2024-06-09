@@ -1,5 +1,5 @@
-import { useCompaniesTable, getuseCompaniesTableColumn } from '@/tables/Companies.generated.tsx'
-import { companyModelConfig } from '@/config/companyModelConfigConfig.example.tsx'
+import { useCompaniesTable, getuseCompaniesTableColumn } from '@/tables/CompaniesTable.generated.tsx'
+import { companyModelConfig } from '@/config/companyModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,43 +9,41 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { CompanyModel } from '@/schemas/companyModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<CompanyModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-name: true,
-branch: true,
-notes: true,
-active: true,
-marketingConsent: true,
-vatRegistered: true,
-typeIds: true,
-supplierTypeId: true,
-workPhone: true,
-mobilePhone: true,
-email: true,
-archivedOn: true,
-fromArchive: true,
-address: true,
-payments: true,
-additionalContactDetails: true,
-officeIds: true,
-negotiatorIds: true,
-communicationPreferenceLetter: true,
-communicationPreferenceEmail: true,
-communicationPreferencePhone: true,
-communicationPreferenceSms: true,
-metadata: true,
-_eTag: true,
-relationships: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  name: true,
+  branch: true,
+  notes: true,
+  active: true,
+  marketingConsent: true,
+  vatRegistered: true,
+  typeIds: true,
+  supplierTypeId: true,
+  workPhone: true,
+  mobilePhone: true,
+  email: true,
+  archivedOn: true,
+  fromArchive: true,
+  address: true,
+  payments: true,
+  additionalContactDetails: true,
+  officeIds: true,
+  negotiatorIds: true,
+  communicationPreferenceLetter: true,
+  communicationPreferenceEmail: true,
+  communicationPreferencePhone: true,
+  communicationPreferenceSms: true,
+  metadata: true,
+  _eTag: true,
+  relationships: true,
+})
 export const CompaniesTable = () => {
-  const columns: ColumnsList<CompanyModel> = fieldNames.map((col) => getuseCompaniesTableColumn(col, companyModelConfig))
-
-  
-
-  
+  const columns: ColumnsList<CompanyModel> = fieldNames.map((col) =>
+    getuseCompaniesTableColumn(col, companyModelConfig),
+  )
 
   const { table, dataQuery } = useCompaniesTable({ columns })
 
@@ -71,4 +69,3 @@ export const CompaniesTable = () => {
     </Box>
   )
 }
-;

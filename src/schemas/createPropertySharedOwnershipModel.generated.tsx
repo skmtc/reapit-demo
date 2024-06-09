@@ -1,4 +1,7 @@
-import { propertySharedOwnershipModel, PropertySharedOwnershipModel } from '@/schemas/propertySharedOwnershipModel.generated.tsx'
+import {
+  propertySharedOwnershipModel,
+  PropertySharedOwnershipModel,
+} from '@/schemas/propertySharedOwnershipModel.generated.tsx'
 
-export const createPropertySharedOwnershipModel = propertySharedOwnershipModel;
-export type CreatePropertySharedOwnershipModel = PropertySharedOwnershipModel;
+export const createPropertySharedOwnershipModel = propertySharedOwnershipModel
+export type CreatePropertySharedOwnershipModel = PropertySharedOwnershipModel

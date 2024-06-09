@@ -1,5 +1,5 @@
-import { useEnquiriesTable, getuseEnquiriesTableColumn } from '@/tables/Enquiries.generated.tsx'
-import { enquiryModelConfig } from '@/config/enquiryModelConfigConfig.example.tsx'
+import { useEnquiriesTable, getuseEnquiriesTableColumn } from '@/tables/EnquiriesTable.generated.tsx'
+import { enquiryModelConfig } from '@/config/enquiryModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,40 +9,38 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { EnquiryModel } from '@/schemas/enquiryModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<EnquiryModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-title: true,
-forename: true,
-surname: true,
-enquiryType: true,
-message: true,
-status: true,
-marketingConsent: true,
-position: true,
-officeId: true,
-applicantId: true,
-negotiatorId: true,
-sourceName: true,
-homePhone: true,
-workPhone: true,
-mobilePhone: true,
-email: true,
-address: true,
-buying: true,
-renting: true,
-bedrooms: true,
-propertyIds: true,
-_eTag: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  title: true,
+  forename: true,
+  surname: true,
+  enquiryType: true,
+  message: true,
+  status: true,
+  marketingConsent: true,
+  position: true,
+  officeId: true,
+  applicantId: true,
+  negotiatorId: true,
+  sourceName: true,
+  homePhone: true,
+  workPhone: true,
+  mobilePhone: true,
+  email: true,
+  address: true,
+  buying: true,
+  renting: true,
+  bedrooms: true,
+  propertyIds: true,
+  _eTag: true,
+})
 export const EnquiriesTable = () => {
-  const columns: ColumnsList<EnquiryModel> = fieldNames.map((col) => getuseEnquiriesTableColumn(col, enquiryModelConfig))
-
-  
-
-  
+  const columns: ColumnsList<EnquiryModel> = fieldNames.map((col) =>
+    getuseEnquiriesTableColumn(col, enquiryModelConfig),
+  )
 
   const { table, dataQuery } = useEnquiriesTable({ columns })
 
@@ -68,4 +66,3 @@ export const EnquiriesTable = () => {
     </Box>
   )
 }
-;

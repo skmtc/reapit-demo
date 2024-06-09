@@ -1,5 +1,5 @@
-import { useDocumentsTable, getuseDocumentsTableColumn } from '@/tables/Documents.generated.tsx'
-import { documentModelConfig } from '@/config/documentModelConfigConfig.example.tsx'
+import { useDocumentsTable, getuseDocumentsTableColumn } from '@/tables/DocumentsTable.generated.tsx'
+import { documentModelConfig } from '@/config/documentModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,25 +9,23 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { DocumentModel } from '@/schemas/documentModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<DocumentModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-associatedType: true,
-isPrivate: true,
-associatedId: true,
-typeId: true,
-name: true,
-metadata: true,
-_eTag: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  associatedType: true,
+  isPrivate: true,
+  associatedId: true,
+  typeId: true,
+  name: true,
+  metadata: true,
+  _eTag: true,
+})
 export const DocumentsTable = () => {
-  const columns: ColumnsList<DocumentModel> = fieldNames.map((col) => getuseDocumentsTableColumn(col, documentModelConfig))
-
-  
-
-  
+  const columns: ColumnsList<DocumentModel> = fieldNames.map((col) =>
+    getuseDocumentsTableColumn(col, documentModelConfig),
+  )
 
   const { table, dataQuery } = useDocumentsTable({ columns })
 
@@ -53,4 +51,3 @@ export const DocumentsTable = () => {
     </Box>
   )
 }
-;

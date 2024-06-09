@@ -1,5 +1,5 @@
-import { useDepartmentsTable, getuseDepartmentsTableColumn } from '@/tables/Departments.generated.tsx'
-import { departmentModelConfig } from '@/config/departmentModelConfigConfig.example.tsx'
+import { useDepartmentsTable, getuseDepartmentsTableColumn } from '@/tables/DepartmentsTable.generated.tsx'
+import { departmentModelConfig } from '@/config/departmentModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,36 +9,34 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { DepartmentModel } from '@/schemas/departmentModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<DepartmentModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-name: true,
-typeOptions: true,
-styleOptions: true,
-situationOptions: true,
-parkingOptions: true,
-ageOptions: true,
-localityOptions: true,
-specialFeaturesOptions: true,
-commercialUseClassOptions: true,
-commercialFloorLevelOptions: true,
-hasBedrooms: true,
-hasBathrooms: true,
-hasReceptionRooms: true,
-hasParkingSpaces: true,
-hasFloorLevelEnabled: true,
-hasInternalFloorsEnabled: true,
-hasTotalFloorsEnabled: true,
-_eTag: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  name: true,
+  typeOptions: true,
+  styleOptions: true,
+  situationOptions: true,
+  parkingOptions: true,
+  ageOptions: true,
+  localityOptions: true,
+  specialFeaturesOptions: true,
+  commercialUseClassOptions: true,
+  commercialFloorLevelOptions: true,
+  hasBedrooms: true,
+  hasBathrooms: true,
+  hasReceptionRooms: true,
+  hasParkingSpaces: true,
+  hasFloorLevelEnabled: true,
+  hasInternalFloorsEnabled: true,
+  hasTotalFloorsEnabled: true,
+  _eTag: true,
+})
 export const DepartmentsTable = () => {
-  const columns: ColumnsList<DepartmentModel> = fieldNames.map((col) => getuseDepartmentsTableColumn(col, departmentModelConfig))
-
-  
-
-  
+  const columns: ColumnsList<DepartmentModel> = fieldNames.map((col) =>
+    getuseDepartmentsTableColumn(col, departmentModelConfig),
+  )
 
   const { table, dataQuery } = useDepartmentsTable({ columns })
 
@@ -64,4 +62,3 @@ export const DepartmentsTable = () => {
     </Box>
   )
 }
-;

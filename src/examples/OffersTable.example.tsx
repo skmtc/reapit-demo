@@ -1,5 +1,5 @@
-import { useOffersTable, getuseOffersTableColumn } from '@/tables/Offers.generated.tsx'
-import { offerModelConfig } from '@/config/offerModelConfigConfig.example.tsx'
+import { useOffersTable, getuseOffersTableColumn } from '@/tables/OffersTable.generated.tsx'
+import { offerModelConfig } from '@/config/offerModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,33 +9,29 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { OfferModel } from '@/schemas/offerModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<OfferModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-currency: true,
-applicantId: true,
-companyId: true,
-contactId: true,
-propertyId: true,
-negotiatorId: true,
-date: true,
-amount: true,
-status: true,
-inclusions: true,
-exclusions: true,
-conditions: true,
-related: true,
-metadata: true,
-_eTag: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  currency: true,
+  applicantId: true,
+  companyId: true,
+  contactId: true,
+  propertyId: true,
+  negotiatorId: true,
+  date: true,
+  amount: true,
+  status: true,
+  inclusions: true,
+  exclusions: true,
+  conditions: true,
+  related: true,
+  metadata: true,
+  _eTag: true,
+})
 export const OffersTable = () => {
   const columns: ColumnsList<OfferModel> = fieldNames.map((col) => getuseOffersTableColumn(col, offerModelConfig))
-
-  
-
-  
 
   const { table, dataQuery } = useOffersTable({ columns })
 
@@ -61,4 +57,3 @@ export const OffersTable = () => {
     </Box>
   )
 }
-;

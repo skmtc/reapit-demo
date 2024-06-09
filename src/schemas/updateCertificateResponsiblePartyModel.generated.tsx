@@ -1,4 +1,0 @@
-import { certificateResponsiblePartyModel, CertificateResponsiblePartyModel } from '@/schemas/certificateResponsiblePartyModel.generated.tsx'
-
-export const updateCertificateResponsiblePartyModel = certificateResponsiblePartyModel;
-export type UpdateCertificateResponsiblePartyModel = CertificateResponsiblePartyModel;

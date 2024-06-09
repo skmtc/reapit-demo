@@ -1,5 +1,5 @@
-import { useContactsTable, getuseContactsTableColumn } from '@/tables/Contacts.generated.tsx'
-import { contactModelConfig } from '@/config/contactModelConfigConfig.example.tsx'
+import { useContactsTable, getuseContactsTableColumn } from '@/tables/ContactsTable.generated.tsx'
+import { contactModelConfig } from '@/config/contactModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,47 +9,43 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { ContactModel } from '@/schemas/contactModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<ContactModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-title: true,
-forename: true,
-surname: true,
-dateOfBirth: true,
-active: true,
-marketingConsent: true,
-identityCheck: true,
-source: true,
-homePhone: true,
-workPhone: true,
-mobilePhone: true,
-email: true,
-archivedOn: true,
-fromArchive: true,
-primaryAddress: true,
-secondaryAddress: true,
-workAddress: true,
-officeIds: true,
-negotiatorIds: true,
-categoryIds: true,
-communicationPreferenceLetter: true,
-communicationPreferenceEmail: true,
-communicationPreferencePhone: true,
-communicationPreferenceSMS: true,
-additionalContactDetails: true,
-metadata: true,
-_eTag: true,
-extrasField: true,
-relationships: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  title: true,
+  forename: true,
+  surname: true,
+  dateOfBirth: true,
+  active: true,
+  marketingConsent: true,
+  identityCheck: true,
+  source: true,
+  homePhone: true,
+  workPhone: true,
+  mobilePhone: true,
+  email: true,
+  archivedOn: true,
+  fromArchive: true,
+  primaryAddress: true,
+  secondaryAddress: true,
+  workAddress: true,
+  officeIds: true,
+  negotiatorIds: true,
+  categoryIds: true,
+  communicationPreferenceLetter: true,
+  communicationPreferenceEmail: true,
+  communicationPreferencePhone: true,
+  communicationPreferenceSMS: true,
+  additionalContactDetails: true,
+  metadata: true,
+  _eTag: true,
+  extrasField: true,
+  relationships: true,
+})
 export const ContactsTable = () => {
   const columns: ColumnsList<ContactModel> = fieldNames.map((col) => getuseContactsTableColumn(col, contactModelConfig))
-
-  
-
-  
 
   const { table, dataQuery } = useContactsTable({ columns })
 
@@ -75,4 +71,3 @@ export const ContactsTable = () => {
     </Box>
   )
 }
-;

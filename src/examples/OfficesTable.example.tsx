@@ -1,5 +1,5 @@
-import { useOfficesTable, getuseOfficesTableColumn } from '@/tables/Offices.generated.tsx'
-import { officeModelConfig } from '@/config/officeModelConfigConfig.example.tsx'
+import { useOfficesTable, getuseOfficesTableColumn } from '@/tables/OfficesTable.generated.tsx'
+import { officeModelConfig } from '@/config/officeModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,29 +9,25 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { OfficeModel } from '@/schemas/officeModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<OfficeModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-name: true,
-manager: true,
-active: true,
-region: true,
-address: true,
-additionalContactDetails: true,
-workPhone: true,
-email: true,
-metadata: true,
-_eTag: true,
-extrasField: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  name: true,
+  manager: true,
+  active: true,
+  region: true,
+  address: true,
+  additionalContactDetails: true,
+  workPhone: true,
+  email: true,
+  metadata: true,
+  _eTag: true,
+  extrasField: true,
+})
 export const OfficesTable = () => {
   const columns: ColumnsList<OfficeModel> = fieldNames.map((col) => getuseOfficesTableColumn(col, officeModelConfig))
-
-  
-
-  
 
   const { table, dataQuery } = useOfficesTable({ columns })
 
@@ -57,4 +53,3 @@ export const OfficesTable = () => {
     </Box>
   )
 }
-;

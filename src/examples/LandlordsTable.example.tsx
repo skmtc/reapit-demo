@@ -1,5 +1,5 @@
-import { useLandlordsTable, getuseLandlordsTableColumn } from '@/tables/Landlords.generated.tsx'
-import { landlordModelConfig } from '@/config/landlordModelConfigConfig.example.tsx'
+import { useLandlordsTable, getuseLandlordsTableColumn } from '@/tables/LandlordsTable.generated.tsx'
+import { landlordModelConfig } from '@/config/landlordModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,26 +9,24 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { LandlordModel } from '@/schemas/landlordModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<LandlordModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-active: true,
-solicitorId: true,
-officeId: true,
-source: true,
-related: true,
-metadata: true,
-extrasField: true,
-_eTag: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  active: true,
+  solicitorId: true,
+  officeId: true,
+  source: true,
+  related: true,
+  metadata: true,
+  extrasField: true,
+  _eTag: true,
+})
 export const LandlordsTable = () => {
-  const columns: ColumnsList<LandlordModel> = fieldNames.map((col) => getuseLandlordsTableColumn(col, landlordModelConfig))
-
-  
-
-  
+  const columns: ColumnsList<LandlordModel> = fieldNames.map((col) =>
+    getuseLandlordsTableColumn(col, landlordModelConfig),
+  )
 
   const { table, dataQuery } = useLandlordsTable({ columns })
 
@@ -54,4 +52,3 @@ export const LandlordsTable = () => {
     </Box>
   )
 }
-;

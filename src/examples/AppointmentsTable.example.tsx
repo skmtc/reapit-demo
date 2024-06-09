@@ -1,5 +1,5 @@
-import { useAppointmentsTable, getuseAppointmentsTableColumn } from '@/tables/Appointments.generated.tsx'
-import { appointmentModelConfig } from '@/config/appointmentModelConfigConfig.example.tsx'
+import { useAppointmentsTable, getuseAppointmentsTableColumn } from '@/tables/AppointmentsTable.generated.tsx'
+import { appointmentModelConfig } from '@/config/appointmentModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,44 +9,42 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { AppointmentModel } from '@/schemas/appointmentModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<AppointmentModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-start: true,
-end: true,
-typeId: true,
-description: true,
-recurring: true,
-recurrence: true,
-cancelled: true,
-followUp: true,
-propertyId: true,
-organiserId: true,
-negotiatorIds: true,
-officeIds: true,
-attendee: true,
-attended: true,
-accompanied: true,
-isRepeat: true,
-virtual: true,
-negotiatorConfirmed: true,
-attendeeConfirmed: true,
-propertyConfirmed: true,
-fromArchive: true,
-otherAgentId: true,
-documents: true,
-metadata: true,
-extrasField: true,
-_eTag: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  start: true,
+  end: true,
+  typeId: true,
+  description: true,
+  recurring: true,
+  recurrence: true,
+  cancelled: true,
+  followUp: true,
+  propertyId: true,
+  organiserId: true,
+  negotiatorIds: true,
+  officeIds: true,
+  attendee: true,
+  attended: true,
+  accompanied: true,
+  isRepeat: true,
+  virtual: true,
+  negotiatorConfirmed: true,
+  attendeeConfirmed: true,
+  propertyConfirmed: true,
+  fromArchive: true,
+  otherAgentId: true,
+  documents: true,
+  metadata: true,
+  extrasField: true,
+  _eTag: true,
+})
 export const AppointmentsTable = () => {
-  const columns: ColumnsList<AppointmentModel> = fieldNames.map((col) => getuseAppointmentsTableColumn(col, appointmentModelConfig))
-
-  
-
-  
+  const columns: ColumnsList<AppointmentModel> = fieldNames.map((col) =>
+    getuseAppointmentsTableColumn(col, appointmentModelConfig),
+  )
 
   const { table, dataQuery } = useAppointmentsTable({ columns })
 
@@ -72,4 +70,3 @@ export const AppointmentsTable = () => {
     </Box>
   )
 }
-;

@@ -1,5 +1,5 @@
-import { useAreasTable, getuseAreasTableColumn } from '@/tables/Areas.generated.tsx'
-import { areaModelConfig } from '@/config/areaModelConfigConfig.example.tsx'
+import { useAreasTable, getuseAreasTableColumn } from '@/tables/AreasTable.generated.tsx'
+import { areaModelConfig } from '@/config/areaModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,26 +9,22 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { AreaModel } from '@/schemas/areaModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<AreaModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-name: true,
-active: true,
-type: true,
-area: true,
-departmentIds: true,
-officeIds: true,
-parentIds: true,
-_eTag: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  name: true,
+  active: true,
+  type: true,
+  area: true,
+  departmentIds: true,
+  officeIds: true,
+  parentIds: true,
+  _eTag: true,
+})
 export const AreasTable = () => {
   const columns: ColumnsList<AreaModel> = fieldNames.map((col) => getuseAreasTableColumn(col, areaModelConfig))
-
-  
-
-  
 
   const { table, dataQuery } = useAreasTable({ columns })
 
@@ -54,4 +50,3 @@ export const AreasTable = () => {
     </Box>
   )
 }
-;

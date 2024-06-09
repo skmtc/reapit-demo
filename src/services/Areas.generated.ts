@@ -1,101 +1,92 @@
+import { areaModelPagedResult } from '@/schemas/areaModelPagedResult.generated.tsx'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { CreateAreaModel } from '@/schemas/createAreaModel.generated.tsx'
 import { z } from 'zod'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
-import { UpdateAreaModel } from '@/schemas/updateAreaModel.generated.tsx'
-import { areaModelPagedResult } from '@/schemas/areaModelPagedResult.generated.tsx'
 
-export type UsePostApiAreasArgs = {body: CreateAreaModel};
-export const postApiAreasFn = async ({body}: UsePostApiAreasArgs) => {
-        const res = await fetch(
-          `${import.meta.env.VITE_PLATFORM_API_URL}/areas/${querySerialiser({args:{ }, options: defaultQuerySerialiserOptions })}`,
-        {
-          method: 'POST',
-          body: JSON.stringify(body),
-          headers: {
-            'api-version': 'latest',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`
-          }
-        }
-      )
+export type GetApiAreasFnArgs = {
+  pageSize?: number | undefined
+  pageNumber?: number | undefined
+  sortBy?: string | undefined
+  id?: Array<string> | undefined
+  departmentId?: Array<string> | undefined
+  officeId?: Array<string> | undefined
+  name?: string | undefined
+  active?: boolean | undefined
+  createdFrom?: string | undefined
+  createdTo?: string | undefined
+  modifiedFrom?: string | undefined
+  modifiedTo?: string | undefined
+}
+export const getApiAreasFn = async ({
+  pageSize,
+  pageNumber,
+  sortBy,
+  id,
+  departmentId,
+  officeId,
+  name,
+  active,
+  createdFrom,
+  createdTo,
+  modifiedFrom,
+  modifiedTo,
+}: GetApiAreasFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/areas/${querySerialiser({ args: { pageSize, pageNumber, sortBy, id, departmentId, officeId, name, active, createdFrom, createdTo, modifiedFrom, modifiedTo }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
 
-      const data = await res.json()
-    
-      return z.void().parse(data)
-    };
+  const data = await res.json()
+
+  return areaModelPagedResult.parse(data)
+}
+export const useGetApiAreas = (args: GetApiAreasFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Areas'],
+    queryFn: () => getApiAreasFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type PostApiAreasFnArgs = { body: CreateAreaModel }
+export const postApiAreasFn = async ({ body }: PostApiAreasFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/areas/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
 export const usePostApiAreas = () => {
-      const queryClient = useQueryClient()
-      const { handleFetchError } = useFetchError()
-    
-      return useMutation({
-        mutationFn: postApiAreasFn,
-        onError: handleFetchError,
-        onSuccess: () => {
-          // Invalidate and refetch
-          void queryClient.invalidateQueries({ queryKey: ['Areas'] })
-        }
-      })
-    };
-export type UsePatchApiAreasIdArgs = {'If-Match'?: string, id: string, body: UpdateAreaModel};
-export const patchApiAreasIdFn = async ({'If-Match': IfMatch, id, body}: UsePatchApiAreasIdArgs) => {
-        const res = await fetch(
-          `${import.meta.env.VITE_PLATFORM_API_URL}/areas/${id}${querySerialiser({args:{ }, options: defaultQuerySerialiserOptions })}`,
-        {
-          method: 'PATCH',
-          body: JSON.stringify(body),
-          headers: {
-            'api-version': 'latest',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`
-          }
-        }
-      )
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
 
-      const data = await res.json()
-    
-      return z.void().parse(data)
-    };
-export const usePatchApiAreasId = () => {
-      const queryClient = useQueryClient()
-      const { handleFetchError } = useFetchError()
-    
-      return useMutation({
-        mutationFn: patchApiAreasIdFn,
-        onError: handleFetchError,
-        onSuccess: () => {
-          // Invalidate and refetch
-          void queryClient.invalidateQueries({ queryKey: ['Areas'] })
-        }
-      })
-    };
-export type UseGetApiAreasArgs = {pageSize?: number | undefined, pageNumber?: number | undefined, sortBy?: string | undefined, id?: Array<string> | undefined, departmentId?: Array<string> | undefined, officeId?: Array<string> | undefined, name?: string | undefined, active?: boolean | undefined, createdFrom?: string | undefined, createdTo?: string | undefined, modifiedFrom?: string | undefined, modifiedTo?: string | undefined};
-export const getApiAreasFn = async ({pageSize, pageNumber, sortBy, id, departmentId, officeId, name, active, createdFrom, createdTo, modifiedFrom, modifiedTo}: UseGetApiAreasArgs) => {
-
-
-      const res = await fetch(
-        `${import.meta.env.VITE_PLATFORM_API_URL}/areas/${querySerialiser({args:{ pageSize, pageNumber, sortBy, id, departmentId, officeId, name, active, createdFrom, createdTo, modifiedFrom, modifiedTo}, options: defaultQuerySerialiserOptions })}`,
-        {
-          method: 'GET',
-          headers: {
-            'api-version': 'latest',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`
-          }
-        }
-      )
-
-      const data = await res.json()
-    
-      return areaModelPagedResult.parse(data)
-    };
-export const useGetApiAreas = (args: UseGetApiAreasArgs) => {
-      const result = useQuery({
-        queryKey: ['Areas'],
-        queryFn: () => getApiAreasFn(args),
-        placeholderData: keepPreviousData
-      })
-
-      return result
-    };
+  return useMutation({
+    mutationFn: postApiAreasFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Areas'] })
+    },
+  })
+}

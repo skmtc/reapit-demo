@@ -1,5 +1,5 @@
-import { useSourcesTable, getuseSourcesTableColumn } from '@/tables/Sources.generated.tsx'
-import { sourceModelConfig } from '@/config/sourceModelConfigConfig.example.tsx'
+import { useSourcesTable, getuseSourcesTableColumn } from '@/tables/SourcesTable.generated.tsx'
+import { sourceModelConfig } from '@/config/sourceModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,23 +9,19 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { SourceModel } from '@/schemas/sourceModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<SourceModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-name: true,
-type: true,
-officeIds: true,
-departmentIds: true,
-_eTag: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  name: true,
+  type: true,
+  officeIds: true,
+  departmentIds: true,
+  _eTag: true,
+})
 export const SourcesTable = () => {
   const columns: ColumnsList<SourceModel> = fieldNames.map((col) => getuseSourcesTableColumn(col, sourceModelConfig))
-
-  
-
-  
 
   const { table, dataQuery } = useSourcesTable({ columns })
 
@@ -51,4 +47,3 @@ export const SourcesTable = () => {
     </Box>
   )
 }
-;

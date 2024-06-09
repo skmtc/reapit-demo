@@ -1,5 +1,5 @@
-import { useTransactionsTable, getuseTransactionsTableColumn } from '@/tables/Transactions.generated.tsx'
-import { transactionModelConfig } from '@/config/transactionModelConfigConfig.example.tsx'
+import { useTransactionsTable, getuseTransactionsTableColumn } from '@/tables/TransactionsTable.generated.tsx'
+import { transactionModelConfig } from '@/config/transactionModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,33 +9,31 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { TransactionModel } from '@/schemas/transactionModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<TransactionModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-category: true,
-type: true,
-transactionType: true,
-description: true,
-status: true,
-ledger: true,
-netAmount: true,
-taxAmount: true,
-grossAmount: true,
-outstanding: true,
-companyId: true,
-landlordId: true,
-propertyId: true,
-tenancyId: true,
-_eTag: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  category: true,
+  type: true,
+  transactionType: true,
+  description: true,
+  status: true,
+  ledger: true,
+  netAmount: true,
+  taxAmount: true,
+  grossAmount: true,
+  outstanding: true,
+  companyId: true,
+  landlordId: true,
+  propertyId: true,
+  tenancyId: true,
+  _eTag: true,
+})
 export const TransactionsTable = () => {
-  const columns: ColumnsList<TransactionModel> = fieldNames.map((col) => getuseTransactionsTableColumn(col, transactionModelConfig))
-
-  
-
-  
+  const columns: ColumnsList<TransactionModel> = fieldNames.map((col) =>
+    getuseTransactionsTableColumn(col, transactionModelConfig),
+  )
 
   const { table, dataQuery } = useTransactionsTable({ columns })
 
@@ -61,4 +59,3 @@ export const TransactionsTable = () => {
     </Box>
   )
 }
-;

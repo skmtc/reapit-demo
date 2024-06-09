@@ -1,5 +1,5 @@
-import { useInvoicesTable, getuseInvoicesTableColumn } from '@/tables/Invoices.generated.tsx'
-import { invoiceModelConfig } from '@/config/invoiceModelConfigConfig.example.tsx'
+import { useInvoicesTable, getuseInvoicesTableColumn } from '@/tables/InvoicesTable.generated.tsx'
+import { invoiceModelConfig } from '@/config/invoiceModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,29 +9,25 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { InvoiceModel } from '@/schemas/invoiceModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<InvoiceModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-reference: true,
-negotiatorId: true,
-propertyId: true,
-description: true,
-status: true,
-date: true,
-dueDate: true,
-isRaised: true,
-netAmount: true,
-vatAmount: true,
-outstandingAmount: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  reference: true,
+  negotiatorId: true,
+  propertyId: true,
+  description: true,
+  status: true,
+  date: true,
+  dueDate: true,
+  isRaised: true,
+  netAmount: true,
+  vatAmount: true,
+  outstandingAmount: true,
+})
 export const InvoicesTable = () => {
   const columns: ColumnsList<InvoiceModel> = fieldNames.map((col) => getuseInvoicesTableColumn(col, invoiceModelConfig))
-
-  
-
-  
 
   const { table, dataQuery } = useInvoicesTable({ columns })
 
@@ -57,4 +53,3 @@ export const InvoicesTable = () => {
     </Box>
   )
 }
-;

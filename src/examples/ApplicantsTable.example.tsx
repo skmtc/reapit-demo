@@ -1,5 +1,5 @@
-import { useApplicantsTable, getuseApplicantsTableColumn } from '@/tables/Applicants.generated.tsx'
-import { applicantModelConfig } from '@/config/applicantModelConfigConfig.example.tsx'
+import { useApplicantsTable, getuseApplicantsTableColumn } from '@/tables/ApplicantsTable.generated.tsx'
+import { applicantModelConfig } from '@/config/applicantModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,62 +9,60 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { ApplicantModel } from '@/schemas/applicantModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<ApplicantModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-marketingMode: true,
-currency: true,
-active: true,
-notes: true,
-sellingStatus: true,
-sellingPosition: true,
-statusId: true,
-lastCall: true,
-nextCall: true,
-departmentId: true,
-solicitorId: true,
-potentialClient: true,
-type: true,
-style: true,
-situation: true,
-parking: true,
-age: true,
-locality: true,
-specialFeatures: true,
-unmappedRequirements: true,
-bedroomsMin: true,
-bedroomsMax: true,
-receptionsMin: true,
-receptionsMax: true,
-bathroomsMin: true,
-bathroomsMax: true,
-parkingSpacesMin: true,
-parkingSpacesMax: true,
-locationType: true,
-locationOptions: true,
-archivedOn: true,
-fromArchive: true,
-buying: true,
-renting: true,
-externalArea: true,
-internalArea: true,
-source: true,
-commercial: true,
-regional: true,
-officeIds: true,
-negotiatorIds: true,
-related: true,
-metadata: true,
-_eTag: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  marketingMode: true,
+  currency: true,
+  active: true,
+  notes: true,
+  sellingStatus: true,
+  sellingPosition: true,
+  statusId: true,
+  lastCall: true,
+  nextCall: true,
+  departmentId: true,
+  solicitorId: true,
+  potentialClient: true,
+  type: true,
+  style: true,
+  situation: true,
+  parking: true,
+  age: true,
+  locality: true,
+  specialFeatures: true,
+  unmappedRequirements: true,
+  bedroomsMin: true,
+  bedroomsMax: true,
+  receptionsMin: true,
+  receptionsMax: true,
+  bathroomsMin: true,
+  bathroomsMax: true,
+  parkingSpacesMin: true,
+  parkingSpacesMax: true,
+  locationType: true,
+  locationOptions: true,
+  archivedOn: true,
+  fromArchive: true,
+  buying: true,
+  renting: true,
+  externalArea: true,
+  internalArea: true,
+  source: true,
+  commercial: true,
+  regional: true,
+  officeIds: true,
+  negotiatorIds: true,
+  related: true,
+  metadata: true,
+  _eTag: true,
+})
 export const ApplicantsTable = () => {
-  const columns: ColumnsList<ApplicantModel> = fieldNames.map((col) => getuseApplicantsTableColumn(col, applicantModelConfig))
-
-  
-
-  
+  const columns: ColumnsList<ApplicantModel> = fieldNames.map((col) =>
+    getuseApplicantsTableColumn(col, applicantModelConfig),
+  )
 
   const { table, dataQuery } = useApplicantsTable({ columns })
 
@@ -90,4 +88,3 @@ export const ApplicantsTable = () => {
     </Box>
   )
 }
-;

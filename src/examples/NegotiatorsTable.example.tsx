@@ -1,5 +1,5 @@
-import { useNegotiatorsTable, getuseNegotiatorsTableColumn } from '@/tables/Negotiators.generated.tsx'
-import { negotiatorModelConfig } from '@/config/negotiatorModelConfigConfig.example.tsx'
+import { useNegotiatorsTable, getuseNegotiatorsTableColumn } from '@/tables/NegotiatorsTable.generated.tsx'
+import { negotiatorModelConfig } from '@/config/negotiatorModelConfig.example.tsx'
 import { SharedTable } from '@/components/SharedTable'
 import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
@@ -9,31 +9,29 @@ import { Link as RouterLink, Outlet } from 'react-router-dom'
 import { NegotiatorModel } from '@/schemas/negotiatorModel.generated.tsx'
 
 export const fieldNames = fieldsConfig<NegotiatorModel>({
-        _links: true,
-_embedded: true,
-id: true,
-created: true,
-modified: true,
-name: true,
-jobTitle: true,
-officeId: true,
-workPhone: true,
-mobilePhone: true,
-email: true,
-profileImageUrl: true,
-active: true,
-diaryNegotiatorIds: true,
-diaryOfficeIds: true,
-additionalContactDetails: true,
-metadata: true,
-_eTag: true
-      });
+  _links: true,
+  _embedded: true,
+  id: true,
+  created: true,
+  modified: true,
+  name: true,
+  jobTitle: true,
+  officeId: true,
+  workPhone: true,
+  mobilePhone: true,
+  email: true,
+  profileImageUrl: true,
+  active: true,
+  diaryNegotiatorIds: true,
+  diaryOfficeIds: true,
+  additionalContactDetails: true,
+  metadata: true,
+  _eTag: true,
+})
 export const NegotiatorsTable = () => {
-  const columns: ColumnsList<NegotiatorModel> = fieldNames.map((col) => getuseNegotiatorsTableColumn(col, negotiatorModelConfig))
-
-  
-
-  
+  const columns: ColumnsList<NegotiatorModel> = fieldNames.map((col) =>
+    getuseNegotiatorsTableColumn(col, negotiatorModelConfig),
+  )
 
   const { table, dataQuery } = useNegotiatorsTable({ columns })
 
@@ -59,4 +57,3 @@ export const NegotiatorsTable = () => {
     </Box>
   )
 }
-;
