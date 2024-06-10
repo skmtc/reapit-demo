@@ -1,5 +1,5 @@
 import { createCompanyModel, CreateCompanyModel } from '@/schemas/createCompanyModel.generated.tsx'
-import { usePostApiCompanies } from 'services/Companies.generated.ts'
+import { usePostApiCompanies } from '@/services/Companies.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

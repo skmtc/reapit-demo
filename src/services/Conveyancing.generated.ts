@@ -3,18 +3,18 @@ import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySeria
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 
 export type GetApiConveyancingFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  id?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  buyerId?: Array<string> | undefined
-  embed?: Array<'buyerSolicitor' | 'offer' | 'property' | 'vendor' | 'vendorSolicitor'> | undefined
-  metadata?: Array<string> | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  buyerId?: Array<string> | null | undefined
+  embed?: Array<'buyerSolicitor' | 'offer' | 'property' | 'vendor' | 'vendorSolicitor'> | null | undefined
+  metadata?: Array<string> | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
 }
 export const getApiConveyancingFn = async ({
   pageSize,

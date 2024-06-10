@@ -6,27 +6,28 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiOffersFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  embed?: Array<'applicant' | 'conveyancing' | 'property' | 'negotiator'> | undefined
-  id?: Array<string> | undefined
-  applicantId?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'applicant' | 'conveyancing' | 'property' | 'negotiator'> | null | undefined
+  id?: Array<string> | null | undefined
+  applicantId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
   status?:
     | Array<'pending' | 'withdrawn' | 'rejected' | 'accepted' | 'noteOfInterest' | 'noteOfInterestWithdrawn'>
+    | null
     | undefined
-  address?: string | undefined
-  name?: string | undefined
-  amountFrom?: number | undefined
-  amountTo?: number | undefined
-  dateFrom?: string | undefined
-  dateTo?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
+  address?: string | null | undefined
+  name?: string | null | undefined
+  amountFrom?: number | null | undefined
+  amountTo?: number | null | undefined
+  dateFrom?: string | null | undefined
+  dateTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
 }
 export const getApiOffersFn = async ({
   pageSize,

@@ -1,24 +1,24 @@
-import { invoiceModel, InvoiceModel } from '@/schemas/invoiceModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiInvoices } from 'services/Invoices.generated.ts'
+import { useGetApiInvoices } from '@/services/Invoices.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { InvoiceModel } from '@/schemas/invoiceModel.generated.tsx'
 
 export const useInvoicesTableColumnHelper = createColumnHelper<InvoiceModel>()
 export type UseInvoicesTableArgs = {
-  sortBy?: string | undefined
-  negotiatorId?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  status?: Array<'pending' | 'raised' | 'partPaid' | 'partCredited' | 'credited' | 'paid'> | undefined
-  dateFrom?: string | undefined
-  dateTo?: string | undefined
-  dueDateFrom?: string | undefined
-  dueDateTo?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
+  sortBy?: string | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  status?: Array<'pending' | 'raised' | 'partPaid' | 'partCredited' | 'credited' | 'paid'> | null | undefined
+  dateFrom?: string | null | undefined
+  dateTo?: string | null | undefined
+  dueDateFrom?: string | null | undefined
+  dueDateTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
   columns: ColumnsList<InvoiceModel>
 }
 export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelConfig<InvoiceModel>) => {

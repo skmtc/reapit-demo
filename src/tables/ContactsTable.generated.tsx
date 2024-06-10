@@ -1,33 +1,36 @@
-import { contactModel, ContactModel } from '@/schemas/contactModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiContacts } from 'services/Contacts.generated.ts'
+import { useGetApiContacts } from '@/services/Contacts.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { ContactModel } from '@/schemas/contactModel.generated.tsx'
 
 export const useContactsTableColumnHelper = createColumnHelper<ContactModel>()
 export type UseContactsTableArgs = {
-  sortBy?: string | undefined
-  embed?: Array<'documents' | 'identityChecks' | 'negotiators' | 'offices' | 'relationships' | 'source'> | undefined
-  id?: Array<string> | undefined
-  contactDetail?: Array<string> | undefined
-  email?: Array<string> | undefined
-  negotiatorId?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  address?: string | undefined
-  identityCheck?: Array<'pass' | 'fail' | 'pending' | 'warnings' | 'unchecked'> | undefined
-  name?: string | undefined
-  nameType?: string | undefined
-  marketingConsent?: Array<'grant' | 'deny' | 'notAsked'> | undefined
-  marketingConsentFilterType?: Array<'assumedOrExplicit' | 'explicit'> | undefined
-  active?: boolean | undefined
-  fromArchive?: boolean | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
-  extrasField?: Array<string> | undefined
+  sortBy?: string | null | undefined
+  embed?:
+    | Array<'documents' | 'identityChecks' | 'negotiators' | 'offices' | 'relationships' | 'source'>
+    | null
+    | undefined
+  id?: Array<string> | null | undefined
+  contactDetail?: Array<string> | null | undefined
+  email?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  address?: string | null | undefined
+  identityCheck?: Array<'pass' | 'fail' | 'pending' | 'warnings' | 'unchecked'> | null | undefined
+  name?: string | null | undefined
+  nameType?: string | null | undefined
+  marketingConsent?: Array<'grant' | 'deny' | 'notAsked'> | null | undefined
+  marketingConsentFilterType?: Array<'assumedOrExplicit' | 'explicit'> | null | undefined
+  active?: boolean | null | undefined
+  fromArchive?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  extrasField?: Array<string> | null | undefined
   columns: ColumnsList<ContactModel>
 }
 export const getuseContactsTableColumn = (property: string, modelConfig: ModelConfig<ContactModel>) => {

@@ -6,27 +6,27 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiTasksFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | undefined
-  id?: Array<string> | undefined
-  applicantId?: Array<string> | undefined
-  contactId?: Array<string> | undefined
-  landlordId?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  recipientId?: Array<string> | undefined
-  senderId?: Array<string> | undefined
-  typeId?: Array<string> | undefined
-  tenancyId?: Array<string> | undefined
-  activatesFrom?: string | undefined
-  activatesTo?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | null | undefined
+  id?: Array<string> | null | undefined
+  applicantId?: Array<string> | null | undefined
+  contactId?: Array<string> | null | undefined
+  landlordId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  recipientId?: Array<string> | null | undefined
+  senderId?: Array<string> | null | undefined
+  typeId?: Array<string> | null | undefined
+  tenancyId?: Array<string> | null | undefined
+  activatesFrom?: string | null | undefined
+  activatesTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
 }
 export const getApiTasksFn = async ({
   pageSize,

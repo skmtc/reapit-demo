@@ -1,31 +1,31 @@
-import { taskModel, TaskModel } from '@/schemas/taskModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiTasks } from 'services/Tasks.generated.ts'
+import { useGetApiTasks } from '@/services/Tasks.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { TaskModel } from '@/schemas/taskModel.generated.tsx'
 
 export const useTasksTableColumnHelper = createColumnHelper<TaskModel>()
 export type UseTasksTableArgs = {
-  sortBy?: string | undefined
-  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | undefined
-  id?: Array<string> | undefined
-  applicantId?: Array<string> | undefined
-  contactId?: Array<string> | undefined
-  landlordId?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  recipientId?: Array<string> | undefined
-  senderId?: Array<string> | undefined
-  typeId?: Array<string> | undefined
-  tenancyId?: Array<string> | undefined
-  activatesFrom?: string | undefined
-  activatesTo?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | null | undefined
+  id?: Array<string> | null | undefined
+  applicantId?: Array<string> | null | undefined
+  contactId?: Array<string> | null | undefined
+  landlordId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  recipientId?: Array<string> | null | undefined
+  senderId?: Array<string> | null | undefined
+  typeId?: Array<string> | null | undefined
+  tenancyId?: Array<string> | null | undefined
+  activatesFrom?: string | null | undefined
+  activatesTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
   columns: ColumnsList<TaskModel>
 }
 export const getuseTasksTableColumn = (property: string, modelConfig: ModelConfig<TaskModel>) => {

@@ -1,16 +1,16 @@
-import { metadataModel, MetadataModel } from '@/schemas/metadataModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiMetadata } from 'services/Metadata.generated.ts'
+import { useGetApiMetadata } from '@/services/Metadata.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { MetadataModel } from '@/schemas/metadataModel.generated.tsx'
 
 export const useMetadataTableColumnHelper = createColumnHelper<MetadataModel>()
 export type UseMetadataTableArgs = {
-  entityType?: string | undefined
-  id?: Array<string> | undefined
-  entityId?: Array<string> | undefined
-  filter?: Array<string> | undefined
+  entityType?: string | null | undefined
+  id?: Array<string> | null | undefined
+  entityId?: Array<string> | null | undefined
+  filter?: Array<string> | null | undefined
   columns: ColumnsList<MetadataModel>
 }
 export const getuseMetadataTableColumn = (property: string, modelConfig: ModelConfig<MetadataModel>) => {

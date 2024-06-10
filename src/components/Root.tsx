@@ -14,10 +14,24 @@ export const Root = () => (
         flexDirection: 'row',
         width: '100vw',
         height: '100vh',
+        overflow: 'scroll',
+        minWidth: 0,
+        minHeight: 0,
       }}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <NavLinks />
+      <Box
+        sx={{
+          display: 'flex',
+          flex: 'none',
+          width: '200px',
+          flexDirection: 'column',
+          minHeight: 0,
+          overflow: 'scroll',
+        }}
+      >
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <NavLinks />
+        </Box>
       </Box>
       <Outlet />
     </Sheet>

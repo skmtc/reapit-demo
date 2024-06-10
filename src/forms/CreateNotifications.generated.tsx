@@ -1,5 +1,5 @@
 import { createNotificationModel, CreateNotificationModel } from '@/schemas/createNotificationModel.generated.tsx'
-import { usePostApiNotifications } from 'services/Notifications.generated.ts'
+import { usePostApiNotifications } from '@/services/Notifications.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

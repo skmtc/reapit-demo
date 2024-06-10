@@ -1,25 +1,25 @@
-import { referralModel, ReferralModel } from '@/schemas/referralModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiReferrals } from 'services/Referrals.generated.ts'
+import { useGetApiReferrals } from '@/services/Referrals.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { ReferralModel } from '@/schemas/referralModel.generated.tsx'
 
 export const useReferralsTableColumnHelper = createColumnHelper<ReferralModel>()
 export type UseReferralsTableArgs = {
-  id?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  applicantId?: Array<string> | undefined
-  contactId?: Array<string> | undefined
-  negotiatorId?: Array<string> | undefined
-  referralTypeId?: Array<string> | undefined
-  status?: Array<'sent' | 'inProgress' | 'succeeded' | 'cancelled' | 'failed' | 'paid' | 'declined'> | undefined
-  embed?: Array<'applicant' | 'contact' | 'negotiator' | 'property' | 'type'> | undefined
-  sortBy?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
+  id?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  applicantId?: Array<string> | null | undefined
+  contactId?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  referralTypeId?: Array<string> | null | undefined
+  status?: Array<'sent' | 'inProgress' | 'succeeded' | 'cancelled' | 'failed' | 'paid' | 'declined'> | null | undefined
+  embed?: Array<'applicant' | 'contact' | 'negotiator' | 'property' | 'type'> | null | undefined
+  sortBy?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
   columns: ColumnsList<ReferralModel>
 }
 export const getuseReferralsTableColumn = (property: string, modelConfig: ModelConfig<ReferralModel>) => {

@@ -6,21 +6,21 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiReferralsFnArgs = {
-  id?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  applicantId?: Array<string> | undefined
-  contactId?: Array<string> | undefined
-  negotiatorId?: Array<string> | undefined
-  referralTypeId?: Array<string> | undefined
-  status?: Array<'sent' | 'inProgress' | 'succeeded' | 'cancelled' | 'failed' | 'paid' | 'declined'> | undefined
-  embed?: Array<'applicant' | 'contact' | 'negotiator' | 'property' | 'type'> | undefined
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
+  id?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  applicantId?: Array<string> | null | undefined
+  contactId?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  referralTypeId?: Array<string> | null | undefined
+  status?: Array<'sent' | 'inProgress' | 'succeeded' | 'cancelled' | 'failed' | 'paid' | 'declined'> | null | undefined
+  embed?: Array<'applicant' | 'contact' | 'negotiator' | 'property' | 'type'> | null | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
 }
 export const getApiReferralsFn = async ({
   id,

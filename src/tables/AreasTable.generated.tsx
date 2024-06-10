@@ -1,22 +1,22 @@
-import { areaModel, AreaModel } from '@/schemas/areaModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiAreas } from 'services/Areas.generated.ts'
+import { useGetApiAreas } from '@/services/Areas.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { AreaModel } from '@/schemas/areaModel.generated.tsx'
 
 export const useAreasTableColumnHelper = createColumnHelper<AreaModel>()
 export type UseAreasTableArgs = {
-  sortBy?: string | undefined
-  id?: Array<string> | undefined
-  departmentId?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  name?: string | undefined
-  active?: boolean | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  departmentId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  name?: string | null | undefined
+  active?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
   columns: ColumnsList<AreaModel>
 }
 export const getuseAreasTableColumn = (property: string, modelConfig: ModelConfig<AreaModel>) => {

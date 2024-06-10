@@ -1,31 +1,32 @@
-import { offerModel, OfferModel } from '@/schemas/offerModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiOffers } from 'services/Offers.generated.ts'
+import { useGetApiOffers } from '@/services/Offers.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { OfferModel } from '@/schemas/offerModel.generated.tsx'
 
 export const useOffersTableColumnHelper = createColumnHelper<OfferModel>()
 export type UseOffersTableArgs = {
-  sortBy?: string | undefined
-  embed?: Array<'applicant' | 'conveyancing' | 'property' | 'negotiator'> | undefined
-  id?: Array<string> | undefined
-  applicantId?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'applicant' | 'conveyancing' | 'property' | 'negotiator'> | null | undefined
+  id?: Array<string> | null | undefined
+  applicantId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
   status?:
     | Array<'pending' | 'withdrawn' | 'rejected' | 'accepted' | 'noteOfInterest' | 'noteOfInterestWithdrawn'>
+    | null
     | undefined
-  address?: string | undefined
-  name?: string | undefined
-  amountFrom?: number | undefined
-  amountTo?: number | undefined
-  dateFrom?: string | undefined
-  dateTo?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
+  address?: string | null | undefined
+  name?: string | null | undefined
+  amountFrom?: number | null | undefined
+  amountTo?: number | null | undefined
+  dateFrom?: string | null | undefined
+  dateTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
   columns: ColumnsList<OfferModel>
 }
 export const getuseOffersTableColumn = (property: string, modelConfig: ModelConfig<OfferModel>) => {

@@ -6,18 +6,18 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiSourcesFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  id?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  departmentId?: Array<string> | undefined
-  name?: string | undefined
-  type?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  departmentId?: Array<string> | null | undefined
+  name?: string | null | undefined
+  type?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
 }
 export const getApiSourcesFn = async ({
   pageSize,

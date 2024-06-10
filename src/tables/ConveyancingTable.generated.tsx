@@ -1,22 +1,22 @@
-import { conveyancingModel, ConveyancingModel } from '@/schemas/conveyancingModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiConveyancing } from 'services/Conveyancing.generated.ts'
+import { useGetApiConveyancing } from '@/services/Conveyancing.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { ConveyancingModel } from '@/schemas/conveyancingModel.generated.tsx'
 
 export const useConveyancingTableColumnHelper = createColumnHelper<ConveyancingModel>()
 export type UseConveyancingTableArgs = {
-  sortBy?: string | undefined
-  id?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  buyerId?: Array<string> | undefined
-  embed?: Array<'buyerSolicitor' | 'offer' | 'property' | 'vendor' | 'vendorSolicitor'> | undefined
-  metadata?: Array<string> | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  buyerId?: Array<string> | null | undefined
+  embed?: Array<'buyerSolicitor' | 'offer' | 'property' | 'vendor' | 'vendorSolicitor'> | null | undefined
+  metadata?: Array<string> | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
   columns: ColumnsList<ConveyancingModel>
 }
 export const getuseConveyancingTableColumn = (property: string, modelConfig: ModelConfig<ConveyancingModel>) => {

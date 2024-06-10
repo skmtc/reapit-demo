@@ -6,12 +6,12 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiDocumentsFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  embed?: Array<'documentType'> | undefined
-  id?: Array<string> | undefined
-  associatedId?: Array<string> | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'documentType'> | null | undefined
+  id?: Array<string> | null | undefined
+  associatedId?: Array<string> | null | undefined
   associatedType?:
     | Array<
         | 'appliance'
@@ -33,14 +33,15 @@ export type GetApiDocumentsFnArgs = {
         | 'tenancyRenewal'
         | 'worksOrder'
       >
+    | null
     | undefined
-  typeId?: Array<string> | undefined
-  includeRoleDocuments?: boolean | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
+  typeId?: Array<string> | null | undefined
+  includeRoleDocuments?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
 }
 export const getApiDocumentsFn = async ({
   pageSize,

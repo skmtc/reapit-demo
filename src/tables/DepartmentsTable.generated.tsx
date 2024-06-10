@@ -1,14 +1,14 @@
-import { departmentModel, DepartmentModel } from '@/schemas/departmentModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiDepartments } from 'services/Departments.generated.ts'
+import { useGetApiDepartments } from '@/services/Departments.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { DepartmentModel } from '@/schemas/departmentModel.generated.tsx'
 
 export const useDepartmentsTableColumnHelper = createColumnHelper<DepartmentModel>()
 export type UseDepartmentsTableArgs = {
-  id?: Array<string> | undefined
-  name?: string | undefined
+  id?: Array<string> | null | undefined
+  name?: string | null | undefined
   columns: ColumnsList<DepartmentModel>
 }
 export const getuseDepartmentsTableColumn = (property: string, modelConfig: ModelConfig<DepartmentModel>) => {

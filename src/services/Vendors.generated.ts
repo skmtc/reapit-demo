@@ -3,26 +3,29 @@ import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySeria
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 
 export type GetApiVendorsFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  embed?: Array<'negotiator' | 'offices' | 'property' | 'sellingReason' | 'solicitor' | 'source' | 'type'> | undefined
-  id?: Array<string> | undefined
-  negotiatorId?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  email?: Array<string> | undefined
-  fromArchive?: boolean | undefined
-  address?: string | undefined
-  name?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  lastCallFrom?: string | undefined
-  lastCallTo?: string | undefined
-  nextCallFrom?: string | undefined
-  nextCallTo?: string | undefined
-  metadata?: Array<string> | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  embed?:
+    | Array<'negotiator' | 'offices' | 'property' | 'sellingReason' | 'solicitor' | 'source' | 'type'>
+    | null
+    | undefined
+  id?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  email?: Array<string> | null | undefined
+  fromArchive?: boolean | null | undefined
+  address?: string | null | undefined
+  name?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  lastCallFrom?: string | null | undefined
+  lastCallTo?: string | null | undefined
+  nextCallFrom?: string | null | undefined
+  nextCallTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
 }
 export const getApiVendorsFn = async ({
   pageSize,

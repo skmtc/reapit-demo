@@ -4,15 +4,15 @@ import { z } from 'zod'
 export const createPropertyRoomModel =
   /** Request body to create a room in the Rooms collection of a new property */
   z.object({
-    /** The name of the room */ name: z.string().optional(),
-    /** Details about the dimensions of the room */ dimensions: z.string().optional(),
-    /** Short description of the room */ description: z.string().optional(),
+    /** The name of the room */ name: z.string().optional().nullable(),
+    /** Details about the dimensions of the room */ dimensions: z.string().optional().nullable(),
+    /** Short description of the room */ description: z.string().optional().nullable(),
   })
 /** Request body to create a room in the Rooms collection of a new property */
 export type CreatePropertyRoomModel =
   /** Request body to create a room in the Rooms collection of a new property */
   {
-    name?: /** The name of the room */ string | undefined
-    dimensions?: /** Details about the dimensions of the room */ string | undefined
-    description?: /** Short description of the room */ string | undefined
+    name?: /** The name of the room */ string | null | undefined
+    dimensions?: /** Details about the dimensions of the room */ string | null | undefined
+    description?: /** Short description of the room */ string | null | undefined
   }

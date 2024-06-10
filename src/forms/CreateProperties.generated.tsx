@@ -1,5 +1,5 @@
 import { createPropertyModel, CreatePropertyModel } from '@/schemas/createPropertyModel.generated.tsx'
-import { usePostApiProperties } from 'services/Properties.generated.ts'
+import { usePostApiProperties } from '@/services/Properties.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

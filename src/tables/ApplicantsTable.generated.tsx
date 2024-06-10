@@ -1,13 +1,13 @@
-import { applicantModel, ApplicantModel } from '@/schemas/applicantModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiApplicants } from 'services/Applicants.generated.ts'
+import { useGetApiApplicants } from '@/services/Applicants.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { ApplicantModel } from '@/schemas/applicantModel.generated.tsx'
 
 export const useApplicantsTableColumnHelper = createColumnHelper<ApplicantModel>()
 export type UseApplicantsTableArgs = {
-  sortBy?: string | undefined
+  sortBy?: string | null | undefined
   embed?:
     | Array<
         | 'appointments'
@@ -20,24 +20,27 @@ export type UseApplicantsTableArgs = {
         | 'solicitor'
         | 'source'
       >
+    | null
     | undefined
-  id?: Array<string> | undefined
-  age?: Array<'period' | 'new' | 'modern' | 'old'> | undefined
-  contactDetail?: Array<string> | undefined
-  emailAddresses?: Array<string> | undefined
-  furnishing?: Array<'furnished' | 'unfurnished' | 'partFurnished'> | undefined
-  locality?: Array<'rural' | 'village' | 'townCity'> | undefined
-  negotiatorId?: Array<string> | undefined
-  officeId?: Array<string> | undefined
+  id?: Array<string> | null | undefined
+  age?: Array<'period' | 'new' | 'modern' | 'old'> | null | undefined
+  contactDetail?: Array<string> | null | undefined
+  emailAddresses?: Array<string> | null | undefined
+  furnishing?: Array<'furnished' | 'unfurnished' | 'partFurnished'> | null | undefined
+  locality?: Array<'rural' | 'village' | 'townCity'> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
   parking?:
     | Array<
         'residents' | 'offStreet' | 'secure' | 'underground' | 'garage' | 'doubleGarage' | 'tripleGarage' | 'carport'
       >
+    | null
     | undefined
   situation?:
     | Array<
         'garden' | 'land' | 'patio' | 'roofTerrace' | 'conservatory' | 'balcony' | 'communalGardens' | 'outsideSpace'
       >
+    | null
     | undefined
   style?:
     | Array<
@@ -56,6 +59,7 @@ export type UseApplicantsTableArgs = {
         | 'penthouse'
         | 'duplex'
       >
+    | null
     | undefined
   type?:
     | Array<
@@ -70,34 +74,35 @@ export type UseApplicantsTableArgs = {
         | 'townhouse'
         | 'developmentPlot'
       >
+    | null
     | undefined
-  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | undefined
-  address?: string | undefined
-  departmentId?: string | undefined
-  marketingMode?: Array<'buying' | 'renting'> | undefined
-  name?: string | undefined
-  nameType?: Array<'surname' | 'initials' | 'full' | 'companyName'> | undefined
-  priceFrom?: number | undefined
-  priceTo?: number | undefined
-  rentFrom?: number | undefined
-  rentTo?: number | undefined
-  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | undefined
-  bedroomsFrom?: number | undefined
-  bedroomsTo?: number | undefined
-  active?: boolean | undefined
-  fromArchive?: boolean | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  hasLastCall?: boolean | undefined
-  lastCallFrom?: string | undefined
-  lastCallTo?: string | undefined
-  nextCallFrom?: string | undefined
-  nextCallTo?: string | undefined
-  hasNextCall?: boolean | undefined
-  metadata?: Array<string> | undefined
-  locationOptions?: string | undefined
+  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | null | undefined
+  address?: string | null | undefined
+  departmentId?: string | null | undefined
+  marketingMode?: Array<'buying' | 'renting'> | null | undefined
+  name?: string | null | undefined
+  nameType?: Array<'surname' | 'initials' | 'full' | 'companyName'> | null | undefined
+  priceFrom?: number | null | undefined
+  priceTo?: number | null | undefined
+  rentFrom?: number | null | undefined
+  rentTo?: number | null | undefined
+  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | null | undefined
+  bedroomsFrom?: number | null | undefined
+  bedroomsTo?: number | null | undefined
+  active?: boolean | null | undefined
+  fromArchive?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  hasLastCall?: boolean | null | undefined
+  lastCallFrom?: string | null | undefined
+  lastCallTo?: string | null | undefined
+  nextCallFrom?: string | null | undefined
+  nextCallTo?: string | null | undefined
+  hasNextCall?: boolean | null | undefined
+  metadata?: Array<string> | null | undefined
+  locationOptions?: string | null | undefined
   columns: ColumnsList<ApplicantModel>
 }
 export const getuseApplicantsTableColumn = (property: string, modelConfig: ModelConfig<ApplicantModel>) => {

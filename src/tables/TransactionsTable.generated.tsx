@@ -1,18 +1,18 @@
-import { transactionModel, TransactionModel } from '@/schemas/transactionModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiTransactions } from 'services/Transactions.generated.ts'
+import { useGetApiTransactions } from '@/services/Transactions.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { TransactionModel } from '@/schemas/transactionModel.generated.tsx'
 
 export const useTransactionsTableColumnHelper = createColumnHelper<TransactionModel>()
 export type UseTransactionsTableArgs = {
-  sortBy?: string | undefined
-  id?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  landlordId?: Array<string> | undefined
-  tenancyId?: Array<string> | undefined
-  status?: Array<'awaitingAuthorisation' | 'awaitingPosting' | 'posted' | 'rejected'> | undefined
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  landlordId?: Array<string> | null | undefined
+  tenancyId?: Array<string> | null | undefined
+  status?: Array<'awaitingAuthorisation' | 'awaitingPosting' | 'posted' | 'rejected'> | null | undefined
   type?:
     | Array<
         | 'creditAdjustment'
@@ -32,8 +32,9 @@ export type UseTransactionsTableArgs = {
         | 'reserveFunds'
         | 'transfer'
       >
+    | null
     | undefined
-  ledger?: Array<'landlord' | 'tenant' | 'vendor'> | undefined
+  ledger?: Array<'landlord' | 'tenant' | 'vendor'> | null | undefined
   category?:
     | Array<
         | 'advertisingCharge'
@@ -91,13 +92,14 @@ export type UseTransactionsTableArgs = {
         | 'vendorToSupplierPayment'
         | 'worksOrderPayment'
       >
+    | null
     | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  outstandingFrom?: number | undefined
-  outstandingTo?: number | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  outstandingFrom?: number | null | undefined
+  outstandingTo?: number | null | undefined
   columns: ColumnsList<TransactionModel>
 }
 export const getuseTransactionsTableColumn = (property: string, modelConfig: ModelConfig<TransactionModel>) => {

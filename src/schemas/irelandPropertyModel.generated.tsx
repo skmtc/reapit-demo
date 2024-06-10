@@ -4,8 +4,8 @@ import { irelandPropertyBERModel, IrelandPropertyBERModel } from '@/schemas/irel
 /** Any specific details relating to the marketing of a property in Ireland */
 export const irelandPropertyModel =
   /** Any specific details relating to the marketing of a property in Ireland */
-  z.object({ buildingEnergyRating: irelandPropertyBERModel.optional() })
+  z.object({ buildingEnergyRating: irelandPropertyBERModel.optional().nullable() })
 /** Any specific details relating to the marketing of a property in Ireland */
 export type IrelandPropertyModel =
   /** Any specific details relating to the marketing of a property in Ireland */
-  { buildingEnergyRating?: IrelandPropertyBERModel | undefined }
+  { buildingEnergyRating?: IrelandPropertyBERModel | null | undefined }

@@ -10,7 +10,7 @@ Inbuilt types: applicant, appointment, company, contact, conveyancing, identityC
     entityType: z.string(),
     /** The unique identifier of the entity that this metadata is related to.
 For custom entities, this can be left blank and an id will be generated for you. */
-    entityId: z.string().optional(),
+    entityId: z.string().optional().nullable(),
     /** The JSON document to store */ metadata: z.string(),
   })
 /** Payload to create a metadata record */
@@ -21,8 +21,11 @@ export type CreateMetadataRequest =
             
 Inbuilt types: applicant, appointment, company, contact, conveyancing, identityCheck, landlord, negotiator, offer, office, property, task, vendor, worksOrder */
     string
-    entityId?: /** The unique identifier of the entity that this metadata is related to.
+    entityId?:
+      | /** The unique identifier of the entity that this metadata is related to.
 For custom entities, this can be left blank and an id will be generated for you. */
-    string | undefined
+      string
+      | null
+      | undefined
     metadata: /** The JSON document to store */ string
   }

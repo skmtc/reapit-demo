@@ -1,16 +1,16 @@
-import { documentModel, DocumentModel } from '@/schemas/documentModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiDocuments } from 'services/Documents.generated.ts'
+import { useGetApiDocuments } from '@/services/Documents.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { DocumentModel } from '@/schemas/documentModel.generated.tsx'
 
 export const useDocumentsTableColumnHelper = createColumnHelper<DocumentModel>()
 export type UseDocumentsTableArgs = {
-  sortBy?: string | undefined
-  embed?: Array<'documentType'> | undefined
-  id?: Array<string> | undefined
-  associatedId?: Array<string> | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'documentType'> | null | undefined
+  id?: Array<string> | null | undefined
+  associatedId?: Array<string> | null | undefined
   associatedType?:
     | Array<
         | 'appliance'
@@ -32,14 +32,15 @@ export type UseDocumentsTableArgs = {
         | 'tenancyRenewal'
         | 'worksOrder'
       >
+    | null
     | undefined
-  typeId?: Array<string> | undefined
-  includeRoleDocuments?: boolean | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
+  typeId?: Array<string> | null | undefined
+  includeRoleDocuments?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
   columns: ColumnsList<DocumentModel>
 }
 export const getuseDocumentsTableColumn = (property: string, modelConfig: ModelConfig<DocumentModel>) => {

@@ -1,5 +1,5 @@
 import { createAreaModel, CreateAreaModel } from '@/schemas/createAreaModel.generated.tsx'
-import { usePostApiAreas } from 'services/Areas.generated.ts'
+import { usePostApiAreas } from '@/services/Areas.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

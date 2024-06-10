@@ -6,12 +6,12 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiMetadataFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  entityType?: string | undefined
-  id?: Array<string> | undefined
-  entityId?: Array<string> | undefined
-  filter?: Array<string> | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  entityType?: string | null | undefined
+  id?: Array<string> | null | undefined
+  entityId?: Array<string> | null | undefined
+  filter?: Array<string> | null | undefined
 }
 export const getApiMetadataFn = async ({
   pageSize,

@@ -1,14 +1,14 @@
-import { tenancyModel, TenancyModel } from '@/schemas/tenancyModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiTenancies } from 'services/Tenancies.generated.ts'
+import { useGetApiTenancies } from '@/services/Tenancies.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { TenancyModel } from '@/schemas/tenancyModel.generated.tsx'
 
 export const useTenanciesTableColumnHelper = createColumnHelper<TenancyModel>()
 export type UseTenanciesTableArgs = {
-  sortBy?: string | undefined
-  fromArchive?: boolean | undefined
+  sortBy?: string | null | undefined
+  fromArchive?: boolean | null | undefined
   embed?:
     | Array<
         | 'appointments'
@@ -21,26 +21,28 @@ export type UseTenanciesTableArgs = {
         | 'tasks'
         | 'type'
       >
+    | null
     | undefined
-  id?: Array<string> | undefined
-  negotiatorId?: Array<string> | undefined
-  applicantId?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  name?: string | undefined
-  nameType?: string | undefined
+  id?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  applicantId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  name?: string | null | undefined
+  nameType?: string | null | undefined
   status?:
     | Array<'offerPending' | 'offerWithdrawn' | 'offerRejected' | 'arranging' | 'current' | 'finished' | 'cancelled'>
+    | null
     | undefined
-  email?: Array<string> | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  endDateFrom?: string | undefined
-  endDateTo?: string | undefined
-  startDateFrom?: string | undefined
-  startDateTo?: string | undefined
-  metadata?: Array<string> | undefined
+  email?: Array<string> | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  endDateFrom?: string | null | undefined
+  endDateTo?: string | null | undefined
+  startDateFrom?: string | null | undefined
+  startDateTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
   columns: ColumnsList<TenancyModel>
 }
 export const getuseTenanciesTableColumn = (property: string, modelConfig: ModelConfig<TenancyModel>) => {

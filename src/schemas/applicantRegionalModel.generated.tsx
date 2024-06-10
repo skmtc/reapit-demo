@@ -4,8 +4,8 @@ import { applicantGuernseyModel, ApplicantGuernseyModel } from '@/schemas/applic
 /** Details relating to the real estate market in specific countries. Child models are named based on the ISO3166 country code that the data inside the model relates to */
 export const applicantRegionalModel =
   /** Details relating to the real estate market in specific countries. Child models are named based on the ISO3166 country code that the data inside the model relates to */
-  z.object({ ggy: applicantGuernseyModel.optional() })
+  z.object({ ggy: applicantGuernseyModel.optional().nullable() })
 /** Details relating to the real estate market in specific countries. Child models are named based on the ISO3166 country code that the data inside the model relates to */
 export type ApplicantRegionalModel =
   /** Details relating to the real estate market in specific countries. Child models are named based on the ISO3166 country code that the data inside the model relates to */
-  { ggy?: ApplicantGuernseyModel | undefined }
+  { ggy?: ApplicantGuernseyModel | null | undefined }

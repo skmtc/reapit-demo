@@ -6,24 +6,24 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiCompaniesFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  embed?: Array<'companyTypes' | 'relationships'> | undefined
-  id?: Array<string> | undefined
-  address?: string | undefined
-  branch?: string | undefined
-  name?: string | undefined
-  typeId?: string | undefined
-  negotiatorId?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  contactDetail?: Array<string> | undefined
-  fromArchive?: boolean | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'companyTypes' | 'relationships'> | null | undefined
+  id?: Array<string> | null | undefined
+  address?: string | null | undefined
+  branch?: string | null | undefined
+  name?: string | null | undefined
+  typeId?: string | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  contactDetail?: Array<string> | null | undefined
+  fromArchive?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
 }
 export const getApiCompaniesFn = async ({
   pageSize,

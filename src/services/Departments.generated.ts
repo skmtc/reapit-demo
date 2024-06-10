@@ -3,10 +3,10 @@ import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySeria
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 
 export type GetApiDepartmentsFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  id?: Array<string> | undefined
-  name?: string | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  id?: Array<string> | null | undefined
+  name?: string | null | undefined
 }
 export const getApiDepartmentsFn = async ({ pageSize, pageNumber, id, name }: GetApiDepartmentsFnArgs) => {
   const res = await fetch(

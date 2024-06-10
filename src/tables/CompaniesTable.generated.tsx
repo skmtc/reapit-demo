@@ -1,28 +1,28 @@
-import { companyModel, CompanyModel } from '@/schemas/companyModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiCompanies } from 'services/Companies.generated.ts'
+import { useGetApiCompanies } from '@/services/Companies.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { CompanyModel } from '@/schemas/companyModel.generated.tsx'
 
 export const useCompaniesTableColumnHelper = createColumnHelper<CompanyModel>()
 export type UseCompaniesTableArgs = {
-  sortBy?: string | undefined
-  embed?: Array<'companyTypes' | 'relationships'> | undefined
-  id?: Array<string> | undefined
-  address?: string | undefined
-  branch?: string | undefined
-  name?: string | undefined
-  typeId?: string | undefined
-  negotiatorId?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  contactDetail?: Array<string> | undefined
-  fromArchive?: boolean | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'companyTypes' | 'relationships'> | null | undefined
+  id?: Array<string> | null | undefined
+  address?: string | null | undefined
+  branch?: string | null | undefined
+  name?: string | null | undefined
+  typeId?: string | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  contactDetail?: Array<string> | null | undefined
+  fromArchive?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
   columns: ColumnsList<CompanyModel>
 }
 export const getuseCompaniesTableColumn = (property: string, modelConfig: ModelConfig<CompanyModel>) => {

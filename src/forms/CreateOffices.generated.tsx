@@ -1,5 +1,5 @@
 import { createOfficeModel, CreateOfficeModel } from '@/schemas/createOfficeModel.generated.tsx'
-import { usePostApiOffices } from 'services/Offices.generated.ts'
+import { usePostApiOffices } from '@/services/Offices.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

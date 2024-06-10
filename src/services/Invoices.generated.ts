@@ -3,20 +3,20 @@ import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySeria
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 
 export type GetApiInvoicesFnArgs = {
-  pageNumber?: number | undefined
-  pageSize?: number | undefined
-  sortBy?: string | undefined
-  negotiatorId?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  status?: Array<'pending' | 'raised' | 'partPaid' | 'partCredited' | 'credited' | 'paid'> | undefined
-  dateFrom?: string | undefined
-  dateTo?: string | undefined
-  dueDateFrom?: string | undefined
-  dueDateTo?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
+  pageNumber?: number | null | undefined
+  pageSize?: number | null | undefined
+  sortBy?: string | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  status?: Array<'pending' | 'raised' | 'partPaid' | 'partCredited' | 'credited' | 'paid'> | null | undefined
+  dateFrom?: string | null | undefined
+  dateTo?: string | null | undefined
+  dueDateFrom?: string | null | undefined
+  dueDateTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
 }
 export const getApiInvoicesFn = async ({
   pageNumber,

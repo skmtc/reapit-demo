@@ -40,8 +40,6 @@ import { TenanciesTable } from '@/examples/TenanciesTable.example.tsx'
 import { CreateTenanciesForm } from '@/examples/CreateTenanciesForm.example.tsx'
 import { TransactionsTable } from '@/examples/TransactionsTable.example.tsx'
 import { VendorsTable } from '@/examples/VendorsTable.example.tsx'
-import { RouteObject } from 'react-router-dom'
-import { GlobeAltIcon } from '@heroicons/react/24/outline'
 import { NavItem } from '@/components/Root'
 
 export const Routes = [
@@ -248,28 +246,28 @@ export const Routes = [
 ]
 export const NavLinks = () => (
   <>
-    <NavItem label="ApplicantsTable" to="/ApplicantsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="AreasTable" to="/AreasTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="AppointmentsTable" to="/AppointmentsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="CompaniesTable" to="/CompaniesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="ContactsTable" to="/ContactsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="ConveyancingTable" to="/ConveyancingTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="DepartmentsTable" to="/DepartmentsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="DocumentsTable" to="/DocumentsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="EnquiriesTable" to="/EnquiriesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="InvoicesTable" to="/InvoicesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="LandlordsTable" to="/LandlordsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="MetadataTable" to="/MetadataTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="NegotiatorsTable" to="/NegotiatorsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="OffersTable" to="/OffersTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="OfficesTable" to="/OfficesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="PropertiesTable" to="/PropertiesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="ReferralsTable" to="/ReferralsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="ResthooksTable" to="/ResthooksTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="SourcesTable" to="/SourcesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="TasksTable" to="/TasksTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="TenanciesTable" to="/TenanciesTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="TransactionsTable" to="/TransactionsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
-    <NavItem label="VendorsTable" to="/VendorsTable" icon={<GlobeAltIcon width="24px" height="24px" />} />
+    <NavItem label="Applicants" to="/applicants" />
+    <NavItem label="Areas" to="/areas" />
+    <NavItem label="Appointments" to="/appointments" />
+    <NavItem label="Companies" to="/companies" />
+    <NavItem label="Contacts" to="/contacts" />
+    <NavItem label="Conveyancing" to="/conveyancing" />
+    <NavItem label="Departments" to="/departments" />
+    <NavItem label="Documents" to="/documents" />
+    <NavItem label="Enquiries" to="/enquiries" />
+    <NavItem label="Invoices" to="/invoices" />
+    <NavItem label="Landlords" to="/landlords" />
+    <NavItem label="Metadata" to="/metadata" />
+    <NavItem label="Negotiators" to="/negotiators" />
+    <NavItem label="Offers" to="/offers" />
+    <NavItem label="Offices" to="/offices" />
+    <NavItem label="Properties" to="/properties" />
+    <NavItem label="Referrals" to="/referrals" />
+    <NavItem label="Resthooks" to="/resthooks" />
+    <NavItem label="Sources" to="/sources" />
+    <NavItem label="Tasks" to="/tasks" />
+    <NavItem label="Tenancies" to="/tenancies" />
+    <NavItem label="Transactions" to="/transactions" />
+    <NavItem label="Vendors" to="/vendors" />
   </>
 )

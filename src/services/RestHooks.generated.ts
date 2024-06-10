@@ -6,10 +6,10 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiResthooksFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  active?: boolean | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  active?: boolean | null | undefined
 }
 export const getApiResthooksFn = async ({ pageSize, pageNumber, sortBy, active }: GetApiResthooksFnArgs) => {
   const res = await fetch(

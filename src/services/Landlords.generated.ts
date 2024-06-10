@@ -6,22 +6,22 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiLandlordsFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  embed?: Array<'appointments' | 'documents' | 'office' | 'properties' | 'solicitor' | 'source'> | undefined
-  id?: Array<string> | undefined
-  email?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  extrasField?: Array<string> | undefined
-  active?: boolean | undefined
-  address?: string | undefined
-  name?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'appointments' | 'documents' | 'office' | 'properties' | 'solicitor' | 'source'> | null | undefined
+  id?: Array<string> | null | undefined
+  email?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  extrasField?: Array<string> | null | undefined
+  active?: boolean | null | undefined
+  address?: string | null | undefined
+  name?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
 }
 export const getApiLandlordsFn = async ({
   pageSize,

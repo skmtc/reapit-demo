@@ -1,25 +1,25 @@
-import { officeModel, OfficeModel } from '@/schemas/officeModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiOffices } from 'services/Offices.generated.ts'
+import { useGetApiOffices } from '@/services/Offices.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { OfficeModel } from '@/schemas/officeModel.generated.tsx'
 
 export const useOfficesTableColumnHelper = createColumnHelper<OfficeModel>()
 export type UseOfficesTableArgs = {
-  sortBy?: string | undefined
-  embed?: Array<'negotiators'> | undefined
-  id?: Array<string> | undefined
-  address?: string | undefined
-  name?: string | undefined
-  region?: string | undefined
-  active?: boolean | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
-  extrasField?: Array<string> | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'negotiators'> | null | undefined
+  id?: Array<string> | null | undefined
+  address?: string | null | undefined
+  name?: string | null | undefined
+  region?: string | null | undefined
+  active?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  extrasField?: Array<string> | null | undefined
   columns: ColumnsList<OfficeModel>
 }
 export const getuseOfficesTableColumn = (property: string, modelConfig: ModelConfig<OfficeModel>) => {

@@ -6,9 +6,9 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiPropertiesFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
   embed?:
     | Array<
         | 'appointments'
@@ -25,17 +25,19 @@ export type GetApiPropertiesFnArgs = {
         | 'tenancies'
         | 'vendor'
       >
+    | null
     | undefined
-  id?: Array<string> | undefined
-  age?: Array<'period' | 'new' | 'modern' | 'old'> | undefined
+  id?: Array<string> | null | undefined
+  age?: Array<'period' | 'new' | 'modern' | 'old'> | null | undefined
   agentRole?:
     | Array<
         'managed' | 'rentCollection' | 'collectFirstPayment' | 'collectRentToDate' | 'lettingOnly' | 'introducingTenant'
       >
+    | null
     | undefined
-  areaId?: Array<string> | undefined
-  excludeAreaId?: Array<string> | undefined
-  landlordId?: Array<string> | undefined
+  areaId?: Array<string> | null | undefined
+  excludeAreaId?: Array<string> | null | undefined
+  landlordId?: Array<string> | null | undefined
   lettingStatus?:
     | Array<
         | 'valuation'
@@ -55,16 +57,18 @@ export type GetApiPropertiesFnArgs = {
         | 'provisional'
         | 'withdrawn'
       >
+    | null
     | undefined
-  locality?: Array<'rural' | 'village' | 'townCity'> | undefined
-  marketingMode?: Array<'selling' | 'letting' | 'sellingAndLetting'> | undefined
-  masterId?: Array<string> | undefined
-  negotiatorId?: Array<string> | undefined
-  officeId?: Array<string> | undefined
+  locality?: Array<'rural' | 'village' | 'townCity'> | null | undefined
+  marketingMode?: Array<'selling' | 'letting' | 'sellingAndLetting'> | null | undefined
+  masterId?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
   parking?:
     | Array<
         'residents' | 'offStreet' | 'secure' | 'underground' | 'garage' | 'doubleGarage' | 'tripleGarage' | 'carport'
       >
+    | null
     | undefined
   sellingStatus?:
     | Array<
@@ -81,11 +85,13 @@ export type GetApiPropertiesFnArgs = {
         | 'soldExternally'
         | 'withdrawn'
       >
+    | null
     | undefined
   situation?:
     | Array<
         'garden' | 'land' | 'patio' | 'roofTerrace' | 'conservatory' | 'balcony' | 'communalGardens' | 'outsideSpace'
       >
+    | null
     | undefined
   style?:
     | Array<
@@ -104,6 +110,7 @@ export type GetApiPropertiesFnArgs = {
         | 'penthouse'
         | 'duplex'
       >
+    | null
     | undefined
   type?:
     | Array<
@@ -118,29 +125,30 @@ export type GetApiPropertiesFnArgs = {
         | 'townhouse'
         | 'developmentPlot'
       >
+    | null
     | undefined
-  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | undefined
-  address?: string | undefined
-  countryId?: string | undefined
-  departmentId?: string | undefined
-  bedroomsFrom?: number | undefined
-  bedroomsTo?: number | undefined
-  priceFrom?: number | undefined
-  priceTo?: number | undefined
-  priceFiltersCurrency?: string | undefined
-  rentFrom?: number | undefined
-  rentTo?: number | undefined
-  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | undefined
-  internetAdvertising?: boolean | undefined
-  isExternal?: boolean | undefined
-  fromArchive?: boolean | undefined
-  availableFrom?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
-  extrasField?: Array<string> | undefined
+  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | null | undefined
+  address?: string | null | undefined
+  countryId?: string | null | undefined
+  departmentId?: string | null | undefined
+  bedroomsFrom?: number | null | undefined
+  bedroomsTo?: number | null | undefined
+  priceFrom?: number | null | undefined
+  priceTo?: number | null | undefined
+  priceFiltersCurrency?: string | null | undefined
+  rentFrom?: number | null | undefined
+  rentTo?: number | null | undefined
+  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | null | undefined
+  internetAdvertising?: boolean | null | undefined
+  isExternal?: boolean | null | undefined
+  fromArchive?: boolean | null | undefined
+  availableFrom?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  extrasField?: Array<string> | null | undefined
 }
 export const getApiPropertiesFn = async ({
   pageSize,

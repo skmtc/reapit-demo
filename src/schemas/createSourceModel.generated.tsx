@@ -7,9 +7,9 @@ export const createSourceModel =
     /** The name of the source or advertising publication */ name: z.string(),
     /** The type of the source (source/advertisement) */ type: z.string(),
     /** A collection of the unique identifiers of offices that regularly get business from the source */
-    officeIds: z.array(z.string()).optional(),
+    officeIds: z.array(z.string()).optional().nullable(),
     /** A collection of unique identifiers of departments that regularly get business from the source */
-    departmentIds: z.array(z.string()).optional(),
+    departmentIds: z.array(z.string()).optional().nullable(),
   })
 /** Request body used to create a new source of business */
 export type CreateSourceModel =
@@ -17,8 +17,14 @@ export type CreateSourceModel =
   {
     name: /** The name of the source or advertising publication */ string
     type: /** The type of the source (source/advertisement) */ string
-    officeIds?: /** A collection of the unique identifiers of offices that regularly get business from the source */
-    Array<string> | undefined
-    departmentIds?: /** A collection of unique identifiers of departments that regularly get business from the source */
-    Array<string> | undefined
+    officeIds?:
+      | /** A collection of the unique identifiers of offices that regularly get business from the source */
+      Array<string>
+      | null
+      | undefined
+    departmentIds?:
+      | /** A collection of unique identifiers of departments that regularly get business from the source */
+      Array<string>
+      | null
+      | undefined
   }

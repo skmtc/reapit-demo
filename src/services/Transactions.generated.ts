@@ -3,14 +3,14 @@ import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySeria
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 
 export type GetApiTransactionsFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  id?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  landlordId?: Array<string> | undefined
-  tenancyId?: Array<string> | undefined
-  status?: Array<'awaitingAuthorisation' | 'awaitingPosting' | 'posted' | 'rejected'> | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  landlordId?: Array<string> | null | undefined
+  tenancyId?: Array<string> | null | undefined
+  status?: Array<'awaitingAuthorisation' | 'awaitingPosting' | 'posted' | 'rejected'> | null | undefined
   type?:
     | Array<
         | 'creditAdjustment'
@@ -30,8 +30,9 @@ export type GetApiTransactionsFnArgs = {
         | 'reserveFunds'
         | 'transfer'
       >
+    | null
     | undefined
-  ledger?: Array<'landlord' | 'tenant' | 'vendor'> | undefined
+  ledger?: Array<'landlord' | 'tenant' | 'vendor'> | null | undefined
   category?:
     | Array<
         | 'advertisingCharge'
@@ -89,13 +90,14 @@ export type GetApiTransactionsFnArgs = {
         | 'vendorToSupplierPayment'
         | 'worksOrderPayment'
       >
+    | null
     | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  outstandingFrom?: number | undefined
-  outstandingTo?: number | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  outstandingFrom?: number | null | undefined
+  outstandingTo?: number | null | undefined
 }
 export const getApiTransactionsFn = async ({
   pageSize,

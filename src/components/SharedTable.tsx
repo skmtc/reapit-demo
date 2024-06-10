@@ -1,8 +1,8 @@
 import { flexRender, Table } from '@tanstack/react-table'
-import { useReducer } from 'react'
+// import { useReducer } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { default as MuiTable } from '@mui/joy/Table'
-import { Pagination, type Embedded } from '@/components/Pagination'
+import { type Embedded } from '@/components/Pagination'
 import Box from '@mui/joy/Box'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,7 +15,7 @@ export const SharedTable = <Model, Response extends Embedded<Model>>({
   table,
   dataQuery,
 }: SharedTableProps<Model, Response>) => {
-  const rerender = useReducer(() => ({}), {})[1]
+  // const rerender = useReducer(() => ({}), {})[1]
   const navigate = useNavigate()
 
   return (
@@ -57,7 +57,6 @@ export const SharedTable = <Model, Response extends Embedded<Model>>({
           ))}
         </tbody>
       </MuiTable>
-      <Pagination table={table} dataQuery={dataQuery} rerender={rerender} />
     </Box>
   )
 }

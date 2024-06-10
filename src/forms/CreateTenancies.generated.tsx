@@ -1,5 +1,5 @@
 import { createTenancyModel, CreateTenancyModel } from '@/schemas/createTenancyModel.generated.tsx'
-import { usePostApiTenancies } from 'services/Tenancies.generated.ts'
+import { usePostApiTenancies } from '@/services/Tenancies.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

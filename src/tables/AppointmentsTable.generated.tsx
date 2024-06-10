@@ -1,34 +1,34 @@
-import { appointmentModel, AppointmentModel } from '@/schemas/appointmentModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiAppointments } from 'services/Appointments.generated.ts'
+import { useGetApiAppointments } from '@/services/Appointments.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { AppointmentModel } from '@/schemas/appointmentModel.generated.tsx'
 
 export const useAppointmentsTableColumnHelper = createColumnHelper<AppointmentModel>()
 export type UseAppointmentsTableArgs = {
-  sortBy?: string | undefined
-  embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | undefined
-  id?: Array<string> | undefined
-  typeId?: Array<string> | undefined
-  negotiatorId?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  propertyId?: Array<string> | undefined
-  attendeeId?: Array<string> | undefined
-  attendeeType?: Array<'applicant' | 'contact' | 'landlord' | 'tenancy'> | undefined
-  start?: string | undefined
-  end?: string | undefined
-  includeCancelled?: boolean | undefined
-  includeUnconfirmed?: boolean | undefined
-  fromArchive?: boolean | undefined
-  followUpFrom?: string | undefined
-  followUpTo?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  extrasField?: Array<string> | undefined
-  metadata?: Array<string> | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | null | undefined
+  id?: Array<string> | null | undefined
+  typeId?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  attendeeId?: Array<string> | null | undefined
+  attendeeType?: Array<'applicant' | 'contact' | 'landlord' | 'tenancy'> | null | undefined
+  start?: string | null | undefined
+  end?: string | null | undefined
+  includeCancelled?: boolean | null | undefined
+  includeUnconfirmed?: boolean | null | undefined
+  fromArchive?: boolean | null | undefined
+  followUpFrom?: string | null | undefined
+  followUpTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  extrasField?: Array<string> | null | undefined
+  metadata?: Array<string> | null | undefined
   columns: ColumnsList<AppointmentModel>
 }
 export const getuseAppointmentsTableColumn = (property: string, modelConfig: ModelConfig<AppointmentModel>) => {

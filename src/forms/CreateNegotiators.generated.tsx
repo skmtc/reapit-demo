@@ -1,5 +1,5 @@
 import { createNegotiatorModel, CreateNegotiatorModel } from '@/schemas/createNegotiatorModel.generated.tsx'
-import { usePostApiNegotiators } from 'services/Negotiators.generated.ts'
+import { usePostApiNegotiators } from '@/services/Negotiators.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

@@ -17,80 +17,115 @@ import {
 export const propertySellingModel =
   /** Representation of property details specific to sales marketing */
   z.object({
-    /** The date that the property was marked as for sale */ instructed: z.string().optional(),
-    /** The marketing price of the property */ price: z.number().optional(),
-    /** The maximum price of a property on the development plot */ priceTo: z.number().optional(),
+    /** The date that the property was marked as for sale */ instructed: z.string().optional().nullable(),
+    /** The marketing price of the property */ price: z.number().optional().nullable(),
+    /** The maximum price of a property on the development plot */ priceTo: z.number().optional().nullable(),
     /** The fee charged by the agent to reserve a property (typically a new build) */
-    reservationFee: z.number().int().optional(),
+    reservationFee: z.number().int().optional().nullable(),
     /** The price qualifier (askingPrice/priceOnApplication/guidePrice/offersInRegion/offersOver/offersInExcess/fixedPrice/priceReducedTo) */
-    qualifier: z.string().optional(),
+    qualifier: z.string().optional().nullable(),
     /** The current status of the sale (preAppraisal/valuation/paidValuation/forSale/forSaleUnavailable/underOffer/underOfferUnavailable/reserved/exchanged/completed/soldExternally/withdrawn) */
-    status: z.string().optional(),
+    status: z.string().optional().nullable(),
     /** The method used to sell the property (auction/confidential/tender/offersInvited/privateTreaty/sharedOwnership) */
-    disposal: z.string().optional(),
-    /** The date the property sale was completed */ completed: z.string().optional(),
-    /** The date the property was exchanged */ exchanged: z.string().optional(),
-    /** The date the property account was paid */ accountPaid: z.string().optional(),
-    tenure: propertyTenureModel.optional(),
-    /** The unique identifier of the vendor selling the property */ vendorId: z.string().optional(),
+    disposal: z.string().optional().nullable(),
+    /** The date the property sale was completed */ completed: z.string().optional().nullable(),
+    /** The date the property was exchanged */ exchanged: z.string().optional().nullable(),
+    /** The date the property account was paid */ accountPaid: z.string().optional().nullable(),
+    tenure: propertyTenureModel.optional().nullable(),
+    /** The unique identifier of the vendor selling the property */ vendorId: z.string().optional().nullable(),
     /** The selling agency type (marketingForAssociate/clientsOnly/comparable/subAgent/jointSole/jointSoleFeeAvailable/multiple/multipleFeeAvailable/ownToSell/soleSellingRights/soleSellingRightsFeeAvailable/soleAgent/soleAgentFeeAvailable) */
-    agency: z.string().optional(),
+    agency: z.string().optional().nullable(),
     /** The unique identifier of the custom selling agency type - only applicable when Agency is not set */
-    agencyId: z.string().optional(),
-    /** The date on which the agreement between the vendor and agent expires */ agreementExpiry: z.string().optional(),
-    fee: propertyCommissionFeeModel.optional(),
+    agencyId: z.string().optional().nullable(),
+    /** The date on which the agreement between the vendor and agent expires */
+    agreementExpiry: z.string().optional().nullable(),
+    fee: propertyCommissionFeeModel.optional().nullable(),
     /** The actual fee amount to be collected by the agent - often based on the exchange price of the property */
-    exchangedCompanyFee: z.number().optional(),
-    /** The agent's recommended asking price */ recommendedPrice: z.number().int().optional(),
-    /** The agent's valuation price */ valuationPrice: z.number().int().optional(),
-    /** The unique identifier of the document used for the sales brochure */ brochureId: z.string().optional(),
+    exchangedCompanyFee: z.number().optional().nullable(),
+    /** The agent's recommended asking price */ recommendedPrice: z.number().int().optional().nullable(),
+    /** The agent's valuation price */ valuationPrice: z.number().int().optional().nullable(),
+    /** The unique identifier of the document used for the sales brochure */
+    brochureId: z.string().optional().nullable(),
     /** The URL at which the brochure can be publicly accessed when the
 property is being actively marketed */
-    publicBrochureUrl: z.string().optional(),
-    /** The price the property exchanged/sold for */ exchangedPrice: z.number().int().optional(),
-    /** The unique identifier of the office that sold the property */ exchangedOfficeId: z.string().optional(),
+    publicBrochureUrl: z.string().optional().nullable(),
+    /** The price the property exchanged/sold for */ exchangedPrice: z.number().int().optional().nullable(),
+    /** The unique identifier of the office that sold the property */
+    exchangedOfficeId: z.string().optional().nullable(),
     /** The property's decorative condition (unmodernised/fair/good/veryGood) */
-    decoration: z.array(z.string()).optional(),
-    sharedOwnership: propertySharedOwnershipModel.optional(),
-    subAgentTerms: propertySubAgentTermsModel.optional(),
+    decoration: z.array(z.string()).optional().nullable(),
+    sharedOwnership: propertySharedOwnershipModel.optional().nullable(),
+    subAgentTerms: propertySubAgentTermsModel.optional().nullable(),
   })
 /** Representation of property details specific to sales marketing */
 export type PropertySellingModel =
   /** Representation of property details specific to sales marketing */
   {
-    instructed?: /** The date that the property was marked as for sale */ string | undefined
-    price?: /** The marketing price of the property */ number | undefined
-    priceTo?: /** The maximum price of a property on the development plot */ number | undefined
-    reservationFee?: /** The fee charged by the agent to reserve a property (typically a new build) */
-    number | undefined
-    qualifier?: /** The price qualifier (askingPrice/priceOnApplication/guidePrice/offersInRegion/offersOver/offersInExcess/fixedPrice/priceReducedTo) */
-    string | undefined
-    status?: /** The current status of the sale (preAppraisal/valuation/paidValuation/forSale/forSaleUnavailable/underOffer/underOfferUnavailable/reserved/exchanged/completed/soldExternally/withdrawn) */
-    string | undefined
-    disposal?: /** The method used to sell the property (auction/confidential/tender/offersInvited/privateTreaty/sharedOwnership) */
-    string | undefined
-    completed?: /** The date the property sale was completed */ string | undefined
-    exchanged?: /** The date the property was exchanged */ string | undefined
-    accountPaid?: /** The date the property account was paid */ string | undefined
-    tenure?: PropertyTenureModel | undefined
-    vendorId?: /** The unique identifier of the vendor selling the property */ string | undefined
-    agency?: /** The selling agency type (marketingForAssociate/clientsOnly/comparable/subAgent/jointSole/jointSoleFeeAvailable/multiple/multipleFeeAvailable/ownToSell/soleSellingRights/soleSellingRightsFeeAvailable/soleAgent/soleAgentFeeAvailable) */
-    string | undefined
-    agencyId?: /** The unique identifier of the custom selling agency type - only applicable when Agency is not set */
-    string | undefined
-    agreementExpiry?: /** The date on which the agreement between the vendor and agent expires */ string | undefined
-    fee?: PropertyCommissionFeeModel | undefined
-    exchangedCompanyFee?: /** The actual fee amount to be collected by the agent - often based on the exchange price of the property */
-    number | undefined
-    recommendedPrice?: /** The agent's recommended asking price */ number | undefined
-    valuationPrice?: /** The agent's valuation price */ number | undefined
-    brochureId?: /** The unique identifier of the document used for the sales brochure */ string | undefined
-    publicBrochureUrl?: /** The URL at which the brochure can be publicly accessed when the
+    instructed?: /** The date that the property was marked as for sale */ string | null | undefined
+    price?: /** The marketing price of the property */ number | null | undefined
+    priceTo?: /** The maximum price of a property on the development plot */ number | null | undefined
+    reservationFee?:
+      | /** The fee charged by the agent to reserve a property (typically a new build) */
+      number
+      | null
+      | undefined
+    qualifier?:
+      | /** The price qualifier (askingPrice/priceOnApplication/guidePrice/offersInRegion/offersOver/offersInExcess/fixedPrice/priceReducedTo) */
+      string
+      | null
+      | undefined
+    status?:
+      | /** The current status of the sale (preAppraisal/valuation/paidValuation/forSale/forSaleUnavailable/underOffer/underOfferUnavailable/reserved/exchanged/completed/soldExternally/withdrawn) */
+      string
+      | null
+      | undefined
+    disposal?:
+      | /** The method used to sell the property (auction/confidential/tender/offersInvited/privateTreaty/sharedOwnership) */
+      string
+      | null
+      | undefined
+    completed?: /** The date the property sale was completed */ string | null | undefined
+    exchanged?: /** The date the property was exchanged */ string | null | undefined
+    accountPaid?: /** The date the property account was paid */ string | null | undefined
+    tenure?: PropertyTenureModel | null | undefined
+    vendorId?: /** The unique identifier of the vendor selling the property */ string | null | undefined
+    agency?:
+      | /** The selling agency type (marketingForAssociate/clientsOnly/comparable/subAgent/jointSole/jointSoleFeeAvailable/multiple/multipleFeeAvailable/ownToSell/soleSellingRights/soleSellingRightsFeeAvailable/soleAgent/soleAgentFeeAvailable) */
+      string
+      | null
+      | undefined
+    agencyId?:
+      | /** The unique identifier of the custom selling agency type - only applicable when Agency is not set */
+      string
+      | null
+      | undefined
+    agreementExpiry?:
+      | /** The date on which the agreement between the vendor and agent expires */
+      string
+      | null
+      | undefined
+    fee?: PropertyCommissionFeeModel | null | undefined
+    exchangedCompanyFee?:
+      | /** The actual fee amount to be collected by the agent - often based on the exchange price of the property */
+      number
+      | null
+      | undefined
+    recommendedPrice?: /** The agent's recommended asking price */ number | null | undefined
+    valuationPrice?: /** The agent's valuation price */ number | null | undefined
+    brochureId?: /** The unique identifier of the document used for the sales brochure */ string | null | undefined
+    publicBrochureUrl?:
+      | /** The URL at which the brochure can be publicly accessed when the
 property is being actively marketed */
-    string | undefined
-    exchangedPrice?: /** The price the property exchanged/sold for */ number | undefined
-    exchangedOfficeId?: /** The unique identifier of the office that sold the property */ string | undefined
-    decoration?: /** The property's decorative condition (unmodernised/fair/good/veryGood) */ Array<string> | undefined
-    sharedOwnership?: PropertySharedOwnershipModel | undefined
-    subAgentTerms?: PropertySubAgentTermsModel | undefined
+      string
+      | null
+      | undefined
+    exchangedPrice?: /** The price the property exchanged/sold for */ number | null | undefined
+    exchangedOfficeId?: /** The unique identifier of the office that sold the property */ string | null | undefined
+    decoration?:
+      | /** The property's decorative condition (unmodernised/fair/good/veryGood) */
+      Array<string>
+      | null
+      | undefined
+    sharedOwnership?: PropertySharedOwnershipModel | null | undefined
+    subAgentTerms?: PropertySubAgentTermsModel | null | undefined
   }

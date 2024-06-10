@@ -1,14 +1,14 @@
-import { webhookModel, WebhookModel } from '@/schemas/webhookModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiResthooks } from 'services/RestHooks.generated.ts'
+import { useGetApiResthooks } from '@/services/RestHooks.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { WebhookModel } from '@/schemas/webhookModel.generated.tsx'
 
 export const useResthooksTableColumnHelper = createColumnHelper<WebhookModel>()
 export type UseResthooksTableArgs = {
-  sortBy?: string | undefined
-  active?: boolean | undefined
+  sortBy?: string | null | undefined
+  active?: boolean | null | undefined
   columns: ColumnsList<WebhookModel>
 }
 export const getuseResthooksTableColumn = (property: string, modelConfig: ModelConfig<WebhookModel>) => {

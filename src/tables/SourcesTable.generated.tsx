@@ -1,22 +1,22 @@
-import { sourceModel, SourceModel } from '@/schemas/sourceModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiSources } from 'services/Sources.generated.ts'
+import { useGetApiSources } from '@/services/Sources.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { SourceModel } from '@/schemas/sourceModel.generated.tsx'
 
 export const useSourcesTableColumnHelper = createColumnHelper<SourceModel>()
 export type UseSourcesTableArgs = {
-  sortBy?: string | undefined
-  id?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  departmentId?: Array<string> | undefined
-  name?: string | undefined
-  type?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  departmentId?: Array<string> | null | undefined
+  name?: string | null | undefined
+  type?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
   columns: ColumnsList<SourceModel>
 }
 export const getuseSourcesTableColumn = (property: string, modelConfig: ModelConfig<SourceModel>) => {

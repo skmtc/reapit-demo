@@ -1,5 +1,5 @@
 import { createReferralModel, CreateReferralModel } from '@/schemas/createReferralModel.generated.tsx'
-import { usePostApiReferrals } from 'services/Referrals.generated.ts'
+import { usePostApiReferrals } from '@/services/Referrals.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

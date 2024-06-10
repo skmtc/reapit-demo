@@ -6,29 +6,32 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiContactsFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  embed?: Array<'documents' | 'identityChecks' | 'negotiators' | 'offices' | 'relationships' | 'source'> | undefined
-  id?: Array<string> | undefined
-  contactDetail?: Array<string> | undefined
-  email?: Array<string> | undefined
-  negotiatorId?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  address?: string | undefined
-  identityCheck?: Array<'pass' | 'fail' | 'pending' | 'warnings' | 'unchecked'> | undefined
-  name?: string | undefined
-  nameType?: string | undefined
-  marketingConsent?: Array<'grant' | 'deny' | 'notAsked'> | undefined
-  marketingConsentFilterType?: Array<'assumedOrExplicit' | 'explicit'> | undefined
-  active?: boolean | undefined
-  fromArchive?: boolean | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  metadata?: Array<string> | undefined
-  extrasField?: Array<string> | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  embed?:
+    | Array<'documents' | 'identityChecks' | 'negotiators' | 'offices' | 'relationships' | 'source'>
+    | null
+    | undefined
+  id?: Array<string> | null | undefined
+  contactDetail?: Array<string> | null | undefined
+  email?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  address?: string | null | undefined
+  identityCheck?: Array<'pass' | 'fail' | 'pending' | 'warnings' | 'unchecked'> | null | undefined
+  name?: string | null | undefined
+  nameType?: string | null | undefined
+  marketingConsent?: Array<'grant' | 'deny' | 'notAsked'> | null | undefined
+  marketingConsentFilterType?: Array<'assumedOrExplicit' | 'explicit'> | null | undefined
+  active?: boolean | null | undefined
+  fromArchive?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  extrasField?: Array<string> | null | undefined
 }
 export const getApiContactsFn = async ({
   pageSize,

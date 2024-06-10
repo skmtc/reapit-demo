@@ -1,5 +1,5 @@
 import { createMetadataRequest, CreateMetadataRequest } from '@/schemas/createMetadataRequest.generated.tsx'
-import { usePostApiMetadata } from 'services/Metadata.generated.ts'
+import { usePostApiMetadata } from '@/services/Metadata.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

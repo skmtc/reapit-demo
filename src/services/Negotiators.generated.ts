@@ -6,20 +6,20 @@ import { z } from 'zod'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
 export type GetApiNegotiatorsFnArgs = {
-  pageSize?: number | undefined
-  pageNumber?: number | undefined
-  sortBy?: string | undefined
-  embed?: Array<'office'> | undefined
-  id?: Array<string> | undefined
-  officeId?: Array<string> | undefined
-  email?: string | undefined
-  name?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
-  active?: boolean | undefined
-  metadata?: Array<string> | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  embed?: Array<'office'> | null | undefined
+  id?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  email?: string | null | undefined
+  name?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  active?: boolean | null | undefined
+  metadata?: Array<string> | null | undefined
 }
 export const getApiNegotiatorsFn = async ({
   pageSize,

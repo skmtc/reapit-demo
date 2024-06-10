@@ -1,5 +1,5 @@
 import { createEnquiryModel, CreateEnquiryModel } from '@/schemas/createEnquiryModel.generated.tsx'
-import { usePostApiEnquiries } from 'services/Enquiries.generated.ts'
+import { usePostApiEnquiries } from '@/services/Enquiries.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

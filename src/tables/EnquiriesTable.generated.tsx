@@ -1,18 +1,18 @@
-import { enquiryModel, EnquiryModel } from '@/schemas/enquiryModel.generated.tsx'
 import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
 import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiEnquiries } from 'services/Enquiries.generated.ts'
+import { useGetApiEnquiries } from '@/services/Enquiries.generated.ts'
 import { useMemo, useReducer, useState } from 'react'
+import { EnquiryModel } from '@/schemas/enquiryModel.generated.tsx'
 
 export const useEnquiriesTableColumnHelper = createColumnHelper<EnquiryModel>()
 export type UseEnquiriesTableArgs = {
-  sortBy?: string | undefined
-  enquiryType?: string | undefined
-  createdFrom?: string | undefined
-  createdTo?: string | undefined
-  modifiedFrom?: string | undefined
-  modifiedTo?: string | undefined
+  sortBy?: string | null | undefined
+  enquiryType?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
   columns: ColumnsList<EnquiryModel>
 }
 export const getuseEnquiriesTableColumn = (property: string, modelConfig: ModelConfig<EnquiryModel>) => {

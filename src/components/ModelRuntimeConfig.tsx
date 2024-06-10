@@ -24,7 +24,6 @@ type UiConfig<Model extends FieldValues> = {
 export type FixedUiConfig<Model extends FieldValues> = RestoreOptional<UiConfig<Model>, Model>
 
 export const fieldsConfig = <Model extends FieldValues>(formFields: FixedUiConfig<Model>) => {
-  console.log('FormFields', formFields)
   return Object.keys(formFields)
     .filter((fieldName): fieldName is keyof FixedUiConfig<Model> => fieldName in formFields)
     .filter((fieldName) => formFields[fieldName])
