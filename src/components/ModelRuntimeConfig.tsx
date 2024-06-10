@@ -65,8 +65,6 @@ export const FieldParent = <Model extends FieldValues, Key extends KeyPath<Model
   fieldName,
   fieldConfig,
 }: FieldParentProps<Model, Key>) => {
-  console.log('FieldParent', fieldName, fieldConfig)
-
   const { Input } = fieldConfig
   return <Input fieldName={fieldName} fieldConfig={fieldConfig} />
 }

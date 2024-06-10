@@ -39,7 +39,7 @@ export const Root = () => (
 )
 
 type NavItemProps = {
-  icon: React.ReactNode
+  icon?: React.ReactNode
   label: string
   to: string
 }
