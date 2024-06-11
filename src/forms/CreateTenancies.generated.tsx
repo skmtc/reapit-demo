@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateTenanciesProps = { children: ReactNode }
+export type CreateTenanciesProps = { children: ReactNode; defaultValues?: CreateTenancyModel }
 export const CreateTenancies = (props: CreateTenanciesProps) => {
   const methods = useForm<CreateTenancyModel>({
     resolver: zodResolver(createTenancyModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiTenancies()

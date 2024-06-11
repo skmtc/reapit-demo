@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateMetadataProps = { children: ReactNode }
+export type CreateMetadataProps = { children: ReactNode; defaultValues?: CreateMetadataRequest }
 export const CreateMetadata = (props: CreateMetadataProps) => {
   const methods = useForm<CreateMetadataRequest>({
     resolver: zodResolver(createMetadataRequest),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiMetadata()

@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateReferralsProps = { children: ReactNode }
+export type CreateReferralsProps = { children: ReactNode; defaultValues?: CreateReferralModel }
 export const CreateReferrals = (props: CreateReferralsProps) => {
   const methods = useForm<CreateReferralModel>({
     resolver: zodResolver(createReferralModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiReferrals()

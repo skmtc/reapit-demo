@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateOffersProps = { children: ReactNode }
+export type CreateOffersProps = { children: ReactNode; defaultValues?: CreateOfferModel }
 export const CreateOffers = (props: CreateOffersProps) => {
   const methods = useForm<CreateOfferModel>({
     resolver: zodResolver(createOfferModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiOffers()

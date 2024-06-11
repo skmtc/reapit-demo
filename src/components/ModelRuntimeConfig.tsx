@@ -46,6 +46,7 @@ export type KeyPath<T extends FieldValues> = Extract<FieldPath<T>, keyof T>
 export type ConfigValue<Model extends FieldValues, FormPath extends KeyPath<Model>> = {
   key: FormPath
   label: string
+  defaultValue: Model[FormPath]
   Input: ComponentType<ContextInputProps<Model, FormPath>>
   format: (value: Model[FormPath]) => ReactNode
   width?: number
@@ -85,6 +86,7 @@ export const ContextInput = <Model extends FieldValues, Key extends KeyPath<Mode
       key={fieldName}
       name={fieldName}
       control={control}
+      defaultValue={fieldConfig.defaultValue}
       render={({ field, fieldState }) => (
         <FormControl error={Boolean(fieldState.error?.message)}>
           <FormLabel>{fieldConfig.label}</FormLabel>

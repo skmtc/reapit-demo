@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateNegotiatorsProps = { children: ReactNode }
+export type CreateNegotiatorsProps = { children: ReactNode; defaultValues?: CreateNegotiatorModel }
 export const CreateNegotiators = (props: CreateNegotiatorsProps) => {
   const methods = useForm<CreateNegotiatorModel>({
     resolver: zodResolver(createNegotiatorModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiNegotiators()

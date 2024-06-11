@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateSourcesProps = { children: ReactNode }
+export type CreateSourcesProps = { children: ReactNode; defaultValues?: CreateSourceModel }
 export const CreateSources = (props: CreateSourcesProps) => {
   const methods = useForm<CreateSourceModel>({
     resolver: zodResolver(createSourceModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiSources()

@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateAreasProps = { children: ReactNode }
+export type CreateAreasProps = { children: ReactNode; defaultValues?: CreateAreaModel }
 export const CreateAreas = (props: CreateAreasProps) => {
   const methods = useForm<CreateAreaModel>({
     resolver: zodResolver(createAreaModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiAreas()

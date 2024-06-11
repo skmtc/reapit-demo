@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateCompaniesProps = { children: ReactNode }
+export type CreateCompaniesProps = { children: ReactNode; defaultValues?: CreateCompanyModel }
 export const CreateCompanies = (props: CreateCompaniesProps) => {
   const methods = useForm<CreateCompanyModel>({
     resolver: zodResolver(createCompanyModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiCompanies()

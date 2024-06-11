@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateAppointmentsProps = { children: ReactNode }
+export type CreateAppointmentsProps = { children: ReactNode; defaultValues?: CreateAppointmentModel }
 export const CreateAppointments = (props: CreateAppointmentsProps) => {
   const methods = useForm<CreateAppointmentModel>({
     resolver: zodResolver(createAppointmentModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiAppointments()

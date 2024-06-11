@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateEnquiriesProps = { children: ReactNode }
+export type CreateEnquiriesProps = { children: ReactNode; defaultValues?: CreateEnquiryModel }
 export const CreateEnquiries = (props: CreateEnquiriesProps) => {
   const methods = useForm<CreateEnquiryModel>({
     resolver: zodResolver(createEnquiryModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiEnquiries()

@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateTasksProps = { children: ReactNode }
+export type CreateTasksProps = { children: ReactNode; defaultValues?: CreateTaskModel }
 export const CreateTasks = (props: CreateTasksProps) => {
   const methods = useForm<CreateTaskModel>({
     resolver: zodResolver(createTaskModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiTasks()

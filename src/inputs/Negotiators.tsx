@@ -1,17 +1,22 @@
 import { ContextInputProps, KeyPath } from '@/components/ModelRuntimeConfig'
-import { useGetApiOffices } from '@/services/Offices.generated'
+import { useGetApiNegotiators } from '@/services/Negotiators.generated'
 import { Autocomplete, Chip, ChipDelete, FormControl, FormHelperText, FormLabel } from '@mui/joy'
 import { Controller, ControllerRenderProps, FieldValues, RefCallBack, useFormContext } from 'react-hook-form'
 import AutocompleteOption from '@mui/joy/AutocompleteOption'
+import { useState } from 'react'
 
 const Input = <Model extends FieldValues, Key extends KeyPath<Model>>({
   onChange,
   inputRef,
   ...props
 }: Omit<ControllerRenderProps<Model, Key>, 'ref'> & { inputRef: RefCallBack }) => {
-  const officesResponse = useGetApiOffices({})
+  const [inputValue, setInputValue] = useState('')
 
-  const options = officesResponse.data?._embedded?.map(({ name, id }) => ({ label: name, id })) ?? []
+  console.log('inputValue', inputValue)
+
+  const negotiatorsResponse = useGetApiNegotiators({ name: inputValue })
+
+  const options = negotiatorsResponse.data?._embedded?.map(({ name, id }) => ({ label: name, id })) ?? []
 
   const merged = {
     ...props,
@@ -21,13 +26,15 @@ const Input = <Model extends FieldValues, Key extends KeyPath<Model>>({
     <Autocomplete
       {...merged}
       onChange={(_, value) => onChange(value)}
+      inputValue={inputValue}
+      onInputChange={(_, value) => setInputValue(value)}
       renderOption={(props, option) => (
         <AutocompleteOption {...props} key={option.id}>
           {option.label}
         </AutocompleteOption>
       )}
-      renderTags={(options, getTagProps) =>
-        options.map((option, index) => {
+      renderTags={(options, getTagProps) => {
+        return options.map((option, index) => {
           const { key, ...tagProps } = getTagProps({ index })
           return (
             <Chip
@@ -41,7 +48,7 @@ const Input = <Model extends FieldValues, Key extends KeyPath<Model>>({
             </Chip>
           )
         })
-      }
+      }}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       multiple
       options={options}
@@ -49,7 +56,7 @@ const Input = <Model extends FieldValues, Key extends KeyPath<Model>>({
   )
 }
 
-export const OfficesInput = <Model extends FieldValues, Key extends KeyPath<Model>>({
+export const NegotiatorsInput = <Model extends FieldValues, Key extends KeyPath<Model>>({
   fieldName,
   fieldConfig,
 }: ContextInputProps<Model, Key>) => {

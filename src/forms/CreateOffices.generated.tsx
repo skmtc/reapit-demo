@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateOfficesProps = { children: ReactNode }
+export type CreateOfficesProps = { children: ReactNode; defaultValues?: CreateOfficeModel }
 export const CreateOffices = (props: CreateOfficesProps) => {
   const methods = useForm<CreateOfficeModel>({
     resolver: zodResolver(createOfficeModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiOffices()

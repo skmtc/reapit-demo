@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateDocumentsProps = { children: ReactNode }
+export type CreateDocumentsProps = { children: ReactNode; defaultValues?: CreateDocumentModel }
 export const CreateDocuments = (props: CreateDocumentsProps) => {
   const methods = useForm<CreateDocumentModel>({
     resolver: zodResolver(createDocumentModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiDocuments()

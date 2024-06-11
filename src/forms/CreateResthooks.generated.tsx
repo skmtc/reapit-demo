@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateResthooksProps = { children: ReactNode }
+export type CreateResthooksProps = { children: ReactNode; defaultValues?: CreateWebhookModel }
 export const CreateResthooks = (props: CreateResthooksProps) => {
   const methods = useForm<CreateWebhookModel>({
     resolver: zodResolver(createWebhookModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiResthooks()

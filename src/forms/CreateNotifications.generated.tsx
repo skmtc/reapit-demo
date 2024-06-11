@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
-export type CreateNotificationsProps = { children: ReactNode }
+export type CreateNotificationsProps = { children: ReactNode; defaultValues?: CreateNotificationModel }
 export const CreateNotifications = (props: CreateNotificationsProps) => {
   const methods = useForm<CreateNotificationModel>({
     resolver: zodResolver(createNotificationModel),
+    defaultValues: props.defaultValues,
   })
 
   const mutator = usePostApiNotifications()
