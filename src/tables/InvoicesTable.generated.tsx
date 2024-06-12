@@ -1,11 +1,11 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { invoiceModelConfig } from '@/config/invoiceModelConfig.example.tsx'
 import { useGetApiInvoices } from '@/services/Invoices.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { InvoiceModel } from '@/schemas/invoiceModel.generated.tsx'
 
-export const useInvoicesTableColumnHelper = createColumnHelper<InvoiceModel>()
 export type UseInvoicesTableArgs = {
   sortBy?: string | null | undefined
   negotiatorId?: Array<string> | null | undefined
@@ -19,194 +19,96 @@ export type UseInvoicesTableArgs = {
   createdTo?: string | null | undefined
   modifiedFrom?: string | null | undefined
   modifiedTo?: string | null | undefined
-  columns: ColumnsList<InvoiceModel>
+  fieldNames: (keyof InvoiceModel)[]
 }
-export const getuseInvoicesTableColumn = (property: string, modelConfig: ModelConfig<InvoiceModel>) => {
+export const getInvoicesTableColumn = (property: string, modelConfig: ModelConfig<InvoiceModel>, row: InvoiceModel) => {
   return match(property)
-    .with('_links', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_links']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row._links, {
-        id: '_links',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_embedded', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_embedded']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('created', () => {
-      const { label: header, format, width, minWidth } = modelConfig['created']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.created, {
-        id: 'created',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('reference', () => {
-      const { label: header, format, width, minWidth } = modelConfig['reference']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.reference, {
-        id: 'reference',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('negotiatorId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.negotiatorId, {
-        id: 'negotiatorId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('propertyId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['propertyId']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.propertyId, {
-        id: 'propertyId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('description', () => {
-      const { label: header, format, width, minWidth } = modelConfig['description']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.description, {
-        id: 'description',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('status', () => {
-      const { label: header, format, width, minWidth } = modelConfig['status']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.status, {
-        id: 'status',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('date', () => {
-      const { label: header, format, width, minWidth } = modelConfig['date']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.date, {
-        id: 'date',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('dueDate', () => {
-      const { label: header, format, width, minWidth } = modelConfig['dueDate']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.dueDate, {
-        id: 'dueDate',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('isRaised', () => {
-      const { label: header, format, width, minWidth } = modelConfig['isRaised']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.isRaised, {
-        id: 'isRaised',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('netAmount', () => {
-      const { label: header, format, width, minWidth } = modelConfig['netAmount']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.netAmount, {
-        id: 'netAmount',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('vatAmount', () => {
-      const { label: header, format, width, minWidth } = modelConfig['vatAmount']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.vatAmount, {
-        id: 'vatAmount',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('outstandingAmount', () => {
-      const { label: header, format, width, minWidth } = modelConfig['outstandingAmount']
-
-      return useInvoicesTableColumnHelper.accessor((row) => row.outstandingAmount, {
-        id: 'outstandingAmount',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('reference', () => ({
+      id: 'reference',
+      label: modelConfig['reference'].label,
+      value: modelConfig['reference'].format(row['reference']),
+    }))
+    .with('negotiatorId', () => ({
+      id: 'negotiatorId',
+      label: modelConfig['negotiatorId'].label,
+      value: modelConfig['negotiatorId'].format(row['negotiatorId']),
+    }))
+    .with('propertyId', () => ({
+      id: 'propertyId',
+      label: modelConfig['propertyId'].label,
+      value: modelConfig['propertyId'].format(row['propertyId']),
+    }))
+    .with('description', () => ({
+      id: 'description',
+      label: modelConfig['description'].label,
+      value: modelConfig['description'].format(row['description']),
+    }))
+    .with('status', () => ({
+      id: 'status',
+      label: modelConfig['status'].label,
+      value: modelConfig['status'].format(row['status']),
+    }))
+    .with('date', () => ({
+      id: 'date',
+      label: modelConfig['date'].label,
+      value: modelConfig['date'].format(row['date']),
+    }))
+    .with('dueDate', () => ({
+      id: 'dueDate',
+      label: modelConfig['dueDate'].label,
+      value: modelConfig['dueDate'].format(row['dueDate']),
+    }))
+    .with('isRaised', () => ({
+      id: 'isRaised',
+      label: modelConfig['isRaised'].label,
+      value: modelConfig['isRaised'].format(row['isRaised']),
+    }))
+    .with('netAmount', () => ({
+      id: 'netAmount',
+      label: modelConfig['netAmount'].label,
+      value: modelConfig['netAmount'].format(row['netAmount']),
+    }))
+    .with('vatAmount', () => ({
+      id: 'vatAmount',
+      label: modelConfig['vatAmount'].label,
+      value: modelConfig['vatAmount'].format(row['vatAmount']),
+    }))
+    .with('outstandingAmount', () => ({
+      id: 'outstandingAmount',
+      label: modelConfig['outstandingAmount'].label,
+      value: modelConfig['outstandingAmount'].format(row['outstandingAmount']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const useInvoicesTable = (args: UseInvoicesTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -217,22 +119,12 @@ export const useInvoicesTable = (args: UseInvoicesTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof InvoiceModel => c in row)
+        .map((fieldName) => getInvoicesTableColumn(fieldName, invoiceModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

@@ -1,23 +1,9 @@
-import { z } from 'zod'
 import {
-  officeAddressGeolocationModel,
   OfficeAddressGeolocationModel,
+  officeAddressGeolocationModel,
 } from '@/schemas/officeAddressGeolocationModel.generated.tsx'
+import { z } from 'zod'
 
-/** Representation of the physical address of a building or premise */
-export const officeAddressModel =
-  /** Representation of the physical address of a building or premise */
-  z.object({
-    /** The building name */ buildingName: z.string().optional().nullable(),
-    /** The building number */ buildingNumber: z.string().optional().nullable(),
-    /** The first line of the address */ line1: z.string().optional().nullable(),
-    /** The second line of the address */ line2: z.string().optional().nullable(),
-    /** The third line of the address */ line3: z.string().optional().nullable(),
-    /** The fourth line of the address */ line4: z.string().optional().nullable(),
-    /** The postcode */ postcode: z.string().optional().nullable(),
-    /** The ISO-3166 country code that the address resides within */ countryId: z.string().optional().nullable(),
-    geolocation: officeAddressGeolocationModel.optional().nullable(),
-  })
 /** Representation of the physical address of a building or premise */
 export type OfficeAddressModel =
   /** Representation of the physical address of a building or premise */
@@ -32,3 +18,17 @@ export type OfficeAddressModel =
     countryId?: /** The ISO-3166 country code that the address resides within */ string | null | undefined
     geolocation?: OfficeAddressGeolocationModel | null | undefined
   }
+/** Representation of the physical address of a building or premise */
+export const officeAddressModel =
+  /** Representation of the physical address of a building or premise */
+  z.object({
+    /** The building name */ buildingName: z.string().optional().nullable(),
+    /** The building number */ buildingNumber: z.string().optional().nullable(),
+    /** The first line of the address */ line1: z.string().optional().nullable(),
+    /** The second line of the address */ line2: z.string().optional().nullable(),
+    /** The third line of the address */ line3: z.string().optional().nullable(),
+    /** The fourth line of the address */ line4: z.string().optional().nullable(),
+    /** The postcode */ postcode: z.string().optional().nullable(),
+    /** The ISO-3166 country code that the address resides within */ countryId: z.string().optional().nullable(),
+    geolocation: officeAddressGeolocationModel.optional().nullable(),
+  })

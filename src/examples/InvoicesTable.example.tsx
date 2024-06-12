@@ -1,7 +1,6 @@
-import { useInvoicesTable, getuseInvoicesTableColumn } from '@/tables/InvoicesTable.generated.tsx'
-import { invoiceModelConfig } from '@/config/invoiceModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useInvoicesTable } from '@/tables/InvoicesTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -27,12 +26,10 @@ export const fieldNames = fieldsConfig<InvoiceModel>({
   outstandingAmount: true,
 })
 export const InvoicesTable = () => {
-  const columns: ColumnsList<InvoiceModel> = fieldNames.map((col) => getuseInvoicesTableColumn(col, invoiceModelConfig))
-
-  const { table, dataQuery } = useInvoicesTable({ columns })
+  const { rows } = useInvoicesTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useInvoicesTable</Typography>
         <Button
@@ -48,7 +45,9 @@ export const InvoicesTable = () => {
           Create invoice
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

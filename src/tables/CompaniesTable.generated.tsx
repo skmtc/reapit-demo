@@ -1,11 +1,11 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { companyModelConfig } from '@/config/companyModelConfig.example.tsx'
 import { useGetApiCompanies } from '@/services/Companies.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { CompanyModel } from '@/schemas/companyModel.generated.tsx'
 
-export const useCompaniesTableColumnHelper = createColumnHelper<CompanyModel>()
 export type UseCompaniesTableArgs = {
   sortBy?: string | null | undefined
   embed?: Array<'companyTypes' | 'relationships'> | null | undefined
@@ -23,348 +23,170 @@ export type UseCompaniesTableArgs = {
   modifiedFrom?: string | null | undefined
   modifiedTo?: string | null | undefined
   metadata?: Array<string> | null | undefined
-  columns: ColumnsList<CompanyModel>
+  fieldNames: (keyof CompanyModel)[]
 }
-export const getuseCompaniesTableColumn = (property: string, modelConfig: ModelConfig<CompanyModel>) => {
+export const getCompaniesTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<CompanyModel>,
+  row: CompanyModel,
+) => {
   return match(property)
-    .with('_links', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_links']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row._links, {
-        id: '_links',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_embedded', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_embedded']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('created', () => {
-      const { label: header, format, width, minWidth } = modelConfig['created']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.created, {
-        id: 'created',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('name', () => {
-      const { label: header, format, width, minWidth } = modelConfig['name']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.name, {
-        id: 'name',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('branch', () => {
-      const { label: header, format, width, minWidth } = modelConfig['branch']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.branch, {
-        id: 'branch',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('notes', () => {
-      const { label: header, format, width, minWidth } = modelConfig['notes']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.notes, {
-        id: 'notes',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('active', () => {
-      const { label: header, format, width, minWidth } = modelConfig['active']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.active, {
-        id: 'active',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('marketingConsent', () => {
-      const { label: header, format, width, minWidth } = modelConfig['marketingConsent']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.marketingConsent, {
-        id: 'marketingConsent',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('vatRegistered', () => {
-      const { label: header, format, width, minWidth } = modelConfig['vatRegistered']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.vatRegistered, {
-        id: 'vatRegistered',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('typeIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['typeIds']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.typeIds, {
-        id: 'typeIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('supplierTypeId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['supplierTypeId']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.supplierTypeId, {
-        id: 'supplierTypeId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('workPhone', () => {
-      const { label: header, format, width, minWidth } = modelConfig['workPhone']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.workPhone, {
-        id: 'workPhone',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('mobilePhone', () => {
-      const { label: header, format, width, minWidth } = modelConfig['mobilePhone']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.mobilePhone, {
-        id: 'mobilePhone',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('email', () => {
-      const { label: header, format, width, minWidth } = modelConfig['email']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.email, {
-        id: 'email',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('archivedOn', () => {
-      const { label: header, format, width, minWidth } = modelConfig['archivedOn']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.archivedOn, {
-        id: 'archivedOn',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('fromArchive', () => {
-      const { label: header, format, width, minWidth } = modelConfig['fromArchive']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.fromArchive, {
-        id: 'fromArchive',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('address', () => {
-      const { label: header, format, width, minWidth } = modelConfig['address']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.address, {
-        id: 'address',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('payments', () => {
-      const { label: header, format, width, minWidth } = modelConfig['payments']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.payments, {
-        id: 'payments',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('additionalContactDetails', () => {
-      const { label: header, format, width, minWidth } = modelConfig['additionalContactDetails']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.additionalContactDetails, {
-        id: 'additionalContactDetails',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('officeIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['officeIds']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.officeIds, {
-        id: 'officeIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('negotiatorIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['negotiatorIds']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.negotiatorIds, {
-        id: 'negotiatorIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('communicationPreferenceLetter', () => {
-      const { label: header, format, width, minWidth } = modelConfig['communicationPreferenceLetter']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.communicationPreferenceLetter, {
-        id: 'communicationPreferenceLetter',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('communicationPreferenceEmail', () => {
-      const { label: header, format, width, minWidth } = modelConfig['communicationPreferenceEmail']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.communicationPreferenceEmail, {
-        id: 'communicationPreferenceEmail',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('communicationPreferencePhone', () => {
-      const { label: header, format, width, minWidth } = modelConfig['communicationPreferencePhone']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.communicationPreferencePhone, {
-        id: 'communicationPreferencePhone',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('communicationPreferenceSms', () => {
-      const { label: header, format, width, minWidth } = modelConfig['communicationPreferenceSms']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.communicationPreferenceSms, {
-        id: 'communicationPreferenceSms',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('metadata', () => {
-      const { label: header, format, width, minWidth } = modelConfig['metadata']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.metadata, {
-        id: 'metadata',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_eTag', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_eTag']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row._eTag, {
-        id: '_eTag',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('relationships', () => {
-      const { label: header, format, width, minWidth } = modelConfig['relationships']
-
-      return useCompaniesTableColumnHelper.accessor((row) => row.relationships, {
-        id: 'relationships',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('name', () => ({
+      id: 'name',
+      label: modelConfig['name'].label,
+      value: modelConfig['name'].format(row['name']),
+    }))
+    .with('branch', () => ({
+      id: 'branch',
+      label: modelConfig['branch'].label,
+      value: modelConfig['branch'].format(row['branch']),
+    }))
+    .with('notes', () => ({
+      id: 'notes',
+      label: modelConfig['notes'].label,
+      value: modelConfig['notes'].format(row['notes']),
+    }))
+    .with('active', () => ({
+      id: 'active',
+      label: modelConfig['active'].label,
+      value: modelConfig['active'].format(row['active']),
+    }))
+    .with('marketingConsent', () => ({
+      id: 'marketingConsent',
+      label: modelConfig['marketingConsent'].label,
+      value: modelConfig['marketingConsent'].format(row['marketingConsent']),
+    }))
+    .with('vatRegistered', () => ({
+      id: 'vatRegistered',
+      label: modelConfig['vatRegistered'].label,
+      value: modelConfig['vatRegistered'].format(row['vatRegistered']),
+    }))
+    .with('typeIds', () => ({
+      id: 'typeIds',
+      label: modelConfig['typeIds'].label,
+      value: modelConfig['typeIds'].format(row['typeIds']),
+    }))
+    .with('supplierTypeId', () => ({
+      id: 'supplierTypeId',
+      label: modelConfig['supplierTypeId'].label,
+      value: modelConfig['supplierTypeId'].format(row['supplierTypeId']),
+    }))
+    .with('workPhone', () => ({
+      id: 'workPhone',
+      label: modelConfig['workPhone'].label,
+      value: modelConfig['workPhone'].format(row['workPhone']),
+    }))
+    .with('mobilePhone', () => ({
+      id: 'mobilePhone',
+      label: modelConfig['mobilePhone'].label,
+      value: modelConfig['mobilePhone'].format(row['mobilePhone']),
+    }))
+    .with('email', () => ({
+      id: 'email',
+      label: modelConfig['email'].label,
+      value: modelConfig['email'].format(row['email']),
+    }))
+    .with('archivedOn', () => ({
+      id: 'archivedOn',
+      label: modelConfig['archivedOn'].label,
+      value: modelConfig['archivedOn'].format(row['archivedOn']),
+    }))
+    .with('fromArchive', () => ({
+      id: 'fromArchive',
+      label: modelConfig['fromArchive'].label,
+      value: modelConfig['fromArchive'].format(row['fromArchive']),
+    }))
+    .with('address', () => ({
+      id: 'address',
+      label: modelConfig['address'].label,
+      value: modelConfig['address'].format(row['address']),
+    }))
+    .with('payments', () => ({
+      id: 'payments',
+      label: modelConfig['payments'].label,
+      value: modelConfig['payments'].format(row['payments']),
+    }))
+    .with('additionalContactDetails', () => ({
+      id: 'additionalContactDetails',
+      label: modelConfig['additionalContactDetails'].label,
+      value: modelConfig['additionalContactDetails'].format(row['additionalContactDetails']),
+    }))
+    .with('officeIds', () => ({
+      id: 'officeIds',
+      label: modelConfig['officeIds'].label,
+      value: modelConfig['officeIds'].format(row['officeIds']),
+    }))
+    .with('negotiatorIds', () => ({
+      id: 'negotiatorIds',
+      label: modelConfig['negotiatorIds'].label,
+      value: modelConfig['negotiatorIds'].format(row['negotiatorIds']),
+    }))
+    .with('communicationPreferenceLetter', () => ({
+      id: 'communicationPreferenceLetter',
+      label: modelConfig['communicationPreferenceLetter'].label,
+      value: modelConfig['communicationPreferenceLetter'].format(row['communicationPreferenceLetter']),
+    }))
+    .with('communicationPreferenceEmail', () => ({
+      id: 'communicationPreferenceEmail',
+      label: modelConfig['communicationPreferenceEmail'].label,
+      value: modelConfig['communicationPreferenceEmail'].format(row['communicationPreferenceEmail']),
+    }))
+    .with('communicationPreferencePhone', () => ({
+      id: 'communicationPreferencePhone',
+      label: modelConfig['communicationPreferencePhone'].label,
+      value: modelConfig['communicationPreferencePhone'].format(row['communicationPreferencePhone']),
+    }))
+    .with('communicationPreferenceSms', () => ({
+      id: 'communicationPreferenceSms',
+      label: modelConfig['communicationPreferenceSms'].label,
+      value: modelConfig['communicationPreferenceSms'].format(row['communicationPreferenceSms']),
+    }))
+    .with('metadata', () => ({
+      id: 'metadata',
+      label: modelConfig['metadata'].label,
+      value: modelConfig['metadata'].format(row['metadata']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
+    .with('relationships', () => ({
+      id: 'relationships',
+      label: modelConfig['relationships'].label,
+      value: modelConfig['relationships'].format(row['relationships']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const useCompaniesTable = (args: UseCompaniesTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -375,22 +197,12 @@ export const useCompaniesTable = (args: UseCompaniesTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof CompanyModel => c in row)
+        .map((fieldName) => getCompaniesTableColumn(fieldName, companyModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

@@ -1,7 +1,6 @@
-import { useAppointmentsTable, getuseAppointmentsTableColumn } from '@/tables/AppointmentsTable.generated.tsx'
-import { appointmentModelConfig } from '@/config/appointmentModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useAppointmentsTable } from '@/tables/AppointmentsTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -42,14 +41,10 @@ export const fieldNames = fieldsConfig<AppointmentModel>({
   _eTag: true,
 })
 export const AppointmentsTable = () => {
-  const columns: ColumnsList<AppointmentModel> = fieldNames.map((col) =>
-    getuseAppointmentsTableColumn(col, appointmentModelConfig),
-  )
-
-  const { table, dataQuery } = useAppointmentsTable({ columns })
+  const { rows } = useAppointmentsTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useAppointmentsTable</Typography>
         <Button
@@ -65,7 +60,9 @@ export const AppointmentsTable = () => {
           Create appointment
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

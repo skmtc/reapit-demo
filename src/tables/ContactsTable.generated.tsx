@@ -1,11 +1,11 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { contactModelConfig } from '@/config/contactModelConfig.example.tsx'
 import { useGetApiContacts } from '@/services/Contacts.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { ContactModel } from '@/schemas/contactModel.generated.tsx'
 
-export const useContactsTableColumnHelper = createColumnHelper<ContactModel>()
 export type UseContactsTableArgs = {
   sortBy?: string | null | undefined
   embed?:
@@ -31,392 +31,186 @@ export type UseContactsTableArgs = {
   modifiedTo?: string | null | undefined
   metadata?: Array<string> | null | undefined
   extrasField?: Array<string> | null | undefined
-  columns: ColumnsList<ContactModel>
+  fieldNames: (keyof ContactModel)[]
 }
-export const getuseContactsTableColumn = (property: string, modelConfig: ModelConfig<ContactModel>) => {
+export const getContactsTableColumn = (property: string, modelConfig: ModelConfig<ContactModel>, row: ContactModel) => {
   return match(property)
-    .with('_links', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_links']
-
-      return useContactsTableColumnHelper.accessor((row) => row._links, {
-        id: '_links',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_embedded', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_embedded']
-
-      return useContactsTableColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return useContactsTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('created', () => {
-      const { label: header, format, width, minWidth } = modelConfig['created']
-
-      return useContactsTableColumnHelper.accessor((row) => row.created, {
-        id: 'created',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return useContactsTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('title', () => {
-      const { label: header, format, width, minWidth } = modelConfig['title']
-
-      return useContactsTableColumnHelper.accessor((row) => row.title, {
-        id: 'title',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('forename', () => {
-      const { label: header, format, width, minWidth } = modelConfig['forename']
-
-      return useContactsTableColumnHelper.accessor((row) => row.forename, {
-        id: 'forename',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('surname', () => {
-      const { label: header, format, width, minWidth } = modelConfig['surname']
-
-      return useContactsTableColumnHelper.accessor((row) => row.surname, {
-        id: 'surname',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('dateOfBirth', () => {
-      const { label: header, format, width, minWidth } = modelConfig['dateOfBirth']
-
-      return useContactsTableColumnHelper.accessor((row) => row.dateOfBirth, {
-        id: 'dateOfBirth',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('active', () => {
-      const { label: header, format, width, minWidth } = modelConfig['active']
-
-      return useContactsTableColumnHelper.accessor((row) => row.active, {
-        id: 'active',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('marketingConsent', () => {
-      const { label: header, format, width, minWidth } = modelConfig['marketingConsent']
-
-      return useContactsTableColumnHelper.accessor((row) => row.marketingConsent, {
-        id: 'marketingConsent',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('identityCheck', () => {
-      const { label: header, format, width, minWidth } = modelConfig['identityCheck']
-
-      return useContactsTableColumnHelper.accessor((row) => row.identityCheck, {
-        id: 'identityCheck',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('source', () => {
-      const { label: header, format, width, minWidth } = modelConfig['source']
-
-      return useContactsTableColumnHelper.accessor((row) => row.source, {
-        id: 'source',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('homePhone', () => {
-      const { label: header, format, width, minWidth } = modelConfig['homePhone']
-
-      return useContactsTableColumnHelper.accessor((row) => row.homePhone, {
-        id: 'homePhone',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('workPhone', () => {
-      const { label: header, format, width, minWidth } = modelConfig['workPhone']
-
-      return useContactsTableColumnHelper.accessor((row) => row.workPhone, {
-        id: 'workPhone',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('mobilePhone', () => {
-      const { label: header, format, width, minWidth } = modelConfig['mobilePhone']
-
-      return useContactsTableColumnHelper.accessor((row) => row.mobilePhone, {
-        id: 'mobilePhone',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('email', () => {
-      const { label: header, format, width, minWidth } = modelConfig['email']
-
-      return useContactsTableColumnHelper.accessor((row) => row.email, {
-        id: 'email',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('archivedOn', () => {
-      const { label: header, format, width, minWidth } = modelConfig['archivedOn']
-
-      return useContactsTableColumnHelper.accessor((row) => row.archivedOn, {
-        id: 'archivedOn',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('fromArchive', () => {
-      const { label: header, format, width, minWidth } = modelConfig['fromArchive']
-
-      return useContactsTableColumnHelper.accessor((row) => row.fromArchive, {
-        id: 'fromArchive',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('primaryAddress', () => {
-      const { label: header, format, width, minWidth } = modelConfig['primaryAddress']
-
-      return useContactsTableColumnHelper.accessor((row) => row.primaryAddress, {
-        id: 'primaryAddress',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('secondaryAddress', () => {
-      const { label: header, format, width, minWidth } = modelConfig['secondaryAddress']
-
-      return useContactsTableColumnHelper.accessor((row) => row.secondaryAddress, {
-        id: 'secondaryAddress',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('workAddress', () => {
-      const { label: header, format, width, minWidth } = modelConfig['workAddress']
-
-      return useContactsTableColumnHelper.accessor((row) => row.workAddress, {
-        id: 'workAddress',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('officeIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['officeIds']
-
-      return useContactsTableColumnHelper.accessor((row) => row.officeIds, {
-        id: 'officeIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('negotiatorIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['negotiatorIds']
-
-      return useContactsTableColumnHelper.accessor((row) => row.negotiatorIds, {
-        id: 'negotiatorIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('categoryIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['categoryIds']
-
-      return useContactsTableColumnHelper.accessor((row) => row.categoryIds, {
-        id: 'categoryIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('communicationPreferenceLetter', () => {
-      const { label: header, format, width, minWidth } = modelConfig['communicationPreferenceLetter']
-
-      return useContactsTableColumnHelper.accessor((row) => row.communicationPreferenceLetter, {
-        id: 'communicationPreferenceLetter',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('communicationPreferenceEmail', () => {
-      const { label: header, format, width, minWidth } = modelConfig['communicationPreferenceEmail']
-
-      return useContactsTableColumnHelper.accessor((row) => row.communicationPreferenceEmail, {
-        id: 'communicationPreferenceEmail',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('communicationPreferencePhone', () => {
-      const { label: header, format, width, minWidth } = modelConfig['communicationPreferencePhone']
-
-      return useContactsTableColumnHelper.accessor((row) => row.communicationPreferencePhone, {
-        id: 'communicationPreferencePhone',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('communicationPreferenceSMS', () => {
-      const { label: header, format, width, minWidth } = modelConfig['communicationPreferenceSMS']
-
-      return useContactsTableColumnHelper.accessor((row) => row.communicationPreferenceSMS, {
-        id: 'communicationPreferenceSMS',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('additionalContactDetails', () => {
-      const { label: header, format, width, minWidth } = modelConfig['additionalContactDetails']
-
-      return useContactsTableColumnHelper.accessor((row) => row.additionalContactDetails, {
-        id: 'additionalContactDetails',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('metadata', () => {
-      const { label: header, format, width, minWidth } = modelConfig['metadata']
-
-      return useContactsTableColumnHelper.accessor((row) => row.metadata, {
-        id: 'metadata',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_eTag', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_eTag']
-
-      return useContactsTableColumnHelper.accessor((row) => row._eTag, {
-        id: '_eTag',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('extrasField', () => {
-      const { label: header, format, width, minWidth } = modelConfig['extrasField']
-
-      return useContactsTableColumnHelper.accessor((row) => row.extrasField, {
-        id: 'extrasField',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('relationships', () => {
-      const { label: header, format, width, minWidth } = modelConfig['relationships']
-
-      return useContactsTableColumnHelper.accessor((row) => row.relationships, {
-        id: 'relationships',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('title', () => ({
+      id: 'title',
+      label: modelConfig['title'].label,
+      value: modelConfig['title'].format(row['title']),
+    }))
+    .with('forename', () => ({
+      id: 'forename',
+      label: modelConfig['forename'].label,
+      value: modelConfig['forename'].format(row['forename']),
+    }))
+    .with('surname', () => ({
+      id: 'surname',
+      label: modelConfig['surname'].label,
+      value: modelConfig['surname'].format(row['surname']),
+    }))
+    .with('dateOfBirth', () => ({
+      id: 'dateOfBirth',
+      label: modelConfig['dateOfBirth'].label,
+      value: modelConfig['dateOfBirth'].format(row['dateOfBirth']),
+    }))
+    .with('active', () => ({
+      id: 'active',
+      label: modelConfig['active'].label,
+      value: modelConfig['active'].format(row['active']),
+    }))
+    .with('marketingConsent', () => ({
+      id: 'marketingConsent',
+      label: modelConfig['marketingConsent'].label,
+      value: modelConfig['marketingConsent'].format(row['marketingConsent']),
+    }))
+    .with('identityCheck', () => ({
+      id: 'identityCheck',
+      label: modelConfig['identityCheck'].label,
+      value: modelConfig['identityCheck'].format(row['identityCheck']),
+    }))
+    .with('source', () => ({
+      id: 'source',
+      label: modelConfig['source'].label,
+      value: modelConfig['source'].format(row['source']),
+    }))
+    .with('homePhone', () => ({
+      id: 'homePhone',
+      label: modelConfig['homePhone'].label,
+      value: modelConfig['homePhone'].format(row['homePhone']),
+    }))
+    .with('workPhone', () => ({
+      id: 'workPhone',
+      label: modelConfig['workPhone'].label,
+      value: modelConfig['workPhone'].format(row['workPhone']),
+    }))
+    .with('mobilePhone', () => ({
+      id: 'mobilePhone',
+      label: modelConfig['mobilePhone'].label,
+      value: modelConfig['mobilePhone'].format(row['mobilePhone']),
+    }))
+    .with('email', () => ({
+      id: 'email',
+      label: modelConfig['email'].label,
+      value: modelConfig['email'].format(row['email']),
+    }))
+    .with('archivedOn', () => ({
+      id: 'archivedOn',
+      label: modelConfig['archivedOn'].label,
+      value: modelConfig['archivedOn'].format(row['archivedOn']),
+    }))
+    .with('fromArchive', () => ({
+      id: 'fromArchive',
+      label: modelConfig['fromArchive'].label,
+      value: modelConfig['fromArchive'].format(row['fromArchive']),
+    }))
+    .with('primaryAddress', () => ({
+      id: 'primaryAddress',
+      label: modelConfig['primaryAddress'].label,
+      value: modelConfig['primaryAddress'].format(row['primaryAddress']),
+    }))
+    .with('secondaryAddress', () => ({
+      id: 'secondaryAddress',
+      label: modelConfig['secondaryAddress'].label,
+      value: modelConfig['secondaryAddress'].format(row['secondaryAddress']),
+    }))
+    .with('workAddress', () => ({
+      id: 'workAddress',
+      label: modelConfig['workAddress'].label,
+      value: modelConfig['workAddress'].format(row['workAddress']),
+    }))
+    .with('officeIds', () => ({
+      id: 'officeIds',
+      label: modelConfig['officeIds'].label,
+      value: modelConfig['officeIds'].format(row['officeIds']),
+    }))
+    .with('negotiatorIds', () => ({
+      id: 'negotiatorIds',
+      label: modelConfig['negotiatorIds'].label,
+      value: modelConfig['negotiatorIds'].format(row['negotiatorIds']),
+    }))
+    .with('categoryIds', () => ({
+      id: 'categoryIds',
+      label: modelConfig['categoryIds'].label,
+      value: modelConfig['categoryIds'].format(row['categoryIds']),
+    }))
+    .with('communicationPreferenceLetter', () => ({
+      id: 'communicationPreferenceLetter',
+      label: modelConfig['communicationPreferenceLetter'].label,
+      value: modelConfig['communicationPreferenceLetter'].format(row['communicationPreferenceLetter']),
+    }))
+    .with('communicationPreferenceEmail', () => ({
+      id: 'communicationPreferenceEmail',
+      label: modelConfig['communicationPreferenceEmail'].label,
+      value: modelConfig['communicationPreferenceEmail'].format(row['communicationPreferenceEmail']),
+    }))
+    .with('communicationPreferencePhone', () => ({
+      id: 'communicationPreferencePhone',
+      label: modelConfig['communicationPreferencePhone'].label,
+      value: modelConfig['communicationPreferencePhone'].format(row['communicationPreferencePhone']),
+    }))
+    .with('communicationPreferenceSMS', () => ({
+      id: 'communicationPreferenceSMS',
+      label: modelConfig['communicationPreferenceSMS'].label,
+      value: modelConfig['communicationPreferenceSMS'].format(row['communicationPreferenceSMS']),
+    }))
+    .with('additionalContactDetails', () => ({
+      id: 'additionalContactDetails',
+      label: modelConfig['additionalContactDetails'].label,
+      value: modelConfig['additionalContactDetails'].format(row['additionalContactDetails']),
+    }))
+    .with('metadata', () => ({
+      id: 'metadata',
+      label: modelConfig['metadata'].label,
+      value: modelConfig['metadata'].format(row['metadata']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
+    .with('extrasField', () => ({
+      id: 'extrasField',
+      label: modelConfig['extrasField'].label,
+      value: modelConfig['extrasField'].format(row['extrasField']),
+    }))
+    .with('relationships', () => ({
+      id: 'relationships',
+      label: modelConfig['relationships'].label,
+      value: modelConfig['relationships'].format(row['relationships']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const useContactsTable = (args: UseContactsTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -427,22 +221,12 @@ export const useContactsTable = (args: UseContactsTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof ContactModel => c in row)
+        .map((fieldName) => getContactsTableColumn(fieldName, contactModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

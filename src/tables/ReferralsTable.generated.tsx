@@ -1,11 +1,11 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { referralModelConfig } from '@/config/referralModelConfig.example.tsx'
 import { useGetApiReferrals } from '@/services/Referrals.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { ReferralModel } from '@/schemas/referralModel.generated.tsx'
 
-export const useReferralsTableColumnHelper = createColumnHelper<ReferralModel>()
 export type UseReferralsTableArgs = {
   id?: Array<string> | null | undefined
   propertyId?: Array<string> | null | undefined
@@ -20,216 +20,110 @@ export type UseReferralsTableArgs = {
   createdTo?: string | null | undefined
   modifiedFrom?: string | null | undefined
   modifiedTo?: string | null | undefined
-  columns: ColumnsList<ReferralModel>
+  fieldNames: (keyof ReferralModel)[]
 }
-export const getuseReferralsTableColumn = (property: string, modelConfig: ModelConfig<ReferralModel>) => {
+export const getReferralsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<ReferralModel>,
+  row: ReferralModel,
+) => {
   return match(property)
-    .with('_links', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_links']
-
-      return useReferralsTableColumnHelper.accessor((row) => row._links, {
-        id: '_links',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_embedded', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_embedded']
-
-      return useReferralsTableColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('created', () => {
-      const { label: header, format, width, minWidth } = modelConfig['created']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.created, {
-        id: 'created',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('referralTypeId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['referralTypeId']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.referralTypeId, {
-        id: 'referralTypeId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('type', () => {
-      const { label: header, format, width, minWidth } = modelConfig['type']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.type, {
-        id: 'type',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('negotiatorId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.negotiatorId, {
-        id: 'negotiatorId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('propertyId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['propertyId']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.propertyId, {
-        id: 'propertyId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('applicantId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['applicantId']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.applicantId, {
-        id: 'applicantId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('contactId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['contactId']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.contactId, {
-        id: 'contactId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('status', () => {
-      const { label: header, format, width, minWidth } = modelConfig['status']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.status, {
-        id: 'status',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('amount', () => {
-      const { label: header, format, width, minWidth } = modelConfig['amount']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.amount, {
-        id: 'amount',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('paid', () => {
-      const { label: header, format, width, minWidth } = modelConfig['paid']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.paid, {
-        id: 'paid',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('accepted', () => {
-      const { label: header, format, width, minWidth } = modelConfig['accepted']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.accepted, {
-        id: 'accepted',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('related', () => {
-      const { label: header, format, width, minWidth } = modelConfig['related']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.related, {
-        id: 'related',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('metadata', () => {
-      const { label: header, format, width, minWidth } = modelConfig['metadata']
-
-      return useReferralsTableColumnHelper.accessor((row) => row.metadata, {
-        id: 'metadata',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_eTag', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_eTag']
-
-      return useReferralsTableColumnHelper.accessor((row) => row._eTag, {
-        id: '_eTag',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('referralTypeId', () => ({
+      id: 'referralTypeId',
+      label: modelConfig['referralTypeId'].label,
+      value: modelConfig['referralTypeId'].format(row['referralTypeId']),
+    }))
+    .with('type', () => ({
+      id: 'type',
+      label: modelConfig['type'].label,
+      value: modelConfig['type'].format(row['type']),
+    }))
+    .with('negotiatorId', () => ({
+      id: 'negotiatorId',
+      label: modelConfig['negotiatorId'].label,
+      value: modelConfig['negotiatorId'].format(row['negotiatorId']),
+    }))
+    .with('propertyId', () => ({
+      id: 'propertyId',
+      label: modelConfig['propertyId'].label,
+      value: modelConfig['propertyId'].format(row['propertyId']),
+    }))
+    .with('applicantId', () => ({
+      id: 'applicantId',
+      label: modelConfig['applicantId'].label,
+      value: modelConfig['applicantId'].format(row['applicantId']),
+    }))
+    .with('contactId', () => ({
+      id: 'contactId',
+      label: modelConfig['contactId'].label,
+      value: modelConfig['contactId'].format(row['contactId']),
+    }))
+    .with('status', () => ({
+      id: 'status',
+      label: modelConfig['status'].label,
+      value: modelConfig['status'].format(row['status']),
+    }))
+    .with('amount', () => ({
+      id: 'amount',
+      label: modelConfig['amount'].label,
+      value: modelConfig['amount'].format(row['amount']),
+    }))
+    .with('paid', () => ({
+      id: 'paid',
+      label: modelConfig['paid'].label,
+      value: modelConfig['paid'].format(row['paid']),
+    }))
+    .with('accepted', () => ({
+      id: 'accepted',
+      label: modelConfig['accepted'].label,
+      value: modelConfig['accepted'].format(row['accepted']),
+    }))
+    .with('related', () => ({
+      id: 'related',
+      label: modelConfig['related'].label,
+      value: modelConfig['related'].format(row['related']),
+    }))
+    .with('metadata', () => ({
+      id: 'metadata',
+      label: modelConfig['metadata'].label,
+      value: modelConfig['metadata'].format(row['metadata']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const useReferralsTable = (args: UseReferralsTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -240,22 +134,12 @@ export const useReferralsTable = (args: UseReferralsTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof ReferralModel => c in row)
+        .map((fieldName) => getReferralsTableColumn(fieldName, referralModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

@@ -1,279 +1,143 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { departmentModelConfig } from '@/config/departmentModelConfig.example.tsx'
 import { useGetApiDepartments } from '@/services/Departments.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { DepartmentModel } from '@/schemas/departmentModel.generated.tsx'
 
-export const useDepartmentsTableColumnHelper = createColumnHelper<DepartmentModel>()
 export type UseDepartmentsTableArgs = {
   id?: Array<string> | null | undefined
   name?: string | null | undefined
-  columns: ColumnsList<DepartmentModel>
+  fieldNames: (keyof DepartmentModel)[]
 }
-export const getuseDepartmentsTableColumn = (property: string, modelConfig: ModelConfig<DepartmentModel>) => {
+export const getDepartmentsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<DepartmentModel>,
+  row: DepartmentModel,
+) => {
   return match(property)
-    .with('_links', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_links']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row._links, {
-        id: '_links',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_embedded', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_embedded']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('created', () => {
-      const { label: header, format, width, minWidth } = modelConfig['created']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.created, {
-        id: 'created',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('name', () => {
-      const { label: header, format, width, minWidth } = modelConfig['name']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.name, {
-        id: 'name',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('typeOptions', () => {
-      const { label: header, format, width, minWidth } = modelConfig['typeOptions']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.typeOptions, {
-        id: 'typeOptions',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('styleOptions', () => {
-      const { label: header, format, width, minWidth } = modelConfig['styleOptions']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.styleOptions, {
-        id: 'styleOptions',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('situationOptions', () => {
-      const { label: header, format, width, minWidth } = modelConfig['situationOptions']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.situationOptions, {
-        id: 'situationOptions',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('parkingOptions', () => {
-      const { label: header, format, width, minWidth } = modelConfig['parkingOptions']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.parkingOptions, {
-        id: 'parkingOptions',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('ageOptions', () => {
-      const { label: header, format, width, minWidth } = modelConfig['ageOptions']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.ageOptions, {
-        id: 'ageOptions',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('localityOptions', () => {
-      const { label: header, format, width, minWidth } = modelConfig['localityOptions']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.localityOptions, {
-        id: 'localityOptions',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('specialFeaturesOptions', () => {
-      const { label: header, format, width, minWidth } = modelConfig['specialFeaturesOptions']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.specialFeaturesOptions, {
-        id: 'specialFeaturesOptions',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('commercialUseClassOptions', () => {
-      const { label: header, format, width, minWidth } = modelConfig['commercialUseClassOptions']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.commercialUseClassOptions, {
-        id: 'commercialUseClassOptions',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('commercialFloorLevelOptions', () => {
-      const { label: header, format, width, minWidth } = modelConfig['commercialFloorLevelOptions']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.commercialFloorLevelOptions, {
-        id: 'commercialFloorLevelOptions',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('hasBedrooms', () => {
-      const { label: header, format, width, minWidth } = modelConfig['hasBedrooms']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.hasBedrooms, {
-        id: 'hasBedrooms',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('hasBathrooms', () => {
-      const { label: header, format, width, minWidth } = modelConfig['hasBathrooms']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.hasBathrooms, {
-        id: 'hasBathrooms',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('hasReceptionRooms', () => {
-      const { label: header, format, width, minWidth } = modelConfig['hasReceptionRooms']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.hasReceptionRooms, {
-        id: 'hasReceptionRooms',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('hasParkingSpaces', () => {
-      const { label: header, format, width, minWidth } = modelConfig['hasParkingSpaces']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.hasParkingSpaces, {
-        id: 'hasParkingSpaces',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('hasFloorLevelEnabled', () => {
-      const { label: header, format, width, minWidth } = modelConfig['hasFloorLevelEnabled']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.hasFloorLevelEnabled, {
-        id: 'hasFloorLevelEnabled',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('hasInternalFloorsEnabled', () => {
-      const { label: header, format, width, minWidth } = modelConfig['hasInternalFloorsEnabled']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.hasInternalFloorsEnabled, {
-        id: 'hasInternalFloorsEnabled',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('hasTotalFloorsEnabled', () => {
-      const { label: header, format, width, minWidth } = modelConfig['hasTotalFloorsEnabled']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row.hasTotalFloorsEnabled, {
-        id: 'hasTotalFloorsEnabled',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_eTag', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_eTag']
-
-      return useDepartmentsTableColumnHelper.accessor((row) => row._eTag, {
-        id: '_eTag',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('name', () => ({
+      id: 'name',
+      label: modelConfig['name'].label,
+      value: modelConfig['name'].format(row['name']),
+    }))
+    .with('typeOptions', () => ({
+      id: 'typeOptions',
+      label: modelConfig['typeOptions'].label,
+      value: modelConfig['typeOptions'].format(row['typeOptions']),
+    }))
+    .with('styleOptions', () => ({
+      id: 'styleOptions',
+      label: modelConfig['styleOptions'].label,
+      value: modelConfig['styleOptions'].format(row['styleOptions']),
+    }))
+    .with('situationOptions', () => ({
+      id: 'situationOptions',
+      label: modelConfig['situationOptions'].label,
+      value: modelConfig['situationOptions'].format(row['situationOptions']),
+    }))
+    .with('parkingOptions', () => ({
+      id: 'parkingOptions',
+      label: modelConfig['parkingOptions'].label,
+      value: modelConfig['parkingOptions'].format(row['parkingOptions']),
+    }))
+    .with('ageOptions', () => ({
+      id: 'ageOptions',
+      label: modelConfig['ageOptions'].label,
+      value: modelConfig['ageOptions'].format(row['ageOptions']),
+    }))
+    .with('localityOptions', () => ({
+      id: 'localityOptions',
+      label: modelConfig['localityOptions'].label,
+      value: modelConfig['localityOptions'].format(row['localityOptions']),
+    }))
+    .with('specialFeaturesOptions', () => ({
+      id: 'specialFeaturesOptions',
+      label: modelConfig['specialFeaturesOptions'].label,
+      value: modelConfig['specialFeaturesOptions'].format(row['specialFeaturesOptions']),
+    }))
+    .with('commercialUseClassOptions', () => ({
+      id: 'commercialUseClassOptions',
+      label: modelConfig['commercialUseClassOptions'].label,
+      value: modelConfig['commercialUseClassOptions'].format(row['commercialUseClassOptions']),
+    }))
+    .with('commercialFloorLevelOptions', () => ({
+      id: 'commercialFloorLevelOptions',
+      label: modelConfig['commercialFloorLevelOptions'].label,
+      value: modelConfig['commercialFloorLevelOptions'].format(row['commercialFloorLevelOptions']),
+    }))
+    .with('hasBedrooms', () => ({
+      id: 'hasBedrooms',
+      label: modelConfig['hasBedrooms'].label,
+      value: modelConfig['hasBedrooms'].format(row['hasBedrooms']),
+    }))
+    .with('hasBathrooms', () => ({
+      id: 'hasBathrooms',
+      label: modelConfig['hasBathrooms'].label,
+      value: modelConfig['hasBathrooms'].format(row['hasBathrooms']),
+    }))
+    .with('hasReceptionRooms', () => ({
+      id: 'hasReceptionRooms',
+      label: modelConfig['hasReceptionRooms'].label,
+      value: modelConfig['hasReceptionRooms'].format(row['hasReceptionRooms']),
+    }))
+    .with('hasParkingSpaces', () => ({
+      id: 'hasParkingSpaces',
+      label: modelConfig['hasParkingSpaces'].label,
+      value: modelConfig['hasParkingSpaces'].format(row['hasParkingSpaces']),
+    }))
+    .with('hasFloorLevelEnabled', () => ({
+      id: 'hasFloorLevelEnabled',
+      label: modelConfig['hasFloorLevelEnabled'].label,
+      value: modelConfig['hasFloorLevelEnabled'].format(row['hasFloorLevelEnabled']),
+    }))
+    .with('hasInternalFloorsEnabled', () => ({
+      id: 'hasInternalFloorsEnabled',
+      label: modelConfig['hasInternalFloorsEnabled'].label,
+      value: modelConfig['hasInternalFloorsEnabled'].format(row['hasInternalFloorsEnabled']),
+    }))
+    .with('hasTotalFloorsEnabled', () => ({
+      id: 'hasTotalFloorsEnabled',
+      label: modelConfig['hasTotalFloorsEnabled'].label,
+      value: modelConfig['hasTotalFloorsEnabled'].format(row['hasTotalFloorsEnabled']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const useDepartmentsTable = (args: UseDepartmentsTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -284,22 +148,12 @@ export const useDepartmentsTable = (args: UseDepartmentsTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof DepartmentModel => c in row)
+        .map((fieldName) => getDepartmentsTableColumn(fieldName, departmentModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

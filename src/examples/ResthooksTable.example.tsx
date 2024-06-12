@@ -1,7 +1,6 @@
-import { useResthooksTable, getuseResthooksTableColumn } from '@/tables/RestHooksTable.generated.tsx'
-import { webhookModelConfig } from '@/config/webhookModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useResthooksTable } from '@/tables/RestHooksTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -19,14 +18,10 @@ export const fieldNames = fieldsConfig<WebhookModel>({
   ignoreEtagOnlyChanges: true,
 })
 export const ResthooksTable = () => {
-  const columns: ColumnsList<WebhookModel> = fieldNames.map((col) =>
-    getuseResthooksTableColumn(col, webhookModelConfig),
-  )
-
-  const { table, dataQuery } = useResthooksTable({ columns })
+  const { rows } = useResthooksTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useResthooksTable</Typography>
         <Button
@@ -42,7 +37,9 @@ export const ResthooksTable = () => {
           Create webhook
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

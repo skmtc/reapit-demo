@@ -1,7 +1,6 @@
-import { useReferralsTable, getuseReferralsTableColumn } from '@/tables/ReferralsTable.generated.tsx'
-import { referralModelConfig } from '@/config/referralModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useReferralsTable } from '@/tables/ReferralsTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -29,14 +28,10 @@ export const fieldNames = fieldsConfig<ReferralModel>({
   _eTag: true,
 })
 export const ReferralsTable = () => {
-  const columns: ColumnsList<ReferralModel> = fieldNames.map((col) =>
-    getuseReferralsTableColumn(col, referralModelConfig),
-  )
-
-  const { table, dataQuery } = useReferralsTable({ columns })
+  const { rows } = useReferralsTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useReferralsTable</Typography>
         <Button
@@ -52,7 +47,9 @@ export const ReferralsTable = () => {
           Create referral
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

@@ -1,7 +1,6 @@
-import { useTenanciesTable, getuseTenanciesTableColumn } from '@/tables/TenanciesTable.generated.tsx'
-import { tenancyModelConfig } from '@/config/tenancyModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useTenanciesTable } from '@/tables/TenanciesTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -51,14 +50,10 @@ export const fieldNames = fieldsConfig<TenancyModel>({
   _eTag: true,
 })
 export const TenanciesTable = () => {
-  const columns: ColumnsList<TenancyModel> = fieldNames.map((col) =>
-    getuseTenanciesTableColumn(col, tenancyModelConfig),
-  )
-
-  const { table, dataQuery } = useTenanciesTable({ columns })
+  const { rows } = useTenanciesTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useTenanciesTable</Typography>
         <Button
@@ -74,7 +69,9 @@ export const TenanciesTable = () => {
           Create tenancy
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

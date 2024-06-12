@@ -1,7 +1,7 @@
 import {
-  additionalCompanyContactDetailsModel,
   AdditionalCompanyContactDetailsModel,
+  additionalCompanyContactDetailsModel,
 } from '@/schemas/additionalCompanyContactDetailsModel.generated.tsx'
 
-export const additionalOfficeContactDetailsModel = additionalCompanyContactDetailsModel
 export type AdditionalOfficeContactDetailsModel = AdditionalCompanyContactDetailsModel
+export const additionalOfficeContactDetailsModel = additionalCompanyContactDetailsModel

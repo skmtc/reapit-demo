@@ -1,7 +1,6 @@
-import { useTasksTable, getuseTasksTableColumn } from '@/tables/TasksTable.generated.tsx'
-import { taskModelConfig } from '@/config/taskModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useTasksTable } from '@/tables/TasksTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -30,12 +29,10 @@ export const fieldNames = fieldsConfig<TaskModel>({
   _eTag: true,
 })
 export const TasksTable = () => {
-  const columns: ColumnsList<TaskModel> = fieldNames.map((col) => getuseTasksTableColumn(col, taskModelConfig))
-
-  const { table, dataQuery } = useTasksTable({ columns })
+  const { rows } = useTasksTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useTasksTable</Typography>
         <Button
@@ -51,7 +48,9 @@ export const TasksTable = () => {
           Create task
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

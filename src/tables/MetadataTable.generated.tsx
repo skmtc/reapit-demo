@@ -1,83 +1,55 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { metadataModelConfig } from '@/config/metadataModelConfig.example.tsx'
 import { useGetApiMetadata } from '@/services/Metadata.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { MetadataModel } from '@/schemas/metadataModel.generated.tsx'
 
-export const useMetadataTableColumnHelper = createColumnHelper<MetadataModel>()
 export type UseMetadataTableArgs = {
   entityType?: string | null | undefined
   id?: Array<string> | null | undefined
   entityId?: Array<string> | null | undefined
   filter?: Array<string> | null | undefined
-  columns: ColumnsList<MetadataModel>
+  fieldNames: (keyof MetadataModel)[]
 }
-export const getuseMetadataTableColumn = (property: string, modelConfig: ModelConfig<MetadataModel>) => {
+export const getMetadataTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<MetadataModel>,
+  row: MetadataModel,
+) => {
   return match(property)
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return useMetadataTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return useMetadataTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('entityType', () => {
-      const { label: header, format, width, minWidth } = modelConfig['entityType']
-
-      return useMetadataTableColumnHelper.accessor((row) => row.entityType, {
-        id: 'entityType',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('entityId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['entityId']
-
-      return useMetadataTableColumnHelper.accessor((row) => row.entityId, {
-        id: 'entityId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('metadata', () => {
-      const { label: header, format, width, minWidth } = modelConfig['metadata']
-
-      return useMetadataTableColumnHelper.accessor((row) => row.metadata, {
-        id: 'metadata',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('entityType', () => ({
+      id: 'entityType',
+      label: modelConfig['entityType'].label,
+      value: modelConfig['entityType'].format(row['entityType']),
+    }))
+    .with('entityId', () => ({
+      id: 'entityId',
+      label: modelConfig['entityId'].label,
+      value: modelConfig['entityId'].format(row['entityId']),
+    }))
+    .with('metadata', () => ({
+      id: 'metadata',
+      label: modelConfig['metadata'].label,
+      value: modelConfig['metadata'].format(row['metadata']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const useMetadataTable = (args: UseMetadataTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -88,22 +60,12 @@ export const useMetadataTable = (args: UseMetadataTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof MetadataModel => c in row)
+        .map((fieldName) => getMetadataTableColumn(fieldName, metadataModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

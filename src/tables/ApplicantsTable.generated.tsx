@@ -1,11 +1,11 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { applicantModelConfig } from '@/config/applicantModelConfig.example.tsx'
 import { useGetApiApplicants } from '@/services/Applicants.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { ApplicantModel } from '@/schemas/applicantModel.generated.tsx'
 
-export const useApplicantsTableColumnHelper = createColumnHelper<ApplicantModel>()
 export type UseApplicantsTableArgs = {
   sortBy?: string | null | undefined
   embed?:
@@ -103,557 +103,265 @@ export type UseApplicantsTableArgs = {
   hasNextCall?: boolean | null | undefined
   metadata?: Array<string> | null | undefined
   locationOptions?: string | null | undefined
-  columns: ColumnsList<ApplicantModel>
+  fieldNames: (keyof ApplicantModel)[]
 }
-export const getuseApplicantsTableColumn = (property: string, modelConfig: ModelConfig<ApplicantModel>) => {
+export const getApplicantsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<ApplicantModel>,
+  row: ApplicantModel,
+) => {
   return match(property)
-    .with('_links', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_links']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row._links, {
-        id: '_links',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_embedded', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_embedded']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('created', () => {
-      const { label: header, format, width, minWidth } = modelConfig['created']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.created, {
-        id: 'created',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('marketingMode', () => {
-      const { label: header, format, width, minWidth } = modelConfig['marketingMode']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.marketingMode, {
-        id: 'marketingMode',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('currency', () => {
-      const { label: header, format, width, minWidth } = modelConfig['currency']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.currency, {
-        id: 'currency',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('active', () => {
-      const { label: header, format, width, minWidth } = modelConfig['active']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.active, {
-        id: 'active',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('notes', () => {
-      const { label: header, format, width, minWidth } = modelConfig['notes']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.notes, {
-        id: 'notes',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('sellingStatus', () => {
-      const { label: header, format, width, minWidth } = modelConfig['sellingStatus']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.sellingStatus, {
-        id: 'sellingStatus',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('sellingPosition', () => {
-      const { label: header, format, width, minWidth } = modelConfig['sellingPosition']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.sellingPosition, {
-        id: 'sellingPosition',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('statusId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['statusId']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.statusId, {
-        id: 'statusId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('lastCall', () => {
-      const { label: header, format, width, minWidth } = modelConfig['lastCall']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.lastCall, {
-        id: 'lastCall',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('nextCall', () => {
-      const { label: header, format, width, minWidth } = modelConfig['nextCall']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.nextCall, {
-        id: 'nextCall',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('departmentId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['departmentId']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.departmentId, {
-        id: 'departmentId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('solicitorId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['solicitorId']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.solicitorId, {
-        id: 'solicitorId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('potentialClient', () => {
-      const { label: header, format, width, minWidth } = modelConfig['potentialClient']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.potentialClient, {
-        id: 'potentialClient',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('type', () => {
-      const { label: header, format, width, minWidth } = modelConfig['type']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.type, {
-        id: 'type',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('style', () => {
-      const { label: header, format, width, minWidth } = modelConfig['style']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.style, {
-        id: 'style',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('situation', () => {
-      const { label: header, format, width, minWidth } = modelConfig['situation']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.situation, {
-        id: 'situation',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('parking', () => {
-      const { label: header, format, width, minWidth } = modelConfig['parking']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.parking, {
-        id: 'parking',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('age', () => {
-      const { label: header, format, width, minWidth } = modelConfig['age']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.age, {
-        id: 'age',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('locality', () => {
-      const { label: header, format, width, minWidth } = modelConfig['locality']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.locality, {
-        id: 'locality',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('specialFeatures', () => {
-      const { label: header, format, width, minWidth } = modelConfig['specialFeatures']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.specialFeatures, {
-        id: 'specialFeatures',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('unmappedRequirements', () => {
-      const { label: header, format, width, minWidth } = modelConfig['unmappedRequirements']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.unmappedRequirements, {
-        id: 'unmappedRequirements',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('bedroomsMin', () => {
-      const { label: header, format, width, minWidth } = modelConfig['bedroomsMin']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.bedroomsMin, {
-        id: 'bedroomsMin',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('bedroomsMax', () => {
-      const { label: header, format, width, minWidth } = modelConfig['bedroomsMax']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.bedroomsMax, {
-        id: 'bedroomsMax',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('receptionsMin', () => {
-      const { label: header, format, width, minWidth } = modelConfig['receptionsMin']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.receptionsMin, {
-        id: 'receptionsMin',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('receptionsMax', () => {
-      const { label: header, format, width, minWidth } = modelConfig['receptionsMax']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.receptionsMax, {
-        id: 'receptionsMax',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('bathroomsMin', () => {
-      const { label: header, format, width, minWidth } = modelConfig['bathroomsMin']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.bathroomsMin, {
-        id: 'bathroomsMin',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('bathroomsMax', () => {
-      const { label: header, format, width, minWidth } = modelConfig['bathroomsMax']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.bathroomsMax, {
-        id: 'bathroomsMax',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('parkingSpacesMin', () => {
-      const { label: header, format, width, minWidth } = modelConfig['parkingSpacesMin']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.parkingSpacesMin, {
-        id: 'parkingSpacesMin',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('parkingSpacesMax', () => {
-      const { label: header, format, width, minWidth } = modelConfig['parkingSpacesMax']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.parkingSpacesMax, {
-        id: 'parkingSpacesMax',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('locationType', () => {
-      const { label: header, format, width, minWidth } = modelConfig['locationType']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.locationType, {
-        id: 'locationType',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('locationOptions', () => {
-      const { label: header, format, width, minWidth } = modelConfig['locationOptions']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.locationOptions, {
-        id: 'locationOptions',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('archivedOn', () => {
-      const { label: header, format, width, minWidth } = modelConfig['archivedOn']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.archivedOn, {
-        id: 'archivedOn',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('fromArchive', () => {
-      const { label: header, format, width, minWidth } = modelConfig['fromArchive']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.fromArchive, {
-        id: 'fromArchive',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('buying', () => {
-      const { label: header, format, width, minWidth } = modelConfig['buying']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.buying, {
-        id: 'buying',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('renting', () => {
-      const { label: header, format, width, minWidth } = modelConfig['renting']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.renting, {
-        id: 'renting',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('externalArea', () => {
-      const { label: header, format, width, minWidth } = modelConfig['externalArea']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.externalArea, {
-        id: 'externalArea',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('internalArea', () => {
-      const { label: header, format, width, minWidth } = modelConfig['internalArea']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.internalArea, {
-        id: 'internalArea',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('source', () => {
-      const { label: header, format, width, minWidth } = modelConfig['source']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.source, {
-        id: 'source',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('commercial', () => {
-      const { label: header, format, width, minWidth } = modelConfig['commercial']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.commercial, {
-        id: 'commercial',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('regional', () => {
-      const { label: header, format, width, minWidth } = modelConfig['regional']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.regional, {
-        id: 'regional',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('officeIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['officeIds']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.officeIds, {
-        id: 'officeIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('negotiatorIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['negotiatorIds']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.negotiatorIds, {
-        id: 'negotiatorIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('related', () => {
-      const { label: header, format, width, minWidth } = modelConfig['related']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.related, {
-        id: 'related',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('metadata', () => {
-      const { label: header, format, width, minWidth } = modelConfig['metadata']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row.metadata, {
-        id: 'metadata',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_eTag', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_eTag']
-
-      return useApplicantsTableColumnHelper.accessor((row) => row._eTag, {
-        id: '_eTag',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('marketingMode', () => ({
+      id: 'marketingMode',
+      label: modelConfig['marketingMode'].label,
+      value: modelConfig['marketingMode'].format(row['marketingMode']),
+    }))
+    .with('currency', () => ({
+      id: 'currency',
+      label: modelConfig['currency'].label,
+      value: modelConfig['currency'].format(row['currency']),
+    }))
+    .with('active', () => ({
+      id: 'active',
+      label: modelConfig['active'].label,
+      value: modelConfig['active'].format(row['active']),
+    }))
+    .with('notes', () => ({
+      id: 'notes',
+      label: modelConfig['notes'].label,
+      value: modelConfig['notes'].format(row['notes']),
+    }))
+    .with('sellingStatus', () => ({
+      id: 'sellingStatus',
+      label: modelConfig['sellingStatus'].label,
+      value: modelConfig['sellingStatus'].format(row['sellingStatus']),
+    }))
+    .with('sellingPosition', () => ({
+      id: 'sellingPosition',
+      label: modelConfig['sellingPosition'].label,
+      value: modelConfig['sellingPosition'].format(row['sellingPosition']),
+    }))
+    .with('statusId', () => ({
+      id: 'statusId',
+      label: modelConfig['statusId'].label,
+      value: modelConfig['statusId'].format(row['statusId']),
+    }))
+    .with('lastCall', () => ({
+      id: 'lastCall',
+      label: modelConfig['lastCall'].label,
+      value: modelConfig['lastCall'].format(row['lastCall']),
+    }))
+    .with('nextCall', () => ({
+      id: 'nextCall',
+      label: modelConfig['nextCall'].label,
+      value: modelConfig['nextCall'].format(row['nextCall']),
+    }))
+    .with('departmentId', () => ({
+      id: 'departmentId',
+      label: modelConfig['departmentId'].label,
+      value: modelConfig['departmentId'].format(row['departmentId']),
+    }))
+    .with('solicitorId', () => ({
+      id: 'solicitorId',
+      label: modelConfig['solicitorId'].label,
+      value: modelConfig['solicitorId'].format(row['solicitorId']),
+    }))
+    .with('potentialClient', () => ({
+      id: 'potentialClient',
+      label: modelConfig['potentialClient'].label,
+      value: modelConfig['potentialClient'].format(row['potentialClient']),
+    }))
+    .with('type', () => ({
+      id: 'type',
+      label: modelConfig['type'].label,
+      value: modelConfig['type'].format(row['type']),
+    }))
+    .with('style', () => ({
+      id: 'style',
+      label: modelConfig['style'].label,
+      value: modelConfig['style'].format(row['style']),
+    }))
+    .with('situation', () => ({
+      id: 'situation',
+      label: modelConfig['situation'].label,
+      value: modelConfig['situation'].format(row['situation']),
+    }))
+    .with('parking', () => ({
+      id: 'parking',
+      label: modelConfig['parking'].label,
+      value: modelConfig['parking'].format(row['parking']),
+    }))
+    .with('age', () => ({
+      id: 'age',
+      label: modelConfig['age'].label,
+      value: modelConfig['age'].format(row['age']),
+    }))
+    .with('locality', () => ({
+      id: 'locality',
+      label: modelConfig['locality'].label,
+      value: modelConfig['locality'].format(row['locality']),
+    }))
+    .with('specialFeatures', () => ({
+      id: 'specialFeatures',
+      label: modelConfig['specialFeatures'].label,
+      value: modelConfig['specialFeatures'].format(row['specialFeatures']),
+    }))
+    .with('unmappedRequirements', () => ({
+      id: 'unmappedRequirements',
+      label: modelConfig['unmappedRequirements'].label,
+      value: modelConfig['unmappedRequirements'].format(row['unmappedRequirements']),
+    }))
+    .with('bedroomsMin', () => ({
+      id: 'bedroomsMin',
+      label: modelConfig['bedroomsMin'].label,
+      value: modelConfig['bedroomsMin'].format(row['bedroomsMin']),
+    }))
+    .with('bedroomsMax', () => ({
+      id: 'bedroomsMax',
+      label: modelConfig['bedroomsMax'].label,
+      value: modelConfig['bedroomsMax'].format(row['bedroomsMax']),
+    }))
+    .with('receptionsMin', () => ({
+      id: 'receptionsMin',
+      label: modelConfig['receptionsMin'].label,
+      value: modelConfig['receptionsMin'].format(row['receptionsMin']),
+    }))
+    .with('receptionsMax', () => ({
+      id: 'receptionsMax',
+      label: modelConfig['receptionsMax'].label,
+      value: modelConfig['receptionsMax'].format(row['receptionsMax']),
+    }))
+    .with('bathroomsMin', () => ({
+      id: 'bathroomsMin',
+      label: modelConfig['bathroomsMin'].label,
+      value: modelConfig['bathroomsMin'].format(row['bathroomsMin']),
+    }))
+    .with('bathroomsMax', () => ({
+      id: 'bathroomsMax',
+      label: modelConfig['bathroomsMax'].label,
+      value: modelConfig['bathroomsMax'].format(row['bathroomsMax']),
+    }))
+    .with('parkingSpacesMin', () => ({
+      id: 'parkingSpacesMin',
+      label: modelConfig['parkingSpacesMin'].label,
+      value: modelConfig['parkingSpacesMin'].format(row['parkingSpacesMin']),
+    }))
+    .with('parkingSpacesMax', () => ({
+      id: 'parkingSpacesMax',
+      label: modelConfig['parkingSpacesMax'].label,
+      value: modelConfig['parkingSpacesMax'].format(row['parkingSpacesMax']),
+    }))
+    .with('locationType', () => ({
+      id: 'locationType',
+      label: modelConfig['locationType'].label,
+      value: modelConfig['locationType'].format(row['locationType']),
+    }))
+    .with('locationOptions', () => ({
+      id: 'locationOptions',
+      label: modelConfig['locationOptions'].label,
+      value: modelConfig['locationOptions'].format(row['locationOptions']),
+    }))
+    .with('archivedOn', () => ({
+      id: 'archivedOn',
+      label: modelConfig['archivedOn'].label,
+      value: modelConfig['archivedOn'].format(row['archivedOn']),
+    }))
+    .with('fromArchive', () => ({
+      id: 'fromArchive',
+      label: modelConfig['fromArchive'].label,
+      value: modelConfig['fromArchive'].format(row['fromArchive']),
+    }))
+    .with('buying', () => ({
+      id: 'buying',
+      label: modelConfig['buying'].label,
+      value: modelConfig['buying'].format(row['buying']),
+    }))
+    .with('renting', () => ({
+      id: 'renting',
+      label: modelConfig['renting'].label,
+      value: modelConfig['renting'].format(row['renting']),
+    }))
+    .with('externalArea', () => ({
+      id: 'externalArea',
+      label: modelConfig['externalArea'].label,
+      value: modelConfig['externalArea'].format(row['externalArea']),
+    }))
+    .with('internalArea', () => ({
+      id: 'internalArea',
+      label: modelConfig['internalArea'].label,
+      value: modelConfig['internalArea'].format(row['internalArea']),
+    }))
+    .with('source', () => ({
+      id: 'source',
+      label: modelConfig['source'].label,
+      value: modelConfig['source'].format(row['source']),
+    }))
+    .with('commercial', () => ({
+      id: 'commercial',
+      label: modelConfig['commercial'].label,
+      value: modelConfig['commercial'].format(row['commercial']),
+    }))
+    .with('regional', () => ({
+      id: 'regional',
+      label: modelConfig['regional'].label,
+      value: modelConfig['regional'].format(row['regional']),
+    }))
+    .with('officeIds', () => ({
+      id: 'officeIds',
+      label: modelConfig['officeIds'].label,
+      value: modelConfig['officeIds'].format(row['officeIds']),
+    }))
+    .with('negotiatorIds', () => ({
+      id: 'negotiatorIds',
+      label: modelConfig['negotiatorIds'].label,
+      value: modelConfig['negotiatorIds'].format(row['negotiatorIds']),
+    }))
+    .with('related', () => ({
+      id: 'related',
+      label: modelConfig['related'].label,
+      value: modelConfig['related'].format(row['related']),
+    }))
+    .with('metadata', () => ({
+      id: 'metadata',
+      label: modelConfig['metadata'].label,
+      value: modelConfig['metadata'].format(row['metadata']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const useApplicantsTable = (args: UseApplicantsTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -664,22 +372,12 @@ export const useApplicantsTable = (args: UseApplicantsTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof ApplicantModel => c in row)
+        .map((fieldName) => getApplicantsTableColumn(fieldName, applicantModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

@@ -1,21 +1,6 @@
+import { LinkModel, linkModel } from '@/schemas/linkModel.generated.tsx'
 import { z } from 'zod'
-import { linkModel, LinkModel } from '@/schemas/linkModel.generated.tsx'
 
-/** Representation of the roles that an individual companies possesses */
-export const companyRoleModel =
-  /** Representation of the roles that an individual companies possesses */
-  z.object({
-    _links: z.record(z.string(), linkModel).optional().nullable(),
-    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
-    /** The unique identifier of the relationship */ id: z.string().optional().nullable(),
-    /** The date and time when the relationship was created */ created: z.string().optional().nullable(),
-    /** The date and time when the relationship was last modified */ modified: z.string().optional().nullable(),
-    /** The unique identifier of the related company */ companyId: z.string().optional().nullable(),
-    /** The type of related entity (applicant/landlord/offer/tenancy/vendor) */
-    associatedType: z.string().optional().nullable(),
-    /** The unique identifier of the related entity */ associatedId: z.string().optional().nullable(),
-    /** Flag to determine if this role on the system is now archived */ fromArchive: z.boolean().optional().nullable(),
-  })
 /** Representation of the roles that an individual companies possesses */
 export type CompanyRoleModel =
   /** Representation of the roles that an individual companies possesses */
@@ -34,3 +19,18 @@ export type CompanyRoleModel =
     associatedId?: /** The unique identifier of the related entity */ string | null | undefined
     fromArchive?: /** Flag to determine if this role on the system is now archived */ boolean | null | undefined
   }
+/** Representation of the roles that an individual companies possesses */
+export const companyRoleModel =
+  /** Representation of the roles that an individual companies possesses */
+  z.object({
+    _links: z.record(z.string(), linkModel).optional().nullable(),
+    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
+    /** The unique identifier of the relationship */ id: z.string().optional().nullable(),
+    /** The date and time when the relationship was created */ created: z.string().optional().nullable(),
+    /** The date and time when the relationship was last modified */ modified: z.string().optional().nullable(),
+    /** The unique identifier of the related company */ companyId: z.string().optional().nullable(),
+    /** The type of related entity (applicant/landlord/offer/tenancy/vendor) */
+    associatedType: z.string().optional().nullable(),
+    /** The unique identifier of the related entity */ associatedId: z.string().optional().nullable(),
+    /** Flag to determine if this role on the system is now archived */ fromArchive: z.boolean().optional().nullable(),
+  })

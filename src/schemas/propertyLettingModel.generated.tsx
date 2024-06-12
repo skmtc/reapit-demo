@@ -1,64 +1,22 @@
-import { z } from 'zod'
 import {
-  propertyCommissionFeeModel,
   PropertyCommissionFeeModel,
+  propertyCommissionFeeModel,
 } from '@/schemas/propertyCommissionFeeModel.generated.tsx'
-import { utilityModel, UtilityModel } from '@/schemas/utilityModel.generated.tsx'
+import { UtilityModel, utilityModel } from '@/schemas/utilityModel.generated.tsx'
 import {
-  propertyLettingsDepositModel,
   PropertyLettingsDepositModel,
+  propertyLettingsDepositModel,
 } from '@/schemas/propertyLettingsDepositModel.generated.tsx'
 import {
-  propertyLettingRentInsuranceModel,
   PropertyLettingRentInsuranceModel,
+  propertyLettingRentInsuranceModel,
 } from '@/schemas/propertyLettingRentInsuranceModel.generated.tsx'
 import {
-  propertyLettingLicencingModel,
   PropertyLettingLicencingModel,
+  propertyLettingLicencingModel,
 } from '@/schemas/propertyLettingLicencingModel.generated.tsx'
+import { z } from 'zod'
 
-/** Representation of property details specific to lettings marketing */
-export const propertyLettingModel =
-  /** Representation of property details specific to lettings marketing */
-  z.object({
-    /** The date the property was marked as to let */ instructed: z.string().optional().nullable(),
-    /** The date the property is next available from */ availableFrom: z.string().optional().nullable(),
-    /** The date the property is available to */ availableTo: z.string().optional().nullable(),
-    /** The date the letting agreement between the landlord and agent was signed */
-    agreementSigned: z.string().optional().nullable(),
-    /** The rent being charged for the property */ rent: z.number().optional().nullable(),
-    /** The frequency at which rent will be collected (weekly/monthly/annually) */
-    rentFrequency: z.string().optional().nullable(),
-    /** Details of any bills that are included in the rent */ rentIncludes: z.string().optional().nullable(),
-    /** The furnishing state that the property can be offered in (furnished/unfurnished/partFurnished) */
-    furnishing: z.array(z.string()).optional().nullable(),
-    /** The acceptable letting terms (short/long/any) */ term: z.string().optional().nullable(),
-    /** The current status of the let (valuation/toLet/toLetUnavailable/underOffer/underOfferUnavailable/arrangingTenancyUnavailable/arrangingTenancy/tenancyCurrentUnavailable/tenancyCurrent/tenancyFinished/tenancyCancelled/sold/letByOtherAgent/letPrivately/provisional/withdrawn) */
-    status: z.string().optional().nullable(),
-    /** The role that the agent will be performing for this lettings property (managed/rentCollection/collectFirstPayment/collectRentToDate/lettingOnly/introducingTenant) */
-    agentRole: z.string().optional().nullable(),
-    /** The unique identifier of the landlord letting the property */ landlordId: z.string().optional().nullable(),
-    /** A note to accompany any works orders created for the property */
-    worksOrderNote: z.string().optional().nullable(),
-    /** The minimum number of months the property can be let out for */
-    minimumTerm: z.number().int().optional().nullable(),
-    /** The unique identifier of the negotiator that manages the property */
-    propertyManagerId: z.string().optional().nullable(),
-    /** The unique identifiers of the management companies associated to the property */
-    managementCompanyIds: z.array(z.string()).optional().nullable(),
-    /** The unique identifier of the document used for the lettings brochure */
-    brochureId: z.string().optional().nullable(),
-    /** The URL at which the brochure can be publicly accessed when the
-property is being actively marketed */
-    publicBrochureUrl: z.string().optional().nullable(),
-    managementFee: propertyCommissionFeeModel.optional().nullable(),
-    lettingFee: propertyCommissionFeeModel.optional().nullable(),
-    /** The rent qualifier (rentOnApplication/askingRent) */ qualifier: z.string().optional().nullable(),
-    utilities: utilityModel.optional().nullable(),
-    deposit: propertyLettingsDepositModel.optional().nullable(),
-    rentInsurance: propertyLettingRentInsuranceModel.optional().nullable(),
-    licencing: propertyLettingLicencingModel.optional().nullable(),
-  })
 /** Representation of property details specific to lettings marketing */
 export type PropertyLettingModel =
   /** Representation of property details specific to lettings marketing */
@@ -122,3 +80,45 @@ property is being actively marketed */
     rentInsurance?: PropertyLettingRentInsuranceModel | null | undefined
     licencing?: PropertyLettingLicencingModel | null | undefined
   }
+/** Representation of property details specific to lettings marketing */
+export const propertyLettingModel =
+  /** Representation of property details specific to lettings marketing */
+  z.object({
+    /** The date the property was marked as to let */ instructed: z.string().optional().nullable(),
+    /** The date the property is next available from */ availableFrom: z.string().optional().nullable(),
+    /** The date the property is available to */ availableTo: z.string().optional().nullable(),
+    /** The date the letting agreement between the landlord and agent was signed */
+    agreementSigned: z.string().optional().nullable(),
+    /** The rent being charged for the property */ rent: z.number().optional().nullable(),
+    /** The frequency at which rent will be collected (weekly/monthly/annually) */
+    rentFrequency: z.string().optional().nullable(),
+    /** Details of any bills that are included in the rent */ rentIncludes: z.string().optional().nullable(),
+    /** The furnishing state that the property can be offered in (furnished/unfurnished/partFurnished) */
+    furnishing: z.array(z.string()).optional().nullable(),
+    /** The acceptable letting terms (short/long/any) */ term: z.string().optional().nullable(),
+    /** The current status of the let (valuation/toLet/toLetUnavailable/underOffer/underOfferUnavailable/arrangingTenancyUnavailable/arrangingTenancy/tenancyCurrentUnavailable/tenancyCurrent/tenancyFinished/tenancyCancelled/sold/letByOtherAgent/letPrivately/provisional/withdrawn) */
+    status: z.string().optional().nullable(),
+    /** The role that the agent will be performing for this lettings property (managed/rentCollection/collectFirstPayment/collectRentToDate/lettingOnly/introducingTenant) */
+    agentRole: z.string().optional().nullable(),
+    /** The unique identifier of the landlord letting the property */ landlordId: z.string().optional().nullable(),
+    /** A note to accompany any works orders created for the property */
+    worksOrderNote: z.string().optional().nullable(),
+    /** The minimum number of months the property can be let out for */
+    minimumTerm: z.number().int().optional().nullable(),
+    /** The unique identifier of the negotiator that manages the property */
+    propertyManagerId: z.string().optional().nullable(),
+    /** The unique identifiers of the management companies associated to the property */
+    managementCompanyIds: z.array(z.string()).optional().nullable(),
+    /** The unique identifier of the document used for the lettings brochure */
+    brochureId: z.string().optional().nullable(),
+    /** The URL at which the brochure can be publicly accessed when the
+property is being actively marketed */
+    publicBrochureUrl: z.string().optional().nullable(),
+    managementFee: propertyCommissionFeeModel.optional().nullable(),
+    lettingFee: propertyCommissionFeeModel.optional().nullable(),
+    /** The rent qualifier (rentOnApplication/askingRent) */ qualifier: z.string().optional().nullable(),
+    utilities: utilityModel.optional().nullable(),
+    deposit: propertyLettingsDepositModel.optional().nullable(),
+    rentInsurance: propertyLettingRentInsuranceModel.optional().nullable(),
+    licencing: propertyLettingLicencingModel.optional().nullable(),
+  })

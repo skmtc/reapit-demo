@@ -38,25 +38,7 @@ export const getApiNegotiatorsFn = async ({
   metadata,
 }: GetApiNegotiatorsFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({
-      args: {
-        pageSize,
-        pageNumber,
-        sortBy,
-        embed,
-        id,
-        officeId,
-        email,
-        name,
-        createdFrom,
-        createdTo,
-        modifiedFrom,
-        modifiedTo,
-        active,
-        metadata,
-      },
-      options: defaultQuerySerialiserOptions,
-    })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({ args: { pageSize, pageNumber, sortBy, embed, id, officeId, email, name, createdFrom, createdTo, modifiedFrom, modifiedTo, active, metadata }, options: defaultQuerySerialiserOptions })}`,
     {
       method: 'GET',
       headers: {
@@ -73,7 +55,7 @@ export const getApiNegotiatorsFn = async ({
 }
 export const useGetApiNegotiators = (args: GetApiNegotiatorsFnArgs) => {
   const result = useQuery({
-    queryKey: ['Negotiators', args],
+    queryKey: ['Negotiators'],
     queryFn: () => getApiNegotiatorsFn(args),
     placeholderData: keepPreviousData,
   })
@@ -83,10 +65,7 @@ export const useGetApiNegotiators = (args: GetApiNegotiatorsFnArgs) => {
 export type PostApiNegotiatorsFnArgs = { body: CreateNegotiatorModel }
 export const postApiNegotiatorsFn = async ({ body }: PostApiNegotiatorsFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({
-      args: {},
-      options: defaultQuerySerialiserOptions,
-    })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
       method: 'POST',
       body: JSON.stringify(body),

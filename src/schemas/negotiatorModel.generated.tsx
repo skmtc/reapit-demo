@@ -1,39 +1,10 @@
-import { z } from 'zod'
-import { linkModel, LinkModel } from '@/schemas/linkModel.generated.tsx'
+import { LinkModel, linkModel } from '@/schemas/linkModel.generated.tsx'
 import {
-  additionalContactDetailModel,
   AdditionalContactDetailModel,
+  additionalContactDetailModel,
 } from '@/schemas/additionalContactDetailModel.generated.tsx'
+import { z } from 'zod'
 
-/** Representation of a negotiator */
-export const negotiatorModel =
-  /** Representation of a negotiator */
-  z.object({
-    _links: z.record(z.string(), linkModel).optional().nullable(),
-    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
-    /** The unique identifier of the negotiator */ id: z.string().optional().nullable(),
-    /** The date and time when the negotiator was created */ created: z.string().optional().nullable(),
-    /** The date and time when the negotiator was last modified */ modified: z.string().optional().nullable(),
-    /** The name of the negotiator */ name: z.string().optional().nullable(),
-    /** The job title of the negotiator */ jobTitle: z.string().optional().nullable(),
-    /** The unique identifier of the office that the negotiator is attached to */
-    officeId: z.string().optional().nullable(),
-    /** The work phone number of the negotiator */ workPhone: z.string().optional().nullable(),
-    /** The mobile phone number of the negotiator */ mobilePhone: z.string().optional().nullable(),
-    /** The email address of the negotiator */ email: z.string().optional().nullable(),
-    /** The URL of the optional negotiator profile image */ profileImageUrl: z.string().optional().nullable(),
-    /** A flag determining whether or not the negotiator is active */ active: z.boolean().optional().nullable(),
-    /** The identifiers of other negotiators whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
-    diaryNegotiatorIds: z.array(z.string()).optional().nullable(),
-    /** The identifiers of other offices whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
-    diaryOfficeIds: z.array(z.string()).optional().nullable(),
-    /** A collection of additional contact details */
-    additionalContactDetails: z.array(additionalContactDetailModel).optional().nullable(),
-    /** App specific metadata that has been set against the negotiator */
-    metadata: z.record(z.string(), z.object({})).optional().nullable(),
-    /** The ETag for the current version of the negotiator. Used for managing update concurrency */
-    _eTag: z.string().optional().nullable(),
-  })
 export type NegotiatorModel =
   /** Representation of a negotiator */
   {
@@ -76,3 +47,32 @@ export type NegotiatorModel =
       | null
       | undefined
   }
+/** Representation of a negotiator */
+export const negotiatorModel =
+  /** Representation of a negotiator */
+  z.object({
+    _links: z.record(z.string(), linkModel).optional().nullable(),
+    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
+    /** The unique identifier of the negotiator */ id: z.string().optional().nullable(),
+    /** The date and time when the negotiator was created */ created: z.string().optional().nullable(),
+    /** The date and time when the negotiator was last modified */ modified: z.string().optional().nullable(),
+    /** The name of the negotiator */ name: z.string().optional().nullable(),
+    /** The job title of the negotiator */ jobTitle: z.string().optional().nullable(),
+    /** The unique identifier of the office that the negotiator is attached to */
+    officeId: z.string().optional().nullable(),
+    /** The work phone number of the negotiator */ workPhone: z.string().optional().nullable(),
+    /** The mobile phone number of the negotiator */ mobilePhone: z.string().optional().nullable(),
+    /** The email address of the negotiator */ email: z.string().optional().nullable(),
+    /** The URL of the optional negotiator profile image */ profileImageUrl: z.string().optional().nullable(),
+    /** A flag determining whether or not the negotiator is active */ active: z.boolean().optional().nullable(),
+    /** The identifiers of other negotiators whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
+    diaryNegotiatorIds: z.array(z.string()).optional().nullable(),
+    /** The identifiers of other offices whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
+    diaryOfficeIds: z.array(z.string()).optional().nullable(),
+    /** A collection of additional contact details */
+    additionalContactDetails: z.array(additionalContactDetailModel).optional().nullable(),
+    /** App specific metadata that has been set against the negotiator */
+    metadata: z.record(z.string(), z.object({})).optional().nullable(),
+    /** The ETag for the current version of the negotiator. Used for managing update concurrency */
+    _eTag: z.string().optional().nullable(),
+  })

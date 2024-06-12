@@ -1,11 +1,11 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { propertyModelConfig } from '@/config/propertyModelConfig.example.tsx'
 import { useGetApiProperties } from '@/services/Properties.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { PropertyModel } from '@/schemas/propertyModel.generated.tsx'
 
-export const usePropertiesTableColumnHelper = createColumnHelper<PropertyModel>()
 export type UsePropertiesTableArgs = {
   sortBy?: string | null | undefined
   embed?:
@@ -148,931 +148,435 @@ export type UsePropertiesTableArgs = {
   modifiedTo?: string | null | undefined
   metadata?: Array<string> | null | undefined
   extrasField?: Array<string> | null | undefined
-  columns: ColumnsList<PropertyModel>
+  fieldNames: (keyof PropertyModel)[]
 }
-export const getusePropertiesTableColumn = (property: string, modelConfig: ModelConfig<PropertyModel>) => {
+export const getPropertiesTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<PropertyModel>,
+  row: PropertyModel,
+) => {
   return match(property)
-    .with('_embedded', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_embedded']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('created', () => {
-      const { label: header, format, width, minWidth } = modelConfig['created']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.created, {
-        id: 'created',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('lastCall', () => {
-      const { label: header, format, width, minWidth } = modelConfig['lastCall']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.lastCall, {
-        id: 'lastCall',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('nextCall', () => {
-      const { label: header, format, width, minWidth } = modelConfig['nextCall']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.nextCall, {
-        id: 'nextCall',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('marketingMode', () => {
-      const { label: header, format, width, minWidth } = modelConfig['marketingMode']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.marketingMode, {
-        id: 'marketingMode',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('currency', () => {
-      const { label: header, format, width, minWidth } = modelConfig['currency']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.currency, {
-        id: 'currency',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('alternateId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['alternateId']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.alternateId, {
-        id: 'alternateId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('address', () => {
-      const { label: header, format, width, minWidth } = modelConfig['address']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.address, {
-        id: 'address',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('areaId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['areaId']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.areaId, {
-        id: 'areaId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('strapline', () => {
-      const { label: header, format, width, minWidth } = modelConfig['strapline']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.strapline, {
-        id: 'strapline',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('description', () => {
-      const { label: header, format, width, minWidth } = modelConfig['description']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.description, {
-        id: 'description',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('longDescription', () => {
-      const { label: header, format, width, minWidth } = modelConfig['longDescription']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.longDescription, {
-        id: 'longDescription',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('localAuthorityCompanyId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['localAuthorityCompanyId']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.localAuthorityCompanyId, {
-        id: 'localAuthorityCompanyId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('localAuthorityCompanyName', () => {
-      const { label: header, format, width, minWidth } = modelConfig['localAuthorityCompanyName']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.localAuthorityCompanyName, {
-        id: 'localAuthorityCompanyName',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('summary', () => {
-      const { label: header, format, width, minWidth } = modelConfig['summary']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.summary, {
-        id: 'summary',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('departmentId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['departmentId']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.departmentId, {
-        id: 'departmentId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('negotiatorId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['negotiatorId']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.negotiatorId, {
-        id: 'negotiatorId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('bedrooms', () => {
-      const { label: header, format, width, minWidth } = modelConfig['bedrooms']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.bedrooms, {
-        id: 'bedrooms',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('bedroomsMax', () => {
-      const { label: header, format, width, minWidth } = modelConfig['bedroomsMax']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.bedroomsMax, {
-        id: 'bedroomsMax',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('receptions', () => {
-      const { label: header, format, width, minWidth } = modelConfig['receptions']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.receptions, {
-        id: 'receptions',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('receptionsMax', () => {
-      const { label: header, format, width, minWidth } = modelConfig['receptionsMax']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.receptionsMax, {
-        id: 'receptionsMax',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('bathrooms', () => {
-      const { label: header, format, width, minWidth } = modelConfig['bathrooms']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.bathrooms, {
-        id: 'bathrooms',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('bathroomsMax', () => {
-      const { label: header, format, width, minWidth } = modelConfig['bathroomsMax']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.bathroomsMax, {
-        id: 'bathroomsMax',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('numberOfUnits', () => {
-      const { label: header, format, width, minWidth } = modelConfig['numberOfUnits']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.numberOfUnits, {
-        id: 'numberOfUnits',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('parkingSpaces', () => {
-      const { label: header, format, width, minWidth } = modelConfig['parkingSpaces']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.parkingSpaces, {
-        id: 'parkingSpaces',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('councilTax', () => {
-      const { label: header, format, width, minWidth } = modelConfig['councilTax']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.councilTax, {
-        id: 'councilTax',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('disabledPortalIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['disabledPortalIds']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.disabledPortalIds, {
-        id: 'disabledPortalIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('internetAdvertising', () => {
-      const { label: header, format, width, minWidth } = modelConfig['internetAdvertising']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.internetAdvertising, {
-        id: 'internetAdvertising',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('isExternal', () => {
-      const { label: header, format, width, minWidth } = modelConfig['isExternal']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.isExternal, {
-        id: 'isExternal',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('viewingArrangements', () => {
-      const { label: header, format, width, minWidth } = modelConfig['viewingArrangements']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.viewingArrangements, {
-        id: 'viewingArrangements',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('videoUrl', () => {
-      const { label: header, format, width, minWidth } = modelConfig['videoUrl']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.videoUrl, {
-        id: 'videoUrl',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('videoCaption', () => {
-      const { label: header, format, width, minWidth } = modelConfig['videoCaption']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.videoCaption, {
-        id: 'videoCaption',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('video2Url', () => {
-      const { label: header, format, width, minWidth } = modelConfig['video2Url']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.video2Url, {
-        id: 'video2Url',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('video2Caption', () => {
-      const { label: header, format, width, minWidth } = modelConfig['video2Caption']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.video2Caption, {
-        id: 'video2Caption',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('notes', () => {
-      const { label: header, format, width, minWidth } = modelConfig['notes']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.notes, {
-        id: 'notes',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('boardStatus', () => {
-      const { label: header, format, width, minWidth } = modelConfig['boardStatus']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.boardStatus, {
-        id: 'boardStatus',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('boardNotes', () => {
-      const { label: header, format, width, minWidth } = modelConfig['boardNotes']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.boardNotes, {
-        id: 'boardNotes',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('featuredImageUrl', () => {
-      const { label: header, format, width, minWidth } = modelConfig['featuredImageUrl']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.featuredImageUrl, {
-        id: 'featuredImageUrl',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('url', () => {
-      const { label: header, format, width, minWidth } = modelConfig['url']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.url, {
-        id: 'url',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('urlCaption', () => {
-      const { label: header, format, width, minWidth } = modelConfig['urlCaption']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.urlCaption, {
-        id: 'urlCaption',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('groundRent', () => {
-      const { label: header, format, width, minWidth } = modelConfig['groundRent']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.groundRent, {
-        id: 'groundRent',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('groundRentComment', () => {
-      const { label: header, format, width, minWidth } = modelConfig['groundRentComment']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.groundRentComment, {
-        id: 'groundRentComment',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('groundRentReviewDate', () => {
-      const { label: header, format, width, minWidth } = modelConfig['groundRentReviewDate']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.groundRentReviewDate, {
-        id: 'groundRentReviewDate',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('groundRentIncrease', () => {
-      const { label: header, format, width, minWidth } = modelConfig['groundRentIncrease']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.groundRentIncrease, {
-        id: 'groundRentIncrease',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('serviceCharge', () => {
-      const { label: header, format, width, minWidth } = modelConfig['serviceCharge']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.serviceCharge, {
-        id: 'serviceCharge',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('serviceChargeComment', () => {
-      const { label: header, format, width, minWidth } = modelConfig['serviceChargeComment']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.serviceChargeComment, {
-        id: 'serviceChargeComment',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('floorLevel', () => {
-      const { label: header, format, width, minWidth } = modelConfig['floorLevel']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.floorLevel, {
-        id: 'floorLevel',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('internalFloors', () => {
-      const { label: header, format, width, minWidth } = modelConfig['internalFloors']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.internalFloors, {
-        id: 'internalFloors',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('totalFloors', () => {
-      const { label: header, format, width, minWidth } = modelConfig['totalFloors']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.totalFloors, {
-        id: 'totalFloors',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('boardUpdated', () => {
-      const { label: header, format, width, minWidth } = modelConfig['boardUpdated']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.boardUpdated, {
-        id: 'boardUpdated',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('valuation', () => {
-      const { label: header, format, width, minWidth } = modelConfig['valuation']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.valuation, {
-        id: 'valuation',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('archivedOn', () => {
-      const { label: header, format, width, minWidth } = modelConfig['archivedOn']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.archivedOn, {
-        id: 'archivedOn',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('fromArchive', () => {
-      const { label: header, format, width, minWidth } = modelConfig['fromArchive']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.fromArchive, {
-        id: 'fromArchive',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('rural', () => {
-      const { label: header, format, width, minWidth } = modelConfig['rural']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.rural, {
-        id: 'rural',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('externalArea', () => {
-      const { label: header, format, width, minWidth } = modelConfig['externalArea']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.externalArea, {
-        id: 'externalArea',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('internalArea', () => {
-      const { label: header, format, width, minWidth } = modelConfig['internalArea']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.internalArea, {
-        id: 'internalArea',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('epc', () => {
-      const { label: header, format, width, minWidth } = modelConfig['epc']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.epc, {
-        id: 'epc',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('selling', () => {
-      const { label: header, format, width, minWidth } = modelConfig['selling']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.selling, {
-        id: 'selling',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('letting', () => {
-      const { label: header, format, width, minWidth } = modelConfig['letting']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.letting, {
-        id: 'letting',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('commercial', () => {
-      const { label: header, format, width, minWidth } = modelConfig['commercial']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.commercial, {
-        id: 'commercial',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('regional', () => {
-      const { label: header, format, width, minWidth } = modelConfig['regional']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.regional, {
-        id: 'regional',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('type', () => {
-      const { label: header, format, width, minWidth } = modelConfig['type']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.type, {
-        id: 'type',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('style', () => {
-      const { label: header, format, width, minWidth } = modelConfig['style']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.style, {
-        id: 'style',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('situation', () => {
-      const { label: header, format, width, minWidth } = modelConfig['situation']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.situation, {
-        id: 'situation',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('parking', () => {
-      const { label: header, format, width, minWidth } = modelConfig['parking']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.parking, {
-        id: 'parking',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('age', () => {
-      const { label: header, format, width, minWidth } = modelConfig['age']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.age, {
-        id: 'age',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('locality', () => {
-      const { label: header, format, width, minWidth } = modelConfig['locality']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.locality, {
-        id: 'locality',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('specialFeatures', () => {
-      const { label: header, format, width, minWidth } = modelConfig['specialFeatures']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.specialFeatures, {
-        id: 'specialFeatures',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('unmappedAttributes', () => {
-      const { label: header, format, width, minWidth } = modelConfig['unmappedAttributes']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.unmappedAttributes, {
-        id: 'unmappedAttributes',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('availableServicesIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['availableServicesIds']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.availableServicesIds, {
-        id: 'availableServicesIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('rooms', () => {
-      const { label: header, format, width, minWidth } = modelConfig['rooms']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.rooms, {
-        id: 'rooms',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('roomDetailsApproved', () => {
-      const { label: header, format, width, minWidth } = modelConfig['roomDetailsApproved']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.roomDetailsApproved, {
-        id: 'roomDetailsApproved',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('officeIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['officeIds']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.officeIds, {
-        id: 'officeIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('lostInstructionDate', () => {
-      const { label: header, format, width, minWidth } = modelConfig['lostInstructionDate']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.lostInstructionDate, {
-        id: 'lostInstructionDate',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('lostInstructionNote', () => {
-      const { label: header, format, width, minWidth } = modelConfig['lostInstructionNote']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.lostInstructionNote, {
-        id: 'lostInstructionNote',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('developmentSiteType', () => {
-      const { label: header, format, width, minWidth } = modelConfig['developmentSiteType']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.developmentSiteType, {
-        id: 'developmentSiteType',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('metadata', () => {
-      const { label: header, format, width, minWidth } = modelConfig['metadata']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.metadata, {
-        id: 'metadata',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('keywords', () => {
-      const { label: header, format, width, minWidth } = modelConfig['keywords']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.keywords, {
-        id: 'keywords',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('extrasField', () => {
-      const { label: header, format, width, minWidth } = modelConfig['extrasField']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row.extrasField, {
-        id: 'extrasField',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_eTag', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_eTag']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row._eTag, {
-        id: '_eTag',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_links', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_links']
-
-      return usePropertiesTableColumnHelper.accessor((row) => row._links, {
-        id: '_links',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('lastCall', () => ({
+      id: 'lastCall',
+      label: modelConfig['lastCall'].label,
+      value: modelConfig['lastCall'].format(row['lastCall']),
+    }))
+    .with('nextCall', () => ({
+      id: 'nextCall',
+      label: modelConfig['nextCall'].label,
+      value: modelConfig['nextCall'].format(row['nextCall']),
+    }))
+    .with('marketingMode', () => ({
+      id: 'marketingMode',
+      label: modelConfig['marketingMode'].label,
+      value: modelConfig['marketingMode'].format(row['marketingMode']),
+    }))
+    .with('currency', () => ({
+      id: 'currency',
+      label: modelConfig['currency'].label,
+      value: modelConfig['currency'].format(row['currency']),
+    }))
+    .with('alternateId', () => ({
+      id: 'alternateId',
+      label: modelConfig['alternateId'].label,
+      value: modelConfig['alternateId'].format(row['alternateId']),
+    }))
+    .with('address', () => ({
+      id: 'address',
+      label: modelConfig['address'].label,
+      value: modelConfig['address'].format(row['address']),
+    }))
+    .with('areaId', () => ({
+      id: 'areaId',
+      label: modelConfig['areaId'].label,
+      value: modelConfig['areaId'].format(row['areaId']),
+    }))
+    .with('strapline', () => ({
+      id: 'strapline',
+      label: modelConfig['strapline'].label,
+      value: modelConfig['strapline'].format(row['strapline']),
+    }))
+    .with('description', () => ({
+      id: 'description',
+      label: modelConfig['description'].label,
+      value: modelConfig['description'].format(row['description']),
+    }))
+    .with('longDescription', () => ({
+      id: 'longDescription',
+      label: modelConfig['longDescription'].label,
+      value: modelConfig['longDescription'].format(row['longDescription']),
+    }))
+    .with('localAuthorityCompanyId', () => ({
+      id: 'localAuthorityCompanyId',
+      label: modelConfig['localAuthorityCompanyId'].label,
+      value: modelConfig['localAuthorityCompanyId'].format(row['localAuthorityCompanyId']),
+    }))
+    .with('localAuthorityCompanyName', () => ({
+      id: 'localAuthorityCompanyName',
+      label: modelConfig['localAuthorityCompanyName'].label,
+      value: modelConfig['localAuthorityCompanyName'].format(row['localAuthorityCompanyName']),
+    }))
+    .with('summary', () => ({
+      id: 'summary',
+      label: modelConfig['summary'].label,
+      value: modelConfig['summary'].format(row['summary']),
+    }))
+    .with('departmentId', () => ({
+      id: 'departmentId',
+      label: modelConfig['departmentId'].label,
+      value: modelConfig['departmentId'].format(row['departmentId']),
+    }))
+    .with('negotiatorId', () => ({
+      id: 'negotiatorId',
+      label: modelConfig['negotiatorId'].label,
+      value: modelConfig['negotiatorId'].format(row['negotiatorId']),
+    }))
+    .with('bedrooms', () => ({
+      id: 'bedrooms',
+      label: modelConfig['bedrooms'].label,
+      value: modelConfig['bedrooms'].format(row['bedrooms']),
+    }))
+    .with('bedroomsMax', () => ({
+      id: 'bedroomsMax',
+      label: modelConfig['bedroomsMax'].label,
+      value: modelConfig['bedroomsMax'].format(row['bedroomsMax']),
+    }))
+    .with('receptions', () => ({
+      id: 'receptions',
+      label: modelConfig['receptions'].label,
+      value: modelConfig['receptions'].format(row['receptions']),
+    }))
+    .with('receptionsMax', () => ({
+      id: 'receptionsMax',
+      label: modelConfig['receptionsMax'].label,
+      value: modelConfig['receptionsMax'].format(row['receptionsMax']),
+    }))
+    .with('bathrooms', () => ({
+      id: 'bathrooms',
+      label: modelConfig['bathrooms'].label,
+      value: modelConfig['bathrooms'].format(row['bathrooms']),
+    }))
+    .with('bathroomsMax', () => ({
+      id: 'bathroomsMax',
+      label: modelConfig['bathroomsMax'].label,
+      value: modelConfig['bathroomsMax'].format(row['bathroomsMax']),
+    }))
+    .with('numberOfUnits', () => ({
+      id: 'numberOfUnits',
+      label: modelConfig['numberOfUnits'].label,
+      value: modelConfig['numberOfUnits'].format(row['numberOfUnits']),
+    }))
+    .with('parkingSpaces', () => ({
+      id: 'parkingSpaces',
+      label: modelConfig['parkingSpaces'].label,
+      value: modelConfig['parkingSpaces'].format(row['parkingSpaces']),
+    }))
+    .with('councilTax', () => ({
+      id: 'councilTax',
+      label: modelConfig['councilTax'].label,
+      value: modelConfig['councilTax'].format(row['councilTax']),
+    }))
+    .with('disabledPortalIds', () => ({
+      id: 'disabledPortalIds',
+      label: modelConfig['disabledPortalIds'].label,
+      value: modelConfig['disabledPortalIds'].format(row['disabledPortalIds']),
+    }))
+    .with('internetAdvertising', () => ({
+      id: 'internetAdvertising',
+      label: modelConfig['internetAdvertising'].label,
+      value: modelConfig['internetAdvertising'].format(row['internetAdvertising']),
+    }))
+    .with('isExternal', () => ({
+      id: 'isExternal',
+      label: modelConfig['isExternal'].label,
+      value: modelConfig['isExternal'].format(row['isExternal']),
+    }))
+    .with('viewingArrangements', () => ({
+      id: 'viewingArrangements',
+      label: modelConfig['viewingArrangements'].label,
+      value: modelConfig['viewingArrangements'].format(row['viewingArrangements']),
+    }))
+    .with('videoUrl', () => ({
+      id: 'videoUrl',
+      label: modelConfig['videoUrl'].label,
+      value: modelConfig['videoUrl'].format(row['videoUrl']),
+    }))
+    .with('videoCaption', () => ({
+      id: 'videoCaption',
+      label: modelConfig['videoCaption'].label,
+      value: modelConfig['videoCaption'].format(row['videoCaption']),
+    }))
+    .with('video2Url', () => ({
+      id: 'video2Url',
+      label: modelConfig['video2Url'].label,
+      value: modelConfig['video2Url'].format(row['video2Url']),
+    }))
+    .with('video2Caption', () => ({
+      id: 'video2Caption',
+      label: modelConfig['video2Caption'].label,
+      value: modelConfig['video2Caption'].format(row['video2Caption']),
+    }))
+    .with('notes', () => ({
+      id: 'notes',
+      label: modelConfig['notes'].label,
+      value: modelConfig['notes'].format(row['notes']),
+    }))
+    .with('boardStatus', () => ({
+      id: 'boardStatus',
+      label: modelConfig['boardStatus'].label,
+      value: modelConfig['boardStatus'].format(row['boardStatus']),
+    }))
+    .with('boardNotes', () => ({
+      id: 'boardNotes',
+      label: modelConfig['boardNotes'].label,
+      value: modelConfig['boardNotes'].format(row['boardNotes']),
+    }))
+    .with('featuredImageUrl', () => ({
+      id: 'featuredImageUrl',
+      label: modelConfig['featuredImageUrl'].label,
+      value: modelConfig['featuredImageUrl'].format(row['featuredImageUrl']),
+    }))
+    .with('url', () => ({
+      id: 'url',
+      label: modelConfig['url'].label,
+      value: modelConfig['url'].format(row['url']),
+    }))
+    .with('urlCaption', () => ({
+      id: 'urlCaption',
+      label: modelConfig['urlCaption'].label,
+      value: modelConfig['urlCaption'].format(row['urlCaption']),
+    }))
+    .with('groundRent', () => ({
+      id: 'groundRent',
+      label: modelConfig['groundRent'].label,
+      value: modelConfig['groundRent'].format(row['groundRent']),
+    }))
+    .with('groundRentComment', () => ({
+      id: 'groundRentComment',
+      label: modelConfig['groundRentComment'].label,
+      value: modelConfig['groundRentComment'].format(row['groundRentComment']),
+    }))
+    .with('groundRentReviewDate', () => ({
+      id: 'groundRentReviewDate',
+      label: modelConfig['groundRentReviewDate'].label,
+      value: modelConfig['groundRentReviewDate'].format(row['groundRentReviewDate']),
+    }))
+    .with('groundRentIncrease', () => ({
+      id: 'groundRentIncrease',
+      label: modelConfig['groundRentIncrease'].label,
+      value: modelConfig['groundRentIncrease'].format(row['groundRentIncrease']),
+    }))
+    .with('serviceCharge', () => ({
+      id: 'serviceCharge',
+      label: modelConfig['serviceCharge'].label,
+      value: modelConfig['serviceCharge'].format(row['serviceCharge']),
+    }))
+    .with('serviceChargeComment', () => ({
+      id: 'serviceChargeComment',
+      label: modelConfig['serviceChargeComment'].label,
+      value: modelConfig['serviceChargeComment'].format(row['serviceChargeComment']),
+    }))
+    .with('floorLevel', () => ({
+      id: 'floorLevel',
+      label: modelConfig['floorLevel'].label,
+      value: modelConfig['floorLevel'].format(row['floorLevel']),
+    }))
+    .with('internalFloors', () => ({
+      id: 'internalFloors',
+      label: modelConfig['internalFloors'].label,
+      value: modelConfig['internalFloors'].format(row['internalFloors']),
+    }))
+    .with('totalFloors', () => ({
+      id: 'totalFloors',
+      label: modelConfig['totalFloors'].label,
+      value: modelConfig['totalFloors'].format(row['totalFloors']),
+    }))
+    .with('boardUpdated', () => ({
+      id: 'boardUpdated',
+      label: modelConfig['boardUpdated'].label,
+      value: modelConfig['boardUpdated'].format(row['boardUpdated']),
+    }))
+    .with('valuation', () => ({
+      id: 'valuation',
+      label: modelConfig['valuation'].label,
+      value: modelConfig['valuation'].format(row['valuation']),
+    }))
+    .with('archivedOn', () => ({
+      id: 'archivedOn',
+      label: modelConfig['archivedOn'].label,
+      value: modelConfig['archivedOn'].format(row['archivedOn']),
+    }))
+    .with('fromArchive', () => ({
+      id: 'fromArchive',
+      label: modelConfig['fromArchive'].label,
+      value: modelConfig['fromArchive'].format(row['fromArchive']),
+    }))
+    .with('rural', () => ({
+      id: 'rural',
+      label: modelConfig['rural'].label,
+      value: modelConfig['rural'].format(row['rural']),
+    }))
+    .with('externalArea', () => ({
+      id: 'externalArea',
+      label: modelConfig['externalArea'].label,
+      value: modelConfig['externalArea'].format(row['externalArea']),
+    }))
+    .with('internalArea', () => ({
+      id: 'internalArea',
+      label: modelConfig['internalArea'].label,
+      value: modelConfig['internalArea'].format(row['internalArea']),
+    }))
+    .with('epc', () => ({
+      id: 'epc',
+      label: modelConfig['epc'].label,
+      value: modelConfig['epc'].format(row['epc']),
+    }))
+    .with('selling', () => ({
+      id: 'selling',
+      label: modelConfig['selling'].label,
+      value: modelConfig['selling'].format(row['selling']),
+    }))
+    .with('letting', () => ({
+      id: 'letting',
+      label: modelConfig['letting'].label,
+      value: modelConfig['letting'].format(row['letting']),
+    }))
+    .with('commercial', () => ({
+      id: 'commercial',
+      label: modelConfig['commercial'].label,
+      value: modelConfig['commercial'].format(row['commercial']),
+    }))
+    .with('regional', () => ({
+      id: 'regional',
+      label: modelConfig['regional'].label,
+      value: modelConfig['regional'].format(row['regional']),
+    }))
+    .with('type', () => ({
+      id: 'type',
+      label: modelConfig['type'].label,
+      value: modelConfig['type'].format(row['type']),
+    }))
+    .with('style', () => ({
+      id: 'style',
+      label: modelConfig['style'].label,
+      value: modelConfig['style'].format(row['style']),
+    }))
+    .with('situation', () => ({
+      id: 'situation',
+      label: modelConfig['situation'].label,
+      value: modelConfig['situation'].format(row['situation']),
+    }))
+    .with('parking', () => ({
+      id: 'parking',
+      label: modelConfig['parking'].label,
+      value: modelConfig['parking'].format(row['parking']),
+    }))
+    .with('age', () => ({
+      id: 'age',
+      label: modelConfig['age'].label,
+      value: modelConfig['age'].format(row['age']),
+    }))
+    .with('locality', () => ({
+      id: 'locality',
+      label: modelConfig['locality'].label,
+      value: modelConfig['locality'].format(row['locality']),
+    }))
+    .with('specialFeatures', () => ({
+      id: 'specialFeatures',
+      label: modelConfig['specialFeatures'].label,
+      value: modelConfig['specialFeatures'].format(row['specialFeatures']),
+    }))
+    .with('unmappedAttributes', () => ({
+      id: 'unmappedAttributes',
+      label: modelConfig['unmappedAttributes'].label,
+      value: modelConfig['unmappedAttributes'].format(row['unmappedAttributes']),
+    }))
+    .with('availableServicesIds', () => ({
+      id: 'availableServicesIds',
+      label: modelConfig['availableServicesIds'].label,
+      value: modelConfig['availableServicesIds'].format(row['availableServicesIds']),
+    }))
+    .with('rooms', () => ({
+      id: 'rooms',
+      label: modelConfig['rooms'].label,
+      value: modelConfig['rooms'].format(row['rooms']),
+    }))
+    .with('roomDetailsApproved', () => ({
+      id: 'roomDetailsApproved',
+      label: modelConfig['roomDetailsApproved'].label,
+      value: modelConfig['roomDetailsApproved'].format(row['roomDetailsApproved']),
+    }))
+    .with('officeIds', () => ({
+      id: 'officeIds',
+      label: modelConfig['officeIds'].label,
+      value: modelConfig['officeIds'].format(row['officeIds']),
+    }))
+    .with('lostInstructionDate', () => ({
+      id: 'lostInstructionDate',
+      label: modelConfig['lostInstructionDate'].label,
+      value: modelConfig['lostInstructionDate'].format(row['lostInstructionDate']),
+    }))
+    .with('lostInstructionNote', () => ({
+      id: 'lostInstructionNote',
+      label: modelConfig['lostInstructionNote'].label,
+      value: modelConfig['lostInstructionNote'].format(row['lostInstructionNote']),
+    }))
+    .with('developmentSiteType', () => ({
+      id: 'developmentSiteType',
+      label: modelConfig['developmentSiteType'].label,
+      value: modelConfig['developmentSiteType'].format(row['developmentSiteType']),
+    }))
+    .with('metadata', () => ({
+      id: 'metadata',
+      label: modelConfig['metadata'].label,
+      value: modelConfig['metadata'].format(row['metadata']),
+    }))
+    .with('keywords', () => ({
+      id: 'keywords',
+      label: modelConfig['keywords'].label,
+      value: modelConfig['keywords'].format(row['keywords']),
+    }))
+    .with('extrasField', () => ({
+      id: 'extrasField',
+      label: modelConfig['extrasField'].label,
+      value: modelConfig['extrasField'].format(row['extrasField']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const usePropertiesTable = (args: UsePropertiesTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -1083,22 +587,12 @@ export const usePropertiesTable = (args: UsePropertiesTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof PropertyModel => c in row)
+        .map((fieldName) => getPropertiesTableColumn(fieldName, propertyModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

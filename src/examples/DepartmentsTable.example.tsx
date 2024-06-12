@@ -1,7 +1,6 @@
-import { useDepartmentsTable, getuseDepartmentsTableColumn } from '@/tables/DepartmentsTable.generated.tsx'
-import { departmentModelConfig } from '@/config/departmentModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useDepartmentsTable } from '@/tables/DepartmentsTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -34,14 +33,10 @@ export const fieldNames = fieldsConfig<DepartmentModel>({
   _eTag: true,
 })
 export const DepartmentsTable = () => {
-  const columns: ColumnsList<DepartmentModel> = fieldNames.map((col) =>
-    getuseDepartmentsTableColumn(col, departmentModelConfig),
-  )
-
-  const { table, dataQuery } = useDepartmentsTable({ columns })
+  const { rows } = useDepartmentsTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useDepartmentsTable</Typography>
         <Button
@@ -57,7 +52,9 @@ export const DepartmentsTable = () => {
           Create department
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

@@ -1,24 +1,6 @@
+import { LinkModel, linkModel } from '@/schemas/linkModel.generated.tsx'
 import { z } from 'zod'
-import { linkModel, LinkModel } from '@/schemas/linkModel.generated.tsx'
 
-/** Representation of a source of business */
-export const sourceModel =
-  /** Representation of a source of business */
-  z.object({
-    _links: z.record(z.string(), linkModel).optional().nullable(),
-    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
-    /** The unique identifier of the source */ id: z.string().optional().nullable(),
-    /** The date and time when the source was created */ created: z.string().optional().nullable(),
-    /** The date and time when the source was last modified */ modified: z.string().optional().nullable(),
-    /** The name of the source or advertising publication */ name: z.string().optional().nullable(),
-    /** The type of the source (source/advertisement) */ type: z.string().optional().nullable(),
-    /** A collection of the unique identifiers of offices that regularly get business from the source */
-    officeIds: z.array(z.string()).optional().nullable(),
-    /** A collection of unique identifiers of departments that regularly get business from the source */
-    departmentIds: z.array(z.string()).optional().nullable(),
-    /** The ETag for the current version of the source. Used for managing update concurrency */
-    _eTag: z.string().optional().nullable(),
-  })
 export type SourceModel =
   /** Representation of a source of business */
   {
@@ -45,3 +27,21 @@ export type SourceModel =
       | null
       | undefined
   }
+/** Representation of a source of business */
+export const sourceModel =
+  /** Representation of a source of business */
+  z.object({
+    _links: z.record(z.string(), linkModel).optional().nullable(),
+    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
+    /** The unique identifier of the source */ id: z.string().optional().nullable(),
+    /** The date and time when the source was created */ created: z.string().optional().nullable(),
+    /** The date and time when the source was last modified */ modified: z.string().optional().nullable(),
+    /** The name of the source or advertising publication */ name: z.string().optional().nullable(),
+    /** The type of the source (source/advertisement) */ type: z.string().optional().nullable(),
+    /** A collection of the unique identifiers of offices that regularly get business from the source */
+    officeIds: z.array(z.string()).optional().nullable(),
+    /** A collection of unique identifiers of departments that regularly get business from the source */
+    departmentIds: z.array(z.string()).optional().nullable(),
+    /** The ETag for the current version of the source. Used for managing update concurrency */
+    _eTag: z.string().optional().nullable(),
+  })

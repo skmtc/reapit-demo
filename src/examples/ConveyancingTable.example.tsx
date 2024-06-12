@@ -1,7 +1,6 @@
-import { useConveyancingTable, getuseConveyancingTableColumn } from '@/tables/ConveyancingTable.generated.tsx'
-import { conveyancingModelConfig } from '@/config/conveyancingModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useConveyancingTable } from '@/tables/ConveyancingTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -59,14 +58,10 @@ export const fieldNames = fieldsConfig<ConveyancingModel>({
   metadata: true,
 })
 export const ConveyancingTable = () => {
-  const columns: ColumnsList<ConveyancingModel> = fieldNames.map((col) =>
-    getuseConveyancingTableColumn(col, conveyancingModelConfig),
-  )
-
-  const { table, dataQuery } = useConveyancingTable({ columns })
+  const { rows } = useConveyancingTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useConveyancingTable</Typography>
         <Button
@@ -82,7 +77,9 @@ export const ConveyancingTable = () => {
           Create conveyancing
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

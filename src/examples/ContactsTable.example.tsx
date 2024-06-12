@@ -1,7 +1,6 @@
-import { useContactsTable, getuseContactsTableColumn } from '@/tables/ContactsTable.generated.tsx'
-import { contactModelConfig } from '@/config/contactModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useContactsTable } from '@/tables/ContactsTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -45,12 +44,10 @@ export const fieldNames = fieldsConfig<ContactModel>({
   relationships: true,
 })
 export const ContactsTable = () => {
-  const columns: ColumnsList<ContactModel> = fieldNames.map((col) => getuseContactsTableColumn(col, contactModelConfig))
-
-  const { table, dataQuery } = useContactsTable({ columns })
+  const { rows } = useContactsTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useContactsTable</Typography>
         <Button
@@ -66,7 +63,9 @@ export const ContactsTable = () => {
           Create contact
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

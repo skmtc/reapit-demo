@@ -1,30 +1,6 @@
+import { LinkModel, linkModel } from '@/schemas/linkModel.generated.tsx'
 import { z } from 'zod'
-import { linkModel, LinkModel } from '@/schemas/linkModel.generated.tsx'
 
-/** Representation of an individual invoice */
-export const invoiceModel =
-  /** Representation of an individual invoice */
-  z.object({
-    _links: z.record(z.string(), linkModel).optional().nullable(),
-    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
-    /** Unique identifier of the invoice */ id: z.string().optional().nullable(),
-    /** The date and time when the invoice was created */ created: z.string().optional().nullable(),
-    /** The date and time when the invoice was last modified */ modified: z.string().optional().nullable(),
-    /** The invoice reference */ reference: z.string().optional().nullable(),
-    /** Unique identifier of the negotiator associated with the invoice */
-    negotiatorId: z.string().optional().nullable(),
-    /** Unique identifier of the property associated with the invoice */ propertyId: z.string().optional().nullable(),
-    /** Description of the invoice */ description: z.string().optional().nullable(),
-    /** The status of the invoice */ status: z.string().optional().nullable(),
-    /** The date of the invoice */ date: z.string().optional().nullable(),
-    /** The due date of the invoice */ dueDate: z.string().optional().nullable(),
-    /** Flag indicating whether the invoice has been raised */ isRaised: z.boolean().optional().nullable(),
-    /** The net amount due for the invoice in the system base currency */ netAmount: z.number().optional().nullable(),
-    /** The amount of VAT due for the invoice in the system base currency */
-    vatAmount: z.number().optional().nullable(),
-    /** The value of the invoice outstanding in the system base currency */
-    outstandingAmount: z.number().optional().nullable(),
-  })
 export type InvoiceModel =
   /** Representation of an individual invoice */
   {
@@ -49,3 +25,27 @@ export type InvoiceModel =
       | null
       | undefined
   }
+/** Representation of an individual invoice */
+export const invoiceModel =
+  /** Representation of an individual invoice */
+  z.object({
+    _links: z.record(z.string(), linkModel).optional().nullable(),
+    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
+    /** Unique identifier of the invoice */ id: z.string().optional().nullable(),
+    /** The date and time when the invoice was created */ created: z.string().optional().nullable(),
+    /** The date and time when the invoice was last modified */ modified: z.string().optional().nullable(),
+    /** The invoice reference */ reference: z.string().optional().nullable(),
+    /** Unique identifier of the negotiator associated with the invoice */
+    negotiatorId: z.string().optional().nullable(),
+    /** Unique identifier of the property associated with the invoice */ propertyId: z.string().optional().nullable(),
+    /** Description of the invoice */ description: z.string().optional().nullable(),
+    /** The status of the invoice */ status: z.string().optional().nullable(),
+    /** The date of the invoice */ date: z.string().optional().nullable(),
+    /** The due date of the invoice */ dueDate: z.string().optional().nullable(),
+    /** Flag indicating whether the invoice has been raised */ isRaised: z.boolean().optional().nullable(),
+    /** The net amount due for the invoice in the system base currency */ netAmount: z.number().optional().nullable(),
+    /** The amount of VAT due for the invoice in the system base currency */
+    vatAmount: z.number().optional().nullable(),
+    /** The value of the invoice outstanding in the system base currency */
+    outstandingAmount: z.number().optional().nullable(),
+  })

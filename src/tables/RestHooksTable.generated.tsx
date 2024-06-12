@@ -1,114 +1,68 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { webhookModelConfig } from '@/config/webhookModelConfig.example.tsx'
 import { useGetApiResthooks } from '@/services/RestHooks.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { WebhookModel } from '@/schemas/webhookModel.generated.tsx'
 
-export const useResthooksTableColumnHelper = createColumnHelper<WebhookModel>()
 export type UseResthooksTableArgs = {
   sortBy?: string | null | undefined
   active?: boolean | null | undefined
-  columns: ColumnsList<WebhookModel>
+  fieldNames: (keyof WebhookModel)[]
 }
-export const getuseResthooksTableColumn = (property: string, modelConfig: ModelConfig<WebhookModel>) => {
+export const getResthooksTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<WebhookModel>,
+  row: WebhookModel,
+) => {
   return match(property)
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return useResthooksTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('created', () => {
-      const { label: header, format, width, minWidth } = modelConfig['created']
-
-      return useResthooksTableColumnHelper.accessor((row) => row.created, {
-        id: 'created',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return useResthooksTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('url', () => {
-      const { label: header, format, width, minWidth } = modelConfig['url']
-
-      return useResthooksTableColumnHelper.accessor((row) => row.url, {
-        id: 'url',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('description', () => {
-      const { label: header, format, width, minWidth } = modelConfig['description']
-
-      return useResthooksTableColumnHelper.accessor((row) => row.description, {
-        id: 'description',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('topicIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['topicIds']
-
-      return useResthooksTableColumnHelper.accessor((row) => row.topicIds, {
-        id: 'topicIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('active', () => {
-      const { label: header, format, width, minWidth } = modelConfig['active']
-
-      return useResthooksTableColumnHelper.accessor((row) => row.active, {
-        id: 'active',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('ignoreEtagOnlyChanges', () => {
-      const { label: header, format, width, minWidth } = modelConfig['ignoreEtagOnlyChanges']
-
-      return useResthooksTableColumnHelper.accessor((row) => row.ignoreEtagOnlyChanges, {
-        id: 'ignoreEtagOnlyChanges',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('url', () => ({
+      id: 'url',
+      label: modelConfig['url'].label,
+      value: modelConfig['url'].format(row['url']),
+    }))
+    .with('description', () => ({
+      id: 'description',
+      label: modelConfig['description'].label,
+      value: modelConfig['description'].format(row['description']),
+    }))
+    .with('topicIds', () => ({
+      id: 'topicIds',
+      label: modelConfig['topicIds'].label,
+      value: modelConfig['topicIds'].format(row['topicIds']),
+    }))
+    .with('active', () => ({
+      id: 'active',
+      label: modelConfig['active'].label,
+      value: modelConfig['active'].format(row['active']),
+    }))
+    .with('ignoreEtagOnlyChanges', () => ({
+      id: 'ignoreEtagOnlyChanges',
+      label: modelConfig['ignoreEtagOnlyChanges'].label,
+      value: modelConfig['ignoreEtagOnlyChanges'].format(row['ignoreEtagOnlyChanges']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const useResthooksTable = (args: UseResthooksTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -119,22 +73,12 @@ export const useResthooksTable = (args: UseResthooksTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof WebhookModel => c in row)
+        .map((fieldName) => getResthooksTableColumn(fieldName, webhookModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

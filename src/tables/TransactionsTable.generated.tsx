@@ -1,11 +1,11 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { transactionModelConfig } from '@/config/transactionModelConfig.example.tsx'
 import { useGetApiTransactions } from '@/services/Transactions.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { TransactionModel } from '@/schemas/transactionModel.generated.tsx'
 
-export const useTransactionsTableColumnHelper = createColumnHelper<TransactionModel>()
 export type UseTransactionsTableArgs = {
   sortBy?: string | null | undefined
   id?: Array<string> | null | undefined
@@ -100,238 +100,120 @@ export type UseTransactionsTableArgs = {
   modifiedTo?: string | null | undefined
   outstandingFrom?: number | null | undefined
   outstandingTo?: number | null | undefined
-  columns: ColumnsList<TransactionModel>
+  fieldNames: (keyof TransactionModel)[]
 }
-export const getuseTransactionsTableColumn = (property: string, modelConfig: ModelConfig<TransactionModel>) => {
+export const getTransactionsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<TransactionModel>,
+  row: TransactionModel,
+) => {
   return match(property)
-    .with('_links', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_links']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row._links, {
-        id: '_links',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_embedded', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_embedded']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('created', () => {
-      const { label: header, format, width, minWidth } = modelConfig['created']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.created, {
-        id: 'created',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('category', () => {
-      const { label: header, format, width, minWidth } = modelConfig['category']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.category, {
-        id: 'category',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('type', () => {
-      const { label: header, format, width, minWidth } = modelConfig['type']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.type, {
-        id: 'type',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('transactionType', () => {
-      const { label: header, format, width, minWidth } = modelConfig['transactionType']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.transactionType, {
-        id: 'transactionType',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('description', () => {
-      const { label: header, format, width, minWidth } = modelConfig['description']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.description, {
-        id: 'description',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('status', () => {
-      const { label: header, format, width, minWidth } = modelConfig['status']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.status, {
-        id: 'status',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('ledger', () => {
-      const { label: header, format, width, minWidth } = modelConfig['ledger']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.ledger, {
-        id: 'ledger',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('netAmount', () => {
-      const { label: header, format, width, minWidth } = modelConfig['netAmount']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.netAmount, {
-        id: 'netAmount',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('taxAmount', () => {
-      const { label: header, format, width, minWidth } = modelConfig['taxAmount']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.taxAmount, {
-        id: 'taxAmount',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('grossAmount', () => {
-      const { label: header, format, width, minWidth } = modelConfig['grossAmount']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.grossAmount, {
-        id: 'grossAmount',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('outstanding', () => {
-      const { label: header, format, width, minWidth } = modelConfig['outstanding']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.outstanding, {
-        id: 'outstanding',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('companyId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['companyId']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.companyId, {
-        id: 'companyId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('landlordId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['landlordId']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.landlordId, {
-        id: 'landlordId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('propertyId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['propertyId']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.propertyId, {
-        id: 'propertyId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('tenancyId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['tenancyId']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row.tenancyId, {
-        id: 'tenancyId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_eTag', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_eTag']
-
-      return useTransactionsTableColumnHelper.accessor((row) => row._eTag, {
-        id: '_eTag',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('category', () => ({
+      id: 'category',
+      label: modelConfig['category'].label,
+      value: modelConfig['category'].format(row['category']),
+    }))
+    .with('type', () => ({
+      id: 'type',
+      label: modelConfig['type'].label,
+      value: modelConfig['type'].format(row['type']),
+    }))
+    .with('transactionType', () => ({
+      id: 'transactionType',
+      label: modelConfig['transactionType'].label,
+      value: modelConfig['transactionType'].format(row['transactionType']),
+    }))
+    .with('description', () => ({
+      id: 'description',
+      label: modelConfig['description'].label,
+      value: modelConfig['description'].format(row['description']),
+    }))
+    .with('status', () => ({
+      id: 'status',
+      label: modelConfig['status'].label,
+      value: modelConfig['status'].format(row['status']),
+    }))
+    .with('ledger', () => ({
+      id: 'ledger',
+      label: modelConfig['ledger'].label,
+      value: modelConfig['ledger'].format(row['ledger']),
+    }))
+    .with('netAmount', () => ({
+      id: 'netAmount',
+      label: modelConfig['netAmount'].label,
+      value: modelConfig['netAmount'].format(row['netAmount']),
+    }))
+    .with('taxAmount', () => ({
+      id: 'taxAmount',
+      label: modelConfig['taxAmount'].label,
+      value: modelConfig['taxAmount'].format(row['taxAmount']),
+    }))
+    .with('grossAmount', () => ({
+      id: 'grossAmount',
+      label: modelConfig['grossAmount'].label,
+      value: modelConfig['grossAmount'].format(row['grossAmount']),
+    }))
+    .with('outstanding', () => ({
+      id: 'outstanding',
+      label: modelConfig['outstanding'].label,
+      value: modelConfig['outstanding'].format(row['outstanding']),
+    }))
+    .with('companyId', () => ({
+      id: 'companyId',
+      label: modelConfig['companyId'].label,
+      value: modelConfig['companyId'].format(row['companyId']),
+    }))
+    .with('landlordId', () => ({
+      id: 'landlordId',
+      label: modelConfig['landlordId'].label,
+      value: modelConfig['landlordId'].format(row['landlordId']),
+    }))
+    .with('propertyId', () => ({
+      id: 'propertyId',
+      label: modelConfig['propertyId'].label,
+      value: modelConfig['propertyId'].format(row['propertyId']),
+    }))
+    .with('tenancyId', () => ({
+      id: 'tenancyId',
+      label: modelConfig['tenancyId'].label,
+      value: modelConfig['tenancyId'].format(row['tenancyId']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const useTransactionsTable = (args: UseTransactionsTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -342,22 +224,12 @@ export const useTransactionsTable = (args: UseTransactionsTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof TransactionModel => c in row)
+        .map((fieldName) => getTransactionsTableColumn(fieldName, transactionModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

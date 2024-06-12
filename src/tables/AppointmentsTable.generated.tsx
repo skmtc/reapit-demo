@@ -1,11 +1,11 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { appointmentModelConfig } from '@/config/appointmentModelConfig.example.tsx'
 import { useGetApiAppointments } from '@/services/Appointments.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { AppointmentModel } from '@/schemas/appointmentModel.generated.tsx'
 
-export const useAppointmentsTableColumnHelper = createColumnHelper<AppointmentModel>()
 export type UseAppointmentsTableArgs = {
   sortBy?: string | null | undefined
   embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | null | undefined
@@ -29,359 +29,175 @@ export type UseAppointmentsTableArgs = {
   modifiedTo?: string | null | undefined
   extrasField?: Array<string> | null | undefined
   metadata?: Array<string> | null | undefined
-  columns: ColumnsList<AppointmentModel>
+  fieldNames: (keyof AppointmentModel)[]
 }
-export const getuseAppointmentsTableColumn = (property: string, modelConfig: ModelConfig<AppointmentModel>) => {
+export const getAppointmentsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<AppointmentModel>,
+  row: AppointmentModel,
+) => {
   return match(property)
-    .with('_links', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_links']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row._links, {
-        id: '_links',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_embedded', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_embedded']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('created', () => {
-      const { label: header, format, width, minWidth } = modelConfig['created']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.created, {
-        id: 'created',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('start', () => {
-      const { label: header, format, width, minWidth } = modelConfig['start']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.start, {
-        id: 'start',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('end', () => {
-      const { label: header, format, width, minWidth } = modelConfig['end']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.end, {
-        id: 'end',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('typeId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['typeId']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.typeId, {
-        id: 'typeId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('description', () => {
-      const { label: header, format, width, minWidth } = modelConfig['description']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.description, {
-        id: 'description',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('recurring', () => {
-      const { label: header, format, width, minWidth } = modelConfig['recurring']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.recurring, {
-        id: 'recurring',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('recurrence', () => {
-      const { label: header, format, width, minWidth } = modelConfig['recurrence']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.recurrence, {
-        id: 'recurrence',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('cancelled', () => {
-      const { label: header, format, width, minWidth } = modelConfig['cancelled']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.cancelled, {
-        id: 'cancelled',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('followUp', () => {
-      const { label: header, format, width, minWidth } = modelConfig['followUp']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.followUp, {
-        id: 'followUp',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('propertyId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['propertyId']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.propertyId, {
-        id: 'propertyId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('organiserId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['organiserId']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.organiserId, {
-        id: 'organiserId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('negotiatorIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['negotiatorIds']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.negotiatorIds, {
-        id: 'negotiatorIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('officeIds', () => {
-      const { label: header, format, width, minWidth } = modelConfig['officeIds']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.officeIds, {
-        id: 'officeIds',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('attendee', () => {
-      const { label: header, format, width, minWidth } = modelConfig['attendee']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.attendee, {
-        id: 'attendee',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('attended', () => {
-      const { label: header, format, width, minWidth } = modelConfig['attended']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.attended, {
-        id: 'attended',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('accompanied', () => {
-      const { label: header, format, width, minWidth } = modelConfig['accompanied']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.accompanied, {
-        id: 'accompanied',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('isRepeat', () => {
-      const { label: header, format, width, minWidth } = modelConfig['isRepeat']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.isRepeat, {
-        id: 'isRepeat',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('virtual', () => {
-      const { label: header, format, width, minWidth } = modelConfig['virtual']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.virtual, {
-        id: 'virtual',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('negotiatorConfirmed', () => {
-      const { label: header, format, width, minWidth } = modelConfig['negotiatorConfirmed']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.negotiatorConfirmed, {
-        id: 'negotiatorConfirmed',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('attendeeConfirmed', () => {
-      const { label: header, format, width, minWidth } = modelConfig['attendeeConfirmed']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.attendeeConfirmed, {
-        id: 'attendeeConfirmed',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('propertyConfirmed', () => {
-      const { label: header, format, width, minWidth } = modelConfig['propertyConfirmed']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.propertyConfirmed, {
-        id: 'propertyConfirmed',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('fromArchive', () => {
-      const { label: header, format, width, minWidth } = modelConfig['fromArchive']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.fromArchive, {
-        id: 'fromArchive',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('otherAgentId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['otherAgentId']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.otherAgentId, {
-        id: 'otherAgentId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('documents', () => {
-      const { label: header, format, width, minWidth } = modelConfig['documents']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.documents, {
-        id: 'documents',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('metadata', () => {
-      const { label: header, format, width, minWidth } = modelConfig['metadata']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.metadata, {
-        id: 'metadata',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('extrasField', () => {
-      const { label: header, format, width, minWidth } = modelConfig['extrasField']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row.extrasField, {
-        id: 'extrasField',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_eTag', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_eTag']
-
-      return useAppointmentsTableColumnHelper.accessor((row) => row._eTag, {
-        id: '_eTag',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('start', () => ({
+      id: 'start',
+      label: modelConfig['start'].label,
+      value: modelConfig['start'].format(row['start']),
+    }))
+    .with('end', () => ({
+      id: 'end',
+      label: modelConfig['end'].label,
+      value: modelConfig['end'].format(row['end']),
+    }))
+    .with('typeId', () => ({
+      id: 'typeId',
+      label: modelConfig['typeId'].label,
+      value: modelConfig['typeId'].format(row['typeId']),
+    }))
+    .with('description', () => ({
+      id: 'description',
+      label: modelConfig['description'].label,
+      value: modelConfig['description'].format(row['description']),
+    }))
+    .with('recurring', () => ({
+      id: 'recurring',
+      label: modelConfig['recurring'].label,
+      value: modelConfig['recurring'].format(row['recurring']),
+    }))
+    .with('recurrence', () => ({
+      id: 'recurrence',
+      label: modelConfig['recurrence'].label,
+      value: modelConfig['recurrence'].format(row['recurrence']),
+    }))
+    .with('cancelled', () => ({
+      id: 'cancelled',
+      label: modelConfig['cancelled'].label,
+      value: modelConfig['cancelled'].format(row['cancelled']),
+    }))
+    .with('followUp', () => ({
+      id: 'followUp',
+      label: modelConfig['followUp'].label,
+      value: modelConfig['followUp'].format(row['followUp']),
+    }))
+    .with('propertyId', () => ({
+      id: 'propertyId',
+      label: modelConfig['propertyId'].label,
+      value: modelConfig['propertyId'].format(row['propertyId']),
+    }))
+    .with('organiserId', () => ({
+      id: 'organiserId',
+      label: modelConfig['organiserId'].label,
+      value: modelConfig['organiserId'].format(row['organiserId']),
+    }))
+    .with('negotiatorIds', () => ({
+      id: 'negotiatorIds',
+      label: modelConfig['negotiatorIds'].label,
+      value: modelConfig['negotiatorIds'].format(row['negotiatorIds']),
+    }))
+    .with('officeIds', () => ({
+      id: 'officeIds',
+      label: modelConfig['officeIds'].label,
+      value: modelConfig['officeIds'].format(row['officeIds']),
+    }))
+    .with('attendee', () => ({
+      id: 'attendee',
+      label: modelConfig['attendee'].label,
+      value: modelConfig['attendee'].format(row['attendee']),
+    }))
+    .with('attended', () => ({
+      id: 'attended',
+      label: modelConfig['attended'].label,
+      value: modelConfig['attended'].format(row['attended']),
+    }))
+    .with('accompanied', () => ({
+      id: 'accompanied',
+      label: modelConfig['accompanied'].label,
+      value: modelConfig['accompanied'].format(row['accompanied']),
+    }))
+    .with('isRepeat', () => ({
+      id: 'isRepeat',
+      label: modelConfig['isRepeat'].label,
+      value: modelConfig['isRepeat'].format(row['isRepeat']),
+    }))
+    .with('virtual', () => ({
+      id: 'virtual',
+      label: modelConfig['virtual'].label,
+      value: modelConfig['virtual'].format(row['virtual']),
+    }))
+    .with('negotiatorConfirmed', () => ({
+      id: 'negotiatorConfirmed',
+      label: modelConfig['negotiatorConfirmed'].label,
+      value: modelConfig['negotiatorConfirmed'].format(row['negotiatorConfirmed']),
+    }))
+    .with('attendeeConfirmed', () => ({
+      id: 'attendeeConfirmed',
+      label: modelConfig['attendeeConfirmed'].label,
+      value: modelConfig['attendeeConfirmed'].format(row['attendeeConfirmed']),
+    }))
+    .with('propertyConfirmed', () => ({
+      id: 'propertyConfirmed',
+      label: modelConfig['propertyConfirmed'].label,
+      value: modelConfig['propertyConfirmed'].format(row['propertyConfirmed']),
+    }))
+    .with('fromArchive', () => ({
+      id: 'fromArchive',
+      label: modelConfig['fromArchive'].label,
+      value: modelConfig['fromArchive'].format(row['fromArchive']),
+    }))
+    .with('otherAgentId', () => ({
+      id: 'otherAgentId',
+      label: modelConfig['otherAgentId'].label,
+      value: modelConfig['otherAgentId'].format(row['otherAgentId']),
+    }))
+    .with('documents', () => ({
+      id: 'documents',
+      label: modelConfig['documents'].label,
+      value: modelConfig['documents'].format(row['documents']),
+    }))
+    .with('metadata', () => ({
+      id: 'metadata',
+      label: modelConfig['metadata'].label,
+      value: modelConfig['metadata'].format(row['metadata']),
+    }))
+    .with('extrasField', () => ({
+      id: 'extrasField',
+      label: modelConfig['extrasField'].label,
+      value: modelConfig['extrasField'].format(row['extrasField']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const useAppointmentsTable = (args: UseAppointmentsTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -392,22 +208,12 @@ export const useAppointmentsTable = (args: UseAppointmentsTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof AppointmentModel => c in row)
+        .map((fieldName) => getAppointmentsTableColumn(fieldName, appointmentModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

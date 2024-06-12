@@ -1,64 +1,13 @@
-import { z } from 'zod'
-import { linkModel, LinkModel } from '@/schemas/linkModel.generated.tsx'
-import { contactSourceModel, ContactSourceModel } from '@/schemas/contactSourceModel.generated.tsx'
-import { contactAddressModel, ContactAddressModel } from '@/schemas/contactAddressModel.generated.tsx'
+import { LinkModel, linkModel } from '@/schemas/linkModel.generated.tsx'
+import { ContactSourceModel, contactSourceModel } from '@/schemas/contactSourceModel.generated.tsx'
+import { ContactAddressModel, contactAddressModel } from '@/schemas/contactAddressModel.generated.tsx'
 import {
-  additionalContactDetailModel,
   AdditionalContactDetailModel,
+  additionalContactDetailModel,
 } from '@/schemas/additionalContactDetailModel.generated.tsx'
-import { contactRoleModel, ContactRoleModel } from '@/schemas/contactRoleModel.generated.tsx'
+import { ContactRoleModel, contactRoleModel } from '@/schemas/contactRoleModel.generated.tsx'
+import { z } from 'zod'
 
-/** Representation of an individual contact */
-export const contactModel =
-  /** Representation of an individual contact */
-  z.object({
-    _links: z.record(z.string(), linkModel).optional().nullable(),
-    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
-    /** The unique identifier of the contact */ id: z.string().optional().nullable(),
-    /** The date and time when the contact was created */ created: z.string().optional().nullable(),
-    /** The date and time when the contact was last modified */ modified: z.string().optional().nullable(),
-    /** The contact's title  (eg. Mr, Mrs, Miss, Dr) */ title: z.string().optional().nullable(),
-    /** The contact's forename */ forename: z.string().optional().nullable(),
-    /** The contact's surname */ surname: z.string().optional().nullable(),
-    /** The contact's date of birth */ dateOfBirth: z.string().optional().nullable(),
-    /** A flag determining whether or not the contact is currently active */ active: z.boolean().optional().nullable(),
-    /** The marketing consent status of the contact (grant/deny/notAsked) */
-    marketingConsent: z.string().optional().nullable(),
-    /** The status of the last identity check performed against the contact (pass/fail/pending/cancelled/warnings/unchecked) */
-    identityCheck: z.string().optional().nullable(),
-    source: contactSourceModel.optional().nullable(),
-    /** The home phone number of the contact */ homePhone: z.string().optional().nullable(),
-    /** The work phone number of the contact */ workPhone: z.string().optional().nullable(),
-    /** The mobile phone number of the contact */ mobilePhone: z.string().optional().nullable(),
-    /** The email address of the contact */ email: z.string().optional().nullable(),
-    /** The date and time the contact was archived */ archivedOn: z.string().optional().nullable(),
-    /** A flag determining whether or not the contact is archived */ fromArchive: z.boolean().optional().nullable(),
-    primaryAddress: contactAddressModel.optional().nullable(),
-    secondaryAddress: contactAddressModel.optional().nullable(),
-    workAddress: contactAddressModel.optional().nullable(),
-    /** A collection of unique identifiers of offices attached to the contact. The first item in the collection is considered the primary office */
-    officeIds: z.array(z.string()).optional().nullable(),
-    /** A collection of unique identifiers of negotiators attached to the contact. The first item in the collection is considered the primary negotiator */
-    negotiatorIds: z.array(z.string()).optional().nullable(),
-    /** A collection of categories associated to the contact. */ categoryIds: z.array(z.string()).optional().nullable(),
-    /** A flag determining whether or not the contact is happy to receive communications by letter */
-    communicationPreferenceLetter: z.boolean().optional().nullable(),
-    /** A flag determining whether or not the contact is happy to receive communications by email */
-    communicationPreferenceEmail: z.boolean().optional().nullable(),
-    /** A flag determining whether or not the contact is happy to receive communications by phone */
-    communicationPreferencePhone: z.boolean().optional().nullable(),
-    /** A flag determining whether or not the contact is happy to receive communications by SMS */
-    communicationPreferenceSMS: z.boolean().optional().nullable(),
-    /** A collection of additional contact details */
-    additionalContactDetails: z.array(additionalContactDetailModel).optional().nullable(),
-    /** App specific metadata that has been set against the contact */
-    metadata: z.record(z.string(), z.object({})).optional().nullable(),
-    /** The ETag for the current version of the contact. Used for managing update concurrency */
-    _eTag: z.string().optional().nullable(),
-    /** The requested extras fields */ extrasField: z.record(z.string(), z.object({})).optional().nullable(),
-    /** A list of relationships belonging to the contact. This is later removed from the response */
-    relationships: z.array(contactRoleModel).optional().nullable(),
-  })
 export type ContactModel =
   /** Representation of an individual contact */
   {
@@ -145,3 +94,54 @@ export type ContactModel =
       | null
       | undefined
   }
+/** Representation of an individual contact */
+export const contactModel =
+  /** Representation of an individual contact */
+  z.object({
+    _links: z.record(z.string(), linkModel).optional().nullable(),
+    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
+    /** The unique identifier of the contact */ id: z.string().optional().nullable(),
+    /** The date and time when the contact was created */ created: z.string().optional().nullable(),
+    /** The date and time when the contact was last modified */ modified: z.string().optional().nullable(),
+    /** The contact's title  (eg. Mr, Mrs, Miss, Dr) */ title: z.string().optional().nullable(),
+    /** The contact's forename */ forename: z.string().optional().nullable(),
+    /** The contact's surname */ surname: z.string().optional().nullable(),
+    /** The contact's date of birth */ dateOfBirth: z.string().optional().nullable(),
+    /** A flag determining whether or not the contact is currently active */ active: z.boolean().optional().nullable(),
+    /** The marketing consent status of the contact (grant/deny/notAsked) */
+    marketingConsent: z.string().optional().nullable(),
+    /** The status of the last identity check performed against the contact (pass/fail/pending/cancelled/warnings/unchecked) */
+    identityCheck: z.string().optional().nullable(),
+    source: contactSourceModel.optional().nullable(),
+    /** The home phone number of the contact */ homePhone: z.string().optional().nullable(),
+    /** The work phone number of the contact */ workPhone: z.string().optional().nullable(),
+    /** The mobile phone number of the contact */ mobilePhone: z.string().optional().nullable(),
+    /** The email address of the contact */ email: z.string().optional().nullable(),
+    /** The date and time the contact was archived */ archivedOn: z.string().optional().nullable(),
+    /** A flag determining whether or not the contact is archived */ fromArchive: z.boolean().optional().nullable(),
+    primaryAddress: contactAddressModel.optional().nullable(),
+    secondaryAddress: contactAddressModel.optional().nullable(),
+    workAddress: contactAddressModel.optional().nullable(),
+    /** A collection of unique identifiers of offices attached to the contact. The first item in the collection is considered the primary office */
+    officeIds: z.array(z.string()).optional().nullable(),
+    /** A collection of unique identifiers of negotiators attached to the contact. The first item in the collection is considered the primary negotiator */
+    negotiatorIds: z.array(z.string()).optional().nullable(),
+    /** A collection of categories associated to the contact. */ categoryIds: z.array(z.string()).optional().nullable(),
+    /** A flag determining whether or not the contact is happy to receive communications by letter */
+    communicationPreferenceLetter: z.boolean().optional().nullable(),
+    /** A flag determining whether or not the contact is happy to receive communications by email */
+    communicationPreferenceEmail: z.boolean().optional().nullable(),
+    /** A flag determining whether or not the contact is happy to receive communications by phone */
+    communicationPreferencePhone: z.boolean().optional().nullable(),
+    /** A flag determining whether or not the contact is happy to receive communications by SMS */
+    communicationPreferenceSMS: z.boolean().optional().nullable(),
+    /** A collection of additional contact details */
+    additionalContactDetails: z.array(additionalContactDetailModel).optional().nullable(),
+    /** App specific metadata that has been set against the contact */
+    metadata: z.record(z.string(), z.object({})).optional().nullable(),
+    /** The ETag for the current version of the contact. Used for managing update concurrency */
+    _eTag: z.string().optional().nullable(),
+    /** The requested extras fields */ extrasField: z.record(z.string(), z.object({})).optional().nullable(),
+    /** A list of relationships belonging to the contact. This is later removed from the response */
+    relationships: z.array(contactRoleModel).optional().nullable(),
+  })

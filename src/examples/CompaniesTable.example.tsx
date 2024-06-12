@@ -1,7 +1,6 @@
-import { useCompaniesTable, getuseCompaniesTableColumn } from '@/tables/CompaniesTable.generated.tsx'
-import { companyModelConfig } from '@/config/companyModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useCompaniesTable } from '@/tables/CompaniesTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -41,14 +40,10 @@ export const fieldNames = fieldsConfig<CompanyModel>({
   relationships: true,
 })
 export const CompaniesTable = () => {
-  const columns: ColumnsList<CompanyModel> = fieldNames.map((col) =>
-    getuseCompaniesTableColumn(col, companyModelConfig),
-  )
-
-  const { table, dataQuery } = useCompaniesTable({ columns })
+  const { rows } = useCompaniesTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useCompaniesTable</Typography>
         <Button
@@ -64,7 +59,9 @@ export const CompaniesTable = () => {
           Create company
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

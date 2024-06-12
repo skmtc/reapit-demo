@@ -1,7 +1,6 @@
-import { useTransactionsTable, getuseTransactionsTableColumn } from '@/tables/TransactionsTable.generated.tsx'
-import { transactionModelConfig } from '@/config/transactionModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useTransactionsTable } from '@/tables/TransactionsTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -31,14 +30,10 @@ export const fieldNames = fieldsConfig<TransactionModel>({
   _eTag: true,
 })
 export const TransactionsTable = () => {
-  const columns: ColumnsList<TransactionModel> = fieldNames.map((col) =>
-    getuseTransactionsTableColumn(col, transactionModelConfig),
-  )
-
-  const { table, dataQuery } = useTransactionsTable({ columns })
+  const { rows } = useTransactionsTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useTransactionsTable</Typography>
         <Button
@@ -54,7 +49,9 @@ export const TransactionsTable = () => {
           Create transaction
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

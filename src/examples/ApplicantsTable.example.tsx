@@ -1,7 +1,6 @@
-import { useApplicantsTable, getuseApplicantsTableColumn } from '@/tables/ApplicantsTable.generated.tsx'
-import { applicantModelConfig } from '@/config/applicantModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useApplicantsTable } from '@/tables/ApplicantsTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -60,14 +59,10 @@ export const fieldNames = fieldsConfig<ApplicantModel>({
   _eTag: true,
 })
 export const ApplicantsTable = () => {
-  const columns: ColumnsList<ApplicantModel> = fieldNames.map((col) =>
-    getuseApplicantsTableColumn(col, applicantModelConfig),
-  )
-
-  const { table, dataQuery } = useApplicantsTable({ columns })
+  const { rows } = useApplicantsTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useApplicantsTable</Typography>
         <Button
@@ -83,7 +78,9 @@ export const ApplicantsTable = () => {
           Create applicant
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

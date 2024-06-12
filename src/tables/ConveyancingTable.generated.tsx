@@ -1,11 +1,11 @@
-import { createColumnHelper, useReactTable, getCoreRowModel, PaginationState } from '@tanstack/react-table'
-import { ModelConfig, ColumnsList } from '@/components/ModelRuntimeConfig'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
+import { conveyancingModelConfig } from '@/config/conveyancingModelConfig.example.tsx'
 import { useGetApiConveyancing } from '@/services/Conveyancing.generated.ts'
-import { useMemo, useReducer, useState } from 'react'
+import { useState } from 'react'
+import { RowProps } from '@reapit/elements'
 import { ConveyancingModel } from '@/schemas/conveyancingModel.generated.tsx'
 
-export const useConveyancingTableColumnHelper = createColumnHelper<ConveyancingModel>()
 export type UseConveyancingTableArgs = {
   sortBy?: string | null | undefined
   id?: Array<string> | null | undefined
@@ -17,546 +17,260 @@ export type UseConveyancingTableArgs = {
   createdTo?: string | null | undefined
   modifiedFrom?: string | null | undefined
   modifiedTo?: string | null | undefined
-  columns: ColumnsList<ConveyancingModel>
+  fieldNames: (keyof ConveyancingModel)[]
 }
-export const getuseConveyancingTableColumn = (property: string, modelConfig: ModelConfig<ConveyancingModel>) => {
+export const getConveyancingTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<ConveyancingModel>,
+  row: ConveyancingModel,
+) => {
   return match(property)
-    .with('_links', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_links']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row._links, {
-        id: '_links',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_embedded', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_embedded']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row._embedded, {
-        id: '_embedded',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('id', () => {
-      const { label: header, format, width, minWidth } = modelConfig['id']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.id, {
-        id: 'id',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('created', () => {
-      const { label: header, format, width, minWidth } = modelConfig['created']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.created, {
-        id: 'created',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('modified', () => {
-      const { label: header, format, width, minWidth } = modelConfig['modified']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.modified, {
-        id: 'modified',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('isExternal', () => {
-      const { label: header, format, width, minWidth } = modelConfig['isExternal']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.isExternal, {
-        id: 'isExternal',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('propertyId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['propertyId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.propertyId, {
-        id: 'propertyId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('propertyAddress', () => {
-      const { label: header, format, width, minWidth } = modelConfig['propertyAddress']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.propertyAddress, {
-        id: 'propertyAddress',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('vendor', () => {
-      const { label: header, format, width, minWidth } = modelConfig['vendor']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.vendor, {
-        id: 'vendor',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('vendorId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['vendorId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.vendorId, {
-        id: 'vendorId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('vendorSolicitorId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['vendorSolicitorId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.vendorSolicitorId, {
-        id: 'vendorSolicitorId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('buyer', () => {
-      const { label: header, format, width, minWidth } = modelConfig['buyer']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.buyer, {
-        id: 'buyer',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('buyerId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['buyerId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.buyerId, {
-        id: 'buyerId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('buyerSolicitorId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['buyerSolicitorId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.buyerSolicitorId, {
-        id: 'buyerSolicitorId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('externalAgent', () => {
-      const { label: header, format, width, minWidth } = modelConfig['externalAgent']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.externalAgent, {
-        id: 'externalAgent',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('externalAgentId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['externalAgentId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.externalAgentId, {
-        id: 'externalAgentId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('upwardChainId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['upwardChainId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.upwardChainId, {
-        id: 'upwardChainId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('downwardChainId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['downwardChainId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.downwardChainId, {
-        id: 'downwardChainId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('fixturesAndFittingsCompleted', () => {
-      const { label: header, format, width, minWidth } = modelConfig['fixturesAndFittingsCompleted']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.fixturesAndFittingsCompleted, {
-        id: 'fixturesAndFittingsCompleted',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('deedsRequested', () => {
-      const { label: header, format, width, minWidth } = modelConfig['deedsRequested']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.deedsRequested, {
-        id: 'deedsRequested',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('deedsReceived', () => {
-      const { label: header, format, width, minWidth } = modelConfig['deedsReceived']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.deedsReceived, {
-        id: 'deedsReceived',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('enquiriesSent', () => {
-      const { label: header, format, width, minWidth } = modelConfig['enquiriesSent']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.enquiriesSent, {
-        id: 'enquiriesSent',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('enquiriesAnswered', () => {
-      const { label: header, format, width, minWidth } = modelConfig['enquiriesAnswered']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.enquiriesAnswered, {
-        id: 'enquiriesAnswered',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('searchesPaid', () => {
-      const { label: header, format, width, minWidth } = modelConfig['searchesPaid']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.searchesPaid, {
-        id: 'searchesPaid',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('searchesApplied', () => {
-      const { label: header, format, width, minWidth } = modelConfig['searchesApplied']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.searchesApplied, {
-        id: 'searchesApplied',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('searchesReceived', () => {
-      const { label: header, format, width, minWidth } = modelConfig['searchesReceived']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.searchesReceived, {
-        id: 'searchesReceived',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('contractSent', () => {
-      const { label: header, format, width, minWidth } = modelConfig['contractSent']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.contractSent, {
-        id: 'contractSent',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('contractReceived', () => {
-      const { label: header, format, width, minWidth } = modelConfig['contractReceived']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.contractReceived, {
-        id: 'contractReceived',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('contractApproved', () => {
-      const { label: header, format, width, minWidth } = modelConfig['contractApproved']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.contractApproved, {
-        id: 'contractApproved',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('contractVendorSigned', () => {
-      const { label: header, format, width, minWidth } = modelConfig['contractVendorSigned']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.contractVendorSigned, {
-        id: 'contractVendorSigned',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('contractBuyerSigned', () => {
-      const { label: header, format, width, minWidth } = modelConfig['contractBuyerSigned']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.contractBuyerSigned, {
-        id: 'contractBuyerSigned',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('mortgageRequired', () => {
-      const { label: header, format, width, minWidth } = modelConfig['mortgageRequired']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageRequired, {
-        id: 'mortgageRequired',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('mortgageLoanPercentage', () => {
-      const { label: header, format, width, minWidth } = modelConfig['mortgageLoanPercentage']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageLoanPercentage, {
-        id: 'mortgageLoanPercentage',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('mortgageSubmitted', () => {
-      const { label: header, format, width, minWidth } = modelConfig['mortgageSubmitted']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageSubmitted, {
-        id: 'mortgageSubmitted',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('mortgageOfferReceived', () => {
-      const { label: header, format, width, minWidth } = modelConfig['mortgageOfferReceived']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageOfferReceived, {
-        id: 'mortgageOfferReceived',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('mortgageLenderId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['mortgageLenderId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageLenderId, {
-        id: 'mortgageLenderId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('mortgageBrokerId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['mortgageBrokerId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageBrokerId, {
-        id: 'mortgageBrokerId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('mortgageSurveyDate', () => {
-      const { label: header, format, width, minWidth } = modelConfig['mortgageSurveyDate']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageSurveyDate, {
-        id: 'mortgageSurveyDate',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('mortgageSurveyorId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['mortgageSurveyorId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.mortgageSurveyorId, {
-        id: 'mortgageSurveyorId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('additionalSurveyRequired', () => {
-      const { label: header, format, width, minWidth } = modelConfig['additionalSurveyRequired']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.additionalSurveyRequired, {
-        id: 'additionalSurveyRequired',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('additionalSurveyDate', () => {
-      const { label: header, format, width, minWidth } = modelConfig['additionalSurveyDate']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.additionalSurveyDate, {
-        id: 'additionalSurveyDate',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('additionalSurveyorId', () => {
-      const { label: header, format, width, minWidth } = modelConfig['additionalSurveyorId']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.additionalSurveyorId, {
-        id: 'additionalSurveyorId',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('exchangedVendor', () => {
-      const { label: header, format, width, minWidth } = modelConfig['exchangedVendor']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.exchangedVendor, {
-        id: 'exchangedVendor',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('exchangedBuyer', () => {
-      const { label: header, format, width, minWidth } = modelConfig['exchangedBuyer']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.exchangedBuyer, {
-        id: 'exchangedBuyer',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('completion', () => {
-      const { label: header, format, width, minWidth } = modelConfig['completion']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.completion, {
-        id: 'completion',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('checkListItems', () => {
-      const { label: header, format, width, minWidth } = modelConfig['checkListItems']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.checkListItems, {
-        id: 'checkListItems',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('_eTag', () => {
-      const { label: header, format, width, minWidth } = modelConfig['_eTag']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row._eTag, {
-        id: '_eTag',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
-    .with('metadata', () => {
-      const { label: header, format, width, minWidth } = modelConfig['metadata']
-
-      return useConveyancingTableColumnHelper.accessor((row) => row.metadata, {
-        id: 'metadata',
-        header,
-        cell: (info) => format(info.getValue()),
-        size: width,
-        minSize: minWidth,
-      })
-    })
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('isExternal', () => ({
+      id: 'isExternal',
+      label: modelConfig['isExternal'].label,
+      value: modelConfig['isExternal'].format(row['isExternal']),
+    }))
+    .with('propertyId', () => ({
+      id: 'propertyId',
+      label: modelConfig['propertyId'].label,
+      value: modelConfig['propertyId'].format(row['propertyId']),
+    }))
+    .with('propertyAddress', () => ({
+      id: 'propertyAddress',
+      label: modelConfig['propertyAddress'].label,
+      value: modelConfig['propertyAddress'].format(row['propertyAddress']),
+    }))
+    .with('vendor', () => ({
+      id: 'vendor',
+      label: modelConfig['vendor'].label,
+      value: modelConfig['vendor'].format(row['vendor']),
+    }))
+    .with('vendorId', () => ({
+      id: 'vendorId',
+      label: modelConfig['vendorId'].label,
+      value: modelConfig['vendorId'].format(row['vendorId']),
+    }))
+    .with('vendorSolicitorId', () => ({
+      id: 'vendorSolicitorId',
+      label: modelConfig['vendorSolicitorId'].label,
+      value: modelConfig['vendorSolicitorId'].format(row['vendorSolicitorId']),
+    }))
+    .with('buyer', () => ({
+      id: 'buyer',
+      label: modelConfig['buyer'].label,
+      value: modelConfig['buyer'].format(row['buyer']),
+    }))
+    .with('buyerId', () => ({
+      id: 'buyerId',
+      label: modelConfig['buyerId'].label,
+      value: modelConfig['buyerId'].format(row['buyerId']),
+    }))
+    .with('buyerSolicitorId', () => ({
+      id: 'buyerSolicitorId',
+      label: modelConfig['buyerSolicitorId'].label,
+      value: modelConfig['buyerSolicitorId'].format(row['buyerSolicitorId']),
+    }))
+    .with('externalAgent', () => ({
+      id: 'externalAgent',
+      label: modelConfig['externalAgent'].label,
+      value: modelConfig['externalAgent'].format(row['externalAgent']),
+    }))
+    .with('externalAgentId', () => ({
+      id: 'externalAgentId',
+      label: modelConfig['externalAgentId'].label,
+      value: modelConfig['externalAgentId'].format(row['externalAgentId']),
+    }))
+    .with('upwardChainId', () => ({
+      id: 'upwardChainId',
+      label: modelConfig['upwardChainId'].label,
+      value: modelConfig['upwardChainId'].format(row['upwardChainId']),
+    }))
+    .with('downwardChainId', () => ({
+      id: 'downwardChainId',
+      label: modelConfig['downwardChainId'].label,
+      value: modelConfig['downwardChainId'].format(row['downwardChainId']),
+    }))
+    .with('fixturesAndFittingsCompleted', () => ({
+      id: 'fixturesAndFittingsCompleted',
+      label: modelConfig['fixturesAndFittingsCompleted'].label,
+      value: modelConfig['fixturesAndFittingsCompleted'].format(row['fixturesAndFittingsCompleted']),
+    }))
+    .with('deedsRequested', () => ({
+      id: 'deedsRequested',
+      label: modelConfig['deedsRequested'].label,
+      value: modelConfig['deedsRequested'].format(row['deedsRequested']),
+    }))
+    .with('deedsReceived', () => ({
+      id: 'deedsReceived',
+      label: modelConfig['deedsReceived'].label,
+      value: modelConfig['deedsReceived'].format(row['deedsReceived']),
+    }))
+    .with('enquiriesSent', () => ({
+      id: 'enquiriesSent',
+      label: modelConfig['enquiriesSent'].label,
+      value: modelConfig['enquiriesSent'].format(row['enquiriesSent']),
+    }))
+    .with('enquiriesAnswered', () => ({
+      id: 'enquiriesAnswered',
+      label: modelConfig['enquiriesAnswered'].label,
+      value: modelConfig['enquiriesAnswered'].format(row['enquiriesAnswered']),
+    }))
+    .with('searchesPaid', () => ({
+      id: 'searchesPaid',
+      label: modelConfig['searchesPaid'].label,
+      value: modelConfig['searchesPaid'].format(row['searchesPaid']),
+    }))
+    .with('searchesApplied', () => ({
+      id: 'searchesApplied',
+      label: modelConfig['searchesApplied'].label,
+      value: modelConfig['searchesApplied'].format(row['searchesApplied']),
+    }))
+    .with('searchesReceived', () => ({
+      id: 'searchesReceived',
+      label: modelConfig['searchesReceived'].label,
+      value: modelConfig['searchesReceived'].format(row['searchesReceived']),
+    }))
+    .with('contractSent', () => ({
+      id: 'contractSent',
+      label: modelConfig['contractSent'].label,
+      value: modelConfig['contractSent'].format(row['contractSent']),
+    }))
+    .with('contractReceived', () => ({
+      id: 'contractReceived',
+      label: modelConfig['contractReceived'].label,
+      value: modelConfig['contractReceived'].format(row['contractReceived']),
+    }))
+    .with('contractApproved', () => ({
+      id: 'contractApproved',
+      label: modelConfig['contractApproved'].label,
+      value: modelConfig['contractApproved'].format(row['contractApproved']),
+    }))
+    .with('contractVendorSigned', () => ({
+      id: 'contractVendorSigned',
+      label: modelConfig['contractVendorSigned'].label,
+      value: modelConfig['contractVendorSigned'].format(row['contractVendorSigned']),
+    }))
+    .with('contractBuyerSigned', () => ({
+      id: 'contractBuyerSigned',
+      label: modelConfig['contractBuyerSigned'].label,
+      value: modelConfig['contractBuyerSigned'].format(row['contractBuyerSigned']),
+    }))
+    .with('mortgageRequired', () => ({
+      id: 'mortgageRequired',
+      label: modelConfig['mortgageRequired'].label,
+      value: modelConfig['mortgageRequired'].format(row['mortgageRequired']),
+    }))
+    .with('mortgageLoanPercentage', () => ({
+      id: 'mortgageLoanPercentage',
+      label: modelConfig['mortgageLoanPercentage'].label,
+      value: modelConfig['mortgageLoanPercentage'].format(row['mortgageLoanPercentage']),
+    }))
+    .with('mortgageSubmitted', () => ({
+      id: 'mortgageSubmitted',
+      label: modelConfig['mortgageSubmitted'].label,
+      value: modelConfig['mortgageSubmitted'].format(row['mortgageSubmitted']),
+    }))
+    .with('mortgageOfferReceived', () => ({
+      id: 'mortgageOfferReceived',
+      label: modelConfig['mortgageOfferReceived'].label,
+      value: modelConfig['mortgageOfferReceived'].format(row['mortgageOfferReceived']),
+    }))
+    .with('mortgageLenderId', () => ({
+      id: 'mortgageLenderId',
+      label: modelConfig['mortgageLenderId'].label,
+      value: modelConfig['mortgageLenderId'].format(row['mortgageLenderId']),
+    }))
+    .with('mortgageBrokerId', () => ({
+      id: 'mortgageBrokerId',
+      label: modelConfig['mortgageBrokerId'].label,
+      value: modelConfig['mortgageBrokerId'].format(row['mortgageBrokerId']),
+    }))
+    .with('mortgageSurveyDate', () => ({
+      id: 'mortgageSurveyDate',
+      label: modelConfig['mortgageSurveyDate'].label,
+      value: modelConfig['mortgageSurveyDate'].format(row['mortgageSurveyDate']),
+    }))
+    .with('mortgageSurveyorId', () => ({
+      id: 'mortgageSurveyorId',
+      label: modelConfig['mortgageSurveyorId'].label,
+      value: modelConfig['mortgageSurveyorId'].format(row['mortgageSurveyorId']),
+    }))
+    .with('additionalSurveyRequired', () => ({
+      id: 'additionalSurveyRequired',
+      label: modelConfig['additionalSurveyRequired'].label,
+      value: modelConfig['additionalSurveyRequired'].format(row['additionalSurveyRequired']),
+    }))
+    .with('additionalSurveyDate', () => ({
+      id: 'additionalSurveyDate',
+      label: modelConfig['additionalSurveyDate'].label,
+      value: modelConfig['additionalSurveyDate'].format(row['additionalSurveyDate']),
+    }))
+    .with('additionalSurveyorId', () => ({
+      id: 'additionalSurveyorId',
+      label: modelConfig['additionalSurveyorId'].label,
+      value: modelConfig['additionalSurveyorId'].format(row['additionalSurveyorId']),
+    }))
+    .with('exchangedVendor', () => ({
+      id: 'exchangedVendor',
+      label: modelConfig['exchangedVendor'].label,
+      value: modelConfig['exchangedVendor'].format(row['exchangedVendor']),
+    }))
+    .with('exchangedBuyer', () => ({
+      id: 'exchangedBuyer',
+      label: modelConfig['exchangedBuyer'].label,
+      value: modelConfig['exchangedBuyer'].format(row['exchangedBuyer']),
+    }))
+    .with('completion', () => ({
+      id: 'completion',
+      label: modelConfig['completion'].label,
+      value: modelConfig['completion'].format(row['completion']),
+    }))
+    .with('checkListItems', () => ({
+      id: 'checkListItems',
+      label: modelConfig['checkListItems'].label,
+      value: modelConfig['checkListItems'].format(row['checkListItems']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
+    .with('metadata', () => ({
+      id: 'metadata',
+      label: modelConfig['metadata'].label,
+      value: modelConfig['metadata'].format(row['metadata']),
+    }))
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
 }
 export const useConveyancingTable = (args: UseConveyancingTableArgs) => {
-  const rerender = useReducer(() => ({}), {})[1]
-
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 12,
   })
@@ -567,22 +281,12 @@ export const useConveyancingTable = (args: UseConveyancingTableArgs) => {
     pageSize: pagination.pageSize,
   })
 
-  const defaultData = useMemo(() => [], [])
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof ConveyancingModel => c in row)
+        .map((fieldName) => getConveyancingTableColumn(fieldName, conveyancingModelConfig, row)),
+    })) ?? []
 
-  const table = useReactTable({
-    data: dataQuery.data?._embedded ?? defaultData,
-    columns: args.columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?._embedded?.length, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
-    state: {
-      pagination,
-    },
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
-  })
-
-  return { rerender, table, dataQuery }
+  return { rows, dataQuery }
 }

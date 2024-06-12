@@ -1,7 +1,6 @@
-import { useAreasTable, getuseAreasTableColumn } from '@/tables/AreasTable.generated.tsx'
-import { areaModelConfig } from '@/config/areaModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useAreasTable } from '@/tables/AreasTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -24,12 +23,10 @@ export const fieldNames = fieldsConfig<AreaModel>({
   _eTag: true,
 })
 export const AreasTable = () => {
-  const columns: ColumnsList<AreaModel> = fieldNames.map((col) => getuseAreasTableColumn(col, areaModelConfig))
-
-  const { table, dataQuery } = useAreasTable({ columns })
+  const { rows } = useAreasTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useAreasTable</Typography>
         <Button
@@ -45,7 +42,9 @@ export const AreasTable = () => {
           Create area
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )

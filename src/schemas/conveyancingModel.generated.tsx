@@ -1,85 +1,7 @@
+import { LinkModel, linkModel } from '@/schemas/linkModel.generated.tsx'
+import { CheckListItemModel, checkListItemModel } from '@/schemas/checkListItemModel.generated.tsx'
 import { z } from 'zod'
-import { linkModel, LinkModel } from '@/schemas/linkModel.generated.tsx'
-import { checkListItemModel, CheckListItemModel } from '@/schemas/checkListItemModel.generated.tsx'
 
-/** Representation of an offers sales progression information */
-export const conveyancingModel =
-  /** Representation of an offers sales progression information */
-  z.object({
-    _links: z.record(z.string(), linkModel).optional().nullable(),
-    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
-    /** The unique identifier of the offer */ id: z.string().optional().nullable(),
-    /** The date and time when the offer was created */ created: z.string().optional().nullable(),
-    /** The date and time when the offer was modified */ modified: z.string().optional().nullable(),
-    /** Flag set to true if this offer is external */ isExternal: z.boolean().optional().nullable(),
-    /** The unique identifier of the property that this offer is associated to. Empty if the offer is external and relates to a property not instructed to the agent */
-    propertyId: z.string().optional().nullable(),
-    /** The address of the property that this offer is associated to */
-    propertyAddress: z.string().optional().nullable(),
-    /** The full name of the vendor of the property */ vendor: z.string().optional().nullable(),
-    /** The unique identifier of the vendor that this offer is associated to. Empty if the offer is external and relates to a property not instructed to the agent */
-    vendorId: z.string().optional().nullable(),
-    /** The unique identifier of the solicitor / conveyancer that the vendor has instructed */
-    vendorSolicitorId: z.string().optional().nullable(),
-    /** The full name of the buyer who has submitted the offer */ buyer: z.string().optional().nullable(),
-    /** The unique identifier of the contact that represents this buyer. Empty if the offer is external and relates to a property not instructed to the agent */
-    buyerId: z.string().optional().nullable(),
-    /** The unique identifier of the solicitor / conveyancer that the buyer has instructed */
-    buyerSolicitorId: z.string().optional().nullable(),
-    /** The name of the agent who is marketing the property, where the offer is external and and relates to a property not instructed to the agent */
-    externalAgent: z.string().optional().nullable(),
-    /** The unique identifier of the agent company that holds the property instruction */
-    externalAgentId: z.string().optional().nullable(),
-    /** The unique identifier of the offer that sits above this one in the chain (where known) */
-    upwardChainId: z.string().optional().nullable(),
-    /** The unique identifier of the offer that sits below this one in the chain (where known) */
-    downwardChainId: z.string().optional().nullable(),
-    /** The date when the fixtures and fittings form has been completed */
-    fixturesAndFittingsCompleted: z.string().optional().nullable(),
-    /** The date when the title deeds were requested from land registry */
-    deedsRequested: z.string().optional().nullable(),
-    /** The date when the title deeds were received from land registry */
-    deedsReceived: z.string().optional().nullable(),
-    /** The date when the legal enquiries raised by the buyers solicitor were sent */
-    enquiriesSent: z.string().optional().nullable(),
-    /** The date when the legal enquiries raised by the buyers solicitor were answered */
-    enquiriesAnswered: z.string().optional().nullable(),
-    /** The date when the buyer paid for conveyancing searches */ searchesPaid: z.string().optional().nullable(),
-    /** The date when conveyancing searches were applied for */ searchesApplied: z.string().optional().nullable(),
-    /** The date when conveyancing searches were received for */ searchesReceived: z.string().optional().nullable(),
-    /** The date when the draft contract was sent */ contractSent: z.string().optional().nullable(),
-    /** The date when the draft contract was received */ contractReceived: z.string().optional().nullable(),
-    /** The date when the contract was approved */ contractApproved: z.string().optional().nullable(),
-    /** The date when the vendor signed the approved contract */ contractVendorSigned: z.string().optional().nullable(),
-    /** The date when the buyer signed the approved contract */ contractBuyerSigned: z.string().optional().nullable(),
-    /** Indication of whether the buyer will require a mortgage to fund the purchase (yes/no/unknown) */
-    mortgageRequired: z.string().optional().nullable(),
-    /** The loan to value percentage of the mortgage required */
-    mortgageLoanPercentage: z.number().int().optional().nullable(),
-    /** The date when the mortgage application was submitted */ mortgageSubmitted: z.string().optional().nullable(),
-    /** The date when the mortgage offer was received */ mortgageOfferReceived: z.string().optional().nullable(),
-    /** The unique identifier of the company who will provide the mortgage */
-    mortgageLenderId: z.string().optional().nullable(),
-    /** The unique identifier of the company who brokered the mortgage */
-    mortgageBrokerId: z.string().optional().nullable(),
-    /** The date of the mortgage valuation/survey */ mortgageSurveyDate: z.string().optional().nullable(),
-    /** The unique identifier of the company who will perform the mortgage valuation/survey */
-    mortgageSurveyorId: z.string().optional().nullable(),
-    /** Indication of whether the buyer requires that an additional survey take place  (yes/no/unknown) */
-    additionalSurveyRequired: z.string().optional().nullable(),
-    /** The date of the additional survey */ additionalSurveyDate: z.string().optional().nullable(),
-    /** The unique identifier of the company who will perform the additional survey */
-    additionalSurveyorId: z.string().optional().nullable(),
-    /** The date when the vendor conveyancer confirms the exchange */ exchangedVendor: z.string().optional().nullable(),
-    /** The date when the buyer conveyancer confirms the exchange */ exchangedBuyer: z.string().optional().nullable(),
-    /** The date when the sale completed */ completion: z.string().optional().nullable(),
-    /** Check list items to be completed as part of the sales progression process */
-    checkListItems: z.array(checkListItemModel).optional().nullable(),
-    /** The ETag for the current version of this conveyancing record. Used for managing update concurrency */
-    _eTag: z.string().optional().nullable(),
-    /** App specific metadata that has been set against this conveyancing record */
-    metadata: z.record(z.string(), z.object({})).optional().nullable(),
-  })
 export type ConveyancingModel =
   /** Representation of an offers sales progression information */
   {
@@ -212,3 +134,81 @@ export type ConveyancingModel =
       | null
       | undefined
   }
+/** Representation of an offers sales progression information */
+export const conveyancingModel =
+  /** Representation of an offers sales progression information */
+  z.object({
+    _links: z.record(z.string(), linkModel).optional().nullable(),
+    _embedded: z.record(z.string(), z.object({})).optional().nullable(),
+    /** The unique identifier of the offer */ id: z.string().optional().nullable(),
+    /** The date and time when the offer was created */ created: z.string().optional().nullable(),
+    /** The date and time when the offer was modified */ modified: z.string().optional().nullable(),
+    /** Flag set to true if this offer is external */ isExternal: z.boolean().optional().nullable(),
+    /** The unique identifier of the property that this offer is associated to. Empty if the offer is external and relates to a property not instructed to the agent */
+    propertyId: z.string().optional().nullable(),
+    /** The address of the property that this offer is associated to */
+    propertyAddress: z.string().optional().nullable(),
+    /** The full name of the vendor of the property */ vendor: z.string().optional().nullable(),
+    /** The unique identifier of the vendor that this offer is associated to. Empty if the offer is external and relates to a property not instructed to the agent */
+    vendorId: z.string().optional().nullable(),
+    /** The unique identifier of the solicitor / conveyancer that the vendor has instructed */
+    vendorSolicitorId: z.string().optional().nullable(),
+    /** The full name of the buyer who has submitted the offer */ buyer: z.string().optional().nullable(),
+    /** The unique identifier of the contact that represents this buyer. Empty if the offer is external and relates to a property not instructed to the agent */
+    buyerId: z.string().optional().nullable(),
+    /** The unique identifier of the solicitor / conveyancer that the buyer has instructed */
+    buyerSolicitorId: z.string().optional().nullable(),
+    /** The name of the agent who is marketing the property, where the offer is external and and relates to a property not instructed to the agent */
+    externalAgent: z.string().optional().nullable(),
+    /** The unique identifier of the agent company that holds the property instruction */
+    externalAgentId: z.string().optional().nullable(),
+    /** The unique identifier of the offer that sits above this one in the chain (where known) */
+    upwardChainId: z.string().optional().nullable(),
+    /** The unique identifier of the offer that sits below this one in the chain (where known) */
+    downwardChainId: z.string().optional().nullable(),
+    /** The date when the fixtures and fittings form has been completed */
+    fixturesAndFittingsCompleted: z.string().optional().nullable(),
+    /** The date when the title deeds were requested from land registry */
+    deedsRequested: z.string().optional().nullable(),
+    /** The date when the title deeds were received from land registry */
+    deedsReceived: z.string().optional().nullable(),
+    /** The date when the legal enquiries raised by the buyers solicitor were sent */
+    enquiriesSent: z.string().optional().nullable(),
+    /** The date when the legal enquiries raised by the buyers solicitor were answered */
+    enquiriesAnswered: z.string().optional().nullable(),
+    /** The date when the buyer paid for conveyancing searches */ searchesPaid: z.string().optional().nullable(),
+    /** The date when conveyancing searches were applied for */ searchesApplied: z.string().optional().nullable(),
+    /** The date when conveyancing searches were received for */ searchesReceived: z.string().optional().nullable(),
+    /** The date when the draft contract was sent */ contractSent: z.string().optional().nullable(),
+    /** The date when the draft contract was received */ contractReceived: z.string().optional().nullable(),
+    /** The date when the contract was approved */ contractApproved: z.string().optional().nullable(),
+    /** The date when the vendor signed the approved contract */ contractVendorSigned: z.string().optional().nullable(),
+    /** The date when the buyer signed the approved contract */ contractBuyerSigned: z.string().optional().nullable(),
+    /** Indication of whether the buyer will require a mortgage to fund the purchase (yes/no/unknown) */
+    mortgageRequired: z.string().optional().nullable(),
+    /** The loan to value percentage of the mortgage required */
+    mortgageLoanPercentage: z.number().int().optional().nullable(),
+    /** The date when the mortgage application was submitted */ mortgageSubmitted: z.string().optional().nullable(),
+    /** The date when the mortgage offer was received */ mortgageOfferReceived: z.string().optional().nullable(),
+    /** The unique identifier of the company who will provide the mortgage */
+    mortgageLenderId: z.string().optional().nullable(),
+    /** The unique identifier of the company who brokered the mortgage */
+    mortgageBrokerId: z.string().optional().nullable(),
+    /** The date of the mortgage valuation/survey */ mortgageSurveyDate: z.string().optional().nullable(),
+    /** The unique identifier of the company who will perform the mortgage valuation/survey */
+    mortgageSurveyorId: z.string().optional().nullable(),
+    /** Indication of whether the buyer requires that an additional survey take place  (yes/no/unknown) */
+    additionalSurveyRequired: z.string().optional().nullable(),
+    /** The date of the additional survey */ additionalSurveyDate: z.string().optional().nullable(),
+    /** The unique identifier of the company who will perform the additional survey */
+    additionalSurveyorId: z.string().optional().nullable(),
+    /** The date when the vendor conveyancer confirms the exchange */ exchangedVendor: z.string().optional().nullable(),
+    /** The date when the buyer conveyancer confirms the exchange */ exchangedBuyer: z.string().optional().nullable(),
+    /** The date when the sale completed */ completion: z.string().optional().nullable(),
+    /** Check list items to be completed as part of the sales progression process */
+    checkListItems: z.array(checkListItemModel).optional().nullable(),
+    /** The ETag for the current version of this conveyancing record. Used for managing update concurrency */
+    _eTag: z.string().optional().nullable(),
+    /** App specific metadata that has been set against this conveyancing record */
+    metadata: z.record(z.string(), z.object({})).optional().nullable(),
+  })

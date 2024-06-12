@@ -1,7 +1,6 @@
-import { useSourcesTable, getuseSourcesTableColumn } from '@/tables/SourcesTable.generated.tsx'
-import { sourceModelConfig } from '@/config/sourceModelConfig.example.tsx'
-import { SharedTable } from '@/components/SharedTable'
-import { ColumnsList, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { useSourcesTable } from '@/tables/SourcesTable.generated.tsx'
+import { Table } from '@reapit/elements'
+import { fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { default as Box } from '@mui/joy/Box'
 import { default as Typography } from '@mui/joy/Typography'
 import { default as Button } from '@mui/joy/Button'
@@ -21,12 +20,10 @@ export const fieldNames = fieldsConfig<SourceModel>({
   _eTag: true,
 })
 export const SourcesTable = () => {
-  const columns: ColumnsList<SourceModel> = fieldNames.map((col) => getuseSourcesTableColumn(col, sourceModelConfig))
-
-  const { table, dataQuery } = useSourcesTable({ columns })
+  const { rows } = useSourcesTable({ fieldNames })
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
       <Box sx={{ display: 'flex', p: '16px', justifyContent: 'space-between' }}>
         <Typography level="h1">useSourcesTable</Typography>
         <Button
@@ -42,7 +39,9 @@ export const SourcesTable = () => {
           Create source
         </Button>
       </Box>
-      <SharedTable table={table} dataQuery={dataQuery} />
+      <Box sx={{ display: 'flex', minWidth: 0, overflowX: 'scroll', flexDirection: 'column' }}>
+        <Table rows={rows} />
+      </Box>
       <Outlet />
     </Box>
   )
