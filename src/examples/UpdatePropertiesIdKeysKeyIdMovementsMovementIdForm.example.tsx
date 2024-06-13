@@ -2,7 +2,7 @@ import { UpdatePropertiesIdKeysKeyIdMovementsMovementId } from '@/forms/UpdatePr
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { checkInKeyModelConfig } from '@/config/checkInKeyModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CheckInKeyModel } from '@/schemas/checkInKeyModel.generated.tsx'
@@ -30,14 +30,10 @@ export const UpdatePropertiesIdKeysKeyIdMovementsMovementIdForm = () => {
   )
 }
 
-export const UpdatePropertiesIdKeysKeyIdMovementsMovementIdFields = () => {
-  const formConfig = checkInKeyModelConfig as ModelConfig<CheckInKeyModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const UpdatePropertiesIdKeysKeyIdMovementsMovementIdFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={checkInKeyModelConfig[fieldName]} />
+    ))}
+  </>
+)

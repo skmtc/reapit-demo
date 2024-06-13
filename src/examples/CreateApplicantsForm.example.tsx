@@ -1,6 +1,6 @@
 import { CreateApplicants } from '@/forms/CreateApplicants.generated.tsx'
 import { createApplicantModelConfig } from '@/config/createApplicantModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +8,8 @@ import { CreateApplicantModel } from '@/schemas/createApplicantModel.generated.t
 
 export const fieldNames = fieldsConfig<CreateApplicantModel>({
   marketingMode: true,
+  officeIds: true,
+  negotiatorIds: true,
   currency: true,
   active: true,
   notes: true,
@@ -42,8 +44,6 @@ export const fieldNames = fieldsConfig<CreateApplicantModel>({
   internalArea: true,
   source: true,
   regional: true,
-  officeIds: true,
-  negotiatorIds: true,
   related: true,
   metadata: true,
 })
@@ -61,14 +61,10 @@ export const CreateApplicantsForm = () => {
   )
 }
 
-export const CreateApplicantsFields = () => {
-  const formConfig = createApplicantModelConfig as ModelConfig<CreateApplicantModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateApplicantsFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createApplicantModelConfig[fieldName]} />
+    ))}
+  </>
+)

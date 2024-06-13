@@ -17,11 +17,8 @@ import { CreateEnquiriesForm } from '@/examples/CreateEnquiriesForm.example.tsx'
 import { InvoicesTable } from '@/examples/InvoicesTable.example.tsx'
 import { LandlordsTable } from '@/examples/LandlordsTable.example.tsx'
 import { CreateLandlordsForm } from '@/examples/CreateLandlordsForm.example.tsx'
-import { MetadataTable } from '@/examples/MetadataTable.example.tsx'
-import { CreateMetadataForm } from '@/examples/CreateMetadataForm.example.tsx'
 import { NegotiatorsTable } from '@/examples/NegotiatorsTable.example.tsx'
 import { CreateNegotiatorsForm } from '@/examples/CreateNegotiatorsForm.example.tsx'
-import { CreateNotificationsForm } from '@/examples/CreateNotificationsForm.example.tsx'
 import { OffersTable } from '@/examples/OffersTable.example.tsx'
 import { CreateOffersForm } from '@/examples/CreateOffersForm.example.tsx'
 import { OfficesTable } from '@/examples/OfficesTable.example.tsx'
@@ -132,16 +129,6 @@ export const Routes = [
       {
         path: 'new',
         element: <CreateLandlordsForm />,
-      },
-    ],
-  },
-  {
-    path: 'metadata',
-    element: <MetadataTable />,
-    children: [
-      {
-        path: 'new',
-        element: <CreateMetadataForm />,
       },
     ],
   },

@@ -1,6 +1,6 @@
 import { CreateWorksOrders } from '@/forms/CreateWorksOrders.generated.tsx'
 import { createWorksOrderModelConfig } from '@/config/createWorksOrderModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { useNavigate } from 'react-router-dom'
@@ -36,14 +36,10 @@ export const CreateWorksOrdersForm = () => {
   )
 }
 
-export const CreateWorksOrdersFields = () => {
-  const formConfig = createWorksOrderModelConfig as ModelConfig<CreateWorksOrderModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateWorksOrdersFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createWorksOrderModelConfig[fieldName]} />
+    ))}
+  </>
+)

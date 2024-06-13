@@ -1,6 +1,6 @@
 import { CreateResthooks } from '@/forms/CreateResthooks.generated.tsx'
 import { createWebhookModelConfig } from '@/config/createWebhookModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { useNavigate } from 'react-router-dom'
@@ -27,14 +27,10 @@ export const CreateResthooksForm = () => {
   )
 }
 
-export const CreateResthooksFields = () => {
-  const formConfig = createWebhookModelConfig as ModelConfig<CreateWebhookModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateResthooksFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createWebhookModelConfig[fieldName]} />
+    ))}
+  </>
+)

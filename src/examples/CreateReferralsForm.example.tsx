@@ -1,6 +1,6 @@
 import { CreateReferrals } from '@/forms/CreateReferrals.generated.tsx'
 import { createReferralModelConfig } from '@/config/createReferralModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { useNavigate } from 'react-router-dom'
@@ -28,14 +28,10 @@ export const CreateReferralsForm = () => {
   )
 }
 
-export const CreateReferralsFields = () => {
-  const formConfig = createReferralModelConfig as ModelConfig<CreateReferralModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateReferralsFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createReferralModelConfig[fieldName]} />
+    ))}
+  </>
+)

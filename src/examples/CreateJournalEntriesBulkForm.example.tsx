@@ -1,6 +1,6 @@
 import { CreateJournalEntriesBulk } from '@/forms/CreateJournalEntriesBulk.generated.tsx'
 import { createBulkJournalEntryModelConfig } from '@/config/createBulkJournalEntryModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { useNavigate } from 'react-router-dom'
@@ -23,14 +23,10 @@ export const CreateJournalEntriesBulkForm = () => {
   )
 }
 
-export const CreateJournalEntriesBulkFields = () => {
-  const formConfig = createBulkJournalEntryModelConfig as ModelConfig<CreateBulkJournalEntryModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateJournalEntriesBulkFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createBulkJournalEntryModelConfig[fieldName]} />
+    ))}
+  </>
+)

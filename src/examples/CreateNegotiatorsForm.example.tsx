@@ -1,6 +1,6 @@
 import { CreateNegotiators } from '@/forms/CreateNegotiators.generated.tsx'
 import { createNegotiatorModelConfig } from '@/config/createNegotiatorModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { useNavigate } from 'react-router-dom'
@@ -32,14 +32,10 @@ export const CreateNegotiatorsForm = () => {
   )
 }
 
-export const CreateNegotiatorsFields = () => {
-  const formConfig = createNegotiatorModelConfig as ModelConfig<CreateNegotiatorModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateNegotiatorsFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createNegotiatorModelConfig[fieldName]} />
+    ))}
+  </>
+)

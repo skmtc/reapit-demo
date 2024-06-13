@@ -1,4 +1,6 @@
 import { ContextInput, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { NegotiatorsInput } from '@/inputs/Negotiators'
+import { OfficesInput } from '@/inputs/Offices'
 import { CreateApplicantModel } from '@/schemas/createApplicantModel.generated.tsx'
 
 export const createApplicantModelConfig: ModelConfig<CreateApplicantModel> = {
@@ -249,17 +251,17 @@ export const createApplicantModelConfig: ModelConfig<CreateApplicantModel> = {
   },
   officeIds: {
     key: 'officeIds',
-    label: 'officeIds',
+    label: 'Offices',
     defaultValue: [],
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => <OfficesInput {...props} />,
   },
   negotiatorIds: {
     key: 'negotiatorIds',
-    label: 'negotiatorIds',
+    label: 'Negotiators',
     defaultValue: [],
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => <NegotiatorsInput {...props} />,
   },
   related: {
     key: 'related',

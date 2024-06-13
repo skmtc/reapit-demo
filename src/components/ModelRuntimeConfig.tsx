@@ -6,6 +6,7 @@ import FormControl from '@mui/joy/FormControl'
 import FormLabel from '@mui/joy/FormLabel'
 import FormHelperText from '@mui/joy/FormHelperText'
 import Box from '@mui/joy/Box'
+import { IconNames } from '@reapit/elements'
 
 export type ColumnsMap<Model> = {
   [Property in keyof Model]: ColumnDef<Model, Model[Property]>
@@ -49,6 +50,8 @@ export type ConfigValue<Model extends FieldValues, FormPath extends KeyPath<Mode
   defaultValue: Model[FormPath]
   Input: ComponentType<ContextInputProps<Model, FormPath>>
   format: (value: Model[FormPath]) => ReactNode
+  icon?: IconNames
+  placeholder?: string
   width?: number
   minWidth?: number
 }

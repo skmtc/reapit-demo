@@ -2,7 +2,7 @@ import { CreatePropertiesIdCertificates } from '@/forms/CreatePropertiesIdCertif
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createCertificateModelConfig } from '@/config/createCertificateModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreateCertificateModel } from '@/schemas/createCertificateModel.generated.tsx'
@@ -34,14 +34,10 @@ export const CreatePropertiesIdCertificatesForm = () => {
   )
 }
 
-export const CreatePropertiesIdCertificatesFields = () => {
-  const formConfig = createCertificateModelConfig as ModelConfig<CreateCertificateModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreatePropertiesIdCertificatesFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createCertificateModelConfig[fieldName]} />
+    ))}
+  </>
+)

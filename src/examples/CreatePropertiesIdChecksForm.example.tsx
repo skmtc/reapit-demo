@@ -2,7 +2,7 @@ import { CreatePropertiesIdChecks } from '@/forms/CreatePropertiesIdChecks.gener
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createPropertyCheckModelConfig } from '@/config/createPropertyCheckModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreatePropertyCheckModel } from '@/schemas/createPropertyCheckModel.generated.tsx'
@@ -30,14 +30,10 @@ export const CreatePropertiesIdChecksForm = () => {
   )
 }
 
-export const CreatePropertiesIdChecksFields = () => {
-  const formConfig = createPropertyCheckModelConfig as ModelConfig<CreatePropertyCheckModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreatePropertiesIdChecksFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createPropertyCheckModelConfig[fieldName]} />
+    ))}
+  </>
+)

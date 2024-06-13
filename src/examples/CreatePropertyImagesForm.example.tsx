@@ -1,6 +1,6 @@
 import { CreatePropertyImages } from '@/forms/CreatePropertyImages.generated.tsx'
 import { createPropertyImageModelConfig } from '@/config/createPropertyImageModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { useNavigate } from 'react-router-dom'
@@ -27,14 +27,10 @@ export const CreatePropertyImagesForm = () => {
   )
 }
 
-export const CreatePropertyImagesFields = () => {
-  const formConfig = createPropertyImageModelConfig as ModelConfig<CreatePropertyImageModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreatePropertyImagesFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createPropertyImageModelConfig[fieldName]} />
+    ))}
+  </>
+)

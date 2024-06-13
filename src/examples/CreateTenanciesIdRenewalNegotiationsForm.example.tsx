@@ -2,7 +2,7 @@ import { CreateTenanciesIdRenewalNegotiations } from '@/forms/CreateTenanciesIdR
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createTenancyRenewalModelConfig } from '@/config/createTenancyRenewalModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreateTenancyRenewalModel } from '@/schemas/createTenancyRenewalModel.generated.tsx'
@@ -34,14 +34,10 @@ export const CreateTenanciesIdRenewalNegotiationsForm = () => {
   )
 }
 
-export const CreateTenanciesIdRenewalNegotiationsFields = () => {
-  const formConfig = createTenancyRenewalModelConfig as ModelConfig<CreateTenancyRenewalModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateTenanciesIdRenewalNegotiationsFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createTenancyRenewalModelConfig[fieldName]} />
+    ))}
+  </>
+)

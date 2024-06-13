@@ -2,7 +2,7 @@ import { CreateLandlordsIdRelationships } from '@/forms/CreateLandlordsIdRelatio
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { insertLandlordContactRelationshipModelConfig } from '@/config/insertLandlordContactRelationshipModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { InsertLandlordContactRelationshipModel } from '@/schemas/insertLandlordContactRelationshipModel.generated.tsx'
@@ -30,14 +30,14 @@ export const CreateLandlordsIdRelationshipsForm = () => {
   )
 }
 
-export const CreateLandlordsIdRelationshipsFields = () => {
-  const formConfig = insertLandlordContactRelationshipModelConfig as ModelConfig<InsertLandlordContactRelationshipModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateLandlordsIdRelationshipsFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent
+        key={fieldName}
+        fieldName={fieldName}
+        fieldConfig={insertLandlordContactRelationshipModelConfig[fieldName]}
+      />
+    ))}
+  </>
+)

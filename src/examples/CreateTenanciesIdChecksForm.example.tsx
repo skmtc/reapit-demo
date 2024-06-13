@@ -2,7 +2,7 @@ import { CreateTenanciesIdChecks } from '@/forms/CreateTenanciesIdChecks.generat
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createTenancyCheckModelConfig } from '@/config/createTenancyCheckModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreateTenancyCheckModel } from '@/schemas/createTenancyCheckModel.generated.tsx'
@@ -32,14 +32,10 @@ export const CreateTenanciesIdChecksForm = () => {
   )
 }
 
-export const CreateTenanciesIdChecksFields = () => {
-  const formConfig = createTenancyCheckModelConfig as ModelConfig<CreateTenancyCheckModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateTenanciesIdChecksFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createTenancyCheckModelConfig[fieldName]} />
+    ))}
+  </>
+)

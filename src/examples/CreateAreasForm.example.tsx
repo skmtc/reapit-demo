@@ -1,6 +1,6 @@
 import { CreateAreas } from '@/forms/CreateAreas.generated.tsx'
 import { createAreaModelConfig } from '@/config/createAreaModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { useNavigate } from 'react-router-dom'
@@ -28,14 +28,10 @@ export const CreateAreasForm = () => {
   )
 }
 
-export const CreateAreasFields = () => {
-  const formConfig = createAreaModelConfig as ModelConfig<CreateAreaModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateAreasFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createAreaModelConfig[fieldName]} />
+    ))}
+  </>
+)

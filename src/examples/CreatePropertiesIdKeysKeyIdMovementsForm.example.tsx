@@ -2,7 +2,7 @@ import { CreatePropertiesIdKeysKeyIdMovements } from '@/forms/CreatePropertiesId
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createKeyMovementModelConfig } from '@/config/createKeyMovementModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreateKeyMovementModel } from '@/schemas/createKeyMovementModel.generated.tsx'
@@ -32,14 +32,10 @@ export const CreatePropertiesIdKeysKeyIdMovementsForm = () => {
   )
 }
 
-export const CreatePropertiesIdKeysKeyIdMovementsFields = () => {
-  const formConfig = createKeyMovementModelConfig as ModelConfig<CreateKeyMovementModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreatePropertiesIdKeysKeyIdMovementsFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createKeyMovementModelConfig[fieldName]} />
+    ))}
+  </>
+)

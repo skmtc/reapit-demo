@@ -2,7 +2,7 @@ import { CreateVendorsIdRelationships } from '@/forms/CreateVendorsIdRelationshi
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { insertVendorContactRelationshipModelConfig } from '@/config/insertVendorContactRelationshipModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { InsertVendorContactRelationshipModel } from '@/schemas/insertVendorContactRelationshipModel.generated.tsx'
@@ -30,14 +30,14 @@ export const CreateVendorsIdRelationshipsForm = () => {
   )
 }
 
-export const CreateVendorsIdRelationshipsFields = () => {
-  const formConfig = insertVendorContactRelationshipModelConfig as ModelConfig<InsertVendorContactRelationshipModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateVendorsIdRelationshipsFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent
+        key={fieldName}
+        fieldName={fieldName}
+        fieldConfig={insertVendorContactRelationshipModelConfig[fieldName]}
+      />
+    ))}
+  </>
+)

@@ -2,7 +2,7 @@ import { CreateAppointmentsIdOpenHouseAttendees } from '@/forms/CreateAppointmen
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createOpenHouseAttendeeModelConfig } from '@/config/createOpenHouseAttendeeModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreateOpenHouseAttendeeModel } from '@/schemas/createOpenHouseAttendeeModel.generated.tsx'
@@ -30,14 +30,10 @@ export const CreateAppointmentsIdOpenHouseAttendeesForm = () => {
   )
 }
 
-export const CreateAppointmentsIdOpenHouseAttendeesFields = () => {
-  const formConfig = createOpenHouseAttendeeModelConfig as ModelConfig<CreateOpenHouseAttendeeModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateAppointmentsIdOpenHouseAttendeesFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createOpenHouseAttendeeModelConfig[fieldName]} />
+    ))}
+  </>
+)

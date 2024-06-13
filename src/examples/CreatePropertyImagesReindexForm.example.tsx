@@ -1,6 +1,6 @@
 import { CreatePropertyImagesReindex } from '@/forms/CreatePropertyImagesReindex.generated.tsx'
 import { reindexPropertyImagesModelConfig } from '@/config/reindexPropertyImagesModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { useNavigate } from 'react-router-dom'
@@ -24,14 +24,10 @@ export const CreatePropertyImagesReindexForm = () => {
   )
 }
 
-export const CreatePropertyImagesReindexFields = () => {
-  const formConfig = reindexPropertyImagesModelConfig as ModelConfig<ReindexPropertyImagesModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreatePropertyImagesReindexFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={reindexPropertyImagesModelConfig[fieldName]} />
+    ))}
+  </>
+)

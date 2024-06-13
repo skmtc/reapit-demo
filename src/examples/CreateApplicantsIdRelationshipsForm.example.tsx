@@ -2,7 +2,7 @@ import { CreateApplicantsIdRelationships } from '@/forms/CreateApplicantsIdRelat
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { insertApplicantContactRelationshipModelConfig } from '@/config/insertApplicantContactRelationshipModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { InsertApplicantContactRelationshipModel } from '@/schemas/insertApplicantContactRelationshipModel.generated.tsx'
@@ -30,15 +30,14 @@ export const CreateApplicantsIdRelationshipsForm = () => {
   )
 }
 
-export const CreateApplicantsIdRelationshipsFields = () => {
-  const formConfig =
-    insertApplicantContactRelationshipModelConfig as ModelConfig<InsertApplicantContactRelationshipModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateApplicantsIdRelationshipsFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent
+        key={fieldName}
+        fieldName={fieldName}
+        fieldConfig={insertApplicantContactRelationshipModelConfig[fieldName]}
+      />
+    ))}
+  </>
+)

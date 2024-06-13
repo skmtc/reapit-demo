@@ -1,6 +1,6 @@
 import { CreateAppointments } from '@/forms/CreateAppointments.generated.tsx'
 import { createAppointmentModelConfig } from '@/config/createAppointmentModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { useNavigate } from 'react-router-dom'
@@ -43,14 +43,10 @@ export const CreateAppointmentsForm = () => {
   )
 }
 
-export const CreateAppointmentsFields = () => {
-  const formConfig = createAppointmentModelConfig as ModelConfig<CreateAppointmentModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateAppointmentsFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createAppointmentModelConfig[fieldName]} />
+    ))}
+  </>
+)

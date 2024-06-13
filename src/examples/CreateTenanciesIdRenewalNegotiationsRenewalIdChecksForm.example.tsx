@@ -2,7 +2,7 @@ import { CreateTenanciesIdRenewalNegotiationsRenewalIdChecks } from '@/forms/Cre
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createTenancyRenewalCheckModelConfig } from '@/config/createTenancyRenewalCheckModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreateTenancyRenewalCheckModel } from '@/schemas/createTenancyRenewalCheckModel.generated.tsx'
@@ -32,14 +32,14 @@ export const CreateTenanciesIdRenewalNegotiationsRenewalIdChecksForm = () => {
   )
 }
 
-export const CreateTenanciesIdRenewalNegotiationsRenewalIdChecksFields = () => {
-  const formConfig = createTenancyRenewalCheckModelConfig as ModelConfig<CreateTenancyRenewalCheckModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateTenanciesIdRenewalNegotiationsRenewalIdChecksFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent
+        key={fieldName}
+        fieldName={fieldName}
+        fieldConfig={createTenancyRenewalCheckModelConfig[fieldName]}
+      />
+    ))}
+  </>
+)

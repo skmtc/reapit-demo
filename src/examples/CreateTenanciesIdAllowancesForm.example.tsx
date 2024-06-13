@@ -2,7 +2,7 @@ import { CreateTenanciesIdAllowances } from '@/forms/CreateTenanciesIdAllowances
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createTenancyAllowanceModelConfig } from '@/config/createTenancyAllowanceModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreateTenancyAllowanceModel } from '@/schemas/createTenancyAllowanceModel.generated.tsx'
@@ -30,14 +30,10 @@ export const CreateTenanciesIdAllowancesForm = () => {
   )
 }
 
-export const CreateTenanciesIdAllowancesFields = () => {
-  const formConfig = createTenancyAllowanceModelConfig as ModelConfig<CreateTenancyAllowanceModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateTenanciesIdAllowancesFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createTenancyAllowanceModelConfig[fieldName]} />
+    ))}
+  </>
+)

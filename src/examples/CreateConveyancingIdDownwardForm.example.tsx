@@ -2,7 +2,7 @@ import { CreateConveyancingIdDownward } from '@/forms/CreateConveyancingIdDownwa
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createDownwardLinkModelConfig } from '@/config/createDownwardLinkModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreateDownwardLinkModel } from '@/schemas/createDownwardLinkModel.generated.tsx'
@@ -32,14 +32,10 @@ export const CreateConveyancingIdDownwardForm = () => {
   )
 }
 
-export const CreateConveyancingIdDownwardFields = () => {
-  const formConfig = createDownwardLinkModelConfig as ModelConfig<CreateDownwardLinkModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateConveyancingIdDownwardFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createDownwardLinkModelConfig[fieldName]} />
+    ))}
+  </>
+)

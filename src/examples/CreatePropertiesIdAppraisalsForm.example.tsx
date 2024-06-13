@@ -2,7 +2,7 @@ import { CreatePropertiesIdAppraisals } from '@/forms/CreatePropertiesIdAppraisa
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createPropertyAppraisalModelConfig } from '@/config/createPropertyAppraisalModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreatePropertyAppraisalModel } from '@/schemas/createPropertyAppraisalModel.generated.tsx'
@@ -32,14 +32,10 @@ export const CreatePropertiesIdAppraisalsForm = () => {
   )
 }
 
-export const CreatePropertiesIdAppraisalsFields = () => {
-  const formConfig = createPropertyAppraisalModelConfig as ModelConfig<CreatePropertyAppraisalModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreatePropertiesIdAppraisalsFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createPropertyAppraisalModelConfig[fieldName]} />
+    ))}
+  </>
+)

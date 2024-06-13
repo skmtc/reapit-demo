@@ -2,7 +2,7 @@ import { CreateTenanciesIdBreakClauses } from '@/forms/CreateTenanciesIdBreakCla
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createTenancyBreakClauseModelConfig } from '@/config/createTenancyBreakClauseModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreateTenancyBreakClauseModel } from '@/schemas/createTenancyBreakClauseModel.generated.tsx'
@@ -33,14 +33,10 @@ export const CreateTenanciesIdBreakClausesForm = () => {
   )
 }
 
-export const CreateTenanciesIdBreakClausesFields = () => {
-  const formConfig = createTenancyBreakClauseModelConfig as ModelConfig<CreateTenancyBreakClauseModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateTenanciesIdBreakClausesFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createTenancyBreakClauseModelConfig[fieldName]} />
+    ))}
+  </>
+)

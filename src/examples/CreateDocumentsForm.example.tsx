@@ -1,6 +1,6 @@
 import { CreateDocuments } from '@/forms/CreateDocuments.generated.tsx'
 import { createDocumentModelConfig } from '@/config/createDocumentModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { useNavigate } from 'react-router-dom'
@@ -30,14 +30,10 @@ export const CreateDocumentsForm = () => {
   )
 }
 
-export const CreateDocumentsFields = () => {
-  const formConfig = createDocumentModelConfig as ModelConfig<CreateDocumentModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreateDocumentsFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createDocumentModelConfig[fieldName]} />
+    ))}
+  </>
+)

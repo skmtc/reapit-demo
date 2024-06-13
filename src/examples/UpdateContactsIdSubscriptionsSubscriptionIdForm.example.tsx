@@ -2,7 +2,7 @@ import { UpdateContactsIdSubscriptionsSubscriptionId } from '@/forms/UpdateConta
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { updateContactSubscriptionModelConfig } from '@/config/updateContactSubscriptionModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { UpdateContactSubscriptionModel } from '@/schemas/updateContactSubscriptionModel.generated.tsx'
@@ -29,14 +29,14 @@ export const UpdateContactsIdSubscriptionsSubscriptionIdForm = () => {
   )
 }
 
-export const UpdateContactsIdSubscriptionsSubscriptionIdFields = () => {
-  const formConfig = updateContactSubscriptionModelConfig as ModelConfig<UpdateContactSubscriptionModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const UpdateContactsIdSubscriptionsSubscriptionIdFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent
+        key={fieldName}
+        fieldName={fieldName}
+        fieldConfig={updateContactSubscriptionModelConfig[fieldName]}
+      />
+    ))}
+  </>
+)

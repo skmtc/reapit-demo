@@ -2,7 +2,7 @@ import { CreatePropertiesIdKeys } from '@/forms/CreatePropertiesIdKeys.generated
 import { useParams, useNavigate } from 'react-router-dom'
 import { default as invariant } from 'tiny-invariant'
 import { createKeyModelConfig } from '@/config/createKeyModelConfig.example.tsx'
-import { FieldParent, ModelConfig, fieldsConfig } from '@/components/ModelRuntimeConfig'
+import { FieldParent, fieldsConfig } from '@/components/ModelRuntimeConfig'
 import { Drawer } from '@/components/Drawer'
 import { default as DialogContent } from '@mui/joy/DialogContent'
 import { CreateKeyModel } from '@/schemas/createKeyModel.generated.tsx'
@@ -31,14 +31,10 @@ export const CreatePropertiesIdKeysForm = () => {
   )
 }
 
-export const CreatePropertiesIdKeysFields = () => {
-  const formConfig = createKeyModelConfig as ModelConfig<CreateKeyModel>
-
-  return (
-    <>
-      {fieldNames.map((fieldName) => (
-        <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={formConfig[fieldName]} />
-      ))}
-    </>
-  )
-}
+export const CreatePropertiesIdKeysFields = () => (
+  <>
+    {fieldNames.map((fieldName) => (
+      <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createKeyModelConfig[fieldName]} />
+    ))}
+  </>
+)
