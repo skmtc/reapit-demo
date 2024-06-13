@@ -1,4 +1,8 @@
-import { ContextInput, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { StringInput } from '@/inputs/StringInput.tsx'
+import { InputWrap } from '@reapit/elements'
+import { Switch } from '@/inputs/Switch.tsx'
+import { NumberInput } from '@/inputs/NumberInput.tsx'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { CreatePropertyModel } from '@/schemas/createPropertyModel.generated.tsx'
 
 export const createPropertyModelConfig: ModelConfig<CreatePropertyModel> = {
@@ -6,427 +10,793 @@ export const createPropertyModelConfig: ModelConfig<CreatePropertyModel> = {
     key: 'lastCall',
     label: 'lastCall',
     defaultValue: '',
+    placeholder: 'lastCall',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   nextCall: {
     key: 'nextCall',
     label: 'nextCall',
     defaultValue: '',
+    placeholder: 'nextCall',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   marketingMode: {
     key: 'marketingMode',
     label: 'marketingMode',
     defaultValue: '',
+    placeholder: 'marketingMode',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   departmentId: {
     key: 'departmentId',
     label: 'departmentId',
     defaultValue: '',
+    placeholder: 'departmentId',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   strapline: {
     key: 'strapline',
     label: 'strapline',
     defaultValue: '',
+    placeholder: 'strapline',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   description: {
     key: 'description',
     label: 'description',
     defaultValue: '',
+    placeholder: 'description',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   summary: {
     key: 'summary',
     label: 'summary',
     defaultValue: '',
+    placeholder: 'summary',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   alternateId: {
     key: 'alternateId',
     label: 'alternateId',
     defaultValue: '',
+    placeholder: 'alternateId',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   specialFeatures: {
     key: 'specialFeatures',
     label: 'specialFeatures',
     defaultValue: [],
+    placeholder: 'specialFeatures',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   address: {
     key: 'address',
     label: 'address',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'address',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   bedrooms: {
     key: 'bedrooms',
     label: 'bedrooms',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'bedrooms',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   bedroomsMax: {
     key: 'bedroomsMax',
     label: 'bedroomsMax',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'bedroomsMax',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   numberOfUnits: {
     key: 'numberOfUnits',
     label: 'numberOfUnits',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'numberOfUnits',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   receptions: {
     key: 'receptions',
     label: 'receptions',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'receptions',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   receptionsMax: {
     key: 'receptionsMax',
     label: 'receptionsMax',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'receptionsMax',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   bathrooms: {
     key: 'bathrooms',
     label: 'bathrooms',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'bathrooms',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   bathroomsMax: {
     key: 'bathroomsMax',
     label: 'bathroomsMax',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'bathroomsMax',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   parkingSpaces: {
     key: 'parkingSpaces',
     label: 'parkingSpaces',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'parkingSpaces',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   councilTax: {
     key: 'councilTax',
     label: 'councilTax',
     defaultValue: '',
+    placeholder: 'councilTax',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   internetAdvertising: {
     key: 'internetAdvertising',
     label: 'internetAdvertising',
-    defaultValue: '',
+    defaultValue: false,
+    placeholder: 'internetAdvertising',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <Switch {...props} />
+      </InputWrap>
+    ),
   },
   viewingArrangements: {
     key: 'viewingArrangements',
     label: 'viewingArrangements',
     defaultValue: '',
+    placeholder: 'viewingArrangements',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   videoUrl: {
     key: 'videoUrl',
     label: 'videoUrl',
     defaultValue: '',
+    placeholder: 'videoUrl',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   videoCaption: {
     key: 'videoCaption',
     label: 'videoCaption',
     defaultValue: '',
+    placeholder: 'videoCaption',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   video2Url: {
     key: 'video2Url',
     label: 'video2Url',
     defaultValue: '',
+    placeholder: 'video2Url',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   video2Caption: {
     key: 'video2Caption',
     label: 'video2Caption',
     defaultValue: '',
+    placeholder: 'video2Caption',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   notes: {
     key: 'notes',
     label: 'notes',
     defaultValue: '',
+    placeholder: 'notes',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   longDescription: {
     key: 'longDescription',
     label: 'longDescription',
     defaultValue: '',
+    placeholder: 'longDescription',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   floorLevel: {
     key: 'floorLevel',
     label: 'floorLevel',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'floorLevel',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   internalFloors: {
     key: 'internalFloors',
     label: 'internalFloors',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'internalFloors',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   totalFloors: {
     key: 'totalFloors',
     label: 'totalFloors',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'totalFloors',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   boardStatus: {
     key: 'boardStatus',
     label: 'boardStatus',
     defaultValue: '',
+    placeholder: 'boardStatus',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   boardNotes: {
     key: 'boardNotes',
     label: 'boardNotes',
     defaultValue: '',
+    placeholder: 'boardNotes',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   boardUpdated: {
     key: 'boardUpdated',
     label: 'boardUpdated',
     defaultValue: '',
+    placeholder: 'boardUpdated',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   valuation: {
     key: 'valuation',
     label: 'valuation',
     defaultValue: '',
+    placeholder: 'valuation',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   epc: {
     key: 'epc',
     label: 'epc',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'epc',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   externalArea: {
     key: 'externalArea',
     label: 'externalArea',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'externalArea',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   internalArea: {
     key: 'internalArea',
     label: 'internalArea',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'internalArea',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   rural: {
     key: 'rural',
     label: 'rural',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'rural',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   selling: {
     key: 'selling',
     label: 'selling',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'selling',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   letting: {
     key: 'letting',
     label: 'letting',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'letting',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   regional: {
     key: 'regional',
     label: 'regional',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'regional',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   type: {
     key: 'type',
     label: 'type',
     defaultValue: [],
+    placeholder: 'type',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   style: {
     key: 'style',
     label: 'style',
     defaultValue: [],
+    placeholder: 'style',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   situation: {
     key: 'situation',
     label: 'situation',
     defaultValue: [],
+    placeholder: 'situation',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   parking: {
     key: 'parking',
     label: 'parking',
     defaultValue: [],
+    placeholder: 'parking',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   age: {
     key: 'age',
     label: 'age',
     defaultValue: [],
+    placeholder: 'age',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   locality: {
     key: 'locality',
     label: 'locality',
     defaultValue: [],
+    placeholder: 'locality',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   rooms: {
     key: 'rooms',
     label: 'rooms',
     defaultValue: [],
+    placeholder: 'rooms',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   roomDetailsApproved: {
     key: 'roomDetailsApproved',
     label: 'roomDetailsApproved',
-    defaultValue: '',
+    defaultValue: false,
+    placeholder: 'roomDetailsApproved',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <Switch {...props} />
+      </InputWrap>
+    ),
   },
   negotiatorId: {
     key: 'negotiatorId',
     label: 'negotiatorId',
     defaultValue: '',
+    placeholder: 'negotiatorId',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   officeIds: {
     key: 'officeIds',
     label: 'officeIds',
     defaultValue: [],
+    placeholder: 'officeIds',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   areaId: {
     key: 'areaId',
     label: 'areaId',
     defaultValue: '',
+    placeholder: 'areaId',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   url: {
     key: 'url',
     label: 'url',
     defaultValue: '',
+    placeholder: 'url',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   urlCaption: {
     key: 'urlCaption',
     label: 'urlCaption',
     defaultValue: '',
+    placeholder: 'urlCaption',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   groundRent: {
     key: 'groundRent',
     label: 'groundRent',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'groundRent',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <NumberInput {...props} />
+      </InputWrap>
+    ),
   },
   groundRentComment: {
     key: 'groundRentComment',
     label: 'groundRentComment',
     defaultValue: '',
+    placeholder: 'groundRentComment',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   groundRentReviewDate: {
     key: 'groundRentReviewDate',
     label: 'groundRentReviewDate',
     defaultValue: '',
+    placeholder: 'groundRentReviewDate',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   groundRentIncrease: {
     key: 'groundRentIncrease',
     label: 'groundRentIncrease',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'groundRentIncrease',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <NumberInput {...props} />
+      </InputWrap>
+    ),
   },
   serviceCharge: {
     key: 'serviceCharge',
     label: 'serviceCharge',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'serviceCharge',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <NumberInput {...props} />
+      </InputWrap>
+    ),
   },
   serviceChargeComment: {
     key: 'serviceChargeComment',
     label: 'serviceChargeComment',
     defaultValue: '',
+    placeholder: 'serviceChargeComment',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   metadata: {
     key: 'metadata',
     label: 'metadata',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: 'metadata',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
 }

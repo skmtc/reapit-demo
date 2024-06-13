@@ -1,7 +1,7 @@
 import { ContextInputProps, KeyPath } from '@/components/ModelRuntimeConfig'
 import { useGetApiOffices } from '@/services/Offices.generated.ts'
 import { FieldValues, useFormContext } from 'react-hook-form'
-import { InputError, InputGroup, InputWrapFull, MultiSelectInput } from '@reapit/elements'
+import { InputError, InputGroup, MultiSelectInput } from '@reapit/elements'
 import { useState } from 'react'
 
 type Option = {
@@ -13,6 +13,7 @@ export const OfficesInput = <Model extends FieldValues, Key extends KeyPath<Mode
   fieldName,
   fieldConfig,
 }: ContextInputProps<Model, Key>) => {
+  const { icon, label, placeholder, defaultValue } = fieldConfig
   const [queryText, setQueryText] = useState('')
 
   const officesResponse = useGetApiOffices({ name: queryText })
@@ -22,24 +23,24 @@ export const OfficesInput = <Model extends FieldValues, Key extends KeyPath<Mode
   const { errors } = formState
 
   return (
-    <InputWrapFull>
+    <>
       <InputGroup
         onChange={(event) => setQueryText(event.target.value)}
-        icon="search"
-        placeholder="Search"
-        label={fieldConfig.label}
+        icon={icon}
+        placeholder={placeholder}
+        label={label}
       />
       <MultiSelectInput
-        id="offices-select"
+        id={fieldName}
         {...register(fieldName)}
         options={
           officesResponse?.data?._embedded
             ?.filter((option): option is Option => Boolean(option.id && option.name))
             ?.map(({ id, name }) => ({ value: id, name })) ?? []
         }
-        defaultValues={fieldConfig.defaultValue}
+        defaultValues={defaultValue}
       />
       {errors.officeIds?.message && <InputError message={errors.officeIds.message as string} />}
-    </InputWrapFull>
+    </>
   )
 }

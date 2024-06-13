@@ -8,10 +8,7 @@ import { officeModelPagedResult } from '@/schemas/officeModelPagedResult.generat
 export type CreateApiOfficesFnArgs = { body: CreateOfficeModel }
 export const createApiOfficesFn = async ({ body }: CreateApiOfficesFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({
-      args: {},
-      options: defaultQuerySerialiserOptions,
-    })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
       method: 'POST',
       body: JSON.stringify(body),
@@ -75,26 +72,7 @@ export const getApiOfficesFn = async ({
   extrasField,
 }: GetApiOfficesFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({
-      args: {
-        pageSize,
-        pageNumber,
-        sortBy,
-        embed,
-        id,
-        address,
-        name,
-        region,
-        active,
-        createdFrom,
-        createdTo,
-        modifiedFrom,
-        modifiedTo,
-        metadata,
-        extrasField,
-      },
-      options: defaultQuerySerialiserOptions,
-    })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({ args: { pageSize, pageNumber, sortBy, embed, id, address, name, region, active, createdFrom, createdTo, modifiedFrom, modifiedTo, metadata, extrasField }, options: defaultQuerySerialiserOptions })}`,
     {
       method: 'GET',
       headers: {
@@ -111,7 +89,7 @@ export const getApiOfficesFn = async ({
 }
 export const useGetApiOffices = (args: GetApiOfficesFnArgs) => {
   const result = useQuery({
-    queryKey: ['Offices', args],
+    queryKey: ['Offices'],
     queryFn: () => getApiOfficesFn(args),
     placeholderData: keepPreviousData,
   })

@@ -78,7 +78,7 @@ export type ContextInputProps<Model extends FieldValues, Key extends KeyPath<Mod
   fieldConfig: ModelConfig<Model>[Key]
 }
 
-export const ContextInput = <Model extends FieldValues, Key extends KeyPath<Model>>({
+const ContextInput = <Model extends FieldValues, Key extends KeyPath<Model>>({
   fieldName,
   fieldConfig,
 }: ContextInputProps<Model, Key>) => {

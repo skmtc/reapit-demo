@@ -8,8 +8,6 @@ import { CreateApplicantModel } from '@/schemas/createApplicantModel.generated.t
 
 export const fieldNames = fieldsConfig<CreateApplicantModel>({
   marketingMode: true,
-  officeIds: true,
-  negotiatorIds: true,
   currency: true,
   active: true,
   notes: true,
@@ -44,6 +42,8 @@ export const fieldNames = fieldsConfig<CreateApplicantModel>({
   internalArea: true,
   source: true,
   regional: true,
+  officeIds: true,
+  negotiatorIds: true,
   related: true,
   metadata: true,
 })

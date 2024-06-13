@@ -11,10 +11,7 @@ type SharedTableProps<Model, Response extends Embedded<Model>> = {
   dataQuery: UseQueryResult<Response>
 }
 
-export const SharedTable = <Model, Response extends Embedded<Model>>({
-  table,
-  dataQuery,
-}: SharedTableProps<Model, Response>) => {
+export const SharedTable = <Model, Response extends Embedded<Model>>({ table }: SharedTableProps<Model, Response>) => {
   // const rerender = useReducer(() => ({}), {})[1]
   const navigate = useNavigate()
 

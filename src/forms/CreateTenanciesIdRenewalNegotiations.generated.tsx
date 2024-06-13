@@ -1,9 +1,8 @@
 import { CreateTenancyRenewalModel, createTenancyRenewalModel } from '@/schemas/createTenancyRenewalModel.generated.tsx'
 import { useCreateApiTenanciesIdRenewalNegotiations } from '@/services/Tenancies.generated.ts'
-import { default as Box } from '@mui/joy/Box'
+import { FormLayout, Button } from '@reapit/elements'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { default as Button } from '@mui/joy/Button'
 import { ReactNode } from 'react'
 
 export type CreateTenanciesIdRenewalNegotiationsProps = {
@@ -21,30 +20,15 @@ export const CreateTenanciesIdRenewalNegotiations = (props: CreateTenanciesIdRen
 
   return (
     <FormProvider {...methods}>
-      <Box
-        component="form"
-        display="flex"
-        flexDirection="column"
-        flex={1}
-        gap="16px"
+      <form
         onSubmit={methods.handleSubmit((body) => {
           mutator.mutate({ ...props, body })
         })}
       >
-        {props.children}
-        <Box
-          display="flex"
-          flexDirection="column"
-          sx={{
-            pt: '16px',
-            position: 'sticky',
-            bottom: 0,
-            bgColor: 'white',
-          }}
-        >
-          <Button type="submit">Submit</Button>
-        </Box>
-      </Box>
+        <FormLayout>{props.children}</FormLayout>
+
+        <Button intent="primary">Submit</Button>
+      </form>
     </FormProvider>
   )
 }

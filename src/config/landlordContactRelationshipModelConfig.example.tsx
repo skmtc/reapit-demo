@@ -1,68 +1,125 @@
-import { ContextInput, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { StringInput } from '@/inputs/StringInput.tsx'
+import { InputWrap } from '@reapit/elements'
+import { Switch } from '@/inputs/Switch.tsx'
 import { LandlordContactRelationshipModel } from '@/schemas/landlordContactRelationshipModel.generated.tsx'
+import { ModelConfig } from '@/components/ModelRuntimeConfig'
 
 export const landlordContactRelationshipModelConfig: ModelConfig<LandlordContactRelationshipModel> = {
   _links: {
     key: '_links',
     label: '_links',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: '_links',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   _embedded: {
     key: '_embedded',
     label: '_embedded',
-    defaultValue: '',
+    defaultValue: null,
+    placeholder: '_embedded',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   id: {
     key: 'id',
     label: 'id',
     defaultValue: '',
+    placeholder: 'id',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   landlordId: {
     key: 'landlordId',
     label: 'landlordId',
     defaultValue: '',
+    placeholder: 'landlordId',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   created: {
     key: 'created',
     label: 'created',
     defaultValue: '',
+    placeholder: 'created',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   modified: {
     key: 'modified',
     label: 'modified',
     defaultValue: '',
+    placeholder: 'modified',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   associatedType: {
     key: 'associatedType',
     label: 'associatedType',
     defaultValue: '',
+    placeholder: 'associatedType',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   associatedId: {
     key: 'associatedId',
     label: 'associatedId',
     defaultValue: '',
+    placeholder: 'associatedId',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <StringInput {...props} />
+      </InputWrap>
+    ),
   },
   isMain: {
     key: 'isMain',
     label: 'isMain',
-    defaultValue: '',
+    defaultValue: false,
+    placeholder: 'isMain',
+    icon: undefined,
     format: (value) => `${value}`,
-    Input: (props) => <ContextInput {...props} />,
+    Input: (props) => (
+      <InputWrap>
+        <Switch {...props} />
+      </InputWrap>
+    ),
   },
 }
