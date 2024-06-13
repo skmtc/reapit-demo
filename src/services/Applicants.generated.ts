@@ -1,10 +1,76 @@
-import { applicantModelPagedResult } from '@/schemas/applicantModelPagedResult.generated.tsx'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { CreateApplicantModel } from '@/schemas/createApplicantModel.generated.tsx'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { InsertApplicantContactRelationshipModel } from '@/schemas/insertApplicantContactRelationshipModel.generated.tsx'
+import { applicantModelPagedResult } from '@/schemas/applicantModelPagedResult.generated.tsx'
+import { applicantContactRelationshipModelPagedResult } from '@/schemas/applicantContactRelationshipModelPagedResult.generated.tsx'
 
+export type CreateApplicantFnArgs = { body: CreateApplicantModel }
+export const createApplicantFn = async ({ body }: CreateApplicantFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateApplicant = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createApplicantFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Applicants'] })
+    },
+  })
+}
+export type CreateApplicantRelationshipFnArgs = { id: string; body: InsertApplicantContactRelationshipModel }
+export const createApplicantRelationshipFn = async ({ id, body }: CreateApplicantRelationshipFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateApplicantRelationship = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createApplicantRelationshipFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Applicants'] })
+    },
+  })
+}
 export type GetApiApplicantsFnArgs = {
   pageSize?: number | null | undefined
   pageNumber?: number | null | undefined
@@ -175,13 +241,20 @@ export const useGetApiApplicants = (args: GetApiApplicantsFnArgs) => {
 
   return result
 }
-export type PostApiApplicantsFnArgs = { body: CreateApplicantModel }
-export const postApiApplicantsFn = async ({ body }: PostApiApplicantsFnArgs) => {
+export type GetApiApplicantsIdRelationshipsFnArgs = {
+  id: string
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+}
+export const getApiApplicantsIdRelationshipsFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: GetApiApplicantsIdRelationshipsFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'POST',
-      body: JSON.stringify(body),
+      method: 'GET',
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -192,18 +265,14 @@ export const postApiApplicantsFn = async ({ body }: PostApiApplicantsFnArgs) => 
 
   const data = await res.json()
 
-  return z.void().parse(data)
+  return applicantContactRelationshipModelPagedResult.parse(data)
 }
-export const usePostApiApplicants = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: postApiApplicantsFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Applicants'] })
-    },
+export const useGetApiApplicantsIdRelationships = (args: GetApiApplicantsIdRelationshipsFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Applicants'],
+    queryFn: () => getApiApplicantsIdRelationshipsFn(args),
+    placeholderData: keepPreviousData,
   })
+
+  return result
 }

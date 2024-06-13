@@ -1,7 +1,43 @@
-import { vendorModelPagedResult } from '@/schemas/vendorModelPagedResult.generated.tsx'
+import { InsertVendorContactRelationshipModel } from '@/schemas/insertVendorContactRelationshipModel.generated.tsx'
+import { z } from 'zod'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useFetchError } from '@/lib/useFetchError.ts'
+import { vendorModelPagedResult } from '@/schemas/vendorModelPagedResult.generated.tsx'
+import { vendorContactRelationshipModelPagedResult } from '@/schemas/vendorContactRelationshipModelPagedResult.generated.tsx'
 
+export type CreateVendorRelationshipFnArgs = { id: string; body: InsertVendorContactRelationshipModel }
+export const createVendorRelationshipFn = async ({ id, body }: CreateVendorRelationshipFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/vendors/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateVendorRelationship = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createVendorRelationshipFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Vendors'] })
+    },
+  })
+}
 export type GetApiVendorsFnArgs = {
   pageSize?: number | null | undefined
   pageNumber?: number | null | undefined
@@ -69,6 +105,41 @@ export const useGetApiVendors = (args: GetApiVendorsFnArgs) => {
   const result = useQuery({
     queryKey: ['Vendors'],
     queryFn: () => getApiVendorsFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type GetApiVendorsIdRelationshipsFnArgs = {
+  id: string
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+}
+export const getApiVendorsIdRelationshipsFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: GetApiVendorsIdRelationshipsFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/vendors/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return vendorContactRelationshipModelPagedResult.parse(data)
+}
+export const useGetApiVendorsIdRelationships = (args: GetApiVendorsIdRelationshipsFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Vendors'],
+    queryFn: () => getApiVendorsIdRelationshipsFn(args),
     placeholderData: keepPreviousData,
   })
 

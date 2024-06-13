@@ -1,5 +1,5 @@
 import { createReferralModel, CreateReferralModel } from '@/schemas/createReferralModel.generated.tsx'
-import { usePostApiReferrals } from '@/services/Referrals.generated.ts'
+import { useCreateReferral } from '@/services/Referrals.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateReferrals = (props: CreateReferralsProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = usePostApiReferrals()
+  const mutator = useCreateReferral()
 
   return (
     <FormProvider {...methods}>

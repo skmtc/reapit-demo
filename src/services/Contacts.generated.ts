@@ -1,10 +1,81 @@
-import { contactModelPagedResult } from '@/schemas/contactModelPagedResult.generated.tsx'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { CreateContactModel } from '@/schemas/createContactModel.generated.tsx'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { UpdateContactSubscriptionModel } from '@/schemas/updateContactSubscriptionModel.generated.tsx'
+import { contactModelPagedResult } from '@/schemas/contactModelPagedResult.generated.tsx'
+import { contactRoleModelPagedResult } from '@/schemas/contactRoleModelPagedResult.generated.tsx'
+import { contactSubscriptionModelPagedResult } from '@/schemas/contactSubscriptionModelPagedResult.generated.tsx'
 
+export type CreateContactFnArgs = { body: CreateContactModel }
+export const createContactFn = async ({ body }: CreateContactFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateContact = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createContactFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Contacts'] })
+    },
+  })
+}
+export type UpdateContactSubscriptionFnArgs = {
+  id: string
+  subscriptionId: string
+  body: UpdateContactSubscriptionModel
+}
+export const updateContactSubscriptionFn = async ({ id, subscriptionId, body }: UpdateContactSubscriptionFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${id}/subscriptions/${subscriptionId}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useUpdateContactSubscription = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: updateContactSubscriptionFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Contacts'] })
+    },
+  })
+}
 export type GetApiContactsFnArgs = {
   pageSize?: number | null | undefined
   pageNumber?: number | null | undefined
@@ -83,13 +154,20 @@ export const useGetApiContacts = (args: GetApiContactsFnArgs) => {
 
   return result
 }
-export type PostApiContactsFnArgs = { body: CreateContactModel }
-export const postApiContactsFn = async ({ body }: PostApiContactsFnArgs) => {
+export type GetApiContactsIdRelationshipsFnArgs = {
+  id: string
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+}
+export const getApiContactsIdRelationshipsFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: GetApiContactsIdRelationshipsFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'POST',
-      body: JSON.stringify(body),
+      method: 'GET',
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -100,18 +178,53 @@ export const postApiContactsFn = async ({ body }: PostApiContactsFnArgs) => {
 
   const data = await res.json()
 
-  return z.void().parse(data)
+  return contactRoleModelPagedResult.parse(data)
 }
-export const usePostApiContacts = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: postApiContactsFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Contacts'] })
-    },
+export const useGetApiContactsIdRelationships = (args: GetApiContactsIdRelationshipsFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Contacts'],
+    queryFn: () => getApiContactsIdRelationshipsFn(args),
+    placeholderData: keepPreviousData,
   })
+
+  return result
+}
+export type GetApiContactsIdSubscriptionsFnArgs = {
+  id: string
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  type?: string | null | undefined
+  status?: string | null | undefined
+}
+export const getApiContactsIdSubscriptionsFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+  type,
+  status,
+}: GetApiContactsIdSubscriptionsFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${id}/subscriptions${querySerialiser({ args: { pageSize, pageNumber, type, status }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return contactSubscriptionModelPagedResult.parse(data)
+}
+export const useGetApiContactsIdSubscriptions = (args: GetApiContactsIdSubscriptionsFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Contacts'],
+    queryFn: () => getApiContactsIdSubscriptionsFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
 }

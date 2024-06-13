@@ -1,10 +1,76 @@
-import { appointmentModelPagedResult } from '@/schemas/appointmentModelPagedResult.generated.tsx'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { CreateAppointmentModel } from '@/schemas/createAppointmentModel.generated.tsx'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { CreateOpenHouseAttendeeModel } from '@/schemas/createOpenHouseAttendeeModel.generated.tsx'
+import { appointmentModelPagedResult } from '@/schemas/appointmentModelPagedResult.generated.tsx'
+import { openHouseAttendeeModelPagedResult } from '@/schemas/openHouseAttendeeModelPagedResult.generated.tsx'
 
+export type CreateAppointmentFnArgs = { body: CreateAppointmentModel }
+export const createAppointmentFn = async ({ body }: CreateAppointmentFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateAppointment = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createAppointmentFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Appointments'] })
+    },
+  })
+}
+export type CreateOpenHouseAttendeeFnArgs = { id: string; body: CreateOpenHouseAttendeeModel }
+export const createOpenHouseAttendeeFn = async ({ id, body }: CreateOpenHouseAttendeeFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${id}/openHouseAttendees${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateOpenHouseAttendee = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createOpenHouseAttendeeFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Appointments'] })
+    },
+  })
+}
 export type GetApiAppointmentsFnArgs = {
   pageSize?: number | null | undefined
   pageNumber?: number | null | undefined
@@ -82,13 +148,20 @@ export const useGetApiAppointments = (args: GetApiAppointmentsFnArgs) => {
 
   return result
 }
-export type PostApiAppointmentsFnArgs = { body: CreateAppointmentModel }
-export const postApiAppointmentsFn = async ({ body }: PostApiAppointmentsFnArgs) => {
+export type GetApiAppointmentsIdOpenHouseAttendeesFnArgs = {
+  id: string
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+}
+export const getApiAppointmentsIdOpenHouseAttendeesFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+}: GetApiAppointmentsIdOpenHouseAttendeesFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${id}/openHouseAttendees${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'POST',
-      body: JSON.stringify(body),
+      method: 'GET',
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -99,18 +172,14 @@ export const postApiAppointmentsFn = async ({ body }: PostApiAppointmentsFnArgs)
 
   const data = await res.json()
 
-  return z.void().parse(data)
+  return openHouseAttendeeModelPagedResult.parse(data)
 }
-export const usePostApiAppointments = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: postApiAppointmentsFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Appointments'] })
-    },
+export const useGetApiAppointmentsIdOpenHouseAttendees = (args: GetApiAppointmentsIdOpenHouseAttendeesFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Appointments'],
+    queryFn: () => getApiAppointmentsIdOpenHouseAttendeesFn(args),
+    placeholderData: keepPreviousData,
   })
+
+  return result
 }

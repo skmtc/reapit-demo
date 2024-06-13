@@ -1,5 +1,5 @@
 import { createTaskModel, CreateTaskModel } from '@/schemas/createTaskModel.generated.tsx'
-import { usePostApiTasks } from '@/services/Tasks.generated.ts'
+import { useCreateTask } from '@/services/Tasks.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateTasks = (props: CreateTasksProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = usePostApiTasks()
+  const mutator = useCreateTask()
 
   return (
     <FormProvider {...methods}>

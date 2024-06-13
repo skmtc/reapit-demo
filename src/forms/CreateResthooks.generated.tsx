@@ -1,5 +1,5 @@
 import { createWebhookModel, CreateWebhookModel } from '@/schemas/createWebhookModel.generated.tsx'
-import { usePostApiResthooks } from '@/services/RestHooks.generated.ts'
+import { useCreateResthook } from '@/services/RestHooks.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateResthooks = (props: CreateResthooksProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = usePostApiResthooks()
+  const mutator = useCreateResthook()
 
   return (
     <FormProvider {...methods}>

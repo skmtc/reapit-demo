@@ -1,5 +1,5 @@
 import { createLandlordModel, CreateLandlordModel } from '@/schemas/createLandlordModel.generated.tsx'
-import { usePostApiLandlords } from '@/services/Landlords.generated.ts'
+import { useCreateLandlord } from '@/services/Landlords.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateLandlords = (props: CreateLandlordsProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = usePostApiLandlords()
+  const mutator = useCreateLandlord()
 
   return (
     <FormProvider {...methods}>

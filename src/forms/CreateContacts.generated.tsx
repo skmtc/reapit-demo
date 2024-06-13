@@ -1,5 +1,5 @@
 import { createContactModel, CreateContactModel } from '@/schemas/createContactModel.generated.tsx'
-import { usePostApiContacts } from '@/services/Contacts.generated.ts'
+import { useCreateContact } from '@/services/Contacts.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateContacts = (props: CreateContactsProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = usePostApiContacts()
+  const mutator = useCreateContact()
 
   return (
     <FormProvider {...methods}>

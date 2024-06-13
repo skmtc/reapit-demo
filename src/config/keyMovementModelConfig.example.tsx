@@ -1,0 +1,103 @@
+import { ContextInput, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { KeyMovementModel } from '@/schemas/keyMovementModel.generated.tsx'
+
+export const keyMovementModelConfig: ModelConfig<KeyMovementModel> = {
+  _links: {
+    key: '_links',
+    label: '_links',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  _embedded: {
+    key: '_embedded',
+    label: '_embedded',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  id: {
+    key: 'id',
+    label: 'id',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  created: {
+    key: 'created',
+    label: 'created',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  modified: {
+    key: 'modified',
+    label: 'modified',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  keyId: {
+    key: 'keyId',
+    label: 'keyId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  propertyId: {
+    key: 'propertyId',
+    label: 'propertyId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  checkOutToId: {
+    key: 'checkOutToId',
+    label: 'checkOutToId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  checkOutToType: {
+    key: 'checkOutToType',
+    label: 'checkOutToType',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  checkOutAt: {
+    key: 'checkOutAt',
+    label: 'checkOutAt',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  checkOutNegotiatorId: {
+    key: 'checkOutNegotiatorId',
+    label: 'checkOutNegotiatorId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  checkInAt: {
+    key: 'checkInAt',
+    label: 'checkInAt',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  checkInNegotiatorId: {
+    key: 'checkInNegotiatorId',
+    label: 'checkInNegotiatorId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  _eTag: {
+    key: '_eTag',
+    label: '_eTag',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+}

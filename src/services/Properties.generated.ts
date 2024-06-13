@@ -1,10 +1,245 @@
-import { propertyModelPagedResult } from '@/schemas/propertyModelPagedResult.generated.tsx'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { CreatePropertyModel } from '@/schemas/createPropertyModel.generated.tsx'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { CreateCertificateModel } from '@/schemas/createCertificateModel.generated.tsx'
+import { CreateKeyModel } from '@/schemas/createKeyModel.generated.tsx'
+import { CreateKeyMovementModel } from '@/schemas/createKeyMovementModel.generated.tsx'
+import { CheckInKeyModel } from '@/schemas/checkInKeyModel.generated.tsx'
+import { CreatePropertyCheckModel } from '@/schemas/createPropertyCheckModel.generated.tsx'
+import { CreatePropertyAppraisalModel } from '@/schemas/createPropertyAppraisalModel.generated.tsx'
+import { propertyModelPagedResult } from '@/schemas/propertyModelPagedResult.generated.tsx'
+import { certificateModelPagedResult } from '@/schemas/certificateModelPagedResult.generated.tsx'
+import { keysModelPagedResult } from '@/schemas/keysModelPagedResult.generated.tsx'
+import { keyMovementModelPagedResult } from '@/schemas/keyMovementModelPagedResult.generated.tsx'
+import { propertyCheckModelPagedResult } from '@/schemas/propertyCheckModelPagedResult.generated.tsx'
+import { propertyAppraisalModelPagedResult } from '@/schemas/propertyAppraisalModelPagedResult.generated.tsx'
 
+export type CreatePropertyFnArgs = { body: CreatePropertyModel }
+export const createPropertyFn = async ({ body }: CreatePropertyFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateProperty = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createPropertyFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Properties'] })
+    },
+  })
+}
+export type CreatePropertyCertificateFnArgs = { id: string; body: CreateCertificateModel }
+export const createPropertyCertificateFn = async ({ id, body }: CreatePropertyCertificateFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/certificates${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreatePropertyCertificate = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createPropertyCertificateFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Properties'] })
+    },
+  })
+}
+export type CreatePropertyKeyFnArgs = { id: string; body: CreateKeyModel }
+export const createPropertyKeyFn = async ({ id, body }: CreatePropertyKeyFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/keys${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreatePropertyKey = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createPropertyKeyFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Properties'] })
+    },
+  })
+}
+export type CreatePropertyKeyMovementFnArgs = { id: string; keyId: string; body: CreateKeyMovementModel }
+export const createPropertyKeyMovementFn = async ({ id, keyId, body }: CreatePropertyKeyMovementFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/keys/${keyId}/movements${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreatePropertyKeyMovement = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createPropertyKeyMovementFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Properties'] })
+    },
+  })
+}
+export type UpdatePropertyKeyMovementFnArgs = { id: string; keyId: string; movementId: string; body: CheckInKeyModel }
+export const updatePropertyKeyMovementFn = async ({ id, keyId, movementId, body }: UpdatePropertyKeyMovementFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/keys/${keyId}/movements/${movementId}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useUpdatePropertyKeyMovement = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: updatePropertyKeyMovementFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Properties'] })
+    },
+  })
+}
+export type CreatePropertyCheckFnArgs = { id: string; body: CreatePropertyCheckModel }
+export const createPropertyCheckFn = async ({ id, body }: CreatePropertyCheckFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreatePropertyCheck = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createPropertyCheckFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Properties'] })
+    },
+  })
+}
+export type CreatePropertyAppraisalFnArgs = { id: string; body: CreatePropertyAppraisalModel }
+export const createPropertyAppraisalFn = async ({ id, body }: CreatePropertyAppraisalFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/appraisals${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreatePropertyAppraisal = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createPropertyAppraisalFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Properties'] })
+    },
+  })
+}
 export type GetApiPropertiesFnArgs = {
   pageSize?: number | null | undefined
   pageNumber?: number | null | undefined
@@ -220,13 +455,22 @@ export const useGetApiProperties = (args: GetApiPropertiesFnArgs) => {
 
   return result
 }
-export type PostApiPropertiesFnArgs = { body: CreatePropertyModel }
-export const postApiPropertiesFn = async ({ body }: PostApiPropertiesFnArgs) => {
+export type GetApiPropertiesIdCertificatesFnArgs = {
+  id: string
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  category?: Array<'safetyCertificate' | 'insurancePolicy' | 'warranty'> | null | undefined
+}
+export const getApiPropertiesIdCertificatesFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+  category,
+}: GetApiPropertiesIdCertificatesFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/certificates${querySerialiser({ args: { pageSize, pageNumber, category }, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'POST',
-      body: JSON.stringify(body),
+      method: 'GET',
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -237,18 +481,209 @@ export const postApiPropertiesFn = async ({ body }: PostApiPropertiesFnArgs) => 
 
   const data = await res.json()
 
-  return z.void().parse(data)
+  return certificateModelPagedResult.parse(data)
 }
-export const usePostApiProperties = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: postApiPropertiesFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Properties'] })
-    },
+export const useGetApiPropertiesIdCertificates = (args: GetApiPropertiesIdCertificatesFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Properties'],
+    queryFn: () => getApiPropertiesIdCertificatesFn(args),
+    placeholderData: keepPreviousData,
   })
+
+  return result
+}
+export type GetApiPropertiesIdKeysFnArgs = {
+  id: string
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+}
+export const getApiPropertiesIdKeysFn = async ({ id, pageSize, pageNumber }: GetApiPropertiesIdKeysFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/keys${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return keysModelPagedResult.parse(data)
+}
+export const useGetApiPropertiesIdKeys = (args: GetApiPropertiesIdKeysFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Properties'],
+    queryFn: () => getApiPropertiesIdKeysFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type GetApiPropertiesIdKeysKeyIdMovementsFnArgs = {
+  id: string
+  keyId: string
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+}
+export const getApiPropertiesIdKeysKeyIdMovementsFn = async ({
+  id,
+  keyId,
+  pageSize,
+  pageNumber,
+}: GetApiPropertiesIdKeysKeyIdMovementsFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/keys/${keyId}/movements${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return keyMovementModelPagedResult.parse(data)
+}
+export const useGetApiPropertiesIdKeysKeyIdMovements = (args: GetApiPropertiesIdKeysKeyIdMovementsFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Properties'],
+    queryFn: () => getApiPropertiesIdKeysKeyIdMovementsFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type GetApiPropertiesIdChecksFnArgs = {
+  id: string
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  type?: string | null | undefined
+}
+export const getApiPropertiesIdChecksFn = async ({
+  id,
+  pageSize,
+  pageNumber,
+  type,
+}: GetApiPropertiesIdChecksFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/checks${querySerialiser({ args: { pageSize, pageNumber, type }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return propertyCheckModelPagedResult.parse(data)
+}
+export const useGetApiPropertiesIdChecks = (args: GetApiPropertiesIdChecksFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Properties'],
+    queryFn: () => getApiPropertiesIdChecksFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type GetApiPropertiesCertificatesFnArgs = {
+  pageNumber?: number | null | undefined
+  pageSize?: number | null | undefined
+  sortBy?: string | null | undefined
+  expiryDateFrom?: string | null | undefined
+  expiryDateTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  categories?: Array<string> | null | undefined
+  typeIds?: Array<string> | null | undefined
+  propertyIds?: Array<string> | null | undefined
+  embed?: Array<'property'> | null | undefined
+}
+export const getApiPropertiesCertificatesFn = async ({
+  pageNumber,
+  pageSize,
+  sortBy,
+  expiryDateFrom,
+  expiryDateTo,
+  createdFrom,
+  createdTo,
+  modifiedFrom,
+  modifiedTo,
+  categories,
+  typeIds,
+  propertyIds,
+  embed,
+}: GetApiPropertiesCertificatesFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/certificates${querySerialiser({ args: { pageNumber, pageSize, sortBy, expiryDateFrom, expiryDateTo, createdFrom, createdTo, modifiedFrom, modifiedTo, categories, typeIds, propertyIds, embed }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return certificateModelPagedResult.parse(data)
+}
+export const useGetApiPropertiesCertificates = (args: GetApiPropertiesCertificatesFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Properties'],
+    queryFn: () => getApiPropertiesCertificatesFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type GetApiPropertiesIdAppraisalsFnArgs = {
+  id: string
+  pageNumber?: number | null | undefined
+  pageSize?: number | null | undefined
+}
+export const getApiPropertiesIdAppraisalsFn = async ({
+  id,
+  pageNumber,
+  pageSize,
+}: GetApiPropertiesIdAppraisalsFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/appraisals${querySerialiser({ args: { pageNumber, pageSize }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return propertyAppraisalModelPagedResult.parse(data)
+}
+export const useGetApiPropertiesIdAppraisals = (args: GetApiPropertiesIdAppraisalsFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Properties'],
+    queryFn: () => getApiPropertiesIdAppraisalsFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
 }

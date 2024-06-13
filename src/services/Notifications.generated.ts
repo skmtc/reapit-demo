@@ -4,8 +4,8 @@ import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySeria
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
 
-export type PostApiNotificationsFnArgs = { body: CreateNotificationModel }
-export const postApiNotificationsFn = async ({ body }: PostApiNotificationsFnArgs) => {
+export type CreateNotificationFnArgs = { body: CreateNotificationModel }
+export const createNotificationFn = async ({ body }: CreateNotificationFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/notifications/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -23,12 +23,12 @@ export const postApiNotificationsFn = async ({ body }: PostApiNotificationsFnArg
 
   return z.void().parse(data)
 }
-export const usePostApiNotifications = () => {
+export const useCreateNotification = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: postApiNotificationsFn,
+    mutationFn: createNotificationFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

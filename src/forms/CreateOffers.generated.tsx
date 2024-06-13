@@ -1,5 +1,5 @@
 import { createOfferModel, CreateOfferModel } from '@/schemas/createOfferModel.generated.tsx'
-import { usePostApiOffers } from '@/services/Offers.generated.ts'
+import { useCreateOffer } from '@/services/Offers.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateOffers = (props: CreateOffersProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = usePostApiOffers()
+  const mutator = useCreateOffer()
 
   return (
     <FormProvider {...methods}>

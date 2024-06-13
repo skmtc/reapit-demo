@@ -1,10 +1,75 @@
-import { webhookModelPagedResult } from '@/schemas/webhookModelPagedResult.generated.tsx'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { CreateWebhookModel } from '@/schemas/createWebhookModel.generated.tsx'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { UpdateWebhookModel } from '@/schemas/updateWebhookModel.generated.tsx'
+import { webhookModelPagedResult } from '@/schemas/webhookModelPagedResult.generated.tsx'
 
+export type CreateResthookFnArgs = { body: CreateWebhookModel }
+export const createResthookFn = async ({ body }: CreateResthookFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/resthooks/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateResthook = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createResthookFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['RestHooks'] })
+    },
+  })
+}
+export type UpdateResthookFnArgs = { id: string; body: UpdateWebhookModel }
+export const updateResthookFn = async ({ id, body }: UpdateResthookFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/resthooks/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useUpdateResthook = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: updateResthookFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['RestHooks'] })
+    },
+  })
+}
 export type GetApiResthooksFnArgs = {
   pageSize?: number | null | undefined
   pageNumber?: number | null | undefined
@@ -36,36 +101,4 @@ export const useGetApiResthooks = (args: GetApiResthooksFnArgs) => {
   })
 
   return result
-}
-export type PostApiResthooksFnArgs = { body: CreateWebhookModel }
-export const postApiResthooksFn = async ({ body }: PostApiResthooksFnArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/resthooks/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const usePostApiResthooks = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: postApiResthooksFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['RestHooks'] })
-    },
-  })
 }

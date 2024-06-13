@@ -1,5 +1,5 @@
 import { createAppointmentModel, CreateAppointmentModel } from '@/schemas/createAppointmentModel.generated.tsx'
-import { usePostApiAppointments } from '@/services/Appointments.generated.ts'
+import { useCreateAppointment } from '@/services/Appointments.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateAppointments = (props: CreateAppointmentsProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = usePostApiAppointments()
+  const mutator = useCreateAppointment()
 
   return (
     <FormProvider {...methods}>

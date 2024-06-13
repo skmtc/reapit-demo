@@ -1,10 +1,43 @@
-import { referralModelPagedResult } from '@/schemas/referralModelPagedResult.generated.tsx'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { CreateReferralModel } from '@/schemas/createReferralModel.generated.tsx'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { referralModelPagedResult } from '@/schemas/referralModelPagedResult.generated.tsx'
+import { referralTypeModelPagedResult } from '@/schemas/referralTypeModelPagedResult.generated.tsx'
 
+export type CreateReferralFnArgs = { body: CreateReferralModel }
+export const createReferralFn = async ({ body }: CreateReferralFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/referrals/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateReferral = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createReferralFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Referrals'] })
+    },
+  })
+}
 export type GetApiReferralsFnArgs = {
   id?: Array<string> | null | undefined
   propertyId?: Array<string> | null | undefined
@@ -64,13 +97,17 @@ export const useGetApiReferrals = (args: GetApiReferralsFnArgs) => {
 
   return result
 }
-export type PostApiReferralsFnArgs = { body: CreateReferralModel }
-export const postApiReferralsFn = async ({ body }: PostApiReferralsFnArgs) => {
+export type GetApiReferralsTypesFnArgs = {
+  id?: Array<string> | null | undefined
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+}
+export const getApiReferralsTypesFn = async ({ id, pageSize, pageNumber, sortBy }: GetApiReferralsTypesFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/referrals/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/referrals/types${querySerialiser({ args: { id, pageSize, pageNumber, sortBy }, options: defaultQuerySerialiserOptions })}`,
     {
-      method: 'POST',
-      body: JSON.stringify(body),
+      method: 'GET',
       headers: {
         'api-version': 'latest',
         'Content-Type': 'application/json',
@@ -81,18 +118,14 @@ export const postApiReferralsFn = async ({ body }: PostApiReferralsFnArgs) => {
 
   const data = await res.json()
 
-  return z.void().parse(data)
+  return referralTypeModelPagedResult.parse(data)
 }
-export const usePostApiReferrals = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: postApiReferralsFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Referrals'] })
-    },
+export const useGetApiReferralsTypes = (args: GetApiReferralsTypesFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Referrals'],
+    queryFn: () => getApiReferralsTypesFn(args),
+    placeholderData: keepPreviousData,
   })
+
+  return result
 }

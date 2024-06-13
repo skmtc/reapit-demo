@@ -1,10 +1,12 @@
 import { appointmentModelConfig } from '@/config/appointmentModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiAppointments } from '@/services/Appointments.generated.ts'
+import { useGetApiAppointments, useGetApiAppointmentsIdOpenHouseAttendees } from '@/services/Appointments.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { AppointmentModel } from '@/schemas/appointmentModel.generated.tsx'
+import { openHouseAttendeeModelConfig } from '@/config/openHouseAttendeeModelConfig.example.tsx'
+import { OpenHouseAttendeeModel } from '@/schemas/openHouseAttendeeModel.generated.tsx'
 
 export const getAppointmentsTableColumn = (
   property: string,
@@ -213,6 +215,90 @@ export const useAppointmentsTable = (args: UseAppointmentsTableArgs) => {
       cells: args.fieldNames
         .filter((c): c is keyof AppointmentModel => c in row)
         .map((fieldName) => getAppointmentsTableColumn(fieldName, appointmentModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getAppointmentsIdOpenHouseAttendeesTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<OpenHouseAttendeeModel>,
+  row: OpenHouseAttendeeModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('openHouseId', () => ({
+      id: 'openHouseId',
+      label: modelConfig['openHouseId'].label,
+      value: modelConfig['openHouseId'].format(row['openHouseId']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('notes', () => ({
+      id: 'notes',
+      label: modelConfig['notes'].label,
+      value: modelConfig['notes'].format(row['notes']),
+    }))
+    .with('interestLevel', () => ({
+      id: 'interestLevel',
+      label: modelConfig['interestLevel'].label,
+      value: modelConfig['interestLevel'].format(row['interestLevel']),
+    }))
+    .with('attendee', () => ({
+      id: 'attendee',
+      label: modelConfig['attendee'].label,
+      value: modelConfig['attendee'].format(row['attendee']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UseAppointmentsIdOpenHouseAttendeesTableArgs = { id: string; fieldNames: (keyof OpenHouseAttendeeModel)[] }
+export const useAppointmentsIdOpenHouseAttendeesTable = (args: UseAppointmentsIdOpenHouseAttendeesTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiAppointmentsIdOpenHouseAttendees({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof OpenHouseAttendeeModel => c in row)
+        .map((fieldName) =>
+          getAppointmentsIdOpenHouseAttendeesTableColumn(fieldName, openHouseAttendeeModelConfig, row),
+        ),
     })) ?? []
 
   return { rows, dataQuery }

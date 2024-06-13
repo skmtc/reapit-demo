@@ -1,0 +1,103 @@
+import { ContextInput, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { CreateWorksOrderModel } from '@/schemas/createWorksOrderModel.generated.tsx'
+
+export const createWorksOrderModelConfig: ModelConfig<CreateWorksOrderModel> = {
+  companyId: {
+    key: 'companyId',
+    label: 'companyId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  propertyId: {
+    key: 'propertyId',
+    label: 'propertyId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  tenancyId: {
+    key: 'tenancyId',
+    label: 'tenancyId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  negotiatorId: {
+    key: 'negotiatorId',
+    label: 'negotiatorId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  typeId: {
+    key: 'typeId',
+    label: 'typeId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  status: {
+    key: 'status',
+    label: 'status',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  description: {
+    key: 'description',
+    label: 'description',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  reporter: {
+    key: 'reporter',
+    label: 'reporter',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  priority: {
+    key: 'priority',
+    label: 'priority',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  booked: {
+    key: 'booked',
+    label: 'booked',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  required: {
+    key: 'required',
+    label: 'required',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  completed: {
+    key: 'completed',
+    label: 'completed',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  items: {
+    key: 'items',
+    label: 'items',
+    defaultValue: [],
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  metadata: {
+    key: 'metadata',
+    label: 'metadata',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+}

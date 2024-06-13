@@ -1,5 +1,5 @@
 import { createPropertyModel, CreatePropertyModel } from '@/schemas/createPropertyModel.generated.tsx'
-import { usePostApiProperties } from '@/services/Properties.generated.ts'
+import { useCreateProperty } from '@/services/Properties.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateProperties = (props: CreatePropertiesProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = usePostApiProperties()
+  const mutator = useCreateProperty()
 
   return (
     <FormProvider {...methods}>

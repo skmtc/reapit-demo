@@ -1,10 +1,12 @@
 import { landlordModelConfig } from '@/config/landlordModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiLandlords } from '@/services/Landlords.generated.ts'
+import { useGetApiLandlords, useGetApiLandlordsIdRelationships } from '@/services/Landlords.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { LandlordModel } from '@/schemas/landlordModel.generated.tsx'
+import { landlordContactRelationshipModelConfig } from '@/config/landlordContactRelationshipModelConfig.example.tsx'
+import { LandlordContactRelationshipModel } from '@/schemas/landlordContactRelationshipModel.generated.tsx'
 
 export const getLandlordsTableColumn = (
   property: string,
@@ -115,6 +117,88 @@ export const useLandlordsTable = (args: UseLandlordsTableArgs) => {
       cells: args.fieldNames
         .filter((c): c is keyof LandlordModel => c in row)
         .map((fieldName) => getLandlordsTableColumn(fieldName, landlordModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getLandlordsIdRelationshipsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<LandlordContactRelationshipModel>,
+  row: LandlordContactRelationshipModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('landlordId', () => ({
+      id: 'landlordId',
+      label: modelConfig['landlordId'].label,
+      value: modelConfig['landlordId'].format(row['landlordId']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('associatedType', () => ({
+      id: 'associatedType',
+      label: modelConfig['associatedType'].label,
+      value: modelConfig['associatedType'].format(row['associatedType']),
+    }))
+    .with('associatedId', () => ({
+      id: 'associatedId',
+      label: modelConfig['associatedId'].label,
+      value: modelConfig['associatedId'].format(row['associatedId']),
+    }))
+    .with('isMain', () => ({
+      id: 'isMain',
+      label: modelConfig['isMain'].label,
+      value: modelConfig['isMain'].format(row['isMain']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UseLandlordsIdRelationshipsTableArgs = {
+  id: string
+  fieldNames: (keyof LandlordContactRelationshipModel)[]
+}
+export const useLandlordsIdRelationshipsTable = (args: UseLandlordsIdRelationshipsTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiLandlordsIdRelationships({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof LandlordContactRelationshipModel => c in row)
+        .map((fieldName) =>
+          getLandlordsIdRelationshipsTableColumn(fieldName, landlordContactRelationshipModelConfig, row),
+        ),
     })) ?? []
 
   return { rows, dataQuery }

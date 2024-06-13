@@ -1,10 +1,28 @@
 import { propertyModelConfig } from '@/config/propertyModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiProperties } from '@/services/Properties.generated.ts'
+import {
+  useGetApiProperties,
+  useGetApiPropertiesIdCertificates,
+  useGetApiPropertiesIdKeys,
+  useGetApiPropertiesIdKeysKeyIdMovements,
+  useGetApiPropertiesIdChecks,
+  useGetApiPropertiesCertificates,
+  useGetApiPropertiesIdAppraisals,
+} from '@/services/Properties.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { PropertyModel } from '@/schemas/propertyModel.generated.tsx'
+import { certificateModelConfig } from '@/config/certificateModelConfig.example.tsx'
+import { CertificateModel } from '@/schemas/certificateModel.generated.tsx'
+import { keysModelConfig } from '@/config/keysModelConfig.example.tsx'
+import { KeysModel } from '@/schemas/keysModel.generated.tsx'
+import { keyMovementModelConfig } from '@/config/keyMovementModelConfig.example.tsx'
+import { KeyMovementModel } from '@/schemas/keyMovementModel.generated.tsx'
+import { propertyCheckModelConfig } from '@/config/propertyCheckModelConfig.example.tsx'
+import { PropertyCheckModel } from '@/schemas/propertyCheckModel.generated.tsx'
+import { propertyAppraisalModelConfig } from '@/config/propertyAppraisalModelConfig.example.tsx'
+import { PropertyAppraisalModel } from '@/schemas/propertyAppraisalModel.generated.tsx'
 
 export const getPropertiesTableColumn = (
   property: string,
@@ -592,6 +610,613 @@ export const usePropertiesTable = (args: UsePropertiesTableArgs) => {
       cells: args.fieldNames
         .filter((c): c is keyof PropertyModel => c in row)
         .map((fieldName) => getPropertiesTableColumn(fieldName, propertyModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getPropertiesIdCertificatesTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<CertificateModel>,
+  row: CertificateModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('category', () => ({
+      id: 'category',
+      label: modelConfig['category'].label,
+      value: modelConfig['category'].format(row['category']),
+    }))
+    .with('typeId', () => ({
+      id: 'typeId',
+      label: modelConfig['typeId'].label,
+      value: modelConfig['typeId'].format(row['typeId']),
+    }))
+    .with('start', () => ({
+      id: 'start',
+      label: modelConfig['start'].label,
+      value: modelConfig['start'].format(row['start']),
+    }))
+    .with('expiry', () => ({
+      id: 'expiry',
+      label: modelConfig['expiry'].label,
+      value: modelConfig['expiry'].format(row['expiry']),
+    }))
+    .with('propertyId', () => ({
+      id: 'propertyId',
+      label: modelConfig['propertyId'].label,
+      value: modelConfig['propertyId'].format(row['propertyId']),
+    }))
+    .with('companyId', () => ({
+      id: 'companyId',
+      label: modelConfig['companyId'].label,
+      value: modelConfig['companyId'].format(row['companyId']),
+    }))
+    .with('statusId', () => ({
+      id: 'statusId',
+      label: modelConfig['statusId'].label,
+      value: modelConfig['statusId'].format(row['statusId']),
+    }))
+    .with('notes', () => ({
+      id: 'notes',
+      label: modelConfig['notes'].label,
+      value: modelConfig['notes'].format(row['notes']),
+    }))
+    .with('referenceNumber', () => ({
+      id: 'referenceNumber',
+      label: modelConfig['referenceNumber'].label,
+      value: modelConfig['referenceNumber'].format(row['referenceNumber']),
+    }))
+    .with('responsibleParty', () => ({
+      id: 'responsibleParty',
+      label: modelConfig['responsibleParty'].label,
+      value: modelConfig['responsibleParty'].format(row['responsibleParty']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UsePropertiesIdCertificatesTableArgs = {
+  id: string
+  category?: Array<'safetyCertificate' | 'insurancePolicy' | 'warranty'> | null | undefined
+  fieldNames: (keyof CertificateModel)[]
+}
+export const usePropertiesIdCertificatesTable = (args: UsePropertiesIdCertificatesTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiPropertiesIdCertificates({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof CertificateModel => c in row)
+        .map((fieldName) => getPropertiesIdCertificatesTableColumn(fieldName, certificateModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getPropertiesIdKeysTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<KeysModel>,
+  row: KeysModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('number', () => ({
+      id: 'number',
+      label: modelConfig['number'].label,
+      value: modelConfig['number'].format(row['number']),
+    }))
+    .with('typeId', () => ({
+      id: 'typeId',
+      label: modelConfig['typeId'].label,
+      value: modelConfig['typeId'].format(row['typeId']),
+    }))
+    .with('officeId', () => ({
+      id: 'officeId',
+      label: modelConfig['officeId'].label,
+      value: modelConfig['officeId'].format(row['officeId']),
+    }))
+    .with('propertyId', () => ({
+      id: 'propertyId',
+      label: modelConfig['propertyId'].label,
+      value: modelConfig['propertyId'].format(row['propertyId']),
+    }))
+    .with('status', () => ({
+      id: 'status',
+      label: modelConfig['status'].label,
+      value: modelConfig['status'].format(row['status']),
+    }))
+    .with('keysInSet', () => ({
+      id: 'keysInSet',
+      label: modelConfig['keysInSet'].label,
+      value: modelConfig['keysInSet'].format(row['keysInSet']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UsePropertiesIdKeysTableArgs = { id: string; fieldNames: (keyof KeysModel)[] }
+export const usePropertiesIdKeysTable = (args: UsePropertiesIdKeysTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiPropertiesIdKeys({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof KeysModel => c in row)
+        .map((fieldName) => getPropertiesIdKeysTableColumn(fieldName, keysModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getPropertiesIdKeysKeyIdMovementsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<KeyMovementModel>,
+  row: KeyMovementModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('keyId', () => ({
+      id: 'keyId',
+      label: modelConfig['keyId'].label,
+      value: modelConfig['keyId'].format(row['keyId']),
+    }))
+    .with('propertyId', () => ({
+      id: 'propertyId',
+      label: modelConfig['propertyId'].label,
+      value: modelConfig['propertyId'].format(row['propertyId']),
+    }))
+    .with('checkOutToId', () => ({
+      id: 'checkOutToId',
+      label: modelConfig['checkOutToId'].label,
+      value: modelConfig['checkOutToId'].format(row['checkOutToId']),
+    }))
+    .with('checkOutToType', () => ({
+      id: 'checkOutToType',
+      label: modelConfig['checkOutToType'].label,
+      value: modelConfig['checkOutToType'].format(row['checkOutToType']),
+    }))
+    .with('checkOutAt', () => ({
+      id: 'checkOutAt',
+      label: modelConfig['checkOutAt'].label,
+      value: modelConfig['checkOutAt'].format(row['checkOutAt']),
+    }))
+    .with('checkOutNegotiatorId', () => ({
+      id: 'checkOutNegotiatorId',
+      label: modelConfig['checkOutNegotiatorId'].label,
+      value: modelConfig['checkOutNegotiatorId'].format(row['checkOutNegotiatorId']),
+    }))
+    .with('checkInAt', () => ({
+      id: 'checkInAt',
+      label: modelConfig['checkInAt'].label,
+      value: modelConfig['checkInAt'].format(row['checkInAt']),
+    }))
+    .with('checkInNegotiatorId', () => ({
+      id: 'checkInNegotiatorId',
+      label: modelConfig['checkInNegotiatorId'].label,
+      value: modelConfig['checkInNegotiatorId'].format(row['checkInNegotiatorId']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UsePropertiesIdKeysKeyIdMovementsTableArgs = {
+  id: string
+  keyId: string
+  fieldNames: (keyof KeyMovementModel)[]
+}
+export const usePropertiesIdKeysKeyIdMovementsTable = (args: UsePropertiesIdKeysKeyIdMovementsTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiPropertiesIdKeysKeyIdMovements({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof KeyMovementModel => c in row)
+        .map((fieldName) => getPropertiesIdKeysKeyIdMovementsTableColumn(fieldName, keyMovementModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getPropertiesIdChecksTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<PropertyCheckModel>,
+  row: PropertyCheckModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('description', () => ({
+      id: 'description',
+      label: modelConfig['description'].label,
+      value: modelConfig['description'].format(row['description']),
+    }))
+    .with('status', () => ({
+      id: 'status',
+      label: modelConfig['status'].label,
+      value: modelConfig['status'].format(row['status']),
+    }))
+    .with('type', () => ({
+      id: 'type',
+      label: modelConfig['type'].label,
+      value: modelConfig['type'].format(row['type']),
+    }))
+    .with('propertyId', () => ({
+      id: 'propertyId',
+      label: modelConfig['propertyId'].label,
+      value: modelConfig['propertyId'].format(row['propertyId']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UsePropertiesIdChecksTableArgs = {
+  id: string
+  type?: string | null | undefined
+  fieldNames: (keyof PropertyCheckModel)[]
+}
+export const usePropertiesIdChecksTable = (args: UsePropertiesIdChecksTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiPropertiesIdChecks({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof PropertyCheckModel => c in row)
+        .map((fieldName) => getPropertiesIdChecksTableColumn(fieldName, propertyCheckModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getPropertiesCertificatesTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<CertificateModel>,
+  row: CertificateModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('category', () => ({
+      id: 'category',
+      label: modelConfig['category'].label,
+      value: modelConfig['category'].format(row['category']),
+    }))
+    .with('typeId', () => ({
+      id: 'typeId',
+      label: modelConfig['typeId'].label,
+      value: modelConfig['typeId'].format(row['typeId']),
+    }))
+    .with('start', () => ({
+      id: 'start',
+      label: modelConfig['start'].label,
+      value: modelConfig['start'].format(row['start']),
+    }))
+    .with('expiry', () => ({
+      id: 'expiry',
+      label: modelConfig['expiry'].label,
+      value: modelConfig['expiry'].format(row['expiry']),
+    }))
+    .with('propertyId', () => ({
+      id: 'propertyId',
+      label: modelConfig['propertyId'].label,
+      value: modelConfig['propertyId'].format(row['propertyId']),
+    }))
+    .with('companyId', () => ({
+      id: 'companyId',
+      label: modelConfig['companyId'].label,
+      value: modelConfig['companyId'].format(row['companyId']),
+    }))
+    .with('statusId', () => ({
+      id: 'statusId',
+      label: modelConfig['statusId'].label,
+      value: modelConfig['statusId'].format(row['statusId']),
+    }))
+    .with('notes', () => ({
+      id: 'notes',
+      label: modelConfig['notes'].label,
+      value: modelConfig['notes'].format(row['notes']),
+    }))
+    .with('referenceNumber', () => ({
+      id: 'referenceNumber',
+      label: modelConfig['referenceNumber'].label,
+      value: modelConfig['referenceNumber'].format(row['referenceNumber']),
+    }))
+    .with('responsibleParty', () => ({
+      id: 'responsibleParty',
+      label: modelConfig['responsibleParty'].label,
+      value: modelConfig['responsibleParty'].format(row['responsibleParty']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UsePropertiesCertificatesTableArgs = {
+  sortBy?: string | null | undefined
+  expiryDateFrom?: string | null | undefined
+  expiryDateTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  categories?: Array<string> | null | undefined
+  typeIds?: Array<string> | null | undefined
+  propertyIds?: Array<string> | null | undefined
+  embed?: Array<'property'> | null | undefined
+  fieldNames: (keyof CertificateModel)[]
+}
+export const usePropertiesCertificatesTable = (args: UsePropertiesCertificatesTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiPropertiesCertificates({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof CertificateModel => c in row)
+        .map((fieldName) => getPropertiesCertificatesTableColumn(fieldName, certificateModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getPropertiesIdAppraisalsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<PropertyAppraisalModel>,
+  row: PropertyAppraisalModel,
+) => {
+  return match(property)
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('companyId', () => ({
+      id: 'companyId',
+      label: modelConfig['companyId'].label,
+      value: modelConfig['companyId'].format(row['companyId']),
+    }))
+    .with('isExternal', () => ({
+      id: 'isExternal',
+      label: modelConfig['isExternal'].label,
+      value: modelConfig['isExternal'].format(row['isExternal']),
+    }))
+    .with('date', () => ({
+      id: 'date',
+      label: modelConfig['date'].label,
+      value: modelConfig['date'].format(row['date']),
+    }))
+    .with('price', () => ({
+      id: 'price',
+      label: modelConfig['price'].label,
+      value: modelConfig['price'].format(row['price']),
+    }))
+    .with('fee', () => ({
+      id: 'fee',
+      label: modelConfig['fee'].label,
+      value: modelConfig['fee'].format(row['fee']),
+    }))
+    .with('notes', () => ({
+      id: 'notes',
+      label: modelConfig['notes'].label,
+      value: modelConfig['notes'].format(row['notes']),
+    }))
+    .with('_eTag', () => ({
+      id: '_eTag',
+      label: modelConfig['_eTag'].label,
+      value: modelConfig['_eTag'].format(row['_eTag']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UsePropertiesIdAppraisalsTableArgs = { id: string; fieldNames: (keyof PropertyAppraisalModel)[] }
+export const usePropertiesIdAppraisalsTable = (args: UsePropertiesIdAppraisalsTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiPropertiesIdAppraisals({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof PropertyAppraisalModel => c in row)
+        .map((fieldName) => getPropertiesIdAppraisalsTableColumn(fieldName, propertyAppraisalModelConfig, row)),
     })) ?? []
 
   return { rows, dataQuery }

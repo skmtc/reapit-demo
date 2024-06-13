@@ -1,10 +1,42 @@
-import { negotiatorModelPagedResult } from '@/schemas/negotiatorModelPagedResult.generated.tsx'
-import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { CreateNegotiatorModel } from '@/schemas/createNegotiatorModel.generated.tsx'
 import { z } from 'zod'
+import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useFetchError } from '@/lib/useFetchError.ts'
+import { negotiatorModelPagedResult } from '@/schemas/negotiatorModelPagedResult.generated.tsx'
 
+export type CreateNegotiatorFnArgs = { body: CreateNegotiatorModel }
+export const createNegotiatorFn = async ({ body }: CreateNegotiatorFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateNegotiator = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createNegotiatorFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Negotiators'] })
+    },
+  })
+}
 export type GetApiNegotiatorsFnArgs = {
   pageSize?: number | null | undefined
   pageNumber?: number | null | undefined
@@ -61,36 +93,4 @@ export const useGetApiNegotiators = (args: GetApiNegotiatorsFnArgs) => {
   })
 
   return result
-}
-export type PostApiNegotiatorsFnArgs = { body: CreateNegotiatorModel }
-export const postApiNegotiatorsFn = async ({ body }: PostApiNegotiatorsFnArgs) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'api-version': 'latest',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
-      },
-    },
-  )
-
-  const data = await res.json()
-
-  return z.void().parse(data)
-}
-export const usePostApiNegotiators = () => {
-  const queryClient = useQueryClient()
-  const { handleFetchError } = useFetchError()
-
-  return useMutation({
-    mutationFn: postApiNegotiatorsFn,
-    onError: handleFetchError,
-    onSuccess: () => {
-      // Invalidate and refetch
-      void queryClient.invalidateQueries({ queryKey: ['Negotiators'] })
-    },
-  })
 }

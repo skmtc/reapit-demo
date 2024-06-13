@@ -1,7 +1,43 @@
-import { transactionModelPagedResult } from '@/schemas/transactionModelPagedResult.generated.tsx'
+import { CreateSupplierInvoiceModel } from '@/schemas/createSupplierInvoiceModel.generated.tsx'
+import { z } from 'zod'
 import { querySerialiser, defaultQuerySerialiserOptions } from '@/lib/querySerialiser'
-import { useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tanstack/react-query'
+import { useFetchError } from '@/lib/useFetchError.ts'
+import { transactionModelPagedResult } from '@/schemas/transactionModelPagedResult.generated.tsx'
+import { nominalAccountModelPagedResult } from '@/schemas/nominalAccountModelPagedResult.generated.tsx'
 
+export type CreateSupplierInvoiceFnArgs = { body: CreateSupplierInvoiceModel }
+export const createSupplierInvoiceFn = async ({ body }: CreateSupplierInvoiceFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/transactions/supplierInvoices${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return z.void().parse(data)
+}
+export const useCreateSupplierInvoice = () => {
+  const queryClient = useQueryClient()
+  const { handleFetchError } = useFetchError()
+
+  return useMutation({
+    mutationFn: createSupplierInvoiceFn,
+    onError: handleFetchError,
+    onSuccess: () => {
+      // Invalidate and refetch
+      void queryClient.invalidateQueries({ queryKey: ['Transactions'] })
+    },
+  })
+}
 export type GetApiTransactionsFnArgs = {
   pageSize?: number | null | undefined
   pageNumber?: number | null | undefined
@@ -138,6 +174,45 @@ export const useGetApiTransactions = (args: GetApiTransactionsFnArgs) => {
   const result = useQuery({
     queryKey: ['Transactions'],
     queryFn: () => getApiTransactionsFn(args),
+    placeholderData: keepPreviousData,
+  })
+
+  return result
+}
+export type GetApiTransactionsNominalAccountsFnArgs = {
+  pageSize?: number | null | undefined
+  pageNumber?: number | null | undefined
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  appliesToWorksOrders?: boolean | null | undefined
+}
+export const getApiTransactionsNominalAccountsFn = async ({
+  pageSize,
+  pageNumber,
+  sortBy,
+  id,
+  appliesToWorksOrders,
+}: GetApiTransactionsNominalAccountsFnArgs) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_PLATFORM_API_URL}/transactions/nominalAccounts${querySerialiser({ args: { pageSize, pageNumber, sortBy, id, appliesToWorksOrders }, options: defaultQuerySerialiserOptions })}`,
+    {
+      method: 'GET',
+      headers: {
+        'api-version': 'latest',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  return nominalAccountModelPagedResult.parse(data)
+}
+export const useGetApiTransactionsNominalAccounts = (args: GetApiTransactionsNominalAccountsFnArgs) => {
+  const result = useQuery({
+    queryKey: ['Transactions'],
+    queryFn: () => getApiTransactionsNominalAccountsFn(args),
     placeholderData: keepPreviousData,
   })
 

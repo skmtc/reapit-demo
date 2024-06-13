@@ -1,10 +1,12 @@
 import { transactionModelConfig } from '@/config/transactionModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiTransactions } from '@/services/Transactions.generated.ts'
+import { useGetApiTransactions, useGetApiTransactionsNominalAccounts } from '@/services/Transactions.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { TransactionModel } from '@/schemas/transactionModel.generated.tsx'
+import { nominalAccountModelConfig } from '@/config/nominalAccountModelConfig.example.tsx'
+import { NominalAccountModel } from '@/schemas/nominalAccountModel.generated.tsx'
 
 export const getTransactionsTableColumn = (
   property: string,
@@ -229,6 +231,78 @@ export const useTransactionsTable = (args: UseTransactionsTableArgs) => {
       cells: args.fieldNames
         .filter((c): c is keyof TransactionModel => c in row)
         .map((fieldName) => getTransactionsTableColumn(fieldName, transactionModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getTransactionsNominalAccountsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<NominalAccountModel>,
+  row: NominalAccountModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('name', () => ({
+      id: 'name',
+      label: modelConfig['name'].label,
+      value: modelConfig['name'].format(row['name']),
+    }))
+    .with('appliesToWorksOrders', () => ({
+      id: 'appliesToWorksOrders',
+      label: modelConfig['appliesToWorksOrders'].label,
+      value: modelConfig['appliesToWorksOrders'].format(row['appliesToWorksOrders']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UseTransactionsNominalAccountsTableArgs = {
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  appliesToWorksOrders?: boolean | null | undefined
+  fieldNames: (keyof NominalAccountModel)[]
+}
+export const useTransactionsNominalAccountsTable = (args: UseTransactionsNominalAccountsTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiTransactionsNominalAccounts({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof NominalAccountModel => c in row)
+        .map((fieldName) => getTransactionsNominalAccountsTableColumn(fieldName, nominalAccountModelConfig, row)),
     })) ?? []
 
   return { rows, dataQuery }

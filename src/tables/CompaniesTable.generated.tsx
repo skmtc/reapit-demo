@@ -1,10 +1,12 @@
 import { companyModelConfig } from '@/config/companyModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiCompanies } from '@/services/Companies.generated.ts'
+import { useGetApiCompanies, useGetApiCompaniesIdRelationships } from '@/services/Companies.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { CompanyModel } from '@/schemas/companyModel.generated.tsx'
+import { companyRoleModelConfig } from '@/config/companyRoleModelConfig.example.tsx'
+import { CompanyRoleModel } from '@/schemas/companyRoleModel.generated.tsx'
 
 export const getCompaniesTableColumn = (
   property: string,
@@ -202,6 +204,83 @@ export const useCompaniesTable = (args: UseCompaniesTableArgs) => {
       cells: args.fieldNames
         .filter((c): c is keyof CompanyModel => c in row)
         .map((fieldName) => getCompaniesTableColumn(fieldName, companyModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getCompaniesIdRelationshipsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<CompanyRoleModel>,
+  row: CompanyRoleModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('companyId', () => ({
+      id: 'companyId',
+      label: modelConfig['companyId'].label,
+      value: modelConfig['companyId'].format(row['companyId']),
+    }))
+    .with('associatedType', () => ({
+      id: 'associatedType',
+      label: modelConfig['associatedType'].label,
+      value: modelConfig['associatedType'].format(row['associatedType']),
+    }))
+    .with('associatedId', () => ({
+      id: 'associatedId',
+      label: modelConfig['associatedId'].label,
+      value: modelConfig['associatedId'].format(row['associatedId']),
+    }))
+    .with('fromArchive', () => ({
+      id: 'fromArchive',
+      label: modelConfig['fromArchive'].label,
+      value: modelConfig['fromArchive'].format(row['fromArchive']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UseCompaniesIdRelationshipsTableArgs = { id: string; fieldNames: (keyof CompanyRoleModel)[] }
+export const useCompaniesIdRelationshipsTable = (args: UseCompaniesIdRelationshipsTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiCompaniesIdRelationships({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof CompanyRoleModel => c in row)
+        .map((fieldName) => getCompaniesIdRelationshipsTableColumn(fieldName, companyRoleModelConfig, row)),
     })) ?? []
 
   return { rows, dataQuery }

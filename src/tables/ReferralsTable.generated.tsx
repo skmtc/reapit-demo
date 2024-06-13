@@ -1,10 +1,12 @@
 import { referralModelConfig } from '@/config/referralModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiReferrals } from '@/services/Referrals.generated.ts'
+import { useGetApiReferrals, useGetApiReferralsTypes } from '@/services/Referrals.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { ReferralModel } from '@/schemas/referralModel.generated.tsx'
+import { referralTypeModelConfig } from '@/config/referralTypeModelConfig.example.tsx'
+import { ReferralTypeModel } from '@/schemas/referralTypeModel.generated.tsx'
 
 export const getReferralsTableColumn = (
   property: string,
@@ -139,6 +141,62 @@ export const useReferralsTable = (args: UseReferralsTableArgs) => {
       cells: args.fieldNames
         .filter((c): c is keyof ReferralModel => c in row)
         .map((fieldName) => getReferralsTableColumn(fieldName, referralModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getReferralsTypesTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<ReferralTypeModel>,
+  row: ReferralTypeModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('name', () => ({
+      id: 'name',
+      label: modelConfig['name'].label,
+      value: modelConfig['name'].format(row['name']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UseReferralsTypesTableArgs = {
+  id?: Array<string> | null | undefined
+  sortBy?: string | null | undefined
+  fieldNames: (keyof ReferralTypeModel)[]
+}
+export const useReferralsTypesTable = (args: UseReferralsTypesTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiReferralsTypes({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof ReferralTypeModel => c in row)
+        .map((fieldName) => getReferralsTypesTableColumn(fieldName, referralTypeModelConfig, row)),
     })) ?? []
 
   return { rows, dataQuery }

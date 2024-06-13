@@ -1,0 +1,103 @@
+import { ContextInput, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { TenancyExtensionAlterationModel } from '@/schemas/tenancyExtensionAlterationModel.generated.tsx'
+
+export const tenancyExtensionAlterationModelConfig: ModelConfig<TenancyExtensionAlterationModel> = {
+  _links: {
+    key: '_links',
+    label: '_links',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  _embedded: {
+    key: '_embedded',
+    label: '_embedded',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  id: {
+    key: 'id',
+    label: 'id',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  created: {
+    key: 'created',
+    label: 'created',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  modified: {
+    key: 'modified',
+    label: 'modified',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  startDate: {
+    key: 'startDate',
+    label: 'startDate',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  endDate: {
+    key: 'endDate',
+    label: 'endDate',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  type: {
+    key: 'type',
+    label: 'type',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  negotiatorId: {
+    key: 'negotiatorId',
+    label: 'negotiatorId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  rent: {
+    key: 'rent',
+    label: 'rent',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  rentFrequency: {
+    key: 'rentFrequency',
+    label: 'rentFrequency',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  tenancyId: {
+    key: 'tenancyId',
+    label: 'tenancyId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  fee: {
+    key: 'fee',
+    label: 'fee',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  _eTag: {
+    key: '_eTag',
+    label: '_eTag',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+}

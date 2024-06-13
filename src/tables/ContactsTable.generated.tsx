@@ -1,10 +1,18 @@
 import { contactModelConfig } from '@/config/contactModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { useGetApiContacts } from '@/services/Contacts.generated.ts'
+import {
+  useGetApiContacts,
+  useGetApiContactsIdRelationships,
+  useGetApiContactsIdSubscriptions,
+} from '@/services/Contacts.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { ContactModel } from '@/schemas/contactModel.generated.tsx'
+import { contactRoleModelConfig } from '@/config/contactRoleModelConfig.example.tsx'
+import { ContactRoleModel } from '@/schemas/contactRoleModel.generated.tsx'
+import { contactSubscriptionModelConfig } from '@/config/contactSubscriptionModelConfig.example.tsx'
+import { ContactSubscriptionModel } from '@/schemas/contactSubscriptionModel.generated.tsx'
 
 export const getContactsTableColumn = (property: string, modelConfig: ModelConfig<ContactModel>, row: ContactModel) => {
   return match(property)
@@ -226,6 +234,170 @@ export const useContactsTable = (args: UseContactsTableArgs) => {
       cells: args.fieldNames
         .filter((c): c is keyof ContactModel => c in row)
         .map((fieldName) => getContactsTableColumn(fieldName, contactModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getContactsIdRelationshipsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<ContactRoleModel>,
+  row: ContactRoleModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('created', () => ({
+      id: 'created',
+      label: modelConfig['created'].label,
+      value: modelConfig['created'].format(row['created']),
+    }))
+    .with('modified', () => ({
+      id: 'modified',
+      label: modelConfig['modified'].label,
+      value: modelConfig['modified'].format(row['modified']),
+    }))
+    .with('contactId', () => ({
+      id: 'contactId',
+      label: modelConfig['contactId'].label,
+      value: modelConfig['contactId'].format(row['contactId']),
+    }))
+    .with('associatedType', () => ({
+      id: 'associatedType',
+      label: modelConfig['associatedType'].label,
+      value: modelConfig['associatedType'].format(row['associatedType']),
+    }))
+    .with('associatedId', () => ({
+      id: 'associatedId',
+      label: modelConfig['associatedId'].label,
+      value: modelConfig['associatedId'].format(row['associatedId']),
+    }))
+    .with('fromArchive', () => ({
+      id: 'fromArchive',
+      label: modelConfig['fromArchive'].label,
+      value: modelConfig['fromArchive'].format(row['fromArchive']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UseContactsIdRelationshipsTableArgs = { id: string; fieldNames: (keyof ContactRoleModel)[] }
+export const useContactsIdRelationshipsTable = (args: UseContactsIdRelationshipsTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiContactsIdRelationships({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof ContactRoleModel => c in row)
+        .map((fieldName) => getContactsIdRelationshipsTableColumn(fieldName, contactRoleModelConfig, row)),
+    })) ?? []
+
+  return { rows, dataQuery }
+}
+export const getContactsIdSubscriptionsTableColumn = (
+  property: string,
+  modelConfig: ModelConfig<ContactSubscriptionModel>,
+  row: ContactSubscriptionModel,
+) => {
+  return match(property)
+    .with('_links', () => ({
+      id: '_links',
+      label: modelConfig['_links'].label,
+      value: modelConfig['_links'].format(row['_links']),
+    }))
+    .with('_embedded', () => ({
+      id: '_embedded',
+      label: modelConfig['_embedded'].label,
+      value: modelConfig['_embedded'].format(row['_embedded']),
+    }))
+    .with('id', () => ({
+      id: 'id',
+      label: modelConfig['id'].label,
+      value: modelConfig['id'].format(row['id']),
+    }))
+    .with('contactId', () => ({
+      id: 'contactId',
+      label: modelConfig['contactId'].label,
+      value: modelConfig['contactId'].format(row['contactId']),
+    }))
+    .with('name', () => ({
+      id: 'name',
+      label: modelConfig['name'].label,
+      value: modelConfig['name'].format(row['name']),
+    }))
+    .with('group', () => ({
+      id: 'group',
+      label: modelConfig['group'].label,
+      value: modelConfig['group'].format(row['group']),
+    }))
+    .with('status', () => ({
+      id: 'status',
+      label: modelConfig['status'].label,
+      value: modelConfig['status'].format(row['status']),
+    }))
+    .with('type', () => ({
+      id: 'type',
+      label: modelConfig['type'].label,
+      value: modelConfig['type'].format(row['type']),
+    }))
+    .with('subscribedOn', () => ({
+      id: 'subscribedOn',
+      label: modelConfig['subscribedOn'].label,
+      value: modelConfig['subscribedOn'].format(row['subscribedOn']),
+    }))
+    .with('unsubscribedOn', () => ({
+      id: 'unsubscribedOn',
+      label: modelConfig['unsubscribedOn'].label,
+      value: modelConfig['unsubscribedOn'].format(row['unsubscribedOn']),
+    }))
+    .otherwise(() => {
+      throw new Error(`Unknown column: ${property}`)
+    })
+}
+export type UseContactsIdSubscriptionsTableArgs = {
+  id: string
+  type?: string | null | undefined
+  status?: string | null | undefined
+  fieldNames: (keyof ContactSubscriptionModel)[]
+}
+export const useContactsIdSubscriptionsTable = (args: UseContactsIdSubscriptionsTableArgs) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 12,
+  })
+
+  const dataQuery = useGetApiContactsIdSubscriptions({
+    ...args,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  })
+
+  const rows: RowProps[] =
+    dataQuery.data?._embedded?.map((row) => ({
+      cells: args.fieldNames
+        .filter((c): c is keyof ContactSubscriptionModel => c in row)
+        .map((fieldName) => getContactsIdSubscriptionsTableColumn(fieldName, contactSubscriptionModelConfig, row)),
     })) ?? []
 
   return { rows, dataQuery }

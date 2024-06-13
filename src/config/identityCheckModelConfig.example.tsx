@@ -1,0 +1,96 @@
+import { ContextInput, ModelConfig } from '@/components/ModelRuntimeConfig'
+import { IdentityCheckModel } from '@/schemas/identityCheckModel.generated.tsx'
+
+export const identityCheckModelConfig: ModelConfig<IdentityCheckModel> = {
+  _links: {
+    key: '_links',
+    label: '_links',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  _embedded: {
+    key: '_embedded',
+    label: '_embedded',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  id: {
+    key: 'id',
+    label: 'id',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  contactId: {
+    key: 'contactId',
+    label: 'contactId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  created: {
+    key: 'created',
+    label: 'created',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  modified: {
+    key: 'modified',
+    label: 'modified',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  checkDate: {
+    key: 'checkDate',
+    label: 'checkDate',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  status: {
+    key: 'status',
+    label: 'status',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  negotiatorId: {
+    key: 'negotiatorId',
+    label: 'negotiatorId',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  identityDocument1: {
+    key: 'identityDocument1',
+    label: 'identityDocument1',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  identityDocument2: {
+    key: 'identityDocument2',
+    label: 'identityDocument2',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  metadata: {
+    key: 'metadata',
+    label: 'metadata',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+  _eTag: {
+    key: '_eTag',
+    label: '_eTag',
+    defaultValue: '',
+    format: (value) => `${value}`,
+    Input: (props) => <ContextInput {...props} />,
+  },
+}
