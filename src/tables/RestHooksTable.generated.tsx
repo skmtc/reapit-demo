@@ -1,16 +1,11 @@
+import { webhookModelConfig } from '@/config/webhookModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { webhookModelConfig } from '@/config/webhookModelConfig.example.tsx'
 import { useGetApiResthooks } from '@/services/RestHooks.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { WebhookModel } from '@/schemas/webhookModel.generated.tsx'
 
-export type UseResthooksTableArgs = {
-  sortBy?: string | null | undefined
-  active?: boolean | null | undefined
-  fieldNames: (keyof WebhookModel)[]
-}
 export const getResthooksTableColumn = (
   property: string,
   modelConfig: ModelConfig<WebhookModel>,
@@ -60,6 +55,11 @@ export const getResthooksTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseResthooksTableArgs = {
+  sortBy?: string | null | undefined
+  active?: boolean | null | undefined
+  fieldNames: (keyof WebhookModel)[]
 }
 export const useResthooksTable = (args: UseResthooksTableArgs) => {
   const [pagination, setPagination] = useState({

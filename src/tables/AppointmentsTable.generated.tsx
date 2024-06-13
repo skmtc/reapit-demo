@@ -1,36 +1,11 @@
+import { appointmentModelConfig } from '@/config/appointmentModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { appointmentModelConfig } from '@/config/appointmentModelConfig.example.tsx'
 import { useGetApiAppointments } from '@/services/Appointments.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { AppointmentModel } from '@/schemas/appointmentModel.generated.tsx'
 
-export type UseAppointmentsTableArgs = {
-  sortBy?: string | null | undefined
-  embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | null | undefined
-  id?: Array<string> | null | undefined
-  typeId?: Array<string> | null | undefined
-  negotiatorId?: Array<string> | null | undefined
-  officeId?: Array<string> | null | undefined
-  propertyId?: Array<string> | null | undefined
-  attendeeId?: Array<string> | null | undefined
-  attendeeType?: Array<'applicant' | 'contact' | 'landlord' | 'tenancy'> | null | undefined
-  start?: string | null | undefined
-  end?: string | null | undefined
-  includeCancelled?: boolean | null | undefined
-  includeUnconfirmed?: boolean | null | undefined
-  fromArchive?: boolean | null | undefined
-  followUpFrom?: string | null | undefined
-  followUpTo?: string | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  extrasField?: Array<string> | null | undefined
-  metadata?: Array<string> | null | undefined
-  fieldNames: (keyof AppointmentModel)[]
-}
 export const getAppointmentsTableColumn = (
   property: string,
   modelConfig: ModelConfig<AppointmentModel>,
@@ -195,6 +170,31 @@ export const getAppointmentsTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseAppointmentsTableArgs = {
+  sortBy?: string | null | undefined
+  embed?: Array<'negotiators' | 'offices' | 'organiser' | 'property' | 'type'> | null | undefined
+  id?: Array<string> | null | undefined
+  typeId?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  attendeeId?: Array<string> | null | undefined
+  attendeeType?: Array<'applicant' | 'contact' | 'landlord' | 'tenancy'> | null | undefined
+  start?: string | null | undefined
+  end?: string | null | undefined
+  includeCancelled?: boolean | null | undefined
+  includeUnconfirmed?: boolean | null | undefined
+  fromArchive?: boolean | null | undefined
+  followUpFrom?: string | null | undefined
+  followUpTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  extrasField?: Array<string> | null | undefined
+  metadata?: Array<string> | null | undefined
+  fieldNames: (keyof AppointmentModel)[]
 }
 export const useAppointmentsTable = (args: UseAppointmentsTableArgs) => {
   const [pagination, setPagination] = useState({

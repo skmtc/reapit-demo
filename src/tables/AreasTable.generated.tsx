@@ -1,24 +1,11 @@
+import { areaModelConfig } from '@/config/areaModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { areaModelConfig } from '@/config/areaModelConfig.example.tsx'
 import { useGetApiAreas } from '@/services/Areas.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { AreaModel } from '@/schemas/areaModel.generated.tsx'
 
-export type UseAreasTableArgs = {
-  sortBy?: string | null | undefined
-  id?: Array<string> | null | undefined
-  departmentId?: Array<string> | null | undefined
-  officeId?: Array<string> | null | undefined
-  name?: string | null | undefined
-  active?: boolean | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  fieldNames: (keyof AreaModel)[]
-}
 export const getAreasTableColumn = (property: string, modelConfig: ModelConfig<AreaModel>, row: AreaModel) => {
   return match(property)
     .with('_links', () => ({
@@ -89,6 +76,19 @@ export const getAreasTableColumn = (property: string, modelConfig: ModelConfig<A
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseAreasTableArgs = {
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  departmentId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  name?: string | null | undefined
+  active?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  fieldNames: (keyof AreaModel)[]
 }
 export const useAreasTable = (args: UseAreasTableArgs) => {
   const [pagination, setPagination] = useState({

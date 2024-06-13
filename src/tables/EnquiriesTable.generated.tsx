@@ -1,20 +1,11 @@
+import { enquiryModelConfig } from '@/config/enquiryModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { enquiryModelConfig } from '@/config/enquiryModelConfig.example.tsx'
 import { useGetApiEnquiries } from '@/services/Enquiries.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { EnquiryModel } from '@/schemas/enquiryModel.generated.tsx'
 
-export type UseEnquiriesTableArgs = {
-  sortBy?: string | null | undefined
-  enquiryType?: string | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  fieldNames: (keyof EnquiryModel)[]
-}
 export const getEnquiriesTableColumn = (
   property: string,
   modelConfig: ModelConfig<EnquiryModel>,
@@ -159,6 +150,15 @@ export const getEnquiriesTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseEnquiriesTableArgs = {
+  sortBy?: string | null | undefined
+  enquiryType?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  fieldNames: (keyof EnquiryModel)[]
 }
 export const useEnquiriesTable = (args: UseEnquiriesTableArgs) => {
   const [pagination, setPagination] = useState({

@@ -1,24 +1,11 @@
+import { conveyancingModelConfig } from '@/config/conveyancingModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { conveyancingModelConfig } from '@/config/conveyancingModelConfig.example.tsx'
 import { useGetApiConveyancing } from '@/services/Conveyancing.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { ConveyancingModel } from '@/schemas/conveyancingModel.generated.tsx'
 
-export type UseConveyancingTableArgs = {
-  sortBy?: string | null | undefined
-  id?: Array<string> | null | undefined
-  propertyId?: Array<string> | null | undefined
-  buyerId?: Array<string> | null | undefined
-  embed?: Array<'buyerSolicitor' | 'offer' | 'property' | 'vendor' | 'vendorSolicitor'> | null | undefined
-  metadata?: Array<string> | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  fieldNames: (keyof ConveyancingModel)[]
-}
 export const getConveyancingTableColumn = (
   property: string,
   modelConfig: ModelConfig<ConveyancingModel>,
@@ -268,6 +255,19 @@ export const getConveyancingTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseConveyancingTableArgs = {
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  buyerId?: Array<string> | null | undefined
+  embed?: Array<'buyerSolicitor' | 'offer' | 'property' | 'vendor' | 'vendorSolicitor'> | null | undefined
+  metadata?: Array<string> | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  fieldNames: (keyof ConveyancingModel)[]
 }
 export const useConveyancingTable = (args: UseConveyancingTableArgs) => {
   const [pagination, setPagination] = useState({

@@ -1,28 +1,11 @@
+import { landlordModelConfig } from '@/config/landlordModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { landlordModelConfig } from '@/config/landlordModelConfig.example.tsx'
 import { useGetApiLandlords } from '@/services/Landlords.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { LandlordModel } from '@/schemas/landlordModel.generated.tsx'
 
-export type UseLandlordsTableArgs = {
-  sortBy?: string | null | undefined
-  embed?: Array<'appointments' | 'documents' | 'office' | 'properties' | 'solicitor' | 'source'> | null | undefined
-  id?: Array<string> | null | undefined
-  email?: Array<string> | null | undefined
-  officeId?: Array<string> | null | undefined
-  extrasField?: Array<string> | null | undefined
-  active?: boolean | null | undefined
-  address?: string | null | undefined
-  name?: string | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  metadata?: Array<string> | null | undefined
-  fieldNames: (keyof LandlordModel)[]
-}
 export const getLandlordsTableColumn = (
   property: string,
   modelConfig: ModelConfig<LandlordModel>,
@@ -97,6 +80,23 @@ export const getLandlordsTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseLandlordsTableArgs = {
+  sortBy?: string | null | undefined
+  embed?: Array<'appointments' | 'documents' | 'office' | 'properties' | 'solicitor' | 'source'> | null | undefined
+  id?: Array<string> | null | undefined
+  email?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  extrasField?: Array<string> | null | undefined
+  active?: boolean | null | undefined
+  address?: string | null | undefined
+  name?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  fieldNames: (keyof LandlordModel)[]
 }
 export const useLandlordsTable = (args: UseLandlordsTableArgs) => {
   const [pagination, setPagination] = useState({

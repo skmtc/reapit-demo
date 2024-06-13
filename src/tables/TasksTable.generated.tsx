@@ -1,33 +1,11 @@
+import { taskModelConfig } from '@/config/taskModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { taskModelConfig } from '@/config/taskModelConfig.example.tsx'
 import { useGetApiTasks } from '@/services/Tasks.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { TaskModel } from '@/schemas/taskModel.generated.tsx'
 
-export type UseTasksTableArgs = {
-  sortBy?: string | null | undefined
-  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | null | undefined
-  id?: Array<string> | null | undefined
-  applicantId?: Array<string> | null | undefined
-  contactId?: Array<string> | null | undefined
-  landlordId?: Array<string> | null | undefined
-  officeId?: Array<string> | null | undefined
-  propertyId?: Array<string> | null | undefined
-  recipientId?: Array<string> | null | undefined
-  senderId?: Array<string> | null | undefined
-  typeId?: Array<string> | null | undefined
-  tenancyId?: Array<string> | null | undefined
-  activatesFrom?: string | null | undefined
-  activatesTo?: string | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  metadata?: Array<string> | null | undefined
-  fieldNames: (keyof TaskModel)[]
-}
 export const getTasksTableColumn = (property: string, modelConfig: ModelConfig<TaskModel>, row: TaskModel) => {
   return match(property)
     .with('_links', () => ({
@@ -128,6 +106,28 @@ export const getTasksTableColumn = (property: string, modelConfig: ModelConfig<T
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseTasksTableArgs = {
+  sortBy?: string | null | undefined
+  embed?: Array<'applicant' | 'contact' | 'landlord' | 'property' | 'tenancy' | 'type'> | null | undefined
+  id?: Array<string> | null | undefined
+  applicantId?: Array<string> | null | undefined
+  contactId?: Array<string> | null | undefined
+  landlordId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  recipientId?: Array<string> | null | undefined
+  senderId?: Array<string> | null | undefined
+  typeId?: Array<string> | null | undefined
+  tenancyId?: Array<string> | null | undefined
+  activatesFrom?: string | null | undefined
+  activatesTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  fieldNames: (keyof TaskModel)[]
 }
 export const useTasksTable = (args: UseTasksTableArgs) => {
   const [pagination, setPagination] = useState({

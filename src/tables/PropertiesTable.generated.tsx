@@ -1,155 +1,11 @@
+import { propertyModelConfig } from '@/config/propertyModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { propertyModelConfig } from '@/config/propertyModelConfig.example.tsx'
 import { useGetApiProperties } from '@/services/Properties.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { PropertyModel } from '@/schemas/propertyModel.generated.tsx'
 
-export type UsePropertiesTableArgs = {
-  sortBy?: string | null | undefined
-  embed?:
-    | Array<
-        | 'appointments'
-        | 'area'
-        | 'certificates'
-        | 'department'
-        | 'documents'
-        | 'images'
-        | 'keys'
-        | 'landlord'
-        | 'negotiator'
-        | 'offers'
-        | 'offices'
-        | 'tenancies'
-        | 'vendor'
-      >
-    | null
-    | undefined
-  id?: Array<string> | null | undefined
-  age?: Array<'period' | 'new' | 'modern' | 'old'> | null | undefined
-  agentRole?:
-    | Array<
-        'managed' | 'rentCollection' | 'collectFirstPayment' | 'collectRentToDate' | 'lettingOnly' | 'introducingTenant'
-      >
-    | null
-    | undefined
-  areaId?: Array<string> | null | undefined
-  excludeAreaId?: Array<string> | null | undefined
-  landlordId?: Array<string> | null | undefined
-  lettingStatus?:
-    | Array<
-        | 'valuation'
-        | 'toLet'
-        | 'toLetUnavailable'
-        | 'underOffer'
-        | 'underOfferUnavailable'
-        | 'arrangingTenancyUnavailable'
-        | 'arrangingTenancy'
-        | 'tenancyCurrentUnavailable'
-        | 'tenancyCurrent'
-        | 'tenancyFinished'
-        | 'tenancyCancelled'
-        | 'sold'
-        | 'letByOtherAgent'
-        | 'letPrivately'
-        | 'provisional'
-        | 'withdrawn'
-      >
-    | null
-    | undefined
-  locality?: Array<'rural' | 'village' | 'townCity'> | null | undefined
-  marketingMode?: Array<'selling' | 'letting' | 'sellingAndLetting'> | null | undefined
-  masterId?: Array<string> | null | undefined
-  negotiatorId?: Array<string> | null | undefined
-  officeId?: Array<string> | null | undefined
-  parking?:
-    | Array<
-        'residents' | 'offStreet' | 'secure' | 'underground' | 'garage' | 'doubleGarage' | 'tripleGarage' | 'carport'
-      >
-    | null
-    | undefined
-  sellingStatus?:
-    | Array<
-        | 'preAppraisal'
-        | 'valuation'
-        | 'paidValuation'
-        | 'forSale'
-        | 'forSaleUnavailable'
-        | 'underOffer'
-        | 'underOfferUnavailable'
-        | 'reserved'
-        | 'exchanged'
-        | 'completed'
-        | 'soldExternally'
-        | 'withdrawn'
-      >
-    | null
-    | undefined
-  situation?:
-    | Array<
-        'garden' | 'land' | 'patio' | 'roofTerrace' | 'conservatory' | 'balcony' | 'communalGardens' | 'outsideSpace'
-      >
-    | null
-    | undefined
-  style?:
-    | Array<
-        | 'terraced'
-        | 'endTerrace'
-        | 'detached'
-        | 'semiDetached'
-        | 'linkDetached'
-        | 'mews'
-        | 'basement'
-        | 'lowerGroundFloor'
-        | 'groundFloor'
-        | 'firstFloor'
-        | 'upperFloor'
-        | 'upperFloorWithLift'
-        | 'penthouse'
-        | 'duplex'
-      >
-    | null
-    | undefined
-  type?:
-    | Array<
-        | 'house'
-        | 'bungalow'
-        | 'flatApartment'
-        | 'maisonette'
-        | 'land'
-        | 'farm'
-        | 'cottage'
-        | 'studio'
-        | 'townhouse'
-        | 'developmentPlot'
-      >
-    | null
-    | undefined
-  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | null | undefined
-  address?: string | null | undefined
-  countryId?: string | null | undefined
-  departmentId?: string | null | undefined
-  bedroomsFrom?: number | null | undefined
-  bedroomsTo?: number | null | undefined
-  priceFrom?: number | null | undefined
-  priceTo?: number | null | undefined
-  priceFiltersCurrency?: string | null | undefined
-  rentFrom?: number | null | undefined
-  rentTo?: number | null | undefined
-  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | null | undefined
-  internetAdvertising?: boolean | null | undefined
-  isExternal?: boolean | null | undefined
-  fromArchive?: boolean | null | undefined
-  availableFrom?: string | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  metadata?: Array<string> | null | undefined
-  extrasField?: Array<string> | null | undefined
-  fieldNames: (keyof PropertyModel)[]
-}
 export const getPropertiesTableColumn = (
   property: string,
   modelConfig: ModelConfig<PropertyModel>,
@@ -574,6 +430,150 @@ export const getPropertiesTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UsePropertiesTableArgs = {
+  sortBy?: string | null | undefined
+  embed?:
+    | Array<
+        | 'appointments'
+        | 'area'
+        | 'certificates'
+        | 'department'
+        | 'documents'
+        | 'images'
+        | 'keys'
+        | 'landlord'
+        | 'negotiator'
+        | 'offers'
+        | 'offices'
+        | 'tenancies'
+        | 'vendor'
+      >
+    | null
+    | undefined
+  id?: Array<string> | null | undefined
+  age?: Array<'period' | 'new' | 'modern' | 'old'> | null | undefined
+  agentRole?:
+    | Array<
+        'managed' | 'rentCollection' | 'collectFirstPayment' | 'collectRentToDate' | 'lettingOnly' | 'introducingTenant'
+      >
+    | null
+    | undefined
+  areaId?: Array<string> | null | undefined
+  excludeAreaId?: Array<string> | null | undefined
+  landlordId?: Array<string> | null | undefined
+  lettingStatus?:
+    | Array<
+        | 'valuation'
+        | 'toLet'
+        | 'toLetUnavailable'
+        | 'underOffer'
+        | 'underOfferUnavailable'
+        | 'arrangingTenancyUnavailable'
+        | 'arrangingTenancy'
+        | 'tenancyCurrentUnavailable'
+        | 'tenancyCurrent'
+        | 'tenancyFinished'
+        | 'tenancyCancelled'
+        | 'sold'
+        | 'letByOtherAgent'
+        | 'letPrivately'
+        | 'provisional'
+        | 'withdrawn'
+      >
+    | null
+    | undefined
+  locality?: Array<'rural' | 'village' | 'townCity'> | null | undefined
+  marketingMode?: Array<'selling' | 'letting' | 'sellingAndLetting'> | null | undefined
+  masterId?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  parking?:
+    | Array<
+        'residents' | 'offStreet' | 'secure' | 'underground' | 'garage' | 'doubleGarage' | 'tripleGarage' | 'carport'
+      >
+    | null
+    | undefined
+  sellingStatus?:
+    | Array<
+        | 'preAppraisal'
+        | 'valuation'
+        | 'paidValuation'
+        | 'forSale'
+        | 'forSaleUnavailable'
+        | 'underOffer'
+        | 'underOfferUnavailable'
+        | 'reserved'
+        | 'exchanged'
+        | 'completed'
+        | 'soldExternally'
+        | 'withdrawn'
+      >
+    | null
+    | undefined
+  situation?:
+    | Array<
+        'garden' | 'land' | 'patio' | 'roofTerrace' | 'conservatory' | 'balcony' | 'communalGardens' | 'outsideSpace'
+      >
+    | null
+    | undefined
+  style?:
+    | Array<
+        | 'terraced'
+        | 'endTerrace'
+        | 'detached'
+        | 'semiDetached'
+        | 'linkDetached'
+        | 'mews'
+        | 'basement'
+        | 'lowerGroundFloor'
+        | 'groundFloor'
+        | 'firstFloor'
+        | 'upperFloor'
+        | 'upperFloorWithLift'
+        | 'penthouse'
+        | 'duplex'
+      >
+    | null
+    | undefined
+  type?:
+    | Array<
+        | 'house'
+        | 'bungalow'
+        | 'flatApartment'
+        | 'maisonette'
+        | 'land'
+        | 'farm'
+        | 'cottage'
+        | 'studio'
+        | 'townhouse'
+        | 'developmentPlot'
+      >
+    | null
+    | undefined
+  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | null | undefined
+  address?: string | null | undefined
+  countryId?: string | null | undefined
+  departmentId?: string | null | undefined
+  bedroomsFrom?: number | null | undefined
+  bedroomsTo?: number | null | undefined
+  priceFrom?: number | null | undefined
+  priceTo?: number | null | undefined
+  priceFiltersCurrency?: string | null | undefined
+  rentFrom?: number | null | undefined
+  rentTo?: number | null | undefined
+  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | null | undefined
+  internetAdvertising?: boolean | null | undefined
+  isExternal?: boolean | null | undefined
+  fromArchive?: boolean | null | undefined
+  availableFrom?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  extrasField?: Array<string> | null | undefined
+  fieldNames: (keyof PropertyModel)[]
 }
 export const usePropertiesTable = (args: UsePropertiesTableArgs) => {
   const [pagination, setPagination] = useState({

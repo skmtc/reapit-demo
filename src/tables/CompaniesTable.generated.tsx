@@ -1,30 +1,11 @@
+import { companyModelConfig } from '@/config/companyModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { companyModelConfig } from '@/config/companyModelConfig.example.tsx'
 import { useGetApiCompanies } from '@/services/Companies.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { CompanyModel } from '@/schemas/companyModel.generated.tsx'
 
-export type UseCompaniesTableArgs = {
-  sortBy?: string | null | undefined
-  embed?: Array<'companyTypes' | 'relationships'> | null | undefined
-  id?: Array<string> | null | undefined
-  address?: string | null | undefined
-  branch?: string | null | undefined
-  name?: string | null | undefined
-  typeId?: string | null | undefined
-  negotiatorId?: Array<string> | null | undefined
-  officeId?: Array<string> | null | undefined
-  contactDetail?: Array<string> | null | undefined
-  fromArchive?: boolean | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  metadata?: Array<string> | null | undefined
-  fieldNames: (keyof CompanyModel)[]
-}
 export const getCompaniesTableColumn = (
   property: string,
   modelConfig: ModelConfig<CompanyModel>,
@@ -184,6 +165,25 @@ export const getCompaniesTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseCompaniesTableArgs = {
+  sortBy?: string | null | undefined
+  embed?: Array<'companyTypes' | 'relationships'> | null | undefined
+  id?: Array<string> | null | undefined
+  address?: string | null | undefined
+  branch?: string | null | undefined
+  name?: string | null | undefined
+  typeId?: string | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  contactDetail?: Array<string> | null | undefined
+  fromArchive?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  fieldNames: (keyof CompanyModel)[]
 }
 export const useCompaniesTable = (args: UseCompaniesTableArgs) => {
   const [pagination, setPagination] = useState({

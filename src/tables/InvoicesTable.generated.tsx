@@ -1,26 +1,11 @@
+import { invoiceModelConfig } from '@/config/invoiceModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { invoiceModelConfig } from '@/config/invoiceModelConfig.example.tsx'
 import { useGetApiInvoices } from '@/services/Invoices.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { InvoiceModel } from '@/schemas/invoiceModel.generated.tsx'
 
-export type UseInvoicesTableArgs = {
-  sortBy?: string | null | undefined
-  negotiatorId?: Array<string> | null | undefined
-  propertyId?: Array<string> | null | undefined
-  status?: Array<'pending' | 'raised' | 'partPaid' | 'partCredited' | 'credited' | 'paid'> | null | undefined
-  dateFrom?: string | null | undefined
-  dateTo?: string | null | undefined
-  dueDateFrom?: string | null | undefined
-  dueDateTo?: string | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  fieldNames: (keyof InvoiceModel)[]
-}
 export const getInvoicesTableColumn = (property: string, modelConfig: ModelConfig<InvoiceModel>, row: InvoiceModel) => {
   return match(property)
     .with('_links', () => ({
@@ -106,6 +91,21 @@ export const getInvoicesTableColumn = (property: string, modelConfig: ModelConfi
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseInvoicesTableArgs = {
+  sortBy?: string | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  status?: Array<'pending' | 'raised' | 'partPaid' | 'partCredited' | 'credited' | 'paid'> | null | undefined
+  dateFrom?: string | null | undefined
+  dateTo?: string | null | undefined
+  dueDateFrom?: string | null | undefined
+  dueDateTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  fieldNames: (keyof InvoiceModel)[]
 }
 export const useInvoicesTable = (args: UseInvoicesTableArgs) => {
   const [pagination, setPagination] = useState({

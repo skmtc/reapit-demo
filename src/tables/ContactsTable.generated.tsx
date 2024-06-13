@@ -1,38 +1,11 @@
+import { contactModelConfig } from '@/config/contactModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { contactModelConfig } from '@/config/contactModelConfig.example.tsx'
 import { useGetApiContacts } from '@/services/Contacts.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { ContactModel } from '@/schemas/contactModel.generated.tsx'
 
-export type UseContactsTableArgs = {
-  sortBy?: string | null | undefined
-  embed?:
-    | Array<'documents' | 'identityChecks' | 'negotiators' | 'offices' | 'relationships' | 'source'>
-    | null
-    | undefined
-  id?: Array<string> | null | undefined
-  contactDetail?: Array<string> | null | undefined
-  email?: Array<string> | null | undefined
-  negotiatorId?: Array<string> | null | undefined
-  officeId?: Array<string> | null | undefined
-  address?: string | null | undefined
-  identityCheck?: Array<'pass' | 'fail' | 'pending' | 'warnings' | 'unchecked'> | null | undefined
-  name?: string | null | undefined
-  nameType?: string | null | undefined
-  marketingConsent?: Array<'grant' | 'deny' | 'notAsked'> | null | undefined
-  marketingConsentFilterType?: Array<'assumedOrExplicit' | 'explicit'> | null | undefined
-  active?: boolean | null | undefined
-  fromArchive?: boolean | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  metadata?: Array<string> | null | undefined
-  extrasField?: Array<string> | null | undefined
-  fieldNames: (keyof ContactModel)[]
-}
 export const getContactsTableColumn = (property: string, modelConfig: ModelConfig<ContactModel>, row: ContactModel) => {
   return match(property)
     .with('_links', () => ({
@@ -208,6 +181,33 @@ export const getContactsTableColumn = (property: string, modelConfig: ModelConfi
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseContactsTableArgs = {
+  sortBy?: string | null | undefined
+  embed?:
+    | Array<'documents' | 'identityChecks' | 'negotiators' | 'offices' | 'relationships' | 'source'>
+    | null
+    | undefined
+  id?: Array<string> | null | undefined
+  contactDetail?: Array<string> | null | undefined
+  email?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  address?: string | null | undefined
+  identityCheck?: Array<'pass' | 'fail' | 'pending' | 'warnings' | 'unchecked'> | null | undefined
+  name?: string | null | undefined
+  nameType?: string | null | undefined
+  marketingConsent?: Array<'grant' | 'deny' | 'notAsked'> | null | undefined
+  marketingConsentFilterType?: Array<'assumedOrExplicit' | 'explicit'> | null | undefined
+  active?: boolean | null | undefined
+  fromArchive?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  extrasField?: Array<string> | null | undefined
+  fieldNames: (keyof ContactModel)[]
 }
 export const useContactsTable = (args: UseContactsTableArgs) => {
   const [pagination, setPagination] = useState({

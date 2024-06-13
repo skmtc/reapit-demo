@@ -1,18 +1,11 @@
+import { metadataModelConfig } from '@/config/metadataModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { metadataModelConfig } from '@/config/metadataModelConfig.example.tsx'
 import { useGetApiMetadata } from '@/services/Metadata.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { MetadataModel } from '@/schemas/metadataModel.generated.tsx'
 
-export type UseMetadataTableArgs = {
-  entityType?: string | null | undefined
-  id?: Array<string> | null | undefined
-  entityId?: Array<string> | null | undefined
-  filter?: Array<string> | null | undefined
-  fieldNames: (keyof MetadataModel)[]
-}
 export const getMetadataTableColumn = (
   property: string,
   modelConfig: ModelConfig<MetadataModel>,
@@ -47,6 +40,13 @@ export const getMetadataTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseMetadataTableArgs = {
+  entityType?: string | null | undefined
+  id?: Array<string> | null | undefined
+  entityId?: Array<string> | null | undefined
+  filter?: Array<string> | null | undefined
+  fieldNames: (keyof MetadataModel)[]
 }
 export const useMetadataTable = (args: UseMetadataTableArgs) => {
   const [pagination, setPagination] = useState({

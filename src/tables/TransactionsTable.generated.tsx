@@ -1,107 +1,11 @@
+import { transactionModelConfig } from '@/config/transactionModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { transactionModelConfig } from '@/config/transactionModelConfig.example.tsx'
 import { useGetApiTransactions } from '@/services/Transactions.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { TransactionModel } from '@/schemas/transactionModel.generated.tsx'
 
-export type UseTransactionsTableArgs = {
-  sortBy?: string | null | undefined
-  id?: Array<string> | null | undefined
-  propertyId?: Array<string> | null | undefined
-  landlordId?: Array<string> | null | undefined
-  tenancyId?: Array<string> | null | undefined
-  status?: Array<'awaitingAuthorisation' | 'awaitingPosting' | 'posted' | 'rejected'> | null | undefined
-  type?:
-    | Array<
-        | 'creditAdjustment'
-        | 'creditNoteCorrection'
-        | 'creditNoteGoodwillPayment'
-        | 'creditNoteRefund'
-        | 'creditNoteRepayment'
-        | 'creditNoteWriteOff'
-        | 'debitAdjustment'
-        | 'deposit'
-        | 'float'
-        | 'invoice'
-        | 'journal'
-        | 'openingBalanceDr'
-        | 'openingBalancingCr'
-        | 'payment'
-        | 'reserveFunds'
-        | 'transfer'
-      >
-    | null
-    | undefined
-  ledger?: Array<'landlord' | 'tenant' | 'vendor'> | null | undefined
-  category?:
-    | Array<
-        | 'advertisingCharge'
-        | 'accountTransfer'
-        | 'bankCharges'
-        | 'buyerAdminFee'
-        | 'buyerDeposit'
-        | 'buyerPayment'
-        | 'deposit'
-        | 'depositDeduction'
-        | 'depositRefund'
-        | 'depositTransfer'
-        | 'depositTransferToAgent'
-        | 'depositTransferToLandlord'
-        | 'depositTransferToScheme'
-        | 'estateServiceCharge'
-        | 'estateWorksOrder'
-        | 'estateUnitWorksOrder'
-        | 'externalCredit'
-        | 'externalAgentFee'
-        | 'freeholderPayment'
-        | 'float'
-        | 'groundRent'
-        | 'goodwillPayment'
-        | 'holdingDeposit'
-        | 'introducingTenantFee'
-        | 'landlordAdminFee'
-        | 'landlordTax'
-        | 'landlordPayment'
-        | 'landlordToSupplierPayment'
-        | 'landlordWorksOrder'
-        | 'leaseholderAdminFee'
-        | 'leaseholderPayment'
-        | 'leaseholderRepayment'
-        | 'leaseholderWorksOrder'
-        | 'lettingFee'
-        | 'managementFee'
-        | 'paymentSurcharge'
-        | 'receipt'
-        | 'rent'
-        | 'rentGuarantee'
-        | 'rentInsurance'
-        | 'recoveryPayment'
-        | 'reserveFund'
-        | 'tenantAdminFee'
-        | 'tenantPayment'
-        | 'tenantToLandlordPayment'
-        | 'tenantToSupplierPayment'
-        | 'trustAccountingInvoice'
-        | 'tenantWorksOrder'
-        | 'vacantManagementFee'
-        | 'vendorAdminFee'
-        | 'vendorCommission'
-        | 'vendorPayment'
-        | 'vendorToSupplierPayment'
-        | 'worksOrderPayment'
-      >
-    | null
-    | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  outstandingFrom?: number | null | undefined
-  outstandingTo?: number | null | undefined
-  fieldNames: (keyof TransactionModel)[]
-}
 export const getTransactionsTableColumn = (
   property: string,
   modelConfig: ModelConfig<TransactionModel>,
@@ -211,6 +115,102 @@ export const getTransactionsTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseTransactionsTableArgs = {
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  landlordId?: Array<string> | null | undefined
+  tenancyId?: Array<string> | null | undefined
+  status?: Array<'awaitingAuthorisation' | 'awaitingPosting' | 'posted' | 'rejected'> | null | undefined
+  type?:
+    | Array<
+        | 'creditAdjustment'
+        | 'creditNoteCorrection'
+        | 'creditNoteGoodwillPayment'
+        | 'creditNoteRefund'
+        | 'creditNoteRepayment'
+        | 'creditNoteWriteOff'
+        | 'debitAdjustment'
+        | 'deposit'
+        | 'float'
+        | 'invoice'
+        | 'journal'
+        | 'openingBalanceDr'
+        | 'openingBalancingCr'
+        | 'payment'
+        | 'reserveFunds'
+        | 'transfer'
+      >
+    | null
+    | undefined
+  ledger?: Array<'landlord' | 'tenant' | 'vendor'> | null | undefined
+  category?:
+    | Array<
+        | 'advertisingCharge'
+        | 'accountTransfer'
+        | 'bankCharges'
+        | 'buyerAdminFee'
+        | 'buyerDeposit'
+        | 'buyerPayment'
+        | 'deposit'
+        | 'depositDeduction'
+        | 'depositRefund'
+        | 'depositTransfer'
+        | 'depositTransferToAgent'
+        | 'depositTransferToLandlord'
+        | 'depositTransferToScheme'
+        | 'estateServiceCharge'
+        | 'estateWorksOrder'
+        | 'estateUnitWorksOrder'
+        | 'externalCredit'
+        | 'externalAgentFee'
+        | 'freeholderPayment'
+        | 'float'
+        | 'groundRent'
+        | 'goodwillPayment'
+        | 'holdingDeposit'
+        | 'introducingTenantFee'
+        | 'landlordAdminFee'
+        | 'landlordTax'
+        | 'landlordPayment'
+        | 'landlordToSupplierPayment'
+        | 'landlordWorksOrder'
+        | 'leaseholderAdminFee'
+        | 'leaseholderPayment'
+        | 'leaseholderRepayment'
+        | 'leaseholderWorksOrder'
+        | 'lettingFee'
+        | 'managementFee'
+        | 'paymentSurcharge'
+        | 'receipt'
+        | 'rent'
+        | 'rentGuarantee'
+        | 'rentInsurance'
+        | 'recoveryPayment'
+        | 'reserveFund'
+        | 'tenantAdminFee'
+        | 'tenantPayment'
+        | 'tenantToLandlordPayment'
+        | 'tenantToSupplierPayment'
+        | 'trustAccountingInvoice'
+        | 'tenantWorksOrder'
+        | 'vacantManagementFee'
+        | 'vendorAdminFee'
+        | 'vendorCommission'
+        | 'vendorPayment'
+        | 'vendorToSupplierPayment'
+        | 'worksOrderPayment'
+      >
+    | null
+    | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  outstandingFrom?: number | null | undefined
+  outstandingTo?: number | null | undefined
+  fieldNames: (keyof TransactionModel)[]
 }
 export const useTransactionsTable = (args: UseTransactionsTableArgs) => {
   const [pagination, setPagination] = useState({

@@ -1,27 +1,11 @@
+import { officeModelConfig } from '@/config/officeModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { officeModelConfig } from '@/config/officeModelConfig.example.tsx'
 import { useGetApiOffices } from '@/services/Offices.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { OfficeModel } from '@/schemas/officeModel.generated.tsx'
 
-export type UseOfficesTableArgs = {
-  sortBy?: string | null | undefined
-  embed?: Array<'negotiators'> | null | undefined
-  id?: Array<string> | null | undefined
-  address?: string | null | undefined
-  name?: string | null | undefined
-  region?: string | null | undefined
-  active?: boolean | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  metadata?: Array<string> | null | undefined
-  extrasField?: Array<string> | null | undefined
-  fieldNames: (keyof OfficeModel)[]
-}
 export const getOfficesTableColumn = (property: string, modelConfig: ModelConfig<OfficeModel>, row: OfficeModel) => {
   return match(property)
     .with('_links', () => ({
@@ -107,6 +91,22 @@ export const getOfficesTableColumn = (property: string, modelConfig: ModelConfig
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseOfficesTableArgs = {
+  sortBy?: string | null | undefined
+  embed?: Array<'negotiators'> | null | undefined
+  id?: Array<string> | null | undefined
+  address?: string | null | undefined
+  name?: string | null | undefined
+  region?: string | null | undefined
+  active?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  extrasField?: Array<string> | null | undefined
+  fieldNames: (keyof OfficeModel)[]
 }
 export const useOfficesTable = (args: UseOfficesTableArgs) => {
   const [pagination, setPagination] = useState({

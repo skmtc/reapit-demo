@@ -1,48 +1,11 @@
+import { documentModelConfig } from '@/config/documentModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { documentModelConfig } from '@/config/documentModelConfig.example.tsx'
 import { useGetApiDocuments } from '@/services/Documents.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { DocumentModel } from '@/schemas/documentModel.generated.tsx'
 
-export type UseDocumentsTableArgs = {
-  sortBy?: string | null | undefined
-  embed?: Array<'documentType'> | null | undefined
-  id?: Array<string> | null | undefined
-  associatedId?: Array<string> | null | undefined
-  associatedType?:
-    | Array<
-        | 'appliance'
-        | 'applicant'
-        | 'bankStatement'
-        | 'batch'
-        | 'certificate'
-        | 'contact'
-        | 'depositCertificate'
-        | 'estate'
-        | 'estateUnit'
-        | 'idCheck'
-        | 'keySet'
-        | 'landlord'
-        | 'nominalTransaction'
-        | 'property'
-        | 'tenancy'
-        | 'tenancyCheck'
-        | 'tenancyRenewal'
-        | 'worksOrder'
-      >
-    | null
-    | undefined
-  typeId?: Array<string> | null | undefined
-  includeRoleDocuments?: boolean | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  metadata?: Array<string> | null | undefined
-  fieldNames: (keyof DocumentModel)[]
-}
 export const getDocumentsTableColumn = (
   property: string,
   modelConfig: ModelConfig<DocumentModel>,
@@ -112,6 +75,43 @@ export const getDocumentsTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseDocumentsTableArgs = {
+  sortBy?: string | null | undefined
+  embed?: Array<'documentType'> | null | undefined
+  id?: Array<string> | null | undefined
+  associatedId?: Array<string> | null | undefined
+  associatedType?:
+    | Array<
+        | 'appliance'
+        | 'applicant'
+        | 'bankStatement'
+        | 'batch'
+        | 'certificate'
+        | 'contact'
+        | 'depositCertificate'
+        | 'estate'
+        | 'estateUnit'
+        | 'idCheck'
+        | 'keySet'
+        | 'landlord'
+        | 'nominalTransaction'
+        | 'property'
+        | 'tenancy'
+        | 'tenancyCheck'
+        | 'tenancyRenewal'
+        | 'worksOrder'
+      >
+    | null
+    | undefined
+  typeId?: Array<string> | null | undefined
+  includeRoleDocuments?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  fieldNames: (keyof DocumentModel)[]
 }
 export const useDocumentsTable = (args: UseDocumentsTableArgs) => {
   const [pagination, setPagination] = useState({

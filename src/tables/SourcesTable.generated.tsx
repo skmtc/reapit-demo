@@ -1,24 +1,11 @@
+import { sourceModelConfig } from '@/config/sourceModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { sourceModelConfig } from '@/config/sourceModelConfig.example.tsx'
 import { useGetApiSources } from '@/services/Sources.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { SourceModel } from '@/schemas/sourceModel.generated.tsx'
 
-export type UseSourcesTableArgs = {
-  sortBy?: string | null | undefined
-  id?: Array<string> | null | undefined
-  officeId?: Array<string> | null | undefined
-  departmentId?: Array<string> | null | undefined
-  name?: string | null | undefined
-  type?: string | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  fieldNames: (keyof SourceModel)[]
-}
 export const getSourcesTableColumn = (property: string, modelConfig: ModelConfig<SourceModel>, row: SourceModel) => {
   return match(property)
     .with('_links', () => ({
@@ -74,6 +61,19 @@ export const getSourcesTableColumn = (property: string, modelConfig: ModelConfig
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseSourcesTableArgs = {
+  sortBy?: string | null | undefined
+  id?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  departmentId?: Array<string> | null | undefined
+  name?: string | null | undefined
+  type?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  fieldNames: (keyof SourceModel)[]
 }
 export const useSourcesTable = (args: UseSourcesTableArgs) => {
   const [pagination, setPagination] = useState({

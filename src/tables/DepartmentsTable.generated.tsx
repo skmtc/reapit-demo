@@ -1,16 +1,11 @@
+import { departmentModelConfig } from '@/config/departmentModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { departmentModelConfig } from '@/config/departmentModelConfig.example.tsx'
 import { useGetApiDepartments } from '@/services/Departments.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { DepartmentModel } from '@/schemas/departmentModel.generated.tsx'
 
-export type UseDepartmentsTableArgs = {
-  id?: Array<string> | null | undefined
-  name?: string | null | undefined
-  fieldNames: (keyof DepartmentModel)[]
-}
 export const getDepartmentsTableColumn = (
   property: string,
   modelConfig: ModelConfig<DepartmentModel>,
@@ -135,6 +130,11 @@ export const getDepartmentsTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseDepartmentsTableArgs = {
+  id?: Array<string> | null | undefined
+  name?: string | null | undefined
+  fieldNames: (keyof DepartmentModel)[]
 }
 export const useDepartmentsTable = (args: UseDepartmentsTableArgs) => {
   const [pagination, setPagination] = useState({

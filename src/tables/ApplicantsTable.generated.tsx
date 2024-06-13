@@ -1,110 +1,11 @@
+import { applicantModelConfig } from '@/config/applicantModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { applicantModelConfig } from '@/config/applicantModelConfig.example.tsx'
 import { useGetApiApplicants } from '@/services/Applicants.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { ApplicantModel } from '@/schemas/applicantModel.generated.tsx'
 
-export type UseApplicantsTableArgs = {
-  sortBy?: string | null | undefined
-  embed?:
-    | Array<
-        | 'appointments'
-        | 'areas'
-        | 'department'
-        | 'documents'
-        | 'negotiators'
-        | 'offers'
-        | 'offices'
-        | 'solicitor'
-        | 'source'
-      >
-    | null
-    | undefined
-  id?: Array<string> | null | undefined
-  age?: Array<'period' | 'new' | 'modern' | 'old'> | null | undefined
-  contactDetail?: Array<string> | null | undefined
-  emailAddresses?: Array<string> | null | undefined
-  furnishing?: Array<'furnished' | 'unfurnished' | 'partFurnished'> | null | undefined
-  locality?: Array<'rural' | 'village' | 'townCity'> | null | undefined
-  negotiatorId?: Array<string> | null | undefined
-  officeId?: Array<string> | null | undefined
-  parking?:
-    | Array<
-        'residents' | 'offStreet' | 'secure' | 'underground' | 'garage' | 'doubleGarage' | 'tripleGarage' | 'carport'
-      >
-    | null
-    | undefined
-  situation?:
-    | Array<
-        'garden' | 'land' | 'patio' | 'roofTerrace' | 'conservatory' | 'balcony' | 'communalGardens' | 'outsideSpace'
-      >
-    | null
-    | undefined
-  style?:
-    | Array<
-        | 'terraced'
-        | 'endTerrace'
-        | 'detached'
-        | 'semiDetached'
-        | 'linkDetached'
-        | 'mews'
-        | 'basement'
-        | 'lowerGroundFloor'
-        | 'groundFloor'
-        | 'firstFloor'
-        | 'upperFloor'
-        | 'upperFloorWithLift'
-        | 'penthouse'
-        | 'duplex'
-      >
-    | null
-    | undefined
-  type?:
-    | Array<
-        | 'house'
-        | 'bungalow'
-        | 'flatApartment'
-        | 'maisonette'
-        | 'land'
-        | 'farm'
-        | 'cottage'
-        | 'studio'
-        | 'townhouse'
-        | 'developmentPlot'
-      >
-    | null
-    | undefined
-  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | null | undefined
-  address?: string | null | undefined
-  departmentId?: string | null | undefined
-  marketingMode?: Array<'buying' | 'renting'> | null | undefined
-  name?: string | null | undefined
-  nameType?: Array<'surname' | 'initials' | 'full' | 'companyName'> | null | undefined
-  priceFrom?: number | null | undefined
-  priceTo?: number | null | undefined
-  rentFrom?: number | null | undefined
-  rentTo?: number | null | undefined
-  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | null | undefined
-  bedroomsFrom?: number | null | undefined
-  bedroomsTo?: number | null | undefined
-  active?: boolean | null | undefined
-  fromArchive?: boolean | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  hasLastCall?: boolean | null | undefined
-  lastCallFrom?: string | null | undefined
-  lastCallTo?: string | null | undefined
-  nextCallFrom?: string | null | undefined
-  nextCallTo?: string | null | undefined
-  hasNextCall?: boolean | null | undefined
-  metadata?: Array<string> | null | undefined
-  locationOptions?: string | null | undefined
-  fieldNames: (keyof ApplicantModel)[]
-}
 export const getApplicantsTableColumn = (
   property: string,
   modelConfig: ModelConfig<ApplicantModel>,
@@ -359,6 +260,105 @@ export const getApplicantsTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseApplicantsTableArgs = {
+  sortBy?: string | null | undefined
+  embed?:
+    | Array<
+        | 'appointments'
+        | 'areas'
+        | 'department'
+        | 'documents'
+        | 'negotiators'
+        | 'offers'
+        | 'offices'
+        | 'solicitor'
+        | 'source'
+      >
+    | null
+    | undefined
+  id?: Array<string> | null | undefined
+  age?: Array<'period' | 'new' | 'modern' | 'old'> | null | undefined
+  contactDetail?: Array<string> | null | undefined
+  emailAddresses?: Array<string> | null | undefined
+  furnishing?: Array<'furnished' | 'unfurnished' | 'partFurnished'> | null | undefined
+  locality?: Array<'rural' | 'village' | 'townCity'> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  parking?:
+    | Array<
+        'residents' | 'offStreet' | 'secure' | 'underground' | 'garage' | 'doubleGarage' | 'tripleGarage' | 'carport'
+      >
+    | null
+    | undefined
+  situation?:
+    | Array<
+        'garden' | 'land' | 'patio' | 'roofTerrace' | 'conservatory' | 'balcony' | 'communalGardens' | 'outsideSpace'
+      >
+    | null
+    | undefined
+  style?:
+    | Array<
+        | 'terraced'
+        | 'endTerrace'
+        | 'detached'
+        | 'semiDetached'
+        | 'linkDetached'
+        | 'mews'
+        | 'basement'
+        | 'lowerGroundFloor'
+        | 'groundFloor'
+        | 'firstFloor'
+        | 'upperFloor'
+        | 'upperFloorWithLift'
+        | 'penthouse'
+        | 'duplex'
+      >
+    | null
+    | undefined
+  type?:
+    | Array<
+        | 'house'
+        | 'bungalow'
+        | 'flatApartment'
+        | 'maisonette'
+        | 'land'
+        | 'farm'
+        | 'cottage'
+        | 'studio'
+        | 'townhouse'
+        | 'developmentPlot'
+      >
+    | null
+    | undefined
+  market?: Array<'local' | 'openA' | 'openB' | 'openC' | 'openD'> | null | undefined
+  address?: string | null | undefined
+  departmentId?: string | null | undefined
+  marketingMode?: Array<'buying' | 'renting'> | null | undefined
+  name?: string | null | undefined
+  nameType?: Array<'surname' | 'initials' | 'full' | 'companyName'> | null | undefined
+  priceFrom?: number | null | undefined
+  priceTo?: number | null | undefined
+  rentFrom?: number | null | undefined
+  rentTo?: number | null | undefined
+  rentFrequency?: Array<'weekly' | 'monthly' | 'annually'> | null | undefined
+  bedroomsFrom?: number | null | undefined
+  bedroomsTo?: number | null | undefined
+  active?: boolean | null | undefined
+  fromArchive?: boolean | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  hasLastCall?: boolean | null | undefined
+  lastCallFrom?: string | null | undefined
+  lastCallTo?: string | null | undefined
+  nextCallFrom?: string | null | undefined
+  nextCallTo?: string | null | undefined
+  hasNextCall?: boolean | null | undefined
+  metadata?: Array<string> | null | undefined
+  locationOptions?: string | null | undefined
+  fieldNames: (keyof ApplicantModel)[]
 }
 export const useApplicantsTable = (args: UseApplicantsTableArgs) => {
   const [pagination, setPagination] = useState({

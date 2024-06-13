@@ -1,34 +1,11 @@
+import { offerModelConfig } from '@/config/offerModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { offerModelConfig } from '@/config/offerModelConfig.example.tsx'
 import { useGetApiOffers } from '@/services/Offers.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { OfferModel } from '@/schemas/offerModel.generated.tsx'
 
-export type UseOffersTableArgs = {
-  sortBy?: string | null | undefined
-  embed?: Array<'applicant' | 'conveyancing' | 'property' | 'negotiator'> | null | undefined
-  id?: Array<string> | null | undefined
-  applicantId?: Array<string> | null | undefined
-  propertyId?: Array<string> | null | undefined
-  status?:
-    | Array<'pending' | 'withdrawn' | 'rejected' | 'accepted' | 'noteOfInterest' | 'noteOfInterestWithdrawn'>
-    | null
-    | undefined
-  address?: string | null | undefined
-  name?: string | null | undefined
-  amountFrom?: number | null | undefined
-  amountTo?: number | null | undefined
-  dateFrom?: string | null | undefined
-  dateTo?: string | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  metadata?: Array<string> | null | undefined
-  fieldNames: (keyof OfferModel)[]
-}
 export const getOffersTableColumn = (property: string, modelConfig: ModelConfig<OfferModel>, row: OfferModel) => {
   return match(property)
     .with('_links', () => ({
@@ -134,6 +111,29 @@ export const getOffersTableColumn = (property: string, modelConfig: ModelConfig<
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseOffersTableArgs = {
+  sortBy?: string | null | undefined
+  embed?: Array<'applicant' | 'conveyancing' | 'property' | 'negotiator'> | null | undefined
+  id?: Array<string> | null | undefined
+  applicantId?: Array<string> | null | undefined
+  propertyId?: Array<string> | null | undefined
+  status?:
+    | Array<'pending' | 'withdrawn' | 'rejected' | 'accepted' | 'noteOfInterest' | 'noteOfInterestWithdrawn'>
+    | null
+    | undefined
+  address?: string | null | undefined
+  name?: string | null | undefined
+  amountFrom?: number | null | undefined
+  amountTo?: number | null | undefined
+  dateFrom?: string | null | undefined
+  dateTo?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  fieldNames: (keyof OfferModel)[]
 }
 export const useOffersTable = (args: UseOffersTableArgs) => {
   const [pagination, setPagination] = useState({

@@ -1,35 +1,11 @@
+import { vendorModelConfig } from '@/config/vendorModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { vendorModelConfig } from '@/config/vendorModelConfig.example.tsx'
 import { useGetApiVendors } from '@/services/Vendors.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { VendorModel } from '@/schemas/vendorModel.generated.tsx'
 
-export type UseVendorsTableArgs = {
-  sortBy?: string | null | undefined
-  embed?:
-    | Array<'negotiator' | 'offices' | 'property' | 'sellingReason' | 'solicitor' | 'source' | 'type'>
-    | null
-    | undefined
-  id?: Array<string> | null | undefined
-  negotiatorId?: Array<string> | null | undefined
-  officeId?: Array<string> | null | undefined
-  email?: Array<string> | null | undefined
-  fromArchive?: boolean | null | undefined
-  address?: string | null | undefined
-  name?: string | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  lastCallFrom?: string | null | undefined
-  lastCallTo?: string | null | undefined
-  nextCallFrom?: string | null | undefined
-  nextCallTo?: string | null | undefined
-  metadata?: Array<string> | null | undefined
-  fieldNames: (keyof VendorModel)[]
-}
 export const getVendorsTableColumn = (property: string, modelConfig: ModelConfig<VendorModel>, row: VendorModel) => {
   return match(property)
     .with('_links', () => ({
@@ -135,6 +111,30 @@ export const getVendorsTableColumn = (property: string, modelConfig: ModelConfig
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseVendorsTableArgs = {
+  sortBy?: string | null | undefined
+  embed?:
+    | Array<'negotiator' | 'offices' | 'property' | 'sellingReason' | 'solicitor' | 'source' | 'type'>
+    | null
+    | undefined
+  id?: Array<string> | null | undefined
+  negotiatorId?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  email?: Array<string> | null | undefined
+  fromArchive?: boolean | null | undefined
+  address?: string | null | undefined
+  name?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  lastCallFrom?: string | null | undefined
+  lastCallTo?: string | null | undefined
+  nextCallFrom?: string | null | undefined
+  nextCallTo?: string | null | undefined
+  metadata?: Array<string> | null | undefined
+  fieldNames: (keyof VendorModel)[]
 }
 export const useVendorsTable = (args: UseVendorsTableArgs) => {
   const [pagination, setPagination] = useState({

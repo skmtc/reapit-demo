@@ -1,26 +1,11 @@
+import { negotiatorModelConfig } from '@/config/negotiatorModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import { negotiatorModelConfig } from '@/config/negotiatorModelConfig.example.tsx'
 import { useGetApiNegotiators } from '@/services/Negotiators.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { NegotiatorModel } from '@/schemas/negotiatorModel.generated.tsx'
 
-export type UseNegotiatorsTableArgs = {
-  sortBy?: string | null | undefined
-  embed?: Array<'office'> | null | undefined
-  id?: Array<string> | null | undefined
-  officeId?: Array<string> | null | undefined
-  email?: string | null | undefined
-  name?: string | null | undefined
-  createdFrom?: string | null | undefined
-  createdTo?: string | null | undefined
-  modifiedFrom?: string | null | undefined
-  modifiedTo?: string | null | undefined
-  active?: boolean | null | undefined
-  metadata?: Array<string> | null | undefined
-  fieldNames: (keyof NegotiatorModel)[]
-}
 export const getNegotiatorsTableColumn = (
   property: string,
   modelConfig: ModelConfig<NegotiatorModel>,
@@ -120,6 +105,21 @@ export const getNegotiatorsTableColumn = (
     .otherwise(() => {
       throw new Error(`Unknown column: ${property}`)
     })
+}
+export type UseNegotiatorsTableArgs = {
+  sortBy?: string | null | undefined
+  embed?: Array<'office'> | null | undefined
+  id?: Array<string> | null | undefined
+  officeId?: Array<string> | null | undefined
+  email?: string | null | undefined
+  name?: string | null | undefined
+  createdFrom?: string | null | undefined
+  createdTo?: string | null | undefined
+  modifiedFrom?: string | null | undefined
+  modifiedTo?: string | null | undefined
+  active?: boolean | null | undefined
+  metadata?: Array<string> | null | undefined
+  fieldNames: (keyof NegotiatorModel)[]
 }
 export const useNegotiatorsTable = (args: UseNegotiatorsTableArgs) => {
   const [pagination, setPagination] = useState({
