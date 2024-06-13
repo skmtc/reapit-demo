@@ -1,5 +1,5 @@
-import { updateWebhookModel, UpdateWebhookModel } from '@/schemas/updateWebhookModel.generated.tsx'
-import { useUpdateResthook } from '@/services/RestHooks.generated.ts'
+import { UpdateWebhookModel, updateWebhookModel } from '@/schemas/updateWebhookModel.generated.tsx'
+import { useUpdateApiResthooksId } from '@/services/RestHooks.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const UpdateResthooksId = (props: UpdateResthooksIdProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useUpdateResthook()
+  const mutator = useUpdateApiResthooksId()
 
   return (
     <FormProvider {...methods}>

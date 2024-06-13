@@ -6,8 +6,8 @@ import { useFetchError } from '@/lib/useFetchError.ts'
 import { CreateUpwardLinkModel } from '@/schemas/createUpwardLinkModel.generated.tsx'
 import { conveyancingModelPagedResult } from '@/schemas/conveyancingModelPagedResult.generated.tsx'
 
-export type CreateDownwardChainFnArgs = { id: string; body: CreateDownwardLinkModel }
-export const createDownwardChainFn = async ({ id, body }: CreateDownwardChainFnArgs) => {
+export type CreateApiConveyancingIdDownwardFnArgs = { id: string; body: CreateDownwardLinkModel }
+export const createApiConveyancingIdDownwardFn = async ({ id, body }: CreateApiConveyancingIdDownwardFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/conveyancing/${id}/downward${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -25,12 +25,12 @@ export const createDownwardChainFn = async ({ id, body }: CreateDownwardChainFnA
 
   return z.void().parse(data)
 }
-export const useCreateDownwardChain = () => {
+export const useCreateApiConveyancingIdDownward = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createDownwardChainFn,
+    mutationFn: createApiConveyancingIdDownwardFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -38,8 +38,8 @@ export const useCreateDownwardChain = () => {
     },
   })
 }
-export type CreateUpwardChainFnArgs = { id: string; body: CreateUpwardLinkModel }
-export const createUpwardChainFn = async ({ id, body }: CreateUpwardChainFnArgs) => {
+export type CreateApiConveyancingIdUpwardFnArgs = { id: string; body: CreateUpwardLinkModel }
+export const createApiConveyancingIdUpwardFn = async ({ id, body }: CreateApiConveyancingIdUpwardFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/conveyancing/${id}/upward${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -57,12 +57,12 @@ export const createUpwardChainFn = async ({ id, body }: CreateUpwardChainFnArgs)
 
   return z.void().parse(data)
 }
-export const useCreateUpwardChain = () => {
+export const useCreateApiConveyancingIdUpward = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createUpwardChainFn,
+    mutationFn: createApiConveyancingIdUpwardFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

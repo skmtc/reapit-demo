@@ -5,8 +5,8 @@ import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 import { negotiatorModelPagedResult } from '@/schemas/negotiatorModelPagedResult.generated.tsx'
 
-export type CreateNegotiatorFnArgs = { body: CreateNegotiatorModel }
-export const createNegotiatorFn = async ({ body }: CreateNegotiatorFnArgs) => {
+export type CreateApiNegotiatorsFnArgs = { body: CreateNegotiatorModel }
+export const createApiNegotiatorsFn = async ({ body }: CreateApiNegotiatorsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -24,12 +24,12 @@ export const createNegotiatorFn = async ({ body }: CreateNegotiatorFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateNegotiator = () => {
+export const useCreateApiNegotiators = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createNegotiatorFn,
+    mutationFn: createApiNegotiatorsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

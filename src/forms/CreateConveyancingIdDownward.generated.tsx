@@ -1,5 +1,5 @@
-import { createDownwardLinkModel, CreateDownwardLinkModel } from '@/schemas/createDownwardLinkModel.generated.tsx'
-import { useCreateDownwardChain } from '@/services/Conveyancing.generated.ts'
+import { CreateDownwardLinkModel, createDownwardLinkModel } from '@/schemas/createDownwardLinkModel.generated.tsx'
+import { useCreateApiConveyancingIdDownward } from '@/services/Conveyancing.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,7 +17,7 @@ export const CreateConveyancingIdDownward = (props: CreateConveyancingIdDownward
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateDownwardChain()
+  const mutator = useCreateApiConveyancingIdDownward()
 
   return (
     <FormProvider {...methods}>

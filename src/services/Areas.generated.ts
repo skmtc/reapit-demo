@@ -5,8 +5,8 @@ import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 import { areaModelPagedResult } from '@/schemas/areaModelPagedResult.generated.tsx'
 
-export type CreateAreaFnArgs = { body: CreateAreaModel }
-export const createAreaFn = async ({ body }: CreateAreaFnArgs) => {
+export type CreateApiAreasFnArgs = { body: CreateAreaModel }
+export const createApiAreasFn = async ({ body }: CreateApiAreasFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/areas/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -24,12 +24,12 @@ export const createAreaFn = async ({ body }: CreateAreaFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateArea = () => {
+export const useCreateApiAreas = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createAreaFn,
+    mutationFn: createApiAreasFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

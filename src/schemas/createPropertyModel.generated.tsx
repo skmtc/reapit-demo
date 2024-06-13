@@ -1,129 +1,32 @@
-import { z } from 'zod'
 import {
-  createPropertyAddressModel,
   CreatePropertyAddressModel,
+  createPropertyAddressModel,
 } from '@/schemas/createPropertyAddressModel.generated.tsx'
-import { createPropertyEpcModel, CreatePropertyEpcModel } from '@/schemas/createPropertyEpcModel.generated.tsx'
+import { CreatePropertyEpcModel, createPropertyEpcModel } from '@/schemas/createPropertyEpcModel.generated.tsx'
 import {
-  createPropertyExternalAreaModel,
   CreatePropertyExternalAreaModel,
+  createPropertyExternalAreaModel,
 } from '@/schemas/createPropertyExternalAreaModel.generated.tsx'
 import {
-  createPropertyInternalAreaModel,
   CreatePropertyInternalAreaModel,
+  createPropertyInternalAreaModel,
 } from '@/schemas/createPropertyInternalAreaModel.generated.tsx'
-import { createPropertyRuralModel, CreatePropertyRuralModel } from '@/schemas/createPropertyRuralModel.generated.tsx'
+import { CreatePropertyRuralModel, createPropertyRuralModel } from '@/schemas/createPropertyRuralModel.generated.tsx'
 import {
-  createPropertySellingModel,
   CreatePropertySellingModel,
+  createPropertySellingModel,
 } from '@/schemas/createPropertySellingModel.generated.tsx'
 import {
-  createPropertyLettingModel,
   CreatePropertyLettingModel,
+  createPropertyLettingModel,
 } from '@/schemas/createPropertyLettingModel.generated.tsx'
 import {
-  createPropertyRegionalModel,
   CreatePropertyRegionalModel,
+  createPropertyRegionalModel,
 } from '@/schemas/createPropertyRegionalModel.generated.tsx'
-import { createPropertyRoomModel, CreatePropertyRoomModel } from '@/schemas/createPropertyRoomModel.generated.tsx'
+import { CreatePropertyRoomModel, createPropertyRoomModel } from '@/schemas/createPropertyRoomModel.generated.tsx'
+import { z } from 'zod'
 
-/** Request body used to create a new property */
-export const createPropertyModel =
-  /** Request body used to create a new property */
-  z.object({
-    /** The date the owner of the property was last called */ lastCall: z.string().optional().nullable(),
-    /** The date the owner of the property is next due to be called */ nextCall: z.string().optional().nullable(),
-    /** The marketing mode of the property (selling/letting/sellingAndLetting) */ marketingMode: z.string(),
-    /** The unique identifier of the department the property is associated with. The property will only match to applicants with the same values set. See the [Platform Glossary](https://foundations-documentation.reapit.cloud/platform-glossary#department) for more information about departments */
-    departmentId: z.string(),
-    /** The strapline description containing a short summary about the property */
-    strapline: z.string().optional().nullable(),
-    /** The brief description of the property */ description: z.string().optional().nullable(),
-    /** The summary of accommodation, typically short phrases or bullet points describing the key features of the property */
-    summary: z.string().optional().nullable(),
-    /** An optional alternative identifier specified for this property */ alternateId: z.string().optional().nullable(),
-    /** The property's special feature property requirements (eg Swimming Pool, Tennis Court), as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    specialFeatures: z.array(z.string()).optional().nullable(),
-    address: createPropertyAddressModel,
-    /** The total number of bedrooms in the property */ bedrooms: z.number().int().optional().nullable(),
-    /** The maximum number of bedrooms in the property */ bedroomsMax: z.number().int().optional().nullable(),
-    /** The number of units offered on the market. This is typically used when marketing development sites. */
-    numberOfUnits: z.number().int().optional().nullable(),
-    /** The total number of reception rooms in the property */ receptions: z.number().int().optional().nullable(),
-    /** The maximum number of reception rooms in the property */ receptionsMax: z.number().int().optional().nullable(),
-    /** The total number of bathrooms in the property */ bathrooms: z.number().int().optional().nullable(),
-    /** The maximum number of bathrooms in the property */ bathroomsMax: z.number().int().optional().nullable(),
-    /** The total number of parking spaces the property has. This is only supported by some departments. Please refer to the glossary for support [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    parkingSpaces: z.number().int().optional().nullable(),
-    /** The council tax banding of the property (A/B/C/D/E/F/G/H/I/notYetAvailable) */
-    councilTax: z.string().optional().nullable(),
-    /** A flag denoting whether or not this property can be advertised on the internet */
-    internetAdvertising: z.boolean().optional().nullable(),
-    /** The arrangements regarding viewing the property */ viewingArrangements: z.string().optional().nullable(),
-    /** The url of a video associated with this property, such as a virtual tour */
-    videoUrl: z.string().optional().nullable(),
-    /** The caption for the video url associated with this property */ videoCaption: z.string().optional().nullable(),
-    /** The url of a second video associated with this property, such as a virtual tour */
-    video2Url: z.string().optional().nullable(),
-    /** The caption for the second video url associated with this property */
-    video2Caption: z.string().optional().nullable(),
-    /** Any general notes regarding the property. These are not usually exposed to end users and may contain sensitive information about a sale */
-    notes: z.string().optional().nullable(),
-    /** The long description of the property */ longDescription: z.string().optional().nullable(),
-    /** The floor level the property is on. Note that this field can only be set when certain configuration settings are enabled on the property's department. Please [refer to the glossary](https://foundations-documentation.reapit.cloud/platform-glossary#department) for more information */
-    floorLevel: z.number().int().optional().nullable(),
-    /** The number of internal floors the property has. Note that this field can only be set when certain configuration settings are enabled on the property's department. Please [refer to the glossary](https://foundations-documentation.reapit.cloud/platform-glossary#department) for more information */
-    internalFloors: z.number().int().optional().nullable(),
-    /** The total number of floors the property has. Note that this field can only be set when certain configuration settings are enabled on the property's department. Please [refer to the glossary](https://foundations-documentation.reapit.cloud/platform-glossary#department) for more information */
-    totalFloors: z.number().int().optional().nullable(),
-    /** The status of the advertising board sited outside or near to the property */
-    boardStatus: z.string().optional().nullable(),
-    /** Any notes relevant to the advertising board sited outside or near to the property */
-    boardNotes: z.string().optional().nullable(),
-    /** The date the advertising board was last updated (or should be updated when the date is in the future) */
-    boardUpdated: z.string().optional().nullable(),
-    /** The date on which the property was valued. Note that this can differ to physical appointment dates in some cases */
-    valuation: z.string().optional().nullable(),
-    epc: createPropertyEpcModel.optional().nullable(),
-    externalArea: createPropertyExternalAreaModel.optional().nullable(),
-    internalArea: createPropertyInternalAreaModel.optional().nullable(),
-    rural: createPropertyRuralModel.optional().nullable(),
-    selling: createPropertySellingModel.optional().nullable(),
-    letting: createPropertyLettingModel.optional().nullable(),
-    regional: createPropertyRegionalModel.optional().nullable(),
-    /** The attributes describing the overall type of the property (eg house, bungalow, land), as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    type: z.array(z.string()).optional().nullable(),
-    /** The attributes describing the style of property (eg detached, semiDetached), defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    style: z.array(z.string()).optional().nullable(),
-    /** The attributes describing other aspects of the property - such as outside space - as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    situation: z.array(z.string()).optional().nullable(),
-    /** The attributes describing the parking available at the property (eg garage), as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    parking: z.array(z.string()).optional().nullable(),
-    /** The attributes describing the age of the property (eg new, period), as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    age: z.array(z.string()).optional().nullable(),
-    /** The attributes describing the general location of the property (eg rural, townCity), as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
-    locality: z.array(z.string()).optional().nullable(),
-    /** Details of each room in the property */ rooms: z.array(createPropertyRoomModel).optional().nullable(),
-    /** A flag determining whether or not the property's room details have been approved by the vendor or landlord */
-    roomDetailsApproved: z.boolean().optional().nullable(),
-    /** The unique identifier of the negotiator managing the property */ negotiatorId: z.string(),
-    /** A collection of unique identifiers of offices attached to the property. The first item in the collection is considered the primary office */
-    officeIds: z.array(z.string()),
-    /** The unique identifier of the area that the property resides in */ areaId: z.string().optional().nullable(),
-    /** The url to the property on an external website */ url: z.string().optional().nullable(),
-    /** The caption to accompany the url to the property on an external website */
-    urlCaption: z.string().optional().nullable(),
-    /** Any ground rent payment that applies to the property */ groundRent: z.number().optional().nullable(),
-    /** Comments regarding the ground rent of the property */ groundRentComment: z.string().optional().nullable(),
-    /** The date when the ground rent payable on the property should be reviewed */
-    groundRentReviewDate: z.string().optional().nullable(),
-    /** The annual percentage increase of the ground rent after being reviewed */
-    groundRentIncrease: z.number().optional().nullable(),
-    /** Any service charge payment that applies to the property */ serviceCharge: z.number().optional().nullable(),
-    /** Comments regarding the service charge of the property */ serviceChargeComment: z.string().optional().nullable(),
-    /** App specific metadata to set against the property */
-    metadata: z.record(z.string(), z.object({})).optional().nullable(),
-  })
 /** Request body used to create a new property */
 export type CreatePropertyModel =
   /** Request body used to create a new property */
@@ -296,3 +199,99 @@ export type CreatePropertyModel =
       | null
       | undefined
   }
+export const createPropertyModel =
+  /** Request body used to create a new property */
+  z.object({
+    /** The date the owner of the property was last called */ lastCall: z.string().optional().nullable(),
+    /** The date the owner of the property is next due to be called */ nextCall: z.string().optional().nullable(),
+    /** The marketing mode of the property (selling/letting/sellingAndLetting) */ marketingMode: z.string(),
+    /** The unique identifier of the department the property is associated with. The property will only match to applicants with the same values set. See the [Platform Glossary](https://foundations-documentation.reapit.cloud/platform-glossary#department) for more information about departments */
+    departmentId: z.string(),
+    /** The strapline description containing a short summary about the property */
+    strapline: z.string().optional().nullable(),
+    /** The brief description of the property */ description: z.string().optional().nullable(),
+    /** The summary of accommodation, typically short phrases or bullet points describing the key features of the property */
+    summary: z.string().optional().nullable(),
+    /** An optional alternative identifier specified for this property */ alternateId: z.string().optional().nullable(),
+    /** The property's special feature property requirements (eg Swimming Pool, Tennis Court), as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
+    specialFeatures: z.array(z.string()).optional().nullable(),
+    address: createPropertyAddressModel,
+    /** The total number of bedrooms in the property */ bedrooms: z.number().int().optional().nullable(),
+    /** The maximum number of bedrooms in the property */ bedroomsMax: z.number().int().optional().nullable(),
+    /** The number of units offered on the market. This is typically used when marketing development sites. */
+    numberOfUnits: z.number().int().optional().nullable(),
+    /** The total number of reception rooms in the property */ receptions: z.number().int().optional().nullable(),
+    /** The maximum number of reception rooms in the property */ receptionsMax: z.number().int().optional().nullable(),
+    /** The total number of bathrooms in the property */ bathrooms: z.number().int().optional().nullable(),
+    /** The maximum number of bathrooms in the property */ bathroomsMax: z.number().int().optional().nullable(),
+    /** The total number of parking spaces the property has. This is only supported by some departments. Please refer to the glossary for support [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
+    parkingSpaces: z.number().int().optional().nullable(),
+    /** The council tax banding of the property (A/B/C/D/E/F/G/H/I/notYetAvailable) */
+    councilTax: z.string().optional().nullable(),
+    /** A flag denoting whether or not this property can be advertised on the internet */
+    internetAdvertising: z.boolean().optional().nullable(),
+    /** The arrangements regarding viewing the property */ viewingArrangements: z.string().optional().nullable(),
+    /** The url of a video associated with this property, such as a virtual tour */
+    videoUrl: z.string().optional().nullable(),
+    /** The caption for the video url associated with this property */ videoCaption: z.string().optional().nullable(),
+    /** The url of a second video associated with this property, such as a virtual tour */
+    video2Url: z.string().optional().nullable(),
+    /** The caption for the second video url associated with this property */
+    video2Caption: z.string().optional().nullable(),
+    /** Any general notes regarding the property. These are not usually exposed to end users and may contain sensitive information about a sale */
+    notes: z.string().optional().nullable(),
+    /** The long description of the property */ longDescription: z.string().optional().nullable(),
+    /** The floor level the property is on. Note that this field can only be set when certain configuration settings are enabled on the property's department. Please [refer to the glossary](https://foundations-documentation.reapit.cloud/platform-glossary#department) for more information */
+    floorLevel: z.number().int().optional().nullable(),
+    /** The number of internal floors the property has. Note that this field can only be set when certain configuration settings are enabled on the property's department. Please [refer to the glossary](https://foundations-documentation.reapit.cloud/platform-glossary#department) for more information */
+    internalFloors: z.number().int().optional().nullable(),
+    /** The total number of floors the property has. Note that this field can only be set when certain configuration settings are enabled on the property's department. Please [refer to the glossary](https://foundations-documentation.reapit.cloud/platform-glossary#department) for more information */
+    totalFloors: z.number().int().optional().nullable(),
+    /** The status of the advertising board sited outside or near to the property */
+    boardStatus: z.string().optional().nullable(),
+    /** Any notes relevant to the advertising board sited outside or near to the property */
+    boardNotes: z.string().optional().nullable(),
+    /** The date the advertising board was last updated (or should be updated when the date is in the future) */
+    boardUpdated: z.string().optional().nullable(),
+    /** The date on which the property was valued. Note that this can differ to physical appointment dates in some cases */
+    valuation: z.string().optional().nullable(),
+    epc: createPropertyEpcModel.optional().nullable(),
+    externalArea: createPropertyExternalAreaModel.optional().nullable(),
+    internalArea: createPropertyInternalAreaModel.optional().nullable(),
+    rural: createPropertyRuralModel.optional().nullable(),
+    selling: createPropertySellingModel.optional().nullable(),
+    letting: createPropertyLettingModel.optional().nullable(),
+    regional: createPropertyRegionalModel.optional().nullable(),
+    /** The attributes describing the overall type of the property (eg house, bungalow, land), as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
+    type: z.array(z.string()).optional().nullable(),
+    /** The attributes describing the style of property (eg detached, semiDetached), defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
+    style: z.array(z.string()).optional().nullable(),
+    /** The attributes describing other aspects of the property - such as outside space - as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
+    situation: z.array(z.string()).optional().nullable(),
+    /** The attributes describing the parking available at the property (eg garage), as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
+    parking: z.array(z.string()).optional().nullable(),
+    /** The attributes describing the age of the property (eg new, period), as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
+    age: z.array(z.string()).optional().nullable(),
+    /** The attributes describing the general location of the property (eg rural, townCity), as defined by the property's [department](https://foundations-documentation.reapit.cloud/platform-glossary#department) */
+    locality: z.array(z.string()).optional().nullable(),
+    /** Details of each room in the property */ rooms: z.array(createPropertyRoomModel).optional().nullable(),
+    /** A flag determining whether or not the property's room details have been approved by the vendor or landlord */
+    roomDetailsApproved: z.boolean().optional().nullable(),
+    /** The unique identifier of the negotiator managing the property */ negotiatorId: z.string(),
+    /** A collection of unique identifiers of offices attached to the property. The first item in the collection is considered the primary office */
+    officeIds: z.array(z.string()),
+    /** The unique identifier of the area that the property resides in */ areaId: z.string().optional().nullable(),
+    /** The url to the property on an external website */ url: z.string().optional().nullable(),
+    /** The caption to accompany the url to the property on an external website */
+    urlCaption: z.string().optional().nullable(),
+    /** Any ground rent payment that applies to the property */ groundRent: z.number().optional().nullable(),
+    /** Comments regarding the ground rent of the property */ groundRentComment: z.string().optional().nullable(),
+    /** The date when the ground rent payable on the property should be reviewed */
+    groundRentReviewDate: z.string().optional().nullable(),
+    /** The annual percentage increase of the ground rent after being reviewed */
+    groundRentIncrease: z.number().optional().nullable(),
+    /** Any service charge payment that applies to the property */ serviceCharge: z.number().optional().nullable(),
+    /** Comments regarding the service charge of the property */ serviceChargeComment: z.string().optional().nullable(),
+    /** App specific metadata to set against the property */
+    metadata: z.record(z.string(), z.object({})).optional().nullable(),
+  })

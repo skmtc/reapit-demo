@@ -5,8 +5,8 @@ import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 import { enquiryModelPagedResult } from '@/schemas/enquiryModelPagedResult.generated.tsx'
 
-export type CreateEnquiryFnArgs = { body: CreateEnquiryModel }
-export const createEnquiryFn = async ({ body }: CreateEnquiryFnArgs) => {
+export type CreateApiEnquiriesFnArgs = { body: CreateEnquiryModel }
+export const createApiEnquiriesFn = async ({ body }: CreateApiEnquiriesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/enquiries/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -24,12 +24,12 @@ export const createEnquiryFn = async ({ body }: CreateEnquiryFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateEnquiry = () => {
+export const useCreateApiEnquiries = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createEnquiryFn,
+    mutationFn: createApiEnquiriesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

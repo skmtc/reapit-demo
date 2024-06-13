@@ -19,8 +19,8 @@ import { tenancyRenewalModelPagedResult } from '@/schemas/tenancyRenewalModelPag
 import { tenancyExtensionAlterationModelPagedResult } from '@/schemas/tenancyExtensionAlterationModelPagedResult.generated.tsx'
 import { tenancyRenewalCheckModelPagedResult } from '@/schemas/tenancyRenewalCheckModelPagedResult.generated.tsx'
 
-export type CreateTenancyFnArgs = { body: CreateTenancyModel }
-export const createTenancyFn = async ({ body }: CreateTenancyFnArgs) => {
+export type CreateApiTenanciesFnArgs = { body: CreateTenancyModel }
+export const createApiTenanciesFn = async ({ body }: CreateApiTenanciesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -38,12 +38,12 @@ export const createTenancyFn = async ({ body }: CreateTenancyFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateTenancy = () => {
+export const useCreateApiTenancies = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyFn,
+    mutationFn: createApiTenanciesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -51,8 +51,8 @@ export const useCreateTenancy = () => {
     },
   })
 }
-export type CreateTenancyCheckFnArgs = { id: string; body: CreateTenancyCheckModel }
-export const createTenancyCheckFn = async ({ id, body }: CreateTenancyCheckFnArgs) => {
+export type CreateApiTenanciesIdChecksFnArgs = { id: string; body: CreateTenancyCheckModel }
+export const createApiTenanciesIdChecksFn = async ({ id, body }: CreateApiTenanciesIdChecksFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -70,12 +70,12 @@ export const createTenancyCheckFn = async ({ id, body }: CreateTenancyCheckFnArg
 
   return z.void().parse(data)
 }
-export const useCreateTenancyCheck = () => {
+export const useCreateApiTenanciesIdChecks = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyCheckFn,
+    mutationFn: createApiTenanciesIdChecksFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -83,8 +83,8 @@ export const useCreateTenancyCheck = () => {
     },
   })
 }
-export type CreateTenancyBreakClauseFnArgs = { id: string; body: CreateTenancyBreakClauseModel }
-export const createTenancyBreakClauseFn = async ({ id, body }: CreateTenancyBreakClauseFnArgs) => {
+export type CreateApiTenanciesIdBreakClausesFnArgs = { id: string; body: CreateTenancyBreakClauseModel }
+export const createApiTenanciesIdBreakClausesFn = async ({ id, body }: CreateApiTenanciesIdBreakClausesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/breakClauses${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -102,12 +102,12 @@ export const createTenancyBreakClauseFn = async ({ id, body }: CreateTenancyBrea
 
   return z.void().parse(data)
 }
-export const useCreateTenancyBreakClause = () => {
+export const useCreateApiTenanciesIdBreakClauses = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyBreakClauseFn,
+    mutationFn: createApiTenanciesIdBreakClausesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -115,8 +115,8 @@ export const useCreateTenancyBreakClause = () => {
     },
   })
 }
-export type CreateTenancyAllowanceFnArgs = { id: string; body: CreateTenancyAllowanceModel }
-export const createTenancyAllowanceFn = async ({ id, body }: CreateTenancyAllowanceFnArgs) => {
+export type CreateApiTenanciesIdAllowancesFnArgs = { id: string; body: CreateTenancyAllowanceModel }
+export const createApiTenanciesIdAllowancesFn = async ({ id, body }: CreateApiTenanciesIdAllowancesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/allowances${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -134,12 +134,12 @@ export const createTenancyAllowanceFn = async ({ id, body }: CreateTenancyAllowa
 
   return z.void().parse(data)
 }
-export const useCreateTenancyAllowance = () => {
+export const useCreateApiTenanciesIdAllowances = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyAllowanceFn,
+    mutationFn: createApiTenanciesIdAllowancesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -147,8 +147,11 @@ export const useCreateTenancyAllowance = () => {
     },
   })
 }
-export type CreateTenancyResponsibilityFnArgs = { id: string; body: CreateTenancyResponsibilityModel }
-export const createTenancyResponsibilityFn = async ({ id, body }: CreateTenancyResponsibilityFnArgs) => {
+export type CreateApiTenanciesIdResponsibilitiesFnArgs = { id: string; body: CreateTenancyResponsibilityModel }
+export const createApiTenanciesIdResponsibilitiesFn = async ({
+  id,
+  body,
+}: CreateApiTenanciesIdResponsibilitiesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/responsibilities${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -166,12 +169,12 @@ export const createTenancyResponsibilityFn = async ({ id, body }: CreateTenancyR
 
   return z.void().parse(data)
 }
-export const useCreateTenancyResponsibility = () => {
+export const useCreateApiTenanciesIdResponsibilities = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyResponsibilityFn,
+    mutationFn: createApiTenanciesIdResponsibilitiesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -179,8 +182,11 @@ export const useCreateTenancyResponsibility = () => {
     },
   })
 }
-export type CreateTenancyRenewalNegotiationFnArgs = { id: string; body: CreateTenancyRenewalModel }
-export const createTenancyRenewalNegotiationFn = async ({ id, body }: CreateTenancyRenewalNegotiationFnArgs) => {
+export type CreateApiTenanciesIdRenewalNegotiationsFnArgs = { id: string; body: CreateTenancyRenewalModel }
+export const createApiTenanciesIdRenewalNegotiationsFn = async ({
+  id,
+  body,
+}: CreateApiTenanciesIdRenewalNegotiationsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -198,12 +204,12 @@ export const createTenancyRenewalNegotiationFn = async ({ id, body }: CreateTena
 
   return z.void().parse(data)
 }
-export const useCreateTenancyRenewalNegotiation = () => {
+export const useCreateApiTenanciesIdRenewalNegotiations = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyRenewalNegotiationFn,
+    mutationFn: createApiTenanciesIdRenewalNegotiationsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -211,16 +217,16 @@ export const useCreateTenancyRenewalNegotiation = () => {
     },
   })
 }
-export type CreateTenancyRenewalNegotiationCheckFnArgs = {
+export type CreateApiTenanciesIdRenewalNegotiationsRenewalIdChecksFnArgs = {
   id: string
   renewalId: string
   body: CreateTenancyRenewalCheckModel
 }
-export const createTenancyRenewalNegotiationCheckFn = async ({
+export const createApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn = async ({
   id,
   renewalId,
   body,
-}: CreateTenancyRenewalNegotiationCheckFnArgs) => {
+}: CreateApiTenanciesIdRenewalNegotiationsRenewalIdChecksFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tenancies/${id}/renewalNegotiations/${renewalId}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -238,12 +244,12 @@ export const createTenancyRenewalNegotiationCheckFn = async ({
 
   return z.void().parse(data)
 }
-export const useCreateTenancyRenewalNegotiationCheck = () => {
+export const useCreateApiTenanciesIdRenewalNegotiationsRenewalIdChecks = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTenancyRenewalNegotiationCheckFn,
+    mutationFn: createApiTenanciesIdRenewalNegotiationsRenewalIdChecksFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

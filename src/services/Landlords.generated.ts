@@ -7,8 +7,8 @@ import { InsertLandlordContactRelationshipModel } from '@/schemas/insertLandlord
 import { landlordModelPagedResult } from '@/schemas/landlordModelPagedResult.generated.tsx'
 import { landlordContactRelationshipModelPagedResult } from '@/schemas/landlordContactRelationshipModelPagedResult.generated.tsx'
 
-export type CreateLandlordFnArgs = { body: CreateLandlordModel }
-export const createLandlordFn = async ({ body }: CreateLandlordFnArgs) => {
+export type CreateApiLandlordsFnArgs = { body: CreateLandlordModel }
+export const createApiLandlordsFn = async ({ body }: CreateApiLandlordsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -26,12 +26,12 @@ export const createLandlordFn = async ({ body }: CreateLandlordFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateLandlord = () => {
+export const useCreateApiLandlords = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createLandlordFn,
+    mutationFn: createApiLandlordsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -39,8 +39,8 @@ export const useCreateLandlord = () => {
     },
   })
 }
-export type CreateLandlordRelationshipFnArgs = { id: string; body: InsertLandlordContactRelationshipModel }
-export const createLandlordRelationshipFn = async ({ id, body }: CreateLandlordRelationshipFnArgs) => {
+export type CreateApiLandlordsIdRelationshipsFnArgs = { id: string; body: InsertLandlordContactRelationshipModel }
+export const createApiLandlordsIdRelationshipsFn = async ({ id, body }: CreateApiLandlordsIdRelationshipsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/landlords/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -58,12 +58,12 @@ export const createLandlordRelationshipFn = async ({ id, body }: CreateLandlordR
 
   return z.void().parse(data)
 }
-export const useCreateLandlordRelationship = () => {
+export const useCreateApiLandlordsIdRelationships = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createLandlordRelationshipFn,
+    mutationFn: createApiLandlordsIdRelationshipsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

@@ -6,8 +6,8 @@ import { useFetchError } from '@/lib/useFetchError.ts'
 import { CreatePreSignedUrlsModel, createPreSignedUrlsModel } from '@/schemas/createPreSignedUrlsModel.generated.tsx'
 import { documentModelPagedResult } from '@/schemas/documentModelPagedResult.generated.tsx'
 
-export type CreateDocumentFnArgs = { body: CreateDocumentModel }
-export const createDocumentFn = async ({ body }: CreateDocumentFnArgs) => {
+export type CreateApiDocumentsFnArgs = { body: CreateDocumentModel }
+export const createApiDocumentsFn = async ({ body }: CreateApiDocumentsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/documents/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -25,12 +25,12 @@ export const createDocumentFn = async ({ body }: CreateDocumentFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateDocument = () => {
+export const useCreateApiDocuments = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createDocumentFn,
+    mutationFn: createApiDocumentsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -38,8 +38,8 @@ export const useCreateDocument = () => {
     },
   })
 }
-export type CreateSignedUrlFnArgs = { body: CreatePreSignedUrlsModel }
-export const createSignedUrlFn = async ({ body }: CreateSignedUrlFnArgs) => {
+export type CreateApiDocumentsSignedUrlFnArgs = { body: CreatePreSignedUrlsModel }
+export const createApiDocumentsSignedUrlFn = async ({ body }: CreateApiDocumentsSignedUrlFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/documents/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -57,12 +57,12 @@ export const createSignedUrlFn = async ({ body }: CreateSignedUrlFnArgs) => {
 
   return createPreSignedUrlsModel.parse(data)
 }
-export const useCreateSignedUrl = () => {
+export const useCreateApiDocumentsSignedUrl = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createSignedUrlFn,
+    mutationFn: createApiDocumentsSignedUrlFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

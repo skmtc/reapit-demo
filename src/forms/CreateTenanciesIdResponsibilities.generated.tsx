@@ -1,8 +1,8 @@
 import {
-  createTenancyResponsibilityModel,
   CreateTenancyResponsibilityModel,
+  createTenancyResponsibilityModel,
 } from '@/schemas/createTenancyResponsibilityModel.generated.tsx'
-import { useCreateTenancyResponsibility } from '@/services/Tenancies.generated.ts'
+import { useCreateApiTenanciesIdResponsibilities } from '@/services/Tenancies.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -20,7 +20,7 @@ export const CreateTenanciesIdResponsibilities = (props: CreateTenanciesIdRespon
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateTenancyResponsibility()
+  const mutator = useCreateApiTenanciesIdResponsibilities()
 
   return (
     <FormProvider {...methods}>

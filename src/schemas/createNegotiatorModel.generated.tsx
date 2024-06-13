@@ -1,24 +1,6 @@
 import { z } from 'zod'
 
 /** Request body used to create a new negotiator */
-export const createNegotiatorModel =
-  /** Request body used to create a new negotiator */
-  z.object({
-    /** The name of the negotiator */ name: z.string(),
-    /** The job title of the negotiator */ jobTitle: z.string().optional().nullable(),
-    /** A flag determining whether or not the negotiator is active */ active: z.boolean().optional().nullable(),
-    /** The unique identifier of the office that the negotiator is attached to */ officeId: z.string(),
-    /** The work phone number of the negotiator */ workPhone: z.string().optional().nullable(),
-    /** The mobile phone number of the negotiator */ mobilePhone: z.string().optional().nullable(),
-    /** The email address of the negotiator */ email: z.string().optional().nullable(),
-    /** The identifiers of other negotiators whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
-    diaryNegotiatorIds: z.array(z.string()).optional().nullable(),
-    /** The identifiers of other offices whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
-    diaryOfficeIds: z.array(z.string()).optional().nullable(),
-    /** App specific metadata to set against the negotiator */
-    metadata: z.record(z.string(), z.object({})).optional().nullable(),
-  })
-/** Request body used to create a new negotiator */
 export type CreateNegotiatorModel =
   /** Request body used to create a new negotiator */
   {
@@ -45,3 +27,20 @@ export type CreateNegotiatorModel =
       | null
       | undefined
   }
+export const createNegotiatorModel =
+  /** Request body used to create a new negotiator */
+  z.object({
+    /** The name of the negotiator */ name: z.string(),
+    /** The job title of the negotiator */ jobTitle: z.string().optional().nullable(),
+    /** A flag determining whether or not the negotiator is active */ active: z.boolean().optional().nullable(),
+    /** The unique identifier of the office that the negotiator is attached to */ officeId: z.string(),
+    /** The work phone number of the negotiator */ workPhone: z.string().optional().nullable(),
+    /** The mobile phone number of the negotiator */ mobilePhone: z.string().optional().nullable(),
+    /** The email address of the negotiator */ email: z.string().optional().nullable(),
+    /** The identifiers of other negotiators whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
+    diaryNegotiatorIds: z.array(z.string()).optional().nullable(),
+    /** The identifiers of other offices whose diaries should be displayed to this negotiator when rendering diary/calendar view components in applicants */
+    diaryOfficeIds: z.array(z.string()).optional().nullable(),
+    /** App specific metadata to set against the negotiator */
+    metadata: z.record(z.string(), z.object({})).optional().nullable(),
+  })

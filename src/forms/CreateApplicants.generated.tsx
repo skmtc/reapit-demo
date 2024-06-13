@@ -1,5 +1,5 @@
-import { createApplicantModel, CreateApplicantModel } from '@/schemas/createApplicantModel.generated.tsx'
-import { useCreateApplicant } from '@/services/Applicants.generated.ts'
+import { CreateApplicantModel, createApplicantModel } from '@/schemas/createApplicantModel.generated.tsx'
+import { useCreateApiApplicants } from '@/services/Applicants.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateApplicants = (props: CreateApplicantsProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateApplicant()
+  const mutator = useCreateApiApplicants()
 
   return (
     <FormProvider {...methods}>

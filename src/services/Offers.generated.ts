@@ -5,8 +5,8 @@ import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 import { offerModelPagedResult } from '@/schemas/offerModelPagedResult.generated.tsx'
 
-export type CreateOfferFnArgs = { body: CreateOfferModel }
-export const createOfferFn = async ({ body }: CreateOfferFnArgs) => {
+export type CreateApiOffersFnArgs = { body: CreateOfferModel }
+export const createApiOffersFn = async ({ body }: CreateApiOffersFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/offers/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -24,12 +24,12 @@ export const createOfferFn = async ({ body }: CreateOfferFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateOffer = () => {
+export const useCreateApiOffers = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createOfferFn,
+    mutationFn: createApiOffersFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

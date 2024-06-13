@@ -1,5 +1,5 @@
-import { createOfficeModel, CreateOfficeModel } from '@/schemas/createOfficeModel.generated.tsx'
-import { useCreateOffice } from '@/services/Offices.generated.ts'
+import { CreateOfficeModel, createOfficeModel } from '@/schemas/createOfficeModel.generated.tsx'
+import { useCreateApiOffices } from '@/services/Offices.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateOffices = (props: CreateOfficesProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateOffice()
+  const mutator = useCreateApiOffices()
 
   return (
     <FormProvider {...methods}>

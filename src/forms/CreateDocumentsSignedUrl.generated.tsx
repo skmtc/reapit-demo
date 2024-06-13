@@ -1,5 +1,5 @@
-import { createPreSignedUrlsModel, CreatePreSignedUrlsModel } from '@/schemas/createPreSignedUrlsModel.generated.tsx'
-import { useCreateSignedUrl } from '@/services/Documents.generated.ts'
+import { CreatePreSignedUrlsModel, createPreSignedUrlsModel } from '@/schemas/createPreSignedUrlsModel.generated.tsx'
+import { useCreateApiDocumentsSignedUrl } from '@/services/Documents.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateDocumentsSignedUrl = (props: CreateDocumentsSignedUrlProps) =
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateSignedUrl()
+  const mutator = useCreateApiDocumentsSignedUrl()
 
   return (
     <FormProvider {...methods}>

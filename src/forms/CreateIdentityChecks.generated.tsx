@@ -1,5 +1,5 @@
-import { createIdentityCheckModel, CreateIdentityCheckModel } from '@/schemas/createIdentityCheckModel.generated.tsx'
-import { useCreateIdentityCheck } from '@/services/IdentityChecks.generated.ts'
+import { CreateIdentityCheckModel, createIdentityCheckModel } from '@/schemas/createIdentityCheckModel.generated.tsx'
+import { useCreateApiIdentityChecks } from '@/services/IdentityChecks.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateIdentityChecks = (props: CreateIdentityChecksProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateIdentityCheck()
+  const mutator = useCreateApiIdentityChecks()
 
   return (
     <FormProvider {...methods}>

@@ -1,8 +1,8 @@
 import {
-  reindexPropertyImagesModel,
   ReindexPropertyImagesModel,
+  reindexPropertyImagesModel,
 } from '@/schemas/reindexPropertyImagesModel.generated.tsx'
-import { useReindexPropertyImages } from '@/services/PropertyImages.generated.ts'
+import { useCreateApiPropertyImagesReindex } from '@/services/PropertyImages.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -16,7 +16,7 @@ export const CreatePropertyImagesReindex = (props: CreatePropertyImagesReindexPr
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useReindexPropertyImages()
+  const mutator = useCreateApiPropertyImagesReindex()
 
   return (
     <FormProvider {...methods}>

@@ -6,8 +6,8 @@ import { useFetchError } from '@/lib/useFetchError.ts'
 import { companyModelPagedResult } from '@/schemas/companyModelPagedResult.generated.tsx'
 import { companyRoleModelPagedResult } from '@/schemas/companyRoleModelPagedResult.generated.tsx'
 
-export type CreateCompanyFnArgs = { body: CreateCompanyModel }
-export const createCompanyFn = async ({ body }: CreateCompanyFnArgs) => {
+export type CreateApiCompaniesFnArgs = { body: CreateCompanyModel }
+export const createApiCompaniesFn = async ({ body }: CreateApiCompaniesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/companies/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -25,12 +25,12 @@ export const createCompanyFn = async ({ body }: CreateCompanyFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateCompany = () => {
+export const useCreateApiCompanies = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createCompanyFn,
+    mutationFn: createApiCompaniesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

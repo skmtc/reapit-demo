@@ -1,5 +1,5 @@
-import { createDocumentModel, CreateDocumentModel } from '@/schemas/createDocumentModel.generated.tsx'
-import { useCreateDocument } from '@/services/Documents.generated.ts'
+import { CreateDocumentModel, createDocumentModel } from '@/schemas/createDocumentModel.generated.tsx'
+import { useCreateApiDocuments } from '@/services/Documents.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateDocuments = (props: CreateDocumentsProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateDocument()
+  const mutator = useCreateApiDocuments()
 
   return (
     <FormProvider {...methods}>

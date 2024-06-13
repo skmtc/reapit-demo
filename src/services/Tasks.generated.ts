@@ -5,8 +5,8 @@ import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 import { taskModelPagedResult } from '@/schemas/taskModelPagedResult.generated.tsx'
 
-export type CreateTaskFnArgs = { body: CreateTaskModel }
-export const createTaskFn = async ({ body }: CreateTaskFnArgs) => {
+export type CreateApiTasksFnArgs = { body: CreateTaskModel }
+export const createApiTasksFn = async ({ body }: CreateApiTasksFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/tasks/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -24,12 +24,12 @@ export const createTaskFn = async ({ body }: CreateTaskFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateTask = () => {
+export const useCreateApiTasks = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createTaskFn,
+    mutationFn: createApiTasksFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

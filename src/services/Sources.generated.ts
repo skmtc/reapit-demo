@@ -5,8 +5,8 @@ import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 import { sourceModelPagedResult } from '@/schemas/sourceModelPagedResult.generated.tsx'
 
-export type CreateSourceFnArgs = { body: CreateSourceModel }
-export const createSourceFn = async ({ body }: CreateSourceFnArgs) => {
+export type CreateApiSourcesFnArgs = { body: CreateSourceModel }
+export const createApiSourcesFn = async ({ body }: CreateApiSourcesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/sources/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -24,12 +24,12 @@ export const createSourceFn = async ({ body }: CreateSourceFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateSource = () => {
+export const useCreateApiSources = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createSourceFn,
+    mutationFn: createApiSourcesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

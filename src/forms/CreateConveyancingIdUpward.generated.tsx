@@ -1,5 +1,5 @@
-import { createUpwardLinkModel, CreateUpwardLinkModel } from '@/schemas/createUpwardLinkModel.generated.tsx'
-import { useCreateUpwardChain } from '@/services/Conveyancing.generated.ts'
+import { CreateUpwardLinkModel, createUpwardLinkModel } from '@/schemas/createUpwardLinkModel.generated.tsx'
+import { useCreateApiConveyancingIdUpward } from '@/services/Conveyancing.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateConveyancingIdUpward = (props: CreateConveyancingIdUpwardProp
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateUpwardChain()
+  const mutator = useCreateApiConveyancingIdUpward()
 
   return (
     <FormProvider {...methods}>

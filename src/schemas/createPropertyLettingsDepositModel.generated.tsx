@@ -1,7 +1,7 @@
 import {
-  propertyLettingsDepositModel,
   PropertyLettingsDepositModel,
+  propertyLettingsDepositModel,
 } from '@/schemas/propertyLettingsDepositModel.generated.tsx'
 
-export const createPropertyLettingsDepositModel = propertyLettingsDepositModel
 export type CreatePropertyLettingsDepositModel = PropertyLettingsDepositModel
+export const createPropertyLettingsDepositModel = propertyLettingsDepositModel

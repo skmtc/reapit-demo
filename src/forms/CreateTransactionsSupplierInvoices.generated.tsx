@@ -1,8 +1,8 @@
 import {
-  createSupplierInvoiceModel,
   CreateSupplierInvoiceModel,
+  createSupplierInvoiceModel,
 } from '@/schemas/createSupplierInvoiceModel.generated.tsx'
-import { useCreateSupplierInvoice } from '@/services/Transactions.generated.ts'
+import { useCreateApiTransactionsSupplierInvoices } from '@/services/Transactions.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -19,7 +19,7 @@ export const CreateTransactionsSupplierInvoices = (props: CreateTransactionsSupp
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateSupplierInvoice()
+  const mutator = useCreateApiTransactionsSupplierInvoices()
 
   return (
     <FormProvider {...methods}>

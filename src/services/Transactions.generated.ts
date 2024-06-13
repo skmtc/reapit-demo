@@ -6,8 +6,10 @@ import { useFetchError } from '@/lib/useFetchError.ts'
 import { transactionModelPagedResult } from '@/schemas/transactionModelPagedResult.generated.tsx'
 import { nominalAccountModelPagedResult } from '@/schemas/nominalAccountModelPagedResult.generated.tsx'
 
-export type CreateSupplierInvoiceFnArgs = { body: CreateSupplierInvoiceModel }
-export const createSupplierInvoiceFn = async ({ body }: CreateSupplierInvoiceFnArgs) => {
+export type CreateApiTransactionsSupplierInvoicesFnArgs = { body: CreateSupplierInvoiceModel }
+export const createApiTransactionsSupplierInvoicesFn = async ({
+  body,
+}: CreateApiTransactionsSupplierInvoicesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/transactions/supplierInvoices${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -25,12 +27,12 @@ export const createSupplierInvoiceFn = async ({ body }: CreateSupplierInvoiceFnA
 
   return z.void().parse(data)
 }
-export const useCreateSupplierInvoice = () => {
+export const useCreateApiTransactionsSupplierInvoices = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createSupplierInvoiceFn,
+    mutationFn: createApiTransactionsSupplierInvoicesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

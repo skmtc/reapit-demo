@@ -1,5 +1,5 @@
-import { createCompanyModel, CreateCompanyModel } from '@/schemas/createCompanyModel.generated.tsx'
-import { useCreateCompany } from '@/services/Companies.generated.ts'
+import { CreateCompanyModel, createCompanyModel } from '@/schemas/createCompanyModel.generated.tsx'
+import { useCreateApiCompanies } from '@/services/Companies.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateCompanies = (props: CreateCompaniesProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateCompany()
+  const mutator = useCreateApiCompanies()
 
   return (
     <FormProvider {...methods}>

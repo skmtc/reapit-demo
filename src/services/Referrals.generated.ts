@@ -6,8 +6,8 @@ import { useFetchError } from '@/lib/useFetchError.ts'
 import { referralModelPagedResult } from '@/schemas/referralModelPagedResult.generated.tsx'
 import { referralTypeModelPagedResult } from '@/schemas/referralTypeModelPagedResult.generated.tsx'
 
-export type CreateReferralFnArgs = { body: CreateReferralModel }
-export const createReferralFn = async ({ body }: CreateReferralFnArgs) => {
+export type CreateApiReferralsFnArgs = { body: CreateReferralModel }
+export const createApiReferralsFn = async ({ body }: CreateApiReferralsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/referrals/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -25,12 +25,12 @@ export const createReferralFn = async ({ body }: CreateReferralFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateReferral = () => {
+export const useCreateApiReferrals = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createReferralFn,
+    mutationFn: createApiReferralsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

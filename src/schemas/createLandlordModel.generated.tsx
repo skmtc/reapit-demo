@@ -1,24 +1,10 @@
-import { z } from 'zod'
-import { createLandlordSourceModel, CreateLandlordSourceModel } from '@/schemas/createLandlordSourceModel.generated.tsx'
+import { CreateLandlordSourceModel, createLandlordSourceModel } from '@/schemas/createLandlordSourceModel.generated.tsx'
 import {
-  createLandlordContactRelationshipModel,
   CreateLandlordContactRelationshipModel,
+  createLandlordContactRelationshipModel,
 } from '@/schemas/createLandlordContactRelationshipModel.generated.tsx'
+import { z } from 'zod'
 
-/** Request body used to create a new landlord */
-export const createLandlordModel =
-  /** Request body used to create a new landlord */
-  z.object({
-    /** A flag determining whether or not the landlord is currently active */ active: z.boolean().optional().nullable(),
-    /** The unique identifier of the company acting as the landlord's solicitor */
-    solicitorId: z.string().optional().nullable(),
-    /** The unique identifier of the office that is associated to the landlord */ officeId: z.string(),
-    source: createLandlordSourceModel.optional().nullable(),
-    /** A collection of contacts and/or companies associated to the landlord. The first item in the collection is considered the primary relationship */
-    related: z.array(createLandlordContactRelationshipModel),
-    /** App specific metadata that to set against the landlord */
-    metadata: z.record(z.string(), z.object({})).optional().nullable(),
-  })
 /** Request body used to create a new landlord */
 export type CreateLandlordModel =
   /** Request body used to create a new landlord */
@@ -39,3 +25,16 @@ export type CreateLandlordModel =
       | null
       | undefined
   }
+export const createLandlordModel =
+  /** Request body used to create a new landlord */
+  z.object({
+    /** A flag determining whether or not the landlord is currently active */ active: z.boolean().optional().nullable(),
+    /** The unique identifier of the company acting as the landlord's solicitor */
+    solicitorId: z.string().optional().nullable(),
+    /** The unique identifier of the office that is associated to the landlord */ officeId: z.string(),
+    source: createLandlordSourceModel.optional().nullable(),
+    /** A collection of contacts and/or companies associated to the landlord. The first item in the collection is considered the primary relationship */
+    related: z.array(createLandlordContactRelationshipModel),
+    /** App specific metadata that to set against the landlord */
+    metadata: z.record(z.string(), z.object({})).optional().nullable(),
+  })

@@ -7,8 +7,8 @@ import { CreateWorksOrderItemModel } from '@/schemas/createWorksOrderItemModel.g
 import { worksOrderModelPagedResult } from '@/schemas/worksOrderModelPagedResult.generated.tsx'
 import { worksOrderItemModelPagedResult } from '@/schemas/worksOrderItemModelPagedResult.generated.tsx'
 
-export type CreateWorksOrderFnArgs = { body: CreateWorksOrderModel }
-export const createWorksOrderFn = async ({ body }: CreateWorksOrderFnArgs) => {
+export type CreateApiWorksOrdersFnArgs = { body: CreateWorksOrderModel }
+export const createApiWorksOrdersFn = async ({ body }: CreateApiWorksOrdersFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -26,12 +26,12 @@ export const createWorksOrderFn = async ({ body }: CreateWorksOrderFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateWorksOrder = () => {
+export const useCreateApiWorksOrders = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createWorksOrderFn,
+    mutationFn: createApiWorksOrdersFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -39,8 +39,8 @@ export const useCreateWorksOrder = () => {
     },
   })
 }
-export type CreateWorksOrderItemFnArgs = { id: string; body: CreateWorksOrderItemModel }
-export const createWorksOrderItemFn = async ({ id, body }: CreateWorksOrderItemFnArgs) => {
+export type CreateApiWorksOrdersIdItemsFnArgs = { id: string; body: CreateWorksOrderItemModel }
+export const createApiWorksOrdersIdItemsFn = async ({ id, body }: CreateApiWorksOrdersIdItemsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/worksOrders/${id}/items${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -58,12 +58,12 @@ export const createWorksOrderItemFn = async ({ id, body }: CreateWorksOrderItemF
 
   return z.void().parse(data)
 }
-export const useCreateWorksOrderItem = () => {
+export const useCreateApiWorksOrdersIdItems = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createWorksOrderItemFn,
+    mutationFn: createApiWorksOrdersIdItemsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

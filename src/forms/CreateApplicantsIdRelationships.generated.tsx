@@ -1,8 +1,8 @@
 import {
-  insertApplicantContactRelationshipModel,
   InsertApplicantContactRelationshipModel,
+  insertApplicantContactRelationshipModel,
 } from '@/schemas/insertApplicantContactRelationshipModel.generated.tsx'
-import { useCreateApplicantRelationship } from '@/services/Applicants.generated.ts'
+import { useCreateApiApplicantsIdRelationships } from '@/services/Applicants.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -20,7 +20,7 @@ export const CreateApplicantsIdRelationships = (props: CreateApplicantsIdRelatio
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateApplicantRelationship()
+  const mutator = useCreateApiApplicantsIdRelationships()
 
   return (
     <FormProvider {...methods}>

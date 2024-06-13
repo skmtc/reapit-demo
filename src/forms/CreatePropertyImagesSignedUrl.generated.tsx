@@ -1,5 +1,4 @@
-import { createPreSignedUrlsModel, CreatePreSignedUrlsModel } from '@/schemas/createPreSignedUrlsModel.generated.tsx'
-import { useCreatePropertyImageSignedUrl } from '@/services/PropertyImages.generated.ts'
+import { useCreateApiPropertyImagesSignedUrl } from '@/services/PropertyImages.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +12,7 @@ export const CreatePropertyImagesSignedUrl = (props: CreatePropertyImagesSignedU
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreatePropertyImageSignedUrl()
+  const mutator = useCreateApiPropertyImagesSignedUrl()
 
   return (
     <FormProvider {...methods}>

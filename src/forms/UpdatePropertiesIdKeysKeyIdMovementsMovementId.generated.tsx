@@ -1,5 +1,5 @@
-import { checkInKeyModel, CheckInKeyModel } from '@/schemas/checkInKeyModel.generated.tsx'
-import { useUpdatePropertyKeyMovement } from '@/services/Properties.generated.ts'
+import { CheckInKeyModel, checkInKeyModel } from '@/schemas/checkInKeyModel.generated.tsx'
+import { useUpdateApiPropertiesIdKeysKeyIdMovementsMovementId } from '@/services/Properties.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -21,7 +21,7 @@ export const UpdatePropertiesIdKeysKeyIdMovementsMovementId = (
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useUpdatePropertyKeyMovement()
+  const mutator = useUpdateApiPropertiesIdKeysKeyIdMovementsMovementId()
 
   return (
     <FormProvider {...methods}>

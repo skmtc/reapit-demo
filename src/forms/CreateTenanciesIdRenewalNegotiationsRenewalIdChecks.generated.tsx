@@ -1,8 +1,8 @@
 import {
-  createTenancyRenewalCheckModel,
   CreateTenancyRenewalCheckModel,
+  createTenancyRenewalCheckModel,
 } from '@/schemas/createTenancyRenewalCheckModel.generated.tsx'
-import { useCreateTenancyRenewalNegotiationCheck } from '@/services/Tenancies.generated.ts'
+import { useCreateApiTenanciesIdRenewalNegotiationsRenewalIdChecks } from '@/services/Tenancies.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -23,7 +23,7 @@ export const CreateTenanciesIdRenewalNegotiationsRenewalIdChecks = (
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateTenancyRenewalNegotiationCheck()
+  const mutator = useCreateApiTenanciesIdRenewalNegotiationsRenewalIdChecks()
 
   return (
     <FormProvider {...methods}>

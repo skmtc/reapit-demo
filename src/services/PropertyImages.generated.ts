@@ -7,8 +7,8 @@ import { CreatePreSignedUrlsModel, createPreSignedUrlsModel } from '@/schemas/cr
 import { ReindexPropertyImagesModel } from '@/schemas/reindexPropertyImagesModel.generated.tsx'
 import { propertyImageModelPagedResult } from '@/schemas/propertyImageModelPagedResult.generated.tsx'
 
-export type CreatePropertyImageFnArgs = { body: CreatePropertyImageModel }
-export const createPropertyImageFn = async ({ body }: CreatePropertyImageFnArgs) => {
+export type CreateApiPropertyImagesFnArgs = { body: CreatePropertyImageModel }
+export const createApiPropertyImagesFn = async ({ body }: CreateApiPropertyImagesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -26,12 +26,12 @@ export const createPropertyImageFn = async ({ body }: CreatePropertyImageFnArgs)
 
   return z.void().parse(data)
 }
-export const useCreatePropertyImage = () => {
+export const useCreateApiPropertyImages = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createPropertyImageFn,
+    mutationFn: createApiPropertyImagesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -39,8 +39,8 @@ export const useCreatePropertyImage = () => {
     },
   })
 }
-export type CreatePropertyImageSignedUrlFnArgs = { body: CreatePreSignedUrlsModel }
-export const createPropertyImageSignedUrlFn = async ({ body }: CreatePropertyImageSignedUrlFnArgs) => {
+export type CreateApiPropertyImagesSignedUrlFnArgs = { body: CreatePreSignedUrlsModel }
+export const createApiPropertyImagesSignedUrlFn = async ({ body }: CreateApiPropertyImagesSignedUrlFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/signedUrl${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -58,12 +58,12 @@ export const createPropertyImageSignedUrlFn = async ({ body }: CreatePropertyIma
 
   return createPreSignedUrlsModel.parse(data)
 }
-export const useCreatePropertyImageSignedUrl = () => {
+export const useCreateApiPropertyImagesSignedUrl = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createPropertyImageSignedUrlFn,
+    mutationFn: createApiPropertyImagesSignedUrlFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -71,8 +71,8 @@ export const useCreatePropertyImageSignedUrl = () => {
     },
   })
 }
-export type ReindexPropertyImagesFnArgs = { body: ReindexPropertyImagesModel }
-export const reindexPropertyImagesFn = async ({ body }: ReindexPropertyImagesFnArgs) => {
+export type CreateApiPropertyImagesReindexFnArgs = { body: ReindexPropertyImagesModel }
+export const createApiPropertyImagesReindexFn = async ({ body }: CreateApiPropertyImagesReindexFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/propertyImages/reindex${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -90,12 +90,12 @@ export const reindexPropertyImagesFn = async ({ body }: ReindexPropertyImagesFnA
 
   return z.void().parse(data)
 }
-export const useReindexPropertyImages = () => {
+export const useCreateApiPropertyImagesReindex = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: reindexPropertyImagesFn,
+    mutationFn: createApiPropertyImagesReindexFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

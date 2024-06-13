@@ -8,8 +8,8 @@ import { contactModelPagedResult } from '@/schemas/contactModelPagedResult.gener
 import { contactRoleModelPagedResult } from '@/schemas/contactRoleModelPagedResult.generated.tsx'
 import { contactSubscriptionModelPagedResult } from '@/schemas/contactSubscriptionModelPagedResult.generated.tsx'
 
-export type CreateContactFnArgs = { body: CreateContactModel }
-export const createContactFn = async ({ body }: CreateContactFnArgs) => {
+export type CreateApiContactsFnArgs = { body: CreateContactModel }
+export const createApiContactsFn = async ({ body }: CreateApiContactsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -27,12 +27,12 @@ export const createContactFn = async ({ body }: CreateContactFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateContact = () => {
+export const useCreateApiContacts = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createContactFn,
+    mutationFn: createApiContactsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -40,12 +40,16 @@ export const useCreateContact = () => {
     },
   })
 }
-export type UpdateContactSubscriptionFnArgs = {
+export type UpdateApiContactsIdSubscriptionsSubscriptionIdFnArgs = {
   id: string
   subscriptionId: string
   body: UpdateContactSubscriptionModel
 }
-export const updateContactSubscriptionFn = async ({ id, subscriptionId, body }: UpdateContactSubscriptionFnArgs) => {
+export const updateApiContactsIdSubscriptionsSubscriptionIdFn = async ({
+  id,
+  subscriptionId,
+  body,
+}: UpdateApiContactsIdSubscriptionsSubscriptionIdFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${id}/subscriptions/${subscriptionId}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -63,12 +67,12 @@ export const updateContactSubscriptionFn = async ({ id, subscriptionId, body }: 
 
   return z.void().parse(data)
 }
-export const useUpdateContactSubscription = () => {
+export const useUpdateApiContactsIdSubscriptionsSubscriptionId = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: updateContactSubscriptionFn,
+    mutationFn: updateApiContactsIdSubscriptionsSubscriptionIdFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

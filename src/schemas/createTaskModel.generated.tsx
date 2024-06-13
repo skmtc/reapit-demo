@@ -1,27 +1,6 @@
 import { z } from 'zod'
 
 /** Request body used to create a new task, which can also be an internal message */
-export const createTaskModel =
-  /** Request body used to create a new task, which can also be an internal message */
-  z.object({
-    /** The date the task becomes active (Required when 'TypeId' is given) */
-    activates: z.string().optional().nullable(),
-    /** The date the task was completed */ completed: z.string().optional().nullable(),
-    /** The unique identifier of the task type */ typeId: z.string().optional().nullable(),
-    /** The unique identifer of the negotiator that created the task */ senderId: z.string(),
-    /** The textual contents of the task or message */ text: z.string(),
-    /** The unique identifier of the landlord the task is associated to */ landlordId: z.string().optional().nullable(),
-    /** The unique identifier of the property the task is associated to */ propertyId: z.string().optional().nullable(),
-    /** The unique identifier of the applicant the task is associated to */
-    applicantId: z.string().optional().nullable(),
-    /** The unique identifier of the tenancy the task is associated to */ tenancyId: z.string().optional().nullable(),
-    /** The unique identifier of the contact the task is associated to */ contactId: z.string().optional().nullable(),
-    /** The unique identifier of the negotiator or office the task is being sent to */ recipientId: z.string(),
-    /** The type of the recipient (office/negotiator) */ recipientType: z.string(),
-    /** App specific metadata that has been set against the task */
-    metadata: z.record(z.string(), z.object({})).optional().nullable(),
-  })
-/** Request body used to create a new task, which can also be an internal message */
 export type CreateTaskModel =
   /** Request body used to create a new task, which can also be an internal message */
   {
@@ -43,3 +22,23 @@ export type CreateTaskModel =
       | null
       | undefined
   }
+export const createTaskModel =
+  /** Request body used to create a new task, which can also be an internal message */
+  z.object({
+    /** The date the task becomes active (Required when 'TypeId' is given) */
+    activates: z.string().optional().nullable(),
+    /** The date the task was completed */ completed: z.string().optional().nullable(),
+    /** The unique identifier of the task type */ typeId: z.string().optional().nullable(),
+    /** The unique identifer of the negotiator that created the task */ senderId: z.string(),
+    /** The textual contents of the task or message */ text: z.string(),
+    /** The unique identifier of the landlord the task is associated to */ landlordId: z.string().optional().nullable(),
+    /** The unique identifier of the property the task is associated to */ propertyId: z.string().optional().nullable(),
+    /** The unique identifier of the applicant the task is associated to */
+    applicantId: z.string().optional().nullable(),
+    /** The unique identifier of the tenancy the task is associated to */ tenancyId: z.string().optional().nullable(),
+    /** The unique identifier of the contact the task is associated to */ contactId: z.string().optional().nullable(),
+    /** The unique identifier of the negotiator or office the task is being sent to */ recipientId: z.string(),
+    /** The type of the recipient (office/negotiator) */ recipientType: z.string(),
+    /** App specific metadata that has been set against the task */
+    metadata: z.record(z.string(), z.object({})).optional().nullable(),
+  })

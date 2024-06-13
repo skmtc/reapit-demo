@@ -5,8 +5,8 @@ import { useMutation, useQueryClient, useQuery, keepPreviousData } from '@tansta
 import { useFetchError } from '@/lib/useFetchError.ts'
 import { officeModelPagedResult } from '@/schemas/officeModelPagedResult.generated.tsx'
 
-export type CreateOfficeFnArgs = { body: CreateOfficeModel }
-export const createOfficeFn = async ({ body }: CreateOfficeFnArgs) => {
+export type CreateApiOfficesFnArgs = { body: CreateOfficeModel }
+export const createApiOfficesFn = async ({ body }: CreateApiOfficesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/offices/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -24,12 +24,12 @@ export const createOfficeFn = async ({ body }: CreateOfficeFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateOffice = () => {
+export const useCreateApiOffices = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createOfficeFn,
+    mutationFn: createApiOfficesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

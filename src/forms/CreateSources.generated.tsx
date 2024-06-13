@@ -1,5 +1,5 @@
-import { createSourceModel, CreateSourceModel } from '@/schemas/createSourceModel.generated.tsx'
-import { useCreateSource } from '@/services/Sources.generated.ts'
+import { CreateSourceModel, createSourceModel } from '@/schemas/createSourceModel.generated.tsx'
+import { useCreateApiSources } from '@/services/Sources.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateSources = (props: CreateSourcesProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateSource()
+  const mutator = useCreateApiSources()
 
   return (
     <FormProvider {...methods}>

@@ -1,5 +1,5 @@
-import { createNegotiatorModel, CreateNegotiatorModel } from '@/schemas/createNegotiatorModel.generated.tsx'
-import { useCreateNegotiator } from '@/services/Negotiators.generated.ts'
+import { CreateNegotiatorModel, createNegotiatorModel } from '@/schemas/createNegotiatorModel.generated.tsx'
+import { useCreateApiNegotiators } from '@/services/Negotiators.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateNegotiators = (props: CreateNegotiatorsProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateNegotiator()
+  const mutator = useCreateApiNegotiators()
 
   return (
     <FormProvider {...methods}>

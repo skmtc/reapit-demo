@@ -1,29 +1,6 @@
+import { CreateWorksOrderItemModel, createWorksOrderItemModel } from '@/schemas/createWorksOrderItemModel.generated.tsx'
 import { z } from 'zod'
-import { createWorksOrderItemModel, CreateWorksOrderItemModel } from '@/schemas/createWorksOrderItemModel.generated.tsx'
 
-/** Request body used to create a new works order */
-export const createWorksOrderModel =
-  /** Request body used to create a new works order */
-  z.object({
-    /** The unique identifier of the company that has been selected to perform the work */
-    companyId: z.string().optional().nullable(),
-    /** The unique identifier of the property where the work is to be carried out */ propertyId: z.string(),
-    /** The unique identifier of the tenancy that the works order originated from */
-    tenancyId: z.string().optional().nullable(),
-    /** The unique identifier of the negotiator that booked the works order */ negotiatorId: z.string(),
-    /** The unique id of the type of work that needs to be carried out */ typeId: z.string().optional().nullable(),
-    /** The current status of the works order (pendingApproval/pendingQuote/raised/raisedToChase/landlordToComplete/complete/cancelled/quoteAccepted) */
-    status: z.string(),
-    /** A free text description of the work required */ description: z.string(),
-    /** The party requesting the work to be carried out (landlord/tenant/other) */ reporter: z.string(),
-    /** The priority level of the works order (low/medium/high) */ priority: z.string().optional().nullable(),
-    /** The date when the works order was booked */ booked: z.string().optional().nullable(),
-    /** The date when the work is required to be completed by */ required: z.string().optional().nullable(),
-    /** The date when the work was completed */ completed: z.string().optional().nullable(),
-    /** Individual work items to attach to the works order */ items: z.array(createWorksOrderItemModel),
-    /** App specific metadata to set against the works order */
-    metadata: z.record(z.string(), z.object({})).optional().nullable(),
-  })
 /** Request body used to create a new works order */
 export type CreateWorksOrderModel =
   /** Request body used to create a new works order */
@@ -56,3 +33,25 @@ export type CreateWorksOrderModel =
       | null
       | undefined
   }
+export const createWorksOrderModel =
+  /** Request body used to create a new works order */
+  z.object({
+    /** The unique identifier of the company that has been selected to perform the work */
+    companyId: z.string().optional().nullable(),
+    /** The unique identifier of the property where the work is to be carried out */ propertyId: z.string(),
+    /** The unique identifier of the tenancy that the works order originated from */
+    tenancyId: z.string().optional().nullable(),
+    /** The unique identifier of the negotiator that booked the works order */ negotiatorId: z.string(),
+    /** The unique id of the type of work that needs to be carried out */ typeId: z.string().optional().nullable(),
+    /** The current status of the works order (pendingApproval/pendingQuote/raised/raisedToChase/landlordToComplete/complete/cancelled/quoteAccepted) */
+    status: z.string(),
+    /** A free text description of the work required */ description: z.string(),
+    /** The party requesting the work to be carried out (landlord/tenant/other) */ reporter: z.string(),
+    /** The priority level of the works order (low/medium/high) */ priority: z.string().optional().nullable(),
+    /** The date when the works order was booked */ booked: z.string().optional().nullable(),
+    /** The date when the work is required to be completed by */ required: z.string().optional().nullable(),
+    /** The date when the work was completed */ completed: z.string().optional().nullable(),
+    /** Individual work items to attach to the works order */ items: z.array(createWorksOrderItemModel),
+    /** App specific metadata to set against the works order */
+    metadata: z.record(z.string(), z.object({})).optional().nullable(),
+  })

@@ -1,5 +1,5 @@
-import { createPropertyImageModel, CreatePropertyImageModel } from '@/schemas/createPropertyImageModel.generated.tsx'
-import { useCreatePropertyImage } from '@/services/PropertyImages.generated.ts'
+import { CreatePropertyImageModel, createPropertyImageModel } from '@/schemas/createPropertyImageModel.generated.tsx'
+import { useCreateApiPropertyImages } from '@/services/PropertyImages.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreatePropertyImages = (props: CreatePropertyImagesProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreatePropertyImage()
+  const mutator = useCreateApiPropertyImages()
 
   return (
     <FormProvider {...methods}>

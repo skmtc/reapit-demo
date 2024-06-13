@@ -7,8 +7,8 @@ import { CreateBulkJournalEntryModel } from '@/schemas/createBulkJournalEntryMod
 import { journalEntryModelPagedResult } from '@/schemas/journalEntryModelPagedResult.generated.tsx'
 import { landlordJournalEntryModelPagedResult } from '@/schemas/landlordJournalEntryModelPagedResult.generated.tsx'
 
-export type CreateJournalEntryFnArgs = { body: CreateJournalEntryModel }
-export const createJournalEntryFn = async ({ body }: CreateJournalEntryFnArgs) => {
+export type CreateApiJournalEntriesFnArgs = { body: CreateJournalEntryModel }
+export const createApiJournalEntriesFn = async ({ body }: CreateApiJournalEntriesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/journalEntries/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -26,12 +26,12 @@ export const createJournalEntryFn = async ({ body }: CreateJournalEntryFnArgs) =
 
   return z.void().parse(data)
 }
-export const useCreateJournalEntry = () => {
+export const useCreateApiJournalEntries = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createJournalEntryFn,
+    mutationFn: createApiJournalEntriesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -39,8 +39,8 @@ export const useCreateJournalEntry = () => {
     },
   })
 }
-export type CreateBulkJournalEntryFnArgs = { body: CreateBulkJournalEntryModel }
-export const createBulkJournalEntryFn = async ({ body }: CreateBulkJournalEntryFnArgs) => {
+export type CreateApiJournalEntriesBulkFnArgs = { body: CreateBulkJournalEntryModel }
+export const createApiJournalEntriesBulkFn = async ({ body }: CreateApiJournalEntriesBulkFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/journalEntries/bulk${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -58,12 +58,12 @@ export const createBulkJournalEntryFn = async ({ body }: CreateBulkJournalEntryF
 
   return z.void().parse(data)
 }
-export const useCreateBulkJournalEntry = () => {
+export const useCreateApiJournalEntriesBulk = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createBulkJournalEntryFn,
+    mutationFn: createApiJournalEntriesBulkFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

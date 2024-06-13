@@ -1,5 +1,5 @@
-import { createKeyMovementModel, CreateKeyMovementModel } from '@/schemas/createKeyMovementModel.generated.tsx'
-import { useCreatePropertyKeyMovement } from '@/services/Properties.generated.ts'
+import { CreateKeyMovementModel, createKeyMovementModel } from '@/schemas/createKeyMovementModel.generated.tsx'
+import { useCreateApiPropertiesIdKeysKeyIdMovements } from '@/services/Properties.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -18,7 +18,7 @@ export const CreatePropertiesIdKeysKeyIdMovements = (props: CreatePropertiesIdKe
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreatePropertyKeyMovement()
+  const mutator = useCreateApiPropertiesIdKeysKeyIdMovements()
 
   return (
     <FormProvider {...methods}>

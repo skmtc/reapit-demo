@@ -1,5 +1,5 @@
-import { createPropertyCheckModel, CreatePropertyCheckModel } from '@/schemas/createPropertyCheckModel.generated.tsx'
-import { useCreatePropertyCheck } from '@/services/Properties.generated.ts'
+import { CreatePropertyCheckModel, createPropertyCheckModel } from '@/schemas/createPropertyCheckModel.generated.tsx'
+import { useCreateApiPropertiesIdChecks } from '@/services/Properties.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,7 +17,7 @@ export const CreatePropertiesIdChecks = (props: CreatePropertiesIdChecksProps) =
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreatePropertyCheck()
+  const mutator = useCreateApiPropertiesIdChecks()
 
   return (
     <FormProvider {...methods}>

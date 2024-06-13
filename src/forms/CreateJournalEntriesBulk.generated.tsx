@@ -1,8 +1,8 @@
 import {
-  createBulkJournalEntryModel,
   CreateBulkJournalEntryModel,
+  createBulkJournalEntryModel,
 } from '@/schemas/createBulkJournalEntryModel.generated.tsx'
-import { useCreateBulkJournalEntry } from '@/services/JournalEntries.generated.ts'
+import { useCreateApiJournalEntriesBulk } from '@/services/JournalEntries.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -16,7 +16,7 @@ export const CreateJournalEntriesBulk = (props: CreateJournalEntriesBulkProps) =
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateBulkJournalEntry()
+  const mutator = useCreateApiJournalEntriesBulk()
 
   return (
     <FormProvider {...methods}>

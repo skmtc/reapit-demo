@@ -7,8 +7,8 @@ import { CreateOpenHouseAttendeeModel } from '@/schemas/createOpenHouseAttendeeM
 import { appointmentModelPagedResult } from '@/schemas/appointmentModelPagedResult.generated.tsx'
 import { openHouseAttendeeModelPagedResult } from '@/schemas/openHouseAttendeeModelPagedResult.generated.tsx'
 
-export type CreateAppointmentFnArgs = { body: CreateAppointmentModel }
-export const createAppointmentFn = async ({ body }: CreateAppointmentFnArgs) => {
+export type CreateApiAppointmentsFnArgs = { body: CreateAppointmentModel }
+export const createApiAppointmentsFn = async ({ body }: CreateApiAppointmentsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -26,12 +26,12 @@ export const createAppointmentFn = async ({ body }: CreateAppointmentFnArgs) => 
 
   return z.void().parse(data)
 }
-export const useCreateAppointment = () => {
+export const useCreateApiAppointments = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createAppointmentFn,
+    mutationFn: createApiAppointmentsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -39,8 +39,11 @@ export const useCreateAppointment = () => {
     },
   })
 }
-export type CreateOpenHouseAttendeeFnArgs = { id: string; body: CreateOpenHouseAttendeeModel }
-export const createOpenHouseAttendeeFn = async ({ id, body }: CreateOpenHouseAttendeeFnArgs) => {
+export type CreateApiAppointmentsIdOpenHouseAttendeesFnArgs = { id: string; body: CreateOpenHouseAttendeeModel }
+export const createApiAppointmentsIdOpenHouseAttendeesFn = async ({
+  id,
+  body,
+}: CreateApiAppointmentsIdOpenHouseAttendeesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/appointments/${id}/openHouseAttendees${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -58,12 +61,12 @@ export const createOpenHouseAttendeeFn = async ({ id, body }: CreateOpenHouseAtt
 
   return z.void().parse(data)
 }
-export const useCreateOpenHouseAttendee = () => {
+export const useCreateApiAppointmentsIdOpenHouseAttendees = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createOpenHouseAttendeeFn,
+    mutationFn: createApiAppointmentsIdOpenHouseAttendeesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

@@ -1,5 +1,5 @@
-import { createTenancyCheckModel, CreateTenancyCheckModel } from '@/schemas/createTenancyCheckModel.generated.tsx'
-import { useCreateTenancyCheck } from '@/services/Tenancies.generated.ts'
+import { CreateTenancyCheckModel, createTenancyCheckModel } from '@/schemas/createTenancyCheckModel.generated.tsx'
+import { useCreateApiTenanciesIdChecks } from '@/services/Tenancies.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateTenanciesIdChecks = (props: CreateTenanciesIdChecksProps) => 
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateTenancyCheck()
+  const mutator = useCreateApiTenanciesIdChecks()
 
   return (
     <FormProvider {...methods}>

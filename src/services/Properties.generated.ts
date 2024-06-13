@@ -16,8 +16,8 @@ import { keyMovementModelPagedResult } from '@/schemas/keyMovementModelPagedResu
 import { propertyCheckModelPagedResult } from '@/schemas/propertyCheckModelPagedResult.generated.tsx'
 import { propertyAppraisalModelPagedResult } from '@/schemas/propertyAppraisalModelPagedResult.generated.tsx'
 
-export type CreatePropertyFnArgs = { body: CreatePropertyModel }
-export const createPropertyFn = async ({ body }: CreatePropertyFnArgs) => {
+export type CreateApiPropertiesFnArgs = { body: CreatePropertyModel }
+export const createApiPropertiesFn = async ({ body }: CreateApiPropertiesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -35,12 +35,12 @@ export const createPropertyFn = async ({ body }: CreatePropertyFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateProperty = () => {
+export const useCreateApiProperties = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createPropertyFn,
+    mutationFn: createApiPropertiesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -48,8 +48,8 @@ export const useCreateProperty = () => {
     },
   })
 }
-export type CreatePropertyCertificateFnArgs = { id: string; body: CreateCertificateModel }
-export const createPropertyCertificateFn = async ({ id, body }: CreatePropertyCertificateFnArgs) => {
+export type CreateApiPropertiesIdCertificatesFnArgs = { id: string; body: CreateCertificateModel }
+export const createApiPropertiesIdCertificatesFn = async ({ id, body }: CreateApiPropertiesIdCertificatesFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/certificates${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -67,12 +67,12 @@ export const createPropertyCertificateFn = async ({ id, body }: CreatePropertyCe
 
   return z.void().parse(data)
 }
-export const useCreatePropertyCertificate = () => {
+export const useCreateApiPropertiesIdCertificates = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createPropertyCertificateFn,
+    mutationFn: createApiPropertiesIdCertificatesFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -80,8 +80,8 @@ export const useCreatePropertyCertificate = () => {
     },
   })
 }
-export type CreatePropertyKeyFnArgs = { id: string; body: CreateKeyModel }
-export const createPropertyKeyFn = async ({ id, body }: CreatePropertyKeyFnArgs) => {
+export type CreateApiPropertiesIdKeysFnArgs = { id: string; body: CreateKeyModel }
+export const createApiPropertiesIdKeysFn = async ({ id, body }: CreateApiPropertiesIdKeysFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/keys${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -99,12 +99,12 @@ export const createPropertyKeyFn = async ({ id, body }: CreatePropertyKeyFnArgs)
 
   return z.void().parse(data)
 }
-export const useCreatePropertyKey = () => {
+export const useCreateApiPropertiesIdKeys = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createPropertyKeyFn,
+    mutationFn: createApiPropertiesIdKeysFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -112,8 +112,12 @@ export const useCreatePropertyKey = () => {
     },
   })
 }
-export type CreatePropertyKeyMovementFnArgs = { id: string; keyId: string; body: CreateKeyMovementModel }
-export const createPropertyKeyMovementFn = async ({ id, keyId, body }: CreatePropertyKeyMovementFnArgs) => {
+export type CreateApiPropertiesIdKeysKeyIdMovementsFnArgs = { id: string; keyId: string; body: CreateKeyMovementModel }
+export const createApiPropertiesIdKeysKeyIdMovementsFn = async ({
+  id,
+  keyId,
+  body,
+}: CreateApiPropertiesIdKeysKeyIdMovementsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/keys/${keyId}/movements${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -131,12 +135,12 @@ export const createPropertyKeyMovementFn = async ({ id, keyId, body }: CreatePro
 
   return z.void().parse(data)
 }
-export const useCreatePropertyKeyMovement = () => {
+export const useCreateApiPropertiesIdKeysKeyIdMovements = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createPropertyKeyMovementFn,
+    mutationFn: createApiPropertiesIdKeysKeyIdMovementsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -144,8 +148,18 @@ export const useCreatePropertyKeyMovement = () => {
     },
   })
 }
-export type UpdatePropertyKeyMovementFnArgs = { id: string; keyId: string; movementId: string; body: CheckInKeyModel }
-export const updatePropertyKeyMovementFn = async ({ id, keyId, movementId, body }: UpdatePropertyKeyMovementFnArgs) => {
+export type UpdateApiPropertiesIdKeysKeyIdMovementsMovementIdFnArgs = {
+  id: string
+  keyId: string
+  movementId: string
+  body: CheckInKeyModel
+}
+export const updateApiPropertiesIdKeysKeyIdMovementsMovementIdFn = async ({
+  id,
+  keyId,
+  movementId,
+  body,
+}: UpdateApiPropertiesIdKeysKeyIdMovementsMovementIdFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/keys/${keyId}/movements/${movementId}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -163,12 +177,12 @@ export const updatePropertyKeyMovementFn = async ({ id, keyId, movementId, body 
 
   return z.void().parse(data)
 }
-export const useUpdatePropertyKeyMovement = () => {
+export const useUpdateApiPropertiesIdKeysKeyIdMovementsMovementId = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: updatePropertyKeyMovementFn,
+    mutationFn: updateApiPropertiesIdKeysKeyIdMovementsMovementIdFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -176,8 +190,8 @@ export const useUpdatePropertyKeyMovement = () => {
     },
   })
 }
-export type CreatePropertyCheckFnArgs = { id: string; body: CreatePropertyCheckModel }
-export const createPropertyCheckFn = async ({ id, body }: CreatePropertyCheckFnArgs) => {
+export type CreateApiPropertiesIdChecksFnArgs = { id: string; body: CreatePropertyCheckModel }
+export const createApiPropertiesIdChecksFn = async ({ id, body }: CreateApiPropertiesIdChecksFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/checks${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -195,12 +209,12 @@ export const createPropertyCheckFn = async ({ id, body }: CreatePropertyCheckFnA
 
   return z.void().parse(data)
 }
-export const useCreatePropertyCheck = () => {
+export const useCreateApiPropertiesIdChecks = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createPropertyCheckFn,
+    mutationFn: createApiPropertiesIdChecksFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -208,8 +222,8 @@ export const useCreatePropertyCheck = () => {
     },
   })
 }
-export type CreatePropertyAppraisalFnArgs = { id: string; body: CreatePropertyAppraisalModel }
-export const createPropertyAppraisalFn = async ({ id, body }: CreatePropertyAppraisalFnArgs) => {
+export type CreateApiPropertiesIdAppraisalsFnArgs = { id: string; body: CreatePropertyAppraisalModel }
+export const createApiPropertiesIdAppraisalsFn = async ({ id, body }: CreateApiPropertiesIdAppraisalsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/properties/${id}/appraisals${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -227,12 +241,12 @@ export const createPropertyAppraisalFn = async ({ id, body }: CreatePropertyAppr
 
   return z.void().parse(data)
 }
-export const useCreatePropertyAppraisal = () => {
+export const useCreateApiPropertiesIdAppraisals = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createPropertyAppraisalFn,
+    mutationFn: createApiPropertiesIdAppraisalsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

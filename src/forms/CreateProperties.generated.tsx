@@ -1,5 +1,5 @@
-import { createPropertyModel, CreatePropertyModel } from '@/schemas/createPropertyModel.generated.tsx'
-import { useCreateProperty } from '@/services/Properties.generated.ts'
+import { CreatePropertyModel, createPropertyModel } from '@/schemas/createPropertyModel.generated.tsx'
+import { useCreateApiProperties } from '@/services/Properties.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateProperties = (props: CreatePropertiesProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateProperty()
+  const mutator = useCreateApiProperties()
 
   return (
     <FormProvider {...methods}>

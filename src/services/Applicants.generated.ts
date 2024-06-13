@@ -7,8 +7,8 @@ import { InsertApplicantContactRelationshipModel } from '@/schemas/insertApplica
 import { applicantModelPagedResult } from '@/schemas/applicantModelPagedResult.generated.tsx'
 import { applicantContactRelationshipModelPagedResult } from '@/schemas/applicantContactRelationshipModelPagedResult.generated.tsx'
 
-export type CreateApplicantFnArgs = { body: CreateApplicantModel }
-export const createApplicantFn = async ({ body }: CreateApplicantFnArgs) => {
+export type CreateApiApplicantsFnArgs = { body: CreateApplicantModel }
+export const createApiApplicantsFn = async ({ body }: CreateApiApplicantsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -26,12 +26,12 @@ export const createApplicantFn = async ({ body }: CreateApplicantFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateApplicant = () => {
+export const useCreateApiApplicants = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createApplicantFn,
+    mutationFn: createApiApplicantsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -39,8 +39,8 @@ export const useCreateApplicant = () => {
     },
   })
 }
-export type CreateApplicantRelationshipFnArgs = { id: string; body: InsertApplicantContactRelationshipModel }
-export const createApplicantRelationshipFn = async ({ id, body }: CreateApplicantRelationshipFnArgs) => {
+export type CreateApiApplicantsIdRelationshipsFnArgs = { id: string; body: InsertApplicantContactRelationshipModel }
+export const createApiApplicantsIdRelationshipsFn = async ({ id, body }: CreateApiApplicantsIdRelationshipsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/applicants/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -58,12 +58,12 @@ export const createApplicantRelationshipFn = async ({ id, body }: CreateApplican
 
   return z.void().parse(data)
 }
-export const useCreateApplicantRelationship = () => {
+export const useCreateApiApplicantsIdRelationships = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createApplicantRelationshipFn,
+    mutationFn: createApiApplicantsIdRelationshipsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

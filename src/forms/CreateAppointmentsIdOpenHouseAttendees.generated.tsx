@@ -1,8 +1,8 @@
 import {
-  createOpenHouseAttendeeModel,
   CreateOpenHouseAttendeeModel,
+  createOpenHouseAttendeeModel,
 } from '@/schemas/createOpenHouseAttendeeModel.generated.tsx'
-import { useCreateOpenHouseAttendee } from '@/services/Appointments.generated.ts'
+import { useCreateApiAppointmentsIdOpenHouseAttendees } from '@/services/Appointments.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -20,7 +20,7 @@ export const CreateAppointmentsIdOpenHouseAttendees = (props: CreateAppointments
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateOpenHouseAttendee()
+  const mutator = useCreateApiAppointmentsIdOpenHouseAttendees()
 
   return (
     <FormProvider {...methods}>

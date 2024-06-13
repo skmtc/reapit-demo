@@ -6,8 +6,8 @@ import { useFetchError } from '@/lib/useFetchError.ts'
 import { UpdateWebhookModel } from '@/schemas/updateWebhookModel.generated.tsx'
 import { webhookModelPagedResult } from '@/schemas/webhookModelPagedResult.generated.tsx'
 
-export type CreateResthookFnArgs = { body: CreateWebhookModel }
-export const createResthookFn = async ({ body }: CreateResthookFnArgs) => {
+export type CreateApiResthooksFnArgs = { body: CreateWebhookModel }
+export const createApiResthooksFn = async ({ body }: CreateApiResthooksFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/resthooks/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -25,12 +25,12 @@ export const createResthookFn = async ({ body }: CreateResthookFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useCreateResthook = () => {
+export const useCreateApiResthooks = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createResthookFn,
+    mutationFn: createApiResthooksFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
@@ -38,8 +38,8 @@ export const useCreateResthook = () => {
     },
   })
 }
-export type UpdateResthookFnArgs = { id: string; body: UpdateWebhookModel }
-export const updateResthookFn = async ({ id, body }: UpdateResthookFnArgs) => {
+export type UpdateApiResthooksIdFnArgs = { id: string; body: UpdateWebhookModel }
+export const updateApiResthooksIdFn = async ({ id, body }: UpdateApiResthooksIdFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/resthooks/${id}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -57,12 +57,12 @@ export const updateResthookFn = async ({ id, body }: UpdateResthookFnArgs) => {
 
   return z.void().parse(data)
 }
-export const useUpdateResthook = () => {
+export const useUpdateApiResthooksId = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: updateResthookFn,
+    mutationFn: updateApiResthooksIdFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch

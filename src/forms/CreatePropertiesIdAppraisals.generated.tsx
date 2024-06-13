@@ -1,8 +1,8 @@
 import {
-  createPropertyAppraisalModel,
   CreatePropertyAppraisalModel,
+  createPropertyAppraisalModel,
 } from '@/schemas/createPropertyAppraisalModel.generated.tsx'
-import { useCreatePropertyAppraisal } from '@/services/Properties.generated.ts'
+import { useCreateApiPropertiesIdAppraisals } from '@/services/Properties.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -20,7 +20,7 @@ export const CreatePropertiesIdAppraisals = (props: CreatePropertiesIdAppraisals
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreatePropertyAppraisal()
+  const mutator = useCreateApiPropertiesIdAppraisals()
 
   return (
     <FormProvider {...methods}>

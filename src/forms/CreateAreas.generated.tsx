@@ -1,5 +1,5 @@
-import { createAreaModel, CreateAreaModel } from '@/schemas/createAreaModel.generated.tsx'
-import { useCreateArea } from '@/services/Areas.generated.ts'
+import { CreateAreaModel, createAreaModel } from '@/schemas/createAreaModel.generated.tsx'
+import { useCreateApiAreas } from '@/services/Areas.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateAreas = (props: CreateAreasProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateArea()
+  const mutator = useCreateApiAreas()
 
   return (
     <FormProvider {...methods}>

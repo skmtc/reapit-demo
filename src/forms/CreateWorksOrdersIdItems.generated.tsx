@@ -1,5 +1,4 @@
-import { createWorksOrderItemModel, CreateWorksOrderItemModel } from '@/schemas/createWorksOrderItemModel.generated.tsx'
-import { useCreateWorksOrderItem } from '@/services/WorksOrders.generated.ts'
+import { useCreateApiWorksOrdersIdItems } from '@/services/WorksOrders.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,7 +16,7 @@ export const CreateWorksOrdersIdItems = (props: CreateWorksOrdersIdItemsProps) =
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateWorksOrderItem()
+  const mutator = useCreateApiWorksOrdersIdItems()
 
   return (
     <FormProvider {...methods}>

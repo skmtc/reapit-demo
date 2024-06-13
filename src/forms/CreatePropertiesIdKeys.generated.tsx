@@ -1,5 +1,5 @@
-import { createKeyModel, CreateKeyModel } from '@/schemas/createKeyModel.generated.tsx'
-import { useCreatePropertyKey } from '@/services/Properties.generated.ts'
+import { CreateKeyModel, createKeyModel } from '@/schemas/createKeyModel.generated.tsx'
+import { useCreateApiPropertiesIdKeys } from '@/services/Properties.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreatePropertiesIdKeys = (props: CreatePropertiesIdKeysProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreatePropertyKey()
+  const mutator = useCreateApiPropertiesIdKeys()
 
   return (
     <FormProvider {...methods}>

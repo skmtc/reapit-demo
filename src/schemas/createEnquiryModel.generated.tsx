@@ -1,41 +1,8 @@
+import { CreateEnquiryAddressModel, createEnquiryAddressModel } from '@/schemas/createEnquiryAddressModel.generated.tsx'
+import { CreateEnquiryBuyingModel, createEnquiryBuyingModel } from '@/schemas/createEnquiryBuyingModel.generated.tsx'
+import { CreateEnquiryRentingModel, createEnquiryRentingModel } from '@/schemas/createEnquiryRentingModel.generated.tsx'
 import { z } from 'zod'
-import { createEnquiryAddressModel, CreateEnquiryAddressModel } from '@/schemas/createEnquiryAddressModel.generated.tsx'
-import { createEnquiryBuyingModel, CreateEnquiryBuyingModel } from '@/schemas/createEnquiryBuyingModel.generated.tsx'
-import { createEnquiryRentingModel, CreateEnquiryRentingModel } from '@/schemas/createEnquiryRentingModel.generated.tsx'
 
-/** Request body used to create an enquiry */
-export const createEnquiryModel =
-  /** Request body used to create an enquiry */
-  z.object({
-    /** The title of the individual making the enquiry */ title: z.string(),
-    /** The forename of the individual making the enquiry */ forename: z.string(),
-    /** The surname of the individual making the enquiry */ surname: z.string(),
-    /** The selling position of the individual making the enquiry (renting/instructedThisAgent/instructedOtherAgent/privateSale/notOnMarket) */
-    position: z.string().optional().nullable(),
-    /** The type of enquiry. Enquiries can created for applicants interested in buying/renting, as well as prospective vendors and landlords (salesApplicant/lettingsApplicant/salesProperty/lettingsProperty) */
-    enquiryType: z.string(),
-    /** Textual information about the nature of the enquiry - usually the message text from the individual making the enquiry */
-    message: z.string(),
-    /** The unique identifier of the related office */ officeId: z.string(),
-    /** The marketing consent status of the individual making the enquiry (grant/deny/notAsked) */
-    marketingConsent: z.string(),
-    /** The name of the source that the enquiry was generated from */ sourceName: z.string(),
-    /** The home phone number of the individual making the enquiry (Required when no other contact details are given) */
-    homePhone: z.string().optional().nullable(),
-    /** The work phone number of the individual making the enquiry (Required when no other contact details are given) */
-    workPhone: z.string().optional().nullable(),
-    /** The mobile phone number of the individual making the enquiry (Required when no other contact details are given) */
-    mobilePhone: z.string().optional().nullable(),
-    /** The email of the individual making the enquiry (Required when no other contact details are given) */
-    email: z.string().optional().nullable(),
-    address: createEnquiryAddressModel.optional().nullable(),
-    buying: createEnquiryBuyingModel.optional().nullable(),
-    renting: createEnquiryRentingModel.optional().nullable(),
-    /** The number of bedrooms the prospective buyer or tenant requires */
-    bedrooms: z.number().int().optional().nullable(),
-    /** A list of unique property identifiers that the enquiry relates to. Used to indicate the properties that a sales or lettings applicant has expressed an interest in */
-    propertyIds: z.array(z.string()).optional().nullable(),
-  })
 /** Request body used to create an enquiry */
 export type CreateEnquiryModel =
   /** Request body used to create an enquiry */
@@ -86,3 +53,35 @@ export type CreateEnquiryModel =
       | null
       | undefined
   }
+export const createEnquiryModel =
+  /** Request body used to create an enquiry */
+  z.object({
+    /** The title of the individual making the enquiry */ title: z.string(),
+    /** The forename of the individual making the enquiry */ forename: z.string(),
+    /** The surname of the individual making the enquiry */ surname: z.string(),
+    /** The selling position of the individual making the enquiry (renting/instructedThisAgent/instructedOtherAgent/privateSale/notOnMarket) */
+    position: z.string().optional().nullable(),
+    /** The type of enquiry. Enquiries can created for applicants interested in buying/renting, as well as prospective vendors and landlords (salesApplicant/lettingsApplicant/salesProperty/lettingsProperty) */
+    enquiryType: z.string(),
+    /** Textual information about the nature of the enquiry - usually the message text from the individual making the enquiry */
+    message: z.string(),
+    /** The unique identifier of the related office */ officeId: z.string(),
+    /** The marketing consent status of the individual making the enquiry (grant/deny/notAsked) */
+    marketingConsent: z.string(),
+    /** The name of the source that the enquiry was generated from */ sourceName: z.string(),
+    /** The home phone number of the individual making the enquiry (Required when no other contact details are given) */
+    homePhone: z.string().optional().nullable(),
+    /** The work phone number of the individual making the enquiry (Required when no other contact details are given) */
+    workPhone: z.string().optional().nullable(),
+    /** The mobile phone number of the individual making the enquiry (Required when no other contact details are given) */
+    mobilePhone: z.string().optional().nullable(),
+    /** The email of the individual making the enquiry (Required when no other contact details are given) */
+    email: z.string().optional().nullable(),
+    address: createEnquiryAddressModel.optional().nullable(),
+    buying: createEnquiryBuyingModel.optional().nullable(),
+    renting: createEnquiryRentingModel.optional().nullable(),
+    /** The number of bedrooms the prospective buyer or tenant requires */
+    bedrooms: z.number().int().optional().nullable(),
+    /** A list of unique property identifiers that the enquiry relates to. Used to indicate the properties that a sales or lettings applicant has expressed an interest in */
+    propertyIds: z.array(z.string()).optional().nullable(),
+  })

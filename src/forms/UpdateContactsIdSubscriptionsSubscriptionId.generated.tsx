@@ -1,8 +1,8 @@
 import {
-  updateContactSubscriptionModel,
   UpdateContactSubscriptionModel,
+  updateContactSubscriptionModel,
 } from '@/schemas/updateContactSubscriptionModel.generated.tsx'
-import { useUpdateContactSubscription } from '@/services/Contacts.generated.ts'
+import { useUpdateApiContactsIdSubscriptionsSubscriptionId } from '@/services/Contacts.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -23,7 +23,7 @@ export const UpdateContactsIdSubscriptionsSubscriptionId = (
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useUpdateContactSubscription()
+  const mutator = useUpdateApiContactsIdSubscriptionsSubscriptionId()
 
   return (
     <FormProvider {...methods}>

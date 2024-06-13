@@ -1,5 +1,5 @@
-import { createJournalEntryModel, CreateJournalEntryModel } from '@/schemas/createJournalEntryModel.generated.tsx'
-import { useCreateJournalEntry } from '@/services/JournalEntries.generated.ts'
+import { CreateJournalEntryModel, createJournalEntryModel } from '@/schemas/createJournalEntryModel.generated.tsx'
+import { useCreateApiJournalEntries } from '@/services/JournalEntries.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,7 @@ export const CreateJournalEntries = (props: CreateJournalEntriesProps) => {
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateJournalEntry()
+  const mutator = useCreateApiJournalEntries()
 
   return (
     <FormProvider {...methods}>

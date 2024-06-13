@@ -1,8 +1,8 @@
 import {
-  createTenancyBreakClauseModel,
   CreateTenancyBreakClauseModel,
+  createTenancyBreakClauseModel,
 } from '@/schemas/createTenancyBreakClauseModel.generated.tsx'
-import { useCreateTenancyBreakClause } from '@/services/Tenancies.generated.ts'
+import { useCreateApiTenanciesIdBreakClauses } from '@/services/Tenancies.generated.ts'
 import { default as Box } from '@mui/joy/Box'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -20,7 +20,7 @@ export const CreateTenanciesIdBreakClauses = (props: CreateTenanciesIdBreakClaus
     defaultValues: props.defaultValues,
   })
 
-  const mutator = useCreateTenancyBreakClause()
+  const mutator = useCreateApiTenanciesIdBreakClauses()
 
   return (
     <FormProvider {...methods}>

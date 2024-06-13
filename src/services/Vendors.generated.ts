@@ -6,8 +6,8 @@ import { useFetchError } from '@/lib/useFetchError.ts'
 import { vendorModelPagedResult } from '@/schemas/vendorModelPagedResult.generated.tsx'
 import { vendorContactRelationshipModelPagedResult } from '@/schemas/vendorContactRelationshipModelPagedResult.generated.tsx'
 
-export type CreateVendorRelationshipFnArgs = { id: string; body: InsertVendorContactRelationshipModel }
-export const createVendorRelationshipFn = async ({ id, body }: CreateVendorRelationshipFnArgs) => {
+export type CreateApiVendorsIdRelationshipsFnArgs = { id: string; body: InsertVendorContactRelationshipModel }
+export const createApiVendorsIdRelationshipsFn = async ({ id, body }: CreateApiVendorsIdRelationshipsFnArgs) => {
   const res = await fetch(
     `${import.meta.env.VITE_PLATFORM_API_URL}/vendors/${id}/relationships${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
     {
@@ -25,12 +25,12 @@ export const createVendorRelationshipFn = async ({ id, body }: CreateVendorRelat
 
   return z.void().parse(data)
 }
-export const useCreateVendorRelationship = () => {
+export const useCreateApiVendorsIdRelationships = () => {
   const queryClient = useQueryClient()
   const { handleFetchError } = useFetchError()
 
   return useMutation({
-    mutationFn: createVendorRelationshipFn,
+    mutationFn: createApiVendorsIdRelationshipsFn,
     onError: handleFetchError,
     onSuccess: () => {
       // Invalidate and refetch
