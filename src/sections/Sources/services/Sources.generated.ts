@@ -8,7 +8,10 @@ import { sourceModelPagedResult } from '@/schemas/sourceModelPagedResult.generat
 export type CreateApiSourcesFnArgs = { body: CreateSourceModel }
 export const createApiSourcesFn = async ({ body }: CreateApiSourcesFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/sources/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/sources/${querySerialiser({
+      args: {},
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'POST',
       body: JSON.stringify(body),
@@ -66,7 +69,23 @@ export const getApiSourcesFn = async ({
   modifiedTo,
 }: GetApiSourcesFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/sources/${querySerialiser({ args: { pageSize, pageNumber, sortBy, id, officeId, departmentId, name, type, createdFrom, createdTo, modifiedFrom, modifiedTo }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/sources/${querySerialiser({
+      args: {
+        pageSize,
+        pageNumber,
+        sortBy,
+        id,
+        officeId,
+        departmentId,
+        name,
+        type,
+        createdFrom,
+        createdTo,
+        modifiedFrom,
+        modifiedTo,
+      },
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'GET',
       headers: {
@@ -83,7 +102,7 @@ export const getApiSourcesFn = async ({
 }
 export const useGetApiSources = (args: GetApiSourcesFnArgs) => {
   const result = useQuery({
-    queryKey: ['Sources'],
+    queryKey: ['Sources', args],
     queryFn: () => getApiSourcesFn(args),
     placeholderData: keepPreviousData,
   })

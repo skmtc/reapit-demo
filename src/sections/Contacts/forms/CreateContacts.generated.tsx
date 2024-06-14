@@ -17,6 +17,7 @@ export const CreateContacts = (props: CreateContactsProps) => {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit((body) => {
+          console.log('Submitting', body)
           mutator.mutate({ ...props, body })
         })}
       >

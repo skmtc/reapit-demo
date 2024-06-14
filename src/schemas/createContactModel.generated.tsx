@@ -72,7 +72,7 @@ export const createContactModel =
   z.object({
     /** The contact's title  (eg. Mr, Mrs, Miss, Dr) */ title: z.string().optional().nullable(),
     /** The contact's forename */ forename: z.string().optional().nullable(),
-    /** The contact's surname */ surname: z.string(),
+    /** The contact's surname */ surname: z.string().min(1),
     /** The contact's date of birth */ dateOfBirth: z.string().optional().nullable(),
     /** A flag determining whether or not the contact is currently active */ active: z.boolean().optional().nullable(),
     /** The marketing consent status of the contact (grant/deny/notAsked) */ marketingConsent: z.string(),

@@ -11,7 +11,10 @@ import { contactSubscriptionModelPagedResult } from '@/schemas/contactSubscripti
 export type CreateApiContactsFnArgs = { body: CreateContactModel }
 export const createApiContactsFn = async ({ body }: CreateApiContactsFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${querySerialiser({
+      args: {},
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'POST',
       body: JSON.stringify(body),
@@ -51,7 +54,10 @@ export const updateApiContactsIdSubscriptionsSubscriptionIdFn = async ({
   body,
 }: UpdateApiContactsIdSubscriptionsSubscriptionIdFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${id}/subscriptions/${subscriptionId}${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${id}/subscriptions/${subscriptionId}${querySerialiser({
+      args: {},
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'PUT',
       body: JSON.stringify(body),
@@ -134,7 +140,34 @@ export const getApiContactsFn = async ({
   extrasField,
 }: GetApiContactsFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${querySerialiser({ args: { pageSize, pageNumber, sortBy, embed, id, contactDetail, email, negotiatorId, officeId, address, identityCheck, name, nameType, marketingConsent, marketingConsentFilterType, active, fromArchive, createdFrom, createdTo, modifiedFrom, modifiedTo, metadata, extrasField }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${querySerialiser({
+      args: {
+        pageSize,
+        pageNumber,
+        sortBy,
+        embed,
+        id,
+        contactDetail,
+        email,
+        negotiatorId,
+        officeId,
+        address,
+        identityCheck,
+        name,
+        nameType,
+        marketingConsent,
+        marketingConsentFilterType,
+        active,
+        fromArchive,
+        createdFrom,
+        createdTo,
+        modifiedFrom,
+        modifiedTo,
+        metadata,
+        extrasField,
+      },
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'GET',
       headers: {
@@ -151,7 +184,7 @@ export const getApiContactsFn = async ({
 }
 export const useGetApiContacts = (args: GetApiContactsFnArgs) => {
   const result = useQuery({
-    queryKey: ['Contacts'],
+    queryKey: ['Contacts', args],
     queryFn: () => getApiContactsFn(args),
     placeholderData: keepPreviousData,
   })
@@ -169,7 +202,10 @@ export const getApiContactsIdRelationshipsFn = async ({
   pageNumber,
 }: GetApiContactsIdRelationshipsFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${id}/relationships${querySerialiser({ args: { pageSize, pageNumber }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${id}/relationships${querySerialiser({
+      args: { pageSize, pageNumber },
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'GET',
       headers: {
@@ -208,7 +244,10 @@ export const getApiContactsIdSubscriptionsFn = async ({
   status,
 }: GetApiContactsIdSubscriptionsFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${id}/subscriptions${querySerialiser({ args: { pageSize, pageNumber, type, status }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/contacts/${id}/subscriptions${querySerialiser({
+      args: { pageSize, pageNumber, type, status },
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'GET',
       headers: {

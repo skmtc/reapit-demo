@@ -8,7 +8,10 @@ import { negotiatorModelPagedResult } from '@/schemas/negotiatorModelPagedResult
 export type CreateApiNegotiatorsFnArgs = { body: CreateNegotiatorModel }
 export const createApiNegotiatorsFn = async ({ body }: CreateApiNegotiatorsFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({ args: {}, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({
+      args: {},
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'POST',
       body: JSON.stringify(body),
@@ -70,7 +73,25 @@ export const getApiNegotiatorsFn = async ({
   metadata,
 }: GetApiNegotiatorsFnArgs) => {
   const res = await fetch(
-    `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({ args: { pageSize, pageNumber, sortBy, embed, id, officeId, email, name, createdFrom, createdTo, modifiedFrom, modifiedTo, active, metadata }, options: defaultQuerySerialiserOptions })}`,
+    `${import.meta.env.VITE_PLATFORM_API_URL}/negotiators/${querySerialiser({
+      args: {
+        pageSize,
+        pageNumber,
+        sortBy,
+        embed,
+        id,
+        officeId,
+        email,
+        name,
+        createdFrom,
+        createdTo,
+        modifiedFrom,
+        modifiedTo,
+        active,
+        metadata,
+      },
+      options: defaultQuerySerialiserOptions,
+    })}`,
     {
       method: 'GET',
       headers: {
@@ -87,7 +108,7 @@ export const getApiNegotiatorsFn = async ({
 }
 export const useGetApiNegotiators = (args: GetApiNegotiatorsFnArgs) => {
   const result = useQuery({
-    queryKey: ['Negotiators'],
+    queryKey: ['Negotiators', args],
     queryFn: () => getApiNegotiatorsFn(args),
     placeholderData: keepPreviousData,
   })

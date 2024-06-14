@@ -1,8 +1,13 @@
 import { StringInput } from '@/inputs/StringInput.tsx'
-import { InputWrap } from '@reapit/elements'
+import { InputWrap, InputWrapFull } from '@reapit/elements'
 import { Switch } from '@/inputs/Switch.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { CreateContactModel } from '@/schemas/createContactModel.generated.tsx'
+import { NegotiatorsInput } from '@/inputs/NegotiatorsInput'
+import { OfficesInput } from '@/inputs/OfficesInput'
+import { SourcesInput } from '@/inputs/SourceInput'
+import { MarketingConsentInput } from '@/inputs/MarketingConsentInput'
+import { TitleInput } from '@/inputs/TitleInput'
 
 export const createContactModelConfig: ModelConfig<CreateContactModel> = {
   title: {
@@ -14,7 +19,7 @@ export const createContactModelConfig: ModelConfig<CreateContactModel> = {
     format: (value) => `${value}`,
     Input: (props) => (
       <InputWrap>
-        <StringInput {...props} />
+        <TitleInput {...props} />
       </InputWrap>
     ),
   },
@@ -79,7 +84,7 @@ export const createContactModelConfig: ModelConfig<CreateContactModel> = {
     format: (value) => `${value}`,
     Input: (props) => (
       <InputWrap>
-        <StringInput {...props} />
+        <MarketingConsentInput {...props} />
       </InputWrap>
     ),
   },
@@ -91,9 +96,9 @@ export const createContactModelConfig: ModelConfig<CreateContactModel> = {
     icon: undefined,
     format: (value) => `${value}`,
     Input: (props) => (
-      <InputWrap>
-        <StringInput {...props} />
-      </InputWrap>
+      <InputWrapFull>
+        <SourcesInput {...props} />
+      </InputWrapFull>
     ),
   },
   homePhone: {
@@ -156,9 +161,9 @@ export const createContactModelConfig: ModelConfig<CreateContactModel> = {
     icon: undefined,
     format: (value) => `${value}`,
     Input: (props) => (
-      <InputWrap>
-        <StringInput {...props} />
-      </InputWrap>
+      <InputWrapFull>
+        <OfficesInput {...props} />
+      </InputWrapFull>
     ),
   },
   negotiatorIds: {
@@ -169,9 +174,9 @@ export const createContactModelConfig: ModelConfig<CreateContactModel> = {
     icon: undefined,
     format: (value) => `${value}`,
     Input: (props) => (
-      <InputWrap>
-        <StringInput {...props} />
-      </InputWrap>
+      <InputWrapFull>
+        <NegotiatorsInput {...props} />
+      </InputWrapFull>
     ),
   },
   categoryIds: {

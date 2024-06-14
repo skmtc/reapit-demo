@@ -7,7 +7,6 @@ import { CreateAppointmentsForm } from '@/sections/Appointments/examples/CreateA
 import { CompaniesTable } from '@/sections/Companies/examples/CompaniesTable.example.tsx'
 import { CreateCompaniesForm } from '@/sections/Companies/examples/CreateCompaniesForm.example.tsx'
 import { ContactsTable } from '@/sections/Contacts/examples/ContactsTable.example.tsx'
-import { CreateContactsForm } from '@/sections/Contacts/examples/CreateContactsForm.example.tsx'
 import { ConveyancingTable } from '@/sections/Conveyancing/examples/ConveyancingTable.example.tsx'
 import { DepartmentsTable } from '@/sections/Departments/examples/DepartmentsTable.example.tsx'
 import { DocumentsTable } from '@/sections/Documents/examples/DocumentsTable.example.tsx'
@@ -38,6 +37,7 @@ import { CreateTenanciesForm } from '@/sections/Tenancies/examples/CreateTenanci
 import { TransactionsTable } from '@/sections/Transactions/examples/TransactionsTable.example.tsx'
 import { VendorsTable } from '@/sections/Vendors/examples/VendorsTable.example.tsx'
 import { NavItem } from '@/components/Root'
+import { ContactsNew } from '@/sections/Contacts/forms/CreateContactWorkflow'
 
 export const Routes = [
   {
@@ -83,12 +83,10 @@ export const Routes = [
   {
     path: 'contacts',
     element: <ContactsTable />,
-    children: [
-      {
-        path: 'new',
-        element: <CreateContactsForm />,
-      },
-    ],
+  },
+  {
+    path: 'contacts/new',
+    element: <ContactsNew />,
   },
   {
     path: 'conveyancing',

@@ -1,5 +1,5 @@
 import { StringInput } from '@/inputs/StringInput.tsx'
-import { InputWrap } from '@reapit/elements'
+import { InputWrap, StatusIndicator } from '@reapit/elements'
 import { Switch } from '@/inputs/Switch.tsx'
 import { ContactModel } from '@/schemas/contactModel.generated.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
@@ -128,7 +128,11 @@ export const contactModelConfig: ModelConfig<ContactModel> = {
     defaultValue: false,
     placeholder: 'active',
     icon: undefined,
-    format: (value) => `${value}`,
+    format: (active) => (
+      <>
+        <StatusIndicator intent={active ? 'success' : 'danger'} /> {active ? 'Active' : 'Inactive'}{' '}
+      </>
+    ),
     Input: (props) => (
       <InputWrap>
         <Switch {...props} />
@@ -218,7 +222,7 @@ export const contactModelConfig: ModelConfig<ContactModel> = {
     label: 'email',
     defaultValue: '',
     placeholder: 'email',
-    icon: undefined,
+    icon: 'email',
     format: (value) => `${value}`,
     Input: (props) => (
       <InputWrap>

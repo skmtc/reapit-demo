@@ -98,6 +98,7 @@ export const getContactsTableColumn = (property: string, modelConfig: ModelConfi
     }))
     .with('email', () => ({
       id: 'email',
+      icon: 'email',
       label: modelConfig['email'].label,
       value: modelConfig['email'].format(row['email']),
     }))

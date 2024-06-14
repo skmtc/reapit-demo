@@ -1,10 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { type FieldValues, type FieldPath, Controller, useFormContext } from 'react-hook-form'
+import { type FieldValues, type FieldPath } from 'react-hook-form'
 import { ComponentType, ReactNode } from 'react'
-import { default as JoyInput } from '@mui/joy/Input'
-import FormControl from '@mui/joy/FormControl'
-import FormLabel from '@mui/joy/FormLabel'
-import FormHelperText from '@mui/joy/FormHelperText'
 import Box from '@mui/joy/Box'
 import { IconNames } from '@reapit/elements'
 
@@ -76,30 +72,6 @@ export const FieldParent = <Model extends FieldValues, Key extends KeyPath<Model
 export type ContextInputProps<Model extends FieldValues, Key extends KeyPath<Model>> = {
   fieldName: Key
   fieldConfig: ModelConfig<Model>[Key]
-}
-
-const ContextInput = <Model extends FieldValues, Key extends KeyPath<Model>>({
-  fieldName,
-  fieldConfig,
-}: ContextInputProps<Model, Key>) => {
-  const { control } = useFormContext()
-
-  return (
-    <Controller
-      key={fieldName}
-      name={fieldName}
-      control={control}
-      defaultValue={fieldConfig.defaultValue}
-      render={({ field, fieldState }) => (
-        <FormControl error={Boolean(fieldState.error?.message)}>
-          <FormLabel>{fieldConfig.label}</FormLabel>
-          <JoyInput {...field} />
-
-          {fieldState.error?.message ? <FormHelperText>{fieldState.error?.message}</FormHelperText> : null}
-        </FormControl>
-      )}
-    />
-  )
 }
 
 export const NotImplemented = () => <Box>Not implemented</Box>
