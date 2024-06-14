@@ -37,14 +37,18 @@ export const CreateContactsForm = () => {
     <Drawer title="Create new CreateContactModel" onClose={() => navigate('..')}>
       <DialogContent sx={{ p: '16px' }}>
         <CreateContacts>
-          <CreateContactsFields />
+          <CreateContactsFields fieldNames={fieldNames} />
         </CreateContacts>
       </DialogContent>
     </Drawer>
   )
 }
 
-export const CreateContactsFields = () => (
+type CreateContactsFieldsProps = {
+  fieldNames: (keyof CreateContactModel)[]
+}
+
+export const CreateContactsFields = ({ fieldNames }: CreateContactsFieldsProps) => (
   <>
     {fieldNames.map((fieldName) => (
       <FieldParent key={fieldName} fieldName={fieldName} fieldConfig={createContactModelConfig[fieldName]} />
