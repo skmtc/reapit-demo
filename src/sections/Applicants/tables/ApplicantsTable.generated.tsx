@@ -1,15 +1,10 @@
 import { applicantModelConfig } from '@/sections/Applicants/config/applicantModelConfig.example.tsx'
 import { ModelConfig } from '@/components/ModelRuntimeConfig'
 import { match } from 'ts-pattern'
-import {
-  useGetApiApplicants,
-  useGetApiApplicantsIdRelationships,
-} from '@/sections/Applicants/services/Applicants.generated.ts'
+import { useGetApiApplicants } from '@/sections/Applicants/services/Applicants.generated.ts'
 import { useState } from 'react'
 import { RowProps } from '@reapit/elements'
 import { ApplicantModel } from '@/schemas/applicantModel.generated.tsx'
-import { applicantContactRelationshipModelConfig } from '@/sections/Applicants/config/applicantContactRelationshipModelConfig.example.tsx'
-import { ApplicantContactRelationshipModel } from '@/schemas/applicantContactRelationshipModel.generated.tsx'
 
 export const getApplicantsTableColumn = (
   property: string,
@@ -382,93 +377,6 @@ export const useApplicantsTable = (args: UseApplicantsTableArgs) => {
       cells: args.fieldNames
         .filter((c): c is keyof ApplicantModel => c in row)
         .map((fieldName) => getApplicantsTableColumn(fieldName, applicantModelConfig, row)),
-    })) ?? []
-
-  return { rows, dataQuery }
-}
-export const getApplicantsIdRelationshipsTableColumn = (
-  property: string,
-  modelConfig: ModelConfig<ApplicantContactRelationshipModel>,
-  row: ApplicantContactRelationshipModel,
-) => {
-  return match(property)
-    .with('_links', () => ({
-      id: '_links',
-      label: modelConfig['_links'].label,
-      value: modelConfig['_links'].format(row['_links']),
-    }))
-    .with('_embedded', () => ({
-      id: '_embedded',
-      label: modelConfig['_embedded'].label,
-      value: modelConfig['_embedded'].format(row['_embedded']),
-    }))
-    .with('id', () => ({
-      id: 'id',
-      label: modelConfig['id'].label,
-      value: modelConfig['id'].format(row['id']),
-    }))
-    .with('created', () => ({
-      id: 'created',
-      label: modelConfig['created'].label,
-      value: modelConfig['created'].format(row['created']),
-    }))
-    .with('modified', () => ({
-      id: 'modified',
-      label: modelConfig['modified'].label,
-      value: modelConfig['modified'].format(row['modified']),
-    }))
-    .with('applicantId', () => ({
-      id: 'applicantId',
-      label: modelConfig['applicantId'].label,
-      value: modelConfig['applicantId'].format(row['applicantId']),
-    }))
-    .with('associatedType', () => ({
-      id: 'associatedType',
-      label: modelConfig['associatedType'].label,
-      value: modelConfig['associatedType'].format(row['associatedType']),
-    }))
-    .with('associatedId', () => ({
-      id: 'associatedId',
-      label: modelConfig['associatedId'].label,
-      value: modelConfig['associatedId'].format(row['associatedId']),
-    }))
-    .with('isMain', () => ({
-      id: 'isMain',
-      label: modelConfig['isMain'].label,
-      value: modelConfig['isMain'].format(row['isMain']),
-    }))
-    .with('fromArchive', () => ({
-      id: 'fromArchive',
-      label: modelConfig['fromArchive'].label,
-      value: modelConfig['fromArchive'].format(row['fromArchive']),
-    }))
-    .otherwise(() => {
-      throw new Error(`Unknown column: ${property}`)
-    })
-}
-export type UseApplicantsIdRelationshipsTableArgs = {
-  id: string
-  fieldNames: (keyof ApplicantContactRelationshipModel)[]
-}
-export const useApplicantsIdRelationshipsTable = (args: UseApplicantsIdRelationshipsTableArgs) => {
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 12,
-  })
-
-  const dataQuery = useGetApiApplicantsIdRelationships({
-    ...args,
-    pageNumber: pagination.pageIndex + 1,
-    pageSize: pagination.pageSize,
-  })
-
-  const rows: RowProps[] =
-    dataQuery.data?._embedded?.map((row) => ({
-      cells: args.fieldNames
-        .filter((c): c is keyof ApplicantContactRelationshipModel => c in row)
-        .map((fieldName) =>
-          getApplicantsIdRelationshipsTableColumn(fieldName, applicantContactRelationshipModelConfig, row),
-        ),
     })) ?? []
 
   return { rows, dataQuery }

@@ -1,0 +1,4797 @@
+{
+  "projectName": "clever-newt-65",
+  "deploymentId": "3f0kbs65p76n",
+  "settings": {
+    "basePath": "src",
+    "plugins": {
+      "@skmtc/elements-form": {
+        "id": "@skmtc/elements-form",
+        "src": "plugins/elements-form",
+        "pluginType": "operations",
+        "operations": {
+          "/applicants/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/applicants/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/applicants/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/applicants/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/areas/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/areas/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/appointments/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}/openHouseAttendees": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}/openHouseAttendees/{openHouseAttendeeId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/companies/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/companies/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/companies/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/companies/{id}/staffMembers": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/types": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/agencyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/agencyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/applicantStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/applicantStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/appointmentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/appointmentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/boardStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/boardStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingPositions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingPositions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/certificateTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/certificateTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/companyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/companyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/contactCategories/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/contactCategories": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/documentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/documentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/followUpResponses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/followUpResponses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/identityDocumentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/identityDocumentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/journalEntryTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/journalEntryTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/keyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/keyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/portalTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/portalTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/preTenancyCheckTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/preTenancyCheckTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/propertyServiceTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/propertyServiceTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/renewalCheckTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/renewalCheckTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentInsuranceCancellationReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentInsuranceCancellationReasons/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentingPositions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentingPositions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/ruralTenancyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/ruralTenancyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/sellingReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/sellingReasons/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/supplierTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/supplierTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/taskTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/taskTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyLegalStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyLegalStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptionConditions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptionConditions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/vendorTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/vendorTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/worksOrderTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/worksOrderTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/terminology": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/subscriptions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/subscriptions/{subscriptionId}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/conveyancing/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/chain": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/downward": {
+            "post": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/upward": {
+            "post": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/departments/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/departments/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/documents/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/documents/{id}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/documents/{id}/download": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/documents/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/enquiries/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/enquiries/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/identityChecks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/identityChecks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/identityChecks/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/invoices/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/payments": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/payments/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/credits": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/credits/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/charges": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/charges/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/journalEntries/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/journalEntries/landlords": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/journalEntries/bulk": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/metadata/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/metadata/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/metadata/metadataSchema/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/metadata/metadataSchema": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/negotiators/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/negotiators/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/notifications/": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/offers/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/offers/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/offices/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/offices/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates/{certificateId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates/responsibilities": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}/movements": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}/movements/{movementId}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/certificates": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/appraisals": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/appraisals/{appraisalId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/propertyImages/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/propertyImages/{id}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/propertyImages/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/propertyImages/reindex": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/referrals/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/referrals/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/referrals/types": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/referrals/types/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/resthooks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/resthooks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/sources/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/sources/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tasks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tasks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/breakClauses": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/breakClauses/{clauseId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/allowances": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/allowances/{allowanceId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/responsibilities": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/responsibilities/{responsibilityId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/extensions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/extensions/{extensionId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/transactions/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/nominalAccounts": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/nominalAccounts/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/supplierInvoices": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/vendors/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/worksOrders/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}/items": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}/items/{itemId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          }
+        }
+      },
+      "@skmtc/elements-table": {
+        "id": "@skmtc/elements-table",
+        "src": "plugins/elements-table",
+        "pluginType": "operations",
+        "operations": {
+          "/applicants/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/applicants/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/applicants/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/applicants/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/areas/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/areas/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/appointments/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}/openHouseAttendees": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}/openHouseAttendees/{openHouseAttendeeId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/companies/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/companies/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/companies/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/companies/{id}/staffMembers": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/types": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/agencyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/agencyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/applicantStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/applicantStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/appointmentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/appointmentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/boardStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/boardStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingPositions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingPositions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/certificateTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/certificateTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/companyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/companyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/contactCategories/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/contactCategories": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/documentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/documentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/followUpResponses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/followUpResponses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/identityDocumentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/identityDocumentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/journalEntryTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/journalEntryTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/keyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/keyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/portalTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/portalTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/preTenancyCheckTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/preTenancyCheckTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/propertyServiceTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/propertyServiceTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/renewalCheckTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/renewalCheckTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentInsuranceCancellationReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentInsuranceCancellationReasons/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentingPositions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentingPositions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/ruralTenancyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/ruralTenancyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/sellingReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/sellingReasons/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/supplierTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/supplierTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/taskTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/taskTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyLegalStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyLegalStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptionConditions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptionConditions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/vendorTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/vendorTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/worksOrderTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/worksOrderTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/terminology": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/subscriptions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/subscriptions/{subscriptionId}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/conveyancing/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/chain": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/downward": {
+            "post": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/upward": {
+            "post": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/departments/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/departments/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/documents/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/documents/{id}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/documents/{id}/download": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/documents/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/enquiries/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/enquiries/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/identityChecks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/identityChecks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/identityChecks/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/invoices/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/payments": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/payments/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/credits": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/credits/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/charges": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/charges/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/journalEntries/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/journalEntries/landlords": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/journalEntries/bulk": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/metadata/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/metadata/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/metadata/metadataSchema/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/metadata/metadataSchema": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/negotiators/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/negotiators/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/notifications/": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/offers/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/offers/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/offices/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/offices/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates/{certificateId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates/responsibilities": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}/movements": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}/movements/{movementId}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/certificates": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/appraisals": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/appraisals/{appraisalId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/propertyImages/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/propertyImages/{id}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/propertyImages/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/propertyImages/reindex": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/referrals/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/referrals/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/referrals/types": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/referrals/types/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/resthooks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/resthooks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/sources/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/sources/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tasks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tasks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/breakClauses": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/breakClauses/{clauseId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/allowances": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/allowances/{allowanceId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/responsibilities": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/responsibilities/{responsibilityId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/extensions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/extensions/{extensionId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/transactions/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/nominalAccounts": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/nominalAccounts/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/supplierInvoices": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/vendors/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/worksOrders/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}/items": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}/items/{itemId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          }
+        }
+      },
+      "@skmtc/react-router-app": {
+        "id": "@skmtc/react-router-app",
+        "src": "plugins/react-router-app",
+        "pluginType": "operations",
+        "operations": {
+          "/applicants/": {
+            "get": {
+              "selected": true
+            },
+            "post": {
+              "selected": true
+            }
+          },
+          "/applicants/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/applicants/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/applicants/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/areas/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/areas/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/appointments/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}/openHouseAttendees": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}/openHouseAttendees/{openHouseAttendeeId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/companies/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/companies/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/companies/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/companies/{id}/staffMembers": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/types": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/agencyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/agencyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/applicantStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/applicantStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/appointmentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/appointmentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/boardStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/boardStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingPositions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingPositions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/certificateTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/certificateTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/companyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/companyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/contactCategories/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/contactCategories": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/documentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/documentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/followUpResponses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/followUpResponses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/identityDocumentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/identityDocumentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/journalEntryTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/journalEntryTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/keyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/keyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/portalTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/portalTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/preTenancyCheckTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/preTenancyCheckTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/propertyServiceTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/propertyServiceTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/renewalCheckTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/renewalCheckTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentInsuranceCancellationReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentInsuranceCancellationReasons/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentingPositions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentingPositions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/ruralTenancyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/ruralTenancyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/sellingReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/sellingReasons/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/supplierTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/supplierTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/taskTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/taskTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyLegalStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyLegalStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptionConditions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptionConditions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/vendorTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/vendorTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/worksOrderTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/worksOrderTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/terminology": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/subscriptions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/subscriptions/{subscriptionId}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/conveyancing/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/chain": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/downward": {
+            "post": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/upward": {
+            "post": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/departments/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/departments/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/documents/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/documents/{id}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/documents/{id}/download": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/documents/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/enquiries/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/enquiries/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/identityChecks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/identityChecks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/identityChecks/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/invoices/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/payments": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/payments/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/credits": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/credits/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/charges": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/charges/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/journalEntries/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/journalEntries/landlords": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/journalEntries/bulk": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/metadata/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/metadata/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/metadata/metadataSchema/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/metadata/metadataSchema": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/negotiators/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/negotiators/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/notifications/": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/offers/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/offers/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/offices/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/offices/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates/{certificateId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates/responsibilities": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}/movements": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}/movements/{movementId}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/certificates": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/appraisals": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/appraisals/{appraisalId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/propertyImages/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/propertyImages/{id}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/propertyImages/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/propertyImages/reindex": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/referrals/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/referrals/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/referrals/types": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/referrals/types/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/resthooks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/resthooks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/sources/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/sources/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tasks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tasks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/breakClauses": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/breakClauses/{clauseId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/allowances": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/allowances/{allowanceId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/responsibilities": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/responsibilities/{responsibilityId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/extensions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/extensions/{extensionId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/transactions/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/nominalAccounts": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/nominalAccounts/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/supplierInvoices": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/vendors/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/worksOrders/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}/items": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}/items/{itemId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          }
+        }
+      },
+      "@skmtc/tanstack-query": {
+        "id": "@skmtc/tanstack-query",
+        "src": "plugins/tanstack-query",
+        "pluginType": "operations",
+        "operations": {
+          "/applicants/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/applicants/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/applicants/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/applicants/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/areas/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/areas/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/appointments/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}/openHouseAttendees": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/appointments/{id}/openHouseAttendees/{openHouseAttendeeId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/companies/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/companies/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/companies/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/companies/{id}/staffMembers": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/types": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/agencyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/agencyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/applicantStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/applicantStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/appointmentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/appointmentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/boardStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/boardStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingPositions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingPositions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/buyingReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/certificateTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/certificateTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/companyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/companyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/contactCategories/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/contactCategories": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/documentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/documentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/followUpResponses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/followUpResponses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/identityDocumentTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/identityDocumentTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/journalEntryTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/journalEntryTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/keyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/keyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/portalTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/portalTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/preTenancyCheckTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/preTenancyCheckTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/propertyServiceTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/propertyServiceTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/renewalCheckTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/renewalCheckTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentInsuranceCancellationReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentInsuranceCancellationReasons/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentingPositions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/rentingPositions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/ruralTenancyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/ruralTenancyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/sellingReasons": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/sellingReasons/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/supplierTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/supplierTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/taskTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/taskTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyLegalStatuses": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyLegalStatuses/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptionConditions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyRenewalOptionConditions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/tenancyTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/vendorTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/vendorTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/worksOrderTypes": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/worksOrderTypes/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/configuration/terminology": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/subscriptions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/contacts/{id}/subscriptions/{subscriptionId}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/conveyancing/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/chain": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/downward": {
+            "post": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/conveyancing/{id}/upward": {
+            "post": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/departments/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/departments/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/documents/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/documents/{id}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/documents/{id}/download": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/documents/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/enquiries/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/enquiries/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/identityChecks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/identityChecks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/identityChecks/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/invoices/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/payments": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/payments/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/credits": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/credits/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/charges": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/invoices/charges/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/journalEntries/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/journalEntries/landlords": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/journalEntries/bulk": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/landlords/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/metadata/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/metadata/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/metadata/metadataSchema/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/metadata/metadataSchema": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/negotiators/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/negotiators/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/notifications/": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/offers/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/offers/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/offices/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/offices/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates/{certificateId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/certificates/responsibilities": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}/movements": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/keys/{keyId}/movements/{movementId}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/properties/certificates": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/appraisals": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/properties/{id}/appraisals/{appraisalId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/propertyImages/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/propertyImages/{id}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/propertyImages/signedUrl": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/propertyImages/reindex": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/referrals/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/referrals/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/referrals/types": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/referrals/types/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/resthooks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/resthooks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "put": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/sources/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/sources/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tasks/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tasks/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/relationships": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/breakClauses": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/breakClauses/{clauseId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/allowances": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/allowances/{allowanceId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/responsibilities": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/responsibilities/{responsibilityId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/extensions": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/extensions/{extensionId}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}/checks": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/tenancies/{id}/renewalNegotiations/{renewalId}/checks/{checkId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/transactions/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/nominalAccounts": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/nominalAccounts/{id}": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/transactions/supplierInvoices": {
+            "post": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/vendors/": {
+            "get": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}/relationships": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/vendors/{id}/relationships/{relationshipId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            }
+          },
+          "/worksOrders/": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}": {
+            "get": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}/items": {
+            "get": {
+              "selected": false
+            },
+            "post": {
+              "selected": false
+            }
+          },
+          "/worksOrders/{id}/items/{itemId}": {
+            "get": {
+              "selected": false
+            },
+            "delete": {
+              "selected": false
+            },
+            "patch": {
+              "selected": false
+            }
+          }
+        }
+      }
+    }
+  }
+}
